@@ -9,6 +9,10 @@ https://www.dropbox.com/s/igymq40svvjgh1g/BMR%20Insurgency.zip
 
 Official Stable builds:
 
+BMR_Insurgency_v1_45.Tanoa
+Required mods:
+None
+
 BMR_Insurgency_v1_45.Altis
 Required mods:
 None
@@ -91,8 +95,9 @@ Recommended: additional lightweight mod for head dress variation and gas mask su
 HIGHLY RECOMMENDED: additional mod for AI behavior: @asr_ai3. Should be run from server + headless client at a minimum.
 Supported: @ace in addition to any combination above. Should be installed server and client side.
 
-7/7/16
+7/22/16
 BMR_Insurgency_v1.45
+Added: Tanoa Version and Apex compatibility.
 Added: Compatibility for vehicle rewards when ACE explosive used to destroy ammo cache. The nearest Blufor player to ammo cache location will be issued reward if scripted charge/Ace charge is used.
 Added: Light weight solution lobby option/feature for fully restored kit or current depleted kit when player respawned. Reloading magazine,throwing nade, setting charge ect. will trigger saving current kit to memory.
 Added: Script Reveal_Marker.sqf WIP. What it does - It locally makes markers on the map revealing all units within range and for duration defined in launch parameters only for script executioner.
