@@ -16,7 +16,7 @@ Demo_End = false;
 Task_Transport = [];
 _smkArr = [];
 
-if (INS_op_faction > 3) then {
+if ((INS_op_faction > 3) || (INS_op_faction isEqualTo 0)) then {
 	_type = selectRandom INS_Op4_Veh_AA;
 }else{
 	_type = _this select 1;
