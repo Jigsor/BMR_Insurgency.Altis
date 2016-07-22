@@ -73,8 +73,6 @@ if (DebugEnabled > 0) then {
 				[player] call INS_full_stamina;
 			};
 		};
-	}else{
-		if (Fatigue_ability isEqualTo 2) then {[] execVM 'scripts\QS_Fatigue.sqf';};
 	};
 
 	// Group Manager
