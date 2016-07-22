@@ -127,14 +127,9 @@ if (Airfield_opt) then
 	_mod = false;
 
 	switch (INS_op_faction) do {
-		case 4: {
+		case 5: {
 			if (isClass(configfile >> "CfgVehicles" >> "mas_F_35C")) then {
 				_class = "mas_F_35C_cas"; _mod = true;
-			};
-		};
-		case 5: {
-			if (isClass (configfile >> "CfgVehicles" >> "mas_F_35C")) then {
-				_mod = true; _class = "mas_F_35C_cas";
 			};
 		};
 		case 6: {
@@ -143,26 +138,31 @@ if (Airfield_opt) then
 			};
 		};
 		case 7: {
+			if (isClass (configfile >> "CfgVehicles" >> "mas_F_35C")) then {
+				_mod = true; _class = "mas_F_35C_cas";
+			};
+		};
+		case 8: {
 			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
 			};
 		};
-		case 8: {
+		case 9: {
 			if (isClass(configFile >> "CfgVehicles" >> "CUP_B_A10_AT_USA")) then {
 				_mod = true; _class = "CUP_B_A10_AT_USA";
 			};
 		};
-		case 9:	{
-			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
-				_mod = true; _class = "RHS_A10";
-			};
-		};
-		case 10: {
+		case 10:	{
 			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 11: {
+			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
+			};
+		};
+		case 12: {
 			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
 			};
