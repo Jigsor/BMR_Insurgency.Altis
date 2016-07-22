@@ -78,50 +78,54 @@ switch (INS_op_faction) do {
 		[RESISTANCE,1,2]execVM "eos\OpenMe.sqf";
 	};
 	case 4: {
+	// CSAT Pacific Apex (no mods)
+		[EAST,3,3]execVM "eos\OpenMe.sqf";
+	};
+	case 5: {
 	// African Conflict, NATO SF and Russian Spetsnaz Weapons, NATO Russsian Vehicles (@CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle)
 		_requiredAddons = ["asdg_jointrails","mas_afr_rebl_c","mas_afr_rebl","mas_HMMWV","mas_apc","mas_brdm","mas_CH47","mas_veh_F_35C","mas_cars_Hilux","mas_cars_LR","mas_MI24","mas_MI8"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
 			activateAddons ["asdg_jointrails","asdg_jointmuzzles","mas_afr_rebl_c","mas_afr_rebl","mas_HMMWV","mas_apc","mas_brdm","mas_CH47","mas_veh_F_35C","mas_cars_Hilux","mas_cars_LR","mas_MI24","mas_MI8"];
-			[EAST,3,4]execVM "eos\OpenMe.sqf";
+			[EAST,4,5]execVM "eos\OpenMe.sqf";
 		}else{INS_mod_missing = true;};
 	};
-	case 5: {
+	case 6: {
 	// Middle East Warfare - CSAT Army and Middle East Insurgents, NATO SF and Russian Spetsnaz Weapons, NATO Russsian Vehicles (@CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle)
 		_requiredAddons = ["CBA_main","asdg_jointrails","mas_med_rebl_army_HD","mas_med_rebl_civ_HD","mas_med_rebl_civ","mas_HMMWV","mas_apc","mas_brdm","mas_CH47","mas_veh_F_35C","mas_cars_Hilux","mas_cars_LR","mas_MI24","mas_MI8"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
 			activateAddons ["CBA_main","asdg_jointrails","asdg_jointmuzzles","mas_med_rebl_army_HD","mas_med_rebl_civ_HD","mas_med_rebl_civ","mas_HMMWV","mas_apc","mas_brdm","mas_CH47","mas_veh_F_35C","mas_cars_Hilux","mas_cars_LR","mas_MI24","mas_MI8"];
-			[EAST,5,6]execVM "eos\OpenMe.sqf";
+			[EAST,6,7]execVM "eos\OpenMe.sqf";
 		}else{INS_mod_missing = true;};
 	};
-	case 6: {
+	case 7: {
 	// Middle East Warfare - Takistan Army and Takistan Insurgents, NATO SF and Russian Spetsnaz Weapons, NATO Russsian Vehicles (@CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle)
 		_requiredAddons = ["CBA_main","asdg_jointrails","mas_med_rebl_army_HD","mas_med_rebl_ins_HD","mas_med_rebl_c","mas_HMMWV","mas_apc","mas_brdm","mas_CH47","mas_veh_F_35C","mas_cars_Hilux","mas_cars_LR","mas_MI24","mas_MI8"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
 			activateAddons ["CBA_main","asdg_jointrails","asdg_jointmuzzles","mas_med_rebl_army_HD","mas_med_rebl_ins_HD","mas_med_rebl_c","mas_HMMWV","mas_apc","mas_brdm","mas_CH47","mas_veh_F_35C","mas_cars_Hilux","mas_cars_LR","mas_MI24","mas_MI8"];
-			[EAST,7,8]execVM "eos\OpenMe.sqf";
+			[EAST,8,9]execVM "eos\OpenMe.sqf";
 		}else{INS_mod_missing = true;};
 	};
-	case 7: {
+	case 8: {
 	// Leight's Opfor Pack - Islamic State of Takistan/Sahrani and Afghan Militia (@rhs_afrf3;@rhs_usf3;@leights_opfor)
 		if ((isClass(configFile >> "cfgPatches" >> "rhs_main")) &&
 		{(isClass(configFile >> "cfgPatches" >> "lop_main"))}) then {
 			activateAddons ["rhs_main","rhs_weapons","rhsusf_main","rhs_c_troops","rhs_c_btr","rhs_c_bmp","rhs_c_tanks","rhs_c_a2port_armor","RHS_A2_CarsImport","RHS_A2_AirImport","rhsusf_c_heavyweapons","rhsusf_c_weapons","rhs_c_a2port_air","lop_faction_ists","lop_faction_am","lop_faction_sla","lop_faction_ia","lop_faction_cdf","lop_faction_tak_civ"];
-			[RESISTANCE,9,10]execVM "eos\OpenMe.sqf";
+			[RESISTANCE,10,11]execVM "eos\OpenMe.sqf";
 		}else{INS_mod_missing = true;};
 	};
-	case 8: {
+	case 9: {
 	// CUP - Takistan Army and Takistan Militia (@CBA_A3;@cup_units;@cup_weapons;@cup_vehicles)
 		_requiredAddons = ["CUP_Creatures_Military_Taki","asdg_jointrails","CUP_Creatures_People_Military_DummyInfantrySet","CUP_Creatures_People_Civil_Chernarus","CUP_WheeledVehicles_LR","CUP_WheeledVehicles_UAZ","CUP_WheeledVehicles_Ural","CUP_WheeledVehicles_BRDM2","CUP_WheeledVehicles_BTR60","CUP_TrackedVehicles_M113","CUP_TrackedVehicles_T55","CUP_TrackedVehicles_T72","CUP_TrackedVehicles_ZSU23","cup_watervehicles_rhib","CUP_AirVehicles_Su25","CUP_AirVehicles_AN2","CUP_AirVehicles_UH1H","CUP_AirVehicles_Mi8","CUP_AirVehicles_Mi24"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
 			activateAddons ["asdg_jointrails","asdg_jointmuzzles","CUP_Creatures_Military_Taki","CUP_Creatures_People_Military_DummyInfantrySet","CUP_Creatures_People_Civil_Chernarus","CUP_WheeledVehicles_LR","CUP_WheeledVehicles_UAZ","CUP_WheeledVehicles_Ural","CUP_WheeledVehicles_BRDM2","CUP_WheeledVehicles_BTR60","CUP_TrackedVehicles_M113","CUP_TrackedVehicles_T55","CUP_TrackedVehicles_T72","CUP_TrackedVehicles_ZSU23","cup_watervehicles_rhib","CUP_AirVehicles_Su25","CUP_AirVehicles_AN2","CUP_AirVehicles_UH1H","CUP_AirVehicles_Mi8","CUP_AirVehicles_Mi24"];
-			[EAST,11,12]execVM "eos\OpenMe.sqf";
+			[EAST,12,13]execVM "eos\OpenMe.sqf";
 		}else{INS_mod_missing = true;};
 	};
-	case 9: {
+	case 10: {
 	// RHS - Armed Forces of the Russian Federation (@rhs_afrf3)
 		if (isClass(configFile >> "cfgPatches" >> "rhs_c_troops")) then {
 			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex"];
-			[EAST,13,13]execVM "eos\OpenMe.sqf";
+			[EAST,14,14]execVM "eos\OpenMe.sqf";
 
 			// (optional/not required) United States Armed Forces (@rhs_usf3)
 			// Vehicles will show up in vehicle rewards.
@@ -130,24 +134,24 @@ switch (INS_op_faction) do {
 			};
 		}else{INS_mod_missing = true;};
 	};
-	case 10: {
+	case 11: {
 	// RHS - GREF (@rhs_afrf3;@rhs_usf3;@rhs_gref)
 		_requiredAddons = ["rhs_c_troops","rhsusf_main","rhsgref_c_troops"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
 			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex"];
 			activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4""RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb"];
 			activateAddons ["rhsgref_c_troops","rhsgref_c_vehicles_ret","rhs_cti_insurgents","rhsgref_c_air","rhsgref_c_tohport_air"];
-			[EAST,14,15]execVM "eos\OpenMe.sqf";
+			[EAST,15,16]execVM "eos\OpenMe.sqf";
 		}else{INS_mod_missing = true;};
 	};
-	case 11: {
+	case 12: {
 	// Iraqi-Syrian Conflict (@CBA_A3;@ISC;@cup_weapons;@mas_nato_rus_sf_veh;@rhs_afrf3;@rhs_usf3)
 		_requiredAddons = ["CBA_main","asdg_jointrails","Iraqi_Syrian_Conflict","mas_HMMWV","mas_apc","mas_brdm","mas_CH47","mas_veh_F_35C","mas_cars_Hilux","mas_cars_LR","mas_MI24","mas_MI8","rhs_c_troops","rhsusf_main"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
 			activateAddons ["CBA_main","asdg_jointrails","Iraqi_Syrian_Conflict","iraqi_syrian_conflict_v","mas_CH47","mas_veh_F_35C","mas_MI24","mas_MI8"];
 			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex"];
 			activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4""RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb"];
-			[EAST,16,17]execVM "eos\OpenMe.sqf";
+			[EAST,17,18]execVM "eos\OpenMe.sqf";
 		}else{INS_mod_missing = true;};
 	};
 };
