@@ -2,8 +2,8 @@
 params ["_p"];
 waitUntil {alive _p};
 
-// CSAT (A3)
-if (INS_op_faction isEqualTo 1) exitWith
+// CSAT (A3) or CSAT (Pacific)
+if ((INS_op_faction isEqualTo 1) || (INS_op_faction isEqualTo 4)) exitWith
 {
 	removeAllAssignedItems _p;
 	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","NVGoggles_OPFOR"];
