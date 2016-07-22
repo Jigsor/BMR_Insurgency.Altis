@@ -29,8 +29,8 @@ if (BTC_active_lift == 1) then {
 	BTC_lift_radius   = 4;
 	BTC_def_hud       = 1;
 	BTC_def_pip       = 1;
-	BTC_l_def_veh_pip = ["B_Heli_Light_01_F","O_Heli_Light_02_F","B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F","I_Heli_Transport_02_F","B_Heli_Transport_03_F","B_Heli_Transport_03_unarmed_F"];
-	BTC_l_def_veh_hud = ["B_Heli_Light_01_F","O_Heli_Light_02_F","B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F","I_Heli_Transport_02_F","B_Heli_Transport_03_F","B_Heli_Transport_03_unarmed_F"];
+	BTC_l_def_veh_pip = ["B_Heli_Light_01_F","O_Heli_Light_02_F","B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F","I_Heli_Transport_02_F","B_Heli_Transport_03_F","B_Heli_Transport_03_unarmed_F","B_T_VTOL_01_armed_F","B_T_VTOL_01_infantry_F","B_T_VTOL_01_vehicle_F"];
+	BTC_l_def_veh_hud = ["B_Heli_Light_01_F","O_Heli_Light_02_F","B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F","I_Heli_Transport_02_F","B_Heli_Transport_03_F","B_Heli_Transport_03_unarmed_F","B_T_VTOL_01_armed_F","B_T_VTOL_01_infantry_F","B_T_VTOL_01_vehicle_F"];
 	BTC_l_pip_cond    = false;
 	BTC_cargo_lifted  = objNull;
 	BTC_Hud_Cond      = false;
@@ -57,7 +57,11 @@ if (BTC_active_lift == 1) then {
 			//CH67 Huron
 			case "B_Heli_Transport_03_F" : {_array = ["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","Land_BarGate_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Steve_IFV_Warrior","Air","Ship"] + BTC_fob_materials;};//"HBarrier_base_F",
 			//CH67 Huron unarmed
-			case "B_Heli_Transport_03_unarmed_F" : {_array = ["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","Land_BarGate_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Steve_IFV_Warrior","Air","Ship"] + BTC_fob_materials;};
+			case "B_Heli_Transport_03_unarmed_F" : {_array = ["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","Land_BarGate_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Steve_IFV_Warrior","Air","Ship"] + BTC_fob_materials;};			
+			//V-44X Blackfish
+			case "B_T_VTOL_01_armed_F" : {_array = ["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","Land_BarGate_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Steve_IFV_Warrior","Air","Ship"] + BTC_fob_materials;};
+			case "B_T_VTOL_01_infantry_F" : {_array = ["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","Land_BarGate_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Steve_IFV_Warrior","Air","Ship"] + BTC_fob_materials;};
+			case "B_T_VTOL_01_vehicle_F" : {_array = ["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","Land_BarGate_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Steve_IFV_Warrior","Air","Ship"] + BTC_fob_materials;};			
 			//RHS UH60M
 			case "RHS_UH60M" : {_array = ["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","Land_BarGate_F","StaticWeapon","Car","Truck","Wheeled_APC","B_UGV_01_F","B_UGV_01_rcws_F","B_UAV_02_CAS_F","Air","Ship"] + BTC_fob_materials;};
 			case "RHS_UH60M_d" : {_array = ["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","Land_BarGate_F","StaticWeapon","Car","Truck","Wheeled_APC","B_UGV_01_F","B_UGV_01_rcws_F","B_UAV_02_CAS_F","Air","Ship"] + BTC_fob_materials;};
