@@ -96,11 +96,12 @@ class Params
 	class INS_enemy_army//11
 	{
 	title = "		Opposing Army/Mod Initialization";
-	values[]={1,2,3,4,5,6,7,8,9,10,11};
+	values[]={1,2,3,4,5,6,7,8,9,10,11,12};
 	texts[]={
 	"CSAT - Requirements :: None",
 	"AAF - Requirements :: None",
 	"AAF and FIA - Requirements :: None",
+	"CSAT Pacific - Requirements :: Arma 3 and Apex Expansion",
 	"Massi Africian Rebel Army and Civilian Rebel supporters - Requirements :: @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"Massi CSAT Army and Middle East Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"Massi Takistan Army and Takistan Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
