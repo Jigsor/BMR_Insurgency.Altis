@@ -160,6 +160,12 @@ paint_heli_fnc = {
 			_veh setObjectTextureGlobal [1,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"];
 			_veh setObjectTextureGlobal [2,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"];
 		};
+		case (toLower (worldName) isEqualTo "tanoa"):
+		{// green
+			_veh setObjectTextureGlobal [0,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"];
+			_veh setObjectTextureGlobal [1,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"];
+			_veh setObjectTextureGlobal [2,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"];
+		};
 		default {};
 	};
 };
@@ -181,21 +187,23 @@ remove_veh_ti = {
 };
 fnc_ghst_build_positions = {
 	/*
+	Original code by Ghost. Modified by Jigsor to exclude exit positions, buildings listed in StructureBlackList and buildings with "_Pier" in classname.
 	//building positions function for one building
 	//_build_positions = _building call fnc_ghst_find_positions;
 	*/
-	private ["_i","_p","_b","_e"];
+	private ["_i","_p","_b","_e","_type"];
 	_i = 0;
-	_b = [];
+	_b = [];	
 	_build_positions = [];
 	_pIsEmpty = false;
+	_type = typeof _this;
 
 	while { ! _pIsEmpty } do {
 
 		_e = _this buildingExit _i;
 		_p = _this buildingPos _i;
 
-		if (( str _p != "[0,0,0]" ) and !(_this iskindof "Piers_base_F") and !(_e isEqualTo _p)) then {
+		if (( str _p != "[0,0,0]" ) && !(_type in StructureBlackList) && !(_type find "_Pier" != -1) && !(_e isEqualTo _p)) then {		
 			_b pushback _p;
 		}else{
 			_pIsEmpty = true;
