@@ -21,20 +21,8 @@ CivVictoryColor="colorGreen";	// Colour of marker after completion
 CivhostileColor="colorRed";	// Default colour when enemies active
 EOS_CIV_KILLCOUNTER=false;		// Counts killed units
 
-null = [["civmkr1"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr2"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr3"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr4"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr5"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr6"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr7"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr8"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr9"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr10"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr11"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr12"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr13"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr14"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr15"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr16"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
-null = [["civmkr17"],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
+//Calling EOS_Civ_Spawn 17 times
+for "_i" from 1 to 17 do
+{
+    null = [[format["civmkr%1", _i]],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
+};  
