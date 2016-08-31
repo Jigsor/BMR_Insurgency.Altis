@@ -38,7 +38,7 @@
 	</Key>
 	<Key ID="STR_BMR_open_VA">
 		<Original>Open Virtual Arsenal</Original>
-		<German>öffne Virtual Arsenal</German>
+		<German>Öffne Virtual Arsenal</German>
 		<French>Ouvrir Arsenal Virtuel</French>
 		<Russian>Открыть Виртуальный Арсенал</Russian>
 		<Spanish>Abrir Arsenal Virtual</Spanish>
@@ -135,7 +135,7 @@
 		<Spanish>%1 encontrado inteligencia</Spanish>
 	</Key>
 	<Key ID="STR_BMR_Cache_Destroyed">
-		<Original>Ammo Cache Destroyed</Original>
+		<Original>Ammo Cache has been destroyed</Original>
 		<German>Munitionskiste zerstört</German>
 		<French>Munitions Cache Détruit</French>
 		<Russian>Ящик с боеприпасами уничтожен</Russian>
@@ -146,14 +146,14 @@
 		<Portuguese>Ammo Cache Destroyed</Portuguese>
 	</Key>
 	<Key ID="STR_BMR_who_destroyed_ammocache">
-		<Original>%1 Destroyed Ammo Cache</Original>
+		<Original>%1 has destroyed the Ammo Cache</Original>
 		<German>%1 hat die Munitionskiste zerstört</German>
 		<French>%1 Détruit Cache Munitions</French>
 		<Russian>%1 уничтожил ящик с боеприпасами</Russian>
 		<Spanish>%1 Destruido caché Munición</Spanish>
 	</Key>
 	<Key ID="STR_BMR_who_destroyed_tower">
-		<Original>%1 Destroyed Tower</Original>
+		<Original>%1 has destroyed the Tower</Original>
 		<German>%1 hat den Turm zerstört</German>
 		<French>%1 Tour détruits</French>
 		<Russian>%1 уничтожил башню</Russian>
@@ -174,7 +174,7 @@
 		<Spanish>Recompensa Vehículo</Spanish>
 	</Key>
 	<Key ID="STR_BMR_restrict_pilot">
-		<Original>Only Pilots can Fly</Original>
+		<Original>Only Pilots can fly</Original>
 		<German>Nur Piloten dürfen fliegen</German>
 		<French>Seuls les pilotes peuvent voler</French>
 		<Russian>Только пилоты могут летать</Russian>
@@ -384,7 +384,7 @@
 		<Spanish>Destruye Torre de alto voltaje</Spanish>
 	</Key>
 	<Key ID="STR_BMR_Tsk_descW_dhvt">
-		<Original>Cut area power to give you tactical advantage by destroying high voltage tower with satchel or charge</Original>
+		<Original>Cut area power to give you tactical advantage by destroying the high voltage tower with satchel or charge</Original>
 		<German>Zerstöre den Hochspannungsturm um einen taktischen Vorteil wegen Stromausfall zu erlangen, benutze dafür eine Spreng- oder Rucksackladung</German>
 		<French>Couper le courant de la zone pour vous donner un avantage tactique en détruisant tour à haute tension avec sacoche ou la charge</French>
 		<Russian>Отрежьте силу в зоне, чтобы дать вам тактическое превосходство, путем уничтожения высоковольтной башни подрывным ранцем или зарядом</Russian>
@@ -405,7 +405,7 @@
 		<Spanish>Proteja torre alta tensión para mantener las luces encendidas en la región</Spanish>
 	</Key>
 	<Key ID="STR_BMR_PowerTower_success">
-		<Original>City is losing power within 1000 meter radius. Good Job!</Original>
+		<Original>City is losing power within a raduis of 1000 meters. Good Job!</Original>
 		<German>Im Umkreis von 1000 Metern ist der Strom in der Stadt ausgefallen. Gute Arbeit!</German>
 		<French>Ville est en train de perdre le pouvoir au sein de 1000 mètres de rayon. Bon Travail!</French>
 		<Russian>Город теряет силу в радиусе 1000 метров. Отличная работа!</Russian>
