@@ -1,5 +1,4 @@
-private "_handled";
-_handled = false;
+private _handled = false;
 switch (_this select 1) do
 {
   case 30 : // pressed A

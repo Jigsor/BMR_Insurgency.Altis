@@ -88,7 +88,8 @@ while {dialog && alive _caller && alive _owner} do
   if ((player distance _pos) <= maxDisReq) then
   {
     _button ctrlEnable true;
-    titleText["","PLAIN DOWN"];
+	hintSilent "";
+    titleText["","PLAIN DOWN"];	
 
     nearTargetVehList = (_pos) nearEntities [["Man", "Air", "Car", "Motorcycle", "Tank"], 15];
 
@@ -107,6 +108,14 @@ while {dialog && alive _caller && alive _owner} do
     _button ctrlEnable false;
     deleteMarker "CAS_TARGET";
   };
+
+
+  if (_pos inArea trig_alarm1init) then {
+    hintSilent "No bombing on Base!";
+    playSound "cantDo";
+    _button ctrlEnable false;
+    deleteMarker "CAS_TARGET";
+	};
 
   targetPos = _pos;
   mapclick = true;

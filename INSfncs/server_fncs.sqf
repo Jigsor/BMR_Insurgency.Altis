@@ -310,7 +310,8 @@ JIG_ammmoCache_damage = {
 			"Bo_Air_LGB" createVehicle _pos;
 			while{ (time - curTime) < _dur } do {
 			_veh = "Bo_Air_LGB" createVehicle _pos;
-			_veh setVectorDirAndUp [[(random 1) -0.5,(random 1)-0.5,(random 1) -0.5],[0,(random -1.5),(random 1) -0.5]];//Jig adding
+			//_veh setVectorDirAndUp [[(random 1) -0.5,(random 1)-0.5,(random 1) -0.5],[0,(random -1.5),(random 1) -0.5]];//Jig adding
+			_veh setVectorDirAndUp [[(((random 1) -0.5) max 0.2),(((random 1) -0.5) max 0.2),(((random 1) -0.5) min 0.8)],[0,(random -1.5),(random 1) -0.5]];//Jig adding
 			sleep random 1;
 			};
 			"Bo_Air_LGB" createVehicle _pos;
@@ -662,7 +663,7 @@ INS_Tsk_GrpMkrs = {
 	_wpMkrArray = [];
 
 	for "_i" from 1 to (count (waypoints _grp)) -1 do {
-		_mkr = format["%1 WP%2", objective_pos_logic,_i];
+		_mkr = format["%1 WP%2", objective_pos_logic, _i];
 		_wpMkr = createMarker [_mkr, getWPPos [_grp, _i]];
 		_wpMkr setMarkerText _mkr;
 		_wpMkr setMarkerType "waypoint";

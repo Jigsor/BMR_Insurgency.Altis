@@ -14,6 +14,8 @@ _uncaped = true;
 _caped = true;
 _ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
 
+waitUntil {sleep 2; time > 300};//wait until server time sync
+
 //Positional info
 objective_pos_logic setPos _newZone;
 _objmkr = createMarker ["ObjectiveMkr", _newZone];
@@ -175,9 +177,7 @@ _rwave = [_newZone,_ins_debug] spawn {
 	deleteGroup _rgrp1; sleep 0.1;
 
 	[_cnhWaveUnits,_cnhWaveGrps] spawn {
-		private ["_unitsArr","_grpsArr"];
-		_unitsArr = _this select 0;
-		_grpsArr = _this select 1;
+		params ["_unitsArr","_grpsArr"];
 		sleep 120;
 		{if (alive _x) then {deleteVehicle _x; sleep 0.1}} forEach _unitsArr;
 		{deleteGroup _x} count _grpsArr;

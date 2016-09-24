@@ -92,12 +92,13 @@ INS_intro_op4 = {
 };
 JIG_placeSandbag_fnc = {
 	// Player action place sandbag barrier. by Jigsor
-	private ["_player","_dist","_zfactor","_zvector","_isWater","_height"];
+	private ["_player","_pPos","_dist","_zfactor","_zvector","_isWater","_height"];
 	_player = _this select 1;
-
-	if(vehicle _player != player) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
+	_pPos = getPosWorld _player;
 	_isWater = surfaceIsWater position _player;
-	if (_isWater) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
+
+	if ((vehicle _player != player) || (_isWater)) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
+	if (_pPos inArea trig_alarm1init) exitWith {hintSilent "No Sandbags on Base!"};
 
 	_lift = 0.2;
 	_dist = 2;
@@ -650,12 +651,10 @@ JIG_circling_cam = {
 };
 JIG_map_click = {
 	// Vehicle reward mapclick position by Jigsor
+	if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint "Missing map item!";true};
 	if (player getVariable "createEnabled") then {
-		private ["_marker","_roads","_roadsSorted","_nearestRoad","_roadDir"];
 		if !(getMarkerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop";};
 		hint "";
-		_roadDir = 0;
-		_nearestRoad = objNull;
 		GetClick = true;
 		openMap true;
 		waitUntil {visibleMap};
@@ -663,21 +662,22 @@ JIG_map_click = {
 
 		["Reward_mapclick","onMapSingleClick", {
 
+			private ["_nearestRoad","_roads","_marker"];
 			if (isOnRoad _pos) then {
+				_nearestRoad = objNull;
 				_roads = _pos nearRoads 15;
 				if (count _roads > 0) then {
-					_roadsSorted = [_roads,[],{_pos distance _x},"ASCEND"] call BIS_fnc_sortBy;
-					_nearestRoad = _roadsSorted select 0;
+					_nearestRoad = ([_roads,[],{_pos distance _x},"ASCEND"] call BIS_fnc_sortBy) select 0;
 				};
 			};
 
-			_marker=createMarkerLocal ["VehDrop", _pos ];
+			_marker=createMarkerLocal ["VehDrop", _pos];
 			"VehDrop" setMarkerShapeLocal "ICON";
 			"VehDrop" setMarkerSizeLocal [1, 1];
 			"VehDrop" setMarkerTypeLocal "mil_dot";
 			"VehDrop" setMarkerColorLocal "Color3_FD_F";
 			"VehDrop" setMarkerTextLocal "Vehicle Reward Location";
-			if (!isNull _nearestRoad) then {"VehDrop" setMarkerDirLocal (direction _nearestRoad);};
+			if (!isNull _nearestRoad) then {"VehDrop" setMarkerDirLocal ([_pos, _nearestRoad] call BIS_fnc_dirTo);};
 
 			GetClick = false;
 		}] call BIS_fnc_addStackedEventHandler;
@@ -749,7 +749,7 @@ INS_RespawnLoadout = {
 INS_RestoreLoadout = {
 	// Restore saved kit when respawned by Jigsor.
 	if (isNil "INS_SaveLoadout") then {
-		[player, loadout] call setLoadout;
+		player setUnitLoadout loadout;
 	}else{
 		[player, [missionNamespace, "BMRInsInv"]] call BIS_fnc_loadInventory;
 	};

@@ -45,8 +45,7 @@ if (DebugEnabled > 0) then {
 
 	// Player Variables	//
 
-	private "_playertype";
-	_playertype = typeOf (vehicle player);
+	private _playertype = typeOf (vehicle player);
 	player setVariable ["BIS_noCoreConversations", true];
 	enableSentences false;
 	setTerrainGrid 25;
@@ -180,9 +179,8 @@ if (DebugEnabled > 0) then {
 		player addEventHandler ["Fired", {
 			if ((_this select 4) in INS_Gas_Grenades) then {
 				(_this select 6) spawn {
-					private "_grenadePos";
 					waitUntil {vectorMagnitudeSqr velocity _this <= 0.5};
-					_grenadePos = getPos _this;
+					private _grenadePos = getPos _this;
 					sleep 0.2;
 					ToxicGasLoc = _grenadePos;
 					publicVariableServer "ToxicGasLoc";
@@ -214,7 +212,7 @@ if (DebugEnabled > 0) then {
 				waitUntil {time > 1};
 				loadout_handler = [player] execVM "scripts\DefLoadoutOp4.sqf";
 				waitUntil { scriptDone loadout_handler };
-				loadout = [player] call getLoadout;
+				loadout = getUnitLoadout player;
 				if (INS_MHQ_enabled) then {
 					private ["_op4","_mhqObj","_mhqPos"];
 					_op4 = true;
@@ -234,7 +232,7 @@ if (DebugEnabled > 0) then {
 			[] spawn INS_intro;
 			[] spawn {
 				sleep 15;
-				loadout = [player] call getLoadout;
+				loadout = getUnitLoadout player;
 				if (INS_MHQ_enabled) then {
 					private ["_op4","_mhqPos","_mhqObj1","_mhqObj2","_mhqObj3"];
 					_op4 = false;
@@ -264,7 +262,7 @@ if (DebugEnabled > 0) then {
 			[] spawn {
 				loadout_handler = [player] execVM "scripts\DefLoadoutOp4.sqf";
 				waitUntil { scriptDone loadout_handler };
-				loadout = [player] call getLoadout;
+				loadout = getUnitLoadout player;
 				if (INS_MHQ_enabled) then {
 					private ["_op4","_mhqObj","_mhqPos"];
 					_op4 = true;
@@ -276,7 +274,9 @@ if (DebugEnabled > 0) then {
 			};
 		};
 		If (side player == west) then {
-			[] spawn {loadout = [player] call getLoadout;};
+			[] spawn {
+				loadout = getUnitLoadout player;
+			};
 			if (INS_MHQ_enabled) then {
 				private ["_op4","_mhqPos","_mhqObj1","_mhqObj2","_mhqObj3"];
 				_op4 = false;
@@ -292,6 +292,21 @@ if (DebugEnabled > 0) then {
 				INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_1</t>", "call JIG_transfer_fnc", ["MHQ_1"], 4.2];
 				INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_2</t>", "call JIG_transfer_fnc", ["MHQ_2"], 4.1];
 				INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_3</t>", "call JIG_transfer_fnc", ["MHQ_3"], 4];
+			};
+		};
+	};
+
+	// Brighter Nights
+	if (Brighter_Nights isEqualTo 1) then {
+		[] spawn {
+			private _delay = round (3600 / timeMultiplier);
+			while {true} do {
+				if ((daytime > 20.00) || (daytime < 4.00)) then {
+					[3] call INS_Brighter_Nights;
+				}else{
+					[1] call INS_Brighter_Nights;
+				};
+				uiSleep _delay;
 			};
 		};
 	};
@@ -380,9 +395,8 @@ if (DebugEnabled > 0) then {
 	if (INS_MHQ_enabled) then {
 		[] spawn {
 			waitUntil{not isNull player};
-			private "_op4";
 
-			_op4 = if (side player == east) then {TRUE}else{FALSE};
+			private _op4 = if (side player == east) then {TRUE}else{FALSE};
 
 			"INS_MHQ_killed" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 

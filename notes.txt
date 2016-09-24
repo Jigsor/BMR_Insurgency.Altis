@@ -95,6 +95,35 @@ Recommended: additional lightweight mod for head dress variation and gas mask su
 HIGHLY RECOMMENDED: additional mod for AI behavior: @asr_ai3. Should be run from server + headless client at a minimum.
 Supported: @ace in addition to any combination above. Should be installed server and client side.
 
+9/24/16
+BMR_Insurgency_v1.46alpha
+Added: Brighter Night code by Ralian and lobby parameter to disable..
+Added: New objective retrieve_data.The side who dowloads the data at the Land Data Terminal first wins the objective.
+Added: Shell sounds to CAS bombs.
+Added: More grid zones to jungle areas and fortress ruins(Tanoa).
+Added: "B_APC_Tracked_01_CRV_F" to list of towing vehicles.
+Added: Push action to ships spawned by Vehicle Reward.
+Added: Group heli extract boots members from group if their distance from caller is exceeds distance defined by JIG_EX_Group_Dis
+Fixed: Recativated grids zones sometimes created hidden units
+Fixed: BIS_fnc_mp JIG_EX_MPhint_fnc errors in extraction_main.sqf.
+Fixed: Mission's Helmet Cam and ACE Helmet Cam conflict.
+Fixed: road_block.sqf script hang when connected road did not exist(Tanoa).
+Fixed: Massive server frame drop when revive timer exceeded in BTC Revive.
+Fixed: Timer sync issue in capture n hold objective?
+Fixed: Vehicle Reward now spawns vehicle in direction of road if map click is on road.
+Fixed: add Zeus function should now only work for correct player.
+Change: Removed BTC logistic actions from ammo cache.
+Change: CAS and sand bags on base prohibited.
+Change: Extended abandon timer of Opfor Mohawk from 2 to 45 minutes.
+Change: MHQ_1 from HEMTT Transport to Prowler(Tanoa).
+Change: Ammo box CSAT IED to CSAT Explosives (Tanoa).
+Cahnge: BTC Revive now uses hold Spacebar action to revive which allows aborting revive action.
+Change: Parameter CiviMobiles now can manipulate number of spawned civilian Vehicles per player in addition to disabling.
+Change: code optimization - removed repetavite call lines in OpenMeCiv.sqf.
+Change: code optimization - In INS_definitions.sqf generates a variable for each parameter based on all the parameter class names in Parameters.hpp.
+Change: code optimization - replaced get_loadout.sqf and set_loadout.sqf with new native getUnitLoadout and setUnitLoadout commands.
+Change: Increased chance projectiles emitted from ammo cache will fire into the air.
+
 7/22/16
 BMR_Insurgency_v1.45
 Added: Tanoa Version and Apex compatibility.

@@ -193,7 +193,7 @@ dokeyDown={
 	_r = false ;
 
 	if (player getvariable["key",true] and (_this select 1) == Keys) exitwith {player setvariable["key",false]; [_key_delay] spawn {sleep (_this select 0);player setvariable["key",true]; }; _r};
-	if ((_this select 1)  == Keys) then {
+	if ((_this select 1) == Keys) then {
 		if  (player != vehicle player and player getvariable ["cutaway",true]) then {
 			playSound "Para";
 			_cut = nearestObjects [player, ["Steerable_Parachute_F"], 5];
@@ -201,7 +201,8 @@ dokeyDown={
 				deletevehicle _x;
 			} foreach _cut;
 			player addBackpack "B_Parachute";
-			deletevehicle (player getvariable "frontpack"); player setvariable ["frontpack",nil,true];
+			//deletevehicle (player getvariable "frontpack"); player setvariable ["frontpack",nil,true];
+			deletevehicle (player getvariable "frontpack"); player setvariable ["frontpack",nil];
 			player setvariable["key",true];
 			player setvariable ["cutaway",false];
 			Cut_Rope = (findDisplay 46) displayRemoveEventHandler ["KeyDown", Cut_Rope];
@@ -266,7 +267,8 @@ Frontpack={
 		_packHolder = createVehicle ["groundWeaponHolder", [0,0,0], [], 0, "CAN_COLLIDE"];
 		_packHolder addBackpackCargo [_class, 1];
 		_packHolder attachTo [_target,[0.1,0.56,-.72],"pelvis"];
-		_target setvariable ["frontpack", _packHolder,true];
+		//_target setvariable ["frontpack", _packHolder,true];
+		_target setvariable ["frontpack", _packHolder];
 		_packHolder setVectorDirAndUp [[0,1,0],[0,0,-1]];
 
 		waitUntil {animationState _target == "para_pilot"};

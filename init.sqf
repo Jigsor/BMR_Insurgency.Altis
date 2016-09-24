@@ -155,12 +155,12 @@ switch (INS_op_faction) do {
 		}else{INS_mod_missing = true;};
 	};
 };
-if (CiviFoot isEqualTo 1) then {[]execVM "eos_civ\OpenMeCiv.sqf";};// Civilians
+if (isServer) then {if (CiviFoot isEqualTo 1) then {[]execVM "eos_civ\OpenMeCiv.sqf";};};// Civilians
 
 // Common Scripts
 execVM "Objectives\shk_taskmaster.sqf";
 if (JigHeliExtraction isEqualTo 1) then {if (!IamHC) then {null = [] execVM "JIG_EX\extraction_init.sqf";};};
-if (CiviMobiles isEqualTo 1) then {[2, 400, 500] execVM "scripts\MAD_traffic.sqf";};
+if (CiviMobiles > 0) then {[CiviMobiles, 400, 500] execVM "scripts\MAD_traffic.sqf";};
 if (INS_logistics isEqualTo 1) then {_logistic = execVM "=BTC=_Logistic\=BTC=_logistic_init.sqf";};
 if (max_ai_recruits > 1) then {[] execVM "bon_recruit_units\init.sqf";};
 execVM "scripts\zlt_fastrope.sqf";
@@ -199,8 +199,7 @@ if (!isDedicated && hasInterface) then
 		if (DebugEnabled isEqualTo 0) then {["BIS_ScreenSetup", false] call BIS_fnc_blackOut;};
 		call compile preprocessFile "INSfncs\client_fncs.sqf";
 		call compile preprocessFile "ATM_airdrop\functions.sqf";
-		getLoadout = compile preprocessFileLineNumbers 'scripts\get_loadout.sqf';
-		setLoadout = compile preprocessFileLineNumbers 'scripts\set_loadout.sqf';
+
 		player sideChat localize "STR_BMR_loading";
 
 		if (!isServer) then {

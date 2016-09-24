@@ -109,6 +109,13 @@ mb_fnc_UpdateWeather = {
 	_weatherNextFog = _weatherNextSettings select 2;
 	_weatherNextWindEW = _weatherNextSettings select 3;
 	_weatherNextWindNS = _weatherNextSettings select 4;
+	
+	//Jig adding Brighter Nights by Ralian
+	if (daytime > 20.00 || daytime < 4.00) then {
+		[3] call INS_Brighter_Nights;
+	}else{
+		[1] call INS_Brighter_Nights;
+	};
 
 	if (overcast < _weatherNextOvercast) then {0 setOvercast 1;} else {0 setOvercast 0;};
 	1200 setRain _weatherNextRainSnow;

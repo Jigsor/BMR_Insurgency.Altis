@@ -97,17 +97,15 @@ BTC_Teamkill = {
 if (isServer) then {
 	BTC_tk_PVEH = [];publicVariable "BTC_tk_PVEH";
 };
-if (!isDedicated) then {
+if (!isDedicated && !IamHC) then {
 	[] spawn {
-		private "_uid";
-		waitUntil {!isNull player};
-		waitUntil {player == player};
+		waitUntil {!isNull player && player == player};
 		player addEventHandler ["Killed", BTC_EH_killed];
 		"BTC_tk_PVEH" addPublicVariableEventHandler BTC_fnc_tk_PVEH;
 		player addrating 9999;
 		BTC_side = side player;
 		BTC_vip = [];
-		_uid = getPlayerUID player;
+		private _uid = getPlayerUID player;
 		if (isNil {BTC_logic getVariable _uid}) then
 		{
 			BTC_logic setVariable [_uid,0,true];

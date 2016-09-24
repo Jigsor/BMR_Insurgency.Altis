@@ -80,7 +80,7 @@ drop_off_pos_fnc = {
 		"tempDropMkr" setMarkerColor "ColorOrange";
 		"tempDropMkr" setMarkerText "Drop Off Position";
 		[[[_tempPUmkr2],east],"Hide_Mkr_fnc",EAST] spawn BIS_fnc_MP;
-		
+
 		_veh = createVehicle ["Land_HelipadEmpty_F", getMarkerPos "tempDropMkr", [], 0, "NONE"];
 		sleep 0.1;
 		_VarLZName = "DropLZpad";

@@ -662,7 +662,21 @@
 		<French>Protéger BARRAGE ROUTIER</French>
 		<Russian>защищать контрольная точка</Russian>
 		<Spanish>Proteger Barricada</Spanish>
+	</Key>	
+	<Key ID="STR_BMR_Tsk_topic_global_Retrieve_Data">
+		<Original>Download Data</Original>
+		<German>Daten Herunterladen</German>
+		<French>Télécharger les Données</French>
+		<Russian>Zagruzka dannykh</Russian>
+		<Spanish>Descargar datos</Spanish>
 	</Key>
+	<Key ID="STR_BMR_Tsk_desc_global_Retrieve_Data">
+		<Original>Retreive data before opposing players</Original>
+		<German>Laden Sie die Daten vor dem Spieler gegenüber</German>
+		<French>Télécharger les données avant les joueurs adverses</French>
+		<Russian>Zagruzit' dannyye pered drugimi igrokami</Russian>
+		<Spanish>Descargar los datos antes de que los jugadores rivales</Spanish>
+	</Key>	
 	<Key ID="STR_BMR_delivery_ready">
 		<Original>MHQ_3 cargo loaded and engines on. Clear for dust off</Original>
 		<German>MHQ_3 Fracht geladen und Maschinen an. Fertig zum Abflug</German>
@@ -879,6 +893,20 @@
 		<French>CAS mission avortée</French>
 		<Russian>Миссия CAS прервана</Russian>
 		<Spanish>Misión CAS abortado</Spanish>
+	</Key>
+	<Key ID="STR_JWC_CAS_single_confirm">
+		<Original>Bomb dropped</Original>
+		<German>Bombe abgeworfen</German>
+		<French>Bombe a chuté</French>
+		<Russian>бомба упала</Russian>
+		<Spanish>Bomba lanzada</Spanish>
+	</Key>
+	<Key ID="STR_JWC_CAS_multi_confirm">
+		<Original>Bombs dropped</Original>
+		<German>Bomben abgeworfen</German>
+		<French>Bombes larguées</French>
+		<Russian>бомбы упали</Russian>
+		<Spanish>bombas lanzadas</Spanish>
 	</Key>
 	<Key ID="STR_JWC_CAS_rtb">
 		<Original>CAS RTB 5 mikes</Original>

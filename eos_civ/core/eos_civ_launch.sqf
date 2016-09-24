@@ -75,10 +75,10 @@ if (_CHgroupProbability > floor random 100) then {
 }else{_CHGroups=0;_CHgroupArray=[0,0]};
 
 {
-	_eosMarkers=server getvariable "EOSmarkersCiv";
-	if (isnil "_eosMarkers") then {_eosMarkers=[];};
-		_eosMarkers set [count _eosMarkers,_x];
-		server setvariable ["EOSmarkersCiv",_eosMarkers,true];
+	_eosMkrsCiv=server getvariable "EOSmarkersCiv";
+	if (isnil "_eosMkrsCiv") then {_eosMkrsCiv=[];};
+		_eosMkrsCiv pushBack _x;
+		server setvariable ["EOSmarkersCiv",_eosMkrsCiv,true];
 		null = [_x,[_HPpatrols,_HPgroupArray],[_PApatrols,_PAgroupArray],[_LVehGroups,_LVgroupArray],[_AVehGroups,_SVehGroups,_CHGroups,_CHgroupArray],_settings] execVM "eos_civ\core\EOS_Civ_Core.sqf";
 }foreach _JIPmkr;
 };
