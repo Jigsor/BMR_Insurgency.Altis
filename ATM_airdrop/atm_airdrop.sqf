@@ -120,7 +120,6 @@ if (INS_ACE_para) then {//Jig adding
 	};
 };
 
-//"AparPercMstpSnonWnonDnon_AmovPpneMstpSnonWnonDnon"
 _target switchmove "";//Jig adding
 
 hint Localize "STR_ATM_hintload";

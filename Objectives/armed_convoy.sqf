@@ -86,6 +86,7 @@ sleep 1;
 _veh4 = _vehicle4 select 0;
 
 _allVeh = [_veh1,_veh2,_veh3,_veh4];
+{_x setDamage 0} forEach _allVeh;
 {_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"]} forEach (units aconvoy_grp);
 {_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"]} forEach _allVeh;
 

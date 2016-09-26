@@ -109,6 +109,7 @@ _device allowdamage false;
 _device setdir _buildDir;
 _device setpos _bldgPos;
 _device setVectorUp surfaceNormal position _device;
+_device setPos getPos _device;
 
 // create defenses
 _grp = [_clearPos,10] call spawn_Op4_grp;
