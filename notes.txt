@@ -95,7 +95,7 @@ Recommended: additional lightweight mod for head dress variation and gas mask su
 HIGHLY RECOMMENDED: additional mod for AI behavior: @asr_ai3. Should be run from server + headless client at a minimum.
 Supported: @ace in addition to any combination above. Should be installed server and client side.
 
-9/24/16
+9/28/16
 BMR_Insurgency_v1.46alpha
 Added: Brighter Night code by Ralian and lobby parameter to disable..
 Added: New objective retrieve_data.The side who dowloads the data at the Land Data Terminal first wins the objective.
@@ -104,6 +104,9 @@ Added: More grid zones to jungle areas and fortress ruins(Tanoa).
 Added: "B_APC_Tracked_01_CRV_F" to list of towing vehicles.
 Added: Push action to ships spawned by Vehicle Reward.
 Added: Group heli extract boots members from group if their distance from caller is exceeds distance defined by JIG_EX_Group_Dis
+Added: Lobby Parameter Player Markers.
+Added: Option "CSAT Pacific and Syndikat Apex" to Lobby parameter "Opposing Army/Mod Initialization".
+Added: Once max number of air droped UGV request is reached then one additional UGV request is can be made every 25 points earned thereafter.
 Fixed: Recativated grids zones sometimes created hidden units
 Fixed: BIS_fnc_mp JIG_EX_MPhint_fnc errors in extraction_main.sqf.
 Fixed: Mission's Helmet Cam and ACE Helmet Cam conflict.
@@ -111,7 +114,7 @@ Fixed: road_block.sqf script hang when connected road did not exist(Tanoa).
 Fixed: Massive server frame drop when revive timer exceeded in BTC Revive.
 Fixed: Timer sync issue in capture n hold objective?
 Fixed: Vehicle Reward now spawns vehicle in direction of road if map click is on road.
-Fixed: add Zeus function should now only work for correct player.
+Fixed: Add Zeus function should now only work for correct player.
 Change: Removed BTC logistic actions from ammo cache.
 Change: CAS and sand bags on base prohibited.
 Change: Extended abandon timer of Opfor Mohawk from 2 to 45 minutes.
@@ -122,7 +125,9 @@ Change: Parameter CiviMobiles now can manipulate number of spawned civilian Vehi
 Change: code optimization - removed repetavite call lines in OpenMeCiv.sqf.
 Change: code optimization - In INS_definitions.sqf generates a variable for each parameter based on all the parameter class names in Parameters.hpp.
 Change: code optimization - replaced get_loadout.sqf and set_loadout.sqf with new native getUnitLoadout and setUnitLoadout commands.
+Change: Several minor code optimizations to many scripts.
 Change: Increased chance projectiles emitted from ammo cache will fire into the air.
+Change: Integrated new command BIS_fnc_switchLamp to cut_power task. All lamps near objective area are swiched on at start for reapeatability.
 
 7/22/16
 BMR_Insurgency_v1.45

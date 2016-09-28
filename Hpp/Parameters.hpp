@@ -103,12 +103,13 @@ class Params
 	class INS_op_faction//12
 	{
 	title = "		Opposing Army/Mod Initialization";
-	values[]={1,2,3,4,5,6,7,8,9,10,11,12};
+	values[]={1,2,3,4,5,6,7,8,9,10,11,12,13};
 	texts[]={
 	"CSAT - Requirements :: None",
 	"AAF - Requirements :: None",
 	"AAF and FIA - Requirements :: None",
-	"CSAT Pacific - Requirements :: Arma 3 and Apex Expansion",
+	"CSAT Pacific - Requirements :: Apex Expansion",
+	"CSAT Pacific and Syndikat Apex - Requirements :: Apex Expansion",
 	"Massi Africian Rebel Army and Civilian Rebel supporters - Requirements :: @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"Massi CSAT Army and Middle East Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"Massi Takistan Army and Takistan Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
@@ -296,70 +297,77 @@ class Params
 	texts[]={"No","Yes"};
 	default = 0;
 	};
-	class max_ai_recruits//38
+		class INS_Player_Markers//38
+	{
+	title = "		Player Markers";
+	values[]={0,1};
+	texts[]={"No","Yes"};
+	default = 1;
+	};	
+	class max_ai_recruits//39
 	{
 	title = "		Recruitable AI units maximum allowed";
 	values[]={1,2,3,4,5,6,7,8,9,10};
 	texts[]={"Recruitable AI disabled","1","2","3","4","5","6","7","8","9"};
 	default = 10;
 	};
-	class AI_radio_volume//39
+	class AI_radio_volume//40
 	{
 	title = "		Dissable Audible AI Radio?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 0;
 	};
-	class INS_full_loadout//40
+	class INS_full_loadout//41
 	{
 	title = "		Enable Save/Restore full loadout on respawn?";
 	values[]={0,1};
 	texts[]={"No, respawn with inventory you had at death (Reload Magazine to Save Kit)","Yes"};
 	default = 1;
 	};
-	class INS_Dum_Param8//41
+	class INS_Dum_Param8//42
 	{
 	title = ":: Intel/AmmoCaches ::";
 	values[]={0};
 	texts[]={ ""};
 	default = 0;
 	};
-	class EnemyAmmoCache//42
+	class EnemyAmmoCache//43
 	{
 	title = "		Enable Enemy Ammo Caches?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
 	};
-	class Intel_Loc_Alpha//43
+	class Intel_Loc_Alpha//44
 	{
 	title = "		Show Intel Location Markers?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
 	};
-	class Intel_Count//44
+	class Intel_Count//45
 	{
 	title = "		Maximum possible intel per occupied grid zone ratio";
 	values[]={2,3,4,5,6};
 	texts[]={"1 intel : 2 zones","1 intel : 3 zones","1 intel : 4 zones","1 intel : 5 zones","1 intel : 6 zones"};
 	default = 4;
 	};
-	class INS_Dum_Param9//45
+	class INS_Dum_Param9//46
 	{
 	title = ":: Debug ::";
 	values[]={0};
 	texts[]={ ""};
 	default = 0;
 	};
-	class DebugEnabled//46
+	class DebugEnabled//47
 	{
 	title = "		Debug mode?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 0;
 	};
-	class tky_perfmon//47
+	class tky_perfmon//48
 	{
 	title = "		Run performance monitor? (Requires Debug mode Enabled.)";
 	values[]={0,30,60,300};

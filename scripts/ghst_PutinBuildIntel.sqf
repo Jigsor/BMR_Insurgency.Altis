@@ -180,7 +180,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 					_mark1 setmarkertext format ["Intel obj%1", _x];
 					};
 
-				if (_hide_intel isEqualTo 1) then {	_imks pushBack [_x,_mark1];};
+				if (_hide_intel isEqualTo 1) then {_imks pushBack [_x,_mark1];};
 			};
 			sleep 0.1;
 		} foreach _unitarray;

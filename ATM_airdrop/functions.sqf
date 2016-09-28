@@ -201,7 +201,6 @@ dokeyDown={
 				deletevehicle _x;
 			} foreach _cut;
 			player addBackpack "B_Parachute";
-			//deletevehicle (player getvariable "frontpack"); player setvariable ["frontpack",nil,true];
 			deletevehicle (player getvariable "frontpack"); player setvariable ["frontpack",nil];
 			player setvariable["key",true];
 			player setvariable ["cutaway",false];
@@ -267,7 +266,6 @@ Frontpack={
 		_packHolder = createVehicle ["groundWeaponHolder", [0,0,0], [], 0, "CAN_COLLIDE"];
 		_packHolder addBackpackCargo [_class, 1];
 		_packHolder attachTo [_target,[0.1,0.56,-.72],"pelvis"];
-		//_target setvariable ["frontpack", _packHolder,true];
 		_target setvariable ["frontpack", _packHolder];
 		_packHolder setVectorDirAndUp [[0,1,0],[0,0,-1]];
 

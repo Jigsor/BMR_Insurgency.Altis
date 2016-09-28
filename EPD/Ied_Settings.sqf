@@ -7,8 +7,8 @@ if (DebugEnabled > 0) then {
 
 hideIedMarker = true;  //sets the alpha to 0 after spawning IEDs there
 
-itemsRequiredToDisarm = ["ToolKit"];   //"MineDetector" or "ToolKit" for example
-betterDisarmers = ["B_soldier_exp_F", "B_engineer_F", "B_diver_exp_F", "B_recon_exp_F"]; // people who are better at disarming
+itemsRequiredToDisarm = ["ToolKit"]; //"MineDetector" or "ToolKit" for example
+betterDisarmers = INS_W_PlayerEOD; // people who are better at disarming
 
 baseDisarmChance = 75; //how well everybody can disarm
 bonusDisarmChance = 20; //increase that the "betterDisarmers" get
@@ -76,7 +76,7 @@ iedArray = [
 	["IED10", 1,1, "WEST"],
 	["IED11", 1,1, "WEST"],
 	["IED12", 1,1, "WEST"],
-    ["IED13", 2,4, "WEST"],
+	["IED13", 2,4, "WEST"],
 	["IED14", 1,2, "WEST"],
 	["IED15", 1,1, "WEST"],
 	["IED16", 2,1, "WEST"]

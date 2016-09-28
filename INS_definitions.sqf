@@ -116,7 +116,7 @@ if (!isServer) then {
 
 // Headless Client and Server Variables /////////////////////////////
 if (isServer || !hasInterface) then {
-	eosFacNVG = [0,1,4,6,8,10,12,14,15,17];// Major Regular Army Factions (non Rebel/Insurgent/Militia) who will be issued Night Vision Goggles defined by case in eos\UnitPools.sqf
+	eosFacNVG = [0,1,5,7,9,11,13,15,16,18];// Major Regular Army Factions (non Rebel/Insurgent/Militia) who will be issued Night Vision Goggles defined by case in eos\UnitPools.sqf
 };
 
 // Server Variables /////////////////////////////////////////////////
@@ -310,7 +310,7 @@ if ((INS_op_faction isEqualTo 2) || (INS_op_faction isEqualTo 3)) then {
 };
 
 // CSAT (Pacific)
-if (INS_op_faction isEqualTo 4) then {
+if ((INS_op_faction isEqualTo 4) || (INS_op_faction isEqualTo 5)) then {
 	INS_Op4_side = EAST;
 	INS_men_list = ["O_T_Soldier_A_F","O_T_Soldier_AAR_F","O_T_Support_AMG_F","O_T_Support_AMort_F","O_T_Soldier_AAA_F","O_T_Soldier_AAT_F","O_T_Soldier_AR_F","O_T_Medic_F","O_T_Crew_F","O_T_Engineer_F","O_T_Soldier_Exp_F","O_T_Soldier_GL_F","O_T_Support_GMG_F","O_T_Support_MG_F","O_T_Support_Mort_F","O_T_Soldier_M_F","O_T_Soldier_AA_F","O_T_Soldier_AT_F","O_T_Officer_F","O_T_Soldier_PG_F","O_T_Soldier_Repair_F","O_T_Soldier_F","O_T_Soldier_LAT_F","O_T_Soldier_SL_F","O_T_Soldier_TL_F","O_T_Soldier_UAV_F","O_T_Recon_Exp_F","O_T_Recon_JTAC_F","O_T_Recon_M_F","O_T_Recon_Medic_F","O_T_Recon_F","O_T_Recon_LAT_F","O_T_Recon_TL_F","O_T_Sniper_F","O_T_Spotter_F","O_T_ghillie_tna_F","O_V_Soldier_ghex_F","O_V_Soldier_TL_ghex_F","O_V_Soldier_Exp_ghex_F","O_V_Soldier_Medic_ghex_F","O_V_Soldier_M_ghex_F","O_V_Soldier_LAT_ghex_F","O_V_Soldier_JTAC_ghex_F"];
 	INS_Op4_medic = "O_soldierU_medic_F";
@@ -327,7 +327,7 @@ if (INS_op_faction isEqualTo 4) then {
 };
 
 // Massi African REBEL ARMY UNITS and RUSSIAN SPETSNAZ ADVISORS (EAST)
-if (INS_op_faction isEqualTo 5) then {
+if (INS_op_faction isEqualTo 6) then {
 	INS_Op4_side = EAST;
 	INS_men_list = ["O_mas_afr_Soldier_F","O_mas_afr_Soldier_GL_F","O_mas_afr_soldier_AR_F","O_mas_afr_soldier_MG_F","O_mas_afr_Soldier_lite_F","O_mas_afr_Soldier_off_F","O_mas_afr_Soldier_SL_F","O_mas_afr_soldier_M_F","O_mas_afr_soldier_LAT_F","O_mas_afr_soldier_LAA_F","O_mas_afr_medic_F","O_mas_afr_soldier_repair_F","O_mas_afr_soldier_exp_F","O_mas_afr_rusadv1_F","O_mas_afr_rusadv2_F","O_mas_afr_rusadv3_F"];
 	INS_Op4_medic = "O_mas_afr_medic_F";
@@ -346,7 +346,7 @@ if (INS_op_faction isEqualTo 5) then {
 };
 
 //  Massi Middle Eastern Warfare CSAT Army (EAST)
-if (INS_op_faction isEqualTo 6) then {
+if (INS_op_faction isEqualTo 7) then {
 	INS_Op4_side = EAST;
 	INS_men_list = ["O_mas_irahd_Army_F","O_mas_irahd_Army_SL_F","O_mas_irahd_Army_LITE_F","O_mas_irahd_Army_OFF_F","O_mas_irahd_Army_EXP_F","O_mas_irahd_Army_GL_F","O_mas_irahd_Army_TL_F","O_mas_irahd_Army_MG_F","O_mas_irahd_Army_AR_F","O_mas_irahd_Army_LAT_F","O_mas_irahd_Army_AT_F","O_mas_irahd_Army_AA_F","O_mas_irahd_Army_M_F","O_mas_irahd_Army_MEDIC_F","O_mas_irahd_Army_ENG_F","O_mas_irahd_Army_amort_F","O_mas_irahd_Army_smort_F","O_mas_irahd_SOF_F","O_mas_irahd_SOF_SL_F","O_mas_irahd_SOF_EXP_F","O_mas_irahd_SOF_MEDIC_F","O_mas_irahd_SOF_M_F","O_mas_irahd_SOF_MO_F"];
 	INS_Op4_medic = "O_mas_irahd_Army_MEDIC_F";
@@ -365,7 +365,7 @@ if (INS_op_faction isEqualTo 6) then {
 };
 
 //  Massi Takistan Army (EAST)
-if (INS_op_faction isEqualTo 7) then {
+if (INS_op_faction isEqualTo 8) then {
 	INS_Op4_side = EAST;
 	INS_men_list = ["O_mas_med_Armyhd_F","O_mas_med_Armyhd_SL_F","O_mas_med_Armyhd_OFF_F","O_mas_med_Armyhd_EXP_F","O_mas_med_Armyhd_GL_F","O_mas_med_Armyhd_TL_F","O_mas_med_Armyhd_MG_F","O_mas_med_Armyhd_AR_F","O_mas_med_Armyhd_LAT_F","O_mas_med_Armyhd_AT_F","O_mas_med_Armyhd_AA_F","O_mas_med_Armyhd_M_F","O_mas_med_Armyhd_MEDIC_F","O_mas_med_Armyhd_ENG_F","O_mas_med_Armyhd_amort_F","O_mas_med_Armyhd_smort_F","O_mas_med_ArmyhdSF_F","O_mas_med_ArmyhdSF_EXP_F","O_mas_med_ArmyhdSF_TL_F","O_mas_med_ArmyhdSF_M_F","O_mas_med_ArmyhdSF_MEDIC_F"];
 	INS_Op4_medic = "O_mas_med_Armyhd_MEDIC_F";
@@ -384,7 +384,7 @@ if (INS_op_faction isEqualTo 7) then {
 };
 
 // Leight's Opfor Pack Islamic State of Takistan and Sahrani
-if (INS_op_faction isEqualTo 8) then {
+if (INS_op_faction isEqualTo 9) then {
 	INS_Op4_side = RESISTANCE;
 	INS_men_list = ["LOP_ISTS_Infantry_TL","LOP_ISTS_Infantry_SL","LOP_ISTS_Infantry_Corpsman","LOP_ISTS_Infantry_AR","LOP_ISTS_Infantry_AT","LOP_ISTS_Infantry_Marksman","LOP_ISTS_Infantry_Engineer","LOP_ISTS_Infantry_GL","LOP_ISTS_Infantry_Rifleman_3","LOP_ISTS_Infantry_Rifleman","LOP_ISTS_Infantry_AT"];
 	INS_Op4_medic = "LOP_ISTS_Infantry_Corpsman";
@@ -403,7 +403,7 @@ if (INS_op_faction isEqualTo 8) then {
 };
 
 // CUP - Takistan Army
-if (INS_op_faction isEqualTo 9) then {
+if (INS_op_faction isEqualTo 10) then {
 	INS_Op4_side = EAST;
 	INS_men_list = ["CUP_O_TK_Soldier_AA","CUP_O_TK_Soldier_AAT","CUP_O_TK_Soldier_AMG","CUP_O_TK_Soldier_HAT","CUP_O_TK_Soldier_AR","CUP_O_TK_Commander","CUP_O_TK_Engineer","CUP_O_TK_Soldier_GL","CUP_O_TK_Soldier_MG","CUP_O_TK_Medic","CUP_O_TK_Officer","CUP_O_TK_Soldier","CUP_O_TK_Soldier_Backpack","CUP_O_TK_Soldier_LAT","CUP_O_TK_Soldier_AT","CUP_O_TK_Sniper","CUP_O_TK_Sniper_KSVK","CUP_O_TK_Soldier_AKS_74_GOSHAWK","CUP_O_TK_Spotter","CUP_O_TK_Soldier_SL"];
 	INS_Op4_medic = "CUP_O_TK_Medic";
@@ -422,7 +422,7 @@ if (INS_op_faction isEqualTo 9) then {
 };
 
 // RHS - Armed Forces of the Russian Federation MSV
-if (INS_op_faction isEqualTo 10) then {
+if (INS_op_faction isEqualTo 11) then {
 	INS_Op4_side = EAST;
 	INS_men_list = ["rhs_msv_rifleman","rhs_msv_efreitor","rhs_msv_grenadier","rhs_msv_machinegunner","rhs_msv_machinegunner_assistant","rhs_msv_at","rhs_msv_strelok_rpg_assist","rhs_msv_marksman","rhs_msv_officer_armored","rhs_msv_officer","rhs_msv_junior_sergeant","rhs_msv_sergeant","rhs_msv_engineer","rhs_msv_driver","rhs_msv_aa","rhs_msv_medic","rhs_msv_LAT"];//"rhs_msv_crew","rhs_msv_crew_commander","rhs_msv_armoredcrew","rhs_msv_combatcrew",
 	INS_Op4_medic = "rhs_msv_medic";
@@ -441,7 +441,7 @@ if (INS_op_faction isEqualTo 10) then {
 };
 
 // RHS GREF - Chenarus Ground Forces (RESISTANCE)
-if (INS_op_faction isEqualTo 11) then {
+if (INS_op_faction isEqualTo 12) then {
 	INS_Op4_side = RESISTANCE;
 	INS_men_list = 	["rhsgref_cdf_reg_rifleman","rhsgref_cdf_reg_rifleman_m70","rhsgref_cdf_reg_rifleman_lite","rhsgref_cdf_reg_grenadier","rhsgref_cdf_reg_machinegunner","rhsgref_cdf_reg_marksman","rhsgref_cdf_reg_general","rhsgref_cdf_reg_officer","rhsgref_cdf_reg_squadleader","rhsgref_cdf_reg_grenadier_rpg","rhsgref_cdf_reg_specialist_aa","rhsgref_cdf_reg_medic","rhsgref_cdf_reg_engineer","rhsgref_cdf_para_rifleman","rhsgref_cdf_para_rifleman_lite","rhsgref_cdf_para_autorifleman","rhsgref_cdf_para_machinegunner","rhsgref_cdf_para_marksman","rhsgref_cdf_para_officer","rhsgref_cdf_para_squadleader","rhsgref_cdf_para_grenadier_rpg","rhsgref_cdf_para_specialist_aa","rhsgref_cdf_para_medic","rhsgref_cdf_para_engineer"];
 	INS_Op4_medic = "rhsgref_cdf_para_medic";
@@ -460,7 +460,7 @@ if (INS_op_faction isEqualTo 11) then {
 };
 
 // ISC - Syrian Arab Army
-if (INS_op_faction isEqualTo 12) then {
+if (INS_op_faction isEqualTo 13) then {
 	INS_Op4_side = EAST;
 	INS_men_list = ["isc_saa_officer_o","isc_saa_grenadier_o","isc_saa_rifleman_o","isc_saa_machinegunner_o","isc_saa_sniper_o","isc_saa_at_o","isc_saa_medic_o","isc_saa_sapper_o","isc_saa_crewman_o"];
 	INS_Op4_medic = "isc_saa_medic_o";
@@ -488,13 +488,13 @@ INS_add_Chaff = ["B_Heli_Light_01_F","B_Heli_Light_01_armed_F","B_Heli_Light_01_
 INS_lights = ["Lamps_Base_F","PowerLines_base_F","Land_PowerPoleWooden_F","Land_LampHarbour_F","Land_LampShabby_F","Land_PowerPoleWooden_L_F","Land_PowerPoleWooden_small_F","Land_LampDecor_F","Land_LampHalogen_F","Land_LampSolar_F","Land_LampStreet_small_F","Land_LampStreet_F","Land_LampAirport_F","Land_PowerPoleWooden_L_F"];
 
 // Default Stock A3 Aircraft used for air patrol. These work the best.
-if ((INS_op_faction < 3) || (EnableEnemyAir < 4)) then {
+if ((INS_op_faction < 4) || (EnableEnemyAir < 4)) then {
 	INS_Op4_fixedWing = ["I_Plane_Fighter_03_AA_F","I_Plane_Fighter_03_CAS_F","O_Plane_CAS_02_F"];
 	INS_Op4_helis = ["O_Heli_Attack_02_black_F"];
 };	//Notice: "Opposing Army/Mod Initialization" lobby parameter will not use moded aircraft for air patrol. You must select moded option in lobby parameter "Enable JIG Enemy Air Patrols?"
 
 // Default Stock A3 plus Apex Expansion's Aircraft used for air patrol.
-if ((INS_op_faction isEqualTo 4)) then {
+if ((INS_op_faction isEqualTo 4) || (INS_op_faction isEqualTo 5)) then {
 	INS_Op4_fixedWing = ["O_T_VTOL_02_vehicle_F","I_Plane_Fighter_03_AA_F","I_Plane_Fighter_03_CAS_F","O_Plane_CAS_02_F"];
 	INS_Op4_helis = ["O_Heli_Attack_02_black_F"];
 };	//Notice: "Opposing Army/Mod Initialization" lobby parameter will not use moded aircraft for air patrol. You must select moded option in lobby parameter "Enable JIG Enemy Air Patrols?"
@@ -509,7 +509,7 @@ INS_W_PlayerMedic = ["B_T_Recon_Medic_F","B_T_Medic_F","B_medic_F","B_recon_medi
 INS_W_PlayerEOD = ["B_T_Recon_Exp_F","B_T_Soldier_Exp_F","B_T_Engineer_F","B_engineer_F","B_soldier_repair_F","B_soldier_exp_F","B_mas_mar_soldier_exp_F_rec_d","B_mas_mar_soldier_exp_F_rec_dn","B_mas_mar_soldier_exp_F_d","B_mas_mar_soldier_repair_F_d","B_mas_mar_soldier_exp_F_rec_v","B_mas_mar_soldier_exp_F_v"];//can deactivate mines/IEDs and use mine detector script
 INS_W_PlayerUAVop = ["B_T_Soldier_UAV_F","B_soldier_UAV_F","B_mas_mar_Soldier_UAV_F_v","B_mas_mar_Soldier_UAV_F_d"];// can call in UGV air drop and use huntIR
 INS_W_PlayerSniper = ["B_T_ghillie_tna_F","B_T_Sniper_F","B_T_Spotter_F","B_T_Recon_M_F","B_T_soldier_M_F","B_recon_M_F","B_spotter_F","B_sniper_F","B_soldier_M_F","B_ghillie_ard_F","B_ghillie_lsh_F","B_ghillie_sard_F","B_Recon_Sharpshooter_F","B_mas_mar_soldier_Sg_F_v","B_mas_mar_soldier_Mhg_F_v","B_mas_mar_soldier_M_F_v","B_mas_mar_soldier_M_F_d","B_mas_mar_soldier_Mhg_F_d","B_mas_mar_soldier_Sg_F_d","B_mas_mar_soldier_M_F_rec_d","B_mas_mar_soldier_M_F_rec_v"];// can use bullet cam
-INS_op4_players = "O_medic_F";// Opfor players
+if (toLower (worldName) isEqualTo "tanoa") then {INS_op4_players = "O_T_Medic_F";} else {INS_op4_players = "O_medic_F";};// Opfor players
 INS_all_medics = ["B_T_Recon_Medic_F","B_T_Medic_F","O_T_Medic_F","O_T_Recon_Medic_F","O_V_Soldier_Medic_ghex_F","O_medic_F","B_medic_F","B_recon_medic_F","B_mas_mar_medic_F_v","B_mas_mar_medic_F_d","B_mas_mar_medic_F_rec_d","B_mas_mar_medic_F_rec_v","B_mas_mar_medic_F_rec_vn"];
 INS_PlayerPilot = [];// Classes who can pilot aircraft. Empty array for no restrictions.
 
