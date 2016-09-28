@@ -92,30 +92,30 @@ INS_intro_op4 = {
 };
 JIG_placeSandbag_fnc = {
 	// Player action place sandbag barrier. by Jigsor
-	private ["_player","_pPos","_dist","_zfactor","_zvector","_isWater","_height"];
-	_player = _this select 1;
-	_pPos = getPosWorld _player;
-	_isWater = surfaceIsWater position _player;
+	private ["_p","_pPos","_dist","_zfactor","_zvector","_isWater","_height"];
+	_p = _this select 1;
+	_pPos = getPosWorld _p;
+	_isWater = surfaceIsWater position _p;
 
-	if ((vehicle _player != player) || (_isWater)) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
+	if ((vehicle _p != player) || (_isWater)) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
 	if (_pPos inArea trig_alarm1init) exitWith {hintSilent "No Sandbags on Base!"};
 
 	_lift = 0.2;
 	_dist = 2;
 	_zfactor = 1;
-	_zvector = ((_player weaponDirection (primaryWeapon _player)) select 2) * 3;
+	_zvector = ((_p weaponDirection (primaryWeapon _p)) select 2) * 3;
 
 	if (not (isNull MedicSandBag)) then {deleteVehicle MedicSandBag;};
-	MedicSandBag = createVehicle ["Land_BagFence_Round_F",[(getposATL _player select 0) + (sin(getdir _player) * _dist), (getposATL _player select 1) + (cos(getdir _player) * _dist)], [], 0, "CAN_COLLIDE"];
+	MedicSandBag = createVehicle ["Land_BagFence_Round_F",[(getposATL _p select 0) + (sin(getdir _p) * _dist), (getposATL _p select 1) + (cos(getdir _p) * _dist)], [], 0, "CAN_COLLIDE"];
 
-	MedicSandBag setposATL [(getposATL _player select 0) + (sin(getdir _player) * _dist), (getposATL _player select 1) + (cos(getdir _player) * _dist), (getposATL _player select 2) + _zvector + _zfactor];
+	MedicSandBag setposATL [(getposATL _p select 0) + (sin(getdir _p) * _dist), (getposATL _p select 1) + (cos(getdir _p) * _dist), (getposATL _p select 2) + _zvector + _zfactor];
 	MedicSandBag setDir getDir (_this select 1) - 180;
 
-	if ((getPosATL MedicSandBag select 2) > (getPosATL _player select 2)) then {
-		MedicSandBag setPos [(getPosATL MedicSandBag select 0), (getPosATL MedicSandBag select 1), (getPosATL _player select 2)];
+	if ((getPosATL MedicSandBag select 2) > (getPosATL _p select 2)) then {
+		MedicSandBag setPos [(getPosATL MedicSandBag select 0), (getPosATL MedicSandBag select 1), (getPosATL _p select 2)];
 		MedicSandBag setVectorUp [0,0,1];
 	}else{
-		while {((position MedicSandBag select 2) + 0.2) < (getPosATL _player select 2)} do {
+		while {((position MedicSandBag select 2) + 0.2) < (getPosATL _p select 2)} do {
 			MedicSandBag setPos [(getPosATL MedicSandBag select 0), (getPosATL MedicSandBag select 1), ((getPosATL MedicSandBag select 2) + _lift)];
 			MedicSandBag setVectorUp [0,0,1];
 			_lift = _lift + 0.1;
@@ -132,19 +132,19 @@ JIG_removeSandbag_fnc = {
 };
 JIG_UGVdrop_fnc = {
 	// Player action UGV para drop. by Jigsor
-	private _player = _this select 1;
+	private _p = _this select 1;
 	/*// Require UAV backpack
-	if (!(backpack _player isKindof "B_UAV_01_backpack_F")) exitWith {hint "You cannot call UGV without UAV backpack"; (_this select 1) removeAction (_this select 2); _id = _player addAction ["UGV Air Drop", {call JIG_UGVdrop_fnc}, 0, -9, false];};
-	if (backpack _player isKindof "B_UAV_01_backpack_F") then {hint "";};
+	if (!(backpack _p isKindof "B_UAV_01_backpack_F")) exitWith {hint "You cannot call UGV without UAV backpack"; (_this select 1) removeAction (_this select 2); _id = _p addAction ["UGV Air Drop", {call JIG_UGVdrop_fnc}, 0, -9, false];};
+	if (backpack _p isKindof "B_UAV_01_backpack_F") then {hint "";};
 	*/
-	if !({_x find "_UavTerminal" != -1} count assignedItems _player > 0) then {
-		if ({_x in ["ItemGPS"]} count assignedItems _player > 0) then {_player unlinkItem "ItemGPS";};
-		if ({_x in ["O_UavTerminal"]} count assignedItems _player > 0) then {_player unlinkItem "O_UavTerminal";};
-		if ({_x in ["I_UavTerminal"]} count assignedItems _player > 0) then {_player unlinkItem "I_UavTerminal";};
-		_player linkItem "B_UAVTerminal";
+	if !({_x find "_UavTerminal" != -1} count assignedItems _p > 0) then {
+		if ({_x in ["ItemGPS"]} count assignedItems _p > 0) then {_p unlinkItem "ItemGPS";};
+		if ({_x in ["O_UavTerminal"]} count assignedItems _p > 0) then {_p unlinkItem "O_UavTerminal";};
+		if ({_x in ["I_UavTerminal"]} count assignedItems _p > 0) then {_p unlinkItem "I_UavTerminal";};
+		_p linkItem "B_UAVTerminal";
 	}else{
-		_player unlinkItem "B_UAVTerminal";
-		_player linkItem "B_UAVTerminal";
+		_p unlinkItem "B_UAVTerminal";
+		_p linkItem "B_UAVTerminal";
 	};
 	ghst_ugvsupport = [(getMarkerPos "ugv_spawn"),"B_UGV_01_rcws_F",3,30] execVM "scripts\ghst_ugvsupport.sqf";
 	true

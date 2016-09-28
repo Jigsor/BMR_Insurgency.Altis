@@ -95,7 +95,7 @@ Recommended: additional lightweight mod for head dress variation and gas mask su
 HIGHLY RECOMMENDED: additional mod for AI behavior: @asr_ai3. Should be run from server + headless client at a minimum.
 Supported: @ace in addition to any combination above. Should be installed server and client side.
 
-9/26/16
+9/27/16
 BMR_Insurgency_v1.46alpha
 Added: Brighter Night code by Ralian and lobby parameter to disable..
 Added: New objective retrieve_data.The side who dowloads the data at the Land Data Terminal first wins the objective.
@@ -106,6 +106,7 @@ Added: Push action to ships spawned by Vehicle Reward.
 Added: Group heli extract boots members from group if their distance from caller is exceeds distance defined by JIG_EX_Group_Dis
 Added: Lobby Parameter Player Markers.
 Added: Option "CSAT Pacific and Syndikat Apex" to Lobby parameter "Opposing Army/Mod Initialization".
+Added: Once max number of air droped UGV request is reached then one additional UGV request is can be made every 25 points earned thereafter.
 Fixed: Recativated grids zones sometimes created hidden units
 Fixed: BIS_fnc_mp JIG_EX_MPhint_fnc errors in extraction_main.sqf.
 Fixed: Mission's Helmet Cam and ACE Helmet Cam conflict.
@@ -126,6 +127,7 @@ Change: code optimization - In INS_definitions.sqf generates a variable for each
 Change: code optimization - replaced get_loadout.sqf and set_loadout.sqf with new native getUnitLoadout and setUnitLoadout commands.
 Change: Several minor code optimizations to many scripts.
 Change: Increased chance projectiles emitted from ammo cache will fire into the air.
+Change: Integrated new command BIS_fnc_switchLamp to cut_power task. All lamps near objective area are swiched on at start for reapeatability.
 
 7/22/16
 BMR_Insurgency_v1.45

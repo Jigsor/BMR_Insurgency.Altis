@@ -2,15 +2,35 @@
 //ghst_ugvsupport = [(getmarkerpos "spawnmarker"),"typeofugv",max number of ugvs,delay in mins] execvm "scripts\ghst_ugvsupport.sqf";
 //ghst_ugvsupport = [(getmarkerpos "ugv_support"),"B_UGV_01_rcws_F",2,30] execvm "scripts\ghst_ugvsupport.sqf";
 
-private ["_spawnmark","_type","_max_num","_delay","_dir","_smoke1","_chute1","_ugv1","_wGrp","_ugv_num","_groundPos","_grpExists"];
+private ["_spawnmark","_type","_max_num","_delay","_dir","_smoke1","_chute1","_ugv1","_wGrp","_ugv_num","_score","_points","_exit","_groundPos","_grpExists"];
 
 _spawnmark = _this select 0;// spawn point where ugv spawns and deletes
 _type = _this select 1;// type of ugv to spawn i.e. "B_UGV_01_rcws_F"
 _max_num = _this select 2;//max number of ugvs allowed per player
 _delay = (_this select 3) * 60;// time before ugv support can be called again
 _grpExists = false;
+_score = getPlayerScores player select 5;
+_points = 25;
+_exit = false;
 
-if (player getVariable "ghst_ugvsup" == _max_num) exitwith {player groupchat format ["UGV support at max number of %1", _max_num];};
+//Jig adding block below. If _max_num is reached then if _points earned since last call attemp then 1 ugv request allowed.
+if (player getVariable "ghst_ugvsup" == _max_num) then {
+	if (isNil {player getVariable "ugvOpScore"}) then {
+		player setVariable ["ugvOpScore", _score];
+		_exit = true;
+	}else{
+		if ((_score - _points) > player getVariable "ugvOpScore") then {
+			_ugv_num = player getVariable "ghst_ugvsup";
+			_ugv_num = _ugv_num - 1;
+			player setVariable ["ghst_ugvsup", _ugv_num];
+			player setVariable ["ugvOpScore", _score];
+		}else{
+			_exit = true;
+		};
+	};
+};
+
+if (_exit) exitwith {player groupchat format ["UGV support at max number of %1", _max_num];};
 
 openMap true;
 player groupchat localize "STR_BMR_ugv_mapclick";
