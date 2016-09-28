@@ -4,16 +4,14 @@ INS_intro_playTrack = {
 	
 	// 0 => title, 1 => start delay
 	_track = [
-		["LeadTrack05_F", 1],
-		["AmbientTrack01a_F", 32],
-		["LeadTrack01_F_Bootcamp", 36],
-		["Track06_CarnHeli", 1]
+		[["LeadTrack05_F", 1], 33],
+		[["AmbientTrack01a_F", 32], 33],
+		[["LeadTrack01_F_Bootcamp", 36], 32.9],
+		[["Track06_CarnHeli", 1], 33]
 	] call BIS_fnc_selectRandom;
 	0 fadeMusic 1;
-	playMusic _track;
-	uisleep 40;
-	3 fadeMusic 0;
-	uisleep 3;
+	playMusic (_track select 0);
+	uisleep (_track select 1);
 	playMusic "";
 };
 
