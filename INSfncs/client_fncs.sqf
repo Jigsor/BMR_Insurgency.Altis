@@ -1,3 +1,20 @@
+INS_intro_playTrack = {
+	//Plays a random intro track:
+	private ["_track"]; 
+	
+	// 0 => title, 1 => start delay
+	_track = [
+		[["LeadTrack05_F", 1], 33],
+		[["AmbientTrack01a_F", 32], 33],
+		[["LeadTrack01_F_Bootcamp", 36], 32.9],
+		[["Track06_CarnHeli", 1], 33]
+	] call BIS_fnc_selectRandom;
+	0 fadeMusic 1;
+	playMusic (_track select 0);
+	uisleep (_track select 1);
+	playMusic "";
+};
+
 INS_intro = {
 	// Bluefor Intro by Jigsor
 	private ["_dir","_rx","_ry","_text","_cam"];
@@ -10,13 +27,7 @@ INS_intro = {
 	_rx = selectRandom [38,-38];
 	_ry = selectRandom [38,-38];
 	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"],  [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
-	_randomtrack = floor(random 4);
-	switch (_randomtrack) do {
-		case 0 : {0 = [] spawn { playMusic ["LeadTrack05_F", 1]; sleep 33; playMusic ""; };};
-		case 1 : {0 = [] spawn { playMusic ["AmbientTrack01a_F", 32]; sleep 33; playMusic ""; };};
-		case 2 : {0 = [] spawn { playMusic ["LeadTrack01_F_Bootcamp", 36]; sleep 32.9; playMusic ""; };};
-		case 3 : {0 = [] spawn { playMusic ["Track06_CarnHeli", 1]; sleep 33; playMusic ""; };};
-	};
+	0 = 0 spawn INS_intro_playTrack;
 	_cam = "camera" camCreate [position camstart select 0, position camstart select 1, (position camstart select 2) + 80];
 	_cam camPreload 5;
 	_cam camSetTarget player;
@@ -55,13 +66,7 @@ INS_intro_op4 = {
 	setViewDistance 1800;
 	if (daytime > 19.00 || daytime < 5.00) then {camUseNVG true};
 	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"],  [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
-	_randomtrack = floor(random 4);
-	switch (_randomtrack) do {
-		case 0 : {0 = [] spawn { playMusic ["LeadTrack05_F", 1]; sleep 33; playMusic ""; };};
-		case 1 : {0 = [] spawn { playMusic ["AmbientTrack01a_F", 32]; sleep 33; playMusic ""; };};
-		case 2 : {0 = [] spawn { playMusic ["LeadTrack01_F_Bootcamp", 36]; sleep 32.9; playMusic ""; };};
-		case 3 : {0 = [] spawn { playMusic ["Track06_CarnHeli", 1]; sleep 33; playMusic ""; };};
-	};
+	0 = 0 spawn INS_intro_playTrack;
 	_centPos = getPosATL center;
 	_offsetPos = [_centPos select 0, _centPos select 1, (_centPos select 2) + 300];
 	_cam = "camera" camCreate [(position center select 0) + 240, (position center select 1) + 100, 450];
