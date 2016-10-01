@@ -509,7 +509,7 @@ INS_W_PlayerMedic = ["B_T_Recon_Medic_F","B_T_Medic_F","B_medic_F","B_recon_medi
 INS_W_PlayerEOD = ["B_T_Recon_Exp_F","B_T_Soldier_Exp_F","B_T_Engineer_F","B_engineer_F","B_soldier_repair_F","B_soldier_exp_F","B_mas_mar_soldier_exp_F_rec_d","B_mas_mar_soldier_exp_F_rec_dn","B_mas_mar_soldier_exp_F_d","B_mas_mar_soldier_repair_F_d","B_mas_mar_soldier_exp_F_rec_v","B_mas_mar_soldier_exp_F_v"];//can deactivate mines/IEDs and use mine detector script
 INS_W_PlayerUAVop = ["B_T_Soldier_UAV_F","B_soldier_UAV_F","B_mas_mar_Soldier_UAV_F_v","B_mas_mar_Soldier_UAV_F_d"];// can call in UGV air drop and use huntIR
 INS_W_PlayerSniper = ["B_T_ghillie_tna_F","B_T_Sniper_F","B_T_Spotter_F","B_T_Recon_M_F","B_T_soldier_M_F","B_recon_M_F","B_spotter_F","B_sniper_F","B_soldier_M_F","B_ghillie_ard_F","B_ghillie_lsh_F","B_ghillie_sard_F","B_Recon_Sharpshooter_F","B_mas_mar_soldier_Sg_F_v","B_mas_mar_soldier_Mhg_F_v","B_mas_mar_soldier_M_F_v","B_mas_mar_soldier_M_F_d","B_mas_mar_soldier_Mhg_F_d","B_mas_mar_soldier_Sg_F_d","B_mas_mar_soldier_M_F_rec_d","B_mas_mar_soldier_M_F_rec_v"];// can use bullet cam
-INS_op4_players = "O_medic_F";// Opfor players
+if (toLower (worldName) isEqualTo "tanoa") then {INS_op4_players = "O_T_Medic_F";} else {INS_op4_players = "O_medic_F";};// Opfor players
 INS_all_medics = ["B_T_Recon_Medic_F","B_T_Medic_F","O_T_Medic_F","O_T_Recon_Medic_F","O_V_Soldier_Medic_ghex_F","O_medic_F","B_medic_F","B_recon_medic_F","B_mas_mar_medic_F_v","B_mas_mar_medic_F_d","B_mas_mar_medic_F_rec_d","B_mas_mar_medic_F_rec_v","B_mas_mar_medic_F_rec_vn"];
 INS_PlayerPilot = [];// Classes who can pilot aircraft. Empty array for no restrictions.
 

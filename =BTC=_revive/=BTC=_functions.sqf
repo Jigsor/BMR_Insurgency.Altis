@@ -374,7 +374,7 @@ BTC_player_killed = {
 					BTC_r_u_camera camCommit 0;
 					if (BTC_r_camera_nvg) then {camusenvg true;} else {camusenvg false;};
 				};
-			};			
+			};
 			if (BTC_camera_unc == 0) then {
 				(findDisplay 46) displayRemoveEventHandler ["KeyDown",BTC_display_EH];
 			} else {
@@ -385,7 +385,7 @@ BTC_player_killed = {
 				(findDisplay 46) displayRemoveEventHandler ["KeyDown",BTC_r_camera_EH_keydown];
 			};
 			closedialog 0;
-			if (time > _timeout && format ["%1", player getVariable "BTC_need_revive"] == "1") then {				
+			if (time > _timeout && format ["%1", player getVariable "BTC_need_revive"] == "1") then {
 				//_respawn = [] spawn BTC_player_respawn;
 				BTC_respawn_cond = true;closeDialog 0;player setVariable ["BTC_need_revive",0,true];_respawn = [] spawn BTC_r_close;//Jig - respawns player when revive timer exceeded
 			};
