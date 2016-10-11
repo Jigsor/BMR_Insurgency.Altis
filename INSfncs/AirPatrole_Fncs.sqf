@@ -361,7 +361,7 @@ find_west_target_fnc = {
 			_vcl setFuel 1;
 
 			_wp1 setWaypointPosition [(getPos _hunted), _wpRad];
-			_wp1 setWaypointBehaviour "RED";
+			_wp1 setWaypointBehaviour "AWARE";
 			(group _vcl) setCurrentWaypoint _wp1;
 
 			if (_hunted == random_w_player2) then {

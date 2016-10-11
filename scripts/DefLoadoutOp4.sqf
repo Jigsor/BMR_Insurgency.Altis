@@ -3,7 +3,7 @@ params ["_p"];
 waitUntil {alive _p};
 
 // CSAT (A3) or CSAT (Pacific)
-if ((INS_op_faction isEqualTo 1) || (INS_op_faction isEqualTo 4) || (INS_op_faction isEqualTo 5)) exitWith
+if ((INS_op_faction isEqualTo 1) || (INS_op_faction isEqualTo 4)) exitWith
 {
 	removeAllAssignedItems _p;
 	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","NVGoggles_OPFOR"];
@@ -59,7 +59,7 @@ if ((INS_op_faction isEqualTo 2) || (INS_op_faction isEqualTo 3)) then {
 
 switch (INS_op_faction) do {
 
-case 6: {
+case 4: {
 // African Conflict (@CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle)
 
 	_p forceAddUniform "U_mas_afr_O_uniform1";
@@ -95,7 +95,7 @@ case 6: {
 	_p setSpeaker "Male01PER";
 };
 
-case 7: {
+case 5: {
 //Masi Middle Eastern Wafare CSAT Army
 
 	_p forceAddUniform "U_mas_med_O_CombatUniform_ir";
@@ -136,7 +136,7 @@ case 7: {
 	_p setSpeaker "Male03PER";
 };
 
-case 8: {
+case 6: {
 //Masi Middle Eastern Wafare Takistan Army
 
 	_p forceAddUniform "U_mas_med_O_CombatUniform";
@@ -178,7 +178,7 @@ case 8: {
 	_p setSpeaker "Male03PER";
 };
 
-case 9: {
+case 7: {
 // Leight's Opfor Pack (@rhs_afrf3;@rhs_usf3;@leights_opfor)
 
 	_p forceAddUniform "LOP_U_ISTS_Fatigue_01";
@@ -217,7 +217,7 @@ case 9: {
 	_p setSpeaker "Male03PER";
 };
 
-case 10: {
+case 8: {
 // CUP Takistan Army (@CBA_A3;@cup_units;@cup_weapons;@cup_vehicles")
 
 	_p forceAddUniform "CUP_U_O_TK_Green";
@@ -254,7 +254,7 @@ case 10: {
 	_p setSpeaker "Male01PER";
 };
 
-case 11: {
+case 9: {
 // RHS - Armed Forces of the Russian Federation (@rhs_afrf3)
 
 	_p forceAddUniform "rhs_uniform_flora";
@@ -293,7 +293,7 @@ case 11: {
 	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","NVGoggles_OPFOR"];
 };
 
-case 12: {
+case 10: {
 // RHS - GREF (@rhs_afrf3;@rhs_usf3;@rhs_gref)
 
 	_p forceAddUniform "rhsgref_uniform_ttsko_mountain";
@@ -333,7 +333,7 @@ case 12: {
 	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","NVGoggles_OPFOR"];
 };
 
-case 13: {
+case 11: {
 // Iraqi-Syrian Conflict - Islamic State (@CBA_A3;@ISC;@cup_weapons;@mas_nato_rus_sf_veh;@rhs_afrf3;@rhs_usf3)
 
 	_p forceAddUniform "IS_uniform_rifleman_o";

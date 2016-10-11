@@ -1,11 +1,11 @@
 /*
- extraction_player.sqf v1.22 by Jigsor
+ extraction_player.sqf v1.2 by Jigsor
  handles map click pickup/dropoff points and group inventory.
  jig_ex_actid_show = _ex_caller addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];
  runs from JIG_EX\extraction_init.sqf and JIG_EX\respawnAddActionHE.sqf
 */
 
-private ["_target","_caller","_action","_recruitsArry","_tempmkr1","_tempmkr2","_actual_ext_pos","_actual_drop_pos","_leaderPos","_outof_range_members","_orAI","_orP"];
+private ["_target","_caller","_action","_recruitsArry","_tempmkr1","_actual_ext_pos","_leaderPos","_outof_range_members","_tempmkr2","_actual_drop_pos"];
 
 _target = _this select 0;  // Object that had the Action (also _target in the addAction command)
 _caller = _this select 1;  // Unit that used the Action (also _this in the addAction command)
@@ -15,7 +15,7 @@ _recruitsArry = [];
 _target removeAction _action;
 
 if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint "You cannot call for extraction without a map"; player addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];};
-if (_caller != (leader group _caller)) exitWith {hint "You must be group leader"; player addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];};
+if !(leader group player == leader player) exitWith {hint "You must be group leader"; player addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];};
 
 extractmkr = [];
 dropmkr = [];
@@ -107,19 +107,7 @@ _leaderPos = position player;
 	};
 } forEach (units ext_caller_group);
 
-if (count _outof_range_members > 0) then {
-	{
-		_orAI = _x;
-		if (!isPlayer _orAI && _orAI in _outof_range_members) then {
-			[_orAI] join grpNull;
-		};
-	} forEach (units ext_caller_group);
-	{
-		_orP = _x;
-		[[_orP], grpNull] remoteExec ["join", _orP, false];
-	} forEach _outof_range_members;
-	sleep 3;
-};
+//{[_x] join grpNull;} foreach (units _outof_range_members); ext_caller_group = group player;//todo: requires type of remote execution
 
 {if (!isPlayer _x) then {_recruitsArry pushBack _x;};} forEach (units ext_caller_group);
 if (count _recruitsArry > 0) then {
@@ -129,7 +117,6 @@ if (count _recruitsArry > 0) then {
 	};
 };
 
-ext_caller_group = group player;
 publicVariable "ext_caller_group";
 sleep 3;
 ex_group_ready = true;

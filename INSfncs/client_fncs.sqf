@@ -1,18 +1,3 @@
-INS_intro_playTrack = {
-	//Plays a random intro track:
-	// 0 => title, 1 => start delay
-	private _track = selectRandom
-	[
-		[["LeadTrack05_F", 1], 33],
-		[["AmbientTrack01a_F", 32], 33],
-		[["LeadTrack01_F_Bootcamp", 36], 32.9],
-		[["Track06_CarnHeli", 1], 33]
-	];
-	0 fadeMusic 1;
-	playMusic (_track select 0);
-	uiSleep (_track select 1);
-	playMusic "";
-};
 INS_intro = {
 	// Bluefor Intro by Jigsor
 	private ["_dir","_rx","_ry","_text","_cam"];
@@ -24,8 +9,14 @@ INS_intro = {
 	_dir = (direction player) -180;
 	_rx = selectRandom [38,-38];
 	_ry = selectRandom [38,-38];
-	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
-	0 = 0 spawn INS_intro_playTrack;
+	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"],  [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
+	_randomtrack = floor(random 4);
+	switch (_randomtrack) do {
+		case 0 : {0 = [] spawn { playMusic ["LeadTrack05_F", 1]; sleep 33; playMusic ""; };};
+		case 1 : {0 = [] spawn { playMusic ["AmbientTrack01a_F", 32]; sleep 33; playMusic ""; };};
+		case 2 : {0 = [] spawn { playMusic ["LeadTrack01_F_Bootcamp", 36]; sleep 32.9; playMusic ""; };};
+		case 3 : {0 = [] spawn { playMusic ["Track06_CarnHeli", 1]; sleep 33; playMusic ""; };};
+	};
 	_cam = "camera" camCreate [position camstart select 0, position camstart select 1, (position camstart select 2) + 80];
 	_cam camPreload 5;
 	_cam camSetTarget player;
@@ -54,6 +45,7 @@ INS_intro = {
 	enableRadio true;
 	if (INS_environment isEqualTo 0) then {enableEnvironment false;};
 	if (INS_mod_missing) then {[] spawn INS_missing_mods;};
+	//if (true) exitWith {INS_intro_op4 = nil; INS_intro = nil};
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
@@ -62,8 +54,14 @@ INS_intro_op4 = {
 	enableRadio false;
 	setViewDistance 1800;
 	if (daytime > 19.00 || daytime < 5.00) then {camUseNVG true};
-	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
-	0 = 0 spawn INS_intro_playTrack;
+	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"],  [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
+	_randomtrack = floor(random 4);
+	switch (_randomtrack) do {
+		case 0 : {0 = [] spawn { playMusic ["LeadTrack05_F", 1]; sleep 33; playMusic ""; };};
+		case 1 : {0 = [] spawn { playMusic ["AmbientTrack01a_F", 32]; sleep 33; playMusic ""; };};
+		case 2 : {0 = [] spawn { playMusic ["LeadTrack01_F_Bootcamp", 36]; sleep 32.9; playMusic ""; };};
+		case 3 : {0 = [] spawn { playMusic ["Track06_CarnHeli", 1]; sleep 33; playMusic ""; };};
+	};
 	_centPos = getPosATL center;
 	_offsetPos = [_centPos select 0, _centPos select 1, (_centPos select 2) + 300];
 	_cam = "camera" camCreate [(position center select 0) + 240, (position center select 1) + 100, 450];
@@ -90,33 +88,33 @@ INS_intro_op4 = {
 	enableRadio true;
 	if (INS_environment isEqualTo 0) then {enableEnvironment false;};
 	if (INS_mod_missing) then {[] spawn INS_missing_mods;};
+	//if (true) exitWith {INS_intro = nil; INS_intro_op4 = nil; true};
 };
 JIG_placeSandbag_fnc = {
 	// Player action place sandbag barrier. by Jigsor
-	private ["_p","_pPos","_dist","_zfactor","_zvector","_isWater","_height"];
-	_p = _this select 1;
-	_pPos = getPosWorld _p;
-	_isWater = surfaceIsWater position _p;
+	private ["_player","_dist","_zfactor","_zvector","_isWater","_height"];
+	_player = _this select 1;
 
-	if ((vehicle _p != player) || (_isWater)) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
-	if (_pPos inArea trig_alarm1init) exitWith {hintSilent "No Sandbags on Base!"};
+	if(vehicle _player != player) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
+	_isWater = surfaceIsWater position _player;
+	if (_isWater) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
 
 	_lift = 0.2;
 	_dist = 2;
 	_zfactor = 1;
-	_zvector = ((_p weaponDirection (primaryWeapon _p)) select 2) * 3;
+	_zvector = ((_player weaponDirection (primaryWeapon _player)) select 2) * 3;
 
 	if (not (isNull MedicSandBag)) then {deleteVehicle MedicSandBag;};
-	MedicSandBag = createVehicle ["Land_BagFence_Round_F",[(getposATL _p select 0) + (sin(getdir _p) * _dist), (getposATL _p select 1) + (cos(getdir _p) * _dist)], [], 0, "CAN_COLLIDE"];
+	MedicSandBag = createVehicle ["Land_BagFence_Round_F",[(getposATL _player select 0) + (sin(getdir _player) * _dist), (getposATL _player select 1) + (cos(getdir _player) * _dist)], [], 0, "CAN_COLLIDE"];
 
-	MedicSandBag setposATL [(getposATL _p select 0) + (sin(getdir _p) * _dist), (getposATL _p select 1) + (cos(getdir _p) * _dist), (getposATL _p select 2) + _zvector + _zfactor];
+	MedicSandBag setposATL [(getposATL _player select 0) + (sin(getdir _player) * _dist), (getposATL _player select 1) + (cos(getdir _player) * _dist), (getposATL _player select 2) + _zvector + _zfactor];
 	MedicSandBag setDir getDir (_this select 1) - 180;
 
-	if ((getPosATL MedicSandBag select 2) > (getPosATL _p select 2)) then {
-		MedicSandBag setPos [(getPosATL MedicSandBag select 0), (getPosATL MedicSandBag select 1), (getPosATL _p select 2)];
+	if ((getPosATL MedicSandBag select 2) > (getPosATL _player select 2)) then {
+		MedicSandBag setPos [(getPosATL MedicSandBag select 0), (getPosATL MedicSandBag select 1), (getPosATL _player select 2)];
 		MedicSandBag setVectorUp [0,0,1];
 	}else{
-		while {((position MedicSandBag select 2) + 0.2) < (getPosATL _p select 2)} do {
+		while {((position MedicSandBag select 2) + 0.2) < (getPosATL _player select 2)} do {
 			MedicSandBag setPos [(getPosATL MedicSandBag select 0), (getPosATL MedicSandBag select 1), ((getPosATL MedicSandBag select 2) + _lift)];
 			MedicSandBag setVectorUp [0,0,1];
 			_lift = _lift + 0.1;
@@ -133,19 +131,19 @@ JIG_removeSandbag_fnc = {
 };
 JIG_UGVdrop_fnc = {
 	// Player action UGV para drop. by Jigsor
-	private _p = _this select 1;
+	private _player = _this select 1;
 	/*// Require UAV backpack
-	if (!(backpack _p isKindof "B_UAV_01_backpack_F")) exitWith {hint "You cannot call UGV without UAV backpack"; (_this select 1) removeAction (_this select 2); _id = _p addAction ["UGV Air Drop", {call JIG_UGVdrop_fnc}, 0, -9, false];};
-	if (backpack _p isKindof "B_UAV_01_backpack_F") then {hint "";};
+	if (!(backpack _player isKindof "B_UAV_01_backpack_F")) exitWith {hint "You cannot call UGV without UAV backpack"; (_this select 1) removeAction (_this select 2); _id = _player addAction ["UGV Air Drop", {call JIG_UGVdrop_fnc}, 0, -9, false];};
+	if (backpack _player isKindof "B_UAV_01_backpack_F") then {hint "";};
 	*/
-	if !({_x find "_UavTerminal" != -1} count assignedItems _p > 0) then {
-		if ({_x in ["ItemGPS"]} count assignedItems _p > 0) then {_p unlinkItem "ItemGPS";};
-		if ({_x in ["O_UavTerminal"]} count assignedItems _p > 0) then {_p unlinkItem "O_UavTerminal";};
-		if ({_x in ["I_UavTerminal"]} count assignedItems _p > 0) then {_p unlinkItem "I_UavTerminal";};
-		_p linkItem "B_UAVTerminal";
+	if !({_x find "_UavTerminal" != -1} count assignedItems _player > 0) then {
+		if ({_x in ["ItemGPS"]} count assignedItems _player > 0) then {_player unlinkItem "ItemGPS";};
+		if ({_x in ["O_UavTerminal"]} count assignedItems _player > 0) then {_player unlinkItem "O_UavTerminal";};
+		if ({_x in ["I_UavTerminal"]} count assignedItems _player > 0) then {_player unlinkItem "I_UavTerminal";};
+		_player linkItem "B_UAVTerminal";
 	}else{
-		_p unlinkItem "B_UAVTerminal";
-		_p linkItem "B_UAVTerminal";
+		_player unlinkItem "B_UAVTerminal";
+		_player linkItem "B_UAVTerminal";
 	};
 	ghst_ugvsupport = [(getMarkerPos "ugv_spawn"),"B_UGV_01_rcws_F",3,30] execVM "scripts\ghst_ugvsupport.sqf";
 	true
@@ -652,10 +650,12 @@ JIG_circling_cam = {
 };
 JIG_map_click = {
 	// Vehicle reward mapclick position by Jigsor
-	if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint "Missing map item!";true};
 	if (player getVariable "createEnabled") then {
+		private ["_marker","_roads","_roadsSorted","_nearestRoad","_roadDir"];
 		if !(getMarkerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop";};
 		hint "";
+		_roadDir = 0;
+		_nearestRoad = objNull;
 		GetClick = true;
 		openMap true;
 		waitUntil {visibleMap};
@@ -663,22 +663,21 @@ JIG_map_click = {
 
 		["Reward_mapclick","onMapSingleClick", {
 
-			private ["_nearestRoad","_roads","_marker"];
 			if (isOnRoad _pos) then {
-				_nearestRoad = objNull;
 				_roads = _pos nearRoads 15;
 				if (count _roads > 0) then {
-					_nearestRoad = ([_roads,[],{_pos distance _x},"ASCEND"] call BIS_fnc_sortBy) select 0;
+					_roadsSorted = [_roads,[],{_pos distance _x},"ASCEND"] call BIS_fnc_sortBy;
+					_nearestRoad = _roadsSorted select 0;
 				};
 			};
 
-			_marker=createMarkerLocal ["VehDrop", _pos];
+			_marker=createMarkerLocal ["VehDrop", _pos ];
 			"VehDrop" setMarkerShapeLocal "ICON";
 			"VehDrop" setMarkerSizeLocal [1, 1];
 			"VehDrop" setMarkerTypeLocal "mil_dot";
 			"VehDrop" setMarkerColorLocal "Color3_FD_F";
 			"VehDrop" setMarkerTextLocal "Vehicle Reward Location";
-			if (!isNull _nearestRoad) then {"VehDrop" setMarkerDirLocal ([_pos, _nearestRoad] call BIS_fnc_dirTo);};
+			if (!isNull _nearestRoad) then {"VehDrop" setMarkerDirLocal (direction _nearestRoad);};
 
 			GetClick = false;
 		}] call BIS_fnc_addStackedEventHandler;
@@ -750,7 +749,7 @@ INS_RespawnLoadout = {
 INS_RestoreLoadout = {
 	// Restore saved kit when respawned by Jigsor.
 	if (isNil "INS_SaveLoadout") then {
-		player setUnitLoadout loadout;
+		[player, loadout] call setLoadout;
 	}else{
 		[player, [missionNamespace, "BMRInsInv"]] call BIS_fnc_loadInventory;
 	};
@@ -875,10 +874,11 @@ GAS_inSmoke = {
 	// We are in smoke. code by Larrow
 	player setVariable ["inSmoke",true];
 
-	private "_sound";
+	private ["_maxtype","_sound"];
+	_maxtype = (count Choke_Sounds);
 
 	"dynamicBlur" ppEffectEnable true;
-	"dynamicBlur" ppEffectAdjust [12];
+    "dynamicBlur" ppEffectAdjust [12];
 	"dynamicBlur" ppEffectCommit 5;
 	enableCamShake true;
 	addCamShake [10, 45, 10];
@@ -886,7 +886,7 @@ GAS_inSmoke = {
 
 	//While were in smoke
 	while { alive player && not captive player && [] call GAS_smokeNear } do {
-		_sound = selectRandom Choke_Sounds;
+		_sound = Choke_Sounds select (floor random _maxtype);
 		playsound3d [_sound, player, false, getPosasl player, 10,1,30];
 		player setDamage (damage player + 0.14);
 		//if(round(random(1)) isEqualTo 0) then {hint "You Should Wear a Gas Mask";};

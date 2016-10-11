@@ -50,26 +50,22 @@ private _cache_loop = [] spawn
 
 		if (_ins_debug) then {titletext ["ghst_PutinBuild running","plain down"];};
 
-		private ["_all_cache_pos","_ammocache","_rnum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_new_city","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_haveguards","_minguards","_maxguards","_sideguards","_jigcoor","_jigxcoor","_jigycoor","_cache_coor","_menlist","_nearBuildings","_loop","_p","_n","_i","_markname","_mark1","_nul","_egrp","_trig1stat","_trig1act","_trg1","_mkr_position","_activated_cache","_alive_cache","_curr_mkr","_buildObj"];
+		private ["_all_cache_pos","_ammocache","_rnum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_new_city","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_haveguards","_minguards","_maxguards","_sideguards","_jigcoor","_jigxcoor","_jigycoor","_cache_coor","_menlist","_nearBuildings","_loop","_p","_n","_i","_markname","_mark1","_nul","_unit","_egrp","_trig1stat","_trig1act","_trg1","_mkr_position","_activated_cache","_alive_cache","_curr_mkr","_buildObj"];
 
 		{if (getMarkerColor _x == "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} count _uncaped_eos_mkrs;
 		_curr_mkr = selectRandom _uncaped_eos_mkrs;
 		_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_curr_mkr];
 		_mkr_position = getMarkerpos _curr_mkr;
+
 		_rnum = str(round (random 999));
 
 		_ammocache = createVehicle [_objtype , position air_pat_pos, [], 0, "None"];
 		sleep jig_tvt_globalsleep;
 
+		_ammocache setVariable["persistent",true];
 		_ammocache addeventhandler ["handledamage",{_this call JIG_ammmoCache_damage}];
 
-		_ammocache setVariable["persistent",true];
-		_ammocache setVariable ["BTC_cannot_lift",1,true];
-		_ammocache setVariable ["BTC_cannot_drag",1,true];
-		_ammocache setVariable ["BTC_cannot_load",1,true];
-		_ammocache setVariable ["BTC_cannot_place",1,true];
-
-		[_ammocache] call remove_charge_fnc;
+		[_ammocache] call remove_charge_fnc;//clearMagazineCargoGlobal _ammocache;
 
 		_veh_name = getText (configFile >> "cfgVehicles" >> (_objtype) >> "displayName");
 		_VarName = ("ghst_obj" + _rnum);
@@ -125,14 +121,16 @@ private _cache_loop = [] spawn
 				_n = count _nearBuildings;
 				_i = floor(random _n);
 				_selbuild = (_nearBuildings select _i);
-				_nearBuildings deleteAt _i;
+				_nearBuildings set [_i,-1];
+				_nearBuildings = _nearBuildings - [-1];
 
 				//get positions for selected building
 				_positionarray = _selbuild call fnc_ghst_build_positions;
 
 				_r = floor(random count _positionarray);
 				_position = _positionarray select _r;
-				_positionarray deleteAt _r;
+				_positionarray set [_r,-1];
+				_positionarray = _positionarray - [-1];
 
 				if !(isnil "_position") exitwith {_loop = false};
 
@@ -181,12 +179,15 @@ private _cache_loop = [] spawn
 					};
 
 				_nul = [_x,_mark1] spawn {
-					params ["_unit","_mark1"];
+					_unit = _this select 0;
+					_mark1 = _this select 1;
 
 					while {alive _unit} do {
 						sleep 5;
 					};
+
 					deletemarker _mark1;
+
 				};
 			};
 
@@ -195,10 +196,12 @@ private _cache_loop = [] spawn
 
 		if (debug) then {diag_log "Objects put in buildings"};
 
-		if (!isNull _ammocache) then {
+		if (!isNull _ammocache) then
+		{
 			ghst_Build_objs pushBack _ammocache;
 
 			_activated_cache = [];
+
 			_activated_cache = _activated_cache + [ghst_Build_objs select (count ghst_Build_objs)-1];
 			_cachepos = _activated_cache select 0;
 			activated_cache_pos = getPos _cachepos;

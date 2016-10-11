@@ -13,18 +13,20 @@ BTC_l_check_vehicle = {
 	if (!isNull _veh) then {
 		//if (!isNil {_veh getVariable "BTC_cargo_cont"}) then
 		if (isNil {_veh getVariable "BTC_cargo_cont"}) then {_veh setVariable ["BTC_cargo_cont",[],false];};
+		private ["_cargo"];
 		_text = "";
-		private _cargo = _veh getVariable "BTC_cargo_cont";
+		_cargo = _veh getVariable "BTC_cargo_cont";
 		_text = _text + "Vehicle: " + getText (configFile >> "cfgVehicles" >> typeof _veh >> "displayName") + format ["<br/>CC: %1/%2",[_veh] call BTC_check_cc,[_veh] call BTC_get_cc] + "<br/>Cargo:<br/>";
 		if (count _cargo > 0) then {
 			{
 				_text = _text + getText (configFile >> "cfgVehicles" >> typeof _x >> "displayName") + format [" [%1]",[_x] call BTC_get_rc] + "<br/>";
 				[_x,_veh] spawn {
 					_obj = _this select 0;
-					_veh = _this select 1;					
+					_veh = _this select 1;
+					private ["_sleep"];
 					//player sideChat format ["%1",_obj];
 					_unload = _veh addaction [("<t color=""#ffcc00"">") + (format ["UnLoad %1",getText (configFile >> "cfgVehicles" >> typeof _obj >> "displayName")]) + "</t>",BTC_dir_action,[[_veh,_obj],BTC_l_unload],7,true,false,"","true"];
-					private _sleep = time + 15;
+					_sleep = time + 15;
 					waitUntil {BTC_action_cargo || (time > _sleep)};
 					_veh removeAction _unload;
 				};
@@ -284,12 +286,12 @@ BTC_l_keydown = {
 			case (_key isEqualTo 44 && !_ctrl && _shift) : {BTC_l_plac_obj setpos [(getpos BTC_l_plac_obj select 0),(getpos BTC_l_plac_obj select 1),(getposATL BTC_l_plac_obj select 2) - 1];if (abs (((BTC_l_central_pos) select 2) - ((getposATL BTC_l_plac_obj) select 2)) > BTC_l_placement_area) then {BTC_l_plac_obj setpos [(getpos BTC_l_plac_obj select 0),(getpos BTC_l_plac_obj select 1),(getposATL BTC_l_plac_obj select 2) + 1];};};
 			case (_key isEqualTo 16 && !_ctrl && _shift) : {BTC_l_plac_obj setpos [(getpos BTC_l_plac_obj select 0),(getpos BTC_l_plac_obj select 1),(getposATL BTC_l_plac_obj select 2) + 1];if (abs (((BTC_l_central_pos) select 2) - ((getposATL BTC_l_plac_obj) select 2)) > BTC_l_placement_area) then {BTC_l_plac_obj setpos [(getpos BTC_l_plac_obj select 0),(getpos BTC_l_plac_obj select 1),(getposATL BTC_l_plac_obj select 2) - 1];};};
 
-			case (BTC_l_camera_placement && _key isEqualTo 30 && _ctrl) : {private _n = (BTC_cam_rel_pos select 0) - 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [_n,BTC_cam_rel_pos select 1,BTC_cam_rel_pos select 2];};};
-			case (BTC_l_camera_placement && _key isEqualTo 32 && _ctrl) : {private _n = (BTC_cam_rel_pos select 0) + 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [_n,BTC_cam_rel_pos select 1,BTC_cam_rel_pos select 2];};};
-			case (BTC_l_camera_placement && _key isEqualTo 31 && _ctrl) : {private _n = (BTC_cam_rel_pos select 1) - 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [BTC_cam_rel_pos select 0,_n,BTC_cam_rel_pos select 2];};};
-			case (BTC_l_camera_placement && _key isEqualTo 17 && _ctrl) : {private _n = (BTC_cam_rel_pos select 1) + 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [BTC_cam_rel_pos select 0,_n,BTC_cam_rel_pos select 2];};};
-			case (BTC_l_camera_placement && _key isEqualTo 44 && _ctrl) : {private _n = (BTC_cam_rel_pos select 2) - 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [BTC_cam_rel_pos select 0,BTC_cam_rel_pos select 1,_n];};};
-			case (BTC_l_camera_placement && _key isEqualTo 16 && _ctrl) : {private _n = (BTC_cam_rel_pos select 2) + 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [BTC_cam_rel_pos select 0,BTC_cam_rel_pos select 1,_n];};};
+			case (BTC_l_camera_placement && _key isEqualTo 30 && _ctrl) : {private ["_n"];_n = (BTC_cam_rel_pos select 0) - 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [_n,BTC_cam_rel_pos select 1,BTC_cam_rel_pos select 2];};};
+			case (BTC_l_camera_placement && _key isEqualTo 32 && _ctrl) : {private ["_n"];_n = (BTC_cam_rel_pos select 0) + 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [_n,BTC_cam_rel_pos select 1,BTC_cam_rel_pos select 2];};};
+			case (BTC_l_camera_placement && _key isEqualTo 31 && _ctrl) : {private ["_n"];_n = (BTC_cam_rel_pos select 1) - 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [BTC_cam_rel_pos select 0,_n,BTC_cam_rel_pos select 2];};};
+			case (BTC_l_camera_placement && _key isEqualTo 17 && _ctrl) : {private ["_n"];_n = (BTC_cam_rel_pos select 1) + 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [BTC_cam_rel_pos select 0,_n,BTC_cam_rel_pos select 2];};};
+			case (BTC_l_camera_placement && _key isEqualTo 44 && _ctrl) : {private ["_n"];_n = (BTC_cam_rel_pos select 2) - 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [BTC_cam_rel_pos select 0,BTC_cam_rel_pos select 1,_n];};};
+			case (BTC_l_camera_placement && _key isEqualTo 16 && _ctrl) : {private ["_n"];_n = (BTC_cam_rel_pos select 2) + 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [BTC_cam_rel_pos select 0,BTC_cam_rel_pos select 1,_n];};};
 		};
 	};
 };

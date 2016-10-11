@@ -4,12 +4,14 @@ Created by =BTC= Giallustio
 Date: 20/03/2013
 Visit us at: http://www.blacktemplars.altervista.org/
 */
-waitUntil {!isNull player && player == player};
+waitUntil {!isNull player};
+waitUntil {player == player};
 
 BTC_towed      = ObjNull;
 //Functions
 BTC_tow_check =
 {
+	private ["_rel_pos"];
 	if (!(vehicle player isKindOf "LandVehicle") || BTC_attached == 1) exitWith {false};
 	_array = [vehicle player] call BTC_get_towable_array;
 	if (count _array isEqualTo 0) exitWith {false};

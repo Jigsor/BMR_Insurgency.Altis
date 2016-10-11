@@ -45,7 +45,9 @@ _sign setVectorUp [0,0,1];
 
 // Spawn Objective enemy defences
 _grp = [_newZone,14] call spawn_Op4_grp;
+//_stat_grp = [_newZone,3] call spawn_Op4_StatDef;
 
+//_stat_grp setCombatMode "RED";
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 if (DebugEnabled > 0) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
@@ -100,8 +102,13 @@ _all_mortars = [_static1,_static2,_static3];
 
 (units mortar_grp select 0) setVariable ["zbe_cacheDisabled",true];
 
+//sleep 2;
+//_StaticArray1 = [_static1];
+//nul = [_newZone, _StaticArray1, 110, 2, [0,33], true, false] execVM "scripts\SHK_buildingpos.sqf";
+
 mortar_grp setCombatMode "RED";
 if (BTC_p_skill isEqualTo 1) then {
+	//[_stat_grp] call BTC_AI_init;
 	[_grp] call BTC_AI_init;
 	[mortar_grp] call BTC_AI_init;
 };
@@ -161,8 +168,10 @@ waitUntil {sleep 1; !_run};
 sleep 90;
 
 {deleteVehicle _x; sleep 0.1} forEach (units _grp);
+//{deleteVehicle _x; sleep 0.1} forEach (units _stat_grp);
 {deleteVehicle _x; sleep 0.1} forEach (units mortar_grp);
 deleteGroup _grp;
+//deleteGroup _stat_grp;
 deleteGroup mortar_grp;
 
 if (!isNull _sign) then {deleteVehicle _sign; sleep 0.1;};

@@ -24,7 +24,7 @@ INSheliVehP = vehicle player;
 	];
 
 	if ((INSheliVehP != vehicle player) || (cameraView != "GUNNER")) then {
-		if (cameraView != "GUNNER" && INSheliVehP == vehicle player) then { execVM "scripts\3Dcompass.sqf"; };
+		if (cameraView != "GUNNER" && INSheliVehP == vehicle player) then {	execVM "scripts\3Dcompass.sqf"; };
 		if (INSheliVehP != vehicle player && alive INSheliVehP) then {
 			[] spawn {
 				_3dcact = (vehicle INSheliVehP) addAction["Gunner 3D Compass", {execVM "scripts\3Dcompass.sqf";(_this select 0)removeAction(_this select 2);}, [], -1.1, false, true, "holdBreath", "_target==(vehicle _this)"];

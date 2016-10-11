@@ -54,7 +54,6 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 	<br />Boat push - v0.1  by BearBison
 	<br />find_civ_bomber_fnc by SupahG33K
 	<br />killed_ss_bmbr_fnc modified by SupahG33K
-	<br />INS_Brighter_Nights ocde by Ralian
 	<br />
 	<br />------------------------ Development --------------------------
 	<br />Thanks to BIS for such a great platform.

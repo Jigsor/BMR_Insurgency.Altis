@@ -91,6 +91,8 @@ hintsilent "";
 hint Localize "STR_ATM_hintjump";
 Cut_Rope = (FindDisplay 46) displayAddEventHandler ["KeyDown","_this call dokeyDown"];
 
+_height = getPos _target select 2;
+
 if (INS_ACE_para) then {//Jig adding
 	while {(getPos _target select 2) > 2} do {
 		if !(isTouchingGround _target and isNull objectParent player) then {
@@ -120,6 +122,7 @@ if (INS_ACE_para) then {//Jig adding
 	};
 };
 
+//"AparPercMstpSnonWnonDnon_AmovPpneMstpSnonWnonDnon"
 _target switchmove "";//Jig adding
 
 hint Localize "STR_ATM_hintload";

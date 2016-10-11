@@ -68,11 +68,6 @@ _taskdescE = localize "STR_BMR_Tsk_descE_dhvt";
 
 if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
 
-{
-	[_x,true] call BIS_fnc_switchLamp;
-	false;
-} count nearestObjects [objective_pos_logic, INS_lights, 1000];
-
 waitUntil {sleep 2; !alive _tower};
 
 [] spawn {
@@ -88,11 +83,7 @@ waitUntil {sleep 2; !alive _tower};
 	for [{_i=0},{_i < (count _lights)},{_i=_i+1}] do {
 		_lamps = getPosATL objective_pos_logic nearObjects [_lights select _i, 1000];
 		sleep 0.01;
-		{
-			//_x setDamage 0.95;
-			[_x,false] call BIS_fnc_switchLamp;
-			sleep 0.03;
-		} forEach _lamps;
+		{_x setDamage 0.95; sleep 0.03} forEach _lamps;
 	};
 };
 

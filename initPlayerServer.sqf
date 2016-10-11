@@ -44,12 +44,6 @@ if !(_player in _hcEntities) then {
 	};
 	{_intel = _x; [[_intel,current_cache_pos],"fnc_jip_mp_intel",_player] spawn BIS_fnc_MP;} forEach intel_Build_objs;
 	if (_update) then {publicVariableServer "intel_Build_objs";};
-
-	if (!isNil {missionNamespace getVariable "Land_DataTerminal_Obj"}) then {
-		if (!isNull Land_DataTerminal_Obj) then {
-			[] remoteExec ["Terminal_acction_MPfnc", _player, false];
-		};
-	};
 /*
 } else {
 	if (_didJIP) then {

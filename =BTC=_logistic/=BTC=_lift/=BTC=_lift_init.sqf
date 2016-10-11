@@ -4,7 +4,8 @@ Created by =BTC= Giallustio
 Date: 20/03/2013
 Visit us at: http://www.blacktemplars.altervista.org/
 */
-waitUntil {!isNull player && player == player};
+waitUntil {!isNull player};
+waitUntil {player == player};
 
 _cond = true;
 if ((count BTC_lift_pilot) > 0) then {
@@ -20,6 +21,7 @@ if (BTC_def_hud == 1) then {
 BTC_cargo = ObjNull;
 //Functions
 BTC_lift_check = {
+	private ["_rel_pos"];
 	if (!(vehicle player isKindOf "Helicopter") || BTC_lifted == 1) exitWith {false};
 	_array = [vehicle player] call BTC_get_liftable_array;
 	if (count _array isEqualTo 0) exitWith {false};
@@ -32,7 +34,7 @@ BTC_lift_check = {
 	if (_can_lift && ((BTC_cargo isKindOf "Air" && getdammage BTC_cargo != 1) || (format ["%1", BTC_cargo getVariable "BTC_cannot_lift"] == "1"))) then {_can_lift = false;};
 	if (!isNull BTC_cargo && _can_lift) then {
 		_cargo_pos = getPosATL BTC_cargo;
-		private _rel_pos   = _chopper worldToModel _cargo_pos;
+		_rel_pos   = _chopper worldToModel _cargo_pos;
 		BTC_cargo_x   = _rel_pos select 0;
 		BTC_cargo_y   = _rel_pos select 1;
 		BTC_cargo_z   = _rel_pos select 2;//hintSilent format ["%1 - %2 - %3",BTC_cargo_x,BTC_cargo_y,BTC_cargo_z];

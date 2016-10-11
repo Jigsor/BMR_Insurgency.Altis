@@ -39,7 +39,7 @@ if (isNil "paddscore") then {paddscore = 0;};
 "ghst_Build_objs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "activated_cache_pos" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "paddscore" addPublicVariableEventHandler {_data = _this select 1; (_data select 0) addScore (_data select 1);};
-"PVEH_netSay3D" addPublicVariableEventHandler {private _array = _this select 1; (_array select 0) say3D (_array select 1);};
+"PVEH_netSay3D" addPublicVariableEventHandler {private "_array"; _array = _this select 1; (_array select 0) say3D (_array select 1);};
 "side_mission_mkrs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "objective_list" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 if (INS_GasGrenadeMod isEqualTo 1) then {"ToxicGasLoc" addPublicVariableEventHandler {(_this select 1) spawn GAS_smoke_AIdamage};};
@@ -127,9 +127,14 @@ if (Airfield_opt) then
 	_mod = false;
 
 	switch (INS_op_faction) do {
-		case 6: {
+		case 5: {
 			if (isClass(configfile >> "CfgVehicles" >> "mas_F_35C")) then {
 				_class = "mas_F_35C_cas"; _mod = true;
+			};
+		};
+		case 6: {
+			if (isClass (configfile >> "CfgVehicles" >> "mas_F_35C")) then {
+				_mod = true; _class = "mas_F_35C_cas";
 			};
 		};
 		case 7: {
@@ -138,18 +143,18 @@ if (Airfield_opt) then
 			};
 		};
 		case 8: {
-			if (isClass (configfile >> "CfgVehicles" >> "mas_F_35C")) then {
-				_mod = true; _class = "mas_F_35C_cas";
-			};
-		};
-		case 9: {
 			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
 			};
 		};
-		case 10: {
+		case 9: {
 			if (isClass(configFile >> "CfgVehicles" >> "CUP_B_A10_AT_USA")) then {
 				_mod = true; _class = "CUP_B_A10_AT_USA";
+			};
+		};
+		case 10:	{
+			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 11: {
@@ -158,11 +163,6 @@ if (Airfield_opt) then
 			};
 		};
 		case 12: {
-			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
-				_mod = true; _class = "RHS_A10";
-			};
-		};
-		case 13: {
 			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
 			};

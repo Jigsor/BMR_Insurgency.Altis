@@ -160,7 +160,7 @@ class Mission
 	randomSeed=404842;
 	class Intel
 	{
-		briefingName="BMR_Insurgency_v1.46alpha.Altis";
+		briefingName="BMR_Insurgency_v1.45.Altis";
 		overviewText="Eliminate Armed Rebellion Against NATO forces. Gather Intel on Location of Enemy Ammo Cache and Destroy it";
 		resistanceWest=0;
 		resistanceEast=1;
@@ -690,7 +690,7 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="Server";
-					init="{_x setmarkeralphalocal 0} foreach [""Respawn_East"",""Respawn_West"",""Helicopters"",""Mechanized"",""HelicopterRepair"",""AircraftMaintenance"",""VehicleMaintenance"",""Halo"",""Dock"",""IEDa"",""IED1"",""IED2"",""IED3"",""IED4"",""IED5"",""IED6"",""IED7"",""IED8"",""IED9"",""IED10"",""IED11"",""IED12"",""IED13"",""IED14"",""IED15"",""IED16"",""sidemiss1"",""sidemiss2"",""sidemiss3"",""sidemiss4"",""sidemiss5"",""sidemiss6"",""sidemiss7"",""sidemiss8"",""sidemiss9"",""sidemiss10"",""sidemiss11"",""sidemiss12"",""civmkr1"",""civmkr2"",""civmkr3"",""civmkr4"",""civmkr5"",""civmkr6"",""civmkr7"",""civmkr8"",""civmkr9"",""civmkr10"",""civmkr11"",""civmkr12"",""civmkr13"",""civmkr14"",""civmkr15"",""civmkr16"",""civmkr17""];";
+					init="{_x setmarkeralphalocal 0} foreach [""Respawn_East"",""Respawn_West"",""Helicopters"",""Mechanized"",""HelicopterRepair"",""AircraftMaintenance"",""VehicleMaintenance"",""Halo"",""Dock"",""IEDa"",""IED1"",""IED2"",""IED3"",""IED4"",""IED5"",""IED6"",""IED7"",""IED8"",""IED9"",""IED10"",""IED11"",""IED12"",""IED13"",""IED14"",""IED15"",""IED16"",""sidemiss1"",""sidemiss2"",""sidemiss3"",""sidemiss4"",""sidemiss5"",""sidemiss6"",""sidemiss7"",""sidemiss8"",""sidemiss9"",""sidemiss10"",""sidemiss11"",""civmkr1"",""civmkr2"",""civmkr3"",""civmkr4"",""civmkr5"",""civmkr6"",""civmkr7"",""civmkr8"",""civmkr9"",""civmkr10"",""civmkr11"",""civmkr12"",""civmkr13"",""civmkr14"",""civmkr15"",""civmkr16"",""civmkr17""];";
 				};
 			};
 		};
@@ -759,8 +759,8 @@ class Mission
 		};
 		class Item4
 		{
-			position[]={20840.234,29.356956,7158.0254};
-			azimut=236;
+			position[]={20972.973,25.187563,7335.2539};
+			azimut=316;
 			id=41;
 			side="EMPTY";
 			vehicle="B_Heli_Light_01_F";
@@ -769,8 +769,8 @@ class Mission
 		};
 		class Item5
 		{
-			position[]={20831.43,29.371931,7171.0854};
-			azimut=236;
+			position[]={20983.018,24.537367,7342.8701};
+			azimut=316;
 			id=42;
 			side="EMPTY";
 			vehicle="B_Heli_Light_01_armed_F";
@@ -799,7 +799,7 @@ class Mission
 		};
 		class Item8
 		{
-			position[]={20994.484,23.518145,7365.4761};
+			position[]={20948.559,23.92877,7293.0215};
 			azimut=116;
 			id=45;
 			side="EMPTY";
@@ -820,8 +820,8 @@ class Mission
 		};
 		class Item10
 		{
-			position[]={20795.217,29.928682,7119.0918};
-			azimut=145;
+			position[]={20909.176,26.505518,7296.02};
+			azimut=120;
 			id=47;
 			side="EMPTY";
 			vehicle="B_Heli_Transport_03_F";
@@ -830,8 +830,8 @@ class Mission
 		};
 		class Item11
 		{
-			position[]={20831.107,29.385857,7107.5239};
-			azimut=145;
+			position[]={20928.932,25.83139,7306.9097};
+			azimut=317;
 			id=48;
 			side="EMPTY";
 			vehicle="B_Heli_Transport_01_camo_F";
@@ -913,8 +913,8 @@ class Mission
 		};
 		class Item19
 		{
-			position[]={20863.021,28.961493,7115.2236};
-			azimut=236;
+			position[]={20946.736,25.403156,7317.1147};
+			azimut=316;
 			id=56;
 			side="EMPTY";
 			vehicle="I_Heli_light_03_F";
@@ -945,8 +945,8 @@ class Mission
 		};
 		class Item22
 		{
-			position[]={20813.607,29.260805,7146.375};
-			azimut=145;
+			position[]={20930.775,26.752996,7276.1533};
+			azimut=34;
 			id=59;
 			side="EMPTY";
 			vehicle="I_Heli_Transport_02_F";
@@ -957,7 +957,7 @@ class Mission
 		};
 		class Item23
 		{
-			position[]={20994.191,23.503775,7367.1714};
+			position[]={20948.266,23.879782,7294.7168};
 			id=60;
 			side="EMPTY";
 			vehicle="B_UAV_01_F";
@@ -967,7 +967,7 @@ class Mission
 		};
 		class Item24
 		{
-			position[]={20994.189,23.576454,7363.9072};
+			position[]={20948.264,24.014837,7291.4526};
 			id=61;
 			side="EMPTY";
 			vehicle="B_UAV_01_F";
@@ -1135,8 +1135,8 @@ class Mission
 		};
 		class Item40
 		{
-			position[]={20849.793,28.965117,7137.6021};
-			azimut=236;
+			position[]={20961.729,25.269819,7327.0054};
+			azimut=316;
 			id=77;
 			side="EMPTY";
 			vehicle="B_Heli_Attack_01_F";
@@ -1949,7 +1949,7 @@ class Mission
 		class Item122
 		{
 			position[]={20927.584,28.124584,7187.7104};
-			azimut=315.121;
+			azimut=315.12134;
 			special="NONE";
 			id=159;
 			side="EMPTY";
@@ -1957,7 +1957,7 @@ class Mission
 			skill=0.2;
 			fuel=0;
 			ammo=0;
-			init="if (isServer) then {clearMagazineCargoGlobal this;clearWeaponCargoGlobal this;clearItemCargoGlobal this;clearBackpackCargoGlobal this;};this enablesimulation false;";
+			init="clearMagazineCargoGlobal this;clearWeaponCargoGlobal this;clearItemCargoGlobal this;clearBackpackCargoGlobal this;this enablesimulation false; ";
 		};
 		class Item123
 		{
@@ -1984,7 +1984,7 @@ class Mission
 		class Item125
 		{
 			position[]={20919.512,28.066969,7195.689};
-			azimut=405.95099;
+			azimut=405.95123;
 			special="NONE";
 			id=162;
 			side="EMPTY";
@@ -1992,7 +1992,7 @@ class Mission
 			skill=0.2;
 			fuel=0;
 			ammo=0;
-			init="if (isServer) then {clearMagazineCargoGlobal this;clearWeaponCargoGlobal this;clearItemCargoGlobal this;clearBackpackCargoGlobal this;};this enablesimulation false; ";
+			init="clearMagazineCargoGlobal this;clearWeaponCargoGlobal this;clearItemCargoGlobal this;clearBackpackCargoGlobal this;this enablesimulation false; ";
 		};
 		class Item126
 		{
@@ -3983,7 +3983,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=929;
+		items=928;
 		class Item0
 		{
 			position[]={2950,16.4098,18550};
@@ -11680,7 +11680,7 @@ class Mission
 		};
 		class Item855
 		{
-			position[]={20833.396,29.726601,7064.5171};
+			position[]={20944.76,24.330326,7302.8184};
 			name="Helicopters";
 			text="Helicopters";
 			type="b_air";
@@ -12146,7 +12146,7 @@ class Mission
 		};
 		class Item910
 		{
-			position[]={21042.842,21.308792,7379.1563};
+			position[]={20957.518,23.166861,7298.396};
 			name="Airfield";
 			text="Airfield";
 			type="Empty";
@@ -12315,13 +12315,6 @@ class Mission
 			type="Empty";
 			a=50;
 			b=50;
-		};
-		class Item928
-		{
-			position[]={4926.4429,21.672916,10907.668};
-			name="sidemiss12";
-			type="mil_objective";
-			colorName="ColorBlue";
 		};
 	};
 	class Sensors

@@ -39,7 +39,7 @@ if (count _airCenter > 0) then
 	};
 
 	// Helicopter
-	if ((EnableEnemyAir isEqualTo 1) || (EnableEnemyAir isEqualTo 3) ||	(EnableEnemyAir isEqualTo 4) ||	(EnableEnemyAir isEqualTo 6)) then
+	if ((EnableEnemyAir isEqualTo 1) ||	(EnableEnemyAir isEqualTo 3) ||	(EnableEnemyAir isEqualTo 4) ||	(EnableEnemyAir isEqualTo 6)) then
 	{
 		_aire1 = [_ins_debug] spawn {
 			params ["_ins_debug","_delay","_loop"];
