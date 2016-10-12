@@ -21,7 +21,8 @@ _grp=createGroup _side;
 for "_x" from 1 to _grpSize do {
 	_unitType=selectRandom _pool;
 	_unit = _grp createUnit [_unitType, _pos, [], 6, "FORM"];
-	sleep 0.3;
+	(group _unit) setVariable ["zbe_cacheDisabled",true];
+	//sleep 0.3;
 };
 
 _grp

@@ -101,18 +101,20 @@ mhq_actions_fnc = {
 	switch (true) do {
 		case (_var isEqualTo "MHQ_1"): {
 			_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true"];
-			_veh addAction[("<t color='#ff1111'>") + ("Open Virtual Arsenal") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
+			_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
 		};
 		case (_var isEqualTo "MHQ_2"): {
 			_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true"];
-			_veh addAction[("<t color='#ff1111'>") + ("Open Virtual Arsenal") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
+			_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
 		};
 		case (_var isEqualTo "MHQ_3"): {
 			_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true"];
-			_veh addAction[("<t color='#ff1111'>") + ("Open Virtual Arsenal") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];};
-		case (_var isEqualTo "Opfor_MHQ"): {_veh addAction [("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
+			_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
 		};
-		//case (_var isEqualTo "Opfor_MHQ"): {_veh addAction [("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"]; _veh addAction [("<t color=""#12F905"">") + ("Restore Loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side"];};
+		case (_var isEqualTo "Opfor_MHQ"): {
+			_veh addAction [("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
+			//_veh addAction[("<t color=""#12F905"">") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side"];
+		};
 		case (_var isEqualTo ""): {};
 	};
 };
@@ -349,32 +351,115 @@ INS_Zeus_MP = {
 	_announce = [_this,1,false] call bis_fnc_param;
 	[[_unit,_announce],"INS_Zeus_toggle",false] spawn BIS_fnc_MP;
 };
-INS_Zeus_toggle = {
-	If (IamHC) exitWith {};
+INS_Zeus_MP = {
+	// Admin can toggle Zeus on or off in Debug Console with following command
+	// [player,true] spawn INS_Zeus_MP;
+	// ZEUS interface key (Left Ctrl + y)
+	private ["_unit", "_announce"];
 	_unit = [_this,0,objNull] call bis_fnc_param;
 	_announce = [_this,1,false] call bis_fnc_param;
-	//if !(serverCommandAvailable "#logout") exitWhith {};
-	if (_unit in (getAssignedCuratorUnit (allCurators select 0))) exitWith {
-		unassignCurator (getAssignedCuratorLogic _unit);
-		{deleteVehicle _x} forEach allCurators;
+	[[_unit,_announce],"INS_toggle_Zeus",false] spawn BIS_fnc_MP;
+};
+INS_toggle_Zeus = {
+	if (IamHC) exitWith {};
+	private ["_unit", "_announce", "_curator", "_curatorCreate", "_text"];
+
+	_unit = [_this,0,objNull] call bis_fnc_param;
+	_announce = [_this,1,false] call bis_fnc_param;
+
+	if (!isNull (getAssignedCuratorLogic _unit)) exitWith {
+		_curator = getAssignedCuratorLogic _unit;
+		unassignCurator _curator;
+		deleteVehicle _curator;
+
 		if (_announce) then {
-			_text = localize "STR_BMR_curator_removed";
+			_text = format [localize "STR_BMR_curator_removed", name _unit];
 			[_text,"JIG_MPhint_fnc"] call BIS_fnc_mp;
 		};
 	};
-	private _curator = objNull;
-	getAssignedCuratorUnit (allCurators select 0);
-	_zGrp = createGroup sideLogic;
-	_curator = _zGrp createUnit ["modulecurator_f",[0,0,0],[],0,"NONE"];
-	_unit assignCurator _curator;
+
+	if (!(_unit in playableUnits)) exitWith {};
+
+	_curatorCreate = true;
+	{
+		if (isNull (getAssignedCuratorUnit _x)) exitWith {
+			_curator = _x;
+			_curatorCreate = false;
+		};
+	} forEach allCurators;
+
+	if (_curatorCreate) then {
+		_curator = (createGroup sideLogic) createUnit ["modulecurator_f",[0,0,0],[],0,"NONE"];
+		{_curator setCuratorCoef [_x,0];} forEach ["place","edit","delete","destroy","group","synchronize"];
+		_curator addEventHandler ['CuratorObjectPlaced',{{[_x] call BTC_AIunit_init;} forEach crew(_this select 1)}];
+	};
+
 	_curator addCuratorEditableObjects [allUnits,true];
-	{_curator setCuratorCoef [_x,0];} forEach ["place","edit","delete","destroy","group","synchronize"];
-	_curator addEventHandler ['CuratorObjectPlaced',{{[_x] call BTC_AIunit_init;} forEach crew(_this select 1)}];
+	_unit assignCurator _curator;
 
 	if (_announce) then {
 		_text = format[localize "STR_BMR_is_curator",name _unit];
 		[_text,"JIG_MPhint_fnc"] call BIS_fnc_mp;
 	};
+};
+Terminal_acction_MPfnc = {
+	if (hasInterface) then {
+		if (isNil "TerminalAcctionID" && (!isNull Land_DataTerminal_Obj)) then {
+			TerminalAcctionID =
+			[
+				Land_DataTerminal_Obj,
+				"DownLoad Data",
+				"\a3\ui_f_exp_a\Data\RscTitles\RscEGProgress\downloadicon_ca.paa",
+				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
+				"_this distance Land_DataTerminal_Obj < 2",
+				"true",
+				{[Land_DataTerminal_Obj, 3] call BIS_fnc_DataTerminalAnimate},
+				{hintSilent "Dont stop"},
+				{
+					private _side = (side player) call bis_fnc_sideID;
+					missionNamespace setVariable ["datadownloadedby",_side,true];
+					hintSilent "Data Received";
+					[Land_DataTerminal_Obj,TerminalAcctionID] call BIS_fnc_holdActionRemove;
+				},
+				{hintSilent "Download aborted"; [Land_DataTerminal_Obj, 0] call BIS_fnc_DataTerminalAnimate},
+				["Your side wins"],
+				6,
+				0,
+				true,
+				false
+			] call bis_fnc_holdActionAdd;
+		};
+	};
+	true
+};
+INS_Brighter_Nights = {
+	// Thanks to Ralian for code
+	params [["_intensity", 1, [0]]];
+	[
+		"ColorCorrections",
+		1500,
+		[
+			1,
+			_intensity,
+			0,
+			1, 1, 1, 0.01,
+			1, 1, 1, 1,
+			.299, .587, .114, 0
+		]
+	] spawn {
+		params ["_name", "_priority", "_effect", "_handle"];
+		if (DebugEnabled isEqualTo 1) then {diag_log format ["Brighter Night Effect Array: %1", _effect];};
+		while {
+			_handle = ppEffectCreate [_name, _priority];
+			_handle < 0
+		} do {
+			_priority = _priority + 1;
+		};
+		_handle ppEffectEnable true;
+		_handle ppEffectAdjust _effect;
+		_handle ppEffectCommit 1;
+	};
+	true
 };
 switchMoveEverywhere = compileFinal " _this select 0 switchMove (_this select 1); ";
 INS_BluFor_Siren = compileFinal " if (isServer) then {

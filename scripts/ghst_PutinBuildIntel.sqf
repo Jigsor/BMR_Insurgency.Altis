@@ -111,16 +111,14 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 				_n = count _nearBuildings;
 				_i = floor(random _n);
 				_selbuild = (_nearBuildings select _i);
-				_nearBuildings set [_i,-1];
-				_nearBuildings = _nearBuildings - [-1];
+				_nearBuildings deleteAt _i;
 
 				//get positions for selected building
 				_posArr = _selbuild call fnc_ghst_build_positions;
 
 				_r = floor(random count _posArr);
 				_position = _posArr select _r;
-				_posArr set [_r,-1];
-				_posArr = _posArr - [-1];
+				_posArr deleteAt _r;
 
 				if !(isnil "_position") exitwith {_loop = false};
 
@@ -182,7 +180,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 					_mark1 setmarkertext format ["Intel obj%1", _x];
 					};
 
-				if (_hide_intel isEqualTo 1) then {	_imks pushBack [_x,_mark1];};
+				if (_hide_intel isEqualTo 1) then {_imks pushBack [_x,_mark1];};
 			};
 			sleep 0.1;
 		} foreach _unitarray;

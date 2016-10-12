@@ -1,6 +1,6 @@
 _grp=(_this select 0);
 
-_grp setVariable ["zbe_cacheDisabled",true];
+//_grp setVariable ["zbe_cacheDisabled",true];
 _skillset = server getvariable (_this select 1);
 {
 	_unit = _x;

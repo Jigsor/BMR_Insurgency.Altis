@@ -182,7 +182,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 					deleteVehicle _unit;
 					sleep 1;
 				};//Jig adding
-	
+
 				// Charge Target & Detonate Bomb
 				if(_unit distance (_nearUnits select 0) < 17)
 				exitWith

@@ -58,7 +58,9 @@ jig_m_obj setPos (position epad);
 jig_m_obj setVectorUp [0,0,1];
 _pos3 = [(_pos2 select 0)+3,(_pos2 select 1)+3,_pos2 select 2];
 
-ebox = "Box_NATO_Wps_F" createVehicle _pos3;// basic nato ammo box
+_type = typeOf INS_sup_Nbox;
+ebox = _type createVehicle _pos3;// supply box
+//ebox = "Box_NATO_Wps_F" createVehicle _pos3;// basic nato ammo box
 
 player setVariable ["INS_farp_deployed", true];
 

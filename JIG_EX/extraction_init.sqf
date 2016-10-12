@@ -73,8 +73,7 @@ sleep 1;
 // Player
 if (!isDedicated) then
 {
-	waitUntil {!isNull player};
-	waitUntil {player == player};
+	waitUntil {!isNull player && player == player};
 	waitUntil {sleep 3; alive player};
 	if (not (JIG_EX_Caller == player)) exitWith {};
 	EvacHeliW1 = ObjNull;

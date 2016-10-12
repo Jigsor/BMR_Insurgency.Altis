@@ -1,7 +1,7 @@
 //Objectives\tower_of_power.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_objmkr","_roads","_roadNear","_roadSegment","_roadDir","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_towerPos"];
+private ["_newZone","_type","_rnum","_objmkr","_roads","_roadNear","_roadSegment","_roadDir","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_towerPos","_staticGuns"];
 
 _newZone = _this select 0;
 _type = _this select 1;
@@ -45,7 +45,7 @@ _tower Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
 
 // Spawn Objective enemy deffences
 _grp = [_newZone,10] call spawn_Op4_grp;
-_stat_grp = [_newZone,3] call spawn_Op4_StatDef; _stat_grp setCombatMode "RED";
+_stat_grp = [_newZone,4,6] call spawn_Op4_StatDef; _stat_grp setCombatMode "RED";
 
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 
@@ -68,6 +68,11 @@ _taskdescE = localize "STR_BMR_Tsk_descE_dhvt";
 
 if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
 
+{
+	[_x,true] call BIS_fnc_switchLamp;
+	false;
+} count nearestObjects [objective_pos_logic, INS_lights, 1000];
+
 waitUntil {sleep 2; !alive _tower};
 
 [] spawn {
@@ -83,7 +88,11 @@ waitUntil {sleep 2; !alive _tower};
 	for [{_i=0},{_i < (count _lights)},{_i=_i+1}] do {
 		_lamps = getPosATL objective_pos_logic nearObjects [_lights select _i, 1000];
 		sleep 0.01;
-		{_x setDamage 0.95; sleep 0.03} forEach _lamps;
+		{
+			//_x setDamage 0.95;
+			[_x,false] call BIS_fnc_switchLamp;
+			sleep 0.03;
+		} forEach _lamps;
 	};
 };
 
@@ -94,12 +103,11 @@ waitUntil {sleep 2; !alive _tower};
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
 
-{deleteVehicle _x; sleep 0.1} forEach (units _grp);
-{deleteVehicle _x; sleep 0.1} forEach (units _stat_grp);
-deleteGroup _grp;
-deleteGroup _stat_grp;
+{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
+{deleteGroup _x} forEach [_grp, _stat_grp];
 
-{if (typeof _x in INS_Op4_stat_weps) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 40]);
+_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
 {if (typeof _x in objective_ruins) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 30]);
 
 deleteMarker "ObjectiveMkr";

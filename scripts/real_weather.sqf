@@ -39,8 +39,7 @@ _maxtime = 1200;
 // If Fastime is on
 // Ratio 1 real time second for x game time seconds
 // Default: 1 real second = 3.6 second in game
-//_timeratio = 3.6;//original
-_timeratio = 2.6;//Jig
+_timeratio = 2.6;
 
 // send sync data across the network each xxx seconds
 // 60 real seconds by default is a good value
@@ -69,7 +68,7 @@ switch(toUpper(_startingweather)) do {
 		wcweather = [0, 0, 0.6, [random 3, random 3, true], date];
 	};
 	case "RAIN": {
-		wcweather = [1, 0, 1, [random 3, random 3, true], date];
+		wcweather = [0.7, 0, 0.7, [random 3, random 3, true], date];
 	};
 	default {
 		// clear
@@ -80,6 +79,17 @@ switch(toUpper(_startingweather)) do {
 
 // add handler
 if (local player) then {
+
+	//Jig adding Brighter Nights by Ralian
+	[] spawn {
+		waitUntil {!isNil "INS_Brighter_Nights"};		
+		if (daytime > 20.00 || daytime < 4.00) then {
+			[3] call INS_Brighter_Nights;
+		}else{
+			[1] call INS_Brighter_Nights;
+		};
+	};
+
 	wcweatherstart = true;
 	"wcweather" addPublicVariableEventHandler {
 		// first JIP synchronization
@@ -166,5 +176,13 @@ while {true} do {
 	if(_random) then {
 		_timeforecast = _mintime + (random (_maxtime - _mintime));
 	};
+
+	//Jig adding Brighter Nights by Ralian
+	if (daytime > 20.00 || daytime < 4.00) then {
+		[3] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated, false];
+	}else{
+		[1] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated, false];
+	};
+
 	sleep _timeforecast;
 };

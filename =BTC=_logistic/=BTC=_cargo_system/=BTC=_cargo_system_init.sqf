@@ -1,5 +1,4 @@
-waitUntil {!isNull player};
-waitUntil {player == player};
+waitUntil {!isNull player && player == player};
 #include "=BTC=_functions.sqf"
 BTC_action_cargo   = false;
 BTC_l_dragging     = false;

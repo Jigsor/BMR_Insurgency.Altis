@@ -34,9 +34,9 @@ switch (typename _this) do {
   };
 };
 
-_grp setBehaviour "SAFE";
-_grp setSpeedMode "LIMITED";
-_grp setCombatMode "YELLOW";
+_grp setBehaviour "AWARE";
+_grp setSpeedMode "NORMAL";
+_grp setCombatMode "RED";
 _grp setFormation (["STAG COLUMN", "WEDGE", "ECH LEFT", "ECH RIGHT", "VEE", "DIAMOND"] call BIS_fnc_selectRandom);
 
 private ["_cnt","_wps","_slack"];
@@ -51,7 +51,7 @@ while {count _wps < _cnt} do {
 if (surfaceiswater (getpos(leader _grp)) ) then {
 	_p = [_mkr,true] call SHK_pos;}else{_p = [_mkr,true] call SHK_pos;
 	};
-    _wps set [count _wps, _p];
+    _wps pushBack _p;
 };
 
 // Create waypoints

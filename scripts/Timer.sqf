@@ -31,7 +31,7 @@ _numbersToTimeString = {
 	toString _chars + _chars2
 };
 
-_countdown = _totalTime - time + _serverTime;
+_countdown = (_totalTime - time) + _serverTime;
 
 if (_countdown > 0) then {
 	timesup = false;
@@ -39,7 +39,7 @@ if (_countdown > 0) then {
 	while {uiSleep 0.5; _countdown > 0} do {
 		if (killtime) exitwith {_done = true};
 		//Find how much time is left
-		_countdown = _totalTime - time + _serverTime;
+		_countdown = (_totalTime - time) + _serverTime;
 		if (_countdown > 0) then {
 			hintSilent parseText format ["<t size='1.5' color='#ffffba0c'>%1</t>", ([floor (_countdown / 60), _countdown mod 60] call _numbersToTimeString)];
 		};

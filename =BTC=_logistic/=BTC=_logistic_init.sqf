@@ -142,7 +142,8 @@ if (BTC_active_towing isEqualTo 1) then {
 		_tower = _this select 0;
 		_array = [];
 		switch (typeOf _tower) do {
-			case "B_APC_Tracked_01_CRV_F"	: {_array = ["LandVehicle","Air"];};//Bobcat
+			case "B_APC_Tracked_01_CRV_F"	: {_array = ["LandVehicle","Air"];};//Bobcat A3
+			case "B_T_APC_Tracked_01_CRV_F"	: {_array = ["LandVehicle","Air"];};//Bobcat A3 Apex
 			//case "B_Truck_01_mover_F"	: {_array = ["LandVehicle","Air"];};//HEMTT Mover
 		};
 		_array
@@ -153,7 +154,6 @@ BTC_l_paradrop = {
 	_veh = _this select 0;
 	_dropped = _this select 1;
 	_chute_type = _this select 2;
-	private "_chute";
 	_dropped_type = typeOf _dropped;
 	_dropped attachTo [_veh,[0,2,-5]];
 	sleep 0.1;
@@ -161,7 +161,7 @@ BTC_l_paradrop = {
 	_dropped setvariable ["BTC_cannot_lift",1,false];
 	waitUntil {_dropped distance _veh > 50};
 	_dropped setvariable ["BTC_cannot_lift",0,false];
-	_chute = createVehicle [_chute_type, getposatl _dropped, [], 0, "FLY"];
+	private _chute = createVehicle [_chute_type, getposatl _dropped, [], 0, "FLY"];
 	_smoke = "SmokeshellGreen" createVehicle position _dropped;
 	_chem  = "Chemlight_green" createVehicle position _dropped;
     _smoke attachto [_dropped,[0,0,0]];

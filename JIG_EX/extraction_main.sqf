@@ -1,5 +1,5 @@
 /*
- extraction_main.sqf v1.2 by Jigsor is WIP
+ extraction_main.sqf v1.21 by Jigsor is WIP
  null = [] execVM "JIG_EX\extraction_main.sqf";
  runs in JIG_EX\extraction_init.sqf 
 */
@@ -19,7 +19,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 	_vehgrp = grpNull;
 	EvacHeliW1 = ObjNull;
 	ex_group_ready = false;
-	_has_gunner_pos = ["B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F","kyo_MH47E_base"];
+	_has_gunner_pos = ["B_CTRG_Heli_Transport_01_tropic_F","B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F","kyo_MH47E_base"];
 	_without_gunner_pos = ["I_Heli_Transport_02_F","CH49_Mohawk_FG","B_Heli_Light_01_F"];
 	_helcat_types = ["AW159_Transport_Camo"];
 	_chinook_types = ["kyo_MH47E_Ramp","kyo_MH47E_HC"];// ("kyo_MH47E_base" unsupported)
@@ -35,8 +35,8 @@ if (!hasInterface && !isDedicated) exitWith {};
 	ex_group_ready = false;
 	publicVariable "ex_group_ready";
 	call Evac_Spawn_Loc;
-	waitUntil {!isNull EvacSpawnPad};
-	[localize "STR_BMR_heli_extraction_inbound", "JIG_EX_MPhint_fnc", nil, [], false, nil, nil, ext_caller_group] call BIS_fnc_mp;// Everything is now ready. Next code block creates chopper and performs Evac/Cleanup.
+	waitUntil {sleep 0.3; !isNull EvacSpawnPad};
+	[localize "STR_BMR_heli_extraction_inbound", "JIG_EX_MPhint_fnc", ext_caller_group, false, false] call BIS_fnc_mp;// Everything is now ready. Next code block creates chopper and performs Evac/Cleanup.
 	sleep 1;
 
 	if ((isNull EvacHeliW1) || (not(alive EvacHeliW1))) then
@@ -83,7 +83,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 
 		_availableSeats = EvacHeliW1 emptyPositions "Cargo";
 
-		if (!(alive _veh) or !(canMove _veh)) then {[localize "STR_BMR_heli_extraction_down", "JIG_EX_MPhint_fnc", nil, [], false, nil, nil, ext_caller_group] call BIS_fnc_mp;};
+		if (!(alive _veh) or !(canMove _veh)) then {[localize "STR_BMR_heli_extraction_down", "JIG_EX_MPhint_fnc", ext_caller_group, false, false] call BIS_fnc_mp;};
 
 		if (not (JIG_EX_gunners)) then {
 			if (_type in _has_gunner_pos) then {
@@ -299,13 +299,13 @@ if (!hasInterface && !isDedicated) exitWith {};
 			} forEach (units EvacHeliW1);
 		};
 
-		if (!isNil "EvacSpawnMkr") then {deleteMarker "EvacSpawnMkr";};	sleep 0.1;
-		if (not (isNull EvacSpawnPad)) then {deleteVehicle EvacSpawnPad;}; sleep 0.1;
-		if (not (isNull EvacLZpad)) then {deleteVehicle EvacLZpad;}; sleep 0.1;
+		if (!isNil "EvacSpawnMkr") then {deleteMarker "EvacSpawnMkr";};
+		if (not (isNull EvacSpawnPad)) then {deleteVehicle EvacSpawnPad;};
+		if (not (isNull EvacLZpad)) then {deleteVehicle EvacLZpad;};
 		evac_toggle = true;
 		publicVariable "evac_toggle";
 		sleep 1.2;
-		[localize "STR_BMR_heli_extraction_standby", "JIG_EX_MPhint_fnc", nil, [], false, nil, nil, ext_caller_group] call BIS_fnc_mp;
+		[localize "STR_BMR_heli_extraction_standby", "JIG_EX_MPhint_fnc", ext_caller_group, false, false] call BIS_fnc_mp;		
 	};
 	if (true) exitwith {};
 };

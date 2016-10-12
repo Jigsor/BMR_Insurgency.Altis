@@ -26,7 +26,7 @@ _ycoor = (getMarkerPos _mission_mkr select 1);
 if (_ins_debug) then {diag_log text format ["Mission Pos : %1", _mkrPos];};
 
 {
-	if (_mkrPos distance (getmarkerpos _x) == 0) then	{
+	if (_mkrPos distance (getmarkerpos _x) == 0) then {
 		side_mission_mkrs = side_mission_mkrs - [_x];
 	};
 } foreach side_mission_mkrs;
@@ -68,7 +68,7 @@ _objsel = objective_list select (floor(random (count objective_list)));
 //_objsel = objective_list select 8;// test "destroy_mortar_squad"
 //_objsel = objective_list select 9;// test "c_n_h"
 //_objsel = objective_list select 10;// test "destroy_roadblock"
-
+//_objsel = objective_list select 11;// test "retrieve_data"
 objective_list = objective_list - [_objsel];
 publicVariable "objective_list";
 sleep 3;
@@ -118,6 +118,10 @@ switch (_objsel) do
 	case "destroy_roadblock":
 	{
 	_type = objective_objs select 10; [_newZone,_type] execVM "Objectives\road_block.sqf";
+	};	
+	case "retrieve_data":
+	{
+	_type = objective_objs select 11; [_newZone,_type] execVM "Objectives\data_retrieval.sqf";
 	};
 };
 

@@ -27,6 +27,7 @@ _vehInit = _this select 3;
 _dir = getDir _veh;
 _pos = getPos _veh;
 _vehtype = typeOf _veh;
+//_dimension = sizeOf _vehtype;
 _vehName = vehicleVarName _veh;
 
 if (isServer) then {
@@ -44,6 +45,20 @@ if (isServer) then {
 			if ((_abandoned) && {_veh distance _pos > 10}) then {
 				deleteVehicle _veh;
 				sleep 1;
+
+				/*
+				//Jig adding block
+				_obstacles = _pos nearEntities [["Air", "Car", "Motorcycle", "Tank", "Land_BagFence_Round_F"], _dimension];
+				if !(isNil "_obstacles") then {
+					{
+						if(!(_x getVariable["persistent",false])) then {
+							deleteVehicle _x;
+						};
+					} forEach _obstacles;
+					sleep 1;
+				};
+				*/
+
 				_veh = createVehicle [_vehtype, _pos, [], 0, "CAN_COLLIDE"];
 				_veh setDir _dir;
 				_veh setPos [_pos select 0, _pos select 1,0];
@@ -64,6 +79,20 @@ if (isServer) then {
 			if (_dead) then {
 				deleteVehicle _veh;
 				sleep 1;
+
+				/*
+				//Jig adding block
+				_obstacles = _pos nearEntities [["Air", "Car", "Motorcycle", "Tank", "Land_BagFence_Round_F"], _dimension];
+				if !(isNil "_obstacles") then {
+					{
+						if(!(_x getVariable["persistent",false])) then {
+							deleteVehicle _x;
+						};
+					} forEach _obstacles;
+					sleep 1;
+				};
+				*/
+
 				_veh = createVehicle [_vehtype, _pos, [], 0, "CAN_COLLIDE"];
 				_veh setDir _dir;
 				_veh setPos [_pos select 0, _pos select 1,0];

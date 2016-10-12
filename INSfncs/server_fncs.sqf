@@ -169,11 +169,6 @@ paint_heli_fnc = {
 		default {};
 	};
 };
-add_UAV_crew = {
-	// add crew to UAV/UGV.
-	params ["_veh"];
-	createVehicleCrew _veh;
-};
 add_veh_flare = {
 	// add flares
 	params ["_veh"];
@@ -193,7 +188,7 @@ fnc_ghst_build_positions = {
 	*/
 	private ["_i","_p","_b","_e","_type"];
 	_i = 0;
-	_b = [];	
+	_b = [];
 	_build_positions = [];
 	_pIsEmpty = false;
 	_type = typeof _this;
@@ -203,7 +198,7 @@ fnc_ghst_build_positions = {
 		_e = _this buildingExit _i;
 		_p = _this buildingPos _i;
 
-		if (( str _p != "[0,0,0]" ) && !(_type in StructureBlackList) && !(_type find "_Pier" != -1) && !(_e isEqualTo _p)) then {		
+		if (( str _p != "[0,0,0]" ) && !(_type in StructureBlackList) && !(_type find "_Pier" != -1) && !(_e isEqualTo _p)) then {
 			_b pushback _p;
 		}else{
 			_pIsEmpty = true;
@@ -310,7 +305,7 @@ JIG_ammmoCache_damage = {
 			"Bo_Air_LGB" createVehicle _pos;
 			while{ (time - curTime) < _dur } do {
 			_veh = "Bo_Air_LGB" createVehicle _pos;
-			_veh setVectorDirAndUp [[(random 1) -0.5,(random 1)-0.5,(random 1) -0.5],[0,(random -1.5),(random 1) -0.5]];//Jig adding
+			_veh setVectorDirAndUp [[(((random 1) -0.5) max 0.2),(((random 1) -0.5) max 0.2),(((random 1) -0.5) min 0.8)],[0,(random -1.5),(random 1) -0.5]];//Jig adding
 			sleep random 1;
 			};
 			"Bo_Air_LGB" createVehicle _pos;
@@ -423,28 +418,6 @@ bmbr_spawnpos_fnc = {
 
 	if (_newPos isEqualTo []) exitWith {_posnotfound;};
 	_newPos
-};
-sta_spawnpos_fnc = {
-	// Objective static placement. by Jigsor
-	params ["_cooX","_cooY","_dis","_wheX","_wheY","_startPos","_posnotfound","_c","_newPos"];
-
-	_dis = 150;
-	_wheX = random (_dis*2)-_dis;
-	_wheY = random (_dis*2)-_dis;
-	_startPos = [_cooX+_wheX,_cooY+_wheY,0];
-	_posnotfound = [];
-	_c = 0;
-	_newPos = _startPos isFlatEmpty [20,384,0.4,2,0,false,ObjNull];
-
-	while {(count _newPos) < 1} do {
-		_newPos = _startPos isFlatEmpty [14,384,0.6,2,0,false,ObjNull];
-		_c = _c + 1;
-		if (_c > 5) exitWith {_posnotfound = [];};
-		sleep 0.5;
-	};
-
-	if (_newPos isEqualTo []) exitWith {_posnotfound;};
-	_newPos;
 };
 miss_object_pos_fnc = {
 	// Objective position. by Jigsor
@@ -595,8 +568,8 @@ spawn_Op4_grp = {
 	(group _unit) setVariable ["zbe_cacheDisabled",false];
 
 	{
-	_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-	if (EOS_DAMAGE_MULTIPLIER != 1) then {
+		_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
+		if (EOS_DAMAGE_MULTIPLIER != 1) then {
 			_x removeAllEventHandlers "HandleDamage";
 			_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];
 		};
@@ -606,54 +579,98 @@ spawn_Op4_grp = {
 };
 spawn_Op4_StatDef = {
 	// Static Gunner group creation and placements. by Jigsor
-	params ["_newZone","_grpSize","_statGrp","_statType1","_statType2","_statType3","_offsetPos1","_offsetPos2","_offsetPos3","_unitType","_static1","_static2","_static3","_StaticArray1","_StaticArray2","_StaticArray3"];
+	params ["_newZone","_grpSize","_radius"];
+	private ["_allGuns1","_interval","_assets","_ranType","_circle","_startPos","_finalPos","_r","_type","_static","_statGrp","_unitType","_allGuns2","_list1","_list2","_ranSel"];
+
+	_assets = [];
+	_allGuns1 = [];
+	_allGuns2 = [];
+	_interval = round(360/_grpSize);
+
+	//add weighting/favored static guns
+	_favored1 = (INS_Op4_stat_weps select 0);
+	_favored2 = (INS_Op4_stat_weps select 1);
+	_assets pushBack _favored1;
+	_assets pushBack _favored2;
+
+	if (_grpSize > 2) then {
+		for "_i" from 0 to _grpSize do {
+			_ranType = selectRandom INS_Op4_stat_weps;
+			_assets pushBack _ranType;
+		};
+	};
+
+	for "_circle" from 1 to 360 step _interval do {
+		_startPos = [(_newZone select 0) + (sin(_circle)*_radius), (_newZone select 1) + (cos(_circle)*_radius), _newZone select 2];
+		_r = floor random (count _assets);
+		_type = _assets select _r;
+		_assets deleteAt _r;
+
+		if (isOnRoad _startPos) then {
+			_finalPos = _startPos findEmptyPosition [2, 30, _type];
+			if (_finalPos isEqualTo []) then {_finalPos = _startPos;};
+		}else{
+			_finalPos = _startPos;
+		};
+
+		_static = createVehicle [_type, _finalPos, [], 0, "NONE"];
+		_static allowDamage false;
+		_static modelToWorld _finalPos;
+		_static setDir ([_newZone, _finalPos] call BIS_fnc_dirTo);
+		_allGuns1 pushBack _static;
+		_allGuns2 pushBack _static;
+	};
 
 	_statGrp = createGroup INS_Op4_side;
-	_statType1 = INS_Op4_stat_weps select 0;
-	_statType2 = INS_Op4_stat_weps select 1;
-	_statType3 = INS_Op4_stat_weps select 2;
-	_offsetPos1 = [(_newZone select 0) + 5, (_newZone select 1) + 5, 0];
-	_offsetPos2 = [(_newZone select 0) - 5, (_newZone select 1) + 5, 0];
-	_offsetPos3 = [(_newZone select 0), (_newZone select 1) - 5, 0];
 
-	for "_i" from 0 to (_grpSize - 2) do {
+	for "_i" from 1 to _grpSize do {
 		_unitType = selectRandom INS_men_list;
 		_statGrp createUnit [_unitType, _newZone, [], 0, "NONE"];
-		sleep 0.5;
 	};
-	_statGrp createUnit [INS_Op4_Eng, _newZone, [], 0, "NONE"];
-	sleep 0.5;
 
 	if (BTC_p_skill isEqualTo 1) then {[_statGrp] call BTC_AI_init;};
 
 	{
-	_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-	if (EOS_DAMAGE_MULTIPLIER != 1) then {
+		_x addeventhandler ["killed", "[(_this select 0)] spawn remove_carcass_fnc"];
+		if (EOS_DAMAGE_MULTIPLIER != 1) then {
 			_x removeAllEventHandlers "HandleDamage";
-			_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];
+			_x addEventHandler ["HandleDamage", {_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];
 		};
 	} forEach (units _statGrp);
 
-	_static1 = createVehicle [_statType1, _offsetPos1, [], 0, "None"]; sleep jig_tvt_globalsleep;
-	_static2 = createVehicle [_statType2, _offsetPos2, [], 0, "None"]; sleep jig_tvt_globalsleep;
-	_static3 = createVehicle [_statType1, _offsetPos3, [], 0, "None"]; sleep jig_tvt_globalsleep;
+	objective_pos_logic setVariable ["INS_ObjectiveStatics", _allGuns1];
 
-	_static1 setDir 0;
-	_static2 setDir 120;
-	_static3 setDir 240;
-	(units _statGrp select 0) assignAsGunner _static1; sleep jig_tvt_globalsleep;
-	(units _statGrp select 1) assignAsGunner _static2; sleep jig_tvt_globalsleep;
-	(units _statGrp select 2) assignAsGunner _static3; sleep jig_tvt_globalsleep;
-	(units _statGrp select 0) moveInGunner _static1; sleep jig_tvt_globalsleep;
-	(units _statGrp select 1) moveInGunner _static2; sleep jig_tvt_globalsleep;
-	(units _statGrp select 2) moveInGunner _static3; sleep jig_tvt_globalsleep;
+	{
+		private _thisGun = (_allGuns2 select 0);
+		_allGuns2 deleteAt 0;
+		_thisGun setVectorUp [0,0,1];
+		_thisGun allowDamage true;
+		_x assignAsGunner _thisGun;
+		_x moveInGunner _thisGun;
+	} forEach (units _statGrp);
 
-	_StaticArray1 = [_static1];
-	_StaticArray2 = [_static2];
-	_StaticArray3 = [_static1,_static2,_static3];
-	sleep 2;
-	nul = [_newZone, _StaticArray1, 110, 2, [0,33], true, false] execVM "scripts\SHK_buildingpos.sqf";
-	//nul = [_newZone, _StaticArray2, 110, 2, [1,33], true, false] execVM "scripts\SHK_buildingpos.sqf";
+	// Roof top placement
+	if (_grpSize > 2) then {
+		_list1 = [];
+		_ranSel = selectRandom _allGuns1;
+		_list1 pushBack _ranSel;
+
+		[_list1,_newZone] spawn {
+			params ["_array1","_sPos"];
+			private _fail = false;
+			[_array1,_sPos] call {
+				if (!params [
+					["_array1", [0]],
+					["_sPos", [0,0,0]]
+				]) exitWith {_fail = true;};
+			};
+			if (_sPos isEqualTo [0,0,0] || _fail) exitWith {if (DebugEnabled isEqualTo 1) then {diag_log format["RoofTop Static UnitArray: %1 Static Center %2", _array1, _sPos];};};
+			if (DebugEnabled isEqualTo 1) then {diag_log "Attempting rooftop static placement";};
+
+			sleep 2;
+			nul = [_sPos, _array1, 110, 2, [0,33], true, false] execVM "scripts\SHK_buildingpos.sqf";
+		};
+	};
 
 	_statGrp
 };
@@ -662,7 +679,7 @@ INS_Tsk_GrpMkrs = {
 	_wpMkrArray = [];
 
 	for "_i" from 1 to (count (waypoints _grp)) -1 do {
-		_mkr = format["%1 WP%2", objective_pos_logic,_i];
+		_mkr = format["%1 WP%2", objective_pos_logic, _i];
 		_wpMkr = createMarker [_mkr, getWPPos [_grp, _i]];
 		_wpMkr setMarkerText _mkr;
 		_wpMkr setMarkerType "waypoint";
@@ -726,9 +743,8 @@ INS_MHQ_VarName = {
 };
 GAS_smoke_AIdamage = {
 	// Give damage to AI not wearing gas mask in toxic smoke by Jigsor
-	private ["_currPos","_aiArray","_maxtype","_sound","_odd"];
+	private ["_currPos","_aiArray","_sound","_odd"];
 	_currPos = _this;
-	_maxtype = (count Choke_Sounds);
 	_odd = 1;
 
 	// loop time based on approximate life time of smoke grenade (21 seconds)
@@ -738,7 +754,7 @@ GAS_smoke_AIdamage = {
 		{
 			if (_aiArray isEqualTo []) exitWith {};
 			if (_odd isEqualTo 1) then {
-				_sound = Choke_Sounds select (floor random _maxtype);
+				_sound = selectRandom Choke_Sounds;
 				playsound3d [_sound, _x, false, getPosasl _x, 14,1,40];
 				_odd = 2;
 			}else{
