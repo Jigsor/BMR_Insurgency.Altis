@@ -1,7 +1,7 @@
 //capture_n_hold.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_cap_rad","_VarName","_uncaped","_caped","_ins_debug","_objmkr","_outpost","_grp","_stat_grp","_handle","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_manArray","_text","_rwave","_hold_rad","_defender_rad","_currTime","_defenderArr","_defcnt","_holdTime"];
+private ["_newZone","_type","_rnum","_cap_rad","_VarName","_uncaped","_caped","_ins_debug","_objmkr","_outpost","_grp","_stat_grp","_handle","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_manArray","_text","_rwave","_hold_rad","_defender_rad","_currTime","_defenderArr","_defcnt","_holdTime","_staticGuns"];
 
 _newZone = _this select 0;
 _type = _this select 1;
@@ -14,7 +14,9 @@ _uncaped = true;
 _caped = true;
 _ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
 
-waitUntil {sleep 2; time > 300};//wait until server time sync
+if !(_ins_debug) then {
+	waitUntil {sleep 2; time > 300};//wait until server time sync
+};
 
 //Positional info
 objective_pos_logic setPos _newZone;
@@ -37,7 +39,7 @@ _outpost Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
 
 //Spawn Objective enemy defences
 _grp = [_newZone,10] call spawn_Op4_grp;
-_stat_grp = [_newZone,3] call spawn_Op4_StatDef;
+_stat_grp = [_newZone,3,12] call spawn_Op4_StatDef;
 
 //movement
 _stat_grp setCombatMode "RED";
@@ -71,7 +73,7 @@ while {_uncaped} do {
 };
 waitUntil {!_uncaped};
 
-if (isNil "timesup") then {timesup = false;};
+if (timesup) then {timesup = false;};
 "timesup" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 
 _text = format [localize "STR_BMR_outpost_caped"];
@@ -132,8 +134,7 @@ _rwave = [_newZone,_ins_debug] spawn {
 
 		curvePosArr = [_start_pos1,_newZone,_pointC,12,false,_ins_debug] call rej_fnc_bezier;
 
-		private "_count";
-		_count = 0;
+		private _count = 0;
 
 		while {curvePosArr isEqualTo []} do	{
 			curvePosArr = [_start_pos1,_newZone,_pointC,12,false,_ins_debug] call rej_fnc_bezier;
@@ -152,8 +153,7 @@ _rwave = [_newZone,_ins_debug] spawn {
 
 			//reinforcement/wave group movement
 			for "_i" from 0 to (count curvePosArr) -1 do {
-				private "_newPosx";
-				_newPosx = (curvePosArr select 0);
+				private _newPosx = (curvePosArr select 0);
 
 				_wp = _rgrp1 addWaypoint [_newPosx, 0];
 				_wp setWaypointType "MOVE";
@@ -216,13 +216,13 @@ while {_caped} do {
 sleep 180;
 
 if (!isNull _outpost) then {deleteVehicle _outpost; sleep 0.1;};
-{deleteVehicle _x; sleep 0.1} forEach (units _grp);
-{deleteVehicle _x; sleep 0.1} forEach (units _stat_grp);
-deleteGroup _grp;
-deleteGroup _stat_grp;
+
+{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
+{deleteGroup _x} forEach [_grp, _stat_grp];
+_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
 
 {if (typeOf _x in INS_men_list) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 40]);
-{if (typeOf _x in INS_Op4_stat_weps) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 40]);
 {if (typeOf _x in objective_ruins) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 30]);
 
 deleteMarker "ObjectiveMkr";

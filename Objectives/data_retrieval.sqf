@@ -1,12 +1,13 @@
 //data_retrieval.sqf by Jigsor
 
 sleep 2;
-private ["_startPos","_type","_list","_nearZones","_buildingNear","_rnum","_uncaped_eos_mkrs","_ins_debug","_nearMkrs","_objmkr","_device","_veh_name","_VarName","_grp","_stat_grp","_tskW","_tskE","_tasktopicW","_tasktopicE","_taskdescW","_taskdescE","_sideWin","_rand","_nearBuildings","_selbuild","_nearBuildings","_posArray","_r","_n","_position","_pos","_clearPos","_buildObj","_bldgPos","_buildDir"];
+private ["_startPos","_type","_list","_nearZones","_buildingNear","_rnum","_uncaped_eos_mkrs","_ins_debug","_nearMkrs","_objmkr","_device","_veh_name","_VarName","_grp","_stat_grp","_tskW","_tskE","_tasktopicW","_tasktopicE","_taskdescW","_taskdescE","_sideWin","_rand","_nearBuildings","_selbuild","_nearBuildings","_posArray","_r","_n","_position","_pos","_clearPos","_buildObj","_bldgPos","_buildDir","_staticGuns"];
 
 _startPos = _this select 0;
 _type = _this select 1;
 _list = 1;
 _nearZones = [];
+_lift = true;
 _buildingNear = false;
 _rnum = str(round (random 999));
 _uncaped_eos_mkrs = all_eos_mkrs;
@@ -111,11 +112,19 @@ _device setpos _bldgPos;
 _device setVectorUp surfaceNormal position _device;
 _device setPos getPos _device;
 
+if (count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0),(getposASL _device select 1), ((getposASL _device select 2) + 1.6)]]) != 0) then {
+	_device setVectorUp [0,0,1];
+	while {((lineIntersectsSurfaces [AGLToASL (getPosWorld _device), AGLToASL _bldgPos, objNull, objNull, true, 1, "FIRE"]) select 0 select 0 select 2) < .016} do {
+		_device setPosatl [(position _device select 0), (position _device select 1), ((getPos _device select 2) + 0.1)];
+		sleep 0.1;
+	};
+};
+
 // create defenses
 _grp = [_clearPos,10] call spawn_Op4_grp;
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 
-_stat_grp = [_clearPos ,3] call spawn_Op4_StatDef;
+_stat_grp = [_clearPos,4,5] call spawn_Op4_StatDef;
 
 //add hold action
 waitUntil {sleep 1; alive _device};
@@ -155,12 +164,12 @@ if (_sideWin isEqualTo 1) then {
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
 
-{deleteVehicle _x; sleep 0.1} forEach (units _grp);
-{deleteVehicle _x; sleep 0.1} forEach (units _stat_grp);
-deleteGroup _grp;
-deleteGroup _stat_grp;
-{if (typeof _x in INS_Op4_stat_weps) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 50]);
-if (!isNull _device) then {deleteVehicle _device; sleep 0.1;};
+_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
+{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
+{deleteGroup _x} forEach [_grp, _stat_grp];
+{deleteVehicle _x; sleep 0.1} forEach (server getVariable "INS_ObjectiveStatics");
+if (!isNull _device) then {deleteVehicle _device;};
 deleteMarker "ObjectiveMkr";
 
 // Initialize new objective

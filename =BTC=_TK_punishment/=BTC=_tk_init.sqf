@@ -94,9 +94,6 @@ BTC_Teamkill = {
 		};
 	};
 };
-if (isServer) then {
-	BTC_tk_PVEH = [];publicVariable "BTC_tk_PVEH";
-};
 if (!isDedicated && !IamHC) then {
 	[] spawn {
 		waitUntil {!isNull player && player == player};

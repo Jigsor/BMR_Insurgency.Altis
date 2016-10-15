@@ -26,7 +26,7 @@ _ycoor = (getMarkerPos _mission_mkr select 1);
 if (_ins_debug) then {diag_log text format ["Mission Pos : %1", _mkrPos];};
 
 {
-	if (_mkrPos distance (getmarkerpos _x) == 0) then	{
+	if (_mkrPos distance (getmarkerpos _x) == 0) then {
 		side_mission_mkrs = side_mission_mkrs - [_x];
 	};
 } foreach side_mission_mkrs;

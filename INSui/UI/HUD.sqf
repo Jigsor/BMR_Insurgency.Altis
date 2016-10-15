@@ -31,33 +31,18 @@ ICE_HUD =
             case (getFatigue Player >= 0.60): {_ctrlSta ctrlSetTextColor [1,0,0,1];};
 		};
 
-		If (vehicle player != player) Then {
-            _dir = getDir vehicle player;
-			switch (true) do {
-			    case (_dir >= 337.5 || _dir < 22.5): {_heading = "N";};
-				case (_dir >= 292.5 && _dir < 337.5): {_heading = "NW";};
-				case (_dir >= 247.5 && _dir < 292.5): {_heading = "W";};
-			    case (_dir >= 202.5 && _dir < 247.5): {_heading ="SW";};
-			    case (_dir >= 157.5 && _dir < 202.5): {_heading ="S";};
-				case (_dir >= 112.5 && _dir < 157.5): {_heading ="SE";};
-				case (_dir >= 67.5 && _dir < 112.5): {_heading ="E";};
-				case (_dir >= 22.5 && _dir < 67.5): {_heading ="NE";};
-			};
-			_ctrlDir ctrlSetText format ["%1", _heading];
+		_dir = if (isNull objectParent player) then {getDir player;}else{getDir vehicle player;};
 
-        } Else {
-            _dir = getDir player;
-		    switch (true) do {
-			    case (_dir >= 337.5 || _dir < 22.5): {_heading = "N";};
-				case (_dir >= 292.5 && _dir < 337.5): {_heading = "NW";};
-			    case (_dir >= 247.5 && _dir < 292.5): {_heading = "W";};
-				case (_dir >= 202.5 && _dir < 247.5): {_heading ="SW";};
-				case (_dir >= 157.5 && _dir < 202.5): {_heading ="S";};
-				case (_dir >= 112.5 && _dir < 157.5): {_heading ="SE";};
-				case (_dir >= 67.5 && _dir < 112.5): {_heading ="E";};
-				case (_dir >= 22.5 && _dir < 67.5): {_heading ="NE";};
-			};
-			_ctrlDir ctrlSetText format ["%1", _heading];
-        };
+		switch (true) do {
+			case (_dir >= 337.5 || _dir < 22.5): {_heading = "N";};
+			case (_dir >= 292.5 && _dir < 337.5): {_heading = "NW";};
+			case (_dir >= 247.5 && _dir < 292.5): {_heading = "W";};
+			case (_dir >= 202.5 && _dir < 247.5): {_heading ="SW";};
+			case (_dir >= 157.5 && _dir < 202.5): {_heading ="S";};
+			case (_dir >= 112.5 && _dir < 157.5): {_heading ="SE";};
+			case (_dir >= 67.5 && _dir < 112.5): {_heading ="E";};
+			case (_dir >= 22.5 && _dir < 67.5): {_heading ="NE";};
+		};
+		_ctrlDir ctrlSetText format ["%1", _heading];
     };
 };

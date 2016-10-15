@@ -35,7 +35,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 	ex_group_ready = false;
 	publicVariable "ex_group_ready";
 	call Evac_Spawn_Loc;
-	waitUntil {!isNull EvacSpawnPad};
+	waitUntil {sleep 0.3; !isNull EvacSpawnPad};
 	[localize "STR_BMR_heli_extraction_inbound", "JIG_EX_MPhint_fnc", ext_caller_group, false, false] call BIS_fnc_mp;// Everything is now ready. Next code block creates chopper and performs Evac/Cleanup.
 	sleep 1;
 
@@ -299,9 +299,9 @@ if (!hasInterface && !isDedicated) exitWith {};
 			} forEach (units EvacHeliW1);
 		};
 
-		if (!isNil "EvacSpawnMkr") then {deleteMarker "EvacSpawnMkr";};	sleep 0.1;
-		if (not (isNull EvacSpawnPad)) then {deleteVehicle EvacSpawnPad;}; sleep 0.1;
-		if (not (isNull EvacLZpad)) then {deleteVehicle EvacLZpad;}; sleep 0.1;
+		if (!isNil "EvacSpawnMkr") then {deleteMarker "EvacSpawnMkr";};
+		if (not (isNull EvacSpawnPad)) then {deleteVehicle EvacSpawnPad;};
+		if (not (isNull EvacLZpad)) then {deleteVehicle EvacLZpad;};
 		evac_toggle = true;
 		publicVariable "evac_toggle";
 		sleep 1.2;

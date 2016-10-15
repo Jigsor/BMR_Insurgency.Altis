@@ -1,7 +1,7 @@
 //Objectives\pilot_rescue.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_pilot_grp","_handle","_op4_side","_blu4_side","_tsk_failed","_hero","_objmkr","_wreck","_VarName","_pilot","_grp","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_loop","_nearUnits","_hero_speed","_pilotVarName","_end_loop","_base_pos"];
+private ["_newZone","_type","_rnum","_pilot_grp","_handle","_op4_side","_blu4_side","_tsk_failed","_hero","_objmkr","_wreck","_VarName","_pilot","_grp","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_loop","_nearUnits","_hero_speed","_pilotVarName","_end_loop","_base_pos","_staticGuns"];
 
 _newZone = _this select 0;
 _type = _this select 1;
@@ -58,7 +58,7 @@ _pilot setCaptive true;
 
 // Spawn Objective enemy defences
 _grp = [_newZone,10] call spawn_Op4_grp;
-_stat_grp = [_newZone,3] call spawn_Op4_StatDef;
+_stat_grp = [_newZone,3,5] call spawn_Op4_StatDef;
 
 _stat_grp setCombatMode "RED";
 
@@ -130,13 +130,12 @@ sleep 60;
 if (!isNull _pilot) then {[_pilot] joinSilent grpNull; sleep 1; deleteVehicle _pilot;};
 sleep 30;
 
-{deleteVehicle _x; sleep 0.1} forEach (units _grp);
-{deleteVehicle _x; sleep 0.1} forEach (units _stat_grp);
-deleteGroup _grp;
-deleteGroup _stat_grp;
-deleteGroup _pilot_grp;
 
-{if (typeof _x in INS_Op4_stat_weps) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 40]);
+{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
+{deleteGroup _x} forEach [_grp, _stat_grp, _pilot_grp];
+
+_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
 {if (typeof _x in objective_ruins) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 30]);
 if (!isNull _wreck) then {deleteVehicle _wreck; sleep 0.1;};
 

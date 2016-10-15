@@ -160,10 +160,8 @@ waitUntil {sleep 1; !_run};
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
 
-{deleteVehicle _x; sleep 0.1} forEach (units _grp);
-{deleteVehicle _x; sleep 0.1} forEach (units mortar_grp);
-deleteGroup _grp;
-deleteGroup mortar_grp;
+{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
+{deleteGroup _x} forEach [_grp, _stat_grp];
 
 if (!isNull _sign) then {deleteVehicle _sign; sleep 0.1;};
 {if (!isNull _x) then {deleteVehicle _x; sleep 0.1}} foreach _all_mortars;

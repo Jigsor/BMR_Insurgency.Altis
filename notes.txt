@@ -95,7 +95,7 @@ Recommended: additional lightweight mod for head dress variation and gas mask su
 HIGHLY RECOMMENDED: additional mod for AI behavior: @asr_ai3. Should be run from server + headless client at a minimum.
 Supported: @ace in addition to any combination above. Should be installed server and client side.
 
-9/27/16
+10/11/16
 BMR_Insurgency_v1.46alpha
 Added: Brighter Night code by Ralian and lobby parameter to disable..
 Added: New objective retrieve_data.The side who dowloads the data at the Land Data Terminal first wins the objective.
@@ -115,6 +115,8 @@ Fixed: Massive server frame drop when revive timer exceeded in BTC Revive.
 Fixed: Timer sync issue in capture n hold objective?
 Fixed: Vehicle Reward now spawns vehicle in direction of road if map click is on road.
 Fixed: Add Zeus function should now only work for correct player.
+Fixed: missing code to set time when Weather parameter "Static Weather 100% Overcast (Weather Disabled)" chosen.
+Change: Rewrote function spawn_Op4_StatDef. Now excepts parameters - position, number of emplacements, radius.
 Change: Removed BTC logistic actions from ammo cache.
 Change: CAS and sand bags on base prohibited.
 Change: Extended abandon timer of Opfor Mohawk from 2 to 45 minutes.
@@ -125,9 +127,11 @@ Change: Parameter CiviMobiles now can manipulate number of spawned civilian Vehi
 Change: code optimization - removed repetavite call lines in OpenMeCiv.sqf.
 Change: code optimization - In INS_definitions.sqf generates a variable for each parameter based on all the parameter class names in Parameters.hpp.
 Change: code optimization - replaced get_loadout.sqf and set_loadout.sqf with new native getUnitLoadout and setUnitLoadout commands.
+Change: code optimization - removed rdundant SHK_buildingpos.sqf scripts.
 Change: Several minor code optimizations to many scripts.
 Change: Increased chance projectiles emitted from ammo cache will fire into the air.
 Change: Integrated new command BIS_fnc_switchLamp to cut_power task. All lamps near objective area are swiched on at start for reapeatability.
+Change: Less chance of rain at mission start when Real Weather enabled.
 
 7/22/16
 BMR_Insurgency_v1.45

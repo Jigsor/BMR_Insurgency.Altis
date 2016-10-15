@@ -42,6 +42,7 @@ extraction_pos_fnc = {
 		sleep 0.1;
 		_lzName = "EvacLZpad";
 		_veh setVehicleVarName _lzName;
+		missionNamespace setVariable [_lzName,_veh,true];
 		_veh Call Compile Format ["%1=_This; PublicVariable ""%1""",_lzName];
 		sleep 1;
 	};
@@ -163,6 +164,7 @@ Cancel_Evac_fnc = {
 		} forEach (units EvacHeliW1);
 		deleteVehicle EvacHeliW1;
 	};
+	{deleteVehicle _x;} forEach [EvacSpawnPad, EvacLZpad];
 };
 JIP_Reset_Evac_fnc = {
 	if (not (isNull EvacHeliW1)) then {

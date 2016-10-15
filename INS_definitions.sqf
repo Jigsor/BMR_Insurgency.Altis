@@ -36,6 +36,7 @@ if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {
 		if (JIPweather !=1) then {
 			[] execVM "scripts\randomWeather2.sqf"; skipTime (INS_p_time -0.84);
 		};
+		if (JIPweather isEqualTo 1) then {skipTime ((INS_p_time - (daytime) +24) % 24);};
 	};
 };
 
@@ -252,6 +253,7 @@ if (isServer) then {
 	intel_objArray = [];publicVariable "intel_objArray";
 	PVEH_NetSay3D = [objNull,0];publicVariable "PVEH_NetSay3D";
 	BTC_to_server = [];publicVariable "BTC_to_server";
+	BTC_tk_PVEH = [];publicVariable "BTC_tk_PVEH";
 	Kick_For_Duration = [];publicVariable "Kick_For_Duration";
 	side_mission_mkrs = ["sidemiss1","sidemiss2","sidemiss3","sidemiss4","sidemiss5","sidemiss6","sidemiss7","sidemiss8","sidemiss9","sidemiss10","sidemiss11","sidemiss12"];publicVariable "side_mission_mkrs";// all objective markers
 	objective_objs = ["Land_TTowerBig_1_F","Land_BagBunker_Tower_F","Land_UWreck_MV22_F","Land_HighVoltageTower_F","APERSBoundingMine","O_APC_Tracked_02_AA_F","RoadCone_F","RoadCone_F","Land_Sign_WarningUnexplodedAmmo_F","Land_Cargo_HQ_V3_F","RoadCone_F","Land_DataTerminal_01_F"];publicVariable "objective_objs";// objective/mission objects (do not change array index order!)
@@ -509,7 +511,7 @@ INS_W_PlayerMedic = ["B_T_Recon_Medic_F","B_T_Medic_F","B_medic_F","B_recon_medi
 INS_W_PlayerEOD = ["B_T_Recon_Exp_F","B_T_Soldier_Exp_F","B_T_Engineer_F","B_engineer_F","B_soldier_repair_F","B_soldier_exp_F","B_mas_mar_soldier_exp_F_rec_d","B_mas_mar_soldier_exp_F_rec_dn","B_mas_mar_soldier_exp_F_d","B_mas_mar_soldier_repair_F_d","B_mas_mar_soldier_exp_F_rec_v","B_mas_mar_soldier_exp_F_v"];//can deactivate mines/IEDs and use mine detector script
 INS_W_PlayerUAVop = ["B_T_Soldier_UAV_F","B_soldier_UAV_F","B_mas_mar_Soldier_UAV_F_v","B_mas_mar_Soldier_UAV_F_d"];// can call in UGV air drop and use huntIR
 INS_W_PlayerSniper = ["B_T_ghillie_tna_F","B_T_Sniper_F","B_T_Spotter_F","B_T_Recon_M_F","B_T_soldier_M_F","B_recon_M_F","B_spotter_F","B_sniper_F","B_soldier_M_F","B_ghillie_ard_F","B_ghillie_lsh_F","B_ghillie_sard_F","B_Recon_Sharpshooter_F","B_mas_mar_soldier_Sg_F_v","B_mas_mar_soldier_Mhg_F_v","B_mas_mar_soldier_M_F_v","B_mas_mar_soldier_M_F_d","B_mas_mar_soldier_Mhg_F_d","B_mas_mar_soldier_Sg_F_d","B_mas_mar_soldier_M_F_rec_d","B_mas_mar_soldier_M_F_rec_v"];// can use bullet cam
-INS_op4_players = "O_medic_F";// Opfor players
+if (toLower (worldName) isEqualTo "tanoa") then {INS_op4_players = "O_T_Medic_F";} else {INS_op4_players = "O_medic_F";};// Opfor players
 INS_all_medics = ["B_T_Recon_Medic_F","B_T_Medic_F","O_T_Medic_F","O_T_Recon_Medic_F","O_V_Soldier_Medic_ghex_F","O_medic_F","B_medic_F","B_recon_medic_F","B_mas_mar_medic_F_v","B_mas_mar_medic_F_d","B_mas_mar_medic_F_rec_d","B_mas_mar_medic_F_rec_v","B_mas_mar_medic_F_rec_vn"];
 INS_PlayerPilot = [];// Classes who can pilot aircraft. Empty array for no restrictions.
 

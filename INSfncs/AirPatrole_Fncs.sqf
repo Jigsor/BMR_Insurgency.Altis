@@ -1,17 +1,16 @@
 // AirPatrole_Fncs.sqf all functions by Jigsor
 RandomAirCenterOp4 = {
 	//Find random center position for air patrol
-	private ["_westbase1","_whitelist1","_whitelist2","_whitelist3","_sorted","_nearestMkr","_AirWP_span","_dis","_dirTo","_startPos","_maxDis","_minDis","_newPos"];
+	private ["_westbase1","_whitelist1","_whitelist2","_whitelist3","_nearestMkr","_AirWP_span","_dis","_dirTo","_startPos","_maxDis","_minDis","_newPos"];
 
 	_westbase1 = [getMarkerPos "Respawn_West" select 0, getMarkerPos "Respawn_West" select 1];
 	_whitelist1 = [getMarkerPos "airWhiteList1" select 0, getMarkerPos "airWhiteList1" select 1];
 	_whitelist2 = [getMarkerPos "airWhiteList2" select 0, getMarkerPos "airWhiteList2" select 1];
 	_whitelist3 = [getMarkerPos "airWhiteList3" select 0, getMarkerPos "airWhiteList3" select 1];
-	_sorted = [[_westbase1,_whitelist1,_whitelist2,_whitelist3],[],{center distance _x},"ASCEND"] call BIS_fnc_sortBy;
-	_nearestMkr = _sorted select 0;
+	_nearestMkr = ([[_westbase1,_whitelist1,_whitelist2,_whitelist3],[],{center distance2d _x},"ASCEND"] call BIS_fnc_sortBy) select 0;
 	_AirWP_span = 3500;
 
-	_dis = _nearestMkr distance center;
+	_dis = _nearestMkr distance2d center;
 	if (_dis < 4002) then {
 		_dirTo = [_nearestMkr, center] call BIS_fnc_dirTo;
 		_startPos = [(getPosATL center select 0) + (_AirWP_span * sin _dirTo), (getPosATL center select 1) + (_AirWP_span * cos _dirTo), 0];
@@ -27,7 +26,7 @@ RandomAirCenterOp4 = {
 };
 Air_Dest_fnc = {
 	//creates 3 markerks in triangle -- "cyclewpmrk", "spawnaire" "spawnairw" and one in center of triangle -- "aomkr"
-	// center logic object is air_pat_pos other logics forEach other way point markers are placed around center logic
+	// center logic object is air_pat_pos. Other logics forEach other way point markers are placed around center logic
 	private ["_AirWP_span""_posHpad","_posnewAO","_currentmarker","_wpcyclemark","_spwnaire","_spwnairepos","_spwnairedir","_spwnairw","_spwnairwpos","_spwnairwdir","_spwnairdire","_spwnairenewdir","_spwnairdirw","_spwnairwnewdir"];
 	_AirWP_span = 3500;
 	_posHpad = [ getPosATL air_pat_pos select 0, (getPosATL air_pat_pos select 1)];
@@ -42,23 +41,21 @@ Air_Dest_fnc = {
 			_currentmarker setMarkerShape "ELLIPSE";
 			"aomkr" setMarkerSize [1, 1];
 			"aomkr" setMarkerShape "ICON";
-			"aomkr" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"aomkr" setMarkerType "Empty";//"mil_dot"
 			"aomkr" setMarkerColor "ColorRed";//ColorRedAlpha "ColorRed"
 			"aomkr" setMarkerText "Enemy Occupied";
 			"aomkr" setMarkerPos (getPosATL air_pat_pos);
-			publicVariable "aomkr";
-			sleep 0.2;
+
 			if (!isNil "cyclewpmrk") then {deleteMarker "cyclewpmrk";};
 			_wpcyclemark = createMarker ["cyclewpmrk", getPosATL air_pat_pos];
 			_wpcyclemark setMarkerShape "ELLIPSE";
 			"cyclewpmrk" setMarkerSize [1, 1];
 			"cyclewpmrk" setMarkerShape "ICON";
-			"cyclewpmrk" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"cyclewpmrk" setMarkerType "Empty";//"mil_dot"
 			"cyclewpmrk" setMarkerColor "ColorRed";
 			"cyclewpmrk" setMarkerText "WPcycle";
 			"cyclewpmrk" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin floor(random 360)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos floor(random 360)), 0];//cycle waypoint distance is _AirWP_span meters from AO marker
-			publicVariable "cyclewpmrk";
-			sleep 0.2;
+
 			air_pat_cycle setPosATL getMarkerPos "cyclewpmrk";
 			if (!isNil "spawnaire") then {deleteMarker "spawnaire";};
 			_spwnaire = createMarker ["spawnaire", getPosATL air_pat_pos];
@@ -67,15 +64,14 @@ Air_Dest_fnc = {
 			_spwnairedir = [_spwnairepos, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnaire" setMarkerSize [1, 1];
 			"spawnaire" setMarkerShape "ICON";
-			"spawnaire" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"spawnaire" setMarkerType "Empty";//"mil_dot"
 			"spawnaire" setMarkerColor "ColorRed";
 			"spawnaire" setMarkerText "SpawnAirEst";
 			"spawnaire" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -300)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -300)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdire = getMarkerPos "spawnaire";
 			_spwnairenewdir = [_spwnairdire, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnaire" setMarkerDir _spwnairenewdir;//point marker direction towards aomkr
-			publicVariable "spawnaire";
-			sleep 0.2;
+
 			air_pat_east setPosATL getMarkerPos "spawnaire";
 			air_pat_east setDir _spwnairenewdir;
 			if (!isNil "spawnairw") then {deleteMarker "spawnairw";};
@@ -83,15 +79,14 @@ Air_Dest_fnc = {
 			_spwnairw setMarkerShape "ELLIPSE";
 			"spawnairw" setMarkerSize [1, 1];
 			"spawnairw" setMarkerShape "ICON";
-			"spawnairw" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"spawnairw" setMarkerType "Empty";//"mil_dot"
 			"spawnairw" setMarkerColor "ColorRed";
 			"spawnairw" setMarkerText "Retreat";
 			"spawnairw" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -60)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -60)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdirw = getMarkerPos "spawnairw";
 			_spwnairwnewdir = [_spwnairdirw, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnairw" setMarkerDir _spwnairwnewdir;//point marker direction towards aomkr
-			publicVariable "spawnairw";
-			sleep 0.1;
+
 			air_pat_west setPosATL getMarkerPos "spawnairw";
 			air_pat_west setDir _spwnairwnewdir;
 		};
@@ -101,22 +96,20 @@ Air_Dest_fnc = {
 			_currentmarker setMarkerShape "ELLIPSE";
 			"aomkr" setMarkerSize [1, 1];
 			"aomkr" setMarkerShape "ICON";
-			"aomkr" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"aomkr" setMarkerType "Empty";
 			"aomkr" setMarkerColor "ColorRed";
 			"aomkr" setMarkerText "Enemy Occupied";
 			"aomkr" setMarkerPos (getPosATL air_pat_pos);
-			publicVariable "aomkr";
-			sleep 0.2;
+
 			_wpcyclemark = createMarker ["cyclewpmrk", getPosATL air_pat_pos];
 			_wpcyclemark setMarkerShape "ELLIPSE";
 			"cyclewpmrk" setMarkerSize [1, 1];
 			"cyclewpmrk" setMarkerShape "ICON";
-			"cyclewpmrk" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"cyclewpmrk" setMarkerType "Empty";
 			"cyclewpmrk" setMarkerColor "ColorRed";
 			"cyclewpmrk" setMarkerText "WPcycle";
 			"cyclewpmrk" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin floor(random 360)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos floor(random 360)), 0];//cycle waypoint distance is _AirWP_span meters from AO marker
-			publicVariable "cyclewpmrk";
-			sleep 0.2;
+
 			air_pat_cycle setPosATL getMarkerPos "cyclewpmrk";
 			_spwnaire = createMarker ["spawnaire", getPosATL air_pat_pos];
 			_spwnaire setMarkerShape "ELLIPSE";
@@ -124,30 +117,28 @@ Air_Dest_fnc = {
 			_spwnairedir = [_spwnairepos, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnaire" setMarkerSize [1, 1];
 			"spawnaire" setMarkerShape "ICON";
-			"spawnaire" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"spawnaire" setMarkerType "Empty";
 			"spawnaire" setMarkerColor "ColorRed";
 			"spawnaire" setMarkerText "SpawnAirEst";
 			"spawnaire" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -300)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -300)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdire = getMarkerPos "spawnaire";
 			_spwnairenewdir = [_spwnairdire, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnaire" setMarkerDir _spwnairenewdir;//point marker direction towards aomkr
-			publicVariable "spawnaire";
-			sleep 0.2;
+
 			air_pat_east setPosATL getMarkerPos "spawnaire";
 			air_pat_east setDir _spwnairenewdir;
 			_spwnairw = createMarker ["spawnairw", getPosATL air_pat_pos];
 			_spwnairw setMarkerShape "ELLIPSE";
 			"spawnairw" setMarkerSize [1, 1];
 			"spawnairw" setMarkerShape "ICON";
-			"spawnairw" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"spawnairw" setMarkerType "Empty";
 			"spawnairw" setMarkerColor "ColorRed";
 			"spawnairw" setMarkerText "Retreat";
 			"spawnairw" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -60)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -60)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdirw = getMarkerPos "spawnairw";
 			_spwnairwnewdir = [_spwnairdirw, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnairw" setMarkerDir _spwnairwnewdir;//point marker direction towards aomkr
-			publicVariable "spawnairw";
-			sleep 0.2;
+
 			air_pat_west setPosATL getMarkerPos "spawnairw";
 			air_pat_west setDir _spwnairwnewdir;
 		};
@@ -156,8 +147,8 @@ Air_Dest_fnc = {
 };
 AirEast_move_logic_fnc = {
 	private ["_ranAEguard","_lastpos","_currentmarker","_newPosAELogic"];
-	_ranAEguard = [ getPos EastAirLogic select 0, (getPos EastAirLogic select 1), 0];
-	_lastpos = [ getMarkerPos "curAEspawnpos" select 0, (getMarkerPos "curAEspawnpos" select 1), 0];
+	_ranAEguard = [ getPos EastAirLogic select 0, getPos EastAirLogic select 1, 0];
+	_lastpos = [ getMarkerPos "curAEspawnpos" select 0, getMarkerPos "curAEspawnpos" select 1, 0];
 	if (_ranAEguard distance _lastpos > 1) then	{
 		EastAirLogic setPos getMarkerPos "spawnaire";
 		_newPosAELogic = getPos EastAirLogic;

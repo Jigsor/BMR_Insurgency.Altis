@@ -153,7 +153,7 @@ class Params
 	title = "		Maximum Simultaneous Activated Zone Limit";
 	values[]={10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,150,300,1000};
 	texts[]={"10","15","20","25","30","35","40","45","50","55","60","65","70","75","80","85","90","95","100","150","300","1000"};
-	default = 45;
+	default = 40;
 	};
 	class DeAct_Gzone_delay//18
 	{
@@ -216,7 +216,7 @@ class Params
 	title = "		Ambient Mobile Civilians?";
 	values[]={0,1,2,3,4};
 	texts[]={"No","1 Per Player","2 Per Player","3 Per Player","4 Per Player"};
-	default = 2;
+	default = 1;
 	};
 	class CiviFoot//27
 	{
@@ -279,7 +279,7 @@ class Params
 	title = "		Enable CAS1 Group Heli Extraction?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
-	default = 1;
+	default = 0;
 	};
 	class INS_GasGrenadeMod//36
 	{

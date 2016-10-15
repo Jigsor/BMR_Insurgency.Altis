@@ -22,8 +22,7 @@ if (isMultiplayer) then {
 		call compile preProcessFileLineNumbers "INSfncs\headless_client_fncs.sqf";
 		diag_log format ["HEADLESSCLIENT: %1 Connected HEADLESSCLIENT ID: %2", name player, owner player];
 
-		private "_enableLogs";
-		_enableLogs = true;// set to false to disable logging to headless client(s) .rpt
+		private _enableLogs = true;// set to false to disable logging to headless client(s) .rpt
 		if (_enableLogs) then {
 			[] spawn {
 				waitUntil {time > 3};

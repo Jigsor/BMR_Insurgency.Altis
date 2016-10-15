@@ -1,3 +1,18 @@
+INS_intro_playTrack = {
+	//Plays a random intro track:
+	// 0 => title, 1 => start delay
+	private _track = selectRandom
+	[
+		[["LeadTrack05_F", 1], 33],
+		[["AmbientTrack01a_F", 32], 33],
+		[["LeadTrack01_F_Bootcamp", 36], 32.9],
+		[["Track06_CarnHeli", 1], 33]
+	];
+	0 fadeMusic 1;
+	playMusic (_track select 0);
+	uiSleep (_track select 1);
+	playMusic "";
+};
 INS_intro = {
 	// Bluefor Intro by Jigsor
 	private ["_dir","_rx","_ry","_text","_cam"];
@@ -9,14 +24,8 @@ INS_intro = {
 	_dir = (direction player) -180;
 	_rx = selectRandom [38,-38];
 	_ry = selectRandom [38,-38];
-	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"],  [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
-	_randomtrack = floor(random 4);
-	switch (_randomtrack) do {
-		case 0 : {0 = [] spawn { playMusic ["LeadTrack05_F", 1]; sleep 33; playMusic ""; };};
-		case 1 : {0 = [] spawn { playMusic ["AmbientTrack01a_F", 32]; sleep 33; playMusic ""; };};
-		case 2 : {0 = [] spawn { playMusic ["LeadTrack01_F_Bootcamp", 36]; sleep 32.9; playMusic ""; };};
-		case 3 : {0 = [] spawn { playMusic ["Track06_CarnHeli", 1]; sleep 33; playMusic ""; };};
-	};
+	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
+	0 = 0 spawn INS_intro_playTrack;
 	_cam = "camera" camCreate [position camstart select 0, position camstart select 1, (position camstart select 2) + 80];
 	_cam camPreload 5;
 	_cam camSetTarget player;
@@ -45,7 +54,6 @@ INS_intro = {
 	enableRadio true;
 	if (INS_environment isEqualTo 0) then {enableEnvironment false;};
 	if (INS_mod_missing) then {[] spawn INS_missing_mods;};
-	//if (true) exitWith {INS_intro_op4 = nil; INS_intro = nil};
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
@@ -54,14 +62,8 @@ INS_intro_op4 = {
 	enableRadio false;
 	setViewDistance 1800;
 	if (daytime > 19.00 || daytime < 5.00) then {camUseNVG true};
-	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"],  [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
-	_randomtrack = floor(random 4);
-	switch (_randomtrack) do {
-		case 0 : {0 = [] spawn { playMusic ["LeadTrack05_F", 1]; sleep 33; playMusic ""; };};
-		case 1 : {0 = [] spawn { playMusic ["AmbientTrack01a_F", 32]; sleep 33; playMusic ""; };};
-		case 2 : {0 = [] spawn { playMusic ["LeadTrack01_F_Bootcamp", 36]; sleep 32.9; playMusic ""; };};
-		case 3 : {0 = [] spawn { playMusic ["Track06_CarnHeli", 1]; sleep 33; playMusic ""; };};
-	};
+	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
+	0 = 0 spawn INS_intro_playTrack;
 	_centPos = getPosATL center;
 	_offsetPos = [_centPos select 0, _centPos select 1, (_centPos select 2) + 300];
 	_cam = "camera" camCreate [(position center select 0) + 240, (position center select 1) + 100, 450];
@@ -88,7 +90,6 @@ INS_intro_op4 = {
 	enableRadio true;
 	if (INS_environment isEqualTo 0) then {enableEnvironment false;};
 	if (INS_mod_missing) then {[] spawn INS_missing_mods;};
-	//if (true) exitWith {INS_intro = nil; INS_intro_op4 = nil; true};
 };
 JIG_placeSandbag_fnc = {
 	// Player action place sandbag barrier. by Jigsor
@@ -874,11 +875,10 @@ GAS_inSmoke = {
 	// We are in smoke. code by Larrow
 	player setVariable ["inSmoke",true];
 
-	private ["_maxtype","_sound"];
-	_maxtype = (count Choke_Sounds);
+	private "_sound";
 
 	"dynamicBlur" ppEffectEnable true;
-    "dynamicBlur" ppEffectAdjust [12];
+	"dynamicBlur" ppEffectAdjust [12];
 	"dynamicBlur" ppEffectCommit 5;
 	enableCamShake true;
 	addCamShake [10, 45, 10];
@@ -886,7 +886,7 @@ GAS_inSmoke = {
 
 	//While were in smoke
 	while { alive player && not captive player && [] call GAS_smokeNear } do {
-		_sound = Choke_Sounds select (floor random _maxtype);
+		_sound = selectRandom Choke_Sounds;
 		playsound3d [_sound, player, false, getPosasl player, 10,1,30];
 		player setDamage (damage player + 0.14);
 		//if(round(random(1)) isEqualTo 0) then {hint "You Should Wear a Gas Mask";};

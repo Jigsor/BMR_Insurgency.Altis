@@ -7,7 +7,7 @@ eos_fnc_spawngroup_civ= compile preprocessfile "eos_civ\functions\civ_fnc.sqf";
 eos_fnc_setcargo_civ = compile preprocessfile "eos_civ\functions\civ_cargo_fnc.sqf";
 EOS_fnc_taskpatrol_civ= compile preprocessfile "eos_civ\functions\civ_shk_patrol.sqf";
 SHK_civ_pos= compile preprocessfile "eos_civ\functions\SHK_civ_pos.sqf";
-shk_fnc_fillhouse_civ = compile preprocessFileLineNumbers "eos_civ\Functions\CivSHK_buildingpos.sqf";
+shk_fnc_fillhouse_civ = compile preprocessFileLineNumbers "scripts\SHK_buildingpos.sqf";
 eos_fnc_getcivunitpool= compile preprocessfilelinenumbers "eos_civ\CivUnitPools.sqf";
 call compile preprocessfilelinenumbers "eos_civ\Civ_AI_Skill.sqf";
 

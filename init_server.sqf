@@ -23,6 +23,7 @@ if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {
 		if (JIPweather !=1) then {
 			[] execVM "scripts\randomWeather2.sqf"; skipTime (INS_p_time -0.84);
 		};
+		if (JIPweather isEqualTo 1) then {skipTime ((INS_p_time - (daytime) +24) % 24);};
 	};
 };
 

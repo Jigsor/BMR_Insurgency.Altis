@@ -1,7 +1,7 @@
 //Objectives\delivery.sqf mission by Jigsor
 
 sleep 2;
-private ["_newZone","_smoke","_smkArr","_type","_rnum","_objmkr","_AA","_VarName","_grp","_vehgrp","_AAveh","_stat_grp","_inf_patrol","_AA_mob_patrol","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_droppoint","_dropedcargo","_veh","_text","_deliverydone","_MHQ3DelReady","_sphere","_cargoPos"];
+private ["_newZone","_smoke","_smkArr","_type","_rnum","_objmkr","_AA","_VarName","_grp","_vehgrp","_AAveh","_stat_grp","_inf_patrol","_AA_mob_patrol","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_droppoint","_dropedcargo","_veh","_text","_deliverydone","_MHQ3DelReady","_sphere","_cargoPos","_staticGuns"];
 
 _newZone = _this select 0;
 _rnum = str(round (random 999));
@@ -163,7 +163,7 @@ _AAveh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
 
 // Spawn Objective enemy defences
 _grp = [_newZone,10] call spawn_Op4_grp;
-_stat_grp = [_newZone,3] call spawn_Op4_StatDef;
+_stat_grp = [_newZone,3,15] call spawn_Op4_StatDef;
 
 _stat_grp setCombatMode "RED";
 
@@ -266,16 +266,13 @@ if (!isNull Demo_Arrow) then {deleteVehicle Demo_Arrow;}; sleep 0.1;
 if (!isNull _sphere) then {deleteVehicle _sphere;};
 sleep 90;
 
-{deleteVehicle _x; sleep 0.1} forEach (units _grp);
-{deleteVehicle _x; sleep 0.1} forEach (units _stat_grp);
-{deleteVehicle _x; sleep 0.1} forEach (units _vehgrp);
-deleteGroup _grp;
-deleteGroup _stat_grp;
-deleteGroup _vehgrp;
+{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp),(units _vehgrp);
+{deleteGroup _x} forEach [_grp, _stat_grp, _vehgrp];
 
 if (!isNull _AAveh) then {deleteVehicle _AAveh; sleep 0.1;};
 
-{if (typeOf _x in INS_Op4_stat_weps) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 40]);
+_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
 {if (typeOf _x in objective_ruins) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 30]);
 if (ObjNull in _smkArr) then {{_smkArr = _smkArr - [objNull]} forEach _smkArr;}; {deleteVehicle _x;} count _smkArr;
 
