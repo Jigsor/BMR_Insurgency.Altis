@@ -25,6 +25,7 @@ if (_INS_tsks_finished) then {
 	_uncaped_eos_mkrs = all_eos_mkrs;
 	while {true} do {
 		{if (getMarkerColor _x == "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x]; sleep 0.1;};} foreach _uncaped_eos_mkrs;
+		//profileNamespace setVariable ["BMR_INS_progress", _uncaped_eos_mkrs];
 		if (count _uncaped_eos_mkrs isEqualTo 0) exitWith {_all_zones_caped = true;};
 		sleep 15;
 	};

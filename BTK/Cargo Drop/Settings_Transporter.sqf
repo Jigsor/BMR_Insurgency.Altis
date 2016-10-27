@@ -57,5 +57,7 @@ if (
 //// XTRA Large
 if (
 (_Transporter isKindOf "C130J_base") ||
-(_Transporter isKindOf "I_Heli_Transport_02_F")
+(_Transporter isKindOf "I_Heli_Transport_02_F") ||
+(_Transporter isKindOf "rhsusf_CH53E_USMC_D") ||
+(_Transporter isKindOf "rhsusf_CH53E_USMC_W")
 ) then { _SelectedTransporterTypeXL = true; };

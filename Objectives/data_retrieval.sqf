@@ -92,7 +92,8 @@ if ((_startPos distance _bldgPos) > 100) then {
 if (_ins_debug) then {diag_log text format["Clear Position Near Data Terminal : %1", _clearPos];};
 
 // create data terminal
-_device = createVehicle [_type, position air_pat_pos, [], 0, "None"];
+_device = createVehicle [_type, position air_pat_pos, [], 0, "CAN_COLLIDE"];
+
 sleep jig_tvt_globalsleep;
 
 _device setVariable["persistent",true];
@@ -112,10 +113,17 @@ _device setpos _bldgPos;
 _device setVectorUp surfaceNormal position _device;
 _device setPos getPos _device;
 
-if (count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0),(getposASL _device select 1), ((getposASL _device select 2) + 1.6)]]) != 0) then {
+if (count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0),(getposASL _device select 1), ((getposASL _device select 2) + 2)]]) > 1) then {
 	_device setVectorUp [0,0,1];
-	while {((lineIntersectsSurfaces [AGLToASL (getPosWorld _device), AGLToASL _bldgPos, objNull, objNull, true, 1, "FIRE"]) select 0 select 0 select 2) < .016} do {
+	private _min_overhead_clearance = 2;
+	while {(((lineIntersectsSurfaces [AGLToASL (getPosWorld _device), AGLToASL _bldgPos, objNull, objNull, true, 1, "FIRE"]) select 0 select 0 select 2) < 0.16) || (count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0),(getposASL _device select 1), ((getposASL _device select 2) + _min_overhead_clearance)]]) > 1)} do {
 		_device setPosatl [(position _device select 0), (position _device select 1), ((getPos _device select 2) + 0.1)];
+		if (_min_overhead_clearance > 0.9) then {
+			_min_overhead_clearance = _min_overhead_clearance - 0.1;
+		}else{
+			_min_overhead_clearance = 1.99;
+			_device setPosatl [(position _device select 0), (position _device select 1), ((getPos _device select 2) + 0.2)];
+		};
 		sleep 0.1;
 	};
 };

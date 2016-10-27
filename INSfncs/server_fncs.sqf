@@ -291,7 +291,7 @@ JIG_ammmoCache_damage = {
         _cache spawn {
             sleep 0.1;
             _this setDamage 1;
-            sleep 2;
+            sleep 1;
 
 			private ["_pos","_dur","_count","_veh","_bObj"];
 			_pos = getPosATL(_this);

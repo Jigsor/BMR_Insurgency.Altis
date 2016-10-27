@@ -505,18 +505,18 @@ if ((INS_op_faction isEqualTo 4) || (INS_op_faction isEqualTo 5)) then {
 INS_Blu_side = WEST;
 
 // Player class types
-INS_W_PlayerEng = ["B_T_Engineer_F","B_engineer_F","B_soldier_repair_F","B_mas_mar_soldier_repair_F_v","B_mas_mar_soldier_repair_F_d"];// can build FARP
-INS_W_PlayerJTAC = ["B_T_Recon_TL_F","B_T_Soldier_TL_F","B_T_Soldier_SL_F","B_T_Recon_JTAC_F","B_recon_TL_F","B_recon_JTAC_F","B_Soldier_SL_F","B_Soldier_TL_F","B_support_Mort_F","B_mas_mar_Soldier_JTAC_F_d","B_mas_mar_Soldier_JTAC_F_v","B_mas_mar_Soldier_TL_F_rec_d","B_mas_mar_Soldier_TL_F_rec_v","B_mas_mar_Soldier_F_rec_v"];// can call in CAS
-INS_W_PlayerMedic = ["B_T_Recon_Medic_F","B_T_Medic_F","B_medic_F","B_recon_medic_F","B_mas_mar_medic_F_v","B_mas_mar_medic_F_d","B_mas_mar_medic_F_rec_d","B_mas_mar_medic_F_rec_v","B_mas_mar_medic_F_rec_vn"];// can build sandbag
-INS_W_PlayerEOD = ["B_T_Recon_Exp_F","B_T_Soldier_Exp_F","B_T_Engineer_F","B_engineer_F","B_soldier_repair_F","B_soldier_exp_F","B_mas_mar_soldier_exp_F_rec_d","B_mas_mar_soldier_exp_F_rec_dn","B_mas_mar_soldier_exp_F_d","B_mas_mar_soldier_repair_F_d","B_mas_mar_soldier_exp_F_rec_v","B_mas_mar_soldier_exp_F_v"];//can deactivate mines/IEDs and use mine detector script
-INS_W_PlayerUAVop = ["B_T_Soldier_UAV_F","B_soldier_UAV_F","B_mas_mar_Soldier_UAV_F_v","B_mas_mar_Soldier_UAV_F_d"];// can call in UGV air drop and use huntIR
-INS_W_PlayerSniper = ["B_T_ghillie_tna_F","B_T_Sniper_F","B_T_Spotter_F","B_T_Recon_M_F","B_T_soldier_M_F","B_recon_M_F","B_spotter_F","B_sniper_F","B_soldier_M_F","B_ghillie_ard_F","B_ghillie_lsh_F","B_ghillie_sard_F","B_Recon_Sharpshooter_F","B_mas_mar_soldier_Sg_F_v","B_mas_mar_soldier_Mhg_F_v","B_mas_mar_soldier_M_F_v","B_mas_mar_soldier_M_F_d","B_mas_mar_soldier_Mhg_F_d","B_mas_mar_soldier_Sg_F_d","B_mas_mar_soldier_M_F_rec_d","B_mas_mar_soldier_M_F_rec_v"];// can use bullet cam
+INS_W_PlayerEng = ["B_T_Engineer_F","B_engineer_F","B_soldier_repair_F","rhsusf_army_ocp_engineer","B_mas_mar_soldier_repair_F_v","B_mas_mar_soldier_repair_F_d"];// can build FARP
+INS_W_PlayerJTAC = ["B_T_Recon_TL_F","B_T_Soldier_TL_F","B_T_Soldier_SL_F","B_T_Recon_JTAC_F","B_recon_TL_F","B_recon_JTAC_F","B_Soldier_SL_F","B_Soldier_TL_F","B_support_Mort_F","rhsusf_socom_marsoc_jtac","rhsusf_army_ocp_squadleader","rhsusf_army_ocp_teamleader","rhsusf_usmc_recon_marpat_d_teamleader","B_mas_mar_Soldier_JTAC_F_d","B_mas_mar_Soldier_JTAC_F_v","B_mas_mar_Soldier_TL_F_rec_d","B_mas_mar_Soldier_TL_F_rec_v","B_mas_mar_Soldier_F_rec_v"];// can call in CAS
+INS_W_PlayerMedic = ["B_T_Recon_Medic_F","B_T_Medic_F","B_medic_F","B_recon_medic_F","rhsusf_army_ocp_medic","B_mas_mar_medic_F_v","B_mas_mar_medic_F_d","B_mas_mar_medic_F_rec_d","B_mas_mar_medic_F_rec_v","B_mas_mar_medic_F_rec_vn"];// can build sandbag
+INS_W_PlayerEOD = ["B_T_Recon_Exp_F","B_T_Soldier_Exp_F","B_T_Engineer_F","B_engineer_F","B_soldier_repair_F","B_soldier_exp_F","rhsusf_army_ocp_engineer","rhsusf_army_ocp_explosives","B_mas_mar_soldier_exp_F_rec_d","B_mas_mar_soldier_exp_F_rec_dn","B_mas_mar_soldier_exp_F_d","B_mas_mar_soldier_repair_F_d","B_mas_mar_soldier_exp_F_rec_v","B_mas_mar_soldier_exp_F_v"];//can deactivate mines/IEDs and use mine detector script
+INS_W_PlayerUAVop = ["B_soldier_UAV_F","B_T_Soldier_UAV_F","B_soldier_UAV_F","rhsusf_army_ocp_uav","B_mas_mar_Soldier_UAV_F_v","B_mas_mar_Soldier_UAV_F_d"];// can call in UGV air drop and use huntIR
+INS_W_PlayerSniper = ["B_T_ghillie_tna_F","B_T_Sniper_F","B_T_Spotter_F","B_T_Recon_M_F","B_T_soldier_M_F","B_recon_M_F","B_spotter_F","B_sniper_F","B_soldier_M_F","B_ghillie_ard_F","B_ghillie_lsh_F","B_ghillie_sard_F","B_Recon_Sharpshooter_F","rhsusf_army_ocp_marksman","rhsusf_army_ocp_sniper_m107","rhsusf_usmc_marpat_d_sniper","rhsusf_usmc_marpat_d_spotter","B_mas_mar_soldier_Sg_F_v","B_mas_mar_soldier_Mhg_F_v","B_mas_mar_soldier_M_F_v","B_mas_mar_soldier_M_F_d","B_mas_mar_soldier_Mhg_F_d","B_mas_mar_soldier_Sg_F_d","B_mas_mar_soldier_M_F_rec_d","B_mas_mar_soldier_M_F_rec_v"];// can use bullet cam
 if (toLower (worldName) isEqualTo "tanoa") then {INS_op4_players = "O_T_Medic_F";} else {INS_op4_players = "O_medic_F";};// Opfor players
-INS_all_medics = ["B_T_Recon_Medic_F","B_T_Medic_F","O_T_Medic_F","O_T_Recon_Medic_F","O_V_Soldier_Medic_ghex_F","O_medic_F","B_medic_F","B_recon_medic_F","B_mas_mar_medic_F_v","B_mas_mar_medic_F_d","B_mas_mar_medic_F_rec_d","B_mas_mar_medic_F_rec_v","B_mas_mar_medic_F_rec_vn"];
+INS_all_medics = ["B_T_Recon_Medic_F","B_T_Medic_F","O_T_Medic_F","O_T_Recon_Medic_F","O_V_Soldier_Medic_ghex_F","O_medic_F","B_medic_F","B_recon_medic_F","rhsusf_army_ocp_medic","B_mas_mar_medic_F_v","B_mas_mar_medic_F_d","B_mas_mar_medic_F_rec_d","B_mas_mar_medic_F_rec_v","B_mas_mar_medic_F_rec_vn"];
 INS_PlayerPilot = [];// Classes who can pilot aircraft. Empty array for no restrictions.
 
 // Blufor Repair Support Vehicles
-INS_W_repairTruck = ["B_T_Truck_01_Repair_F","B_T_APC_Tracked_01_CRV_F","B_Truck_01_Repair_F","B_APC_Tracked_01_CRV_F"];//"B_G_Offroad_01_repair_F"
+INS_W_repairTruck = ["B_T_Truck_01_Repair_F","B_T_APC_Tracked_01_CRV_F","B_Truck_01_Repair_F","B_APC_Tracked_01_CRV_F","rhsusf_M977A4_REPAIR_BKIT_M2_usarmy_d","rhsusf_M977A4_REPAIR_BKIT_usarmy_d"];//"B_G_Offroad_01_repair_F"
 
 // Liftable object
 BTC_fob_materials = ["Land_Cargo20_military_green_F"];//"Box_NATO_AmmoVeh_F" "Land_CargoBox_V1_F"

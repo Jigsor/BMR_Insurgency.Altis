@@ -95,7 +95,7 @@ Recommended: additional lightweight mod for head dress variation and gas mask su
 HIGHLY RECOMMENDED: additional mod for AI behavior: @asr_ai3. Should be run from server + headless client at a minimum.
 Supported: @ace in addition to any combination above. Should be installed server and client side.
 
-10/11/16
+10/25/16
 BMR_Insurgency_v1.46alpha
 Added: Brighter Night code by Ralian and lobby parameter to disable..
 Added: New objective retrieve_data.The side who dowloads the data at the Land Data Terminal first wins the objective.
@@ -103,16 +103,18 @@ Added: Shell sounds to CAS bombs.
 Added: More grid zones to jungle areas and fortress ruins(Tanoa).
 Added: "B_APC_Tracked_01_CRV_F" to list of towing vehicles.
 Added: Push action to ships spawned by Vehicle Reward.
-Added: Group heli extract boots members from group if their distance from caller is exceeds distance defined by JIG_EX_Group_Dis
+Added: Group heli extract boots members from group if their distance from caller exceeds distance defined by JIG_EX_Group_Dis
 Added: Lobby Parameter Player Markers.
 Added: Option "CSAT Pacific and Syndikat Apex" to Lobby parameter "Opposing Army/Mod Initialization".
 Added: Once max number of air droped UGV request is reached then one additional UGV request is can be made every 25 points earned thereafter.
+Added: compatibility for RHS Super Stallion "rhsusf_CH53E_USMC_D" and "rhsusf_CH53E_USMC_W" as MHQ_3.
+Adding Percistence WIP.
 Fixed: Recativated grids zones sometimes created hidden units
 Fixed: BIS_fnc_mp JIG_EX_MPhint_fnc errors in extraction_main.sqf.
 Fixed: Mission's Helmet Cam and ACE Helmet Cam conflict.
 Fixed: road_block.sqf script hang when connected road did not exist(Tanoa).
 Fixed: Massive server frame drop when revive timer exceeded in BTC Revive.
-Fixed: Timer sync issue in capture n hold objective?
+Fixed: Timer sync issue in capture n hold objective.
 Fixed: Vehicle Reward now spawns vehicle in direction of road if map click is on road.
 Fixed: Add Zeus function should now only work for correct player.
 Fixed: missing code to set time when Weather parameter "Static Weather 100% Overcast (Weather Disabled)" chosen.

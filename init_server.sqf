@@ -154,17 +154,17 @@ if (Airfield_opt) then
 			};
 		};
 		case 11: {
-			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {// "cfgPatches"
 				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 12: {
-			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 13: {
-			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
 			};
 		};
@@ -208,7 +208,20 @@ if (Airfield_opt) then
 
 // Tasks //
 [] spawn {
+/*
+// Persistence Check/Set Marker Color
+	if (!isNil {profileNamespace getVariable "BMR_INS_progress"}) then {
+		waitUntil {! isNil "VictoryColor");
+		private _uncapedMarkers = profileNamespace getVariable "BMR_INS_progress";
+		{			
+			if !(_x in all_eos_mkrs) then {
+				_x setMarkerColor VictoryColor;
+			};
+		} foreach _uncapedMarkers;
+	};
+*/
 	waitUntil {! isNil "SHK_Taskmaster_Tasks"};
+
 	if (DebugEnabled isEqualTo 1) then {
 		sleep 2;
 		tasks_handler = [] execVM "Objectives\random_objectives.sqf";
