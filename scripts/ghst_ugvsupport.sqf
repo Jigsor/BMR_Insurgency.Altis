@@ -77,7 +77,7 @@ if (alive _ugv1) then {// jig adding/change - ugv is recreated on landing becaus
 	_groundPos = [getpos _ugv1 select 0,getpos _ugv1 select 1,getposatl _ugv1 select 2];
 	_dir = direction _ugv1;
 
-	if  (count(lineIntersectsObjs [(getposASL _ugv1), [(getposASL _ugv1 select 0),(getposASL _ugv1 select 1), ((getposASL _ugv1 select 2) + 20)]]) != 0) then {
+	if  (count(lineIntersectsObjs [(getposASL _ugv1), [(getposASL _ugv1 select 0),(getposASL _ugv1 select 1), ((getposASL _ugv1 select 2) + 20)]]) > 1) then {
 		_groundPos = [_groundPos, 0, 50, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
 	};
 
