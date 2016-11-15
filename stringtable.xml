@@ -405,7 +405,7 @@
 		<Spanish>Proteja torre alta tensión para mantener las luces encendidas en la región</Spanish>
 	</Key>
 	<Key ID="STR_BMR_PowerTower_success">
-		<Original>City is losing power within a raduis of 1000 meters. Good Job!</Original>
+		<Original>City is losing power within a radius of 1000 meters. Good Job!</Original>
 		<German>Im Umkreis von 1000 Metern ist der Strom in der Stadt ausgefallen. Gute Arbeit!</German>
 		<French>Ville est en train de perdre le pouvoir au sein de 1000 mètres de rayon. Bon Travail!</French>
 		<Russian>Город теряет силу в радиусе 1000 метров. Отличная работа!</Russian>

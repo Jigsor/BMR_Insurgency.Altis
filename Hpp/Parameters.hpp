@@ -279,7 +279,7 @@ class Params
 	title = "		Enable CAS1 Group Heli Extraction?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
-	default = 0;
+	default = 1;
 	};
 	class INS_GasGrenadeMod//36
 	{
@@ -297,7 +297,7 @@ class Params
 	texts[]={"No","Yes"};
 	default = 0;
 	};
-		class INS_Player_Markers//38
+	class INS_Player_Markers//38
 	{
 	title = "		Player Markers";
 	values[]={0,1};

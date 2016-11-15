@@ -166,8 +166,19 @@ paint_heli_fnc = {
 			_veh setObjectTextureGlobal [1,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"];
 			_veh setObjectTextureGlobal [2,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"];
 		};
+		case (toLower (worldName) isEqualTo "lingor3"):
+		{// green
+			_veh setObjectTextureGlobal [0,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"];
+			_veh setObjectTextureGlobal [1,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"];
+			_veh setObjectTextureGlobal [2,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"];
+		};
 		default {};
 	};
+};
+add_UAV_crew = {
+	// add crew to UAV/UGV.
+	params ["_veh"];
+	createVehicleCrew _veh;
 };
 add_veh_flare = {
 	// add flares
