@@ -1,17 +1,16 @@
 // AirPatrole_Fncs.sqf all functions by Jigsor
 RandomAirCenterOp4 = {
 	//Find random center position for air patrol
-	private ["_westbase1","_whitelist1","_whitelist2","_whitelist3","_sorted","_nearestMkr","_AirWP_span","_dis","_dirTo","_startPos","_maxDis","_minDis","_newPos"];
+	private ["_westbase1","_whitelist1","_whitelist2","_whitelist3","_nearestMkr","_AirWP_span","_dis","_dirTo","_startPos","_maxDis","_minDis","_newPos"];
 
 	_westbase1 = [getMarkerPos "Respawn_West" select 0, getMarkerPos "Respawn_West" select 1];
 	_whitelist1 = [getMarkerPos "airWhiteList1" select 0, getMarkerPos "airWhiteList1" select 1];
 	_whitelist2 = [getMarkerPos "airWhiteList2" select 0, getMarkerPos "airWhiteList2" select 1];
 	_whitelist3 = [getMarkerPos "airWhiteList3" select 0, getMarkerPos "airWhiteList3" select 1];
-	_sorted = [[_westbase1,_whitelist1,_whitelist2,_whitelist3],[],{center distance _x},"ASCEND"] call BIS_fnc_sortBy;
-	_nearestMkr = _sorted select 0;
+	_nearestMkr = ([[_westbase1,_whitelist1,_whitelist2,_whitelist3],[],{center distance2d _x},"ASCEND"] call BIS_fnc_sortBy) select 0;
 	_AirWP_span = 3500;
 
-	_dis = _nearestMkr distance center;
+	_dis = _nearestMkr distance2d center;
 	if (_dis < 4002) then {
 		_dirTo = [_nearestMkr, center] call BIS_fnc_dirTo;
 		_startPos = [(getPosATL center select 0) + (_AirWP_span * sin _dirTo), (getPosATL center select 1) + (_AirWP_span * cos _dirTo), 0];
@@ -27,7 +26,7 @@ RandomAirCenterOp4 = {
 };
 Air_Dest_fnc = {
 	//creates 3 markerks in triangle -- "cyclewpmrk", "spawnaire" "spawnairw" and one in center of triangle -- "aomkr"
-	// center logic object is air_pat_pos other logics forEach other way point markers are placed around center logic
+	// center logic object is air_pat_pos. Other logics forEach other way point markers are placed around center logic
 	private ["_AirWP_span""_posHpad","_posnewAO","_currentmarker","_wpcyclemark","_spwnaire","_spwnairepos","_spwnairedir","_spwnairw","_spwnairwpos","_spwnairwdir","_spwnairdire","_spwnairenewdir","_spwnairdirw","_spwnairwnewdir"];
 	_AirWP_span = 3500;
 	_posHpad = [ getPosATL air_pat_pos select 0, (getPosATL air_pat_pos select 1)];
@@ -42,23 +41,21 @@ Air_Dest_fnc = {
 			_currentmarker setMarkerShape "ELLIPSE";
 			"aomkr" setMarkerSize [1, 1];
 			"aomkr" setMarkerShape "ICON";
-			"aomkr" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"aomkr" setMarkerType "Empty";//"mil_dot"
 			"aomkr" setMarkerColor "ColorRed";//ColorRedAlpha "ColorRed"
 			"aomkr" setMarkerText "Enemy Occupied";
 			"aomkr" setMarkerPos (getPosATL air_pat_pos);
-			publicVariable "aomkr";
-			sleep 0.2;
+
 			if (!isNil "cyclewpmrk") then {deleteMarker "cyclewpmrk";};
 			_wpcyclemark = createMarker ["cyclewpmrk", getPosATL air_pat_pos];
 			_wpcyclemark setMarkerShape "ELLIPSE";
 			"cyclewpmrk" setMarkerSize [1, 1];
 			"cyclewpmrk" setMarkerShape "ICON";
-			"cyclewpmrk" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"cyclewpmrk" setMarkerType "Empty";//"mil_dot"
 			"cyclewpmrk" setMarkerColor "ColorRed";
 			"cyclewpmrk" setMarkerText "WPcycle";
 			"cyclewpmrk" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin floor(random 360)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos floor(random 360)), 0];//cycle waypoint distance is _AirWP_span meters from AO marker
-			publicVariable "cyclewpmrk";
-			sleep 0.2;
+
 			air_pat_cycle setPosATL getMarkerPos "cyclewpmrk";
 			if (!isNil "spawnaire") then {deleteMarker "spawnaire";};
 			_spwnaire = createMarker ["spawnaire", getPosATL air_pat_pos];
@@ -67,15 +64,14 @@ Air_Dest_fnc = {
 			_spwnairedir = [_spwnairepos, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnaire" setMarkerSize [1, 1];
 			"spawnaire" setMarkerShape "ICON";
-			"spawnaire" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"spawnaire" setMarkerType "Empty";//"mil_dot"
 			"spawnaire" setMarkerColor "ColorRed";
 			"spawnaire" setMarkerText "SpawnAirEst";
 			"spawnaire" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -300)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -300)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdire = getMarkerPos "spawnaire";
 			_spwnairenewdir = [_spwnairdire, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnaire" setMarkerDir _spwnairenewdir;//point marker direction towards aomkr
-			publicVariable "spawnaire";
-			sleep 0.2;
+
 			air_pat_east setPosATL getMarkerPos "spawnaire";
 			air_pat_east setDir _spwnairenewdir;
 			if (!isNil "spawnairw") then {deleteMarker "spawnairw";};
@@ -83,15 +79,14 @@ Air_Dest_fnc = {
 			_spwnairw setMarkerShape "ELLIPSE";
 			"spawnairw" setMarkerSize [1, 1];
 			"spawnairw" setMarkerShape "ICON";
-			"spawnairw" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"spawnairw" setMarkerType "Empty";//"mil_dot"
 			"spawnairw" setMarkerColor "ColorRed";
 			"spawnairw" setMarkerText "Retreat";
 			"spawnairw" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -60)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -60)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdirw = getMarkerPos "spawnairw";
 			_spwnairwnewdir = [_spwnairdirw, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnairw" setMarkerDir _spwnairwnewdir;//point marker direction towards aomkr
-			publicVariable "spawnairw";
-			sleep 0.1;
+
 			air_pat_west setPosATL getMarkerPos "spawnairw";
 			air_pat_west setDir _spwnairwnewdir;
 		};
@@ -101,22 +96,20 @@ Air_Dest_fnc = {
 			_currentmarker setMarkerShape "ELLIPSE";
 			"aomkr" setMarkerSize [1, 1];
 			"aomkr" setMarkerShape "ICON";
-			"aomkr" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"aomkr" setMarkerType "Empty";
 			"aomkr" setMarkerColor "ColorRed";
 			"aomkr" setMarkerText "Enemy Occupied";
 			"aomkr" setMarkerPos (getPosATL air_pat_pos);
-			publicVariable "aomkr";
-			sleep 0.2;
+
 			_wpcyclemark = createMarker ["cyclewpmrk", getPosATL air_pat_pos];
 			_wpcyclemark setMarkerShape "ELLIPSE";
 			"cyclewpmrk" setMarkerSize [1, 1];
 			"cyclewpmrk" setMarkerShape "ICON";
-			"cyclewpmrk" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"cyclewpmrk" setMarkerType "Empty";
 			"cyclewpmrk" setMarkerColor "ColorRed";
 			"cyclewpmrk" setMarkerText "WPcycle";
 			"cyclewpmrk" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin floor(random 360)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos floor(random 360)), 0];//cycle waypoint distance is _AirWP_span meters from AO marker
-			publicVariable "cyclewpmrk";
-			sleep 0.2;
+
 			air_pat_cycle setPosATL getMarkerPos "cyclewpmrk";
 			_spwnaire = createMarker ["spawnaire", getPosATL air_pat_pos];
 			_spwnaire setMarkerShape "ELLIPSE";
@@ -124,30 +117,28 @@ Air_Dest_fnc = {
 			_spwnairedir = [_spwnairepos, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnaire" setMarkerSize [1, 1];
 			"spawnaire" setMarkerShape "ICON";
-			"spawnaire" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"spawnaire" setMarkerType "Empty";
 			"spawnaire" setMarkerColor "ColorRed";
 			"spawnaire" setMarkerText "SpawnAirEst";
 			"spawnaire" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -300)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -300)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdire = getMarkerPos "spawnaire";
 			_spwnairenewdir = [_spwnairdire, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnaire" setMarkerDir _spwnairenewdir;//point marker direction towards aomkr
-			publicVariable "spawnaire";
-			sleep 0.2;
+
 			air_pat_east setPosATL getMarkerPos "spawnaire";
 			air_pat_east setDir _spwnairenewdir;
 			_spwnairw = createMarker ["spawnairw", getPosATL air_pat_pos];
 			_spwnairw setMarkerShape "ELLIPSE";
 			"spawnairw" setMarkerSize [1, 1];
 			"spawnairw" setMarkerShape "ICON";
-			"spawnairw" setMarkerType "Empty";//set marker type to "mil_dot" for debug. Set "Empty" for invisible
+			"spawnairw" setMarkerType "Empty";
 			"spawnairw" setMarkerColor "ColorRed";
 			"spawnairw" setMarkerText "Retreat";
 			"spawnairw" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -60)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -60)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdirw = getMarkerPos "spawnairw";
 			_spwnairwnewdir = [_spwnairdirw, air_pat_pos] call BIS_fnc_dirTo;
 			"spawnairw" setMarkerDir _spwnairwnewdir;//point marker direction towards aomkr
-			publicVariable "spawnairw";
-			sleep 0.2;
+
 			air_pat_west setPosATL getMarkerPos "spawnairw";
 			air_pat_west setDir _spwnairwnewdir;
 		};
@@ -156,8 +147,13 @@ Air_Dest_fnc = {
 };
 AirEast_move_logic_fnc = {
 	private ["_ranAEguard","_lastpos","_currentmarker","_newPosAELogic"];
-	_ranAEguard = [ getPos EastAirLogic select 0, (getPos EastAirLogic select 1), 0];
-	_lastpos = [ getMarkerPos "curAEspawnpos" select 0, (getMarkerPos "curAEspawnpos" select 1), 0];
+<<<<<<< HEAD
+	_ranAEguard = [getPos EastAirLogic select 0, getPos EastAirLogic select 1, 0];
+	_lastpos = [getMarkerPos "curAEspawnpos" select 0, getMarkerPos "curAEspawnpos" select 1, 0];
+=======
+	_ranAEguard = [ getPos EastAirLogic select 0, getPos EastAirLogic select 1, 0];
+	_lastpos = [ getMarkerPos "curAEspawnpos" select 0, getMarkerPos "curAEspawnpos" select 1, 0];
+>>>>>>> a6dab6a58812d92c11e91b487d53bdd6f069132b
 	if (_ranAEguard distance _lastpos > 1) then	{
 		EastAirLogic setPos getMarkerPos "spawnaire";
 		_newPosAELogic = getPos EastAirLogic;
@@ -174,7 +170,7 @@ AirEast_move_logic_fnc = {
 };
 find_west_target_fnc = {
 	// based on example by Mattar_Tharkari in BIS community forums http://forums.bistudio.com/showthread.php?145573-How-to-make-AI-vehicle-follow-chase-players/page2
-	private ["_vcl","_dis","_hunted","_future_time","_gamelogic","_delay","_wpRad","_cfgMapSize","_sqrt","_mh","_patrolRad","_towns","_wpArray","_i","_wp1","_tgtArray","_nrstWTgts","_cntrPos"];
+	private ["_vcl","_dis","_hunted","_future_time","_gamelogic","_delay","_wpRad","_cfgMapSize","_sqrt","_mh","_patrolRad","_towns","_r","_randomTownPos","_wpArray","_i","_wp1","_tgtArray","_nrstWTgts","_cntrPos"];
 
 	_vcl = _this select 0;
 	_dis = _this select 1;//search distance
@@ -191,9 +187,9 @@ find_west_target_fnc = {
 
 	_cfgMapSize = getnumber (configfile >> "CfgWorlds" >> worldName >> "mapSize");
 	if ((!isNil "_cfgMapSize") && {(_cfgMapSize != 0)}) then {
-			_sqrt = sqrt 2;
-			_mh = _cfgMapSize /_sqrt;
-			_patrolRad = round(_mh / 2);
+		_sqrt = sqrt 2;
+		_mh = _cfgMapSize / _sqrt;
+		_patrolRad = round(_mh / 2);
 	}else{
 		_patrolRad = 10000;
 	};
@@ -215,7 +211,6 @@ find_west_target_fnc = {
 // Seek N Destroy
 
 			if ((isNull _hunted) || (_vcl distance _hunted > _dis)) then {
-				private "_chance";
 				_vcl setVehicleAmmo 1;
 				_vcl setFuel 1;
 				_tgtArray = (position _vcl) nearEntities [["Air","CAManBase"],_dis];
@@ -241,7 +236,7 @@ find_west_target_fnc = {
 
 					{_x reveal (_nrstWTgts select 0);} forEach (units group _vcl);
 
-					_chance = floor(random 3);
+					private _chance = floor(random 3);
 					if (_chance >= 1) then {
 						{
 							_x doTarget (_nrstWTgts select 0);
@@ -253,7 +248,7 @@ find_west_target_fnc = {
 			}
 			else
 			{
-				private ["_chance","_vicPosArr","_targets"];
+				private ["_chance","_vicPosArr","_targets","_grpMemberPos","_sel","_randSel","_attackPos","_victim"];
 				while {!isNull _hunted} do {
 					_vicPosArr = [];
 					_targets = [];
@@ -281,9 +276,9 @@ find_west_target_fnc = {
 
 					if (count _vicPosArr > 0) then {
 						_sel = (count _vicPosArr) -1;
-						_rnd_sel = floor (round(random _sel));
-						_attackPos = _vicPosArr select _rnd_sel;
-						_victim = _targets select _rnd_sel;
+						_randSel = floor (round(random _sel));
+						_attackPos = _vicPosArr select _randSel;
+						_victim = _targets select _randSel;
 
 						_wp1 setWaypointPosition [_attackPos, _wpRad];
 						(group _vcl) setCurrentWaypoint _wp1;
@@ -300,20 +295,21 @@ find_west_target_fnc = {
 
 				while {isNull _hunted} do {
 					if (count _towns !=0 && alive _vcl) then {
-						_RandomTownPosition = position (_towns select 0);
-						_towns deleteAt 0;
-
+						_r = floor(random count _towns);
+						_randomTownPos = position (_towns select _r);
 						_wpArray = wayPoints (group _vcl);
+
 						for "_i" from 0 to (count _wpArray -1) do {
 							deleteWaypoint [(group _vcl), _i]
 						};
 
 						_wp1 = (group _vcl) addWaypoint [(getPos _vcl), 0];
 						_wp1 setWaypointType "MOVE";
-
-						_wp1 setWaypointPosition [_RandomTownPosition, 0];
+						_wp1 setWaypointPosition [_randomTownPos, _wpRad];
 						(group _vcl) setCurrentWaypoint _wp1;
 						sleep 200;
+
+						_towns deleteAt _r;
 					};
 					if ((_towns isEqualTo []) || (!alive _vcl)) exitWith {};
 					if (time > _future_time) then {[_vcl] spawn {(_this select 0) setFuel 0; sleep 60; if (alive (_this select 0)) then {(_this select 0) setdamage 1;};};};
@@ -353,7 +349,7 @@ find_west_target_fnc = {
 			};
 			if (time > _future_time) then {[_vcl] spawn {(_this select 0) setFuel 0; sleep 60; if (alive (_this select 0)) then {(_this select 0) setdamage 1;};};};
 		}
-        else
+		else
 		{
 // Hunt Players
 
@@ -434,17 +430,6 @@ east_AO_guard_cycle_wp = {
 	_wp4 setWaypointCombatMode "RED";
 	_wp4 setWaypointStatements ["true", "_vcl setVehicleAmmo 1;_vcl setFuel 1;"];
 };
-find_me1_fnc = {
-	private _missionPlayers = playableUnits;
-	{
-		if (side _x isEqualTo east) then {_missionPlayers = _missionPlayers - [_x];};
-	} forEach _missionPlayers;// exclude east players
-	if (count _missionPlayers < 1) exitWith {random_w_player1 = ObjNull; publicVariable "random_w_player1";};
-	random_w_player1 = selectRandom _missionPlayers;
-	publicVariable "random_w_player1";
-	if (DebugEnabled > 0) then {diag_log text format ["Variable West Human Target: %1", random_w_player1];};
-	true
-};
 find_me2_fnc = {
 	private _missionPlayers = playableUnits;
 	{
@@ -468,21 +453,26 @@ find_me3_fnc = {
 	true
 };
 air_debug_mkrs = {
-	params ["_airhunter","_aircraftName","_wpMkrArray","_mkrType","_currWP","_wp_marker","_mkrName","_mkr"];
+	params ["_airhunter","_aircraftName","_wpMkrList","_c","_mkrType","_patrolWPmkrs","_currWP","_WPmkr","_mkrName","_mkr"];
 	_aircraftName = str(_airhunter);
-	_wpMkrArray = [];
-	if (_airhunter == airhunterE1) then	{_mkrType = "o_air";}else{_mkrType = "o_plane";};
+	_c = 0;
+	_mkrType = if (_airhunter == airhunterE1) then {"o_air"} else {"o_plane"};
 
 	sleep 10;
-	if (alive leader _airhunter) then {while {count wayPoints (group _airhunter) < 1} do {sleep 10;};};
-
-	for "_i" from 1 to (count (wayPoints _airhunter)) -1 do {
-		_currWP = format["%1 WP%2", _airhunter, _i];
-		_wp_marker = createMarker [_currWP, getWPPos [_airhunter, _i]];
-		_wp_marker setMarkerText _currWP;
-		_wp_marker setMarkerType "waypoint";
-		_wpMkrArray pushBack _wp_marker;
+	if (alive leader _airhunter) then {while {count wayPoints (group _airhunter) < 1} do {sleep 10};};
+	
+	_patrolWPmkrs = {
+		_wpMkrList = [];
+		for "_i" from 1 to (count (wayPoints _airhunter)) -1 do {
+			_currWP = format["%1 WP%2", _airhunter, _i];
+			_WPmkr = createMarker [_currWP, getWPPos [_airhunter, _i]];
+			_WPmkr setMarkerText _currWP;
+			_WPmkr setMarkerType "waypoint";
+			_WPmkr setMarkerColor "ColorOrange";
+			_wpMkrList pushBack _WPmkr;
+		};
 	};
+	call _patrolWPmkrs;
 
 	_mkrName = "" + _aircraftName;
 	_mkr = createMarker [_mkrName, (position leader _airhunter)];
@@ -490,11 +480,17 @@ air_debug_mkrs = {
 	_mkr setMarkerType _mkrType;
 
 	while {alive leader _airhunter} do {
-		_mkr setMarkerPos (position leader _airhunter);
+		_mkr setMarkerPos (getPosWorld leader _airhunter);
 		uiSleep 0.5;
+		_c = _c + 1;
+		if (_c isEqualTo 200) then {
+			{deleteMarker _x} count _wpMkrList;
+			call _patrolWPmkrs;
+			_c = 0;
+		};
 	};
 
 	deleteMarker _mkr;
-	{deleteMarker _x;} forEach _wpMkrArray;
+	{deleteMarker _x} count _wpMkrList;
 	true
 };

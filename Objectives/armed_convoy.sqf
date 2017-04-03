@@ -1,7 +1,7 @@
 //armed_convoy.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_VehPool","_rnum","_range","_randVeh","_veh","_objmkr","_cone","_VarName","_grp","_handle","_obj_leader","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_type","_vehicle1","_newPos","_veh1","_vehicle2","_veh2","_vehicle3","_veh3","_vehicle4","_veh4","_handle1","_allVeh","_staticGuns"];
+private ["_newZone","_type","_VehPool","_rnum","_range","_randVeh","_veh","_objmkr","_cone","_VarName","_grp","_handle","_obj_leader","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_type","_vehicle1","_newPos","_veh1","_vehicle2","_veh2","_vehicle3","_veh3","_vehicle4","_veh4","_handle1","_allVeh"];
 
 _newZone = _this select 0;
 _type = _this select 1;
@@ -51,8 +51,10 @@ _cone enablesimulation false;
 _cone hideObjectGlobal true;
 
 // Spawn Objective enemy defences
-_grp = [_newZone,14] call spawn_Op4_grp; sleep 3;
-_stat_grp = [_newZone,3,14] call spawn_Op4_StatDef;
+_grp = [_newZone,14] call spawn_Op4_grp;
+_stat_grp = [_newZone,3] call spawn_Op4_StatDef;
+
+_stat_grp setCombatMode "RED";
 
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 
@@ -124,13 +126,15 @@ waitUntil {{alive _x} count units aconvoy_grp < 1};
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
 
-{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
-{deleteGroup _x} forEach [_grp, _stat_grp, aconvoy_grp];
+{deleteVehicle _x; sleep 0.1} forEach (units _grp);
+{deleteVehicle _x; sleep 0.1} forEach (units _stat_grp);
+deleteGroup _grp;
+deleteGroup _stat_grp;
+deleteGroup aconvoy_grp;
 
 if (!isNull _cone) then {deleteVehicle _cone; sleep 0.1;};
 {if (!isNull _x) then {deleteVehicle _x; sleep 0.1}} foreach _allVeh;
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
+{if (typeof _x in INS_Op4_stat_weps) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 40]);
 
 deleteMarker "ObjectiveMkr";
 

@@ -1,7 +1,7 @@
 //mortar_squad.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_range","_run","_roadNear","_signPos","_roads","_roadSegment","_roadDir","_mortar_type","_objmkr","_sign","_grp","_stat_grp","_handle","_unit_type","_damage","_offset_pos1","_static1","_offset_pos2","_static2","_offset_pos3","_static3","_StaticArray1","_all_mortars","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_manArray"];
+private ["_newZone","_type","_rnum","_range","_run","_roadNear","_signPos","_roads","_roadSegment","_roadDir","_mortar_type","_objmkr","_sign","_grp","_handle","_unit_type","_damage","_offset_pos1","_static1","_offset_pos2","_static2","_offset_pos3","_static3","_StaticArray1","_all_mortars","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_manArray"];
 
 _newZone = _this select 0;
 _type = _this select 1;
@@ -27,7 +27,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 _sign = createVehicle [_type, _newZone, [], 0, "None"];//Vanilla
 sleep jig_tvt_globalsleep;
 
-while {isOnRoad _newZone} do {
+while {isOnRoad _signPos} do {
 	_signPos = _newZone findEmptyPosition [2, 30, _type];
 	sleep 0.2;
 };
@@ -44,7 +44,7 @@ if (_roadNear) then {_sign setDir _roadDir - 90;};
 _sign setVectorUp [0,0,1];
 
 // Spawn Objective enemy defences
-_grp = [_newZone,14] call spawn_Op4_grp;
+_grp = [_newZone,14] call spawn_Op4_grp; sleep 3;
 
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 if (DebugEnabled > 0) then {[_grp] spawn INS_Tsk_GrpMkrs;};
@@ -160,10 +160,13 @@ waitUntil {sleep 1; !_run};
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
 
-{deleteVehicle _x; sleep 0.1} forEach (units _grp);
-{deleteVehicle _x; sleep 0.1} forEach (units mortar_grp);
-deleteGroup _grp;
-deleteGroup mortar_grp;
+<<<<<<< HEAD
+{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units mortar_grp);
+{deleteGroup _x} forEach [_grp, mortar_grp];
+=======
+{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
+{deleteGroup _x} forEach [_grp, _stat_grp];
+>>>>>>> a6dab6a58812d92c11e91b487d53bdd6f069132b
 
 if (!isNull _sign) then {deleteVehicle _sign; sleep 0.1;};
 {if (!isNull _x) then {deleteVehicle _x; sleep 0.1}} foreach _all_mortars;
