@@ -63,10 +63,10 @@ class FSM
         /*%FSM<LINK "no_player__AI_de">*/
         class no_player__AI_de
         {
-          priority = 0.000000;
+          priority = 2.000000;
           to="exit";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"{isPlayer _x} count (units group _unit) == 0"/*%FSM</CONDITION""">*/;
+		  condition=/*%FSM<CONDITION""">*/"not alive _unit"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

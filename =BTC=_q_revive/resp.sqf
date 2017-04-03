@@ -14,7 +14,21 @@ if (isMultiplayer) then
 		closeDialog 0;
 		_unit setDamage 1;
 		titleText ["","BLACK FADED"];
-		[] spawn {waitUntil {Alive player};if (!isNil {_unit getVariable "btc_qr_on_respawn"}) then {_unit spawn (_unit getVariable "btc_qr_on_respawn");};if (btc_qr_multiple_spawn) exitWith {[] spawn btc_qr_fnc_multiple_spawn};titleText ["","PLAIN"];player call btc_qr_fnc_var};
+		[] spawn {
+			waitUntil {Alive player};
+
+			if (playerSide isEqualTo EAST) then {//Jig adding
+				Op4handle = [player] execVM "scripts\MoveOp4Base.sqf";
+				waitUntil { scriptDone Op4handle };
+			};
+			
+			if (!isNil {_unit getVariable "btc_qr_on_respawn"}) then {
+				_unit spawn (_unit getVariable "btc_qr_on_respawn");
+			};
+			if (btc_qr_multiple_spawn) exitWith {[] spawn btc_qr_fnc_multiple_spawn};
+			titleText ["","PLAIN"];
+			player call btc_qr_fnc_var
+		};
 	}else{
 		_unit call btc_qr_fnc_resp_AI;
 		if (!isNil {_unit getVariable "btc_qr_on_respawn"}) then {_unit spawn (_unit getVariable "btc_qr_on_respawn");};

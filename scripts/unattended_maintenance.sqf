@@ -4,10 +4,17 @@
 if (isServer) then {
 	waitUntil {time > 128};
 
-	private ["_abandoned","_remFog","_clearFogThresh","_deacDelay","_justPlayers","_craters","_ctime","_waitTime","_update","_mines"];
+	private ["_abandoned","_pods","_ruins","_remFog","_ctearFogThresh","_deacDelay","_czPosArrys","_ctearZones","_trees","_mpos","_justPlayers","_craters","_ctime","_waitTime","_update","_mines"];
 	_remFog = FALSE;
 	_deacDelay = ((DeAct_Gzone_delay * 60) + 120);
 	if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {_remFog = TRUE;};
+	_czPosArrys = [];
+	_ctearZones = Blu4_mkrs + ["Airfield"];
+
+	{
+		_mpos = getmarkerPos _x;
+		_czPosArrys pushBack _mpos;
+	} forEach _ctearZones;
 
 	//Uncomment line below to use Headless client kick functionality
 	//0 = [] execVM "\Server\HC_Reset.sqf"; // Server.cfg. allowedFilePatching=2 and -filePatching launch parameter maybe required.
@@ -16,6 +23,12 @@ if (isServer) then {
 
 	while {true} do {
 		sleep 400.0123;
+
+		// Clear Blufor base markers of fallen bushes and trees
+		{
+			_trees = nearestTerrainObjects [_x, ["TREE","SMALL TREE","BUSH"], 50, false];
+			{if (damage _x isEqualTo 1) then {hideobject _x}} foreach _trees;
+		} forEach _czPosArrys;
 
 		if (isNil "_resetHC") then {_resetHC = true;};
 		_justPlayers = allPlayers - entities "HeadlessClient_F";
@@ -39,6 +52,11 @@ if (isServer) then {
 			_craters = nil;
 			sleep 3;
 
+			// Delete Ruins.
+			_ruins = allMissionObjects "Ruins";
+			{deleteVehicle _x} count _ruins;
+			sleep 3;
+
 			// Delete static nonStrategic objects.
 			{
 				if (count (allMissionObjects _x) > 0) then {
@@ -59,12 +77,20 @@ if (isServer) then {
 				sleep 3;
 			};
 
+			// Delete HEV halo pods + pod doors
+			if (INS_op_faction isEqualTo 16) then {
+				_pods = allMissionObjects "OPTRE_HEV" + allMissionObjects "OPTRE_HEV_Door";
+				{deleteVehicle _x} count _pods;
+				_pods = nil;
+				sleep 3;
+			};
+
 			// Clear fog if for what ever reason fog accrued is above _clearFogThresh and JIPweather choice was 0 fog.
 			if (_remFog) then {
 				_clearFogThresh = 0.08;
 				if (fog > _clearFogThresh) then {
 					0 setFog 0;
-					sleep 10;
+					sleep 3;
 				};
 			};
 
@@ -79,7 +105,7 @@ if (isServer) then {
 			sleep 5;
 
 			// Reset Headless Client.
-			/*	//Will kick HCs once when no players exist and no zones active. Don't worry, HCs will auto rejoin and resume.
+			/*	//Will kick HCs once when no players exist and no zones active. As of A3 v1.66 HCs will not auto rejoin and resume!
 				//Auto HC kick will not occur again until player(s) join then leave server and server is empty.
 				//This is a preventative work-around not a fix for HC spawn bug that sometimes randomly occurs.
 				//If bug occurs while server has players then HC will need to manually be restarted or kicked in order to resolve.
@@ -118,17 +144,4 @@ if (isServer) then {
 	};
 };
 
-if (!hasInterface && !isDedicated) then	{
-	waitUntil {time > 150};
-	while {true} do {
-		sleep 400.0123;
-		// Delete empty groups.
-		{
-			if ((count (units _x)) == 0) then {
-				deleteGroup _x;
-				_x = grpNull;
-				_x = nil
-			}
-		} forEach allGroups;
-	};
-};
+//if (!hasInterface && !isDedicated) then	{execVM "scripts\HC_deleteEmptyGrps.sqf";};

@@ -7,7 +7,7 @@ http://www.blacktemplars.altervista.org/
 */
 //Functions
 BTC_assign_actions = {
-	if ([player] call BTC_is_class_can_revive) then {
+	if ([player] call BTC_is_class_can_revive) then {//Jig changed addaction to hold action
 		ReviveAcc_id =
 		[
 			player,
@@ -22,7 +22,7 @@ BTC_assign_actions = {
 				[] call BTC_first_aid;
 				hintSilent "Player revived";
 			},
-			{player switchMove "AmovPknlMstpSrasWrflDnon"},
+			{[ [ player, "AmovPknlMstpSrasWrflDnon" ], "switchMoveEverywhere" ] call BIS_fnc_MP },
 			[],
 			6,
 			8,

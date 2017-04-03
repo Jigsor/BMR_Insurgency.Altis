@@ -9,129 +9,212 @@ https://www.dropbox.com/s/igymq40svvjgh1g/BMR%20Insurgency.zip
 
 Official Stable builds:
 
-BMR_Insurgency_v1_45.Tanoa
-Required mods:
-None
+BMR_Insurgency_v1_46.Altis
+Required mods: None
 
-BMR_Insurgency_v1_45.Altis
-Required mods:
-None
+BMR_Insurgency_v1_46_RHS.Altis
+Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1.45.Stratis
-Required mods:
-None
+BMR_Insurgency_v1_46_OPTRE.Altis
+Required mods: @CBA_A3;@Operation_TREBUCHET
 
-BMR_Insurgency_v1_45.Kunduz
-Required mods:
--mod=@prkz
+BMR_Insurgency_v1_46.Tanoa
+Required mods: None
 
-BMR_Insurgency_v1.45.Bornholm
-Required mods:
--mod=@Bornholm
+BMR_Insurgency_v1_46_RHS.Tanoa
+Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1.45.Zargabad
-Required mods:
--mod=@CBA_A3;@cup_terrains_core;@cup_terrains_maps
+BMR_Insurgency_v1_46.Stratis
+Required mods: None
 
-BMR_Insurgency_v1.45.Takistan
-Required mods:
--mod=@CBA_A3;@cup_terrains_core;@cup_terrains_maps
+BMR_Insurgency_v1_46.Takistan
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
-BMR_Insurgency_v1_45.Sara
-Required mods:
--mod=@CBA_A3;@cup_terrains_core;@cup_terrains_maps
+BMR_Insurgency_v1_46_RHS.Takistan
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1.45.Fata
-Required mods:
--mod=@CBA_A3;@cup_terrains_core;@cup_terrains_maps;@fata_a3
+BMR_Insurgency_v1_46.Sara
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
-BMR_Insurgency_v1.45.fallujah
-Required mods:
--mod=@CBA_A3;@cup_terrains_core;@cup_terrains_maps@fallujah1_2
+BMR_Insurgency_v1_46.Zargabad
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
-BMR_Insurgency_v1.45.pja305
-Required mods:
--mod=@CBA_A3;@cup_terrains_core;@cup_terrains_maps;@nziwasogo
+BMR_Insurgency_v1_46.Bornholm
+Required mods: @Bornholm
 
-BMR_Insurgency_v1.45.pja310
-Required mods:
--mod=@CBA_A3;@cup_terrains_core;@cup_terrains_maps;@fsf_al_rayak
+BMR_Insurgency_v1_46.Kunduz
+Required mods: @Kunduz_Afghanistan or @prkz
 
-BMR_Insurgency_v1_45.Mog
-Required mods:
--mod=@mog
+BMR_Insurgency_v1_46.DYA
+Required mods: @Diyala_Map;@Jbad
 
-BMR_Insurgency_v1_45.clafghan
-Required mods:
--mod=@CBA_A3;@cup_terrains_core;@cup_terrains_maps;@Clafghan
+BMR_Insurgency_v1_46.pja310
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_Al_Rayak
 
-BMR_Insurgency_v1_45.Napf
-Required mods:
--mod=@cup_terrains_core;@cup_terrains_maps;@Napf_Island_A3
+BMR_Insurgency_v1_46.pja305
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_N'ziwasogo
 
-BMR_Insurgency_v1_45.napfwinter
-Required mods:
--mod=@cup_terrains_core;@cup_terrains_maps;@Napf_Island_A3
+BMR_Insurgency_v1_46_RHS.pja305
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_N'ziwasogo;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_45.DYA
-Required mods:
--mod=@Diyala_Map;@Jbad.
+BMR_Insurgency_v1_46.Fata
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@fata_a3
 
-BMR_Insurgency_v1_45.Kapaulio
-Required mods:
-@cup_terrains_core;@cup_terrains_maps;@kapaulio;@Jbad;@RSPN;African Foliage;MBG Killhouses A3 [ALPHA].
+BMR_Insurgency_v1_46.fallujah
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@fallujah1_2
+
+BMR_Insurgency_v1_46.xcam_taunus
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@X-Cam-Taunus
+
+BMR_Insurgency_v1_46.Napf
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Napf_Island_A3
+
+BMR_Insurgency_v1_46.napfwinter
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Napf_Island_A3
+
+BMR_Insurgency_v1_46.Mog
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@CUP_Terrains_CWA;@mog
+
+BMR_Insurgency_v1_46_RHS.Mog
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@CUP_Terrains_CWA;@mog;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
+
+BMR_Insurgency_v1_46.clafghan
+Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Clafghan;@opx_pack_fixed;@razmisc;mb_veg_adv;@mb_rocks
+
+BMR_Insurgency_v1_46.Kapaulio
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@kapaulio;@Jbad;@RSPN;@mb_veg_adv;MBG_Killhouses_A3
+
+BMR_Insurgency_v1_46.lingor3
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.81
+
+BMR_Insurgency_v1_46.dingor
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.81
+
+BMR_Insurgency_v1_46_OPTRE.lingor3
+Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.81;@Operation_TREBUCHET
+
+BMR_Insurgency_v1_46_IFA3.Staszow
+Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_Terrains_LITE;@I44_Terrains@IFA3_LITE;@IFA3_Objects_LITE;@IFA3_AIO_LITE
 
 Optional additional supported mod combinations:
-1.	@CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle
-2.	@CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle
-3.	@rhs_afrf3;@rhs_usf3;@leights_opfor
-4.	@CBA_A3;@cup_units;@cup_weapons;@cup_vehicles
-6.	@rhs_afrf35.
-7	@rhs_afrf3;@rhs_usf3;@rhs_gref
-8.	@CBA_A3;@ISC;@cup_weapons;@mas_nato_rus_sf_veh;@rhs_afrf3;@rhs_usf3
 
-Recommended: @CBA_A3 at a minimum to allow for additional helicopter features
-Recommended: additional lightweight mod for head dress variation and gas mask support @hiddenidentitypack
-HIGHLY RECOMMENDED: additional mod for AI behavior: @asr_ai3. Should be run from server + headless client at a minimum.
-Supported: @ace in addition to any combination above. Should be installed server and client side.
+1. @RHSAFRF
+2. @RHSAFRF;@RHSUSAF;@RHSGREF
+3. @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
+4. @RHSAFRF;@RHSUSAF; + (@leights_opfor or @Project_OPFOR)
+5. @CBA_A3;@ISC;@cup_weapons;@mas_nato_rus_sf_veh;@RHSAFRF;@RHSUSAF
+6. @CBA_A3;@cup_units;@cup_weapons;@cup_vehicles
+7. @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle
+8. @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle
+9. @CBA_A3;@OPTRE
+10. @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_Terrains_LITE;@I44_Terrains@IFA3_LITE;@IFA3_Objects_LITE
 
-10/11/16
-BMR_Insurgency_v1.46alpha
-Added: Brighter Night code by Ralian and lobby parameter to disable..
-Added: New objective retrieve_data.The side who dowloads the data at the Land Data Terminal first wins the objective.
-Added: Shell sounds to CAS bombs.
-Added: More grid zones to jungle areas and fortress ruins(Tanoa).
-Added: "B_APC_Tracked_01_CRV_F" to list of towing vehicles.
-Added: Push action to ships spawned by Vehicle Reward.
-Added: Group heli extract boots members from group if their distance from caller is exceeds distance defined by JIG_EX_Group_Dis
-Added: Lobby Parameter Player Markers.
+Supported: @ACE3 stand alone or in addition to any mod listed here. Should be installed server and client side.
+
+Optional Reccomended Mods:
+1. @ASR_AI3
+	This mod is highly reccomended to enhance AI behavior. It puts the dumb lifeless AI to work and makes for some serious live action.
+	Robalo, the creator of ASR_AI3 has a great track record of keeping this mod working, updated and the mod does what he advertises.
+	It should be installed on server. It can be hidden with launch parameter -serverMod= if you wish to have no mod requirements when joining server.
+	If you are using a headless client then it should be installed on server and headless client.
+	If you run it on client then it will affect recuited AI and Zeused AI (client side AI).
+2. @CBA_A3
+	This mod is often a requirement for other mods and as far as I know has no compatibiliy issues with any other mod besides the depricated joint_rails mod wich is now built into CBA_A3.
+	If mod is installed on server only then client will not have additional features.
+	If mod is installed on client and server then the following features will be added to players when they are in Helicopters or Fixed Wing.
+		1. Bail from helicopters action. Existing backpack is moved to ventral position and parachute pack added to back. Once landed original loadout will be restored.
+			Pilot cannot bail unless helicopter has at least 70% damage to engine or at least 70% overall damage. Others can bail at anytime.
+			Chute will auto open unless ACE3 mod is running.
+		2. Earplug action within helicopters or fixed wing.
+		3. 3D Compass when in gunner or turret view within helicopters.
+		4. HALO action within fixed wing. Same restrictions apply as in helicopter bail.
+		5. Auto Flare Countermeasure action within fixed wing. Flares are not depleted from aircraft's loadout. It generates its own unlimited supply.
+3. @hiddenidentitypack and or @AVON_FM12_Respirator_Pack for Gas Masks.
+	They are used by the client so should be installed client side. For best performance install server and client side.
+
+3/29/17
+BMR_Insurgency_v1.46
 Added: Option "CSAT Pacific and Syndikat Apex" to Lobby parameter "Opposing Army/Mod Initialization".
-Added: Once max number of air droped UGV request is reached then one additional UGV request is can be made every 25 points earned thereafter.
-Fixed: Recativated grids zones sometimes created hidden units
+Added: Support for @AVON FM12 Respirator Pack gas mask "avon_fm12_strapless".
+Added: @IFA3LITE WWII mod support and hard requirement IFA3LITE Staszow Terrain version (An excelent Insurgency mode terrain).
+Added: RHSSAF mod and serbian faction support.
+Added: RHS vdv faction support.
+Added: @Operation-TREBUCHET (HALO) mod support. Thanks to Costno. Added compatibility for Pelican as MHQ_3 to load cargo box for Delivery Objective.
+Added: @Lingor Island v3.81 Terrain version.
+Added: Dingor Terrain version. Requires Lingor v3.81.
+Added: @X-Cam-Taunus (Version 1.1) Terrain version.
+Added: 5 Hard Requirement RHS versions. Play as RHS units and RHS equipment/vehicles are placed on bases. Altis,Tanoa,Takistan,N'Ziwasogo and Mogadishu terrains.
+Added: 2 Hard Requirement Operation-TREBUCHET versions. Altis and Lingor.
+Added: Lobby parameter for player damage multiplier. Note has no Affect when BTC Quick revive is selected.
+Added: MHQs can be selected from respawn drop down menu in BTC Quick revive respawn screen.
+Added. Opfor players can teleport to MHQs from their flag pole when BTC Reveive or BTC Quick revive is selected.
+Added: Brighter Night code by Ralian and lobby parameter to disable..
+Added: New objective retrieve_data. The side who downloads the data at the Land Data Terminal first wins. Objective only spawns in uncaptured zones.
+Added: Shell sounds to CAS bombs.
+Added: More occupied zones to jungle areas and fortress ruins(Tanoa).
+Added: "rhsusf_M977A4_REPAIR_BKIT_M2_usarmy_d","rhsusf_M977A4_REPAIR_BKIT_usarmy_d","rhsusf_M977A4_REPAIR_BKIT_M2_usarmy_wd","rhsusf_M977A4_REPAIR_BKIT_usarmy_wd" to new list of towing vehicles in new variable INS_TowTruck in INS_definitions.sqf.
+Added: Push action to ships spawned by Vehicle Reward.
+Added: Group heli extract automatically kicks members from group if their distance from caller exceeds distance defined by JIG_EX_Group_Dis (Default 500 meters).
+Added: Lobby Parameter option to eneble/disable Player Markers. Disabled by default.
+Added: Ear Plugs Action to main weapon crates if ACE3 mod is not running.
+Added: Auto Countermeasure and HALO actions to fixed wing. Requires optional CBA_A3 mod on client and server.
+Added: Once max number of air droped UGV request is reached then one additional UGV request can be made every 25 points earned thereafter.
+Added: Compatibility to load cargo box for Delivery Objective in MHQ_3 for RHS Super Stallion "rhsusf_CH53E_USMC_D" and "rhsusf_CH53E_USMC_W".
+Added: RHS playable unit class names to //Blufor Player class types. Opfor playable units are still Arma 3 units and redressed according to mod.
+Added: Variable StructureBlackList in INS_definitions.sqf. Intel and ammo cache will not spawn in these structures.
+Added: Drop_SmokeFlare_fnc. Used in Capture and Hold objective. Will fire flares over outpost at night untill captured and will create smoke to obscure enemy AI once captured.
+Added: Crater removal to repetitive_cleanup.sqf affecting whole terrain.
+Added: Mods running on server are now available in Zeus.
+Added: Support for moded heli extraction choppers @RHSUSF3 Chinnoks - "RHS_CH_47F_10" and "RHS_CH_47F_light".
+Added: 51 zone markers in Al Rayak version.
+Added: Static emplacements spawned by EOS are in random direction.
+Fixed: Dedicated server cleanup code in Heli Extraction.
 Fixed: BIS_fnc_mp JIG_EX_MPhint_fnc errors in extraction_main.sqf.
-Fixed: Mission's Helmet Cam and ACE Helmet Cam conflict.
-Fixed: road_block.sqf script hang when connected road did not exist(Tanoa).
-Fixed: Massive server frame drop when revive timer exceeded in BTC Revive.
-Fixed: Timer sync issue in capture n hold objective?
+Fixed: Assigning Zeus function should now only work for correct player. To assign/unassign yourself Zeus log in as admin and run this code local in debug console - [player,true] spawn INS_Zeus_MP;
+Fixed: Killed Recuited AI remained in group.
+Fixed: Accumulation of player's CAS action.
+Fixed: Recativated grids zones sometimes created hidden units due to zbe cache timing.
+Fixed: Broken EOS code in version 1.45. Reverted to set command instead of pushback in eos_core.sqf and eos_civ_core.sqf. EOS would not cache all it's units.
+Fixed: Mission's Helmet Cam and ACE3 Helmet Cam conflict.
+Fixed: Mission's HuntIR is now disabled when ACE3 is running sine ACE3 also has HuntIR because it breaks ACE3's interaction menu.
+Fixed: Sometimes objectives would not get assigned.
+Fixed: road_block.sqf script hang when connected road did not exist ex.(Tanoa).
+Fixed: Server frame drop when revive timer exceeded in BTC Revive.
+Fixed: Timer sync issue in capture n hold objective.
 Fixed: Vehicle Reward now spawns vehicle in direction of road if map click is on road.
-Fixed: Add Zeus function should now only work for correct player.
-Fixed: missing code to set time when Weather parameter "Static Weather 100% Overcast (Weather Disabled)" chosen.
-Change: Rewrote function spawn_Op4_StatDef. Now excepts parameters - position, number of emplacements, radius.
+Fixed: Missing code to set time when Weather parameter "Static Weather 100% Overcast (Weather Disabled)" is selected.
+Fixed: vehRespawn.sqf script error started with A3 patch 1.66 if vehicle did not have a name.
+Fixed: Suicide bombers were not spawned when a draftee was not available.
+Fixed: /added compatibility with ACE3 when bailing from choppers.
+Fixed: by BIS - Disable Audible AI Radio lobby parameter no longer disables lock on ability of hand held launchers though audible lock signal is still missing.
+Fixed: Player becomes AI after disconnect. Caused by game update 1.68
+Change: Recruited AI no longer die when there is only 1 human player in group and he dies.
+Change: Replaced hand placed zone markers in N'Ziwasogo version with Automated zone marker creation. Increased from appoximately 350 to 1490 zone markers.
+Change: Less chance of empty zone markers in Fallujah version.
+Change: Rewrote objective static defense function spawn_Op4_StatDef. Now excepts parameters - position, number of emplacements, radius.
 Change: Removed BTC logistic actions from ammo cache.
 Change: CAS and sand bags on base prohibited.
-Change: Extended abandon timer of Opfor Mohawk from 2 to 45 minutes.
+Change: Toxic Gas no longer has affect on Blufor base.
+Change: Extended abandon timer of Opfor player's Mohawk from 2 to 60 minutes.
+Change: Iraqi-Syrian Conflict mod support updated to support v10 with dependencies @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF.
 Change: MHQ_1 from HEMTT Transport to Prowler(Tanoa).
 Change: Ammo box CSAT IED to CSAT Explosives (Tanoa).
-Cahnge: BTC Revive now uses hold Spacebar action to revive which allows aborting revive action.
+Change: BTC Revive now uses hold Spacebar action to revive which allows aborting revive action.
 Change: Parameter CiviMobiles now can manipulate number of spawned civilian Vehicles per player in addition to disabling.
-Change: code optimization - removed repetavite call lines in OpenMeCiv.sqf.
+Change: Increased chance projectiles emitted from ammo cache will fire into the air for visual affect.
+Change: Integrated new command BIS_fnc_switchLamp to cut_power task. All lamps near objective area are switched on at start for objective repeatability.
+Change: Less chance of rain at mission start when Real Weather enabled.
+Change: Distance in Killed by Info displays round whole number for readability.
+Change: Killed by info no longer displays when you killed yourself or Arma thinks you did.
+Change: Now possible to have multiple intruder protection triggers on more than 1 base. Example Fallujah northern and southern Blufor bases.
+Change: Air Patrol way point markers are now periodically updated when in Debug Mode.
+Change: Suicide Bomber will spawn in building if one is near and recruit is unavailable.
+Change: Several minor code optimizations to many scripts.
+Change: code optimization - INS_SuicideBomber.sqf and related functions.
+Change: code optimization - removed repetitive call lines in OpenMeCiv.sqf.
 Change: code optimization - In INS_definitions.sqf generates a variable for each parameter based on all the parameter class names in Parameters.hpp.
 Change: code optimization - replaced get_loadout.sqf and set_loadout.sqf with new native getUnitLoadout and setUnitLoadout commands.
-Change: code optimization - removed rdundant SHK_buildingpos.sqf scripts.
-Change: Several minor code optimizations to many scripts.
-Change: Increased chance projectiles emitted from ammo cache will fire into the air.
-Change: Integrated new command BIS_fnc_switchLamp to cut_power task. All lamps near objective area are swiched on at start for reapeatability.
-Change: Less chance of rain at mission start when Real Weather enabled.
+Change: code optimization - removed redundant SHK_buildingpos.sqf scripts.
 
 7/22/16
 BMR_Insurgency_v1.45

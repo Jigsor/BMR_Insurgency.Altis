@@ -1,5 +1,5 @@
 /*
- extraction_fncs.sqf v1.14 by Jigsor
+ extraction_fncs.sqf v1.22 by Jigsor
  [] call compile preProcessFile "INSfncs\extraction_fncs.sqf";
  runs in JIG_EX\extraction_init.sqf
  Heli Extraction Position and Evacuation Functions
@@ -142,50 +142,58 @@ Drop_LZ_smoke_fnc = {
 		sleep 12.5;
 	};
 };
-Cancel_Evac_fnc = {
-	(_this select 1) removeAction (_this select 2);
+Evac_MPcleanUp = {
+	private _localityChanged = group EvacHeliW1 setGroupOwner 2;
+	if (((count crew EvacHeliW1) < 1) && (alive EvacHeliW1)) then {
+		deleteVehicle EvacHeliW1;
+	}else{
+		private ["_nonCrew","_crew","_toDelete","_p"];
+		_nonCrew = (units ext_caller_group);
+		_crew = (crew EvacHeliW1);
+		_toDelete = (units EvacHeliW1);
+		{
+			if !(_x in _nonCrew) then {
+				_toDelete pushBackUnique _x;
+			};
+		} forEach _crew;
+		{
+			_P = _x;
+			if (isPlayer _p) then {
+				[[_p], objNull] remoteExec ["moveOut", _p, false];
+				_toDelete = _toDelete - [_p];
+			};
+		} forEach _toDelete;
+		{deleteVehicle _x} count _toDelete;
 
+		if (!isNull EvacHeliW1) then {
+			[_nonCrew] spawn {
+				params ["_nonCrew"];
+				{unassignVehicle (_x);(_x) action ["EJECT", vehicle _x]; sleep 0.5} foreach _nonCrew;
+				sleep 0.1;
+				deleteVehicle EvacHeliW1
+			};
+		};
+	};
+	true
+};
+Cancel_Evac_fnc = {
 	if (JIG_EX_Caller in EvacHeliW1) then {
+		moveout player;
+		// if evac cancelled while aboard evac and above 9 meters from ground then caller and passengers could fall to death.
 		if (getPosATL JIG_EX_Caller select 2 >9) then {
 			hint "This is the end my friend";
 		};
-	};// if evac cancelled while aboard evac and above 9 meters from ground then caller and passengers could fall to death.
-	if (((count crew EvacHeliW1) < 1) && (alive EvacHeliW1)) then {deleteVehicle EvacHeliW1};
-	{
-		if (alive _x) then {deleteVehicle _x; sleep 0.1}
-	} forEach (crew EvacHeliW1);
-	if (!alive EvacHeliW1) then {
-		{
-			if (alive _x) then {deleteVehicle _x; sleep 0.1}
-		} forEach (units EvacHeliW1);
-	}else{
-		{
-			if (alive _x) then {deleteVehicle _x; sleep 0.1}
-		} forEach (units EvacHeliW1);
-		deleteVehicle EvacHeliW1;
 	};
-	{deleteVehicle _x;} forEach [EvacSpawnPad, EvacLZpad];
+	if (!isServer) exitWith {[] remoteExec ["Evac_MPcleanUp", 2, false]};
+	(call Evac_MPcleanUp)
 };
 JIP_Reset_Evac_fnc = {
 	if (not (isNull EvacHeliW1)) then {
-		if (((count crew EvacHeliW1) < 1) && (alive EvacHeliW1)) then {deleteVehicle EvacHeliW1};
-		{
-			if (alive _x) then {deleteVehicle _x; sleep 0.1}
-		} forEach (crew EvacHeliW1);
-		if (!alive EvacHeliW1) then {
-			{
-				if (alive _x) then {deleteVehicle _x; sleep 0.1}
-			} forEach (units EvacHeliW1);
-		}else{
-			{
-				if (alive _x) then {deleteVehicle _x; sleep 0.1}
-			} forEach (units EvacHeliW1);
-			deleteVehicle EvacHeliW1;
-		};
+		call Evac_MPcleanUp;
+		resetEvac = false;
 		EvacHeliW1 = ObjNull;
 		publicVariable "EvacHeliW1";
-		sleep 1;
-		resetEvac = false;
+		sleep 1;		
 		publicVariable "resetEvac";
 	}else{
 		resetEvac = false;
@@ -203,11 +211,12 @@ animate_doors_fnc = {
 		case (_veh isKindOf "B_Heli_Transport_01_camo_F"): {if ((_veh doorPhase "door_R") == 0) then {{_veh animateDoor [_x, 1]} forEach ["door_L","door_R"];} else {{_veh animateDoor [_x, 0]} forEach ["door_L","door_R"];}};
 		case (_veh isKindOf "B_CTRG_Heli_Transport_01_tropic_F"): {if ((_veh doorPhase "door_R") == 0) then {{_veh animateDoor [_x, 1]} forEach ["door_L","door_R"];} else {{_veh animateDoor [_x, 0]} forEach ["door_L","door_R"];}};
 		case (_veh isKindOf "B_Heli_Transport_01_F"): {if ((_veh doorPhase "door_R") == 0) then {{_veh animateDoor [_x, 1]} forEach ["door_L","door_R"];} else {{_veh animateDoor [_x, 0]} forEach ["door_L","door_R"];}};
-		case (_veh isKindOf "CH49_Mohawk_FG"): {if (_veh animationPhase "door_back_R" < 0.5) then {{_veh animateDoor [_x, 1]} forEach ["door_back_L","door_back_R"];} else {{_veh animateDoor [_x, 0]} forEach ["door_back_L","door_back_R"];}};//_veh animateDoor ["CargoRamp_Open",1]
-		case (_veh isKindOf "I_Heli_Transport_02_F"): {if (_veh animationPhase "door_back_R" < 0.5) then {{_veh animateDoor [_x, 1]} forEach ["door_back_L","door_back_R"];} else {{_veh animateDoor [_x, 0]} forEach ["door_back_L","door_back_R"];}};//_veh animateDoor ["CargoRamp_Open",1]	 
+		case (_veh isKindOf "I_Heli_Transport_02_F"): {if (_veh animationPhase "door_back_R" < 0.5) then {{_veh animateDoor [_x, 1]} forEach ["door_back_L","door_back_R"];} else {{_veh animateDoor [_x, 0]} forEach ["door_back_L","door_back_R"];}};//_veh animateDoor ["CargoRamp_Open",1]
 		case (_veh isKindOf "O_Heli_Attack_02_black_F"): {if ((_veh doorPhase "door_R") == 0) then {{_veh animateDoor [_x, 1]} forEach ["door_L","door_R"];} else {{_veh animateDoor [_x, 0]} forEach ["door_L","door_R"];}};
-		case (_veh isKindOf "O_Heli_Attack_02_F"): {if ((_veh doorPhase "door_R") == 0) then {{_veh animateDoor [_x, 1]} forEach ["door_L","door_R"];} else {{_veh animateDoor [_x, 0]} forEach ["door_L","door_R"];}};		
-		case (_veh isKindOf "kyo_MH47E_base"): {if ((_veh doorPhase "Ani_Hatch1") == 0) then {{_veh animateDoor [_x, 1]} forEach ["Ani_Hatch1","Ani_Hatch2"];} else {{_veh animateDoor [_x, 0]} forEach ["Ani_Hatch1","Ani_Hatch2"];}};		
+		case (_veh isKindOf "O_Heli_Attack_02_F"): {if ((_veh doorPhase "door_R") == 0) then {{_veh animateDoor [_x, 1]} forEach ["door_L","door_R"];} else {{_veh animateDoor [_x, 0]} forEach ["door_L","door_R"];}};
+		case ((_veh isKindOf "RHS_CH_47F_10") || (_veh isKindOf "RHS_CH_47F_light")): {if (_veh animationPhase "Door_Back_R" < 0.5) then {{_veh animateDoor [_x, 1]} forEach ["Door_Back_L","Door_Back_R"];} else {{_veh animateDoor [_x, 0]} forEach ["Door_Back_L","Door_Back_R"];}};
+		case (_veh isKindOf "CH49_Mohawk_FG"): {if (_veh animationPhase "door_back_R" < 0.5) then {{_veh animateDoor [_x, 1]} forEach ["door_back_L","door_back_R"];} else {{_veh animateDoor [_x, 0]} forEach ["door_back_L","door_back_R"];}};//_veh animateDoor ["CargoRamp_Open",1]
+		case (_veh isKindOf "kyo_MH47E_base"): {if ((_veh doorPhase "Ani_Hatch1") == 0) then {{_veh animateDoor [_x, 1]} forEach ["Ani_Hatch1","Ani_Hatch2"];} else {{_veh animateDoor [_x, 0]} forEach ["Ani_Hatch1","Ani_Hatch2"];}};
 		default {};
 	};
 };

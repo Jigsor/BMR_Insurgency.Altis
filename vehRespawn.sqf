@@ -18,16 +18,15 @@ _nul = [this, 2, 1, {}] execVM "vehrespawn.sqf"; << 2 minute abandoned delay, 1 
 
 ---------------------------------------------------------------------------------------------------- */
 
-private "_veh";
+private ["_veh","_abandonDelay","_deadDelay","_vehInit","_dir","_vehPos","_vehtype","_vehName"];
 
 _veh = _this select 0;
 _abandonDelay = (_this select 1) * 60;
 _deadDelay = (_this select 2) * 180;
 _vehInit = _this select 3;
 _dir = getDir _veh;
-_pos = getPos _veh;
+_vehPos = getPos _veh;
 _vehtype = typeOf _veh;
-//_dimension = sizeOf _vehtype;
 _vehName = vehicleVarName _veh;
 
 if (isServer) then {
@@ -42,28 +41,17 @@ if (isServer) then {
 				sleep 1;
 			};
 
-			if ((_abandoned) && {_veh distance _pos > 10}) then {
+			if ((_abandoned) && {_veh distance _vehPos > 10}) then {
 				deleteVehicle _veh;
 				sleep 1;
 
-				/*
-				//Jig adding block
-				_obstacles = _pos nearEntities [["Air", "Car", "Motorcycle", "Tank", "Land_BagFence_Round_F"], _dimension];
-				if !(isNil "_obstacles") then {
-					{
-						if(!(_x getVariable["persistent",false])) then {
-							deleteVehicle _x;
-						};
-					} forEach _obstacles;
-					sleep 1;
-				};
-				*/
-
-				_veh = createVehicle [_vehtype, _pos, [], 0, "CAN_COLLIDE"];
+				_veh = createVehicle [_vehtype, _vehPos, [], 0, "CAN_COLLIDE"];
 				_veh setDir _dir;
-				_veh setPos [_pos select 0, _pos select 1,0];
-				missionNamespace setVariable [_vehName, _veh];
-				publicVariable _vehName;
+				_veh setPos [_vehPos select 0, _vehPos select 1,0];
+				if !(_vehName isEqualTo "") then {
+					missionNamespace setVariable [_vehName, _veh];
+					publicVariable _vehName;
+				};
 				_veh call _vehInit;
 			};
 		};
@@ -80,24 +68,13 @@ if (isServer) then {
 				deleteVehicle _veh;
 				sleep 1;
 
-				/*
-				//Jig adding block
-				_obstacles = _pos nearEntities [["Air", "Car", "Motorcycle", "Tank", "Land_BagFence_Round_F"], _dimension];
-				if !(isNil "_obstacles") then {
-					{
-						if(!(_x getVariable["persistent",false])) then {
-							deleteVehicle _x;
-						};
-					} forEach _obstacles;
-					sleep 1;
-				};
-				*/
-
-				_veh = createVehicle [_vehtype, _pos, [], 0, "CAN_COLLIDE"];
+				_veh = createVehicle [_vehtype, _vehPos, [], 0, "CAN_COLLIDE"];
 				_veh setDir _dir;
-				_veh setPos [_pos select 0, _pos select 1,0];
-				missionNamespace setVariable [_vehName, _veh];
-				publicVariable _vehName;
+				_veh setPos [_vehPos select 0, _vehPos select 1,0];
+				if !(_vehName isEqualTo "") then {
+					missionNamespace setVariable [_vehName, _veh];
+					publicVariable _vehName;
+				};
 				_veh call _vehInit;
 			};
 		};

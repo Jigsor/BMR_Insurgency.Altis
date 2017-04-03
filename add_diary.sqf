@@ -72,6 +72,7 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 player createDiaryRecord ["Diary", ["Credits","
 	<br />Mission Author - Jigsor =BMR=
 	<br />
+	<br />OPTRE Port by Costno
 	<br />Many original functions and scripts by Jigsor =BMR=.
 	<br />Several functions and scripts by BTC Giallustio and Ghost
 	<br />were modified by Jigsor =BMR=.
@@ -111,6 +112,6 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br />
 	<br />While waiting for a revive you can spectate and control camera with usual movement controls.
 	<br />
-	<br />To have a fully restored loadout/kit after respawn or revive, use scroll action Save Loadout at main ammo box.
+	<br />To have a fully restored loadout/kit after respawn or revive, use scroll action Save Respawn Loadout at main ammo box.
   "]];
 player createDiaryRecord ["Diary", ["Briefing","Gather Intel on Ammo Cache location by picking up suitcases. Destroy Ammo Caches with satchel or demo charges. Clear all red zones of enemy forces. Complete random objectives. Get Some!"]];

@@ -8,7 +8,6 @@ objNull spawn {
 	if(_somedeleted) then {
 		sleep 2;
 	};
-	//_veh = createVehicle [ASORVS_CurrentVehicle, ASORVS_VehicleSpawnPos, [], ASORVS_VehicleSpawnDir, "CAN_COLLIDE"];
 	_veh = createVehicle [ASORVS_CurrentVehicle, ASORVS_VehicleSpawnPos, [], 0, "CAN_COLLIDE"];
 	_veh setDir ASORVS_VehicleSpawnDir;
 	[_veh] call anti_collision;

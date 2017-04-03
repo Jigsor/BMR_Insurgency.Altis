@@ -30,7 +30,7 @@ while {true} do
 	_resistanceair = {_x isKindOf "Air" and side _x == resistance} count _myentities;
 
 	_animals = {_x isKindOf "Animal_Base_F"} count _myentities;//A3
-	
+
 	_totalgrps = count allgroups;
 
 	//_weapons = {_x isKindOf "Weapon"} count _myentities;

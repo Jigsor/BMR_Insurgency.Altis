@@ -78,6 +78,13 @@
 		<Russian>Восстановить снаряжение по умолчанию</Russian>
 		<Spanish>Restaurar defecto inventario</Spanish>
 	</Key>
+	<Key ID="STR_BMR_earPlugs">
+		<Original>Ear Plugs</Original>
+		<German>Ohrstöpsel</German>
+		<French>Des bouchons d'oreilles</French>
+		<Russian>беруши</Russian>
+		<Spanish>Tapones para los oídos</Spanish>
+	</Key>
 	<Key ID="STR_BMR_recruit_inf">
 		<Original>Recruit Infantry</Original>
 		<German>Rekrutiere Infanterie</German>
@@ -126,6 +133,20 @@
 		<French>Caméra Bullet éteindre</French>
 		<Russian>Камера пули откл.</Russian>
 		<Spanish>Cámara de la bala apagado</Spanish>
+	</Key>
+	<Key ID="STR_BMR_ON">
+		<Original>On</Original>
+		<German>Auf</German>
+		<French>Sur</French>
+		<Russian>На</Russian>
+		<Spanish>Dentro</Spanish>
+	</Key>
+	<Key ID="STR_BMR_OFF">
+		<Original>Off</Original>
+		<German>Aus</German>
+		<French>De</French>
+		<Russian>выключено</Russian>
+		<Spanish>Apagado</Spanish>
 	</Key>
 	<Key ID="STR_BMR_found_intel">
 		<Original>%1 found intel</Original>
@@ -334,6 +355,13 @@
 		<Russian>Неправильные боеприпасы для HuntIR</Russian>
 		<Spanish>Munición incorrecto para HuntIR</Spanish>
 	</Key>
+	<Key ID="STR_BMR_missing_map">
+		<Original>Missing map item!</Original>
+		<German>Fehlende Kartenposition!</German>
+		<French>Élément de carte manquant</French>
+		<Russian>Отсутствующий элемент на карте</Russian>
+		<Spanish>¡Falta el elemento del mapa!</Spanish>
+	</Key>
 	<Key ID="STR_BMR_reward_mapclick">
 		<Original>Click on Map for Vehicle Drop Point</Original>
 		<German>Klicke auf die Karte für Fahrzeug Absetzbereich</German>
@@ -405,7 +433,7 @@
 		<Spanish>Proteja torre alta tensión para mantener las luces encendidas en la región</Spanish>
 	</Key>
 	<Key ID="STR_BMR_PowerTower_success">
-		<Original>City is losing power within a raduis of 1000 meters. Good Job!</Original>
+		<Original>City is losing power within a radius of 1000 meters. Good Job!</Original>
 		<German>Im Umkreis von 1000 Metern ist der Strom in der Stadt ausgefallen. Gute Arbeit!</German>
 		<French>Ville est en train de perdre le pouvoir au sein de 1000 mètres de rayon. Bon Travail!</French>
 		<Russian>Город теряет силу в радиусе 1000 метров. Отличная работа!</Russian>
@@ -619,7 +647,7 @@
 		<German>Lade Frachtcontainer in MHQ_3 und liefere ihn zur markierten Auslieferungszone. Der Frachtcontainer befindet sich neben dem MHW_3 in der Basis. Platziere den Frachtcontainer mindesten im Umkreis von 750 Metern zur, mit grünem Rauch markierten, Auslieferungszone. Halte Ausschau nach gegnerischer Luftabwehr. Pilot muss die Fracht entladen bevor er den Helikopter verlässt.</German>
 		<French>Chargez et déposez réservoir d'alimentation de Zone de livraison Marker avec MHQ_3. Récipient d'approvisionnement est à côté de point de respawn MHQ_3 à la base. Déposer la cargaison à moins de 750 mètres de fumée verte / Zone de livraison Marker . Vérifiez la carte pour MHQ_3 Marker et regarder dehors pour défenses Anti Air. Pilote doit décharger des marchandises avant de quitter helicóptero.</French>
 		<Russian>Загрузите и сбросьте контейнер снабжения к маркеру зоны доставки с MHQ_3. Контейнер снабжения рядом с местом респауна MHQ_3 на базе. Сбросьте груз в 750 метрах от зеленого дыма/Маркера зоны доставки. Проверьте карту для маркера MHQ_3 и остерегайтесь ПВО. Пилот должен выгрузить груз перед выходом из вертолета.</Russian>
-		<Spanish>Cargar y colocar recipiente de suministro a la zona de entrega de marcador con MHQ_3 . Recipiente de suministro está al lado de punto de reaparecer MHQ_3 en la base. Caída de carga dentro de 750 metros de humo verde / Zona Entrega Marker. Compruebe mapa para MHQ_3 Marker y mirar hacia fuera para las defensas anti aéreas. Piloto debe descargar mercancías antes de salir de helicóptero.</Spanish>
+		<Spanish>Cargar y colocar recipiente de suministro a la zona de entrega de marcador con MHQ_3. Recipiente de suministro está al lado de punto de reaparecer MHQ_3 en la base. Caída de carga dentro de 750 metros de humo verde / Zona Entrega Marker. Compruebe mapa para MHQ_3 Marker y mirar hacia fuera para las defensas anti aéreas. Piloto debe descargar mercancías antes de salir de helicóptero.</Spanish>
 	</Key>
 	<Key ID="STR_BMR_Tsk_topicE_lnds">
 		<Original>Sabatoge Delivery</Original>

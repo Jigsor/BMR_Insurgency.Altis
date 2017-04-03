@@ -80,8 +80,17 @@ if (DebugEnabled > 0) then {
 	// Object Actions //
 
 	// Base Flag Pole
-	INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","ATM_airdrop\atm_airdrop.sqf", nil, 3.9];
-	if (max_ai_recruits > 1) then {INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\INS_AI_Halo.sqf", nil, 3.8];};
+	if (INS_op_faction isEqualTo 16) then {
+		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 0, 3.9];
+		if (max_ai_recruits > 1) then {
+			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 1, 3.8];
+			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + "Player and AI HALO" + "</t>","scripts\HALO_Pod.sqf", 2, 3.79];
+		};
+	}else{
+		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","ATM_airdrop\atm_airdrop.sqf", nil, 3.9];
+		if (max_ai_recruits > 1) then {INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\INS_AI_Halo.sqf", nil, 3.8];};
+	};
+
 	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Airfield</t>","call JIG_transfer_fnc", ["Airfield"], 3.7];
 	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Dock</t>","call JIG_transfer_fnc", ["Dock"], 3.6];
 
@@ -106,11 +115,17 @@ if (DebugEnabled > 0) then {
 	INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_load_saved_loadout") + "</t>",{(_this select 1) call INS_RestoreLoadout},nil,1, false, true, "", "side _this != INS_Blu_side"];
 	INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side"];
 
+	// Ear Plugs
+	if !(INS_ACE_core) then {
+		INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_earPlugs") + "</t>", { if (soundVolume isEqualTo 1) then {1 fadeSound 0.5; hintSilent localize "STR_BMR_ON";} else {1 fadeSound 1; hintSilent localize "STR_BMR_OFF";} }, [], 1];
+		INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_earPlugs") + "</t>", { if (soundVolume isEqualTo 1) then {1 fadeSound 0.5; hintSilent localize "STR_BMR_ON";} else {1 fadeSound 1; hintSilent localize "STR_BMR_OFF";} } ,nil,1, false, true, "", "side _this != INS_Blu_side"];
+	};
+
 	// AI recruitment
 	if (max_ai_recruits > 1) then {INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#1d78ed'>") + (localize "STR_BMR_recruit_inf") + "</t>","bon_recruit_units\open_dialog.sqf", [], 1];};
 
 	// Loadout Transfer
-	[INS_Wep_box,true,false,false,false,false] call LT_fnc_LTaction;
+	//[INS_Wep_box,true,false,false,false,false] call LT_fnc_LTaction;// not working correctly anymore
 
 	// Player actions for Engineer's Farp/vehicle service point
 	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_maintenance_veh") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],INS_maintenance_veh], 8, true, true, "", "count (nearestObjects [_this, [""LandVehicle"",""Air""], 10]) > 0"];
@@ -156,24 +171,14 @@ if (DebugEnabled > 0) then {
 	if (INS_full_loadout isEqualTo 0) then {
 		player removealleventhandlers "Reloaded";
 		player addEventHandler ["Reloaded", {_null = [] call INS_Depleated_Loadout}];
-		player addEventHandler ["killed", {(_this select 0) removealleventhandlers "Reloaded"; _this spawn killedInfo_fnc}];
+		player addEventHandler ["Killed", {(_this select 0) removealleventhandlers "Reloaded"; _this spawn killedInfo_fnc}];
 		player addEventHandler ["Respawn", {(_this select 0) spawn INS_RestoreLoadout; (_this select 0) addEventHandler ["Reloaded", {_null = [] call INS_Depleated_Loadout}]; [] spawn JIG_p_actions_resp; (_this select 0) spawn INS_UI_pref}];
 	}else{
-		player addEventHandler ["killed", {_this spawn killedInfo_fnc}];
+		player addEventHandler ["Killed", {_this spawn killedInfo_fnc}];
 		player addEventHandler ["Respawn", {[] spawn JIG_p_actions_resp; (_this select 0) spawn INS_RestoreLoadout; (_this select 0) spawn INS_UI_pref}];
 	};
 
-	If (side player == east) then {player addEventHandler ["killed", {handle = [_this select 0] execVM "scripts\MoveOp4Base.sqf";}];};
 	if (!isServer) then	{"PVEH_netSay3D" addPublicVariableEventHandler {private "_array"; _array = _this select 1; (_array select 0) say3D (_array select 1);};};
-
-	if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
-		player addEventHandler ["Respawn", {
-			[(_this select 0)] spawn {
-				waitUntil {sleep 1; alive (_this select 0)};
-				if (captive (_this select 0)) then {(_this select 0) setCaptive false};
-			};
-		}];
-	};
 
 	if (INS_GasGrenadeMod isEqualTo 1) then {
 		player addEventHandler ["Fired", {
@@ -193,6 +198,30 @@ if (DebugEnabled > 0) then {
 				_inSmokeThread = [] spawn GAS_inSmoke;
 			};
 		}] call BIS_fnc_addStackedEventHandler;
+	};
+
+	if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
+		player addEventHandler ["Killed",{_this spawn {sleep 3; deletevehicle (_this select 0)};}];
+		player addEventHandler ["Respawn", {
+			[(_this select 0)] spawn {
+				waitUntil {sleep 1; alive (_this select 0)};
+				if (captive (_this select 0)) then {(_this select 0) setCaptive false};
+			};
+		}];
+	}else{
+		If (side player == east) then {player addEventHandler ["Killed", {Op4handle = [_this select 0] execVM "scripts\MoveOp4Base.sqf";}];};
+	};
+
+	if (!(INS_ACE_core) && !(INSpDamMul isEqualTo 100)) then {
+		if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
+			[] spawn {
+				waitUntil {time > 4};
+				hint "Player damage modifier not compatible with BTC Quick Revive. Default damage will be taken (100%)";
+			};
+		}else{
+			pdammod = INSpDamMul*0.01;
+			player addEventHandler ["HandleDamage",{_damage = (_this select 2)*pdammod;_damage}];
+		};
 	};
 
 	// Routines //

@@ -7,6 +7,7 @@ Visit us at: http://www.blacktemplars.altervista.org/
 waitUntil {!isNull player && player == player};
 
 BTC_towed      = ObjNull;
+BTC_cargo_attached = ObjNull;
 //Functions
 BTC_tow_check =
 {
@@ -51,6 +52,9 @@ BTC_t_detach_cargo =
 	detach BTC_cargo_attached;
 	_name_cargo  = getText (configFile >> "cfgVehicles" >> typeof BTC_cargo_attached >> "displayName");
 	vehicle player vehicleChat format ["%1 dropped", _name_cargo];
+	if ((!isNull BTC_cargo_attached) && {(vectorMagnitudeSqr velocity BTC_cargo_attached <= 0.5)}) then {
+		[BTC_cargo_attached] call anti_collision;
+	};
 	BTC_cargo_attached = ObjNull;
 	BTC_attached = 0;
 };

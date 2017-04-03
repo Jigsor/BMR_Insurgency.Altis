@@ -1,4 +1,5 @@
-private["_control","_slot","_loadout","_data", "_numberLoadouts","_targetUser"];
+//private["_control","_slot","_loadout","_data", "_numberLoadouts","_targetUser"];
+private["_control","_slot","_loadout","_data","_numberLoadouts","_targetUser","_selectNum","_VA_Loadouts_Count"];
 disableSerialization;
 
 _control = ((findDisplay 2560) displayCtrl 2601);
@@ -12,6 +13,7 @@ if(!createDialog "LT_TransferLoadout") exitWith {hint "Couldn't open the transfe
 _control = ((findDisplay 2570) displayCtrl 2701);
 //Fill the units units list.
 
+/*
 _data = profileNamespace getVariable "bis_fnc_saveInventory_data";
 _numberLoadouts = ((count _data) / 2) - 1;
 
@@ -21,4 +23,15 @@ for "_i" from 0 to _numberLoadouts do
 
 	_control lbAdd format ["%1", _data select _selectNum];
 	_control lbSetData[(lbSize _control)-1, _targetUser + "&??&" + (str _selectNum)];
+};
+*/
+
+_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
+_data = profileNamespace getVariable "bis_fnc_saveInventory_data";
+_selectNum = 0;
+
+for "_i" from 0 to (_VA_Loadouts_Count/2) -1 do	{
+	_control lbAdd format ["%1", _data select _selectNum];
+	_control lbSetData[(lbSize _control)-1, _targetUser + "&??&" + (str _selectNum)];
+	_selectNum = _selectNum + 2;
 };

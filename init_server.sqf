@@ -6,6 +6,7 @@ call compile preprocessFileLineNumbers "INSfncs\server_fncs.sqf";
 // Weather //
 if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {
 	[] spawn {
+		//Date is advanced + 48 hours of editor settings
 		waitUntil {time > 1};
 		skipTime (((INS_p_time - (daytime) +24) % 24) -24);
 		86400 setOvercast (JIPweather/100);
@@ -15,6 +16,7 @@ if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {
 		sleep 1;
 		//setWind [1,1,false];
 		simulWeatherSync;
+		if (JIPweather isEqualTo 0) then {sleep 15; overCastValue = [0] call BIS_fnc_paramWeather; 0 setFog 0;};
 	};
 }else{
 	if (JIPweather isEqualTo 2) then {
@@ -86,18 +88,19 @@ if (INS_GasGrenadeMod isEqualTo 1) then {"ToxicGasLoc" addPublicVariableEventHan
 	_x setVariable ["BTC_cannot_load",1,true];
 	_x setVariable ["BTC_cannot_place",1,true];
 } forEach INS_log_blacklist; // Set editor placed objects with names not liftable, not draggable, not loadable and not placeable with BTC Logistics
+INS_Op4_flag setVectorUp [0,0,1];
+INS_flag setVectorUp [0,0,1];
 INS_flag setFlagTexture "images\bmrflag.paa";// your squad flag here or comment out for default Blufor flag
 Delivery_Box hideObjectGlobal true;
 [] spawn opfor_NVG;
-if (INS_GasGrenadeMod isEqualTo 1) then {[] spawn editorAI_GasMask;};
 [180] execVM "scripts\SingleThreadCrateRefill.sqf";
 
 // Param enabled scripts/settings //
+if (INS_GasGrenadeMod isEqualTo 1) then {[] spawn editorAI_GasMask;};
 if (INS_environment isEqualTo 0) then {[] spawn {waitUntil {time > 1}; enableEnvironment false;};};
 if (Fatigue_ability < 1) then {{[_x] spawn INS_full_stamina;} forEach playableUnits;};
 if (EnableEnemyAir > 0) then {0 = [] execVM "scripts\AirPatrolEast.sqf";};
-if (DebugEnabled isEqualTo 1) then
-{
+if (DebugEnabled isEqualTo 1) then {
 	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 30; nul = [] execVM "scripts\INS_SuicideBomber.sqf";};};
 }else{
 	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 600; nul = [] execVM "scripts\INS_SuicideBomber.sqf";};};
@@ -110,7 +113,8 @@ if (DebugEnabled isEqualTo 1) then
 	0, // (0 means don't delete)
 	2*60, // seconds to delete dropped weapons
 	0, // (0 means don't delete)// interferes with minefield task if set above 0
-	6*60 // seconds to delete dropped smokes/chemlights
+	6*60, // seconds to delete dropped smokes/chemlights
+	1*60 // seconds to delete craters
 ] execVM 'scripts\repetitive_cleanup.sqf';
 
 {_x setVariable ["persistent",true];} forEach [Jig_m_obj,Delivery_Box];
@@ -123,24 +127,29 @@ execVM "scripts\unattended_maintenance.sqf";
 // Friendly Fixed Wing Assets //
 if (Airfield_opt) then
 {
+	//Clear Airfield marker of trees and bushes
+	if (toLower (worldName) isEqualTo "altis") then {
+		{ _x hideObjectGlobal true } foreach (nearestTerrainObjects [(getMarkerPos "Airfield"),["TREE","SMALL TREE","BUSH"],175]);
+	};
+
 	//Default empty Bluefor Fixed Wing
 	private ["_mod","_class","_dirfw1","_fw1","_type"];
 	_mod = false;
 
 	switch (INS_op_faction) do {
 		case 6: {
-			if (isClass(configfile >> "CfgVehicles" >> "mas_F_35C")) then {
-				_class = "mas_F_35C_cas"; _mod = true;
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 7: {
-			if (isClass (configfile >> "CfgVehicles" >> "mas_F_35C")) then {
-				_mod = true; _class = "mas_F_35C_cas";
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 8: {
-			if (isClass (configfile >> "CfgVehicles" >> "mas_F_35C")) then {
-				_mod = true; _class = "mas_F_35C_cas";
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 9: {
@@ -149,23 +158,43 @@ if (Airfield_opt) then
 			};
 		};
 		case 10: {
-			if (isClass(configFile >> "CfgVehicles" >> "CUP_B_A10_AT_USA")) then {
-				_mod = true; _class = "CUP_B_A10_AT_USA";
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 11: {
-			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 12: {
-			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
-				_mod = true; _class = "RHS_A10";
+			if (isClass(configFile >> "CfgVehicles" >> "CUP_B_A10_AT_USA")) then {
+				_mod = true; _class = "CUP_B_A10_AT_USA";
 			};
 		};
 		case 13: {
-			if (isClass(configFile >> "cfgPatches" >> "RHS_A10")) then {
-				_mod = true; _class = "RHS_A10";
+			if (isClass(configfile >> "CfgVehicles" >> "mas_F_35C")) then {
+				_mod = true; _class = "mas_F_35C_cas";
+			};
+		};
+		case 14: {
+			if (isClass (configfile >> "CfgVehicles" >> "mas_F_35C")) then {
+				_mod = true; _class = "mas_F_35C_cas";
+			};
+		};
+		case 15: {
+			if (isClass (configfile >> "CfgVehicles" >> "mas_F_35C")) then {
+				_mod = true; _class = "mas_F_35C_cas";
+			};
+		};
+		case 16: {
+			if (isClass(configFile >> "CfgVehicles" >> "OPTRE_UNSC_hornet_black_CAS"))then {
+				_mod = true; _class = "OPTRE_UNSC_hornet_black_CAS";
+			};
+		};
+		case 17: {
+			if (isClass(configFile >> "CfgVehicles" >> "LIB_DAK_FW190F8"))then {
+				_mod = true; _class = "LIB_DAK_FW190F8";
 			};
 		};
 		default {
@@ -206,9 +235,27 @@ if (Airfield_opt) then
 	};
 };
 
+addMissionEventHandler ["HandleDisconnect", {
+    _unit = _this select 0;
+    deleteVehicle _unit;
+}];
+
 // Tasks //
 [] spawn {
+/*
+// Persistence Check/Set Marker Color
+	if (!isNil {profileNamespace getVariable "BMR_INS_progress"}) then {
+		waitUntil {! isNil "VictoryColor");
+		private _uncapedMarkers = profileNamespace getVariable "BMR_INS_progress";
+		{
+			if !(_x in all_eos_mkrs) then {
+				_x setMarkerColor VictoryColor;
+			};
+		} foreach _uncapedMarkers;
+	};
+*/
 	waitUntil {! isNil "SHK_Taskmaster_Tasks"};
+
 	if (DebugEnabled isEqualTo 1) then {
 		sleep 2;
 		tasks_handler = [] execVM "Objectives\random_objectives.sqf";

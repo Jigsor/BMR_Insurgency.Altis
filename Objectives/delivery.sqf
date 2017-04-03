@@ -5,16 +5,17 @@ private ["_newZone","_smoke","_smkArr","_type","_rnum","_objmkr","_AA","_VarName
 
 _newZone = _this select 0;
 _rnum = str(round (random 999));
-_MHQ3DelReady = false;
-_cargoPos = Del_box_Pos;
 _deliverydone = 0;
 deliveryfail = 0;
+_MHQ3DelReady = false;
 Demo_Loaded = false;
 Demo_Unloaded = false;
 Demo_Near = false;
 Demo_End = false;
 Task_Transport = [];
 _smkArr = [];
+
+if (typeName Del_box_Pos == "OBJECT") then {_cargoPos = getPos Del_box_Pos;}else{_cargoPos = Del_box_Pos;};
 
 if ((INS_op_faction > 3) || (INS_op_faction isEqualTo 0)) then {
 	_type = selectRandom INS_Op4_Veh_AA;
@@ -105,7 +106,7 @@ _tmarker = createMarker ["Task_Transport", _newPos];
 publicVariable "Task_Transport";
 sleep 2;
 
-[] spawn { while {!isNull Demo_Arrow} do { "Task_Transport" setMarkerPos getposATL MHQ_3; sleep 1; }; };
+[] spawn { while {!isNull Demo_Arrow} do { "Task_Transport" setMarkerPos getPosWorld MHQ_3; sleep 1; }; };
 
 // create west task
 _tskW = "tskW_Freight_Delivery" + _rnum;
@@ -129,7 +130,7 @@ MHQ_3 setDamage 0; sleep 0.1;
 [] spawn {
 	while {Demo_Loaded} do {
 		if (alive MHQ_3) then {
-			"Task_Transport" setMarkerPos getposasl MHQ_3;
+			"Task_Transport" setMarkerPos getPosWorld MHQ_3;
 			sleep 1.2;
 		};
 	};
@@ -162,10 +163,8 @@ _AAveh setVehicleVarName _VarName;
 _AAveh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
 
 // Spawn Objective enemy defences
-_grp = [_newZone,10] call spawn_Op4_grp;
+_grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
 _stat_grp = [_newZone,3,15] call spawn_Op4_StatDef;
-
-_stat_grp setCombatMode "RED";
 
 _inf_patrol=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 _AA_mob_patrol=[_vehgrp, position objective_pos_logic, 125] call Veh_taskPatrol_mod;
@@ -269,7 +268,7 @@ sleep 90;
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp),(units _vehgrp);
 {deleteGroup _x} forEach [_grp, _stat_grp, _vehgrp];
 
-if (!isNull _AAveh) then {deleteVehicle _AAveh; sleep 0.1;};
+if (!isNull _AAveh) then {deleteVehicle _AAveh;};
 
 _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
 {deleteVehicle _x; sleep 0.1} forEach _staticGuns;

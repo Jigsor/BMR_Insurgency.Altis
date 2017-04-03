@@ -2,7 +2,7 @@
 //ghst_ugvsupport = [(getmarkerpos "spawnmarker"),"typeofugv",max number of ugvs,delay in mins] execvm "scripts\ghst_ugvsupport.sqf";
 //ghst_ugvsupport = [(getmarkerpos "ugv_support"),"B_UGV_01_rcws_F",2,30] execvm "scripts\ghst_ugvsupport.sqf";
 
-private ["_spawnmark","_type","_max_num","_delay","_dir","_smoke1","_chute1","_ugv1","_wGrp","_ugv_num","_score","_points","_exit","_groundPos","_grpExists"];
+private ["_spawnmark","_type","_max_num","_delay","_dir","_smoke1","_chute1","_ugv1","_wGrp","_ugv_num","_score","_points","_deficit","_exit","_groundPos","_grpExists"];
 
 _spawnmark = _this select 0;// spawn point where ugv spawns and deletes
 _type = _this select 1;// type of ugv to spawn i.e. "B_UGV_01_rcws_F"
@@ -19,7 +19,7 @@ if (player getVariable "ghst_ugvsup" == _max_num) then {
 		player setVariable ["ugvOpScore", _score];
 		_exit = true;
 	}else{
-		if ((_score - _points) > player getVariable "ugvOpScore") then {
+		if ((_score - _points) >= player getVariable "ugvOpScore") then {
 			_ugv_num = player getVariable "ghst_ugvsup";
 			_ugv_num = _ugv_num - 1;
 			player setVariable ["ghst_ugvsup", _ugv_num];
@@ -30,7 +30,10 @@ if (player getVariable "ghst_ugvsup" == _max_num) then {
 	};
 };
 
-if (_exit) exitwith {player groupchat format ["UGV support at max number of %1", _max_num];};
+if (_exit) exitwith {
+	_deficit = abs((player getVariable "ugvOpScore") - (_score - _points));
+	player groupchat format ["UGV support at max number of %1. Requires %2 more points.", _max_num, _deficit];
+};
 
 openMap true;
 player groupchat localize "STR_BMR_ugv_mapclick";
@@ -77,7 +80,7 @@ if (alive _ugv1) then {// jig adding/change - ugv is recreated on landing becaus
 	_groundPos = [getpos _ugv1 select 0,getpos _ugv1 select 1,getposatl _ugv1 select 2];
 	_dir = direction _ugv1;
 
-	if  (count(lineIntersectsObjs [(getposASL _ugv1), [(getposASL _ugv1 select 0),(getposASL _ugv1 select 1), ((getposASL _ugv1 select 2) + 20)]]) != 0) then {
+	if  (count(lineIntersectsObjs [(getposASL _ugv1), [(getposASL _ugv1 select 0),(getposASL _ugv1 select 1), ((getposASL _ugv1 select 2) + 20)]]) > 1) then {
 		_groundPos = [_groundPos, 0, 50, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
 	};
 

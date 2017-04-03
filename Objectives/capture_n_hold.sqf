@@ -1,11 +1,12 @@
 //capture_n_hold.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_cap_rad","_VarName","_uncaped","_caped","_ins_debug","_objmkr","_outpost","_grp","_stat_grp","_handle","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_manArray","_text","_rwave","_hold_rad","_defender_rad","_currTime","_defenderArr","_defcnt","_holdTime","_staticGuns"];
+private ["_newZone","_type","_rnum","_fireF","_cap_rad","_VarName","_uncaped","_caped","_ins_debug","_objmkr","_outpost","_grp","_stat_grp","_handle","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_fireF","_sfCount","_smokePos","_manArray","_text","_rwave","_hold_rad","_defender_rad","_currTime","_defenderArr","_defcnt","_holdTime","_staticGuns"];
 
 _newZone = _this select 0;
 _type = _this select 1;
 _rnum = str(round (random 999));
+_fireF = 1;
 _cap_rad = 25;
 _hold_rad = 50;
 _defender_rad = 200;
@@ -38,11 +39,10 @@ _outpost setVehicleVarName _VarName;
 _outpost Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
 
 //Spawn Objective enemy defences
-_grp = [_newZone,10] call spawn_Op4_grp;
+_grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
 _stat_grp = [_newZone,3,12] call spawn_Op4_StatDef;
 
 //movement
-_stat_grp setCombatMode "RED";
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 if (_ins_debug) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
@@ -61,15 +61,24 @@ _taskdescE = localize "STR_BMR_Tsk_descE_cnho";
 if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
 
 while {_uncaped} do {
-	_manArray = objective_pos_logic nearEntities [["CAManBase"], _cap_rad];
+	if (_fireF isEqualTo 1) then {
+		if ((daytime > 20.00) || (daytime < 4.00)) then {
+			_sfCount = [1,6] call BIS_fnc_randomInt;
+			null=[_sfCount,1,220,"red",100,_newZone] spawn Drop_SmokeFlare_fnc;
+			_fireF = 2;
+		};
+	}else{
+		if (_fireF isEqualTo 9) then {_fireF = 1;}else{_fireF = _fireF +1;};
+	};
 
+	_manArray = objective_pos_logic nearEntities [["CAManBase"], _cap_rad];
 	{
 		if ((!(side _x == INS_Blu_side)) || (captiveNum _x isEqualTo 1)) then {
 			_manArray = _manArray - [_x];
 		};
 	} forEach _manArray;
 	sleep 4;
-	if ((count _manArray) > 0) exitWith {_uncaped = false};	
+	if ((count _manArray) > 0) exitWith {_uncaped = false};
 };
 waitUntil {!_uncaped};
 
@@ -146,10 +155,14 @@ _rwave = [_newZone,_ins_debug] spawn {
 		if (curvePosArr isEqualTo []) exitWith {makewave = false; publicVariable "makewave";};
 
 		if (count curvePosArr > 0) then	{
-			_rgrp1 = [_start_pos1,6] call spawn_Op4_grp;
+			_rgrp1 = [_start_pos1,6] call spawn_Op4_grp; sleep 1;
 
 			_cnhWaveGrps pushBack _rgrp1;
 			{_cnhWaveUnits pushBack _x;} forEach (units _rgrp1);
+
+			_sfCount = [3,8] call BIS_fnc_randomInt;
+			_smokePos = (curvePosArr select 6);
+			null=[_sfCount,0,215,"red",50,_smokePos] spawn Drop_SmokeFlare_fnc;
 
 			//reinforcement/wave group movement
 			for "_i" from 0 to (count curvePosArr) -1 do {
@@ -167,7 +180,7 @@ _rwave = [_newZone,_ins_debug] spawn {
 			};
 			if (_ins_debug) then {[_rgrp1] spawn INS_Tsk_GrpMkrs;};
 
-			sleep 55;
+			sleep 54;
 			if (!makewave) exitWith {};
 		};
 	};

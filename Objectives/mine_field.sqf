@@ -38,10 +38,9 @@ sleep jig_tvt_globalsleep;
 _sandbags1 setVariable["persistent",true];
 
 // Spawn Objective enemy defences
-_grp = [_newZone,10] call spawn_Op4_grp;
+_grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
 _stat_grp = [_newZone,4,25] call spawn_Op4_StatDef;
 
-_stat_grp setCombatMode "RED";//"Stealth"
 _patrole = [_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 if (_ins_debug) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 

@@ -248,11 +248,11 @@ hv_tower_effect = {
 	true
 };
 JIG_base_protection = {
-	// Intrinsic destruction of enemy entering protection triggers trig_alarm1init and trig_alarm2init by Jigsor.
+	// Intrinsic destruction of Opfor and Independant units entering protection triggers trig_alarm1init, trig_alarm2init and triggers trig_alarm3init and trig_alarm4init if applicable by Jigsor.
 	if (!hasInterface && !isDedicated) exitWith {};
 	private "_defend";
-	_defend = [(_this select 0)] spawn {
-		private _unit = _this select 0;
+	_defend = [(_this select 0),(_this select 1)] spawn {
+		params ["_unit","_trigger"];
 		if (isDedicated && {isPlayer _unit}) exitWith {};
 		if (isDedicated) then {
 			sleep 0.899;
@@ -262,7 +262,7 @@ JIG_base_protection = {
 			if (!isServer && {local player && _unit == player}) exitWith {
 				private ["_intrude_pos","_trigPos","_dis1","_dis2"];
 				_intrude_pos = (getPosATL _unit);
-				_trigPos = (position trig_alarm1init);
+				_trigPos = (getPosWorld _trigger);
 				_dis1 = (_intrude_pos distance _trigPos);
 
 				for '_i' from 10 to 1 step -1 do {
@@ -278,7 +278,7 @@ JIG_base_protection = {
 			if (local player && _unit == player) then {
 				private ["_intrude_pos","_trigPos","_dis1","_dis2"];
 				_intrude_pos = (getPosATL _unit);
-				_trigPos = (position trig_alarm1init);
+				_trigPos = (getPosWorld _trigger);
 				_dis1 = (_intrude_pos distance _trigPos);
 
 				for '_i' from 10 to 1 step -1 do {
@@ -315,7 +315,9 @@ Push_Vehicle = {
 	Pushes the boat in the direction the player is looking
 	Created by BearBison */
 
-	params ["_veh","_unit","_isWater"];
+	private ["_veh","_unit","_isWater"];
+	_veh = _this select 0;
+	_unit = _this select 1;
 	_isWater = surfaceIsWater position _unit;
 	if (_unit in _veh) exitWith {titleText[localize "STR_BMR_push_restrict2","PLAIN DOWN",1];};
 	if (_isWater) exitWith {titleText[localize "STR_BMR_push_restrict1","PLAIN DOWN",1];};
@@ -347,14 +349,6 @@ INS_Zeus_MP = {
 	// Admin can toggle Zeus on or off in Debug Console with following command
 	// [player,true] spawn INS_Zeus_MP;
 	// ZEUS interface key (Left Ctrl + y)
-	_unit = [_this,0,objNull] call bis_fnc_param;
-	_announce = [_this,1,false] call bis_fnc_param;
-	[[_unit,_announce],"INS_Zeus_toggle",false] spawn BIS_fnc_MP;
-};
-INS_Zeus_MP = {
-	// Admin can toggle Zeus on or off in Debug Console with following command
-	// [player,true] spawn INS_Zeus_MP;
-	// ZEUS interface key (Left Ctrl + y)
 	private ["_unit", "_announce"];
 	_unit = [_this,0,objNull] call bis_fnc_param;
 	_announce = [_this,1,false] call bis_fnc_param;
@@ -362,10 +356,11 @@ INS_Zeus_MP = {
 };
 INS_toggle_Zeus = {
 	if (IamHC) exitWith {};
-	private ["_unit", "_announce", "_curator", "_curatorCreate", "_text"];
+	private ["_unit","_announce","_addons","_curator","_curatorCreate","_text"];
 
 	_unit = [_this,0,objNull] call bis_fnc_param;
 	_announce = [_this,1,false] call bis_fnc_param;
+	_addons = [""];
 
 	if (!isNull (getAssignedCuratorLogic _unit)) exitWith {
 		_curator = getAssignedCuratorLogic _unit;
@@ -391,11 +386,34 @@ INS_toggle_Zeus = {
 	if (_curatorCreate) then {
 		_curator = (createGroup sideLogic) createUnit ["modulecurator_f",[0,0,0],[],0,"NONE"];
 		{_curator setCuratorCoef [_x,0];} forEach ["place","edit","delete","destroy","group","synchronize"];
-		_curator addEventHandler ['CuratorObjectPlaced',{{[_x] call BTC_AIunit_init;} forEach crew(_this select 1)}];
+		_curator addEventHandler ['CuratorObjectPlaced',{
+			{
+				[_x] call BTC_AIunit_init;
+				_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
+				if (EOS_DAMAGE_MULTIPLIER != 1) then {
+					_x removeAllEventHandlers "HandleDamage";
+					_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];
+				};
+				if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc};
+			} forEach crew (_this select 1);
+		}];
 	};
 
+	_curator setVariable ["Addons",3,true];
+	_cfgPatches = configfile >> "cfgpatches";
+	for "_i" from 0 to (count _cfgPatches - 1) do {
+		_class = _cfgPatches select _i;
+		if (isclass _class) then {_addons pushBack (configname _class);};
+	};
+
+	_addons call bis_fnc_activateaddons;
+	removeallcuratoraddons _curator;
+	[_curator,_addons,{true},""] call BIS_fnc_manageCuratorAddons;
+	_curator addCuratorAddons _addons;
 	_curator addCuratorEditableObjects [allUnits,true];
 	_unit assignCurator _curator;
+
+	if (DebugEnabled isEqualTo 1) then {diag_log curatorAddons _curator;};
 
 	if (_announce) then {
 		_text = format[localize "STR_BMR_is_curator",name _unit];
@@ -409,7 +427,7 @@ Terminal_acction_MPfnc = {
 			[
 				Land_DataTerminal_Obj,
 				"DownLoad Data",
-				"\a3\ui_f_exp_a\Data\RscTitles\RscEGProgress\downloadicon_ca.paa",
+				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
 				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
 				"_this distance Land_DataTerminal_Obj < 2",
 				"true",
@@ -459,6 +477,144 @@ INS_Brighter_Nights = {
 		_handle ppEffectAdjust _effect;
 		_handle ppEffectCommit 1;
 	};
+	true
+};
+Drop_SmokeFlare_fnc = {
+	/*
+	Pops Chemlight and (Smoke or Airborne Flare) at map click position. by Jigsor.
+	PARAMETERS:
+		1. How many smokes or flares to spawn. Min = 1. Max = 50
+		2. Type - 0 = smoke greanades, 1 = flares
+		3. Flare height in meters
+		4. Color of the flares and smoke. Accepted - "red","green","yellow" or "white"
+		5. Dispersion radius. Optional. Min = 5. Max = 500
+		6. position. Optional. Must be provided when function executioner is not player.
+	Execute Local Examples:
+		Smoke only -
+			0=[10,0,208,"green",20] spawn Drop_SmokeFlare_fnc;
+		Flares only -
+			0=[15,1,208,"green",25] spawn Drop_SmokeFlare_fnc;
+	Executed from server:
+		Flares from server -
+			0=[12,1,220,"green",75,[3276.91,5278.15,0.00141907]] spawn Drop_SmokeFlare_fnc;
+	*/
+	params ["_objCount","_objTyp","_height","_color","_range","_pos"];
+	private ["_col","_lA","_fA","_sA","_mapClick","_chemLight","_smoke","_flare","_dir","_dir2","_logic","_lPos","_cA","_offset"];
+
+	_col = toLower _color;
+	_lA = [];
+	_fA = [];
+	_sA = [];
+	_mapClick = false;
+
+	if (_objCount < 1) then {
+		_objCount = 1;
+	}else{
+		if (_objCount > 50) then {_objCount = 50};
+	};
+
+	if ((_objTyp == 0) && (_color isEqualTo "white")) then {
+		_col = "";
+	}else{
+		switch (true) do {
+			case (_col isEqualTo "red") : {_cA = [1.0,0,0];};
+			case (_col isEqualTo "green") : {_cA = [0,1.0,0];};
+			case (_col isEqualTo "yellow") : {_cA = [1.0,1.0,0];};
+			case (_col isEqualTo "white") : {_cA = [1.0,1.0,1.0];};
+			default {_cA = [1.0,1.0,1.0];};
+		};
+	};
+
+	if ((count _this) -1 < 3) then {
+		_range = 25;
+	}else{
+		if (_range < 5) then {_range = 5};
+		if (_range > 500) then {_range = 500};
+	};
+
+	if ((count _this) -1 < 5) then {_mapClick = true;}else{_pos = _this select 5;};
+
+	if (_mapClick) then {
+		if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint localize "STR_BMR_missing_map"};
+
+		uiSleep 3;
+		openMap true;
+		player groupChat "Map Click";
+		mapclick = false;
+
+		["Flare_mapclick","onMapSingleClick", {
+			clickpos = _pos;
+			mapclick = true;
+		}] call BIS_fnc_addStackedEventHandler;
+
+		waituntil {mapclick or !(visiblemap)};
+		["Flare_mapclick", "onMapSingleClick"] call BIS_fnc_removeStackedEventHandler;
+
+		if (!visibleMap) exitwith {hint "Standby";};
+
+		_pos = clickpos;
+		sleep 1;
+		openMap false;
+	};
+
+	_logic = createVehicle ["Land_ClutterCutter_small_F", _pos, [], 0, "CAN_COLLIDE"]; sleep 0.1;
+	_chemLight = createVehicle ["Chemlight_green", _pos, [], 0, "NONE"]; sleep 0.1;
+	_lPos = [(getPosWorld _logic) select 0, (getPosWorld _logic) select 1, ((getPosWorld _logic) select 2) + _height];
+
+	if (_objTyp == 0) then {
+		for "_i" from 0 to (_objCount -1) do {
+			_dir = round(random 359);
+			_dir2 = round(random 359);
+			_offset = [round((_lPos select 0)-_range*sin(_dir)), round((_lPos select 1)-_range*cos(_dir2)), 50];
+			_smoke = createVehicle [(format ["Smokeshell%1", _col]), _offset, [], 0, "NONE"];
+			_sA pushBack _smoke;
+			uiSleep 0.5;
+		};
+	};
+
+	if (_objTyp == 1) then {
+		for "_i" from 0 to (_objCount -1) do {
+			_dir = round(random 359);
+			_offset = [round((_lPos select 0)-_range*sin(_dir)), round((_lPos select 1)-_range*cos(_dir)), _height];
+			_flare = (format ["F_40mm%1","_"+_col]) createVehicle _offset; sleep 0.01;
+
+			_light = "#lightpoint" createVehicle (getPosATL _flare);
+			_light setLightBrightness 2.0;
+			_light setLightAmbient _cA;
+			_light setLightUseFlare true;
+			_light setLightFlareSize 4;
+			_light setLightFlareMaxDistance 500;
+			_light setLightColor _cA;
+			_light lightAttachObject [_flare, [0,0,0]];
+			_flare setVelocity [round(random 14) -7,round(random 14) -7,-10];
+
+			_lA pushBack _light;
+			_fA pushBack _flare;
+			uiSleep 0.5;
+		};
+
+		while {count _fA > 0} do {
+			if (vectorMagnitudeSqr velocity (_fA select 0) <= 0.5) then {
+				deleteVehicle (_lA select 0);
+				_fA deleteAt 0;
+				_lA deleteAt 0;
+			};
+			uiSleep 0.4;
+		};
+	};
+
+	deleteVehicle _chemLight;
+	deleteVehicle _logic;
+};
+Trade_Biofoam_fnc = {
+	params ["_obj","_objItems"];
+	_objItems = items _obj;
+	{
+		if (_objItems find "OPTRE_Biofoam" != -1) then {
+			_obj removeItem "OPTRE_Biofoam";
+			_obj addItem "FirstAidKit";
+		};
+	} forEach _objItems;
 	true
 };
 switchMoveEverywhere = compileFinal " _this select 0 switchMove (_this select 1); ";

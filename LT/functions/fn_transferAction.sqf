@@ -24,10 +24,9 @@ if(_targetUser == "") exitWith {hint "Bad Unit"};
 {if(str(_x) == _targetUser) exitWith {_targetUser = _x;}} foreach allUnits; //Fetch the users actual object.
 if(isNull _targetUser) exitWith {hint "Bad Unit"};
 
-//hintC format ["%1 | %2 | %3", _selectData, _targetUser, _targetUserData];
+if (DebugEnabled isEqualTo 1) then {hintC format ["%1 | %2 | %3", _selectData, _targetUser, _targetUserData];};
 
 _loadoutName = "LT" + str ((random 100) + (random 100) + (random 100)+(random 100));
-
 
 _dataLoadout = profileNamespace getVariable "bis_fnc_saveInventory_data" select ( (parseNumber _selectData)  + 1);
 
@@ -35,27 +34,24 @@ _data = missionNamespace getVariable "bis_fnc_saveInventory_data";
 
 if (isNil "_data") then
 {
-
-	missionNamespace setVariable ["bis_fnc_saveInventory_data", [_loadoutName, _dataLoadout]];
-	publicVariable "bis_fnc_saveInventory_data";
+	missionNamespace setVariable ["bis_fnc_saveInventory_data", [_loadoutName, _dataLoadout], true];
 }
 else
 {
-	_data = _data + [_loadoutName];
-	_data = _data + [_dataLoadout];
+	_data append [_loadoutName];
+	_data append [_dataLoadout];
 
-	missionNamespace setVariable ["bis_fnc_saveInventory_data", _data];
-	publicVariable "bis_fnc_saveInventory_data";
+	missionNamespace setVariable ["bis_fnc_saveInventory_data", _data, true];
 };
 
 if (isPlayer _targetUser) then
 {
-	[[player, _loadoutName],"LT_fnc_transferNetwork", _targetUser,false] spawn BIS_fnc_MP;
+	[player, _loadoutName] remoteExec ["LT_fnc_transferNetwork", _targetUser];
 }
 else
 {
 	[_targetUser, [missionNamespace, _loadoutName]] call bis_fnc_loadInventory;
-	;
+	//[_targetUser, [missionNamespace, format ["%1", _loadoutName]]] call bis_fnc_loadInventory;
 };
 hint "Loadout Transfered";
 closeDialog 0;

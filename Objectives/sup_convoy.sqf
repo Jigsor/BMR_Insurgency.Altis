@@ -51,10 +51,8 @@ _cone enablesimulation false;
 _cone hideObjectGlobal true;
 
 // Spawn Objective enemy deffences
-_grp = [_newZone,14] call spawn_Op4_grp;
+_grp = [_newZone,14] call spawn_Op4_grp; sleep 3;
 _stat_grp = [_newZone,3,10] call spawn_Op4_StatDef;
-
-_stat_grp setCombatMode "RED";
 
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 

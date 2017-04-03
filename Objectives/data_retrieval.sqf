@@ -1,7 +1,7 @@
 //data_retrieval.sqf by Jigsor
 
 sleep 2;
-private ["_startPos","_type","_list","_nearZones","_buildingNear","_rnum","_uncaped_eos_mkrs","_ins_debug","_nearMkrs","_objmkr","_device","_veh_name","_VarName","_grp","_stat_grp","_tskW","_tskE","_tasktopicW","_tasktopicE","_taskdescW","_taskdescE","_sideWin","_rand","_nearBuildings","_selbuild","_nearBuildings","_posArray","_r","_n","_position","_pos","_clearPos","_buildObj","_bldgPos","_buildDir","_staticGuns"];
+private ["_startPos","_type","_list","_nearZones","_buildingNear","_rnum","_uncaped_eos_mkrs","_ins_debug","_nearMkrs","_objmkr","_device","_veh_name","_VarName","_grp","_stat_grp","_tskW","_tskE","_tasktopicW","_tasktopicE","_taskdescW","_taskdescE","_sideWin","_rand","_nearBuildings","_selbuild","_nearBuildings","_posArray","_r","_n","_position","_pos","_clearPos","_buildObj","_bldgPos","_buildDir","_staticGuns","_minClearZ","_b_pos","_c","_alt"];
 
 _startPos = _this select 0;
 _type = _this select 1;
@@ -9,6 +9,10 @@ _list = 1;
 _nearZones = [];
 _lift = true;
 _buildingNear = false;
+_alt = false;
+_b_pos = nil;
+_c = 0;
+_minClearZ = 2;
 _rnum = str(round (random 999));
 _uncaped_eos_mkrs = all_eos_mkrs;
 _ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
@@ -67,20 +71,6 @@ if (!_buildingNear) then {
 };
 
 _bldgPos = _position;
-_buildObj = nearestBuilding _bldgPos;
-_buildDir = direction _buildObj;
-[[_buildObj, false], "allowDamage", false] call BIS_fnc_MP;
-
-objective_pos_logic setPos _bldgPos;
-
-// create task marker
-_objmkr = createMarker ["ObjectiveMkr", _bldgPos];
-"ObjectiveMkr" setMarkerShape "ELLIPSE";
-"ObjectiveMkr" setMarkerSize [2, 2];
-"ObjectiveMkr" setMarkerShape "ICON";
-"ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "ColorRed";
-"ObjectiveMkr" setMarkerText "Data Terminal";
 
 // find nearby clear area for defences
 if ((_startPos distance _bldgPos) > 100) then {
@@ -92,7 +82,8 @@ if ((_startPos distance _bldgPos) > 100) then {
 if (_ins_debug) then {diag_log text format["Clear Position Near Data Terminal : %1", _clearPos];};
 
 // create data terminal
-_device = createVehicle [_type, position air_pat_pos, [], 0, "None"];
+_device = createVehicle [_type, position air_pat_pos, [], 0, "CAN_COLLIDE"];
+
 sleep jig_tvt_globalsleep;
 
 _device setVariable["persistent",true];
@@ -106,22 +97,62 @@ publicVariable _VarName;
 sleep 3;
 
 // place data terminal
+
+_buildObj = nearestBuilding _bldgPos;
+_buildDir = direction _buildObj;
+
 _device allowdamage false;
 _device setdir _buildDir;
 _device setpos _bldgPos;
 _device setVectorUp surfaceNormal position _device;
 _device setPos getPos _device;
 
-if (count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0),(getposASL _device select 1), ((getposASL _device select 2) + 1.6)]]) != 0) then {
+if (count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0),(getposASL _device select 1), ((getposASL _device select 2) + 2)]]) > 1) then {
 	_device setVectorUp [0,0,1];
-	while {((lineIntersectsSurfaces [AGLToASL (getPosWorld _device), AGLToASL _bldgPos, objNull, objNull, true, 1, "FIRE"]) select 0 select 0 select 2) < .016} do {
+
+	while {(((lineIntersectsSurfaces [AGLToASL (getPosWorld _device), AGLToASL _bldgPos, objNull, objNull, true, 1, "FIRE"]) select 0 select 0 select 2) < 0.16) || (count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0),(getposASL _device select 1), ((getposASL _device select 2) + _minClearZ)]]) > 1)} do {
 		_device setPosatl [(position _device select 0), (position _device select 1), ((getPos _device select 2) + 0.1)];
+		if (_minClearZ > 0.9) then {
+			_minClearZ = _minClearZ - 0.1;
+		}else{
+			_minClearZ = 1.99;
+			_device setPosatl [(position _device select 0), (position _device select 1), ((getPos _device select 2) + 0.2)];
+		};
+
+		_c = _c + 1;
+		if (_c > 300) exitWith {_alt = true;};
 		sleep 0.1;
+	};
+	if ((count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0),(getposASL _device select 1), ((getposASL _device select 2) + 1.8)]]) > 1) || (_alt)) then {
+		_b_pos = [_bldgPos, [50,50,0]] call fnc_ghst_rand_position;
+
+		while {(isNil "_b_pos") || (isOnRoad _b_pos)} do {
+			_b_pos = _bldgPos findEmptyPosition [2, 30, _type];
+			sleep 0.2;
+		};
+
+		_device setPos _b_pos;
+		_device setVectorUP (surfaceNormal [(getPosATL _device) select 0,(getPosATL _device) select 1]);
+		_bldgPos = _b_pos;
+		_buildObj = nearestBuilding _b_pos;
 	};
 };
 
+[[_buildObj, false], "allowDamage", false] call BIS_fnc_MP;
+
+objective_pos_logic setPos _bldgPos;
+
+// create task marker
+_objmkr = createMarker ["ObjectiveMkr", _bldgPos];
+"ObjectiveMkr" setMarkerShape "ELLIPSE";
+"ObjectiveMkr" setMarkerSize [2, 2];
+"ObjectiveMkr" setMarkerShape "ICON";
+"ObjectiveMkr" setMarkerType "mil_dot";
+"ObjectiveMkr" setMarkerColor "ColorRed";
+"ObjectiveMkr" setMarkerText "Data Terminal";
+
 // create defenses
-_grp = [_clearPos,10] call spawn_Op4_grp;
+_grp = [_clearPos,10] call spawn_Op4_grp; sleep 3;
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 
 _stat_grp = [_clearPos,4,5] call spawn_Op4_StatDef;

@@ -9,7 +9,7 @@ _rnum = str(round (random 999));
 _mPos = _newZone;
 
 // Positional info
-while {isOnRoad _newZone} do {
+while {isOnRoad _mPos} do {
 	_mPos = _newZone findEmptyPosition [2, 30, _type];
 	sleep 0.2;
 };
@@ -32,15 +32,13 @@ _bunker setDir (random 359);
 _bunker setVectorUp [0,0,1];
 
 // Spawn Objective enemy defences
-_grp = [_newZone,14] call spawn_Op4_grp;
+_grp = [_newZone,14] call spawn_Op4_grp; sleep 3;
 _stat_grp = [_newZone,4,10] call spawn_Op4_StatDef;
 
 _obj_leader = leader _grp;
 _VarName = "ObjLeader";
 _obj_leader setVehicleVarName _VarName;
 _obj_leader Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
-
-_stat_grp setCombatMode "RED";
 
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 

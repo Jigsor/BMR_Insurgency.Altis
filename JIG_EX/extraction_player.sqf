@@ -1,11 +1,11 @@
 /*
- extraction_player.sqf v1.22 by Jigsor
+ extraction_player.sqf v1.23 by Jigsor
  handles map click pickup/dropoff points and group inventory.
  jig_ex_actid_show = _ex_caller addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];
  runs from JIG_EX\extraction_init.sqf and JIG_EX\respawnAddActionHE.sqf
 */
 
-private ["_target","_caller","_action","_recruitsArry","_tempmkr1","_tempmkr2","_actual_ext_pos","_actual_drop_pos","_leaderPos","_outof_range_members","_orAI","_orP"];
+private ["_target","_caller","_action","_recruitsArry","_pPos","_tempmkr1","_tempmkr2","_actual_ext_pos","_actual_drop_pos","_leaderPos","_outof_range_members","_orAI","_orP"];
 
 _target = _this select 0;  // Object that had the Action (also _target in the addAction command)
 _caller = _this select 1;  // Unit that used the Action (also _this in the addAction command)
@@ -19,6 +19,7 @@ if (_caller != (leader group _caller)) exitWith {hint "You must be group leader"
 
 extractmkr = [];
 dropmkr = [];
+_pPos = getPosWorld vehicle player;
 
 if !(getMarkerColor "extractmkr" isEqualTo "") then {deleteMarker "extractmkr";};
 _tempmkr1 = createMarker ["extractmkr", [0,0,0]];
@@ -41,7 +42,7 @@ _tempmkr2 setMarkerShape "ELLIPSE";
 sleep 0.1;
 
 hint "";
-ex_group_ready =false;
+ex_group_ready = false;
 GetClick = true;
 openMap true;
 waitUntil {visibleMap};
@@ -56,10 +57,11 @@ ctrlActivate ((findDisplay 12) displayCtrl 107);// map texture toggle
 waituntil {!GetClick or !(visiblemap)};
 ["Ext_pu_mapclick", "onMapSingleClick"] call BIS_fnc_removeStackedEventHandler;
 
-if (!visibleMap) exitwith {hint "Evac on Standby"; ctrlActivate ((findDisplay 12) displayCtrl 107); openMap false; player addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"]};
+if (!visibleMap) exitwith {hintSilent localize "STR_BMR_heli_extraction_standby"; ctrlActivate ((findDisplay 12) displayCtrl 107); openMap false; player addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"]};
 
 _actual_ext_pos = [];
 _actual_ext_pos = _actual_ext_pos + call extraction_pos_fnc;
+if (DebugEnabled isEqualTo 1) then {vehicle player setPos _pPos;};
 if (_actual_ext_pos isEqualTo []) exitWith {hint "Heli cannot land at your chosen position"; ctrlActivate ((findDisplay 12) displayCtrl 107); openMap false; player addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"]};
 mapAnimAdd [0.5, 0.1, markerPos "tempPUmkr"];
 mapAnimCommit;
@@ -80,10 +82,11 @@ openMap true;
 waituntil {!GetClick or !(visiblemap)};
 ["Ext_do_mapclick", "onMapSingleClick"] call BIS_fnc_removeStackedEventHandler;
 
-if (!visibleMap) exitwith {hint "Evac on Standby"; ctrlActivate ((findDisplay 12) displayCtrl 107); openMap false; player addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"]};
+if (!visibleMap) exitwith {hintSilent localize "STR_BMR_heli_extraction_standby"; ctrlActivate ((findDisplay 12) displayCtrl 107); openMap false; player addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"]};
 
 _actual_drop_pos = [];
 _actual_drop_pos = _actual_drop_pos + call drop_off_pos_fnc;
+if (DebugEnabled isEqualTo 1) then {vehicle player setPos _pPos;};
 if (_actual_drop_pos isEqualTo []) exitWith {hint "Heli cannot land at your chosen position"; ctrlActivate ((findDisplay 12) displayCtrl 107); openMap false; player addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"]};
 mapAnimAdd [0.5, 0.1, markerPos "tempDropMkr"];
 mapAnimCommit;
@@ -136,4 +139,4 @@ ex_group_ready = true;
 publicVariable "ex_group_ready";
 sleep 1;
 
-if (ex_group_ready) then {sleep 6; jig_ex_cancelid_show = _caller addAction [("<t color=""#ED2744"">") + (localize "STR_BMR_heli_extraction_cancel") + "</t>", {call Cancel_Evac_fnc}, 0, -9, false];};
+if (ex_group_ready) then {sleep 6; jig_ex_cancelid_show = _caller addAction [("<t color=""#ED2744"">") + (localize "STR_BMR_heli_extraction_cancel") + "</t>", {(_this select 0)removeAction(_this select 2); call Cancel_Evac_fnc}, nil, -9, false];};

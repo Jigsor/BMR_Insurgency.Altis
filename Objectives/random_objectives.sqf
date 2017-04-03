@@ -35,13 +35,12 @@ sleep 2;
 
 _newZone = _newZone + [_xcoor,_ycoor] call miss_object_pos_fnc;
 if (_newZone isEqualTo []) then {
-	private "_c";
-	_c = 0;
+	private _c = 0;
 	while {_newZone isEqualTo []} do {
 		_newZone = _newZone + [_xcoor,_ycoor] call miss_object_pos_fnc;
 		if (!(_newZone isEqualTo [])) exitWith {_newZone;};
 		_c = _c + 1;
-		if (_c > 4) exitWith {};
+		if (_c > 6) exitWith {};
 		sleep 4;
 	};
 };
@@ -124,5 +123,7 @@ switch (_objsel) do
 	_type = objective_objs select 11; [_newZone,_type] execVM "Objectives\data_retrieval.sqf";
 	};
 };
+
+//missionNamespace setVariable ["CurrentSideMission", _objsel, true];
 
 if (true) exitWith {};

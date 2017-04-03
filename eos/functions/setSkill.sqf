@@ -1,6 +1,5 @@
 _grp=(_this select 0);
 
-//_grp setVariable ["zbe_cacheDisabled",true];
 _skillset = server getvariable (_this select 1);
 {
 	_unit = _x;
@@ -11,7 +10,7 @@ _skillset = server getvariable (_this select 1);
 
 	if (EOS_DAMAGE_MULTIPLIER != 1) then {_unit removeAllEventHandlers "HandleDamage";_unit addEventHandler ["HandleDamage",{_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];};
 	//if (EOS_KILLCOUNTER) then {_unit addEventHandler ["killed", "null=[] execVM ""eos\functions\EOS_KillCounter.sqf"""]};
-	
+
 	//Jig adding
 	if (side _unit == east) then {
 		_unit unlinkItem "NVGoggles_OPFOR";
@@ -30,5 +29,6 @@ _skillset = server getvariable (_this select 1);
 	_unit enableGunLights "forceOn";//"AUTO"
 	_unit addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 	if (Fatigue_ability isEqualTo 0) then {_unit enableStamina false;};
+	if (INS_op_faction isEqualTo 16) then {[_unit] call Trade_Biofoam_fnc};
 
 } forEach (units _grp);

@@ -1,12 +1,18 @@
 INS_intro_playTrack = {
 	//Plays a random intro track:
 	// 0 => title, 1 => start delay
+	playMusic "";
 	private _track = selectRandom
 	[
 		[["LeadTrack05_F", 1], 33],
 		[["AmbientTrack01a_F", 32], 33],
 		[["LeadTrack01_F_Bootcamp", 36], 32.9],
-		[["Track06_CarnHeli", 1], 33]
+		[["Track06_CarnHeli", 1], 33],
+		[["BackgroundTrack01a_F", 63], 33],
+		[["BackgroundTrack01a_F", 27], 33],
+		[["EventTrack02_F_EPA", 1.63], 34.3],
+		[["EventTrack01_F_EPA", 1.63], 34.3],
+		[["LeadTrack03_F_EPA",60.85], 33.678]
 	];
 	0 fadeMusic 1;
 	playMusic (_track select 0);
@@ -63,6 +69,7 @@ INS_intro_op4 = {
 	setViewDistance 1800;
 	if (daytime > 19.00 || daytime < 5.00) then {camUseNVG true};
 	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
+	_ok = preloadTitleRsc ["bmr_intro", "PLAIN"];
 	0 = 0 spawn INS_intro_playTrack;
 	_centPos = getPosATL center;
 	_offsetPos = [_centPos select 0, _centPos select 1, (_centPos select 2) + 300];
@@ -356,7 +363,9 @@ JIG_p_actions_resp = {
 	if (_playertype in INS_W_PlayerMedic) then	{MedicSandBag = ObjNull; _id = player addAction[(localize "STR_BMR_place_sandbag"),{call JIG_placeSandbag_fnc}, 0, -9, false];};
 	// UAV Operator
 	if (_playertype in INS_W_PlayerUAVop) then {
-		myhuntiraction = player addAction["use HuntIR","scripts\myhuntir.sqf", [], 1, false, true, "", "true"]; lck_markercnt=0;
+		if !(INS_ACE_core) then {
+			myhuntiraction = player addAction["use HuntIR","scripts\myhuntir.sqf", [], 1, false, true, "", "true"]; lck_markercnt=0;
+		};
 		_id = player addAction[(localize "STR_BMR_ugv_air_drop"),{call JIG_UGVdrop_fnc}, 0, -9, false];
 	};
 	// Sniper/Marksman/Spotter
@@ -407,9 +416,10 @@ killedInfo_fnc = {
 	BIS_DeathBlur ppEffectCommit 0.0;
 
 	if (!isNull _killer) then {
+		if (_poorSoul isEqualTo _killer) exitWith {};
 		_killerName = name _killer;
 		_killerWeapon = currentWeapon _killer;
-		_distance = _poorSoul distance _killer;
+		_distance = round(_poorSoul distance2d _killer);
 		_killerWeaponName = getText (configFile >> "CfgWeapons" >> _killerWeapon >> "displayName");
 		if (_killerWeaponName == "Throw") then {_killerWeaponName = "Grenade"};
 		if (_killerWeaponName == "Put") then {_killerWeaponName = "Explosive"};
@@ -443,9 +453,9 @@ JIG_intel_found = {
 	sleep 0.1;
 	[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
 
-	_distance = [10,_maxClueDis] call BIS_fnc_randomInt; // Minimum intel marker range 10m. Maximum intel marker range defined by INS_maxClueDis in INS_definitions.sqf.
-	_direction = [0,359] call BIS_fnc_randomInt; // Random direction between 0 and 359 degrees.
-	_randomPos = [_pos_info, _distance, _direction] call BIS_fnc_relPos; // The position at the random distance and random direction from current_cache_pos.
+	_direction = floor (round(random 359));
+	_distance = [10,_maxClueDis] call BIS_fnc_randomInt; // Minimum intel marker range 10m. Maximum intel marker range defined by INS_maxClueDis in INS_definitions.sqf.	
+	_randomPos = [_pos_info, _distance, _direction] call BIS_fnc_relPos;
 
 	_rnum = str(round (random 999));
 	_dis_str = str(_distance);
@@ -477,7 +487,7 @@ JIG_intel_found = {
 };
 Op4_spawn_pos = {
 	// Initial Op4 spawn position by Jigsor
-	private ["_op4Player","_posnotfound","_random_w_player","_basePos","_players","_movelogic","_blu4Speed","_playerPos","_cooX","_cooY","_wheX","_wheY","_randPos","_c","_spawnPos","_centerPos","_dis","_dir"];
+	private ["_op4Player","_posnotfound","_random_w_player","_basePos","_players","_movelogic","_blu4Speeding","_playerPos","_cooX","_cooY","_wheX","_wheY","_randPos","_c","_spawnPos","_centerPos","_dis","_dir"];
 	_op4Player = _this select 0;
 	_posnotfound = false;
 	_random_w_player = nil;
@@ -490,9 +500,9 @@ Op4_spawn_pos = {
 	_players = _players - [_op4Player];// exclude player calling the script
 	if (count _players > 0) then {
 		{
-			_blu4Speed = speed _x;
+			_blu4Speeding = (vectorMagnitudeSqr velocity _x > 8);
 			_pos = (getPos _x);
-			if ((_blu4Speed > 8) || (_pos select 2 > 4) || {(side _x == east)}) then {_players = _players - [_x];};
+			if ((_blu4Speeding) || (_pos select 2 > 4) || {(side _x == east)}) then {_players = _players - [_x];};
 		} foreach _players;// exclude east players, players in moving vehicles, above ground players such as players in aircraft or in high structures
 	}else{
 		_posnotfound = true;
@@ -593,28 +603,6 @@ JIG_removeBulletCam_fnc = {
 	(_this select 1) RemoveAllEventHandlers "Fired";
 	_id = (_this select 1) addAction[(localize "STR_BMR_bullet_cam_on"),{call INS_bullet_cam}, 0, -9, false];
 };
-/*
-VehDrop_smoke_fnc = {
-	// Pops Smoke,Flare and Chemlight at vehicle reward air drop position by Jigsor.
-	params ["_dropPos","_grndPos","_veh","_smokeColor","_chemLight","_smoke","_c","_flrObj"];
-	_smokeColor = "SmokeShellBlue";
-	_chemLight = createVehicle ["Chemlight_green", _grndPos, [], 0, "NONE"];
-	sleep 1;
-
-	_flrObj = "F_20mm_Red" createVehicle ((_veh) ModelToWorld [0,100,200]);
-	_flrObj setVelocity [1,1,-10];
-	sleep 0.1;
-
-	_c = 0;
-	while {_c < 2} do {
-		_smoke = createVehicle [_smokeColor, [(_dropPos select 0) + 2, (_dropPos select 1) + 2, 55], [], 0, "NONE"];
-		_i = _c + 1;
-		sleep 20;
-	};
-	deleteVehicle _chemLight;
-	true
-};
-*/
 JIG_circling_cam = {
 	// Circling camera by Jigsor
 	_pos = _this select 0;
@@ -652,7 +640,7 @@ JIG_circling_cam = {
 };
 JIG_map_click = {
 	// Vehicle reward mapclick position by Jigsor
-	if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint "Missing map item!";true};
+	if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint localize "STR_BMR_missing_map";true};
 	if (player getVariable "createEnabled") then {
 		if !(getMarkerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop";};
 		hint "";
@@ -821,38 +809,32 @@ mhq_actions2_fnc = {
 };
 INS_MHQ_mkr = {
 	// Tracking MHQ marker by Jigsor.
-	params ["_mhq","_op4","_mhqPos","_mkrName","_mkr"];
+	params ["_mhq","_op4","_mhqPos","_mkrName","_color","_mkr"];
 
 	if (_mhq isEqualTo objNull) exitWith {hint format ["Mobile Headquarters %1 does not exist", _mhq]};
-	if (vehicleVarName _mhq != "") then {_mkrName = vehicleVarName _mhq;}else{_mkrName = format ["%1", _mhq];};
-
-	if ((_op4 isEqualTo TRUE) && {(_mkrName isEqualTo "Opfor_MHQ")}) then {
-		deleteMarkerLocal _mkrName;
-		_mkr = createMarkerLocal [_mkrName, _mhqPos];
-		_mkr setMarkerTypeLocal "mil_dot";
-		_mkr setMarkerTextLocal _mkrName;
-		_mkr setMarkerColorLocal "ColorRed";
-		_mkr setMarkerSizeLocal [0.5, 0.5];
-
-		while {alive _mhq} do {
-			_mkr setMarkerPosLocal (getPosWorld _mhq);
-			UIsleep 1;
-		};
-		if (!alive _mhq) exitWith {deleteMarkerLocal _mkrName; hintSilent format ["%1 has been destroyed!", _mkrName]};
+	if (vehicleVarName _mhq != "") then {
+		_mkrName = vehicleVarName _mhq;
 	}else{
-		deleteMarkerLocal _mkrName;
-		_mkr = createMarkerLocal [_mkrName, _mhqPos];
-		_mkr setMarkerTypeLocal "mil_dot";
-		_mkr setMarkerTextLocal _mkrName;
-		_mkr setMarkerColorLocal "ColorGreen";
-		_mkr setMarkerSizeLocal [0.5, 0.5];
-
-		while {alive _mhq} do {
-			_mkr setMarkerPosLocal (getPosWorld _mhq);
-			UIsleep 1;
-		};
-		if (!alive _mhq) exitWith {deleteMarkerLocal _mkrName; hintSilent format ["%1 has been destroyed!", _mkrName]};
+		_mkrName = format ["%1", _mhq];
 	};
+	if ((_op4 isEqualTo TRUE) && {(_mkrName isEqualTo "Opfor_MHQ")}) then {
+		_color = "ColorRed";
+	}else{
+		_color = "ColorGreen";
+	};
+
+	deleteMarkerLocal _mkrName;
+	_mkr = createMarkerLocal [_mkrName, _mhqPos];
+	_mkr setMarkerTypeLocal "mil_dot";
+	_mkr setMarkerTextLocal _mkrName;
+	_mkr setMarkerColorLocal _color;
+	_mkr setMarkerSizeLocal [0.5, 0.5];
+
+	while {alive _mhq} do {
+		_mkr setMarkerPosLocal (getPosWorld _mhq);
+		UIsleep 1;
+	};
+	if (!alive _mhq) exitWith {deleteMarkerLocal _mkrName; hintSilent format ["%1 has been destroyed!", _mkrName]};
 };
 GAS_smokeNear = {
 	//Are we near a smoke shell. Are we not wearing a gas mask. code by Larrow modified by Jigsor
@@ -865,7 +847,7 @@ GAS_smokeNear = {
 		} count _smokeShell;
 
 		if !(isNull (_smokeShell select 0)) then {
-			vectorMagnitudeSqr velocity (_smokeShell select 0) <= 0.5 && { (_smokeShell select 0) distance player < 15 }
+			vectorMagnitudeSqr velocity (_smokeShell select 0) <= 0.5 && { (_smokeShell select 0) distance2D player < 15 && !((_smokeShell select 0) inArea trig_alarm1init) }
 		}else{
 			false
 		};

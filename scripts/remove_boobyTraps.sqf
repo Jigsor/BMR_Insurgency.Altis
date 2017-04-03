@@ -17,10 +17,10 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do {
 	_a = [];
 	{
 		_cl = _x nearObjects ["CraterLong",500];
-		{deleteVehicle _x;} count _cl;
+		{deleteVehicle _x} count _cl;
 
 		_cs = _x nearObjects ["CraterLong_small",500];
-		{_a pushBack _x} count _cs;
+		{deleteVehicle _x} count _cs;
 
 		_tb = _x nearObjects ["TimeBombCore",50];
 		{if (mineActive _x) then {_a pushBack _x};} forEach _tb;

@@ -32,7 +32,7 @@ waitUntil {visibleMap};
 	"AI_halo" setMarkerTypeLocal "mil_dot";
 	"AI_halo" setMarkerColorLocal "ColorGreen";
 	"AI_halo" setMarkerTextLocal "AI_halo";
-	
+
 }] call BIS_fnc_addStackedEventHandler;
 
 waitUntil {mapclick or !(visibleMap)};

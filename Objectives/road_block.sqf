@@ -24,7 +24,7 @@ while {_run} do {
 	if (count _sample > 1) then {
 		_roadsSorted = ([_sample,[],{_newZone distance _x},"ASCEND"] call BIS_fnc_sortBy) - [_sample];
 		{
-		    if (!(isOnRoad getPos _x) || ["bridge", getModelInfo _x select 0] call BIS_fnc_inString) then {
+			if (!(isOnRoad getPos _x) || ["bridge", getModelInfo _x select 0] call BIS_fnc_inString) then {
 				_roadsSorted = _roadsSorted - [_x];
 			};
 		} forEach _roadsSorted;
@@ -117,7 +117,6 @@ if (EOS_DAMAGE_MULTIPLIER != 1) then {
 } forEach (units infGrp1),(units infGrp2);
 
 _stat_grp = [_bgPos,1,10] call spawn_Op4_StatDef;
-_stat_grp setCombatMode "RED";
 
 _allGrps pushBack infGrp1;
 _allGrps pushBack infGrp2;
@@ -152,7 +151,7 @@ _rbWP setWaypointBehaviour "SAFE";
 _rbWP setWaypointTimeout [10, 30, 60];
 
 //infantry patrol
-_grp = [_newZone,10] call spawn_Op4_grp;
+_grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
 _allGrps pushBack _grp;
 {_allUnits pushBack _x;} forEach (units _grp);
 
@@ -223,6 +222,10 @@ waitUntil {!_rbActive};
 [_tskW, "succeeded"] call SHK_Taskmaster_upd;
 [_tskE, "failed"] call SHK_Taskmaster_upd;
 
+sleep 3;
+deleteVehicle _bgTrig;
+[] spawn {RoadBlockEast animate ["Door_1_rot", 1];};
+
 //cleanup
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
@@ -230,7 +233,7 @@ sleep 90;
 _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
 {deleteVehicle _x; sleep 0.1} forEach _staticGuns;
 {deleteVehicle _x; sleep 0.1} forEach _allUnits;
-{deleteVehicle _x; sleep 0.1} forEach [_bgTrig,_bargate,_bunker1,_bunker2,_Lveh];
+{deleteVehicle _x; sleep 0.1} forEach [_bargate,_bunker1,_bunker2,_Lveh];
 {deleteGroup _x} forEach _allGrps;
 {deleteMarker _x} forEach ["ObjectiveMkr","ins_sm_roadblock"];
 

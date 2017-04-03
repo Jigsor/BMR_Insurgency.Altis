@@ -673,7 +673,11 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 
 	// Animate ramp
 	sleep 1;
-	_Transporter animateDoor ["CargoRamp_Open", 1];
+	if ((_Transporter isKindOf "rhsusf_CH53E_USMC_D") || (_Transporter isKindOf "rhsusf_CH53E_USMC_W")) then {
+		_Transporter animateDoor ["ramp_bottom", 1];
+	}else{
+		_Transporter animateDoor ["CargoRamp_Open", 1];
+	};
 
 	// Attach object to transporter
 	sleep 3;
@@ -693,6 +697,14 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 		// Fix for Mohawk
 		if (_Transporter isKindOf "I_Heli_Transport_02_F") then {
 			_Object attachTo [_Transporter,[0,1,-1.5]];
+		};
+		// Fix for CH53E
+		if ((_Transporter isKindOf "rhsusf_CH53E_USMC_D") || (_Transporter isKindOf "rhsusf_CH53E_USMC_W")) then {
+			_Object attachTo [_Transporter,[0,-1.6,1.48]];
+		};
+		// Fix for Pelican
+		if (_Transporter isKindOf "OPTRE_Pelican_armed_black") then {
+			_Object attachTo [_Transporter,[0,-4,0.04]];//[0,-4,0.14]
 		};
 	};
 
