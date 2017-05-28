@@ -18,7 +18,7 @@
 params ["_Transporter","_Unit"];
 
 //// Check for action
-_BTK_CargoDrop_ActionAdded = _Transporter getVariable "BTK_CargoDrop_ActionAdded";
+_BTK_CargoDrop_ActionAdded = _Transporter getVariable ["BTK_CargoDrop_ActionAdded", false];
 if (_BTK_CargoDrop_ActionAdded) exitWith {};
 
 //// If no action continue here
