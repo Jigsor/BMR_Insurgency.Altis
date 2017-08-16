@@ -12,6 +12,9 @@ Official Stable builds:
 BMR_Insurgency_v1_46.Altis
 Required mods: None
 
+BMR_Insurgency_v1_46.Malden
+Required mods: None
+
 BMR_Insurgency_v1_46_RHS.Altis
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
@@ -96,6 +99,12 @@ Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.8
 BMR_Insurgency_v1_46_IFA3.Staszow
 Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_Terrains_LITE;@I44_Terrains@IFA3_LITE;@IFA3_Objects_LITE;@IFA3_AIO_LITE
 
+BMR_Insurgency_v1_46.lythium
+Required mods: @Jbad;@LYTHIUM
+
+BMR_Insurgency_v1_46_FFAA.lythium
+Required mods: @Jbad;@LYTHIUM;@FFAA_MOD
+
 Optional additional supported mod combinations:
 
 1. @RHSAFRF
@@ -132,6 +141,53 @@ Optional Reccomended Mods:
 3. @hiddenidentitypack and or @AVON_FM12_Respirator_Pack for Gas Masks.
 	They are used by the client so should be installed client side. For best performance install server and client side.
 
+8/14/2017
+Added: Malden version
+Added: Jets DLC content and USS Freedom to terrains with sea.
+Added: Teleport to USS Freedom at flagpole action will be available if Arma 3 carrier object is placed on the map and named USSfreedom. 
+Added: Server function INS_replace_pylons to respawn aircraft with editor modified loadout. Requires unique global variable in plane's init field to store and recall loadout ex. pylons1 = getPylonMagazines this;
+Added: Cfg function replacePylons for custom loadouts to work with Carrier placed aircraft using Vehicle Respawn modules.
+Added: Cfg function reinstateSensors to work with Carrier placed aircraft using Vehicle Respawn modules and reinstating editor sensors attributes.
+Added: Server functions INS_noBTC_Logistics, INS_unilimitedAmmo and INS_fold_wings.
+Added: Opfor player gets kicked out of planes.
+Added: FFAA Lythium version.
+Added: BMR_Insurgency CUP.fallujah version
+Added: Advanced Sling Loading by Duda and lobby options for Logistics combinations.
+Added: Cleanup for canopies and ejection seats from Jets DLC.
+Added: Reverse to planes when stoped with F3 key or user action 3.
+Added: When no players/lull on dedicated server infantry clean up of abondoned recruits, zuesed AI and simulation disabled AI leaders.
+Added: Enhancements to mission ending - circling cam, music and flares if night time.
+Added: IFA3 explosives allowance for ammo cache and objectives.
+Added: Server reports mission parameters to .rpt.
+Fixed: Scripting-Error in expression <riable "BTK_CargoDrop_ActionAdded"; if (_BTK_CargoDrop_ActionAdded) exitWith {};> introduced with Jets DLC/Arma 3 game update 1.70
+Fixed: Possibility for Land Data Terminal to get stuck under buildings on some terrains.
+Fixed: Possibility for Capture and Hold objective to runaway with unlimited defensive AI spawns.
+Fixed: Sort of/Needs more work for repeatability - Cut Rope on ATM Halo drop.
+Fixed: Previously unused portion of JIG_transfer_fnc allowing to teleport to position array.
+Fixed: Cargo box would vanish if moving to fast when air droped in Delivery objective.
+Fixed: TitleText notice error in Delivery objective.
+Fixed: Vehicles lifted with helicopters no longer get stuck in air when released at high speed.
+Fixed: Possibility for some intel markers to remain after ammo cache destroyed.
+Fixed: Medic's sandbag now deploys at correct height on rooftops.
+Fixed: Possible script hang in Delivery.sqf.
+Fixed: Lobby Parameter "Damage Multiplier (Effective hit on enemy A.I.)" Low option was broken.
+Fixed: Breifing would not appear after A3 update 1.70.
+Change: Lobby parameter "Environment effects (ambient life + sound)" supports disabling ambient life/animals seperately or including ambient sound.
+Change: Some remote execution from old BIS_fnc_MP to newer remoteExec. Improved JIP loading.
+Change: Moved blufor base to AAC Air field (Altis version).
+Change: Reverted to getPosATL and position script command from getWorldPos in repetitive_cleanup.sqf and MAD_traffic.sqf (was necessary in high altitude terrains ex. Lythium)
+Change: Crews no longer dissembark in Supply and Armed Convoy objectives when vehicle has broken tracks/wheels.
+Change: Minor optimizations when using floor and round random commands.
+Change: Marksman, Spotter and Sniper Bullet Cam now uses "FiredMan" eventhandler instead of "Fired" to allow bullet cam in turrents and vehicles in addition to hand held weapons.
+Change: Shortend Brighter Nights by 1.5 hours.
+Change: Calculation of required points for additional air droped UGV triggered automatically after 3rd drop.
+Change: Vehicle Reward scroll bar now visible with interface size between normal to very small. Thanks to Lecks.
+Change: Moved Earplug actions to Y Menu button.
+Change: Pawnee and Wipeout have modified loadouts.
+Change: Updated IFA3 new civilian vehicle class names.
+Change: Replaced hand placed zone markers in Fallujah version with automated zone marker creation. Now covers whole city.
+Change: MQ-4A Greyhawk, MQ-12 Falcon, Hellcat, AH-9 Pawnee, AH-99 Blackfoot and A-164 Wipeout (CAS) and CUPS's A-10 exchanged for new dynamic loadout versions.
+Change: Removed obsolete AceModuleSettings.hpp
 3/29/17
 BMR_Insurgency_v1.46
 Added: Option "CSAT Pacific and Syndikat Apex" to Lobby parameter "Opposing Army/Mod Initialization".

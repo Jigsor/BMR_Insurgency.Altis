@@ -169,7 +169,6 @@ if (count _airCenter > 0) then
 					_spawnDir = [getPosATL air_pat_east, getPosATL air_pat_pos] call BIS_fnc_dirTo;
 					_randAlts = [275,375,475,575];
 					_height = selectRandom _randAlts;
-					_cType = (count INS_Op4_fixedWing)-1;
 					_type = selectRandom INS_Op4_fixedWing;
 
 					_vehicle = [getPosATL air_pat_east, _apeDir, _type, EAST] call bis_fnc_spawnvehicle;

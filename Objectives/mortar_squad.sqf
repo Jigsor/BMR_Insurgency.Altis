@@ -62,10 +62,10 @@ mortar_grp createUnit [_unit_type, _newZone, [], 0, "NONE"];
 sleep 1;
 
 {
-	if (EOS_DAMAGE_MULTIPLIER != 1) then
+	if !(AIdamMod isEqualTo 100) then {
 	{
 		_x removeAllEventHandlers "HandleDamage";
-		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];
+		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 	};
 } forEach (units mortar_grp);
 {_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];} forEach (units mortar_grp);
@@ -119,7 +119,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_dms";
 _taskdescE = localize "STR_BMR_Tsk_topicE_dms";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 while {_run} do {
 	if ({alive _x} count units mortar_grp > 0) then	{

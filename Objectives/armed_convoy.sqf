@@ -90,7 +90,7 @@ _allVeh = [_veh1,_veh2,_veh3,_veh4];
 
 {[_x] call anti_collision} foreach _allVeh;
 {_x setVariable["persistent",true]} foreach _allVeh;
-//{[_x] allowCrewInImmobile true} foreach _allVeh;
+{private _car = _x; _car allowCrewInImmobile true} forEach _allVeh;
 
 // convoy movement
 _handle1=[aconvoy_grp, position objective_pos_logic, _range] call Veh_taskPatrol_mod;
@@ -109,7 +109,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_dac";
 _taskdescE = localize "STR_BMR_Tsk_descE_dac";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 waitUntil {{alive _x} count units aconvoy_grp > 0};
 sleep 0.1;

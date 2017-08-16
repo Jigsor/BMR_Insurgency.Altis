@@ -15,7 +15,9 @@ if (INS_GasGrenadeMod isEqualTo 1) then {
 	if (INS_op_faction isEqualTo 16) then {
   	_unit addHeadgear "OPTRE_UNSC_CH252_Helmet_Vacuum_DES";
   }else{
- 	 _unit addHeadgear "H_CrewHelmetHeli_B";
+	if !(INS_op_faction isEqualTo 17) then {
+		_unit addHeadgear "H_CrewHelmetHeli_B";
+	};
   };
 };
 

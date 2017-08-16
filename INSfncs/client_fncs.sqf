@@ -58,7 +58,8 @@ INS_intro = {
 	setViewDistance -1;
 	camDestroy _cam;
 	enableRadio true;
-	if (INS_environment isEqualTo 0) then {enableEnvironment false;};
+	if (INS_environment isEqualTo 1) then {enableEnvironment [false, true]};
+	if (INS_environment isEqualTo 2) then {enableEnvironment [false, false]};
 	if (INS_mod_missing) then {[] spawn INS_missing_mods;};
 };
 INS_intro_op4 = {
@@ -95,7 +96,8 @@ INS_intro_op4 = {
 	setViewDistance -1;
 	camDestroy _cam;
 	enableRadio true;
-	if (INS_environment isEqualTo 0) then {enableEnvironment false;};
+	if (INS_environment isEqualTo 1) then {enableEnvironment [false, true]};
+	if (INS_environment isEqualTo 2) then {enableEnvironment [false, false]};
 	if (INS_mod_missing) then {[] spawn INS_missing_mods;};
 };
 JIG_placeSandbag_fnc = {
@@ -127,6 +129,9 @@ JIG_placeSandbag_fnc = {
 			MedicSandBag setPos [(getPosATL MedicSandBag select 0), (getPosATL MedicSandBag select 1), ((getPosATL MedicSandBag select 2) + _lift)];
 			MedicSandBag setVectorUp [0,0,1];
 			_lift = _lift + 0.1;
+		};
+		if (((getPosATL MedicSandBag select 2) -2) > (getPosATL player select 2)) then {
+			MedicSandBag setPosATL (player ModelToWorld [0,1.3,0]);
 		};
 	};
 
@@ -332,6 +337,18 @@ INS_Flip_Veh = {
 	};
 	true
 };
+INS_planeReverse_key_F3 = {
+	// Reverse Plane by Jigsor
+	private ["_veh","_vel","_dir"];
+	_veh = vehicle player;
+	if (_veh isKindOf "Plane") then {
+		if (driver _veh == player && vectorMagnitudeSqr velocity _veh <= 0.5) then {
+			_vel = velocity _veh;
+			_dir = direction _veh;
+			_veh setVelocity [(_vel select 0) + (sin _dir * -6), (_vel select 1) + (cos _dir * -6), (_vel select 2)];
+		};
+	};
+};
 JIG_load_VA_profile = {
 	// Force load of saved Virtual Aresenal preset regardless if mod used to make loadout is currently not activated minus missing content by Jigsor.
 	if (!isNil {profileNamespace getVariable "bis_fnc_saveInventory_data"}) then {
@@ -370,7 +387,7 @@ JIG_p_actions_resp = {
 	};
 	// Sniper/Marksman/Spotter
 	if (_playertype in INS_W_PlayerSniper) then	{
-		player RemoveAllEventHandlers "Fired";
+		player RemoveAllEventHandlers "FiredMan";
 		_id = player addAction [(localize "STR_BMR_bullet_cam_on"),{call INS_bullet_cam}, 0, -9, false];
 	};
 	// All players mission settings
@@ -397,7 +414,14 @@ JIG_transfer_fnc = {
 
 	titleText ["", "BLACK OUT"];
 	switch (typeName _dest) do {
-		case "ARRAY" : {player setPos [(position _dest select 0)-10*sin(_dir),(position _dest select 1)-10*cos(_dir)];};
+		case "ARRAY" : {
+			_pos = [(_dest select 0)-2*sin(_dir),(_dest select 1)-2*cos(_dir),_dest select 2];
+			if (surfaceIsWater _pos) then {
+				player setposASL _pos;
+			} else {
+				player setPos _pos;
+			};
+		};
 		case "OBJECT" : {player setPos [(getPosATL _dest select 0)-10*sin(_dir),(getPosATL _dest select 1)-10*cos(_dir)];};
 		case "STRING" : {player setPos [(getMarkerPos _dest select 0)-10*sin(_dir),(getMarkerPos _dest select 1)-10*cos(_dir)];};
 	};
@@ -453,7 +477,7 @@ JIG_intel_found = {
 	sleep 0.1;
 	[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
 
-	_direction = floor (round(random 359));
+	_direction = floor random 360;
 	_distance = [10,_maxClueDis] call BIS_fnc_randomInt; // Minimum intel marker range 10m. Maximum intel marker range defined by INS_maxClueDis in INS_definitions.sqf.	
 	_randomPos = [_pos_info, _distance, _direction] call BIS_fnc_relPos;
 
@@ -578,7 +602,7 @@ Op4_spawn_pos = {
 INS_bullet_cam = {
 	// add bullet cam
 	//http://killzonekid.com/arma-scripting-tutorials-a-simple-bullet-cam/
-	player addEventHandler ["Fired", {
+	player addEventHandler ["FiredMan", {
 		_null = _this spawn {
 			_missile = _this select 6;
 			_cam = "camera" camCreate (position player);
@@ -600,18 +624,16 @@ INS_bullet_cam = {
 JIG_removeBulletCam_fnc = {
 	// remove bullet cam
 	(_this select 1) removeAction (_this select 2);
-	(_this select 1) RemoveAllEventHandlers "Fired";
+	(_this select 1) RemoveAllEventHandlers "FiredMan";
 	_id = (_this select 1) addAction[(localize "STR_BMR_bullet_cam_on"),{call INS_bullet_cam}, 0, -9, false];
 };
 JIG_circling_cam = {
 	// Circling camera by Jigsor
-	_pos = _this select 0;
+	params ["_pos","_travel","_interval","_delay"];
 	_dir = random 359;
-	_maxRotation = (_dir + 45);// 360
+	_maxRotation = (_dir + _travel);
 	_camHeight = 15;
 	_camDis = -30;
-	_interval = 1;
-	_delay = 0.01;
 	_logic_pos = [_pos select 0, _pos select 1, (_pos select 2) + 3];
 	_camPos = [_pos select 0, _pos select 1, (_pos select 2) + _camHeight];
 
@@ -751,7 +773,7 @@ INS_UI_pref = {
 	if (player getVariable "dhs_resp") then {execVM "scripts\heading.sqf";};
 	true
 };
-INS_AI_Halo = {
+INS_aiHalo = {
 	// AI halo based on/uses functions from ATM_airdrop.
 	private ["_target","_loadout","_target","_halo_pos","_jumpAlt","_openChuteAlt","_freefall","_headgear","_back_pack","_back_pack_items","_back_pack_weap","_back_pack_maga"];
 	_target = _this select 0;
@@ -871,7 +893,7 @@ GAS_inSmoke = {
 		_sound = selectRandom Choke_Sounds;
 		playsound3d [_sound, player, false, getPosasl player, 10,1,30];
 		player setDamage (damage player + 0.14);
-		//if(round(random(1)) isEqualTo 0) then {hint "You Should Wear a Gas Mask";};
+		//if(floor random 2 isEqualTo 0) then {hint "You Should Wear a Gas Mask";};
     	sleep 2.8123;
 	};
 
@@ -886,4 +908,11 @@ GAS_smokeClear = {
 	"dynamicBlur" ppEffectCommit 10;
 	resetCamShake;
 	20 fadeSound 1;
+};
+INS_EarPlugs = {
+	if (soundVolume isEqualTo 1) then {
+		1 fadeSound 0.4; hintSilent localize "STR_BMR_ON";
+	}else{
+		1 fadeSound 1; hintSilent localize "STR_BMR_OFF";
+	};
 };

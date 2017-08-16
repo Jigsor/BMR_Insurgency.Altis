@@ -174,7 +174,7 @@ find_west_target_fnc = {
 	_gamelogic = CENTER;
 	if (typeOf _vcl in INS_Op4_helis) then {
 		_delay = 30;
-		_wpRad = floor(random 50);
+		_wpRad = selectRandom [12,24,36,48,60];
 	} else {
 		_delay = 90;
 		_wpRad = [50,150] call BIS_fnc_randomInt;

@@ -66,7 +66,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_dhvt";
 _taskdescE = localize "STR_BMR_Tsk_descE_dhvt";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_towerPos] call SHK_Taskmaster_add;
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 {
 	[_x,true] call BIS_fnc_switchLamp;
@@ -77,7 +77,6 @@ waitUntil {sleep 2; !alive _tower};
 
 [] spawn {
 	private ["_lights","_lamps","_txtstr"];
-	//_lights = ["Lamps_base_F","PowerLines_base_F","PowerLines_Small_base_F"];
 	_lights = INS_lights;
 
 	nul = [objective_pos_logic,"HighVoltage"] call mp_Say3D_fnc;
@@ -89,7 +88,6 @@ waitUntil {sleep 2; !alive _tower};
 		_lamps = getPosATL objective_pos_logic nearObjects [_lights select _i, 1000];
 		sleep 0.01;
 		{
-			//_x setDamage 0.95;
 			[_x,false] call BIS_fnc_switchLamp;
 			sleep 0.03;
 		} forEach _lamps;

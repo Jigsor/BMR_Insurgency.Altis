@@ -205,6 +205,7 @@ dokeyDown={
 			player setvariable["key",true];
 			player setvariable ["cutaway",false];
 			Cut_Rope = (findDisplay 46) displayRemoveEventHandler ["KeyDown", Cut_Rope];
+			IsCutRope = true;
 		};
 		_r=true;
 	};

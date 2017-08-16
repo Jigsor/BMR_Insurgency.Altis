@@ -59,7 +59,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_eil";
 _taskdescE = localize "STR_BMR_Tsk_topicE_eil";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 waitUntil {sleep 3; !alive _obj_leader};
 [_tskW, "succeeded"] call SHK_Taskmaster_upd;

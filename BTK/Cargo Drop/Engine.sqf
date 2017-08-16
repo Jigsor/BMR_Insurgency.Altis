@@ -74,6 +74,17 @@ if (_Selected == "UnloadCargo") exitWith {
 		"];
 	};
 
+	//Jig adding moving to fast because of detach bug at high speed.
+	if (vectorMagnitudeSqr velocity _Transporter >= 16) exitWith {
+		// Hint - Moving to fast
+		hint parseText format ["
+			<t align='left' color='#e5b348' size='1.2'><t shadow='1'shadowColor='#000000'>Cargo Drop</t></t>
+			<img color='#ffffff' image='BTK\Cargo Drop\Images\img_line_ca.paa' align='left' size='0.79' />
+			<t align='left' color='#eaeaea' size='1.0'>Reduce all vector velocities <t color='#fdd785'>to less than 16km/h</t> to drop the cargo!</t>
+			<img color='#ffffff' image='BTK\Cargo Drop\Images\img_line_ca.paa' align='left' size='0.79' />
+		"];
+	};
+
 	_Transporter removeAction _Action;
 
 	if ((getpos _Transporter) select 2 <= 1.5) then {
@@ -702,6 +713,10 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 		if ((_Transporter isKindOf "rhsusf_CH53E_USMC_D") || (_Transporter isKindOf "rhsusf_CH53E_USMC_W")) then {
 			_Object attachTo [_Transporter,[0,-1.6,1.48]];
 		};
+		// CUP Merlin
+		if (_Transporter isKindOf "CUP_B_Merlin_HC3A_Armed_GB") then {
+			_Object attachTo [_Transporter,[0,-0.2,2.09]];
+		};		
 		// Fix for Pelican
 		if (_Transporter isKindOf "OPTRE_Pelican_armed_black") then {
 			_Object attachTo [_Transporter,[0,-4,0.04]];//[0,-4,0.14]
@@ -756,9 +771,9 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 		// Detach object
 		sleep 3;
 		_Object attachTo [_Transporter,[0,-20,0]];
-		sleep 0.2;
+		sleep 0.3;
 		deTach _Object;
-		sleep 0.2;
+		sleep 0.3;
 		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),0];
 
 		// Enable R3F
@@ -802,7 +817,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 		_Object setVariable ["R3F_LOG_disabled", false];
 		deTach _Object;
 		_Object attachTo [_Transporter,[0,-21,0]];
-		sleep 0.1;
+		sleep 0.3;
 		deTach _Object;
 		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),(getPos _Object select 2)-6];
 

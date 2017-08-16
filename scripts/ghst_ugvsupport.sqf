@@ -70,6 +70,19 @@ _ugv_num = player getVariable "ghst_ugvsup";
 _ugv_num = _ugv_num + 1;
 player setVariable ["ghst_ugvsup", _ugv_num];
 
+if (player getVariable "ghst_ugvsup" == _max_num) then {//Jig adding start point counter
+	if (isNil {player getVariable "ugvOpScore"}) then {
+		player setVariable ["ugvOpScore", _score];
+	}else{
+		if ((_score - _points) >= player getVariable "ugvOpScore") then {
+			_ugv_num = player getVariable "ghst_ugvsup";
+			_ugv_num = _ugv_num - 1;
+			player setVariable ["ghst_ugvsup", _ugv_num];
+			player setVariable ["ugvOpScore", _score];
+		};
+	};
+};
+
 waituntil {(getposatl _ugv1 select 2) < 1.5};
 detach _ugv1;
 _ugv1 setpos [getpos _ugv1 select 0,getpos _ugv1 select 1,0];

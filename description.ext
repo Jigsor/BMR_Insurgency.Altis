@@ -40,10 +40,8 @@ forceRotorLibSimulation	= 0;// Default value: 0 = options based; 1 = force enabl
 #include "bon_recruit_units\dialog\common.hpp"
 #include "bon_recruit_units\dialog\recruitment.hpp"
 #include "ASORVS\menu.hpp"
-#include "LT\LTmenu.hpp"
 
 #include "Hpp\Sounds.hpp"
-#include "Hpp\AceModuleSettings.hpp"
 
 class CfgFunctions
 {
@@ -54,21 +52,22 @@ file = "INSui\Functions";
 class keyPresses {};
 };
 };
+#include "Hpp\CfgFunctions.hpp"
 #include "taw_vd\CfgFunctions.hpp"
 #include "ASORVS\cfgfunctions.hpp"
-#include "LT\cfgfunctions.hpp"
 };
 
 class Extended_InitPost_EventHandlers {
     class Helicopter {
         class INSheliActions {
-			exclude[] = {"B_UAV_01_F","I_UAV_01_F","O_UAV_01_F"};
-			clientInit = "(_this select 0) addAction['Bail', {execVM 'scripts\INS_Bail.sqf'}, [], 8, false, false, '', '_target==(vehicle _this)'];(_this select 0)addAction['Ear Plugs', {if (soundVolume isEqualTo 1) then {1 fadeSound 0.5; hintSilent localize 'STR_BMR_ON';} else {1 fadeSound 1; hintSilent localize 'STR_BMR_OFF';}}, [], -1, false, false, '', '_target==(vehicle _this)'];(_this select 0) addAction['Gunner 3D Compass', {execVM 'scripts\3Dcompass.sqf'; (_this select 0)removeAction(_this select 2);}, [], -1.1, false, true, 'holdBreath', '_target==(vehicle _this)'];";
+			exclude[] = {"B_UAV_01_F","I_UAV_01_F","O_UAV_01_F","B_T_UAV_03_dynamicLoadout_F"};
+			clientInit = "(_this select 0) addAction['Bail', {execVM 'scripts\INS_Bail.sqf'}, [], 8, false, false, '', '_target==(vehicle _this)'];(_this select 0) addAction['Gunner 3D Compass', {execVM 'scripts\3Dcompass.sqf'; (_this select 0)removeAction(_this select 2);}, [], -1.1, false, true, 'holdBreath', '_target==(vehicle _this)'];";
 		};
     };
 	class Plane {
         class INSplaneActions {
-			clientInit = "(_this select 0) addAction['HALO', {execVM 'scripts\INS_Bail.sqf'}, [], 8, false, false, '', '_target==(vehicle _this)'];(_this select 0)addAction['Ear Plugs', {if (soundVolume isEqualTo 1) then {1 fadeSound 0.5; hintSilent localize 'STR_BMR_ON';} else {1 fadeSound 1; hintSilent localize 'STR_BMR_OFF';}}, [], -1, false, false, '', '_target==(vehicle _this)'];(_this select 0) addAction['Auto Countermeasure', {execVM 'scripts\INS_CounterMeasure.sqf'}, [], 7.9, false, false, '', '_target==(vehicle _this)'];";
+			exclude[] = {"B_T_UAV_03_F","B_UAV_02_CAS_F","B_UAV_02_F","B_UAV_02_dynamicLoadout_F","B_UAV_05_F","ffaa_reaper_multirrol","ffaa_reaper_gbu","ffaa_reaper_maverick","ffaa_et_searcherIII","ffaa_lanzador_nasams","CUP_B_USMC_MQ9"};
+			clientInit = "(_this select 0) addAction['HALO', {execVM 'scripts\INS_Bail.sqf'}, [], 8, false, false, '', '_target==(vehicle _this)'];(_this select 0) addAction['Auto Countermeasure', {execVM 'scripts\INS_CounterMeasure.sqf'}, [], 7.9, false, false, '', '_target==(vehicle _this)'];";
 		};
     };
 };

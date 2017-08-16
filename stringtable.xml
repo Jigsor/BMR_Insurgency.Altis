@@ -108,17 +108,17 @@
 	</Key>
 	<Key ID="STR_BMT_remove_sandbag">
 		<Original>Remove Sandbag</Original>
-		<German>Remove Sandbag</German>
-		<French>Remove Sandbag</French>
-		<Russian>Remove Sandbag</Russian>
-		<Spanish>Remove Sandbag</Spanish>
+		<German>Sandsack Entfernen</German>
+		<French>Supprimer la barrière</French>
+		<Russian>Удалить мешки с песком</Russian>
+		<Spanish>Retirar bolsa de arena</Spanish>
 	</Key>
 	<Key ID="STR_BMR_ugv_air_drop">
 		<Original>UGV Air Drop</Original>
-		<German>UGV anfordern</German>
-		<French>UGV largage</French>
-		<Russian>Выброска UGV</Russian>
-		<Spanish>Descenso del aire UGV</Spanish>
+		<German>UF anfordern</German>
+		<French>VYNH largage</French>
+		<Russian>Выброска Бнт</Russian>
+		<Spanish>Descenso del aire VTNT</Spanish>
 	</Key>
 	<Key ID="STR_BMR_bullet_cam_on">
 		<Original>Bullet Camera On</Original>
@@ -691,19 +691,19 @@
 		<Russian>защищать контрольная точка</Russian>
 		<Spanish>Proteger Barricada</Spanish>
 	</Key>	
-	<Key ID="STR_BMR_Tsk_topic_global_Retrieve_Data">
-		<Original>Download Data</Original>
-		<German>Daten Herunterladen</German>
-		<French>Télécharger les Données</French>
-		<Russian>Zagruzka dannykh</Russian>
-		<Spanish>Descargar datos</Spanish>
+	<Key ID="STR_BMR_Tsk_topic_global_Retrieve_Intel">
+		<Original>Retrieve Intel</Original>
+		<German>Abrufen von Informationen</German>
+		<French>Récupérer des informations</French>
+		<Russian>Получить информацию</Russian>
+		<Spanish>Recuperar la información</Spanish>
 	</Key>
-	<Key ID="STR_BMR_Tsk_desc_global_Retrieve_Data">
-		<Original>Retreive data before opposing players</Original>
-		<German>Laden Sie die Daten vor dem Spieler gegenüber</German>
-		<French>Télécharger les données avant les joueurs adverses</French>
-		<Russian>Zagruzit' dannyye pered drugimi igrokami</Russian>
-		<Spanish>Descargar los datos antes de que los jugadores rivales</Spanish>
+	<Key ID="STR_BMR_Tsk_desc_global_Retrieve_Intel">
+		<Original>Retreive intel before enemy players</Original>
+		<German>Abrufen von Informationen vor feindlichen Spielern</German>
+		<French>Récupérer des informations avant les joueurs ennemis</French>
+		<Russian>Извлечение информации перед игроками противника</Russian>
+		<Spanish>Recuperar la imformación antes de que los jugadores enemigos</Spanish>
 	</Key>	
 	<Key ID="STR_BMR_delivery_ready">
 		<Original>MHQ_3 cargo loaded and engines on. Clear for dust off</Original>

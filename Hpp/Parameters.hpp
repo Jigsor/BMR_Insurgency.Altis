@@ -27,7 +27,7 @@ class Params
 	"Static Weather 100% Overcast (Weather Disabled)",
 	"Dynamic Real Weather Enabled",
 	"Dynamic Random Weather Enabled"};
-	default = 25;
+	default = 0;
 	};
 	class ambRadioChatter//3
 	{
@@ -53,9 +53,9 @@ class Params
 	class INS_environment//6
 	{
 	title = "		Environment effects (ambient life + sound)";
-	values[]={0,1};
-	texts[]={"Disable","Enable"};
-	default = 1;
+	values[]={0,1,2};
+	texts[]={"Ambient Life On, Ambient Sound On","Ambient Life Off, Ambient Sound On","Ambient Life Off, Ambient Sound Off"};
+	default = 0;
 	};
 	class Brighter_Nights//7
 	{
@@ -164,7 +164,7 @@ class Params
 	title = "		Grid zone deactivation delay";
 	values[]={0,0.5,1,2,3,4,5,6,8,10,12,14,16,18,20,30};
 	texts[]={"Disabled","30 seconds","1 minute","2 minutes","3 minutes","4 minutes","5 minutes","6 minutes","8 minutes","10 minutes","12 minutes","14 minutes","16 minutes","18 minutes","20 minutes","30 minutes"};
-	default = 1;
+	default = 2;
 	};
 	class EnableEnemyAir//19
 	{
@@ -178,7 +178,7 @@ class Params
 	title = "		Minimum Enemy Air Patrol Respawn Delay";
 	values[]={45,300,600,1200,1800,2400,3000,3600};
 	texts[]={"45 seconds","5 minutes","10 minutes","20 minutes","30 minutes","40 minutes","50 minutes","60 minutes"};
-	default = 2400;
+	default = 1800;
 	};
 	class PatroleWPmode//21
 	{
@@ -260,9 +260,13 @@ class Params
 	class INS_logistics//32
 	{
 	title = "		Logistics";
-	values[]={0,1};
-	texts[]={"Disabled","Enabled"};
-	default = 1;
+	values[]={0,1,2,3};
+	texts[]={
+	"Disabled",
+	"BTC's cargo, towing, object placement and lifting",
+	"BTC's cargo and towing and object placement. Duda's Advanced Sling Load lifting. Heavy enabled",
+	"BTC's cargo and towing and object placement. Duda's Advanced Sling Load lifting. Heavy disabled (realistic)"};
+	default = 2;
 	};
 	class Fatigue_ability//33
 	{
@@ -274,9 +278,9 @@ class Params
 	class EOS_DAMAGE_MULTIPLIER//34
 	{
 	title = "		Damage Multiplier (Effective hit on enemy A.I.)";
-	values[]={0.5,1,2,3};
+	values[]={50,100,200,300};
 	texts[]={"Low","Default","High","Very High"};
-	default = 2;
+	default = 200;
 	};
 	class INSpDamMul//35
 	{

@@ -58,7 +58,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_cnho";
 _taskdescE = localize "STR_BMR_Tsk_descE_cnho";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 while {_uncaped} do {
 	if (_fireF isEqualTo 1) then {
@@ -117,19 +117,20 @@ if (_ins_debug) then {diag_log format["TIMER PARAMETERS Server Time %1 Timer Len
 
 _rwave = [_newZone,_ins_debug] spawn {
 
-	private ["_newZone","_start_dis","_cnhWaveUnits","_cnhWaveGrps","_start_pos1","_midLength","_midDir","_midPos","_pointC","_ins_debug","_rgrp1","_newPosw","_wp","_bellDir"];
+	private ["_newZone","_start_dis","_cnhWaveUnits","_cnhWaveGrps","_c","_start_pos1","_midLength","_midDir","_midPos","_pointC","_ins_debug","_rgrp1","_newPosw","_wp","_bellDir"];
 
 	_newZone = _this select 0;
 	_ins_debug = _this select 1;
 	_cnhWaveUnits = [];
 	_cnhWaveGrps = [];
 	curvePosArr = [];
+	_c = 0;
 	makewave = true;
 
 	"makewave" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 
 	while {makewave} do	{
-		if (round(random(1)) isEqualTo 0) then {_bellDir = 90;}else{_bellDir = 270;};
+		if (floor random 2 isEqualTo 0) then {_bellDir = 90;}else{_bellDir = 270;};
 
 		//Thanks to Larrow for this next block. Creates 2D obtuse isosceles triangle points.
 		_start_dis = [250,400] call BIS_fnc_randomInt;
@@ -182,6 +183,9 @@ _rwave = [_newZone,_ins_debug] spawn {
 
 			sleep 54;
 			if (!makewave) exitWith {};
+
+			_c = _c + 1;
+			if (_c > 14) then {timesup = true; publicVariable "timesup"; sleep 3; makewave = false; publicVariableServer "makewave";};//added to combat runaway loop on dedi, happens when no player has timer.
 		};
 	};
 

@@ -60,28 +60,24 @@ _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 sconvoy_grp = createGroup INS_Op4_side;
 
 _newPos = [getMarkerPos "ObjectiveMkr", 0, 50, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
-//_type = INS_Op4_Veh_Support select 0;
 _type = [] call _randVeh;
 _vehicle1 = [_newPos, 0, _type, sconvoy_grp] call BIS_fnc_spawnvehicle;
 sleep 1;
 _veh1 = _vehicle1 select 0;
 
 _newPos = [getMarkerPos "ObjectiveMkr", 5, 55, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
-//_type = INS_Op4_Veh_Support select 1;
 _type = [] call _randVeh;
 _vehicle2 = [_newPos, 0, _type, sconvoy_grp] call BIS_fnc_spawnvehicle;
 sleep 1;
 _veh2 = _vehicle2 select 0;
 
 _newPos = [getMarkerPos "ObjectiveMkr", 10, 60, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
-//_type = INS_Op4_Veh_Support select 2;
 _type = [] call _randVeh;
 _vehicle3 = [_newPos, 0, _type, sconvoy_grp] call BIS_fnc_spawnvehicle;
 sleep 1;
 _veh3 = _vehicle3 select 0;
 
 _newPos = [getMarkerPos "ObjectiveMkr", 15, 65, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
-//_type = INS_Op4_Veh_Support select 3;
 _type = [] call _randVeh;
 _vehicle4 = [_newPos, 0, _type, sconvoy_grp] call BIS_fnc_spawnvehicle;
 sleep 1;
@@ -94,7 +90,7 @@ _allVeh = [_veh1,_veh2,_veh3,_veh4];
 
 {[_x] call anti_collision} foreach _allVeh;
 {_x setVariable["persistent",true]} foreach _allVeh;
-//{[_x] allowCrewInImmobile true} foreach _allVeh;
+{private _car = _x; _car allowCrewInImmobile true} forEach _allVeh;
 
 // convoy movement
 _handle1=[sconvoy_grp, position objective_pos_logic, _range] call Veh_taskPatrol_mod;
@@ -116,7 +112,7 @@ _taskdescE = localize "STR_BMR_Tsk_descE_dsc";
 waitUntil {{alive _x} count units sconvoy_grp > 0};
 sleep 0.1;
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 // Only one outcome supported.
 waitUntil {{alive _x} count units sconvoy_grp < 1};

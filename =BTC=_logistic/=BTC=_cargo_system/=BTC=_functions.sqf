@@ -227,7 +227,7 @@ BTC_l_placement = {
 		if (BTC_l_camera_nvg) then {camusenvg true;} else {camusenvg false;};
 		BTC_l_camera camSetPos (BTC_l_plac_obj modelToWorld BTC_cam_rel_pos);
 		BTC_l_camera camCommit 0;
-		hintSilent parseText "Keys:<br/>W to move the object towards Nord<br/>A to move the object towards West<br/>S to move the object towards South<br/>D to move the object towards East<br/>Q and Z to modify the elevation<br/>Shift to move the object faster<br/>ALT + A/D to modify the direction<br/>C to open/close the camera<br/>CTRL + WASDQZ to move the camera<br/>N to use the nightvision<br/>Back to get back to the game";
+		hintSilent parseText "Keys:<br/>W to move the object towards Nord<br/>A to move the object towards West<br/>S to move the object towards South<br/>D to move the object towards East<br/>Q and Z to modify the elevation<br/>Shift to move the object faster<br/>ALT + A/D to modify the direction<br/>C to open/close the camera<br/>CTRL + WASDQZ to move the camera<br/>N to use the nightvision<br/>Backspace to close";
 		sleep 0.01;
 	};
 	BTC_l_actions_cond = true;

@@ -4,7 +4,7 @@
 if (isServer) then {
 	waitUntil {time > 128};
 
-	private ["_abandoned","_pods","_ruins","_remFog","_ctearFogThresh","_deacDelay","_czPosArrys","_ctearZones","_trees","_mpos","_justPlayers","_craters","_ctime","_waitTime","_update","_mines"];
+	private ["_remFog","_ctearFogThresh","_deacDelay","_czPosArrys","_ctearZones","_trees","_mpos","_justPlayers","_ctime","_waitTime","_update"];
 	_remFog = FALSE;
 	_deacDelay = ((DeAct_Gzone_delay * 60) + 120);
 	if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {_remFog = TRUE;};
@@ -35,54 +35,68 @@ if (isServer) then {
 
 		if (count _justPlayers isEqualTo 0) then {
 
-			// Delete all mines beyond 500 meters away from objective position
-			_mines = allMines;
-			if !(_mines isEqualTo []) then {
-				{
-					if ((_x distance objective_pos_logic) < 500) then {
-						_mines = _mines - [_x];
+			[_deacDelay] spawn {
+				params ["_deacDelay","_toggle","_ctime","_waitTime","_justPlayers","_abandonedAI"];
+				_toggle = server getVariable ["INS_UAMT", true];
+				if (_toggle) then {
+					_ctime = floor time;
+					_waitTime = _ctime + _deacDelay;
+					if (_waitTime < time) then {
+						waitUntil {sleep 30; time > _waitTime};
 					};
-				} forEach _mines;
-				{deleteVehicle _x} count _mines;
-			};
+					_justPlayers = allPlayers - entities "HeadlessClient_F";
+					if (count _justPlayers isEqualTo 0) then {
 
-			// Delete craters.
-			_craters = allMissionObjects "CraterLong" + allMissionObjects "CraterLong_small";
-			{deleteVehicle _x} count _craters;
-			_craters = nil;
-			sleep 3;
+						//Delete Infantry AI recruits leftovers from diconnected players and zeus 
+						_abandonedAI = allMissionObjects "CAManBase";
+						{deleteVehicle _x} count (_abandonedAI select {(getNumber(configFile >> "CfgVehicles" >> typeOf _x >> "isUav")==0 && isNull objectParent _x) || (!(simulationEnabled (leader group _x)))});
 
-			// Delete Ruins.
-			_ruins = allMissionObjects "Ruins";
-			{deleteVehicle _x} count _ruins;
-			sleep 3;
+						// Delete craters, ruins, non-Strategic objects, HEV halo pods + pod doors, Jets DLC canopys + ejection seats
+						{
+							if (count (allMissionObjects _x) > 0) then {
+								{deleteVehicle _x} count (allMissionObjects _x);
+							};
+						} forEach ["Land_Sleeping_bag_F","Land_Sleeping_bag_blue_F","Land_Sleeping_bag_brown_F","Respawn_TentDome_F","CraterLong","CraterLong_small","Ruins","OPTRE_HEV","OPTRE_HEV_Door","Plane_Fighter_01_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F"];
+						sleep 3;
 
-			// Delete static nonStrategic objects.
-			{
-				if (count (allMissionObjects _x) > 0) then {
-					{deleteVehicle _x} count (allMissionObjects _x);
+						// Delete abandoned sandbags placed by medics.
+						private _abandoned = allMissionObjects "Land_BagFence_Round_F";
+						if (count _abandoned > 0) then {
+							{
+								if (_x getVariable "persistent") then {
+									_abandoned = _abandoned - [_x];
+								};
+							} forEach _abandoned;
+							{deleteVehicle _x} count _abandoned;
+							sleep 3;
+						};
+
+						// Delete all mines beyond 500 meters away from objective position
+						private _mines = allMines;
+						if !(_mines isEqualTo []) then {
+							{
+								if ((_x distance objective_pos_logic) < 500) then {
+									_mines = _mines - [_x];
+								};
+							} forEach _mines;
+							{deleteVehicle _x} count _mines;
+						};
+						sleep 3;
+
+						// Delete empty groups.
+						{
+							if ((count (units _x)) == 0) then {
+								deleteGroup _x;
+								_x = grpNull;
+								_x = nil
+							}
+						} forEach allGroups;
+
+						server setVariable ["INS_UAMT", false];
+					}else{
+						server setVariable ["INS_UAMT", true];
+					};
 				};
-			} forEach ["Land_Sleeping_bag_F","Land_Sleeping_bag_blue_F","Land_Sleeping_bag_brown_F","Respawn_TentDome_F"];
-			sleep 3;
-
-			// Delete abandoned sandbags placed by medics.
-			_abandoned = allMissionObjects "Land_BagFence_Round_F";
-			if (count _abandoned > 0) then {
-				{
-					if (_x getVariable "persistent") then {
-						_abandoned = _abandoned - [_x];
-					};
-				} forEach _abandoned;
-				{deleteVehicle _x} count _abandoned;
-				sleep 3;
-			};
-
-			// Delete HEV halo pods + pod doors
-			if (INS_op_faction isEqualTo 16) then {
-				_pods = allMissionObjects "OPTRE_HEV" + allMissionObjects "OPTRE_HEV_Door";
-				{deleteVehicle _x} count _pods;
-				_pods = nil;
-				sleep 3;
 			};
 
 			// Clear fog if for what ever reason fog accrued is above _clearFogThresh and JIPweather choice was 0 fog.
@@ -93,16 +107,6 @@ if (isServer) then {
 					sleep 3;
 				};
 			};
-
-			// Delete empty groups.
-			{
-				if ((count (units _x)) == 0) then {
-					deleteGroup _x;
-					_x = grpNull;
-					_x = nil
-				}
-			} forEach allGroups;
-			sleep 5;
 
 			// Reset Headless Client.
 			/*	//Will kick HCs once when no players exist and no zones active. As of A3 v1.66 HCs will not auto rejoin and resume!
@@ -140,8 +144,9 @@ if (isServer) then {
 
 		}else{
 			_resetHC = true;
+			server setVariable ["INS_UAMT", true];
 		};
 	};
 };
 
-//if (!hasInterface && !isDedicated) then	{execVM "scripts\HC_deleteEmptyGrps.sqf";};
+//if (!hasInterface && !isDedicated) then {execVM "scripts\HC_deleteEmptyGrps.sqf";};

@@ -14,6 +14,16 @@ _end_loop = false;
 _radius = 5;
 _rnum = str(round (random 999));
 _base_p = (getMarkerPos "Respawn_West");
+_pilotType = nil;
+
+//mod for CUP
+if (INS_op_faction isEqualTo 12) then {
+	if (isClass(configfile >> "CfgVehicles" >> "BlackhawkWreck")) then {
+		activateAddons ["BlackhawkWreck"];
+		_type = "BlackhawkWreck";
+		_radius = 9;
+	};
+};
 
 //mod for Operation Trebuchet
 if (INS_op_faction isEqualTo 16) then {
@@ -29,7 +39,9 @@ if (INS_op_faction isEqualTo 17) then {
 		_pilotType = "LIB_GER_pilot";
 		_radius = 9;
 	};
-}else{_pilotType = "B_Pilot_F";};	
+};
+
+if (isNil "_pilotType") then {_pilotType = "B_Pilot_F";};
 
 // Positional info
 objective_pos_logic setPos _newZone;
@@ -94,7 +106,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_rdp";
 _taskdescE = localize "STR_BMR_Tsk_descE_rdp";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 // pilot hold position until rescued or dead
 for [{_loop=0}, {_loop<1}, {_loop=_loop}] do

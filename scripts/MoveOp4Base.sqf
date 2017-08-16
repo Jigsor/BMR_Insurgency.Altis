@@ -40,8 +40,8 @@ if (!isNil "_rwp") then
 	_cooY = _pP select 1;
 	_wheX = [250,500] call BIS_fnc_randomInt;
 	_wheY = [250,500] call BIS_fnc_randomInt;
-	if(round(random(1)) isEqualTo 0) then {_wheX = _wheX - (_wheX * 2)};
-	if(round(random(1)) isEqualTo 0) then {_wheY = _wheY - (_wheY * 2)};
+	if (floor random 2 isEqualTo 0) then {_wheX = _wheX - (_wheX * 2)};
+	if (floor random 2 isEqualTo 0) then {_wheY = _wheY - (_wheY * 2)};
 	_Op4rP = [_cooX+_wheX,_cooY+_wheY,0];
 	_c = 0;
 	_sP = _Op4rP isFlatEmpty [8,384,0.5,2,0,false,ObjNull];

@@ -110,9 +110,9 @@ _unit2 = infGrp2 createUnit [_unit_type, _bunker2 modelToWorld [0,-4,-1], [], 0,
 
 {
 _x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-if (EOS_DAMAGE_MULTIPLIER != 1) then {
+if !(AIdamMod isEqualTo 100) then {
 		_x removeAllEventHandlers "HandleDamage";
-		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];
+		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 	};
 } forEach (units infGrp1),(units infGrp2);
 
@@ -210,7 +210,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_hrb";
 _taskdescE = localize "STR_BMR_Tsk_descE_hrb";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 //Win/Loose-Only one outcome supported.
 while {_rbActive} do {

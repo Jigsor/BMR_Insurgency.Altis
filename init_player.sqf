@@ -69,6 +69,7 @@ if (DebugEnabled > 0) then {
 		if (local Player) then {
 			[] spawn {
 				if (ASRrecSkill isEqualTo 1 and INS_ACE_core) then {sleep 15;};
+				if (INS_ACE_core) then {player setVariable ["ACE_SYS_STAMINA_MULTI", 0.0001]};
 				[player] call INS_full_stamina;
 			};
 		};
@@ -93,6 +94,10 @@ if (DebugEnabled > 0) then {
 
 	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Airfield</t>","call JIG_transfer_fnc", ["Airfield"], 3.7];
 	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Dock</t>","call JIG_transfer_fnc", ["Dock"], 3.6];
+	if (!isNil "USSfreedom") then {
+		private _carrierPos = USSfreedom getRelPos [181, 349];
+		INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>USS Freedom</t>", "call JIG_transfer_fnc", [[(_carrierPos select 0),(_carrierPos select 1),19.2468]], 3.5];
+	};
 
 	// Virtual Arsenal
 	INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
@@ -115,17 +120,8 @@ if (DebugEnabled > 0) then {
 	INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_load_saved_loadout") + "</t>",{(_this select 1) call INS_RestoreLoadout},nil,1, false, true, "", "side _this != INS_Blu_side"];
 	INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side"];
 
-	// Ear Plugs
-	if !(INS_ACE_core) then {
-		INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_earPlugs") + "</t>", { if (soundVolume isEqualTo 1) then {1 fadeSound 0.5; hintSilent localize "STR_BMR_ON";} else {1 fadeSound 1; hintSilent localize "STR_BMR_OFF";} }, [], 1];
-		INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_earPlugs") + "</t>", { if (soundVolume isEqualTo 1) then {1 fadeSound 0.5; hintSilent localize "STR_BMR_ON";} else {1 fadeSound 1; hintSilent localize "STR_BMR_OFF";} } ,nil,1, false, true, "", "side _this != INS_Blu_side"];
-	};
-
 	// AI recruitment
 	if (max_ai_recruits > 1) then {INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#1d78ed'>") + (localize "STR_BMR_recruit_inf") + "</t>","bon_recruit_units\open_dialog.sqf", [], 1];};
-
-	// Loadout Transfer
-	//[INS_Wep_box,true,false,false,false,false] call LT_fnc_LTaction;// not working correctly anymore
 
 	// Player actions for Engineer's Farp/vehicle service point
 	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_maintenance_veh") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],INS_maintenance_veh], 8, true, true, "", "count (nearestObjects [_this, [""LandVehicle"",""Air""], 10]) > 0"];
@@ -166,6 +162,7 @@ if (DebugEnabled > 0) then {
 		sleep 5;
 		waitUntil {!isNull (findDisplay 46)};
 		handle = (findDisplay 46) displayAddEventHandler ["KeyDown", "_this call DH_fnc_keyPresses"];
+		(findDisplay 46) displayAddEventHandler ["KeyDown", {if ((_this select 1) in ((actionKeys 'User3') + [0x3d])) then {call INS_planeReverse_key_F3;};}];
 	};
 
 	if (INS_full_loadout isEqualTo 0) then {
@@ -253,6 +250,7 @@ if (DebugEnabled > 0) then {
 				if (!isNil "MHQ_1") then {removeAllActions MHQ_1;};
 				if (!isNil "MHQ_2") then {removeAllActions MHQ_2;};
 				if (!isNil "MHQ_3") then {removeAllActions MHQ_3;};
+				player addEventHandler ["GetInMan",{if ((_this select 2) isKindOf "Plane") then {_this select 0 action ["GetOut", (_this select 2)]}}];
 			};
 		};
 		If (side player == west) then {
@@ -330,7 +328,7 @@ if (DebugEnabled > 0) then {
 		[] spawn {
 			private _delay = round (3600 / timeMultiplier);
 			while {true} do {
-				if ((daytime > 20.00) || (daytime < 4.00)) then {
+				if ((daytime > 21.00) || (daytime < 3.50)) then {
 					[3] call INS_Brighter_Nights;
 				}else{
 					[1] call INS_Brighter_Nights;
@@ -383,7 +381,7 @@ if (DebugEnabled > 0) then {
 				else
 				{
 					if ((local player) and (rewardp == _uid)) then {
-						//[activated_cache_pos] spawn JIG_circling_cam;// optional cache cam
+						//[activated_cache_pos,45,1,0.01] spawn JIG_circling_cam;// optional cache cam
 						player setVariable ["createEnabled", true];
 						_id = player addAction[("<t size='1.5' shadow='2' color=""#12F905"">") + (localize "STR_BMR_veh_reward") + "</t>",{call JIG_map_click}, [], 10, false, true];// Use it or loose it when player dies.
 						[_text] spawn JIG_MPsideChatWest_fnc;

@@ -16,7 +16,7 @@ activated_cache = [];
 _uncaped_eos_mkrs = all_eos_mkrs;
 _hide_intel = Intel_Loc_Alpha;
 
-if (DebugEnabled > 0) then {titletext ["ghst_PutinBuildIntel running","plain down"];};
+if (DebugEnabled > 0) then {titletext ["Creating Intel","plain down"];};
 
 "activated_cache" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 waitUntil {sleep 1; count ghst_Build_objs > 0};

@@ -210,17 +210,22 @@ fnc_jip_mp_intel = {
 INS_end_mssg = {
 	if (!isDedicated && hasInterface) then {
 		[] spawn {
-			private ["_max","_video","_play"];
-			_max = (count INS_ending_videos);
-			_video = INS_ending_videos select (floor random _max);
+			private ["_video","_play"];
+			0 fadeMusic 1;
+			playMusic ["LeadTrack01a_F_EXP",16];
+			if (daytime > 21.00 || daytime < 3.50) then {
+				0=[15,1,160,"red",10,(position player)] spawn Drop_SmokeFlare_fnc;
+			};
+			_video = selectRandom INS_ending_videos;
 			_play = [_video] spawn bis_fnc_playvideo;
 			waitUntil {scriptDone _play};
 			titleText [format["It Was an Honor to Serve with You, %1", name player], "PLAIN", 2.0];
 			titleFadeOut 8;
+			[(position player),360,0.25,0.01] spawn JIG_circling_cam;
 			("BMR_Layer_end1" call BIS_fnc_rscLayer) cutRsc ["bmr_intro", "PLAIN"];
 		};
 	}else{
-		sleep 23;
+		sleep 25;
 	};
 	true
 };
@@ -390,9 +395,9 @@ INS_toggle_Zeus = {
 			{
 				[_x] call BTC_AIunit_init;
 				_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-				if (EOS_DAMAGE_MULTIPLIER != 1) then {
+				if !(AIdamMod isEqualTo 100) then {
 					_x removeAllEventHandlers "HandleDamage";
-					_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];
+					_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 				};
 				if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc};
 			} forEach crew (_this select 1);
@@ -436,10 +441,10 @@ Terminal_acction_MPfnc = {
 				{
 					private _side = (side player) call bis_fnc_sideID;
 					missionNamespace setVariable ["datadownloadedby",_side,true];
-					hintSilent "Data Received";
+					hintSilent "Intel Received";
 					[Land_DataTerminal_Obj,TerminalAcctionID] call BIS_fnc_holdActionRemove;
 				},
-				{hintSilent "Download aborted"; [Land_DataTerminal_Obj, 0] call BIS_fnc_DataTerminalAnimate},
+				{hintSilent "Retrieval aborted"; [Land_DataTerminal_Obj, 0] call BIS_fnc_DataTerminalAnimate},
 				["Your side wins"],
 				6,
 				0,
@@ -563,8 +568,8 @@ Drop_SmokeFlare_fnc = {
 
 	if (_objTyp == 0) then {
 		for "_i" from 0 to (_objCount -1) do {
-			_dir = round(random 359);
-			_dir2 = round(random 359);
+			_dir = floor random 360;
+			_dir2 = floor random 360;
 			_offset = [round((_lPos select 0)-_range*sin(_dir)), round((_lPos select 1)-_range*cos(_dir2)), 50];
 			_smoke = createVehicle [(format ["Smokeshell%1", _col]), _offset, [], 0, "NONE"];
 			_sA pushBack _smoke;
@@ -574,7 +579,7 @@ Drop_SmokeFlare_fnc = {
 
 	if (_objTyp == 1) then {
 		for "_i" from 0 to (_objCount -1) do {
-			_dir = round(random 359);
+			_dir = floor random 360;
 			_offset = [round((_lPos select 0)-_range*sin(_dir)), round((_lPos select 1)-_range*cos(_dir)), _height];
 			_flare = (format ["F_40mm%1","_"+_col]) createVehicle _offset; sleep 0.01;
 

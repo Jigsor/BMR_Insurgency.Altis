@@ -35,7 +35,7 @@ MAD_getSpawnRoads = {
 	_roads = _position nearRoads MAD_maxCarDistance;
 	_farRoads = [];
 	{
-		if ((_position distance getPosWorld _x > MAD_carSpawnDistance) && {(_x distance WBpos > ExcDis)}) then {
+		if ((_position distance position _x > MAD_carSpawnDistance) && {(_x distance WBpos > ExcDis)}) then {
 			_farRoads pushBack _x;
 		};
 	} foreach _roads;
@@ -47,7 +47,7 @@ if (!isDedicated and isMultiplayer) then
 {
 	[] spawn {
 		while {true} do	{
-			_roads = (getPosWorld player) call MAD_getSpawnRoads;
+			_roads = (position player) call MAD_getSpawnRoads;
 			_var = player getVariable ["MAD_roadsNear", false];
 
 			if (count _roads > 0) then {
@@ -178,7 +178,7 @@ if (isServer) then {
 					} forEach MAD_carsArray;
 
 					if (_count < MAD_maxCarDensity) then {
-						[(getPosWorld _player), _count] call MAD_spawnCar;
+						[(position _player), _count] call MAD_spawnCar;
 					};
 				};
 			} forEach playableUnits;
@@ -202,7 +202,7 @@ if (isServer) then {
 				} forEach MAD_carsArray;
 
 				if (_count < MAD_maxCarDensity) then {
-					[(getPosWorld player), _count] call MAD_spawnCar;
+					[(position player), _count] call MAD_spawnCar;
 				};
 			};
 

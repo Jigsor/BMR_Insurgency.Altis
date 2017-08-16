@@ -86,6 +86,7 @@ paint_heli_fnc = {
 	switch (true) do {
 		case (toLower (worldName) isEqualTo "altis"): {_color = _darkGrey;};
 		case (toLower (worldName) isEqualTo "tanoa"): {_color = _green2;};
+		case (toLower (worldName) isEqualTo "malden"): {_color = _darkGrey;};
 		case (toLower (worldName) isEqualTo "stratis"): {_color = _darkGrey;};
 		case (toLower (worldName) isEqualTo "takistan"): {_color = _sandColor;};
 		case (toLower (worldName) isEqualTo "fallujah"): {_color = _sandColor;};
@@ -104,6 +105,7 @@ paint_heli_fnc = {
 		case (toLower (worldName) isEqualTo "clafghan"): {_color = _sandColor;};
 		case ((toLower (worldName) isEqualTo "napfwinter") || (toLower (worldName) isEqualTo "napf")): {_color = _darkGrey;};
 		case (toLower (worldName) isEqualTo "kapaulio"): {_color = _green1;};
+		case (toLower (worldName) isEqualTo "lythium"): {_color = _sandColor;};
 		default {_color = [];};
 	};
 	if !(_color isEqualTo []) then {
@@ -125,6 +127,29 @@ remove_veh_ti = {
 	// remove vehicle thermal imaging
 	params ["_veh"];
 	_veh disableTIEquipment true;
+};
+INS_fold_wings = {
+	params ["_veh"];
+	_veh animate ["wing_fold_l", 1, true]; _veh animate ["wing_fold_r", 1, true];
+};
+INS_replace_pylons = {
+	params ["_veh","_pylons"];
+	private _pylonPaths = (configProperties [configFile >> "CfgVehicles" >> typeOf _veh >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"]) apply {getArray (_x >> "turret")};
+	private _nonPylonWeapons = [];
+	{ _nonPylonWeapons append getArray (_x >> "weapons") } forEach ([_veh, configNull] call BIS_fnc_getTurrets);
+	{ _veh removeWeaponGlobal _x } forEach ((weapons _veh) - _nonPylonWeapons);
+	{ _veh setPylonLoadOut [_forEachIndex + 1, _x, true, _pylonPaths select _forEachIndex] } forEach _pylons;
+};
+INS_noBTC_Logistics = {
+	params ["_obj"];
+	_obj setVariable ["BTC_cannot_lift",1,true];
+	_obj setVariable ["BTC_cannot_drag",1,true];
+	_obj setVariable ["BTC_cannot_load",1,true];
+	_obj setVariable ["BTC_cannot_place",1,true];
+};
+INS_unilimitedAmmo = {
+	params ["_wep"];
+	_wep addeventhandler ["fired", {(_this select 0) setvehicleammo 1}];
 };
 fnc_ghst_build_positions = {
 	/*
@@ -233,7 +258,10 @@ JIG_ammmoCache_damage = {
     if ((_ammo == "satchelCharge_remote_ammo") ||
 	(_ammo == "demoCharge_remote_ammo") ||
 	(_ammo == "satchelCharge_remote_ammo_scripted") ||
-	(_ammo == "demoCharge_remote_ammo_scripted")) then {
+	(_ammo == "demoCharge_remote_ammo_scripted") ||
+	(_ammo == "LIB_Ladung_Small_ammo") ||
+	(_ammo == "LIB_Ladung_Big_ammo") ||
+	(_ammo == "LIB_US_TNT_4pound_ammo")) then {
         _cache spawn {
             sleep 0.1;
             _this setDamage 1;
@@ -281,7 +309,7 @@ JIG_tower_damage = {
     _ammo = _this select 4;
     _out = 0;
 
-	if ((_ammo == "satchelCharge_remote_ammo") || (_ammo == "demoCharge_remote_ammo") || (_ammo == "satchelCharge_remote_ammo_scripted") || (_ammo == "demoCharge_remote_ammo_scripted")) then {
+	if ((_ammo == "satchelCharge_remote_ammo") || (_ammo == "demoCharge_remote_ammo") || (_ammo == "satchelCharge_remote_ammo_scripted") || (_ammo == "demoCharge_remote_ammo_scripted") || (_ammo == "LIB_Ladung_Small_ammo") || (_ammo == "LIB_Ladung_Big_ammo") || (_ammo == "LIB_US_TNT_4pound_ammo")) then {
         _tower spawn {
             sleep 0.1;
             _this setDamage 1;
@@ -543,9 +571,9 @@ spawn_Op4_grp = {
 
 	{
 		_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-		if (EOS_DAMAGE_MULTIPLIER != 1) then {
+		if !(AIdamMod isEqualTo 100) then {
 			_x removeAllEventHandlers "HandleDamage";
-			_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];
+			_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 		};
 		if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc};
 	} forEach (units _grp);
@@ -606,9 +634,9 @@ spawn_Op4_StatDef = {
 
 	{
 		_x addeventhandler ["killed", "[(_this select 0)] spawn remove_carcass_fnc"];
-		if (EOS_DAMAGE_MULTIPLIER != 1) then {
+		if !(AIdamMod isEqualTo 100) then {
 			_x removeAllEventHandlers "HandleDamage";
-			_x addEventHandler ["HandleDamage", {_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];
+			_x addEventHandler ["HandleDamage", {_damage = (_this select 2)*AIdamMod;_damage}];
 		};
 		if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc};
 	} forEach (units _statGrp);

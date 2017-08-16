@@ -105,7 +105,8 @@ _device allowdamage false;
 _device setdir _buildDir;
 _device setpos _bldgPos;
 _device setVectorUp surfaceNormal position _device;
-_device setPos getPos _device;
+_device setVehiclePosition [getposATL _device,[''],0];
+sleep 5;
 
 if (count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0),(getposASL _device select 1), ((getposASL _device select 2) + 2)]]) > 1) then {
 	_device setVectorUp [0,0,1];
@@ -163,15 +164,15 @@ waitUntil {sleep 1; alive _device};
 
 // create west task
 _tskW = "tskW_destroy_device" + _rnum;
-_tasktopicW = localize "STR_BMR_Tsk_topic_global_Retrieve_Data";
-_taskdescW = localize "STR_BMR_Tsk_desc_global_Retrieve_Data";
+_tasktopicW = localize "STR_BMR_Tsk_topic_global_Retrieve_Intel";
+_taskdescW = localize "STR_BMR_Tsk_desc_global_Retrieve_Intel";
 [_tskW,_tasktopicW,_taskdescW,WEST,[],"created",_bldgPos] call SHK_Taskmaster_add;
 sleep 5;
 
 // create east task
 _tskE = "tskE_defend_device" + _rnum;
-_tasktopicE = localize "STR_BMR_Tsk_topic_global_Retrieve_Data";
-_taskdescE = localize "STR_BMR_Tsk_desc_global_Retrieve_Data";
+_tasktopicE = localize "STR_BMR_Tsk_topic_global_Retrieve_Intel";
+_taskdescE = localize "STR_BMR_Tsk_desc_global_Retrieve_Intel";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_bldgPos] call SHK_Taskmaster_add;
 
 // Win/Loose

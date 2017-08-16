@@ -66,8 +66,8 @@ _listOfAi = []; 		// All ai units
 	if (vehicle _x == _x AND alive _x) then {
 		_unitDir = getDir _x;
 
-		_dir = round(random 359);
-		_dir2 = round(random 359);
+		_dir = floor random 360;
+		_dir2 = floor random 360;
 		_spawnPos = [round((_pos select 0)-15*sin(_dir)), round((_pos select 1)-15*cos(_dir2)), _startHeight];
 
 		_hev = createVehicle ["OPTRE_HEV", _spawnPos, [], 0, "FLY"];

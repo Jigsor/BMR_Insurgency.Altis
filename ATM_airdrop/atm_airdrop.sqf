@@ -27,6 +27,7 @@ _s_alt slidersetSpeed [100,100,100];
 _s_alt sliderSetPosition Altitude;
 
 Keys = 0;
+IsCutRope = false;
 
 _ctrl = _dialog displayCtrl 2903;
 {
@@ -118,7 +119,10 @@ _target removeAction GreenOn;
 _target removeaction Iron;
 deletevehicle (_target getvariable "frontpack"); _target setvariable ["frontpack",nil,true];
 deletevehicle (_target getvariable "lgtarray"); _target setvariable ["lgtarray",nil,true];
-(findDisplay 46) displayRemoveEventHandler ["KeyDown", Cut_Rope];
+if (!IsCutRope) then {
+	(findDisplay 46) displayRemoveEventHandler ["KeyDown", Cut_Rope];
+};
+
 sleep 3;
 hintsilent "";
 sleep 1;

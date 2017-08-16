@@ -39,6 +39,7 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 	<br />fn_Battle.sqf by Mikey74
 	<br />Loadout Transfer by S.Crowe
 	<br />ADF_helipadLights.sqf by Whiztler
+	<br />Advanced Sling Loading by Duda
 	<br />
 	<br />-------------------------- Functions ----------------------------
 	<br />remove_carcass_fnc code by BIS
@@ -88,7 +89,9 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br />
 	<br />Supported PIP live feeds from the helmet-cameras of their fellow group members. Requires Tactical Glasses and helmet with camera. * - Activates camera / switches to next group member. Alt+* - Deactivates camera. Shift+* - Toggles size of the display.
 	<br />
-	-------------------  
+	<br />Press F3 or Assigned User Action 3 to reverse planes when stoped.
+	<br />
+	-------------------
 	<br />-- Support --
 	<br />
 	-------------------
@@ -98,7 +101,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br />-- Vehicles --
 	<br />
 	-------------------
-	<br />Vehicles from base will respawn if destroyed. All Blufor Mobile Head Quarters have Virtual Arsenal. Opfor MHQ has deploy option to move ammo crates to MHQ location. The Bobcat can Tow other vehicles. GhostHawks can lift light vehicles. Mohawk and Huron can lift heavy and light vehicles. Earn an air dropped asset of your choice by destroying an ammo cache if Enemy Armor Probability parameter is set above 0%.
+	<br />Vehicles from base will respawn if destroyed. All Blufor Mobile Head Quarters have Virtual Arsenal. Opfor MHQ has deploy option to move ammo crates to MHQ location. The Bobcat can Tow other vehicles. GhostHawks can lift light vehicles. Mohawk and Huron can lift heavy and light vehicles. Earn a Vehicle Reward of any type by destroying an ammo cache if Enemy Armor Probability parameter is set above 0%. After destroying ammo cache, scroll and click Vehicle Reward action. Mapclick desired position for reward. Wait until vehicle icon appears in top left corner. Click icon to view full list of available vehicles. Scroll then click on vehicle to view some information about it. After selection click close button and look for Vehicle Reward map marker to find the vehicle. You may postpone reward at vehicle menu by pressing escape. Be warned if you die before you spawn the vehicle you will loose the reward action.
 	<br />
 	-------------------
 	<br />-- Respawn --

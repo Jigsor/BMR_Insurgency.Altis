@@ -14,8 +14,7 @@ Demo_Near = false;
 Demo_End = false;
 Task_Transport = [];
 _smkArr = [];
-
-if (typeName Del_box_Pos == "OBJECT") then {_cargoPos = getPos Del_box_Pos;}else{_cargoPos = Del_box_Pos;};
+_cargoPos = getPos Del_box_Pos;
 
 if ((INS_op_faction > 3) || (INS_op_faction isEqualTo 0)) then {
 	_type = selectRandom INS_Op4_Veh_AA;
@@ -125,7 +124,7 @@ waitUntil {sleep 1; Demo_Loaded};
 
 deleteVehicle Demo_Arrow; sleep 0.1;
 deleteVehicle _sphere; sleep 0.1;
-MHQ_3 setDamage 0; sleep 0.1;
+MHQ_3 setDamage 0; sleep 0.3;
 
 [] spawn {
 	while {Demo_Loaded} do {
@@ -136,9 +135,8 @@ MHQ_3 setDamage 0; sleep 0.1;
 	};
 };
 
-_veh = MHQ_3;
 
-waitUntil {sleep 0.5; (isPlayer (driver _veh)) && {(isEngineOn _veh) && (!isnull (driver _veh))}};
+waitUntil {sleep 0.3; (isPlayer (driver MHQ_3)) && {(isEngineOn MHQ_3) && (!isnull (driver MHQ_3))}};
 
 _MHQ3DelReady = true;
 [localize "STR_BMR_delivery_ready", "JIG_MPhint_fnc"] call BIS_fnc_mp;
@@ -171,10 +169,11 @@ _AA_mob_patrol=[_vehgrp, position objective_pos_logic, 125] call Veh_taskPatrol_
 
 if (DebugEnabled isEqualTo 1) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 // Task Conditions
 
+_veh = MHQ_3;
 [_veh] spawn {
 	params ["_veh","_text","_loop"];
 
@@ -224,20 +223,20 @@ if (Demo_Unloaded) then {
 
 	if ((_droppoint distance _dropedcargo < 750) && (deliveryfail isEqualTo 0) && {(alive _veh) && (alive (driver _veh))}) then	{
 		_text = format[localize "STR_BMR_delivery_success"];
-		[[_text],"JIG_MPTitleText_fnc",true,nil,WEST] call BIS_fnc_mp;
+		[[_text],"JIG_MPTitleText_fnc",WEST,false] call BIS_fnc_mp;
 		_deliverydone = 1;
 	};
 
 	if ((_droppoint distance _dropedcargo > 750) && (deliveryfail isEqualTo 0) && {(alive _veh) && (alive (driver _veh))}) then {
 		_text = format[localize "STR_BMR_delivery_fail"];
-		[[_text],"JIG_MPTitleText_fnc",true,nil,WEST] call BIS_fnc_mp;
+		[[_text],"JIG_MPTitleText_fnc",WEST,false] call BIS_fnc_mp;
 		deliveryfail = 1;
 	}
 	else
 	{
 		if (isnull (driver _veh) || (!alive _veh) || (!alive (driver _veh))) then {
 			_text = format[localize "STR_BMR_transport_down"];
-			[[_text],"JIG_MPTitleText_fnc",true,nil,WEST] call BIS_fnc_mp;
+			[[_text],"JIG_MPTitleText_fnc",WEST,false] call BIS_fnc_mp;
 			deliveryfail = 1;
 		};
 	};

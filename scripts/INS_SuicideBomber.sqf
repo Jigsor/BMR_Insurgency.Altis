@@ -40,7 +40,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			sleep _rSleep;
 		};
 
-		private ["_bmbrPos","_playerPos","_VarName","_explosiveClass","_unit","_runCode","_nearUnits","_explosive","_class","_btarget"];
+		private ["_bmbrPos","_playerPos","_VarName","_explosiveClass","_unit","_runCode","_nearUnits","_explosive","_class","_btarget","_unitpos"];
 
 		if (isNull civBomberGrp) then {civBomberGrp = call _makeBomberGrp;};
 		_bmbrPos = nil;
@@ -205,7 +205,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 						_unit addRating 2000;
 					};
 
-					//Remove explosive and event handlers
+					//Remove explosive
 					[_explosive,_unit] spawn {
 						_explosive = _this select 0;
 						_unit = _this select 1;
@@ -214,14 +214,15 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 					};
 
 					_unitpos = (getPosATL _unit);
-					if(round(random(1)) isEqualTo 0) then
+					if(floor random 2 isEqualTo 0) then
 					{
 					_explosive attachTo [_unit,[-0.02,-0.07,0.042],"rightHand"];
 					_unit setPos _unitpos;
 					}
 					else
 					{
-					_explosive attachTo [_unit,[-0.02,-0.07,0.042],"leftHand"];
+					_explosive attachTo [_unit,[0, 0.15, 0.15],"Pelvis"];
+					_explosive setVectorDirAndUp [[1, 0, 0], [0, 1, 0]];
 					_unit setPos _unitpos;
 					};
 				};

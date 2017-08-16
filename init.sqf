@@ -201,13 +201,13 @@ if (isServer) then {if (CiviFoot isEqualTo 1) then {[]execVM "eos_civ\OpenMeCiv.
 // Common Scripts
 execVM "Objectives\shk_taskmaster.sqf";
 if (JigHeliExtraction isEqualTo 1) then {if (!IamHC) then {null = [] execVM "JIG_EX\extraction_init.sqf";};};
-if (CiviMobiles > 0) then {[CiviMobiles, 400, 500] execVM "scripts\MAD_traffic.sqf";};
-if (INS_logistics isEqualTo 1) then {_logistic = execVM "=BTC=_Logistic\=BTC=_logistic_init.sqf";};
-if (max_ai_recruits > 1) then {[] execVM "bon_recruit_units\init.sqf";};
+if (CiviMobiles > 0) then {[CiviMobiles, 400, 500] execVM "scripts\MAD_traffic.sqf"};
+if (INS_logistics > 0) then {_logistic = execVM "=BTC=_Logistic\=BTC=_logistic_init.sqf"};
+if (INS_logistics > 1) then {[] execVM "scripts\fn_advancedSlingLoadingInit.sqf"};
+if (max_ai_recruits > 1) then {[] execVM "bon_recruit_units\init.sqf"};
 execVM "scripts\zlt_fastrope.sqf";
 execVM "JWC_CASFS\initCAS.sqf";
 nul = ["mission"] execVM "hcam_init.sqf";
-execVM "LT\init.sqf";
 
 // Init Server
 if (isServer) then
@@ -235,8 +235,8 @@ if (isServer) then
 if (!isDedicated && hasInterface) then
 {
 	[] spawn {
-		#include "add_diary.sqf"
 		waitUntil {!isNull player && player == player};
+		#include "add_diary.sqf"
 		if (DebugEnabled isEqualTo 0) then {["BIS_ScreenSetup", false] call BIS_fnc_blackOut;};
 		call compile preprocessFile "INSfncs\client_fncs.sqf";
 		call compile preprocessFile "ATM_airdrop\functions.sqf";
