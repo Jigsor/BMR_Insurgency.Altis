@@ -71,7 +71,7 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@fallujah1_2
 BMR_Insurgency_v1_47_CUP.fallujah
 Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@fallujah1_2;@cup_units;@cup_weapons;@cup_vehicles
 
-BMR_Insurgency_v1_46.xcam_taunus
+BMR_Insurgency_v1_47.xcam_taunus
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@X-Cam-Taunus
 
 BMR_Insurgency_v1_46.Napf
