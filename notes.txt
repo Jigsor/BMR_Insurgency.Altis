@@ -147,6 +147,7 @@ Optional Reccomended Mods:
 	They are used by the client so should be installed client side. For best performance install server and client side.
 
 8/18/2017
+BMR_Insurgency_v1.47
 Added: Malden version
 Added: Jets DLC content and USS Freedom to terrains with sea.
 Added: Teleport to USS Freedom at flagpole action will be available if Arma 3 carrier object is placed on the map and named USSfreedom. 
