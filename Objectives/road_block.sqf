@@ -101,11 +101,11 @@ if(_insdebug) then {
 
 //roadblock guard
 infGrp1 = createGroup INS_Op4_side;
-_unit_type = INS_men_list select (round (random ((count INS_men_list) - 1)));
+_unit_type = selectRandom INS_men_list;
 _unit1 = infGrp1 createUnit [_unit_type, getPosATL _bargate, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
 
 infGrp2 = createGroup INS_Op4_side;
-_unit_type = INS_men_list select (round (random ((count INS_men_list) - 1)));
+_unit_type = selectRandom INS_men_list;
 _unit2 = infGrp2 createUnit [_unit_type, _bunker2 modelToWorld [0,-4,-1], [], 0, "NONE"]; sleep jig_tvt_globalsleep;
 
 {

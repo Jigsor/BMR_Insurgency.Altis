@@ -51,33 +51,34 @@ if (DebugEnabled > 0) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
 mortar_grp = createGroup INS_Op4_side;
 
-_unit_type = INS_men_list select (round (random ((count INS_men_list) - 1)));
+_unit_type = selectRandom INS_men_list;
 mortar_grp createUnit [_unit_type, _newZone, [], 0, "NONE"];
 sleep 1;
-_unit_type = INS_men_list select (round (random ((count INS_men_list) - 1)));
+(units mortar_grp select 0) setVariable ["zbe_cacheDisabled",true];
+_unit_type = selectRandom INS_men_list;
 mortar_grp createUnit [_unit_type, _newZone, [], 0, "NONE"];
 sleep 1;
-_unit_type = INS_men_list select (round (random ((count INS_men_list) - 1)));
+_unit_type = selectRandom INS_men_list;
 mortar_grp createUnit [_unit_type, _newZone, [], 0, "NONE"];
 sleep 1;
 
 {
-	if !(AIdamMod isEqualTo 100) then {
+	_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
+	if !(AIdamMod isEqualTo 100) then
 	{
 		_x removeAllEventHandlers "HandleDamage";
 		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 	};
 } forEach (units mortar_grp);
-{_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];} forEach (units mortar_grp);
 
 _offset_pos1 = [getMarkerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
-if (_offset_pos1 distance _newZone > 125) then {_offset_pos1 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
+if (isNil "_offset_pos1" || _offset_pos1 distance _newZone > 125) then {_offset_pos1 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.7, 0] call BIS_fnc_findSafePos;};
 
 _offset_pos2 = [getMarkerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
-if (_offset_pos2 distance _newZone > 125) then {_offset_pos2 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
+if (isNil "_offset_pos2" || _offset_pos2 distance _newZone > 125) then {_offset_pos2 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.7, 0] call BIS_fnc_findSafePos;};
 
 _offset_pos3 = [getMarkerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
-if (_offset_pos3 distance _newZone > 125) then {_offset_pos3 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
+if (isNil "_offset_pos3" || _offset_pos3 distance _newZone > 125) then {_offset_pos3 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.7, 0] call BIS_fnc_findSafePos;};
 
 _static1 = createVehicle [_mortar_type, _offset_pos1, [], 0, "None"]; sleep jig_tvt_globalsleep;
 _static2 = createVehicle [_mortar_type, _offset_pos2, [], 0, "None"]; sleep jig_tvt_globalsleep;

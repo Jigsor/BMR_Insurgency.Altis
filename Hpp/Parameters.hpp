@@ -264,8 +264,8 @@ class Params
 	texts[]={
 	"Disabled",
 	"BTC's cargo, towing, object placement and lifting",
-	"BTC's cargo and towing and object placement. Duda's Advanced Sling Load lifting. Heavy enabled",
-	"BTC's cargo and towing and object placement. Duda's Advanced Sling Load lifting. Heavy disabled (realistic)"};
+	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy enabled",
+	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy disabled (realistic)"};
 	default = 2;
 	};
 	class Fatigue_ability//33

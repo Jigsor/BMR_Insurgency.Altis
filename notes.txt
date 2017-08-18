@@ -8,11 +8,13 @@ https://www.dropbox.com/s/igymq40svvjgh1g/BMR%20Insurgency.zip
 
 
 Official Stable builds:
-
-BMR_Insurgency_v1_46.Altis
+BMR_Insurgency_v1_47.Stratis
 Required mods: None
 
-BMR_Insurgency_v1_46.Malden
+BMR_Insurgency_v1_47.Malden
+Required mods: None
+
+BMR_Insurgency_v1_47.Altis
 Required mods: None
 
 BMR_Insurgency_v1_46_RHS.Altis
@@ -21,14 +23,14 @@ Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 BMR_Insurgency_v1_46_OPTRE.Altis
 Required mods: @CBA_A3;@Operation_TREBUCHET
 
-BMR_Insurgency_v1_46.Tanoa
+BMR_Insurgency_v1_47.Tanoa
 Required mods: None
+
+BMR_Insurgency_v1_47_ACE.Tanoa
+Required mods: @CBA_A3;@ACE3
 
 BMR_Insurgency_v1_46_RHS.Tanoa
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
-
-BMR_Insurgency_v1_46.Stratis
-Required mods: None
 
 BMR_Insurgency_v1_46.Takistan
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
@@ -63,8 +65,11 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_N'ziwasogo;@RHSAFRF;
 BMR_Insurgency_v1_46.Fata
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@fata_a3
 
-BMR_Insurgency_v1_46.fallujah
+BMR_Insurgency_v1_47.fallujah
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@fallujah1_2
+
+BMR_Insurgency_v1_47_CUP.fallujah
+Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@fallujah1_2;@cup_units;@cup_weapons;@cup_vehicles
 
 BMR_Insurgency_v1_46.xcam_taunus
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@X-Cam-Taunus
@@ -87,22 +92,22 @@ Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Clafghan;@opx_pack
 BMR_Insurgency_v1_46.Kapaulio
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@kapaulio;@Jbad;@RSPN;@mb_veg_adv;MBG_Killhouses_A3
 
-BMR_Insurgency_v1_46.lingor3
-Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.81
+BMR_Insurgency_v1_47.lingor3
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Dingor_Island_v3.82
 
-BMR_Insurgency_v1_46.dingor
-Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.81
+BMR_Insurgency_v1_47.dingor
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Dingor_Island_v3.82
 
 BMR_Insurgency_v1_46_OPTRE.lingor3
 Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.81;@Operation_TREBUCHET
 
-BMR_Insurgency_v1_46_IFA3.Staszow
-Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_Terrains_LITE;@I44_Terrains@IFA3_LITE;@IFA3_Objects_LITE;@IFA3_AIO_LITE
+BMR_Insurgency_v1_47_IFA3.Staszow
+Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE
 
-BMR_Insurgency_v1_46.lythium
+BMR_Insurgency_v1_47.lythium
 Required mods: @Jbad;@LYTHIUM
 
-BMR_Insurgency_v1_46_FFAA.lythium
+BMR_Insurgency_v1_47_FFAA.lythium
 Required mods: @Jbad;@LYTHIUM;@FFAA_MOD
 
 Optional additional supported mod combinations:
@@ -141,7 +146,7 @@ Optional Reccomended Mods:
 3. @hiddenidentitypack and or @AVON_FM12_Respirator_Pack for Gas Masks.
 	They are used by the client so should be installed client side. For best performance install server and client side.
 
-8/14/2017
+8/18/2017
 Added: Malden version
 Added: Jets DLC content and USS Freedom to terrains with sea.
 Added: Teleport to USS Freedom at flagpole action will be available if Arma 3 carrier object is placed on the map and named USSfreedom. 
