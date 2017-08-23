@@ -32,7 +32,7 @@ Required mods: @CBA_A3;@ACE3
 BMR_Insurgency_v1_46_RHS.Tanoa
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_46.Takistan
+BMR_Insurgency_v1_47.Takistan
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
 BMR_Insurgency_v1_46_RHS.Takistan
@@ -80,11 +80,11 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Napf_Island_A3
 BMR_Insurgency_v1_46.napfwinter
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Napf_Island_A3
 
-BMR_Insurgency_v1_46.Mog
-Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@CUP_Terrains_CWA;@mog
+BMR_Insurgency_v1_47.Mog
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@CUP_Terrains_CWA;@Mogadishu;@MBG Buildings African Generic (Arma2 Legacy)
 
-BMR_Insurgency_v1_46_RHS.Mog
-Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@CUP_Terrains_CWA;@mog;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
+BMR_Insurgency_v1_47_RHS.Mog
+Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@CUP_Terrains_CWA;@Mogadishu;@MBG Buildings African Generic (Arma2 Legacy);@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_46.clafghan
 Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Clafghan;@opx_pack_fixed;@razmisc;mb_veg_adv;@mb_rocks
