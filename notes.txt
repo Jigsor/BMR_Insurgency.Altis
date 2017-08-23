@@ -38,7 +38,7 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 BMR_Insurgency_v1_46_RHS.Takistan
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_46.Sara
+BMR_Insurgency_v1_47.Sara
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
 BMR_Insurgency_v1_47.Zargabad
