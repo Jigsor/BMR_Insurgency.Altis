@@ -41,7 +41,7 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@RHSAFRF;@RHSUSAF;@RHSGREF;
 BMR_Insurgency_v1_46.Sara
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
-BMR_Insurgency_v1_46.Zargabad
+BMR_Insurgency_v1_47.Zargabad
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
 BMR_Insurgency_v1_46.Bornholm
@@ -121,7 +121,7 @@ Optional additional supported mod combinations:
 7. @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle
 8. @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle
 9. @CBA_A3;@OPTRE
-10. @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_Terrains_LITE;@I44_Terrains@IFA3_LITE;@IFA3_Objects_LITE
+10. @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE
 
 Supported: @ACE3 stand alone or in addition to any mod listed here. Should be installed server and client side.
 
@@ -146,7 +146,7 @@ Optional Reccomended Mods:
 3. @hiddenidentitypack and or @AVON_FM12_Respirator_Pack for Gas Masks.
 	They are used by the client so should be installed client side. For best performance install server and client side.
 
-8/18/2017
+8/23/2017
 BMR_Insurgency_v1.47
 Added: Malden version
 Added: Jets DLC content and USS Freedom to terrains with sea.
