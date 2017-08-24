@@ -473,7 +473,7 @@ case 16: {
 	_p setFace "PersianHead_A3_02";
 	_p setSpeaker "Male03PER";
 };
-// IFA3 Desert US Army (@CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_Terrains_LITE;@I44_Terrains@IFA3_LITE;@IFA3_Objects_LITE)
+// IFA3 Desert US Army (@CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE)
 case 17: {
 	_P forceAddUniform "U_LIB_US_Private";
 	for "_i" from 1 to 3 do {_P addItemToUniform "FirstAidKit";};

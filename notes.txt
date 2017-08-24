@@ -44,7 +44,7 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 BMR_Insurgency_v1_47.Zargabad
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
-BMR_Insurgency_v1_46.Bornholm
+BMR_Insurgency_v1_47.Bornholm
 Required mods: @Bornholm
 
 BMR_Insurgency_v1_46.Kunduz
@@ -146,7 +146,7 @@ Optional Reccomended Mods:
 3. @hiddenidentitypack and or @AVON_FM12_Respirator_Pack for Gas Masks.
 	They are used by the client so should be installed client side. For best performance install server and client side.
 
-8/23/2017
+8/24/2017
 BMR_Insurgency_v1.47
 Added: Malden version
 Added: Jets DLC content and USS Freedom to terrains with sea.
@@ -178,6 +178,7 @@ Fixed: Medic's sandbag now deploys at correct height on rooftops.
 Fixed: Possible script hang in Delivery.sqf.
 Fixed: Lobby Parameter "Damage Multiplier (Effective hit on enemy A.I.)" Low option was broken.
 Fixed: Breifing would not appear after A3 update 1.70.
+Fixed: Vehicle Reward was not issued to nearest blufor player to ammo cache when ACE charge used.
 Change: Lobby parameter "Environment effects (ambient life + sound)" supports disabling ambient life/animals seperately or including ambient sound.
 Change: Some remote execution from old BIS_fnc_MP to newer remoteExec. Improved JIP loading.
 Change: Moved blufor base to AAC Air field (Altis version).
