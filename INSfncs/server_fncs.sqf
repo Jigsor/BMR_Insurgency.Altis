@@ -288,11 +288,17 @@ JIG_ammmoCache_damage = {
 			[_source] spawn JIG_issue_reward;
 		}else{
 			//Reward compatibility fix for ACE explosives
-			[_cache] spawn {
-				_pos = getPosATL(_this select 0);
+			private _rpos = getPosATL _cache;
+			[_rpos] spawn {
+				params ["_pos"];
 				private _uArr = _pos nearEntities ["CAManBase",100];
-				{if ((!isPlayer _x) || {(side _x == INS_Op4_side)}) then {_uArr = _uArr - [_x];};} forEach _uArr;
-				if (!(_uArr isEqualTo [])) then {
+				{
+					private _u = _x;
+					if ((!isPlayer _u) || {(side _u == INS_Op4_side)}) then {
+						_uArr = _uArr - [_u];
+					};
+				} forEach _uArr;
+				if !(_uArr isEqualTo []) then {
 					private _source = _uArr select 0;
 					[_source] call JIG_issue_reward;
 				};

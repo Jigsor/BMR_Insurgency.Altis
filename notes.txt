@@ -62,7 +62,7 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_N'ziwasogo
 BMR_Insurgency_v1_46_RHS.pja305
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_N'ziwasogo;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_46.Fata
+BMR_Insurgency_v1_47.Fata
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@fata_a3
 
 BMR_Insurgency_v1_47.fallujah
@@ -74,10 +74,10 @@ Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@fallujah1_2;@cup_u
 BMR_Insurgency_v1_47.xcam_taunus
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@X-Cam-Taunus
 
-BMR_Insurgency_v1_46.Napf
+BMR_Insurgency_v1_47.Napf
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Napf_Island_A3
 
-BMR_Insurgency_v1_46.napfwinter
+BMR_Insurgency_v1_47.napfwinter
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Napf_Island_A3
 
 BMR_Insurgency_v1_47.Mog
