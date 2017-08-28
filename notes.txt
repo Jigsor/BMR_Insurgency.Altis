@@ -47,7 +47,7 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 BMR_Insurgency_v1_47.Bornholm
 Required mods: @Bornholm
 
-BMR_Insurgency_v1_46.Kunduz
+BMR_Insurgency_v1_47.Kunduz
 Required mods: @Kunduz_Afghanistan or @prkz
 
 BMR_Insurgency_v1_47.DYA
@@ -89,8 +89,8 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@CUP_Terrains_CWA;@Mogadish
 BMR_Insurgency_v1_46.clafghan
 Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Clafghan;@opx_pack_fixed;@razmisc;mb_veg_adv;@mb_rocks
 
-BMR_Insurgency_v1_46.Kapaulio
-Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@kapaulio;@Jbad;@RSPN;@mb_veg_adv;MBG_Killhouses_A3
+BMR_Insurgency_v1_47.Kapaulio
+Required mods: @CUP_Terrains_Core;@Saint_Kapaulio_v1_04
 
 BMR_Insurgency_v1_47.lingor3
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Dingor_Island_v3.82
@@ -116,7 +116,7 @@ Optional additional supported mod combinations:
 2. @RHSAFRF;@RHSUSAF;@RHSGREF
 3. @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 4. @RHSAFRF;@RHSUSAF; + (@leights_opfor or @Project_OPFOR)
-5. @CBA_A3;@ISC;@cup_weapons;@mas_nato_rus_sf_veh;@RHSAFRF;@RHSUSAF
+5. @CBA_A3;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF;@ISC
 6. @CBA_A3;@cup_units;@cup_weapons;@cup_vehicles
 7. @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle
 8. @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle
