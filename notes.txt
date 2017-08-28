@@ -53,7 +53,7 @@ Required mods: @Kunduz_Afghanistan or @prkz
 BMR_Insurgency_v1_47.DYA
 Required mods: @CUP_Terrains_Core;@Diyala_Map
 
-BMR_Insurgency_v1_46.pja310
+BMR_Insurgency_v1_47.pja310
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_Al_Rayak
 
 BMR_Insurgency_v1_46.pja305
