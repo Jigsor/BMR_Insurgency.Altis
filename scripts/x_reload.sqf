@@ -1,15 +1,16 @@
-_object = _this;
-_type = typeOf _object;
+if (_this isKindof "CAManBase") exitWith {};//Jig adding fix to counter modifying loadout if not in a vehicle.
+private _object = _this;
+private _type = typeOf _object;
 x_reload_time_factor = 0.01;
 
 _object setVehicleAmmo 1;
 
 _object vehicleChat format ["Servicing %1... Please stand by...", _type];
 
-_magazines = getArray(configFile >> "CfgVehicles" >> _type >> "magazines");
+private _magazines = getArray(configFile >> "CfgVehicles" >> _type >> "magazines");
 
 if (count _magazines > 0) then {
-	_removed = [];
+	private _removed = [];
 	{
 		if (!(_x in _removed)) then {
 			_object removeMagazines _x;
@@ -28,9 +29,9 @@ _count = count (configFile >> "CfgVehicles" >> _type >> "Turrets");
 if (_count > 0) then {
 	for "_i" from 0 to (_count - 1) do {
 		scopeName "xx_reload2_xx";
-		_config = (configFile >> "CfgVehicles" >> _type >> "Turrets") select _i;
-		_magazines = getArray(_config >> "magazines");
-		_removed = [];
+		private _config = (configFile >> "CfgVehicles" >> _type >> "Turrets") select _i;
+		private _magazines = getArray(_config >> "magazines");
+		private _removed = [];
 		{
 			if (!(_x in _removed)) then {
 				_object removeMagazines _x;
@@ -46,9 +47,9 @@ if (_count > 0) then {
 		_count_other = count (_config >> "Turrets");
 		if (_count_other > 0) then {
 			for "_i" from 0 to (_count_other - 1) do {
-				_config2 = (_config >> "Turrets") select _i;
-				_magazines = getArray(_config2 >> "magazines");
-				_removed = [];
+				private _config2 = (_config >> "Turrets") select _i;
+				private _magazines = getArray(_config2 >> "magazines");
+				private _removed = [];
 				{
 					if (!(_x in _removed)) then {
 						_object removeMagazines _x;

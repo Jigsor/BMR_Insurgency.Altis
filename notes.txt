@@ -98,8 +98,8 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Dingor_Island_v3.82
 BMR_Insurgency_v1_47.dingor
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Dingor_Island_v3.82
 
-BMR_Insurgency_v1_46_OPTRE.lingor3
-Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.81;@Operation_TREBUCHET
+BMR_Insurgency_v1_47_OPTRE.lingor3
+Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.82;@Operation_TREBUCHET
 
 BMR_Insurgency_v1_47_IFA3.Staszow
 Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE
@@ -146,7 +146,7 @@ Optional Reccomended Mods:
 3. @hiddenidentitypack and or @AVON_FM12_Respirator_Pack for Gas Masks.
 	They are used by the client so should be installed client side. For best performance install server and client side.
 
-8/24/2017
+8/30/2017
 BMR_Insurgency_v1.47
 Added: Malden version
 Added: Jets DLC content and USS Freedom to terrains with sea.
@@ -179,6 +179,8 @@ Fixed: Possible script hang in Delivery.sqf.
 Fixed: Lobby Parameter "Damage Multiplier (Effective hit on enemy A.I.)" Low option was broken.
 Fixed: Breifing would not appear after A3 update 1.70.
 Fixed: Vehicle Reward was not issued to nearest blufor player to ammo cache when ACE charge used.
+Fixed: Repair pad triggers were modifying player loadouts.
+Fixed: Missing player classes from EOD specialists. (A3 recon and OPTRE types).
 Change: Lobby parameter "Environment effects (ambient life + sound)" supports disabling ambient life/animals seperately or including ambient sound.
 Change: Some remote execution from old BIS_fnc_MP to newer remoteExec. Improved JIP loading.
 Change: Moved blufor base to AAC Air field (Altis version).
