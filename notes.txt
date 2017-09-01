@@ -59,7 +59,7 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_Al_Rayak
 BMR_Insurgency_v1_47.pja305
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_N'ziwasogo
 
-BMR_Insurgency_v1_46_RHS.pja305
+BMR_Insurgency_v1_47_RHS.pja305
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_N'ziwasogo;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_47.Fata
