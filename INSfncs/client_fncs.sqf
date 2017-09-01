@@ -478,7 +478,7 @@ JIG_intel_found = {
 	[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
 
 	_direction = floor random 360;
-	_distance = [10,_maxClueDis] call BIS_fnc_randomInt; // Minimum intel marker range 10m. Maximum intel marker range defined by INS_maxClueDis in INS_definitions.sqf.	
+	_distance = [10,_maxClueDis] call BIS_fnc_randomInt; // Minimum intel marker range 10m. Maximum intel marker range defined by INS_maxClueDis in INS_definitions.sqf.
 	_randomPos = [_pos_info, _distance, _direction] call BIS_fnc_relPos;
 
 	_rnum = str(round (random 999));

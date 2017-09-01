@@ -66,9 +66,6 @@ anti_collision = {
 	_obj setPos [(getPosATL _obj) select 0,(getPosATL _obj) select 1,((getPos _obj) select 2) + 0.3];
 	true
 };
-INS_earPlug_fnc = {
-	if (!isDedicated && hasInterface) then {if (soundVolume isEqualTo 1) then {1 fadeSound 0.5;} else {1 fadeSound 1;};};
-};
 Playable_Op4_disabled = {
 	if (!isServer && hasInterface) then {
 		player enableSimulationGlobal false;

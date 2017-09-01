@@ -201,7 +201,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 	};
 
 	if (DebugEnabled > 0) then {titletext ["Spawning Intel Complete","plain down"];};
-	
+
 	if (_hide_intel isEqualTo 1) then {
 		_nul = [_imks] spawn {
 			params ["_arr"];
@@ -222,6 +222,6 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 
 	publicVariableServer "intel_Build_objs";
 	sleep 3;
-	
+
 	if (true) exitwith {};
 };
