@@ -113,10 +113,9 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			if (str(_bmbrPos) isEqualTo "[0,0,0]") then {
 				_bmbrPos = [(_playerPos select 0),(_playerPos select 1)] call bmbr_spawnpos_fnc;
 				sleep 1.5;
-
-				if (_bmbrPos isEqualTo []) exitWith {hint "No bomber position"; _delay = true};
 				if (isNil "_bmbrPos") exitWith {_delay = true};
 			};
+			if (_bmbrPos isEqualTo []) exitWith {_delay = true};
 
 			_class = selectRandom INS_civlist;
 			if (isNull civBomberGrp) then {civBomberGrp = call _makeBomberGrp;};
