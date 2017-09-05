@@ -146,7 +146,7 @@ Optional Reccomended Mods:
 3. @hiddenidentitypack and or @AVON_FM12_Respirator_Pack for Gas Masks.
 	They are used by the client so should be installed client side. For best performance install server and client side.
 
-9/1/2017
+9/5/2017
 BMR_Insurgency_v1.47
 Added: Malden version
 Added: Jets DLC content and USS Freedom to terrains with sea.
