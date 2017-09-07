@@ -35,7 +35,7 @@ Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 BMR_Insurgency_v1_47.Takistan
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
-BMR_Insurgency_v1_46_RHS.Takistan
+BMR_Insurgency_v1_47_RHS.Takistan
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_47.Sara
@@ -146,7 +146,7 @@ Optional Reccomended Mods:
 3. @hiddenidentitypack and or @AVON_FM12_Respirator_Pack for Gas Masks.
 	They are used by the client so should be installed client side. For best performance install server and client side.
 
-9/5/2017
+9/7/2017
 BMR_Insurgency_v1.47
 Added: Malden version
 Added: Jets DLC content and USS Freedom to terrains with sea.
