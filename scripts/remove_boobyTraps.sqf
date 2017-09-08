@@ -3,7 +3,7 @@
 if (!isServer) exitwith {};
 waitUntil {time > 62};
 
-private ["_szPosArry","_safeZones","_a","_cl","_cs","_tb","_mb","_bm","_loop"];
+private ["_szPosArry","_safeZones","_a","_cl","_cs","_tb","_am","_mb","_bm","_loop"];
 _szPosArry = [];
 _safeZones = Blu4_mkrs + ["Airfield"];
 
@@ -24,6 +24,9 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do {
 
 		_tb = _x nearObjects ["TimeBombCore",50];
 		{if (mineActive _x) then {_a pushBack _x};} forEach _tb;
+		
+		_am = _x nearObjects ["APERSMineDispenser_Mine_Ammo",50];
+		{if (mineActive _x) then {_a pushBack _x};} forEach _am;
 
 		_mb = _x nearObjects ["minebase",50];
 		{_a pushBack _x} count _mb;
