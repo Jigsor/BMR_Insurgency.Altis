@@ -146,7 +146,7 @@ Optional Reccomended Mods:
 3. @hiddenidentitypack and or @AVON_FM12_Respirator_Pack for Gas Masks.
 	They are used by the client so should be installed client side. For best performance install server and client side.
 
-9/7/2017
+9/11/2017
 BMR_Insurgency_v1.47
 Added: Malden version
 Added: Jets DLC content and USS Freedom to terrains with sea.
@@ -181,6 +181,7 @@ Fixed: Breifing would not appear after A3 update 1.70.
 Fixed: Vehicle Reward was not issued to nearest blufor player to ammo cache when ACE charge used.
 Fixed: Repair pad triggers were modifying player loadouts.
 Fixed: Missing player classes from EOD specialists. (A3 recon and OPTRE types).
+Fixed: Lobby parameter "AI accuracy on non EOS units" did not properly apply desired value.
 Change: Lobby parameter "Environment effects (ambient life + sound)" supports disabling ambient life/animals seperately or including ambient sound.
 Change: Some remote execution from old BIS_fnc_MP to newer remoteExec. Improved JIP loading.
 Change: Moved blufor base to AAC Air field (Altis version).

@@ -27,7 +27,7 @@ BTC_AIunit_init = {
 	// sets skill of a unit if ASR AI is not detected
 	params ["_unit"];
 	if (isClass(configFile >> "cfgPatches" >> "asr_ai_main")) exitWith {};
-	_unit setSkill ["aimingAccuracy", BTC_AI_skill];
+	_unit setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 	_unit setSkill ["aimingShake", 0.6];
 	_unit setSkill ["aimingSpeed", 0.5];
 	_unit setSkill ["endurance", 0.6];
@@ -45,7 +45,7 @@ BTC_AI_init = {
 	params ["_group"];
 	if (isClass(configFile >> "cfgPatches" >> "asr_ai_main")) exitWith {};
 	{
-		_x setSkill ["aimingAccuracy", BTC_AI_skill];
+		_x setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 		_x setSkill ["aimingShake", 0.6];
 		_x setSkill ["aimingSpeed", 0.5];
 		_x setSkill ["endurance", 0.6];

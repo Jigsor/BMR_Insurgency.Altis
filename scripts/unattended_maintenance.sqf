@@ -56,7 +56,7 @@ if (isServer) then {
 							if (count (allMissionObjects _x) > 0) then {
 								{deleteVehicle _x} count (allMissionObjects _x);
 							};
-						} forEach ["Land_Sleeping_bag_F","Land_Sleeping_bag_blue_F","Land_Sleeping_bag_brown_F","B_Patrol_Respawn_tent_F","Respawn_TentDome_F","CraterLong","CraterLong_small","Ruins","OPTRE_HEV","OPTRE_HEV_Door","Plane_Fighter_01_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F"];
+						} forEach ["Land_Sleeping_bag_F","Land_Sleeping_bag_blue_F","Land_Sleeping_bag_brown_F","B_Patrol_Respawn_tent_F","Respawn_TentDome_F","Respawn_TentA_F","CraterLong","CraterLong_small","Ruins","OPTRE_HEV","OPTRE_HEV_Door","Plane_Fighter_01_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F"];
 						sleep 3;
 
 						// Delete abandoned sandbags placed by medics.

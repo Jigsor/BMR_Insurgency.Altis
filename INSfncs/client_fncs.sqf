@@ -733,7 +733,7 @@ INS_Recruit_skill = {
 	// Sets skill of a recruited unit if ASR AI mod is not running on server or client
 	if ((ASRrecSkill isEqualTo 1) || {(isClass(configFile >> "cfgPatches" >> "asr_ai_main"))}) exitWith {true};
 	params ["_unit"];
-	_unit setSkill ["aimingAccuracy", BTC_AI_skill];
+	_unit setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 	_unit setSkill ["aimingShake", 0.6];
 	_unit setSkill ["aimingSpeed", 0.5];
 	_unit setSkill ["endurance", 0.6];
