@@ -20,7 +20,7 @@ Required mods: None
 BMR_Insurgency_v1_47_RHS.Altis
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_46_OPTRE.Altis
+BMR_Insurgency_v1_47_OPTRE.Altis
 Required mods: @CBA_A3;@Operation_TREBUCHET
 
 BMR_Insurgency_v1_47.Tanoa
@@ -29,7 +29,7 @@ Required mods: None
 BMR_Insurgency_v1_47_ACE.Tanoa
 Required mods: @CBA_A3;@ACE3
 
-BMR_Insurgency_v1_46_RHS.Tanoa
+BMR_Insurgency_v1_47_RHS.Tanoa
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_47.Takistan
@@ -86,8 +86,8 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@CUP_Terrains_CWA;@Mogadish
 BMR_Insurgency_v1_47_RHS.Mog
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@CUP_Terrains_CWA;@Mogadishu;@MBG Buildings African Generic (Arma2 Legacy);@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_46.clafghan
-Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Clafghan;@opx_pack_fixed;@razmisc;mb_veg_adv;@mb_rocks
+BMR_Insurgency_v1_47.clafghan
+Required mods: @CUP_Terrains_Core;@CLA_CLAFGHAN
 
 BMR_Insurgency_v1_47.Kapaulio
 Required mods: @CUP_Terrains_Core;@Saint_Kapaulio_v1_04
@@ -129,6 +129,9 @@ Optional Reccomended Mods:
 1. @ASR_AI3
 	This mod is highly reccomended to enhance AI behavior. It puts the dumb lifeless AI to work and makes for some serious live action.
 	Robalo, the creator of ASR_AI3 has a great track record of keeping this mod working, updated and the mod does what he advertises.
+	One of the main features is that it makes AI groups communicate about your known position via radio up to a set distance.
+	Another is that it will make them travel through buildings and clear them out.
+	These prameters as well as meny others can be configured via Configure Addons ingame GUI.
 	It should be installed on server. It can be hidden with launch parameter -serverMod= if you wish to have no mod requirements when joining server.
 	If you are using a headless client then it should be installed on server and headless client.
 	If you run it on client then it will affect recuited AI and Zeused AI (client side AI).
@@ -143,14 +146,31 @@ Optional Reccomended Mods:
 		3. 3D Compass when in gunner or turret view within helicopters.
 		4. HALO action within fixed wing. Same restrictions apply as in helicopter bail.
 		5. Auto Flare Countermeasure action within fixed wing. Flares are not depleted from aircraft's loadout. It generates its own unlimited supply.
-3. @hiddenidentitypack and or @AVON_FM12_Respirator_Pack for Gas Masks.
+3. @Hidden_Identity_v3, @Hidden_Identity_v2 and @AVON_FM12_Respirator_Pack in any combination or sperately for Gas Masks. @AVON_FM12_Respirator_Pack support limited to FM-12 strapless.
 	They are used by the client so should be installed client side. For best performance install server and client side.
 
-9/11/2017
+Handy commands for logged in Administrators or local Hosts of BMR Insurgency through debug console (escape key):
+	1. To give yourself a vehicle reward execute local:
+			player spawn INS_Vehicle_Reward;
+	2. To change time on the fly substitute 8 to desired number of hours and execute on server:
+			skiptime + 8;
+	3. To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
+		To activate brighter nights execute global:
+			[3] call INS_Brighter_Nights;
+		To deactivate brighter nights execute global:
+	4. Give yourself action to reveal all units on the map up to 1000 meter radius for 15 seconds. Adjust these parameters as you see fit. Execute local:
+			player addAction["Reveal All Units","scripts\Reveal_Marker.sqf", [1000,15], 1, false, true, "", "true"];
+	5. Become Zeus. Run code once to create/become Zeus. Run code again to remove yourself from Zeus. This is handy to unload the the AI you created from your machine to the server and is a very unique way to handling client load caused by Zeus. Control + Y to open/close interface. Change true to false to bypass announcement.
+		Caution using this command durring high AI/object counts because it causes high network traffic for a few moments and requires much network syncronization. Best to use durring lulls or not to often.
+		Execute local:
+			[player,true] spawn INS_Zeus_MP;
+
+
+9/13/2017
 BMR_Insurgency_v1.47
 Added: Malden version
 Added: Jets DLC content and USS Freedom to terrains with sea.
-Added: Teleport to USS Freedom at flagpole action will be available if Arma 3 carrier object is placed on the map and named USSfreedom. 
+Added: Teleport to USS Freedom at flagpole action will be available if Arma 3 carrier object is placed on the map and named USSfreedom.
 Added: Server function INS_replace_pylons to respawn aircraft with editor modified loadout. Requires unique global variable in plane's init field to store and recall loadout ex. pylons1 = getPylonMagazines this;
 Added: Cfg function replacePylons for custom loadouts to work with Carrier placed aircraft using Vehicle Respawn modules.
 Added: Cfg function reinstateSensors to work with Carrier placed aircraft using Vehicle Respawn modules and reinstating editor sensors attributes.
@@ -165,6 +185,7 @@ Added: When no players/lull on dedicated server infantry clean up of abondoned r
 Added: Enhancements to mission ending - circling cam, music and flares if night time.
 Added: IFA3 explosives allowance for ammo cache and objectives.
 Added: Server reports mission parameters to .rpt.
+Added: Support for gasmask from @Hidden Identity v3 mod.
 Fixed: Scripting-Error in expression <riable "BTK_CargoDrop_ActionAdded"; if (_BTK_CargoDrop_ActionAdded) exitWith {};> introduced with Jets DLC/Arma 3 game update 1.70
 Fixed: Possibility for Land Data Terminal to get stuck under buildings on some terrains.
 Fixed: Possibility for Capture and Hold objective to runaway with unlimited defensive AI spawns.
@@ -197,7 +218,7 @@ Change: Pawnee and Wipeout have modified loadouts.
 Change: Updated IFA3 new civilian vehicle class names.
 Change: Replaced hand placed zone markers in Fallujah version with automated zone marker creation. Now covers whole city.
 Change: MQ-4A Greyhawk, MQ-12 Falcon, Hellcat, AH-9 Pawnee, AH-99 Blackfoot and A-164 Wipeout (CAS) and CUPS's A-10 exchanged for new dynamic loadout versions.
-Change: Removed obsolete AceModuleSettings.hpp
+Change: Removed obsolete AceModuleSettings.hpp. All ACE configuration must be done by modules from editor.
 3/29/17
 BMR_Insurgency_v1.46
 Added: Option "CSAT Pacific and Syndikat Apex" to Lobby parameter "Opposing Army/Mod Initialization".

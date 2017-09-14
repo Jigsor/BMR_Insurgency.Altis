@@ -636,7 +636,7 @@ if (INS_GasGrenadeMod isEqualTo 1) then {
 	// All Headgear to use as Gasmask
 	INS_gasMaskH = ["H_HelmetB_TI_tna_F","H_HelmetO_ViperSP_ghex_F","H_CrewHelmetHeli_B","H_CrewHelmetHeli_O","H_CrewHelmetHeli_I","H_PilotHelmetFighter_B","H_PilotHelmetFighter_O","H_PilotHelmetFighter_I","OPTRE_UNSC_CH252_Helmet_Vacuum_DES","OPTRE_UNSC_ODST_Helmet_CBRN"];
 	// All Goggles to use as Gasmask
-	INS_gasMaskG = ["Mask_M50","Mask_M40","Mask_M40_OD","G_mas_wpn_gasmask","avon_fm12_strapless"];// Hidden Identity Pack v2, NATO SF and Russian Spetsnaz Weapons v1.10 and @AVON FM12 Respirator Pack support
+	INS_gasMaskG = ["mcu2p2_grey","Mask_M50","Mask_M40","Mask_M40_OD","G_mas_wpn_gasmask","avon_fm12_strapless"];// Hidden Identity Pack v3, Hidden Identity Pack v2, NATO SF and Russian Spetsnaz Weapons v1.10 and @AVON FM12 Respirator Pack support
 	// All Grenades to use as Poisonous Gas Grenades
 	INS_Gas_Grenades = ["SmokeShellYellow","G_40mm_SmokeYellow"];// fired ammo
 };
