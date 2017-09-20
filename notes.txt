@@ -6,6 +6,9 @@ http://forums.bistudio.com/showthread.php?181109-BMR-Insurgency
 Missions Pack Download:
 https://www.dropbox.com/s/igymq40svvjgh1g/BMR%20Insurgency.zip
 
+Contribute, fork or compile latest versions from GitHub:
+https://github.com/Jigsor/BMR_Insurgency.Altis 
+https://github.com/Jigsor/BMR-Insurgency
 
 Official Stable builds:
 BMR_Insurgency_v1_47.Stratis
@@ -17,20 +20,23 @@ Required mods: None
 BMR_Insurgency_v1_47.Altis
 Required mods: None
 
+BMR_Insurgency_v1_47.Tanoa
+Required mods: None
+
+BMR_Insurgency_v1_47_RHS.Malden
+Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
+
 BMR_Insurgency_v1_47_RHS.Altis
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_47_OPTRE.Altis
 Required mods: @CBA_A3;@Operation_TREBUCHET
 
-BMR_Insurgency_v1_47.Tanoa
-Required mods: None
+BMR_Insurgency_v1_47_RHS.Tanoa
+Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_47_ACE.Tanoa
 Required mods: @CBA_A3;@ACE3
-
-BMR_Insurgency_v1_47_RHS.Tanoa
-Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_47.Takistan
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
@@ -166,9 +172,9 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 			[player,true] spawn INS_Zeus_MP;
 
 
-9/13/2017
+9/19/2017
 BMR_Insurgency_v1.47
-Added: Malden version
+Added: 2 Malden versions
 Added: Jets DLC content and USS Freedom to terrains with sea.
 Added: Teleport to USS Freedom at flagpole action will be available if Arma 3 carrier object is placed on the map and named USSfreedom.
 Added: Server function INS_replace_pylons to respawn aircraft with editor modified loadout. Requires unique global variable in plane's init field to store and recall loadout ex. pylons1 = getPylonMagazines this;
