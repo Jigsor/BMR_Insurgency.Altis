@@ -7,7 +7,7 @@ Missions Pack Download:
 https://www.dropbox.com/s/igymq40svvjgh1g/BMR%20Insurgency.zip
 
 Contribute, fork or compile latest versions from GitHub:
-https://github.com/Jigsor/BMR_Insurgency.Altis 
+https://github.com/Jigsor/BMR_Insurgency.Altis
 https://github.com/Jigsor/BMR-Insurgency
 
 Official Stable builds:
@@ -154,6 +154,8 @@ Optional Reccomended Mods:
 		5. Auto Flare Countermeasure action within fixed wing. Flares are not depleted from aircraft's loadout. It generates its own unlimited supply.
 3. @Hidden_Identity_v3, @Hidden_Identity_v2 and @AVON_FM12_Respirator_Pack in any combination or sperately for Gas Masks. @AVON_FM12_Respirator_Pack support limited to FM-12 strapless.
 	They are used by the client so should be installed client side. For best performance install server and client side.
+4. @Ares
+	This mod adds extra functionality to Zeus and can be installed on client only.
 
 Handy commands for logged in Administrators or local Hosts of BMR Insurgency through debug console (escape key):
 	1. To give yourself a vehicle reward execute local:
@@ -164,6 +166,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 		To activate brighter nights execute global:
 			[3] call INS_Brighter_Nights;
 		To deactivate brighter nights execute global:
+			[1] call INS_Brighter_Nights;
 	4. Give yourself action to reveal all units on the map up to 1000 meter radius for 15 seconds. Adjust these parameters as you see fit. Execute local:
 			player addAction["Reveal All Units","scripts\Reveal_Marker.sqf", [1000,15], 1, false, true, "", "true"];
 	5. Become Zeus. Run code once to create/become Zeus. Run code again to remove yourself from Zeus. This is handy to unload the the AI you created from your machine to the server and is a very unique way to handling client load caused by Zeus. Control + Y to open/close interface. Change true to false to bypass announcement.
@@ -171,10 +174,9 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 		Execute local:
 			[player,true] spawn INS_Zeus_MP;
 
-
-9/19/2017
+9/21/2017
 BMR_Insurgency_v1.47
-Added: 2 Malden versions
+Added: 2 Malden versions.
 Added: Jets DLC content and USS Freedom to terrains with sea.
 Added: Teleport to USS Freedom at flagpole action will be available if Arma 3 carrier object is placed on the map and named USSfreedom.
 Added: Server function INS_replace_pylons to respawn aircraft with editor modified loadout. Requires unique global variable in plane's init field to store and recall loadout ex. pylons1 = getPylonMagazines this;
@@ -225,6 +227,7 @@ Change: Updated IFA3 new civilian vehicle class names.
 Change: Replaced hand placed zone markers in Fallujah version with automated zone marker creation. Now covers whole city.
 Change: MQ-4A Greyhawk, MQ-12 Falcon, Hellcat, AH-9 Pawnee, AH-99 Blackfoot and A-164 Wipeout (CAS) and CUPS's A-10 exchanged for new dynamic loadout versions.
 Change: Removed obsolete AceModuleSettings.hpp. All ACE configuration must be done by modules from editor.
+
 3/29/17
 BMR_Insurgency_v1.46
 Added: Option "CSAT Pacific and Syndikat Apex" to Lobby parameter "Opposing Army/Mod Initialization".
@@ -357,7 +360,7 @@ Change: Updated unit pool classes and mod auto detect activation for CUP and RHS
 Change: You can now set which enemy AI factions are issued NVGs by variable eosFacNVG in INS_definitions.sgf. Default settings - only all regular/major armies are equipped.
 Change: Mortar Squad has wider dispersion of artillery.
 Change: More possible variation of vehicle types in Support and Armed Convoy missions.
-Change: Removed obsolete Modified Stamina option QS_Fatigue.sqf. 
+Change: Removed obsolete Modified Stamina option QS_Fatigue.sqf.
 
 12/7/15
 BMR_Insurgency_v1.44
