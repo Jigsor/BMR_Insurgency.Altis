@@ -367,7 +367,7 @@ if (INS_op_faction isEqualTo 6) then {
 	INS_civ_Veh_Car = ["C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F","C_SUV_01_F"];
 	INS_civ_Veh_Utl = ["RHS_Ural_Civ_02","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_01","RHS_Civ_Truck_02_covered_F","RHS_Civ_Truck_02_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];
 	INS_civlist = ["C_man_p_beggar_F","C_man_1","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_hunter_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F"];// A3 Civilians
-	INS_CAS = "RHS_A10_AT";
+	INS_CAS = "RHS_A10";
 };
 
 // RHS - DESERT Armed Forces of the Russian Federation VDV
@@ -387,7 +387,7 @@ if (INS_op_faction isEqualTo 7) then {
 	INS_civ_Veh_Car = ["C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F","C_SUV_01_F"];
 	INS_civ_Veh_Utl = ["RHS_Ural_Civ_02","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_01","RHS_Civ_Truck_02_covered_F","RHS_Civ_Truck_02_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];
 	INS_civlist = ["C_man_p_beggar_F","C_man_1","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_hunter_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F"];// A3 Civilians
-	INS_CAS = "RHS_A10_AT";
+	INS_CAS = "RHS_A10";
 };
 
 // RHS GREF - Chenarus Ground Forces (RESISTANCE)
@@ -407,13 +407,13 @@ if (INS_op_faction isEqualTo 8) then {
 	INS_civ_Veh_Car = ["C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F","C_SUV_01_F"];
 	INS_civ_Veh_Utl = ["RHS_Ural_Civ_02","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_01","RHS_Civ_Truck_02_covered_F","RHS_Civ_Truck_02_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];
 	INS_civlist = ["C_man_p_beggar_F","C_man_1","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_hunter_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F"];// A3 Civilians
-	INS_CAS = "RHS_A10_AT";
+	INS_CAS = "RHS_A10";
 };
 
 // RHS - Serbian Armed Forces
 if (INS_op_faction isEqualTo 9) then {
 	INS_Op4_side = RESISTANCE;
-	INS_men_list = 	["rhssaf_army_m10_digital_asst_mgun","rhssaf_army_m10_digital_spec_aa","rhssaf_army_m10_digital_spec_at","rhssaf_army_m10_digital_crew","rhssaf_army_m10_digital_spec_exp","rhssaf_army_m10_digital_ft_lead","rhssaf_army_m10_digital_gl","rhssaf_army_m10_digital_mgun_m84","rhssaf_army_m10_digital_sniper_m76","rhssaf_army_m10_digital_asst_spec_aa","rhssaf_army_m10_digital_asst_spec_at","rhssaf_army_m10_digital_officer","rhssaf_army_m10_digital_repair","rhssaf_army_m10_digital_rifleman_ammo","rhssaf_army_m10_digital_rifleman_at","rhssaf_army_m10_digital_rifleman_m21","rhssaf_army_m10_digital_rifleman_m70","rhssaf_army_m10_digital_spotter","rhssaf_army_m10_digital_sq_lead","rhssaf_army_m10_para_asst_mgun","rhssaf_army_m10_para_spec_aa","rhssaf_army_m10_para_spec_at","rhssaf_army_m10_para_crew","rhssaf_army_m10_para_ft_lead","rhssaf_army_m10_para_gl_ag36","rhssaf_army_m10_para_gl_m320","rhssaf_army_m10_para_mgun_m84","rhssaf_army_m10_para_mgun_minimi","rhssaf_army_m10_para_sniper_m76","rhssaf_army_m10_para_asst_spec_aa","rhssaf_army_m10_para_asst_spec_at","rhssaf_army_m10_para_repair","rhssaf_army_m10_para_rifleman_ammo","rhssaf_army_m10_para_rifleman_at","rhssaf_army_m10_para_rifleman_hk416","rhssaf_army_m10_para_rifleman_g36","rhssaf_army_m10_para_sniper_m82a1","rhssaf_army_m10_para_spotter","rhssaf_army_m10_para_sq_lead"];//"rhssaf_army_m10_para_officer",
+	INS_men_list = 	["rhssaf_army_m10_digital_asst_mgun","rhssaf_army_m10_digital_spec_aa","rhssaf_army_m10_digital_spec_at","rhssaf_army_m10_digital_crew","rhssaf_army_m10_digital_exp","rhssaf_army_m10_digital_ft_lead","rhssaf_army_m10_digital_gl","rhssaf_army_m10_digital_mgun_m84","rhssaf_army_m10_digital_sniper_m76","rhssaf_army_m10_digital_asst_spec_aa","rhssaf_army_m10_digital_asst_spec_at","rhssaf_army_m10_digital_officer","rhssaf_army_m10_digital_repair","rhssaf_army_m10_digital_rifleman_ammo","rhssaf_army_m10_digital_rifleman_at","rhssaf_army_m10_digital_rifleman_m21","rhssaf_army_m10_digital_rifleman_m70","rhssaf_army_m10_digital_spotter","rhssaf_army_m10_digital_sq_lead","rhssaf_army_m10_para_asst_mgun","rhssaf_army_m10_para_spec_aa","rhssaf_army_m10_para_spec_at","rhssaf_army_m10_para_crew","rhssaf_army_m10_para_ft_lead","rhssaf_army_m10_para_gl_ag36","rhssaf_army_m10_para_gl_m320","rhssaf_army_m10_para_mgun_m84","rhssaf_army_m10_para_mgun_minimi","rhssaf_army_m10_para_sniper_m76","rhssaf_army_m10_para_asst_spec_aa","rhssaf_army_m10_para_asst_spec_at","rhssaf_army_m10_para_repair","rhssaf_army_m10_para_rifleman_ammo","rhssaf_army_m10_para_rifleman_at","rhssaf_army_m10_para_rifleman_hk416","rhssaf_army_m10_para_rifleman_g36","rhssaf_army_m10_para_sniper_m82a1","rhssaf_army_m10_para_spotter","rhssaf_army_m10_para_sq_lead"];//"rhssaf_army_m10_para_officer",
 	INS_Op4_medic = "rhssaf_army_m10_digital_medic";
 	INS_Op4_Eng = "rhssaf_army_m10_digital_engineer";
 	INS_Op4_pilot = ["rhssaf_airforce_pilot_transport_heli"];
@@ -427,7 +427,7 @@ if (INS_op_faction isEqualTo 9) then {
 	INS_civ_Veh_Car = ["C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F","C_SUV_01_F"];
 	INS_civ_Veh_Utl = ["RHS_Ural_Civ_02","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_01","RHS_Civ_Truck_02_covered_F","RHS_Civ_Truck_02_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];
 	INS_civlist = ["C_man_p_beggar_F","C_man_1","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_hunter_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F"];// A3 Civilians
-	INS_CAS = "RHS_A10_AT";
+	INS_CAS = "RHS_A10";
 };
 
 // Leight's Opfor Pack Islamic State of Takistan and Sahrani

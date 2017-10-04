@@ -124,7 +124,7 @@ while{true} do {
 				{
 					[_x, _ttdJetParts] call _addToCleanup;
 				} forEach (getPosATL _unit nearObjects [_x, 100]);
-			} forEach ["Plane_Fighter_01_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F"];
+			} forEach ["Plane_Fighter_01_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F","rhs_k36d5_seat"];
 		};
 
 	} forEach allUnits;
