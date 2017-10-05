@@ -176,8 +176,13 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 
 			
 10/3/2017
-Fixed: error- Cannot create non-ai vehicle rhssaf_army_m10_digital_spec_exp, caused by RHS update 0.4.3. replaced with rhssaf_army_m10_digital_exp
+Fixing some issues caused by RHS update v0.4.3
+Fixed: error- Cannot create non-ai vehicle rhssaf_army_m10_digital_spec_exp replaced with rhssaf_army_m10_digital_exp
+Fixed: removed aircraft "RHS_Su25SM_KH29_vvsc" and "RHS_Mi8AMTSh_UPK23_vvsc" contain config errors.
+Fixed: removed one of the melb heli classes no longer exists.
+Added support for Mig29/L-18
 Added: new ejection seat from RHS update 0.4.3 to cleanup.
+Change: replaced RHS aircraft on base for new dynamic loadout versions
 
 9/21/2017
 BMR_Insurgency_v1.47

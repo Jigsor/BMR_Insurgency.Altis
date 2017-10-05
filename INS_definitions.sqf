@@ -362,8 +362,8 @@ if (INS_op_faction isEqualTo 6) then {
 	INS_Op4_Veh_Support = ["rhs_gaz66_r142_msv","rhs_gaz66_ap2_msv","rhs_gaz66_repair_msv","RHS_Ural_Fuel_MSV_01","RHS_Ural_Open_MSV_01"];
 	INS_Op4_Veh_AA = ["rhs_zsu234_aa"];
 	INS_Op4_stat_weps = ["RHS_ZU23_MSV","rhs_KORD_high_MSV","rhs_2b14_82mm_msv","rhs_Igla_AA_pod_msv","RHS_AGS30_TriPod_MSV","rhs_KORD_MSV","RHS_NSV_TriPod_MSV","rhs_SPG9M_MSV","rhs_D30_msv","rhs_D30_at_msv","rhs_Kornet_9M133_2_msv"];
-	INS_Op4_fixedWing = ["RHS_Su25SM_vvsc","RHS_Su25SM_CAS_vvsc","RHS_Su25SM_KH29_vvsc","RHS_T50_vvs_051","RHS_T50_vvs_052","RHS_T50_vvs_053","RHS_T50_vvs_054","RHS_T50_vvs_blueonblue"];
-	INS_Op4_helis = ["RHS_Ka52_vvsc","RHS_Ka52_UPK23_vvsc","RHS_Mi24P_CAS_vvsc","RHS_Mi24V_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_UPK23_vvsc","RHS_Mi8AMTSh_FAB_vvsc","RHS_Mi8AMTSh_UPK23_vvsc"];
+	INS_Op4_fixedWing = ["RHS_Su25SM_vvsc","RHS_Su25SM_CAS_vvsc","RHS_T50_vvs_052","RHS_T50_vvs_054","RHS_T50_vvs_blueonblue","rhs_mig29s_vvsc"];//,"RHS_Su25SM_KH29_vvsc"
+	INS_Op4_helis = ["RHS_Ka52_vvsc","RHS_Ka52_UPK23_vvsc","RHS_Mi24P_CAS_vvsc","RHS_Mi24V_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_UPK23_vvsc","RHS_Mi8AMTSh_FAB_vvsc"];//,"RHS_Mi8AMTSh_UPK23_vvsc"
 	INS_civ_Veh_Car = ["C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F","C_SUV_01_F"];
 	INS_civ_Veh_Utl = ["RHS_Ural_Civ_02","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_01","RHS_Civ_Truck_02_covered_F","RHS_Civ_Truck_02_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];
 	INS_civlist = ["C_man_p_beggar_F","C_man_1","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_hunter_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F"];// A3 Civilians
@@ -382,8 +382,8 @@ if (INS_op_faction isEqualTo 7) then {
 	INS_Op4_Veh_Support = ["rhs_gaz66_r142_msv","rhs_gaz66_ap2_msv","rhs_gaz66_repair_msv","RHS_Ural_Fuel_MSV_01","RHS_Ural_Open_MSV_01"];
 	INS_Op4_Veh_AA = ["rhs_zsu234_aa"];
 	INS_Op4_stat_weps = ["RHS_ZU23_MSV","rhs_KORD_high_MSV","rhs_2b14_82mm_msv","rhs_Igla_AA_pod_msv","RHS_AGS30_TriPod_MSV","rhs_KORD_MSV","RHS_NSV_TriPod_MSV","rhs_SPG9M_MSV","rhs_D30_msv","rhs_D30_at_msv","rhs_Kornet_9M133_2_msv"];
-	INS_Op4_fixedWing = ["RHS_Su25SM_vvsc","RHS_Su25SM_CAS_vvsc","RHS_Su25SM_KH29_vvsc","RHS_T50_vvs_051","RHS_T50_vvs_052","RHS_T50_vvs_053","RHS_T50_vvs_054","RHS_T50_vvs_blueonblue"];
-	INS_Op4_helis = ["RHS_Ka52_vvsc","RHS_Ka52_UPK23_vvsc","RHS_Mi24P_CAS_vvsc","RHS_Mi24V_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_UPK23_vvsc","RHS_Mi8AMTSh_FAB_vvsc","RHS_Mi8AMTSh_UPK23_vvsc"];
+	INS_Op4_fixedWing = ["RHS_Su25SM_vvsc","RHS_Su25SM_CAS_vvsc","RHS_T50_vvs_052","RHS_T50_vvs_054","RHS_T50_vvs_blueonblue","rhs_mig29s_vvsc"];//,"RHS_Su25SM_KH29_vvsc"
+	INS_Op4_helis = ["RHS_Ka52_vvsc","RHS_Ka52_UPK23_vvsc","RHS_Mi24P_CAS_vvsc","RHS_Mi24V_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_UPK23_vvsc","RHS_Mi8AMTSh_FAB_vvsc"];//,"RHS_Mi8AMTSh_UPK23_vvsc"
 	INS_civ_Veh_Car = ["C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F","C_SUV_01_F"];
 	INS_civ_Veh_Utl = ["RHS_Ural_Civ_02","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_01","RHS_Civ_Truck_02_covered_F","RHS_Civ_Truck_02_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];
 	INS_civlist = ["C_man_p_beggar_F","C_man_1","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_hunter_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F"];// A3 Civilians
@@ -422,7 +422,7 @@ if (INS_op_faction isEqualTo 9) then {
 	INS_Op4_Veh_Support = ["rhssaf_army_ural_fuel"];
 	INS_Op4_Veh_AA = ["rhsgref_cdf_zsu234"];
 	INS_Op4_stat_weps = ["RHSgref_cdf_ZU23","rhsgref_cdf_reg_M252","rhssaf_army_d30","rhsgref_cdf_reg_d30","rhsgref_cdf_reg_d30_at","rhsgref_cdf_Igla_AA_pod","rhsgref_cdf_AGS30_TriPod","rhsgref_cdf_DSHKM","rhsgref_cdf_DSHKM_Mini_TriPod","rhsgref_cdf_NSV_TriPod","rhsgref_cdf_SPG9","rhsgref_cdf_SPG9M","rhssaf_army_metis_9k115"];
-	INS_Op4_fixedWing = ["rhs_l159_CDF_CAP","rhs_l159_CDF_CAS","rhs_l159_CDF_plamen","rhs_l159_CDF","rhs_l39_cdf","rhsgref_cdf_su25"];
+	INS_Op4_fixedWing = ["rhs_l159_CDF_CAP","rhs_l159_CDF_CAS","rhs_l159_CDF_plamen","rhs_l159_CDF","rhs_l39_cdf","rhsgref_cdf_su25","rhssaf_airforce_l_18"];
 	INS_Op4_helis = ["rhsgref_mi24g_CAS","rhsgref_mi24g_FAB","rhsgref_mi24g_UPK23","rhsgref_cdf_Mi35","rhsgref_cdf_Mi35_UPK","rhsgref_cdf_reg_Mi17Sh","rhs_mi28n_vvsc"];
 	INS_civ_Veh_Car = ["C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F","C_SUV_01_F"];
 	INS_civ_Veh_Utl = ["RHS_Ural_Civ_02","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_01","RHS_Civ_Truck_02_covered_F","RHS_Civ_Truck_02_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];

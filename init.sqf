@@ -89,7 +89,7 @@ switch (INS_op_faction) do {
 	case 6: {
 	// RHS - Armed Forces of the Russian Federation (@RHSAFRF)
 		if (isClass(configFile >> "cfgPatches" >> "rhs_c_troops")) then {
-			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex"];
+			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex","rhs_c_mig29"];
 			[EAST,5,5]execVM "eos\OpenMe.sqf";
 
 			// (optional/not required) United States Armed Forces (@RHSUSAF). Vehicles will be available in Vehicle Reward.
@@ -101,7 +101,7 @@ switch (INS_op_faction) do {
 	case 7: {
 	// RHS - DESERT Armed Forces of the Russian Federation (@RHSAFRF)
 		if (isClass(configFile >> "cfgPatches" >> "rhs_c_troops")) then {
-			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex"];
+			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex","rhs_c_mig29"];
 			[EAST,6,6]execVM "eos\OpenMe.sqf";
 
 			// (optional/not required) United States Armed Forces (@RHSUSAF). Vehicles will be available in Vehicle Reward.
@@ -114,7 +114,7 @@ switch (INS_op_faction) do {
 	// RHS - GREF (@RHSAFRF;@RHSUSAF;@RHSGREF)
 		_requiredAddons = ["rhs_c_troops","rhsusf_main","rhsgref_c_troops"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
-			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex"];
+			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex","rhs_c_mig29"];
 			activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4""RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb"];
 			activateAddons ["rhsgref_c_troops","rhsgref_c_vehicles_ret","rhs_cti_insurgents","rhsgref_c_air","rhsgref_c_tohport_air"];
 			[RESISTANCE,7,8]execVM "eos\OpenMe.sqf";
@@ -124,7 +124,7 @@ switch (INS_op_faction) do {
 	// RHS - RHS Serbia (@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF)
 		_requiredAddons = ["rhs_c_troops","rhsusf_main","rhsgref_c_troops","rhssaf_main"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
-			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex"];
+			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex","rhs_c_mig29"];
 			activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4""RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb"];
 			activateAddons ["rhsgref_c_troops","rhsgref_c_vehicles_ret","rhs_cti_insurgents","rhsgref_c_air","rhsgref_c_tohport_air"];
 			activateAddons ["rhssaf_main","rhssaf_c_gear","rhssaf_c_troops","rhssaf_c_vehicles"];
