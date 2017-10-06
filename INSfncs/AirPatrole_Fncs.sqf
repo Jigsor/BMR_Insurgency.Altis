@@ -243,7 +243,7 @@ find_west_target_fnc = {
 			}
 			else
 			{
-				private ["_chance","_vicPosArr","_targets","_grpMemberPos","_sel","_randSel","_attackPos","_victim"];
+				private ["_vicPosArr","_targets","_grpMemberPos","_sel","_randSel","_attackPos","_victim"];
 				while {!isNull _hunted} do {
 					_vicPosArr = [];
 					_targets = [];

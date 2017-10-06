@@ -143,33 +143,33 @@ if (Airfield_opt) then
 
 	switch (INS_op_faction) do {
 		case 6: {
-			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10_AT")) then {
-				_mod = true; _class = "RHS_A10_AT";
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 7: {
-			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10_AT")) then {
-				_mod = true; _class = "RHS_A10_AT";
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 8: {
-			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10_AT")) then {
-				_mod = true; _class = "RHS_A10_AT";
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 9: {
-			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10_AT")) then {
-				_mod = true; _class = "RHS_A10_AT";
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 10: {
-			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10_AT")) then {
-				_mod = true; _class = "RHS_A10_AT";
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 11: {
-			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10_AT")) then {
-				_mod = true; _class = "RHS_A10_AT";
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
 			};
 		};
 		case 12: {

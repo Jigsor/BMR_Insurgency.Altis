@@ -175,7 +175,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 			[player,true] spawn INS_Zeus_MP;
 
 			
-10/3/2017
+10/6/2017
 Fixing some issues caused by RHS update v0.4.3
 Fixed: error- Cannot create non-ai vehicle rhssaf_army_m10_digital_spec_exp replaced with rhssaf_army_m10_digital_exp
 Fixed: removed aircraft "RHS_Su25SM_KH29_vvsc" and "RHS_Mi8AMTSh_UPK23_vvsc" contain config errors.
