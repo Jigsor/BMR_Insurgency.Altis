@@ -16,3 +16,5 @@ dynPylons6=["PylonRack_Missile_AGM_02_x1","PylonRack_Missile_AGM_02_x1","PylonRa
 dynPylons7=["PylonWeapon_300Rnd_20mm_shells","PylonWeapon_300Rnd_20mm_shells"];
 // Cup A-10 Heavy multirole
 dynPylons8=["PylonRack_1Rnd_Missile_AA_04_F","PylonRack_12Rnd_PG_missiles","CUP_PylonPod_19Rnd_Rocket_FFAR_M","PylonRack_3Rnd_Missile_AGM_02_F","PylonMissile_1Rnd_Bomb_04_F","PylonMissile_1Rnd_Bomb_04_F","PylonMissile_1Rnd_Bomb_04_F","PylonRack_3Rnd_Missile_AGM_02_F","CUP_PylonPod_19Rnd_CRV7_FAT_M","PylonRack_12Rnd_PG_missiles","PylonRack_1Rnd_Missile_AA_04_F"];
+// RHS A-10
+dynPylons9=["rhs_mag_ANALQ131","rhs_mag_agm65h","rhs_mag_agm65d_3","rhs_mag_gbu12","rhs_mag_FFAR_7_USAF","rhs_mag_mk82_3","rhs_mag_FFAR_7_USAF","rhs_mag_gbu12","rhs_mag_agm65e_3","rhs_mag_agm65h","rhs_mag_Sidewinder_2"];

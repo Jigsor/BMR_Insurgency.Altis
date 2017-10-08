@@ -145,31 +145,37 @@ if (Airfield_opt) then
 		case 6: {
 			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
+				INSdefLoadOutBlu = dynPylons9;
 			};
 		};
 		case 7: {
 			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
+				INSdefLoadOutBlu = dynPylons9;
 			};
 		};
 		case 8: {
 			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
+				INSdefLoadOutBlu = dynPylons9;
 			};
 		};
 		case 9: {
 			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
+				INSdefLoadOutBlu = dynPylons9;
 			};
 		};
 		case 10: {
 			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
+				INSdefLoadOutBlu = dynPylons9;
 			};
 		};
 		case 11: {
 			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
+				INSdefLoadOutBlu = dynPylons9;
 			};
 		};
 		case 12: {
