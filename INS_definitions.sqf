@@ -624,7 +624,7 @@ INS_all_medics = ["B_T_Recon_Medic_F","B_T_Medic_F","O_T_Medic_F","O_T_Recon_Med
 INS_PlayerPilot = [];// Classes who can pilot aircraft. Empty array for no restrictions.
 
 // Blufor Repair Support Vehicles/Engineer can deploy FARP when near
-INS_W_repairTruck = ["B_T_Truck_01_Repair_F","B_T_APC_Tracked_01_CRV_F","B_Truck_01_Repair_F","B_APC_Tracked_01_CRV_F","rhsusf_M977A4_REPAIR_BKIT_M2_usarmy_d","rhsusf_M977A4_REPAIR_BKIT_usarmy_d","rhsusf_M977A4_REPAIR_BKIT_M2_usarmy_wd","rhsusf_M977A4_REPAIR_BKIT_usarmy_wd","LIB_DAK_opelblitz_parm","LIB_opelblitz_parm","LIB_DAK_SdKfz_7","ffaa_et_toa_zapador","ffaa_et_m250_repara_municion_blin","ffaa_et_pegaso_repara_municion","CUP_B_MTVR_Repair_USMC","CUP_B_MTVR_Repair_USA","CUP_B_M113_desert_USA"];
+INS_W_repairTruck = ["B_T_Truck_01_Repair_F","B_T_APC_Tracked_01_CRV_F","B_Truck_01_Repair_F","B_APC_Tracked_01_CRV_F","rhsusf_M977A4_REPAIR_BKIT_M2_usarmy_d","rhsusf_M977A4_REPAIR_BKIT_usarmy_d","rhsusf_M977A4_REPAIR_BKIT_M2_usarmy_wd","rhsusf_M977A4_REPAIR_BKIT_usarmy_wd","rhsusf_M1078A1R_SOV_M2_D_fmtv_socom","LIB_DAK_opelblitz_parm","LIB_opelblitz_parm","LIB_DAK_SdKfz_7","ffaa_et_toa_zapador","ffaa_et_m250_repara_municion_blin","ffaa_et_pegaso_repara_municion","CUP_B_MTVR_Repair_USMC","CUP_B_MTVR_Repair_USA","CUP_B_M113_desert_USA"];
 
 // Tow Vehicles allowed for BTC Towing
 INS_TowTruck = ["B_APC_Tracked_01_CRV_F","B_T_APC_Tracked_01_CRV_F","rhsusf_M977A4_REPAIR_BKIT_M2_usarmy_d","rhsusf_M977A4_REPAIR_BKIT_usarmy_d","rhsusf_M977A4_REPAIR_BKIT_M2_usarmy_wd","rhsusf_M977A4_REPAIR_BKIT_usarmy_wd","ffaa_et_toa_zapador","CUP_B_M113_desert_USA","CUP_B_TowingTractor_USMC"];

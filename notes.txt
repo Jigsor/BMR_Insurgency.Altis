@@ -174,15 +174,17 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 		Execute local:
 			[player,true] spawn INS_Zeus_MP;
 
-			
-10/8/2017
-Fixing some issues caused by RHS update v0.4.3
+
+10/12/2017
+Update Changes of base code to BMR_Insurgency_v1.47 only partain to class names related to mod update RHS v0.4.3.
+mission.sqm files modified for versions with RHS in mission name.
 Fixed: error- Cannot create non-ai vehicle rhssaf_army_m10_digital_spec_exp replaced with rhssaf_army_m10_digital_exp
-Fixed: removed aircraft "RHS_Su25SM_KH29_vvsc" and "RHS_Mi8AMTSh_UPK23_vvsc" contain config errors.
-Fixed: removed one of the melb heli classes no longer exists.
-Added support for Mig29/L-18
+Fixed: removed aircraft "RHS_Su25SM_KH29_vvsc" and "RHS_Mi8AMTSh_UPK23_vvsc" which currently contain config errors.
+Fixed: removed one of the melb heli classes that no longer exists.
+Added: addon activation for Mk.V SOC, Mig29/L-18, M1220 M1232 type vehicles.
+Added: rhsusf_M1078A1R_SOV_M2_D_fmtv_socom to West Repair Trucks
 Added: new ejection seat from RHS update 0.4.3 to cleanup.
-Change: replaced RHS aircraft on base for new dynamic loadout versions
+Change: replaced RHS aircraft on base for new dynamic loadout versions.
 
 9/21/2017
 BMR_Insurgency_v1.47

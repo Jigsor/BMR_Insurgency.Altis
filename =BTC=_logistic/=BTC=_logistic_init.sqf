@@ -72,6 +72,7 @@ if (BTC_active_lift isEqualTo 1) then {
 			case "RHS_CH_47F_light_10" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Air","Ship"] + BTC_fob_materials};
 			case "RHS_CH_47F_light" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Air","Ship"] + BTC_fob_materials};
 			//MI8
+			case "RHS_Mi8AMT_vvsc" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","StaticWeapon","Car","Truck","B_UGV_01_F","B_UGV_01_rcws_F","Wheeled_APC","Air","Ship"] + BTC_fob_materials};
 			case "RHS_Mi8MTV3_vvs" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","StaticWeapon","Car","Truck","B_UGV_01_F","B_UGV_01_rcws_F","Wheeled_APC","Air","Ship"] + BTC_fob_materials};
 			case "RHS_Mi8AMTSh_FAB_vvs" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","StaticWeapon","Car","Truck","B_UGV_01_F","B_UGV_01_rcws_F","Wheeled_APC","Air","Ship"] + BTC_fob_materials};
 			case "RHS_Mi8AMTSh_UPK23_vvs" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","StaticWeapon","Car","Truck","B_UGV_01_F","B_UGV_01_rcws_F","Wheeled_APC","Air","Ship"] + BTC_fob_materials};
