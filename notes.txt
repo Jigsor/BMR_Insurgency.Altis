@@ -174,9 +174,13 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 		Execute local:
 			[player,true] spawn INS_Zeus_MP;
 
-
+10/16/2017
+Changes pertain to CUP update
+Change: swaped 1 gbu12 for targeting pod CUP_PylonPod_ANAAQ_28 in default dynamic loadout of CUP A-10
+Change: Hanger bay doors are closed by default with cup maps update so added logic to open them at mission start.
+Swaped CUP Chenarus civilians with new Takistani civilians for use with lobby option Opposing Army/Mod Initialization"CUP Takistan Army and Takistan Militia"
 10/12/2017
-Update Changes of base code to BMR_Insurgency_v1.47 only partain to class names related to mod update RHS v0.4.3.
+Update Changes of base code to BMR_Insurgency_v1.47 only pertain to class names related to mod update RHS v0.4.3.
 mission.sqm files modified for versions with RHS in mission name.
 Fixed: error- Cannot create non-ai vehicle rhssaf_army_m10_digital_spec_exp replaced with rhssaf_army_m10_digital_exp
 Fixed: removed aircraft "RHS_Su25SM_KH29_vvsc" and "RHS_Mi8AMTSh_UPK23_vvsc" which currently contain config errors.
