@@ -136,6 +136,7 @@ if (Airfield_opt) then
 			{ _x hideObjectGlobal true } foreach (nearestTerrainObjects [[21020.1,7311.07,0],["TREE","SMALL TREE","BUSH"],175]);
 		};
 	};
+	{_x animateSource ["Door_7_sound_source", 1];} ForEach nearestObjects [(getMarkerPos "Airfield"), ["Land_Ss_hangar","Land_Ss_hangard","WarfareBAirport"], 500];
 
 	//Default empty Bluefor Fixed Wing
 	private ["_mod","_class","_dirfw1","_fw1","_type"];
