@@ -1,4 +1,4 @@
-// init_server.sqf by Jigsor //
+// init_server.sqf by Jigsor //	
 
 // Server Functions //
 call compile preprocessFileLineNumbers "INSfncs\server_fncs.sqf";
