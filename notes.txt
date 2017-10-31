@@ -173,7 +173,8 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 		Caution using this command durring high AI/object counts because it causes high network traffic for a few moments and requires much network syncronization. Best to use durring lulls or not to often.
 		Execute local:
 			[player,true] spawn INS_Zeus_MP;
-
+10/31/2017
+Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.
 10/16/2017
 Changes pertain to CUP update
 Change: swaped 1 gbu12 for targeting pod CUP_PylonPod_ANAAQ_28 in default dynamic loadout of CUP A-10
