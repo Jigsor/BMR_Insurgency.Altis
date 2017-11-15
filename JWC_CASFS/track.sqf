@@ -8,8 +8,8 @@ _markerName setMarkerColor "ColorBLUFOR";
 while {!isNull _plane} do
 {
   _markerName setMarkerDir (getDir _plane);
-  _markerName setMarkerPos (getPos _plane);
-  sleep 0.1;
+  _markerName setMarkerPos (getPosWorld _plane);
+  uiSleep 0.1;
 };
 
 deleteMarker _marker;

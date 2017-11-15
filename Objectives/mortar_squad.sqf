@@ -1,10 +1,9 @@
 //mortar_squad.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_range","_run","_roadNear","_signPos","_roads","_roadSegment","_roadDir","_mortar_type","_objmkr","_sign","_grp","_stat_grp","_handle","_unit_type","_damage","_offset_pos1","_static1","_offset_pos2","_static2","_offset_pos3","_static3","_StaticArray1","_all_mortars","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_manArray"];
+params ["_newZone","_type"];
+private ["_rnum","_range","_run","_roadNear","_signPos","_roads","_roadSegment","_roadDir","_mortar_type","_objmkr","_sign","_grp","_handle","_unit_type","_damage","_offset_pos1","_static1","_offset_pos2","_static2","_offset_pos3","_static3","_StaticArray1","_all_mortars","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_manArray"];
 
-_newZone = _this select 0;
-_type = _this select 1;
 _rnum = str(round (random 999));
 _range = 600;
 _run = true;
@@ -27,7 +26,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 _sign = createVehicle [_type, _newZone, [], 0, "None"];//Vanilla
 sleep jig_tvt_globalsleep;
 
-while {isOnRoad _newZone} do {
+while {isOnRoad _signPos} do {
 	_signPos = _newZone findEmptyPosition [2, 30, _type];
 	sleep 0.2;
 };
@@ -44,40 +43,41 @@ if (_roadNear) then {_sign setDir _roadDir - 90;};
 _sign setVectorUp [0,0,1];
 
 // Spawn Objective enemy defences
-_grp = [_newZone,14] call spawn_Op4_grp;
+_grp = [_newZone,14] call spawn_Op4_grp; sleep 3;
 
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 if (DebugEnabled > 0) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
 mortar_grp = createGroup INS_Op4_side;
 
-_unit_type = INS_men_list select (round (random ((count INS_men_list) - 1)));
+_unit_type = selectRandom INS_men_list;
 mortar_grp createUnit [_unit_type, _newZone, [], 0, "NONE"];
 sleep 1;
-_unit_type = INS_men_list select (round (random ((count INS_men_list) - 1)));
+(units mortar_grp select 0) setVariable ["zbe_cacheDisabled",true];
+_unit_type = selectRandom INS_men_list;
 mortar_grp createUnit [_unit_type, _newZone, [], 0, "NONE"];
 sleep 1;
-_unit_type = INS_men_list select (round (random ((count INS_men_list) - 1)));
+_unit_type = selectRandom INS_men_list;
 mortar_grp createUnit [_unit_type, _newZone, [], 0, "NONE"];
 sleep 1;
 
 {
-	if (EOS_DAMAGE_MULTIPLIER != 1) then
+	_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
+	if !(AIdamMod isEqualTo 100) then
 	{
 		_x removeAllEventHandlers "HandleDamage";
-		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];
+		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 	};
 } forEach (units mortar_grp);
-{_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];} forEach (units mortar_grp);
 
 _offset_pos1 = [getMarkerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
-if (_offset_pos1 distance _newZone > 125) then {_offset_pos1 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
+if (isNil "_offset_pos1" || _offset_pos1 distance _newZone > 125) then {_offset_pos1 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
 
 _offset_pos2 = [getMarkerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
-if (_offset_pos2 distance _newZone > 125) then {_offset_pos2 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
+if (isNil "_offset_pos2" || _offset_pos2 distance _newZone > 125) then {_offset_pos2 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
 
 _offset_pos3 = [getMarkerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
-if (_offset_pos3 distance _newZone > 125) then {_offset_pos3 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
+if (isNil "_offset_pos3" || _offset_pos3 distance _newZone > 125) then {_offset_pos3 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
 
 _static1 = createVehicle [_mortar_type, _offset_pos1, [], 0, "None"]; sleep jig_tvt_globalsleep;
 _static2 = createVehicle [_mortar_type, _offset_pos2, [], 0, "None"]; sleep jig_tvt_globalsleep;
@@ -119,13 +119,13 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_dms";
 _taskdescE = localize "STR_BMR_Tsk_topicE_dms";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 while {_run} do {
 	if ({alive _x} count units mortar_grp > 0) then	{
 		{_x setVehicleAmmo 1;} count _all_mortars;
 
-		_manArray = (getposatl objective_pos_logic) nearentities [["CAManBase"],_range];
+		_manArray = (getposatl objective_pos_logic) nearentities ["CAManBase",_range];
 
 		{
 			if (!(side _x == INS_Blu_side)) then {
@@ -160,8 +160,8 @@ waitUntil {sleep 1; !_run};
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
 
-{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
-{deleteGroup _x} forEach [_grp, _stat_grp];
+{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units mortar_grp);
+{deleteGroup _x} forEach [_grp, mortar_grp];
 
 if (!isNull _sign) then {deleteVehicle _sign; sleep 0.1;};
 {if (!isNull _x) then {deleteVehicle _x; sleep 0.1}} foreach _all_mortars;

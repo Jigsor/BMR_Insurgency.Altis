@@ -1,10 +1,9 @@
 //data_retrieval.sqf by Jigsor
 
 sleep 2;
-private ["_startPos","_type","_list","_nearZones","_buildingNear","_rnum","_uncaped_eos_mkrs","_ins_debug","_nearMkrs","_objmkr","_device","_veh_name","_VarName","_grp","_stat_grp","_tskW","_tskE","_tasktopicW","_tasktopicE","_taskdescW","_taskdescE","_sideWin","_rand","_nearBuildings","_selbuild","_nearBuildings","_posArray","_r","_n","_position","_pos","_clearPos","_buildObj","_bldgPos","_buildDir","_staticGuns","_minClearZ","_b_pos","_c","_alt"];
+params ["_startPos","_type"];
+private ["_list","_nearZones","_buildingNear","_rnum","_uncaped_eos_mkrs","_ins_debug","_nearMkrs","_objmkr","_device","_veh_name","_VarName","_grp","_stat_grp","_tskW","_tskE","_tasktopicW","_tasktopicE","_taskdescW","_taskdescE","_sideWin","_rand","_nearBuildings","_selbuild","_nearBuildings","_posArray","_r","_n","_position","_pos","_clearPos","_buildObj","_bldgPos","_buildDir","_staticGuns","_minClearZ","_b_pos","_c","_alt"];
 
-_startPos = _this select 0;
-_type = _this select 1;
 _list = 1;
 _nearZones = [];
 _lift = true;
@@ -105,7 +104,8 @@ _device allowdamage false;
 _device setdir _buildDir;
 _device setpos _bldgPos;
 _device setVectorUp surfaceNormal position _device;
-_device setPos getPos _device;
+_device setVehiclePosition [getposATL _device,[''],0];
+sleep 5;
 
 if (count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0),(getposASL _device select 1), ((getposASL _device select 2) + 2)]]) > 1) then {
 	_device setVectorUp [0,0,1];
@@ -152,7 +152,7 @@ _objmkr = createMarker ["ObjectiveMkr", _bldgPos];
 "ObjectiveMkr" setMarkerText "Data Terminal";
 
 // create defenses
-_grp = [_clearPos,10] call spawn_Op4_grp;
+_grp = [_clearPos,10] call spawn_Op4_grp; sleep 3;
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 
 _stat_grp = [_clearPos,4,5] call spawn_Op4_StatDef;
@@ -163,15 +163,15 @@ waitUntil {sleep 1; alive _device};
 
 // create west task
 _tskW = "tskW_destroy_device" + _rnum;
-_tasktopicW = localize "STR_BMR_Tsk_topic_global_Retrieve_Data";
-_taskdescW = localize "STR_BMR_Tsk_desc_global_Retrieve_Data";
+_tasktopicW = localize "STR_BMR_Tsk_topic_global_Retrieve_Intel";
+_taskdescW = localize "STR_BMR_Tsk_desc_global_Retrieve_Intel";
 [_tskW,_tasktopicW,_taskdescW,WEST,[],"created",_bldgPos] call SHK_Taskmaster_add;
 sleep 5;
 
 // create east task
 _tskE = "tskE_defend_device" + _rnum;
-_tasktopicE = localize "STR_BMR_Tsk_topic_global_Retrieve_Data";
-_taskdescE = localize "STR_BMR_Tsk_desc_global_Retrieve_Data";
+_tasktopicE = localize "STR_BMR_Tsk_topic_global_Retrieve_Intel";
+_taskdescE = localize "STR_BMR_Tsk_desc_global_Retrieve_Intel";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_bldgPos] call SHK_Taskmaster_add;
 
 // Win/Loose

@@ -69,6 +69,7 @@ if (DebugEnabled > 0) then {
 		if (local Player) then {
 			[] spawn {
 				if (ASRrecSkill isEqualTo 1 and INS_ACE_core) then {sleep 15;};
+				if (INS_ACE_core) then {player setVariable ["ACE_SYS_STAMINA_MULTI", 0.0001]};
 				[player] call INS_full_stamina;
 			};
 		};
@@ -80,10 +81,23 @@ if (DebugEnabled > 0) then {
 	// Object Actions //
 
 	// Base Flag Pole
-	INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","ATM_airdrop\atm_airdrop.sqf", nil, 3.9];
-	if (max_ai_recruits > 1) then {INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\INS_AI_Halo.sqf", nil, 3.8];};
+	if (INS_op_faction isEqualTo 16) then {
+		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 0, 3.9];
+		if (max_ai_recruits > 1) then {
+			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 1, 3.8];
+			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + "Player and AI HALO" + "</t>","scripts\HALO_Pod.sqf", 2, 3.79];
+		};
+	}else{
+		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","ATM_airdrop\atm_airdrop.sqf", nil, 3.9];
+		if (max_ai_recruits > 1) then {INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\INS_AI_Halo.sqf", nil, 3.8];};
+	};
+
 	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Airfield</t>","call JIG_transfer_fnc", ["Airfield"], 3.7];
 	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Dock</t>","call JIG_transfer_fnc", ["Dock"], 3.6];
+	if (!isNil "USSfreedom") then {
+		private _carrierPos = USSfreedom getRelPos [181, 349];
+		INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>USS Freedom</t>", "call JIG_transfer_fnc", [[(_carrierPos select 0),(_carrierPos select 1),19.2468]], 3.5];
+	};
 
 	// Virtual Arsenal
 	INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
@@ -108,9 +122,6 @@ if (DebugEnabled > 0) then {
 
 	// AI recruitment
 	if (max_ai_recruits > 1) then {INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#1d78ed'>") + (localize "STR_BMR_recruit_inf") + "</t>","bon_recruit_units\open_dialog.sqf", [], 1];};
-
-	// Loadout Transfer
-	[INS_Wep_box,true,false,false,false,false] call LT_fnc_LTaction;
 
 	// Player actions for Engineer's Farp/vehicle service point
 	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_maintenance_veh") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],INS_maintenance_veh], 8, true, true, "", "count (nearestObjects [_this, [""LandVehicle"",""Air""], 10]) > 0"];
@@ -150,30 +161,22 @@ if (DebugEnabled > 0) then {
 	[] spawn {
 		sleep 5;
 		waitUntil {!isNull (findDisplay 46)};
-		handle = (findDisplay 46) displayAddEventHandler ["KeyDown", "_this call DH_fnc_keyPresses"];
+		//handle = (findDisplay 46) displayAddEventHandler ["KeyDown", "_this call Jig_fnc_keyHandler"];
+		(findDisplay 46) displayAddEventHandler ["KeyDown", "_this call Jig_fnc_keyHandler"];
+		(findDisplay 46) displayAddEventHandler ["KeyDown", {if ((_this select 1) in ((actionKeys 'User3') + [0x3d])) then {call INS_planeReverse_key_F3;};}];
 	};
 
 	if (INS_full_loadout isEqualTo 0) then {
 		player removealleventhandlers "Reloaded";
 		player addEventHandler ["Reloaded", {_null = [] call INS_Depleated_Loadout}];
-		player addEventHandler ["killed", {(_this select 0) removealleventhandlers "Reloaded"; _this spawn killedInfo_fnc}];
+		player addEventHandler ["Killed", {(_this select 0) removealleventhandlers "Reloaded"; _this spawn killedInfo_fnc}];
 		player addEventHandler ["Respawn", {(_this select 0) spawn INS_RestoreLoadout; (_this select 0) addEventHandler ["Reloaded", {_null = [] call INS_Depleated_Loadout}]; [] spawn JIG_p_actions_resp; (_this select 0) spawn INS_UI_pref}];
 	}else{
-		player addEventHandler ["killed", {_this spawn killedInfo_fnc}];
+		player addEventHandler ["Killed", {_this spawn killedInfo_fnc}];
 		player addEventHandler ["Respawn", {[] spawn JIG_p_actions_resp; (_this select 0) spawn INS_RestoreLoadout; (_this select 0) spawn INS_UI_pref}];
 	};
 
-	If (side player == east) then {player addEventHandler ["killed", {handle = [_this select 0] execVM "scripts\MoveOp4Base.sqf";}];};
-	if (!isServer) then	{"PVEH_netSay3D" addPublicVariableEventHandler {private "_array"; _array = _this select 1; (_array select 0) say3D (_array select 1);};};
-
-	if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
-		player addEventHandler ["Respawn", {
-			[(_this select 0)] spawn {
-				waitUntil {sleep 1; alive (_this select 0)};
-				if (captive (_this select 0)) then {(_this select 0) setCaptive false};
-			};
-		}];
-	};
+	if (!isServer) then {"PVEH_netSay3D" addPublicVariableEventHandler {private "_array"; _array = _this select 1; (_array select 0) say3D (_array select 1);};};
 
 	if (INS_GasGrenadeMod isEqualTo 1) then {
 		player addEventHandler ["Fired", {
@@ -193,6 +196,30 @@ if (DebugEnabled > 0) then {
 				_inSmokeThread = [] spawn GAS_inSmoke;
 			};
 		}] call BIS_fnc_addStackedEventHandler;
+	};
+
+	if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
+		player addEventHandler ["Killed",{_this spawn {sleep 3; deletevehicle (_this select 0)};}];
+		player addEventHandler ["Respawn", {
+			[(_this select 0)] spawn {
+				waitUntil {sleep 1; alive (_this select 0)};
+				if (captive (_this select 0)) then {(_this select 0) setCaptive false};
+			};
+		}];
+	}else{
+		If (side player == east) then {player addEventHandler ["Killed", {Op4handle = [_this select 0] execVM "scripts\MoveOp4Base.sqf";}];};
+	};
+
+	if (!(INS_ACE_core) && !(INSpDamMul isEqualTo 100)) then {
+		if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
+			[] spawn {
+				waitUntil {time > 4};
+				hint "Player damage modifier not compatible with BTC Quick Revive. Default damage will be taken (100%)";
+			};
+		}else{
+			pdammod = INSpDamMul*0.01;
+			player addEventHandler ["HandleDamage",{_damage = (_this select 2)*pdammod;_damage}];
+		};
 	};
 
 	// Routines //
@@ -224,6 +251,7 @@ if (DebugEnabled > 0) then {
 				if (!isNil "MHQ_1") then {removeAllActions MHQ_1;};
 				if (!isNil "MHQ_2") then {removeAllActions MHQ_2;};
 				if (!isNil "MHQ_3") then {removeAllActions MHQ_3;};
+				player addEventHandler ["GetInMan",{if ((_this select 2) isKindOf "Plane") then {_this select 0 action ["GetOut", (_this select 2)]}}];
 			};
 		};
 		If (side player == west) then {
@@ -301,7 +329,7 @@ if (DebugEnabled > 0) then {
 		[] spawn {
 			private _delay = round (3600 / timeMultiplier);
 			while {true} do {
-				if ((daytime > 20.00) || (daytime < 4.00)) then {
+				if ((daytime > 21.00) || (daytime < 3.50)) then {
 					[3] call INS_Brighter_Nights;
 				}else{
 					[1] call INS_Brighter_Nights;
@@ -320,20 +348,17 @@ if (DebugEnabled > 0) then {
 	// Ambient Radio Chatter in/near Vehicles (TPW code)
 	if (ambRadioChatter isEqualTo 1) then {
 		[] spawn {
-		while {true} do	{
-			private ["_sound","_veh"];
-			if (player != vehicle player) then {
-				playMusic format ["RadioAmbient%1",floor (random 31)];
-				}
-				else
-				{
-				_veh = ((position player) nearEntities [["Air","Landvehicle"], 10]) select 0;
-				if !(isNil "_veh") then	{
-					_sound = format ["A3\Sounds_F\sfx\radio\ambient_radio%1.wss",floor (random 31)];
-					playsound3d [_sound,_veh,true,getPosasl _veh,1,1,50];
+			while {true} do	{
+				if (player != vehicle player) then {
+						playMusic format ["RadioAmbient%1",floor (random 31)];
+					} else {
+						private _veh = ((position player) nearEntities [["Air","Landvehicle"], 10]) select 0;
+						if !(isNil "_veh") then	{
+							private _sound = format ["A3\Sounds_F\sfx\radio\ambient_radio%1.wss",floor (random 31)];
+							playsound3d [_sound,_veh,true,getPosasl _veh,1,1,50];
+						};
 					};
-				};
-			sleep (1 + random 59);
+				sleep (1 + random 59);
 			};
 		};
 	};
@@ -341,10 +366,9 @@ if (DebugEnabled > 0) then {
 	// Vehicle Reward incentive initialized if Mechanized Armor threat enabled.
 	if (MecArmPb > 1) then {
 		[] spawn {
-			waitUntil{not isNull player};
-			private ["_uid","_text"];
-			_uid = (getPlayerUID player);
-			_text = (localize "STR_BMR_veh_awarded");
+			waitUntil{!isNull player};
+			private _uid = (getPlayerUID player);
+			private _text = (localize "STR_BMR_veh_awarded");
 			rewardp = "";
 			"rewardp" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 			while {true} do	{
@@ -354,7 +378,7 @@ if (DebugEnabled > 0) then {
 				else
 				{
 					if ((local player) and (rewardp == _uid)) then {
-						//[activated_cache_pos] spawn JIG_circling_cam;// optional cache cam
+						//[activated_cache_pos,45,1,0.01] spawn JIG_circling_cam;// optional cache cam
 						player setVariable ["createEnabled", true];
 						_id = player addAction[("<t size='1.5' shadow='2' color=""#12F905"">") + (localize "STR_BMR_veh_reward") + "</t>",{call JIG_map_click}, [], 10, false, true];// Use it or loose it when player dies.
 						[_text] spawn JIG_MPsideChatWest_fnc;
@@ -370,7 +394,7 @@ if (DebugEnabled > 0) then {
 	if (ambCombSound isEqualTo 1) then {s=[objective_pos_logic,23,11] execVM "scripts\fn_Battle.sqf";};
 
 	// Restrict Aircraft Pilot Seat to Pilots Only
-	if ((count INS_PlayerPilot) != 0) then {
+	if !(count INS_PlayerPilot isEqualTo 0) then {
 		[] spawn {
 			if ((typeOf player) in INS_PlayerPilot) exitWith {};
 			If (side player == east) exitWith {};// exclude Op4 players
@@ -408,11 +432,10 @@ if (DebugEnabled > 0) then {
 				{
 					if (local player) then {
 						sleep 5;
-						private ["_mhqPos","_mhqAcc","_mhqObj"];
-						_mhqAcc = [INS_MHQ_killed,_op4] call mhq_actions2_fnc;
-						_mhqObj = objNull;
+						private _mhqAcc = [INS_MHQ_killed,_op4] call mhq_actions2_fnc;
+						private _mhqObj = objNull;
 						_mhqObj = [INS_MHQ_killed] call mhq_obj_fnc;
-						_mhqPos = getPosASL _mhqObj;
+						private _mhqPos = getPosASL _mhqObj;
 						_nul = [_mhqObj,_op4,_mhqPos] spawn INS_MHQ_mkr;
 						INS_MHQ_killed = "";
 					};

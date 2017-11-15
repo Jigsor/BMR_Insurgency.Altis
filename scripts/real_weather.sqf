@@ -83,7 +83,7 @@ if (local player) then {
 	//Jig adding Brighter Nights by Ralian
 	[] spawn {
 		waitUntil {!isNil "INS_Brighter_Nights"};		
-		if (daytime > 20.00 || daytime < 4.00) then {
+		if (daytime > 21.00 || daytime < 3.50) then {
 			[3] call INS_Brighter_Nights;
 		}else{
 			[1] call INS_Brighter_Nights;
@@ -178,7 +178,7 @@ while {true} do {
 	};
 
 	//Jig adding Brighter Nights by Ralian
-	if (daytime > 20.00 || daytime < 4.00) then {
+	if (daytime > 21.00 || daytime < 3.50) then {
 		[3] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated, false];
 	}else{
 		[1] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated, false];

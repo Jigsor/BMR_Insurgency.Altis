@@ -41,6 +41,8 @@ private _cache_loop = [] spawn
 
 		{_x setMarkerAlpha 0; sleep 0.01} count all_intel_mkrs;
 		{deleteMarker _x; sleep 0.1} count all_intel_mkrs;
+		private _spam = allmapmarkers select {getMarkerType _x isEqualTo "hd_unknown";};
+		{deleteMarker _x} count _spam;
 		publicVariable "all_intel_mkrs";
 		sleep 3;
 
@@ -48,7 +50,7 @@ private _cache_loop = [] spawn
 		publicVariableServer "cache_destroyed";
 		sleep 3;
 
-		if (_ins_debug) then {titletext ["ghst_PutinBuild running","plain down"];};
+		if (_ins_debug) then {titletext ["Creating Ammo Cache","plain down"];};
 
 		private ["_all_cache_pos","_ammocache","_rnum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_new_city","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_haveguards","_minguards","_maxguards","_sideguards","_jigcoor","_jigxcoor","_jigycoor","_cache_coor","_menlist","_nearBuildings","_loop","_p","_n","_i","_markname","_mark1","_nul","_egrp","_trig1stat","_trig1act","_trg1","_mkr_position","_activated_cache","_alive_cache","_curr_mkr","_buildObj"];
 

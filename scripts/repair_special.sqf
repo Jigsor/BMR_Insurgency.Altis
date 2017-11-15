@@ -42,7 +42,6 @@ else
 	if (!isNull (missionNamespace getVariable "ebox")) then {deletevehicle ebox;};
 };
 
-//_mark = format["%1farp",(name player)];
 _mark = "bluforFarp";
 deleteMarker _mark;
 
@@ -60,7 +59,6 @@ _pos3 = [(_pos2 select 0)+3,(_pos2 select 1)+3,_pos2 select 2];
 
 _type = typeOf INS_sup_Nbox;
 ebox = _type createVehicle _pos3;// supply box
-//ebox = "Box_NATO_Wps_F" createVehicle _pos3;// basic nato ammo box
 
 player setVariable ["INS_farp_deployed", true];
 
@@ -72,4 +70,4 @@ _medmark setMarkerColor "ColorGreen";
 _medmark setMarkerText _mssg;
 _medmark setMarkerSize [0.5, 0.5];
 
-[[[_medmark],east],"Hide_Mkr_fnc",true] call BIS_fnc_MP;
+[[_medmark],east] remoteExec ["Hide_Mkr_fnc", [0,-2] select isDedicated, "FARPmkr_JIP_ID"];

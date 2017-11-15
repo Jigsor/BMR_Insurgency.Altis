@@ -1,12 +1,18 @@
 INS_intro_playTrack = {
 	//Plays a random intro track:
 	// 0 => title, 1 => start delay
+	playMusic "";
 	private _track = selectRandom
 	[
 		[["LeadTrack05_F", 1], 33],
 		[["AmbientTrack01a_F", 32], 33],
 		[["LeadTrack01_F_Bootcamp", 36], 32.9],
-		[["Track06_CarnHeli", 1], 33]
+		[["Track06_CarnHeli", 1], 33],
+		[["BackgroundTrack01a_F", 63], 33],
+		[["BackgroundTrack01a_F", 27], 33],
+		[["EventTrack02_F_EPA", 1.63], 34.3],
+		[["EventTrack01_F_EPA", 1.63], 34.3],
+		[["LeadTrack03_F_EPA",60.85], 33.678]
 	];
 	0 fadeMusic 1;
 	playMusic (_track select 0);
@@ -29,7 +35,7 @@ INS_intro = {
 	_cam = "camera" camCreate [position camstart select 0, position camstart select 1, (position camstart select 2) + 80];
 	_cam camPreload 5;
 	_cam camSetTarget player;
-	waitUntil {preloadCamera [position camstart select 0, position camstart select 1, (position camstart select 2) + 80];};
+	waitUntil {preloadCamera [position camstart select 0, position camstart select 1, (position camstart select 2) + 80]};
 	_cam cameraEffect ["internal", "BACK"];
 	["BIS_ScreenSetup",true] call BIS_fnc_blackIn;
 	_camPos = [(getPos player select 0) + _rx, (getPos player select 1) + _ry, (getTerrainHeightASL (position player)) + 20];
@@ -52,8 +58,7 @@ INS_intro = {
 	setViewDistance -1;
 	camDestroy _cam;
 	enableRadio true;
-	if (INS_environment isEqualTo 0) then {enableEnvironment false;};
-	if (INS_mod_missing) then {[] spawn INS_missing_mods;};
+	if (INS_mod_missing) then {[] spawn INS_missing_mods};
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
@@ -63,13 +68,14 @@ INS_intro_op4 = {
 	setViewDistance 1800;
 	if (daytime > 19.00 || daytime < 5.00) then {camUseNVG true};
 	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
+	_ok = preloadTitleRsc ["bmr_intro", "PLAIN"];
 	0 = 0 spawn INS_intro_playTrack;
 	_centPos = getPosATL center;
 	_offsetPos = [_centPos select 0, _centPos select 1, (_centPos select 2) + 300];
 	_cam = "camera" camCreate [(position center select 0) + 240, (position center select 1) + 100, 450];
 	_cam camPreload 5;
 	_cam camSetTarget _offsetPos;
-	waitUntil {preloadCamera [(position center select 0) + 240, (position center select 1) + 100, 450];};
+	waitUntil {preloadCamera [(position center select 0) + 240, (position center select 1) + 100, 450]};
 	_cam cameraEffect ["internal", "BACK"];
 	["BIS_ScreenSetup",true] call BIS_fnc_blackIn;
 	_cam camSetPos [(position center select 0) - 240, (position center select 1) + 100, 450];
@@ -88,8 +94,7 @@ INS_intro_op4 = {
 	setViewDistance -1;
 	camDestroy _cam;
 	enableRadio true;
-	if (INS_environment isEqualTo 0) then {enableEnvironment false;};
-	if (INS_mod_missing) then {[] spawn INS_missing_mods;};
+	if (INS_mod_missing) then {[] spawn INS_missing_mods};
 };
 JIG_placeSandbag_fnc = {
 	// Player action place sandbag barrier. by Jigsor
@@ -106,7 +111,7 @@ JIG_placeSandbag_fnc = {
 	_zfactor = 1;
 	_zvector = ((_p weaponDirection (primaryWeapon _p)) select 2) * 3;
 
-	if (not (isNull MedicSandBag)) then {deleteVehicle MedicSandBag;};
+	if (!isNull MedicSandBag) then {deleteVehicle MedicSandBag};
 	MedicSandBag = createVehicle ["Land_BagFence_Round_F",[(getposATL _p select 0) + (sin(getdir _p) * _dist), (getposATL _p select 1) + (cos(getdir _p) * _dist)], [], 0, "CAN_COLLIDE"];
 
 	MedicSandBag setposATL [(getposATL _p select 0) + (sin(getdir _p) * _dist), (getposATL _p select 1) + (cos(getdir _p) * _dist), (getposATL _p select 2) + _zvector + _zfactor];
@@ -120,6 +125,9 @@ JIG_placeSandbag_fnc = {
 			MedicSandBag setPos [(getPosATL MedicSandBag select 0), (getPosATL MedicSandBag select 1), ((getPosATL MedicSandBag select 2) + _lift)];
 			MedicSandBag setVectorUp [0,0,1];
 			_lift = _lift + 0.1;
+		};
+		if (((getPosATL MedicSandBag select 2) -2) > (getPosATL player select 2)) then {
+			MedicSandBag setPosATL (player ModelToWorld [0,1.3,0]);
 		};
 	};
 
@@ -164,7 +172,7 @@ X_fnc_returnConfigEntry = {
 	if ((count _this) < 2) exitWith {nil};
 	params ["_config","_entryName"];
 	if ((typeName _config) != (typeName configFile)) exitWith {nil};
-	if ((typeName _entryName) != (typeName "")) exitWith {nil};
+	if !(_entryName isEqualType "") exitWith {nil};
 	private ["_entry", "_value"];
 	_entry = _config >> _entryName;
 	if (((configName (_config >> _entryName)) isEqualTo "") && (!((configName _config) in ["CfgVehicles", "CfgWeapons", ""]))) then {
@@ -219,7 +227,7 @@ INS_maintenance_veh = {
 	private ["_config","_count","_i","_mags","_obj","_type","_type_name"];
 
 	_obj = (nearestObjects [position player, ["LandVehicle","Air"], 10]) select 0;
-	if (!alive _obj) exitWith {hint localize "STR_BMR_Vehicle_destroyed";};
+	if (!alive _obj) exitWith {hint localize "STR_BMR_Vehicle_destroyed"};
 	_type = typeOf _obj;
 	hint format ["%1 under maintenance",typeOf _obj];
 	_reload_time = 2;
@@ -315,7 +323,7 @@ INS_Flip_Veh = {
 	// Flip vehicle by Jigsor.
 	_target = _this select 0;
 	_caller = _this select 1;
-	if (vehicle _caller != player) exitWith {hintSilent localize "STR_BMR_flip_restrict";};
+	if (vehicle _caller != player) exitWith {hintSilent localize "STR_BMR_flip_restrict"};
 	_veh = (nearestObjects [_target, ["LandVehicle"], 15]) select 0;
 	if (!isNil "_veh") then {
 		if ((damage _veh < 1) && {(count crew _veh isEqualTo 0)}) then {
@@ -324,6 +332,18 @@ INS_Flip_Veh = {
 		};
 	};
 	true
+};
+INS_planeReverse_key_F3 = {
+	// Reverse Plane by Jigsor
+	private ["_veh","_vel","_dir"];
+	_veh = vehicle player;
+	if (_veh isKindOf "Plane") then {
+		if (driver _veh == player && vectorMagnitudeSqr velocity _veh <= 0.5) then {
+			_vel = velocity _veh;
+			_dir = direction _veh;
+			_veh setVelocity [(_vel select 0) + (sin _dir * -6), (_vel select 1) + (cos _dir * -6), (_vel select 2)];
+		};
+	};
 };
 JIG_load_VA_profile = {
 	// Force load of saved Virtual Aresenal preset regardless if mod used to make loadout is currently not activated minus missing content by Jigsor.
@@ -356,12 +376,14 @@ JIG_p_actions_resp = {
 	if (_playertype in INS_W_PlayerMedic) then	{MedicSandBag = ObjNull; _id = player addAction[(localize "STR_BMR_place_sandbag"),{call JIG_placeSandbag_fnc}, 0, -9, false];};
 	// UAV Operator
 	if (_playertype in INS_W_PlayerUAVop) then {
-		myhuntiraction = player addAction["use HuntIR","scripts\myhuntir.sqf", [], 1, false, true, "", "true"]; lck_markercnt=0;
+		if !(INS_ACE_core) then {
+			myhuntiraction = player addAction["use HuntIR","scripts\myhuntir.sqf", [], 1, false, true, "", "true"]; lck_markercnt=0;
+		};
 		_id = player addAction[(localize "STR_BMR_ugv_air_drop"),{call JIG_UGVdrop_fnc}, 0, -9, false];
 	};
 	// Sniper/Marksman/Spotter
 	if (_playertype in INS_W_PlayerSniper) then	{
-		player RemoveAllEventHandlers "Fired";
+		player RemoveAllEventHandlers "FiredMan";
 		_id = player addAction [(localize "STR_BMR_bullet_cam_on"),{call INS_bullet_cam}, 0, -9, false];
 	};
 	// All players mission settings
@@ -372,6 +394,7 @@ PVPscene_POV = {
 	// Limit 3rd person view to vehicles only
 	[(_this select 0)] spawn {
 		while {alive (_this select 0)} do {
+			//if (cameraView in ["EXTERNAL","GROUP"]) then {
 			if (cameraView isEqualTo "EXTERNAL" || cameraView isEqualTo "GROUP") then {
 				if (isNull objectParent player) then {
 					player switchCamera "INTERNAL";
@@ -388,7 +411,14 @@ JIG_transfer_fnc = {
 
 	titleText ["", "BLACK OUT"];
 	switch (typeName _dest) do {
-		case "ARRAY" : {player setPos [(position _dest select 0)-10*sin(_dir),(position _dest select 1)-10*cos(_dir)];};
+		case "ARRAY" : {
+			_pos = [(_dest select 0)-2*sin(_dir),(_dest select 1)-2*cos(_dir),_dest select 2];
+			if (surfaceIsWater _pos) then {
+				player setposASL _pos;
+			} else {
+				player setPos _pos;
+			};
+		};
 		case "OBJECT" : {player setPos [(getPosATL _dest select 0)-10*sin(_dir),(getPosATL _dest select 1)-10*cos(_dir)];};
 		case "STRING" : {player setPos [(getMarkerPos _dest select 0)-10*sin(_dir),(getMarkerPos _dest select 1)-10*cos(_dir)];};
 	};
@@ -407,9 +437,10 @@ killedInfo_fnc = {
 	BIS_DeathBlur ppEffectCommit 0.0;
 
 	if (!isNull _killer) then {
+		if (_poorSoul isEqualTo _killer) exitWith {};
 		_killerName = name _killer;
 		_killerWeapon = currentWeapon _killer;
-		_distance = _poorSoul distance _killer;
+		_distance = round(_poorSoul distance2d _killer);
 		_killerWeaponName = getText (configFile >> "CfgWeapons" >> _killerWeapon >> "displayName");
 		if (_killerWeaponName == "Throw") then {_killerWeaponName = "Grenade"};
 		if (_killerWeaponName == "Put") then {_killerWeaponName = "Explosive"};
@@ -443,9 +474,9 @@ JIG_intel_found = {
 	sleep 0.1;
 	[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
 
+	_direction = floor random 360;
 	_distance = [10,_maxClueDis] call BIS_fnc_randomInt; // Minimum intel marker range 10m. Maximum intel marker range defined by INS_maxClueDis in INS_definitions.sqf.
-	_direction = [0,359] call BIS_fnc_randomInt; // Random direction between 0 and 359 degrees.
-	_randomPos = [_pos_info, _distance, _direction] call BIS_fnc_relPos; // The position at the random distance and random direction from current_cache_pos.
+	_randomPos = [_pos_info, _distance, _direction] call BIS_fnc_relPos;
 
 	_rnum = str(round (random 999));
 	_dis_str = str(_distance);
@@ -477,7 +508,7 @@ JIG_intel_found = {
 };
 Op4_spawn_pos = {
 	// Initial Op4 spawn position by Jigsor
-	private ["_op4Player","_posnotfound","_random_w_player","_basePos","_players","_movelogic","_blu4Speed","_playerPos","_cooX","_cooY","_wheX","_wheY","_randPos","_c","_spawnPos","_centerPos","_dis","_dir"];
+	private ["_op4Player","_posnotfound","_random_w_player","_basePos","_players","_movelogic","_blu4Speeding","_playerPos","_cooX","_cooY","_wheX","_wheY","_randPos","_c","_spawnPos","_centerPos","_dis","_dir"];
 	_op4Player = _this select 0;
 	_posnotfound = false;
 	_random_w_player = nil;
@@ -490,9 +521,9 @@ Op4_spawn_pos = {
 	_players = _players - [_op4Player];// exclude player calling the script
 	if (count _players > 0) then {
 		{
-			_blu4Speed = speed _x;
+			_blu4Speeding = (vectorMagnitudeSqr velocity _x > 8);
 			_pos = (getPos _x);
-			if ((_blu4Speed > 8) || (_pos select 2 > 4) || {(side _x == east)}) then {_players = _players - [_x];};
+			if ((_blu4Speeding) || (_pos select 2 > 4) || {(side _x == east)}) then {_players = _players - [_x];};
 		} foreach _players;// exclude east players, players in moving vehicles, above ground players such as players in aircraft or in high structures
 	}else{
 		_posnotfound = true;
@@ -521,7 +552,7 @@ Op4_spawn_pos = {
 		while {(count _spawnPos) < 1} do {
 			_spawnPos = _randPos isFlatEmpty [5,384,0.9,2,0,false,ObjNull];
 			_c = _c + 1;
-			if (_c > 5) exitWith {_posnotfound = true;};
+			if (_c > 5) exitWith {_posnotfound = true};
 			sleep 0.2;
 		};
 		if (count _spawnPos > 0) exitWith {
@@ -537,7 +568,7 @@ Op4_spawn_pos = {
 	if (_posnotfound) then {
 		if ((INS_MHQ_enabled) && {(!isNil "Opfor_MHQ")}) then {
 			// Move to Op4 MHQ
-			if (_movelogic) then {BTC_r_base_spawn setPos getMarkerPos "Opfor_MHQ";};
+			if (_movelogic) then {BTC_r_base_spawn setPos getMarkerPos "Opfor_MHQ"};
 			"Respawn_East" setMarkerPos getMarkerPos "Opfor_MHQ";
 			_dir = random 359;
 			_op4Player setPos [(getMarkerPos "Opfor_MHQ" select 0)-10*sin(_dir),(getMarkerPos "Opfor_MHQ" select 1)-10*cos(_dir)];
@@ -563,12 +594,12 @@ Op4_spawn_pos = {
 			titleCut["", "BLACK IN",1];
 		};
 	};
-	if (true) exitWith {Op4_spawn_pos = nil; true;};
+	if (true) exitWith {Op4_spawn_pos = nil; true};
 };
 INS_bullet_cam = {
 	// add bullet cam
 	//http://killzonekid.com/arma-scripting-tutorials-a-simple-bullet-cam/
-	player addEventHandler ["Fired", {
+	player addEventHandler ["FiredMan", {
 		_null = _this spawn {
 			_missile = _this select 6;
 			_cam = "camera" camCreate (position player);
@@ -590,40 +621,16 @@ INS_bullet_cam = {
 JIG_removeBulletCam_fnc = {
 	// remove bullet cam
 	(_this select 1) removeAction (_this select 2);
-	(_this select 1) RemoveAllEventHandlers "Fired";
+	(_this select 1) RemoveAllEventHandlers "FiredMan";
 	_id = (_this select 1) addAction[(localize "STR_BMR_bullet_cam_on"),{call INS_bullet_cam}, 0, -9, false];
 };
-/*
-VehDrop_smoke_fnc = {
-	// Pops Smoke,Flare and Chemlight at vehicle reward air drop position by Jigsor.
-	params ["_dropPos","_grndPos","_veh","_smokeColor","_chemLight","_smoke","_c","_flrObj"];
-	_smokeColor = "SmokeShellBlue";
-	_chemLight = createVehicle ["Chemlight_green", _grndPos, [], 0, "NONE"];
-	sleep 1;
-
-	_flrObj = "F_20mm_Red" createVehicle ((_veh) ModelToWorld [0,100,200]);
-	_flrObj setVelocity [1,1,-10];
-	sleep 0.1;
-
-	_c = 0;
-	while {_c < 2} do {
-		_smoke = createVehicle [_smokeColor, [(_dropPos select 0) + 2, (_dropPos select 1) + 2, 55], [], 0, "NONE"];
-		_i = _c + 1;
-		sleep 20;
-	};
-	deleteVehicle _chemLight;
-	true
-};
-*/
 JIG_circling_cam = {
 	// Circling camera by Jigsor
-	_pos = _this select 0;
+	params ["_pos","_travel","_interval","_delay"];
 	_dir = random 359;
-	_maxRotation = (_dir + 45);// 360
+	_maxRotation = (_dir + _travel);
 	_camHeight = 15;
 	_camDis = -30;
-	_interval = 1;
-	_delay = 0.01;
 	_logic_pos = [_pos select 0, _pos select 1, (_pos select 2) + 3];
 	_camPos = [_pos select 0, _pos select 1, (_pos select 2) + _camHeight];
 
@@ -652,9 +659,9 @@ JIG_circling_cam = {
 };
 JIG_map_click = {
 	// Vehicle reward mapclick position by Jigsor
-	if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint "Missing map item!";true};
+	if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint localize "STR_BMR_missing_map";true};
 	if (player getVariable "createEnabled") then {
-		if !(getMarkerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop";};
+		if !(getMarkerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop"};
 		hint "";
 		GetClick = true;
 		openMap true;
@@ -678,7 +685,7 @@ JIG_map_click = {
 			"VehDrop" setMarkerTypeLocal "mil_dot";
 			"VehDrop" setMarkerColorLocal "Color3_FD_F";
 			"VehDrop" setMarkerTextLocal "Vehicle Reward Location";
-			if (!isNull _nearestRoad) then {"VehDrop" setMarkerDirLocal ([_pos, _nearestRoad] call BIS_fnc_dirTo);};
+			if (!isNull _nearestRoad) then {"VehDrop" setMarkerDirLocal ([_pos, _nearestRoad] call BIS_fnc_dirTo)};
 
 			GetClick = false;
 		}] call BIS_fnc_addStackedEventHandler;
@@ -692,10 +699,10 @@ JIG_map_click = {
 		sleep 1.2;
 		openMap false;
 
-		[["cars", "tanks", "helicopters", "planes", "boats"], [], "VehDrop", [0,0,0.3], 3] execVM "ASORVS\open.sqf";
+		[["cars", "tanks", "helicopters", "planes", "boats"], [], "VehDrop", 0.3, 3] execVM "ASORVS\open.sqf";
 	}else{
 		(_this select 0) removeAction (_this select 2);
-		if !(getMarkerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop";};
+		if !(getMarkerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop"};
 	};
 	true
 };
@@ -723,7 +730,7 @@ INS_Recruit_skill = {
 	// Sets skill of a recruited unit if ASR AI mod is not running on server or client
 	if ((ASRrecSkill isEqualTo 1) || {(isClass(configFile >> "cfgPatches" >> "asr_ai_main"))}) exitWith {true};
 	params ["_unit"];
-	_unit setSkill ["aimingAccuracy", BTC_AI_skill];
+	_unit setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 	_unit setSkill ["aimingShake", 0.6];
 	_unit setSkill ["aimingSpeed", 0.5];
 	_unit setSkill ["endurance", 0.6];
@@ -759,11 +766,11 @@ INS_RestoreLoadout = {
 INS_UI_pref = {
 	// Restore status hud and digital heading on respawn if they were activated before death by Jigsor.
 	waitUntil {sleep 2; alive player};
-	if (player getVariable "stathud_resp") then {execVM "INSui\staus_hud_toggle.sqf";};
-	if (player getVariable "dhs_resp") then {execVM "scripts\heading.sqf";};
+	if (player getVariable "stathud_resp") then {execVM "INSui\staus_hud_toggle.sqf"};
+	if (player getVariable "dhs_resp") then {execVM "scripts\heading.sqf"};
 	true
 };
-INS_AI_Halo = {
+INS_aiHalo = {
 	// AI halo based on/uses functions from ATM_airdrop.
 	private ["_target","_loadout","_target","_halo_pos","_jumpAlt","_openChuteAlt","_freefall","_headgear","_back_pack","_back_pack_items","_back_pack_weap","_back_pack_maga"];
 	_target = _this select 0;
@@ -821,38 +828,32 @@ mhq_actions2_fnc = {
 };
 INS_MHQ_mkr = {
 	// Tracking MHQ marker by Jigsor.
-	params ["_mhq","_op4","_mhqPos","_mkrName","_mkr"];
+	params ["_mhq","_op4","_mhqPos","_mkrName","_color","_mkr"];
 
 	if (_mhq isEqualTo objNull) exitWith {hint format ["Mobile Headquarters %1 does not exist", _mhq]};
-	if (vehicleVarName _mhq != "") then {_mkrName = vehicleVarName _mhq;}else{_mkrName = format ["%1", _mhq];};
-
-	if ((_op4 isEqualTo TRUE) && {(_mkrName isEqualTo "Opfor_MHQ")}) then {
-		deleteMarkerLocal _mkrName;
-		_mkr = createMarkerLocal [_mkrName, _mhqPos];
-		_mkr setMarkerTypeLocal "mil_dot";
-		_mkr setMarkerTextLocal _mkrName;
-		_mkr setMarkerColorLocal "ColorRed";
-		_mkr setMarkerSizeLocal [0.5, 0.5];
-
-		while {alive _mhq} do {
-			_mkr setMarkerPosLocal (getPosWorld _mhq);
-			UIsleep 1;
-		};
-		if (!alive _mhq) exitWith {deleteMarkerLocal _mkrName; hintSilent format ["%1 has been destroyed!", _mkrName]};
+	if (vehicleVarName _mhq != "") then {
+		_mkrName = vehicleVarName _mhq;
 	}else{
-		deleteMarkerLocal _mkrName;
-		_mkr = createMarkerLocal [_mkrName, _mhqPos];
-		_mkr setMarkerTypeLocal "mil_dot";
-		_mkr setMarkerTextLocal _mkrName;
-		_mkr setMarkerColorLocal "ColorGreen";
-		_mkr setMarkerSizeLocal [0.5, 0.5];
-
-		while {alive _mhq} do {
-			_mkr setMarkerPosLocal (getPosWorld _mhq);
-			UIsleep 1;
-		};
-		if (!alive _mhq) exitWith {deleteMarkerLocal _mkrName; hintSilent format ["%1 has been destroyed!", _mkrName]};
+		_mkrName = format ["%1", _mhq];
 	};
+	if ((_op4 isEqualTo TRUE) && {(_mkrName isEqualTo "Opfor_MHQ")}) then {
+		_color = "ColorRed";
+	}else{
+		_color = "ColorGreen";
+	};
+
+	deleteMarkerLocal _mkrName;
+	_mkr = createMarkerLocal [_mkrName, _mhqPos];
+	_mkr setMarkerTypeLocal "mil_dot";
+	_mkr setMarkerTextLocal _mkrName;
+	_mkr setMarkerColorLocal _color;
+	_mkr setMarkerSizeLocal [0.5, 0.5];
+
+	while {alive _mhq} do {
+		_mkr setMarkerPosLocal (getPosWorld _mhq);
+		UIsleep 1;
+	};
+	if (!alive _mhq) exitWith {deleteMarkerLocal _mkrName; hintSilent format ["%1 has been destroyed!", _mkrName]};
 };
 GAS_smokeNear = {
 	//Are we near a smoke shell. Are we not wearing a gas mask. code by Larrow modified by Jigsor
@@ -865,7 +866,7 @@ GAS_smokeNear = {
 		} count _smokeShell;
 
 		if !(isNull (_smokeShell select 0)) then {
-			vectorMagnitudeSqr velocity (_smokeShell select 0) <= 0.5 && { (_smokeShell select 0) distance player < 15 }
+			vectorMagnitudeSqr velocity (_smokeShell select 0) <= 0.5 && { (_smokeShell select 0) distance2D player < 15 && !((_smokeShell select 0) inArea trig_alarm1init) }
 		}else{
 			false
 		};
@@ -889,7 +890,7 @@ GAS_inSmoke = {
 		_sound = selectRandom Choke_Sounds;
 		playsound3d [_sound, player, false, getPosasl player, 10,1,30];
 		player setDamage (damage player + 0.14);
-		//if(round(random(1)) isEqualTo 0) then {hint "You Should Wear a Gas Mask";};
+		//if(floor random 2 isEqualTo 0) then {hint "You Should Wear a Gas Mask";};
     	sleep 2.8123;
 	};
 
@@ -904,4 +905,11 @@ GAS_smokeClear = {
 	"dynamicBlur" ppEffectCommit 10;
 	resetCamShake;
 	20 fadeSound 1;
+};
+INS_EarPlugs = {
+	if (soundVolume isEqualTo 1) then {
+		1 fadeSound 0.4; hintSilent localize "STR_BMR_ON";
+	}else{
+		1 fadeSound 1; hintSilent localize "STR_BMR_OFF";
+	};
 };

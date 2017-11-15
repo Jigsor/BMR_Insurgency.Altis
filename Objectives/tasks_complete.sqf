@@ -42,7 +42,7 @@ if (_all_zones_caped) then {
 		} foreach _curtasks;
 		if (count _curtasks isEqualTo 0) exitwith {
 			[[],"INS_end_mssg",true,true,true] spawn BIS_fnc_MP;
-			sleep 24;
+			sleep 26;
 			[["END1",true,true], "BIS_fnc_endMission",true,true,true] spawn BIS_fnc_MP
 		};
 		sleep 10;

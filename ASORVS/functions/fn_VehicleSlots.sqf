@@ -2,7 +2,7 @@ private ["_veh","_getTurrets","_vehConfig","_vehTurrets", "_slots", "_i"];
 _slots = [];
 _veh = [_this,0,objnull,[objnull,""]] call bis_fnc_param;
 
-if (typename _veh != typename "") then {_veh = typeof _veh;};
+if !(_veh isEqualType "") then {_veh = typeof _veh;};
 _driverIsCommander = 0;
 _commanderNames = ["commander"];
 _copilotNames = ["copilot", "co-pilot"];

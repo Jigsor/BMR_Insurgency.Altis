@@ -14,7 +14,7 @@ waituntil {player == player};
 zlt_rope_ropes = [];
 zlt_mutexAction = false;
 
-zlt_rope_helis = ["O_Heli_Light_02_unarmed_F","O_Heli_Light_02_F","B_Heli_Transport_01_F","RHS_UH60M","RHS_UH60M_d","CAF_CH146_F_D","CAF_CH146_SF","ST1_UH_80_MED_FG","B_Heli_Transport_01_camo_F","O_Heli_Attack_02_F","O_Heli_Attack_02_black_F","I_Heli_Transport_02_F","B_Heli_Light_01_F","B_Heli_Transport_03_F","B_Heli_Transport_03_unarmed_F","I_Heli_light_03_F","I_Heli_light_03_unarmed_F"];
+zlt_rope_helis = ["O_Heli_Light_02_unarmed_F","O_Heli_Light_02_F","B_Heli_Transport_01_F","RHS_UH60M","RHS_UH60M_d","CAF_CH146_F_D","CAF_CH146_SF","ST1_UH_80_MED_FG","B_Heli_Transport_01_camo_F","O_Heli_Attack_02_F","O_Heli_Attack_02_black_F","I_Heli_Transport_02_F","B_Heli_Light_01_F","B_Heli_Light_01_dynamicLoadout_F","B_Heli_Transport_03_F","B_Heli_Transport_03_unarmed_F","I_Heli_light_03_F","I_Heli_light_03_unarmed_F","I_Heli_light_03_dynamicLoadout_F"];
 zlt_rope_helidata = 
 [
 	[
@@ -38,7 +38,7 @@ zlt_rope_helidata =
 		[]
 	],
 	[
-		["B_Heli_Light_01_F"],
+		["B_Heli_Light_01_F","B_Heli_Light_01_dynamicLoadout_F"],
 		[0.6,0.5,-0.9],
 		[-0.8,0.5,-0.9]
 	],
@@ -48,7 +48,7 @@ zlt_rope_helidata =
 		[]
 	],
 	[
-		["I_Heli_light_03_F","I_Heli_light_03_unarmed_F"],
+		["I_Heli_light_03_F","I_Heli_light_03_unarmed_F","I_Heli_light_03_dynamicLoadout_F"],
 		[-1.22,1.5,-1.6],
 		[1.22,1.5,-1.6]
 	]

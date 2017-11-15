@@ -29,8 +29,10 @@ while {(getPos _target select 2) > 2} do {
 		sleep (0.9 + random 0.3);
 		playSound "Vent";
 	};
-	if((getPosATL _target select 2 < 150) || (getPosASL _target select 2 < 150)) then {
-		_target action ["OpenParachute", _target];
+	if !(INS_ACE_para) then {
+		if((getPosATL _target select 2 < 150) || (getPosASL _target select 2 < 150)) then {
+			_target action ["OpenParachute", _target];
+		};
 	};
 	if(!alive _target) then {
 		_target setPos [getPos _target select 0, getPos _target select 1, 0];

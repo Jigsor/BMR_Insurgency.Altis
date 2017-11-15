@@ -297,7 +297,7 @@ class ASORVS_Main_Dialog {
 			idc= 420001;
 			y = safezoneY;
 			h = ITEM_HEIGHT * 3;
-			w=2;
+			w=1.75;//Jig < 2 moves scrollbar left
 			sizeEx = TEXT_SIZE * 3;
 			colorSelectBackground[]={1,1,1,0};
 			color[]={0,0,0,0};

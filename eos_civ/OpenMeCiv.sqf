@@ -19,10 +19,10 @@ if (isServer) then {["updateCivEOSmkrs","onplayerConnected", {[] execVM "eos_civ
 
 CivVictoryColor="colorGreen";	// Colour of marker after completion
 CivhostileColor="colorRed";	// Default colour when enemies active
-EOS_CIV_KILLCOUNTER=false;		// Counts killed units
+EOS_CIV_KILLCOUNTER=false;	// Counts killed units
 
 //create civilian zone trigger for each maker in all_civ_eos_mkrs
 private _acma = + all_civ_eos_mkrs;
 for [ {_i = 0}, {_i < count(_acma)}, {_i = _i + 1} ] do {
-	 null = [[(_acma select _i)],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
+	null = [[(_acma select _i)],[2,1,CivProbability],[1,0,CivProbability],[0,0],[0],[0],[0,0],[7,1,500,CIVILIAN]] call EOS_Civ_Spawn;
 };

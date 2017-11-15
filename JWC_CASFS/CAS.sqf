@@ -24,7 +24,7 @@ _setheight = getTerrainHeightASL [(_loc select 0) + _dis * sin _dir, (_loc selec
 _ranPos = [(_loc select 0) + _dis * sin _dir, (_loc select 1) + _dis * cos _dir, _setheight + 260];
 _dirTo = [_ranPos, _lockobj] call BIS_fnc_dirTo;
 
-_veh = [_ranPos, _dirTo, "B_Plane_CAS_01_F", WEST] call bis_fnc_spawnvehicle;
+_veh = [_ranPos, _dirTo, INS_CAS, WEST] call bis_fnc_spawnvehicle;
 sleep jig_tvt_globalsleep;
 
 _buzz = _veh select 0;
@@ -256,6 +256,7 @@ waitUntil{_buzz distance _object >= 2000 || !alive _buzz || speed _buzz < 1};
 	_num = _num - 1;
 	deleteVehicle vehicle _x;
 	deleteVehicle _x;
+	_num = _num - usedCAS;
 	sleep 60;
 	[_object, _distance, _doLock, _num] execVM "JWC_CASFS\addAction.sqf"
 } forEach units _grp;

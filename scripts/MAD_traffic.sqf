@@ -7,15 +7,13 @@
 
 MAD_maxCarDensity = _this select 0; //number of cars around 1 player at the same time
 MAD_carSpawnDistance = _this select 1; //how far cars spawn away from player
-MAD_maxCarDistance = _this select 2;	//max distance until cars despawn
+MAD_maxCarDistance = _this select 2; //max distance until cars despawn
 
-WBpos = getPosATL trig_alarm1init; //Jig adding exclusion zone
-
-ExcDis = 600; //Jig adding exclusion distance
-if ((toLower (worldName) isEqualTo "napfwinter") || (toLower (worldName) isEqualTo "napf")) then {
-	ExcDis = 750;
-};
-
+//Jig adding exclusion zone
+if (isNil "WBpos") then {WBpos = getPosATL trig_alarm1init;};
+//Jig adding exclusion distance
+ExcDis = 600;
+if ((toLower (worldName) isEqualTo "napfwinter") || (toLower (worldName) isEqualTo "napf") || (toLower (worldName) isEqualTo "xcam_taunus")) then {ExcDis = 750;};
 //Jig adding map size
 MTnlRad = getnumber (configfile >> "CfgWorlds" >> worldName >> "mapSize");
 if ((isNil "MTnlRad") || (MTnlRad isEqualTo 0)) then {MTnlRad = 30000;};
@@ -25,25 +23,23 @@ MAD_carsArray = [];
 
 _centerC = createCenter civilian;
 
-MAD_getDrivingRoads =
-{
+MAD_getDrivingRoads = {
 	_position = _this;
 	_roads = _position nearRoads MAD_maxCarDistance;
 
 	_roads
 };
 
-MAD_getSpawnRoads =
-{
+MAD_getSpawnRoads = {
 	_position = _this;
 	_roads = _position nearRoads MAD_maxCarDistance;
 	_farRoads = [];
 	{
-		if ((_position distance position _x > MAD_carSpawnDistance) && {(_x distance WBpos > ExcDis)}) then	{
-			_farRoads = _farRoads + [_x];
+		if ((_position distance position _x > MAD_carSpawnDistance) && {(_x distance WBpos > ExcDis)}) then {
+			_farRoads pushBack _x;
 		};
 	} foreach _roads;
-	
+
 	_farRoads
 };
 
@@ -55,8 +51,7 @@ if (!isDedicated and isMultiplayer) then
 			_var = player getVariable ["MAD_roadsNear", false];
 
 			if (count _roads > 0) then {
-				if (!_var) then
-				{
+				if (!_var) then {
 					player setVariable ["MAD_roadsNear", true, true];
 				};
 			}

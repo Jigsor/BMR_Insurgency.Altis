@@ -79,7 +79,7 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 			}else{
 				0 = [_aGroup,_mkr] call EOS_fnc_taskpatrol_civ;
 			};
-			_aGrp pushBack _aGroup;
+			_aGrp set [count _aGrp,_aGroup];
 			0=[_aGroup,"civINFskill"] call eos_fnc_civ_grouphandlers;
 			if (_debug) then {PLAYER SIDECHAT (format ["Spawned House Patrol: %1",_counter]);0= [_mkr,_counter,"House Patrol",getpos (leader _aGroup)] call EOS_civ_debug};
 		};
@@ -99,7 +99,7 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 			_pos = [_mkr,true] call SHK_civ_pos;
 			_bGroup=[_pos,_bSize,_faction,_side] call eos_fnc_spawngroup_civ;
 			0 = [_bGroup,_mkr] call EOS_fnc_taskpatrol_civ;
-			_bGrp pushBack _bGroup;
+			_bGrp set [count _bGrp,_bGroup];
 			0=[_bGroup,"civINFskill"] call eos_fnc_civ_grouphandlers;
 			if (_debug) then {PLAYER SIDECHAT (format ["Spawned Patrol: %1",_counter]);0= [_mkr,_counter,"patrol",getpos (leader _bGroup)] call EOS_civ_debug};
 		};
@@ -117,7 +117,7 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 
 		0=[(_cGroup select 2),"civLIGskill"] call eos_fnc_civ_grouphandlers;
 		0 = [(_cGroup select 2),_mkr] call EOS_fnc_taskpatrol_civ;
-		_cGrp pushBack _cGroup;
+		_cGrp set [count _cGrp,_cGroup];
 
 		if (_debug) then {player sidechat format ["Light Vehicle:%1 - r%2",_counter,_cGrps];0= [_mkr,_counter,"Light Veh",(getpos leader (_cGroup select 2))] call EOS_civ_debug};
 	};
@@ -133,7 +133,7 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 
 		0=[(_dGroup select 2),"civARMskill"] call eos_fnc_civ_grouphandlers;
 		0 = [(_dGroup select 2),_mkr] call EOS_fnc_taskpatrol_civ;
-		_dGrp pushBack _dGroup;
+		_dGrp set [count _dGrp,_dGroup];
 
 		if (_debug) then {player sidechat format ["Armoured:%1 - r%2",_counter,_dGrps];0= [_mkr,_counter,"Armour",(getpos leader (_dGroup select 2))] call EOS_civ_debug};
 	};
@@ -148,7 +148,7 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 		_eGroup=[_newpos,_side,_faction,5]call EOS_fnc_spawcivnvehicle;
 
 		0=[(_eGroup select 2),"civSTAskill"] call eos_fnc_civ_grouphandlers;
-		_eGrp pushBack _eGroup;
+		_eGrp set [count _eGrp,_eGroup];
 
 		if (_debug) then {player sidechat format ["Static:%1",_counter];0= [_mkr,_counter,"Static",(getpos leader (_eGroup select 2))] call EOS_civ_debug};
 	};
@@ -159,13 +159,13 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 	if ((_fSize select 0) > 0) then {_vehType=4}else{_vehType=3};
 	_newpos = [(markerpos _mkr), 1500, random 360] call BIS_fnc_relPos;
 	_fGroup=[_newpos,_side,_faction,_vehType,"fly"]call EOS_fnc_spawcivnvehicle;
-	_fGrp pushBack _fGroup;
+	_fGrp set [count _fGrp,_fGroup];
 
 	if ((_fSize select 0) > 0) then {
 		_cargoGrp = createGroup _side;
 		0=[(_fGroup select 0),_fSize,_cargoGrp,_faction,9] call eos_fnc_setcargo_civ;
 		0=[_cargoGrp,"civINFskill"] call eos_fnc_civ_grouphandlers;
-		_fGroup pushBack _cargoGrp;
+		_fGroup set [count _fGroup,_cargoGrp];
 		null = [_mkr,_fGroup,_counter] execvm "eos_civ\functions\CivTransportUnload_fnc.sqf";
 	}else{
 		_wp1 = (_fGroup select 2) addWaypoint [(markerpos _mkr), 0];

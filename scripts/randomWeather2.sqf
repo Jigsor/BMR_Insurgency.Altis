@@ -111,7 +111,7 @@ mb_fnc_UpdateWeather = {
 	_weatherNextWindNS = _weatherNextSettings select 4;
 	
 	//Jig adding Brighter Nights by Ralian
-	if (daytime > 20.00 || daytime < 4.00) then {
+	if (daytime > 21.00 || daytime < 3.50) then {
 		[3] call INS_Brighter_Nights;
 	}else{
 		[1] call INS_Brighter_Nights;

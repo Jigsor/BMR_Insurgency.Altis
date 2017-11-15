@@ -250,7 +250,7 @@ SHK_Taskmaster_addTask = {
 
 				if (count _marker > 0) then {
 					if !(_state in ["succeeded","failed","canceled"]) then {
-						if (typename (_marker select 0) == typename "") then {
+						if ((_marker select 0) isEqualType "") then {
 							_marker = [_marker];
 						};
 						private ["_m","_type","_color","_txt","_shape","_size"];
@@ -296,10 +296,10 @@ SHK_Taskmaster_addTask = {
 							_size = [1,1];
 							if (count _x > 6) then {
 								private _tmp = (_x select 6);
-								if (typeName _tmp == typeName 0) then {
+								if (_tmp isEqualType 0) then {
 									_tmp = [_tmp,_tmp];
 								};
-								if !([_tmp,[1,1]] call BIS_fnc_areEqual) then {
+								if !(_tmp isEqualTo [1,1]) then {
 									_size = _tmp;
 								};
 							};
@@ -401,7 +401,7 @@ SHK_Taskmaster_handleEvent = {
 		In: array	SHK_Taskmaster_Tasks from pubvar eventhandler
 		Out:
 	*/
-	waituntil {alive player};
+	waituntil {sleep 2; alive player};
 	private "_name";
 	{
 		_name = _x select 0;
@@ -476,7 +476,7 @@ SHK_Taskmaster_isCompleted = {
 	*/
 	private ["_b","_t","_i","_foreachIndex"];
 	_b = false;
-	if (typeName _this == typeName "") then {
+	if (_this isEqualType "") then {
 		_this = [_this];
 	};
 
@@ -588,7 +588,7 @@ SHK_Taskmaster_updateTask = {
 							if (count _marker > 0) then {
 								if (_state in ["succeeded","failed","canceled"]) then {
 									if DEBUG then { diag_log format ["SHK_Taskmaster> updateTask deleting marker: %1, state: %2",_marker,_state]};
-									if (typename (_marker select 0) == typename "") then {
+									if ((_marker select 0) isEqualType "") then {
 										_marker = [_marker];
 									};
 									{

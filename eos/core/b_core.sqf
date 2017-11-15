@@ -80,7 +80,7 @@ _aGroup=[];
 for "_counter" from 1 to _PApatrols do {
 	_pos = [_mPos, _Placement, random 360] call BIS_fnc_relPos;
 	_grp=[_pos,_PAgroupSize,_faction,_side] call EOS_fnc_spawngroup;
-	_aGroup pushBack _grp;
+	_aGroup set [count _aGroup,_grp];
 	if (_debug) then {PLAYER SIDECHAT (format ["Spawned Patrol: %1",_counter]);0= [_mkr,_counter,"patrol",getpos (leader _grp)] call EOS_debug};
 };
 
@@ -94,7 +94,7 @@ for "_counter" from 1 to _LVehGroups do {
 	if ((_LVgroupSize select 0) > 0) then {0=[(_bGroup select 0),_LVgroupSize,(_bGroup select 2),_faction,_cargoType] call eos_fnc_setcargo;};
 
 	0=[(_bGroup select 2),"LIGskill"] call eos_fnc_grouphandlers;
-	_bGrp pushBack _bGroup;
+	_bGrp set [count _bGrp,_bGroup];
 	if (_debug) then {player sidechat format ["Light Vehicle:%1 - r%2",_counter,_LVehGroups];0= [_mkr,_counter,"Light Veh",(getpos leader (_bGroup select 2))] call EOS_debug};
 };	
 
@@ -105,7 +105,7 @@ for "_counter" from 1 to _AVehGroups do {
 	if (surfaceiswater _newpos) then {_vehType=8;}else{_vehType=2;};
 	_cGroup=[_newpos,_side,_faction,_vehType]call EOS_fnc_spawnvehicle;
 	0=[(_cGroup select 2),"ARMskill"] call eos_fnc_grouphandlers;
-	_cGrp pushBack _cGroup;
+	_cGrp set [count _cGrp,_cGroup];
 	if (_debug) then {player sidechat format ["Armoured:%1 - r%2",_counter,_AVehGroups];0= [_mkr,_counter,"Armour",(getpos leader (_cGroup select 2))] call EOS_debug};
 };
 
@@ -116,13 +116,13 @@ for "_counter" from 1 to _CHGroups do {
 	_newpos = [(markerpos _mkr), 1500, random 360] call BIS_fnc_relPos;
 	_fGroup=[_newpos,_side,_faction,_vehType,"fly"]call EOS_fnc_spawnvehicle;
 	_CHside=_side;
-	_fGrp pushBack _fGroup;
+	_fGrp set [count _fGrp,_fGroup];
 
 	if ((_fSize select 0) > 0) then {
 		_cargoGrp = createGroup _side;
 		0=[(_fGroup select 0),_fSize,_cargoGrp,_faction,9] call eos_fnc_setcargo;
 		0=[_cargoGrp,"INFskill"] call eos_fnc_grouphandlers;
-		_fGroup pushBack _cargoGrp;
+		_fGroup set [count _fGroup,_cargoGrp];
 		null = [_mkr,_fGroup,_counter] execvm "eos\functions\TransportUnload_fnc.sqf";
 	}else{
 		_wp1 = (_fGroup select 2) addWaypoint [(markerpos _mkr), 0];

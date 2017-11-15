@@ -16,7 +16,8 @@
 		3*60, // seconds to delete immobile vehicles (0 means don't delete)
 		2*60, // seconds to delete dropped weapons (0 means don't delete)
 		10*60, // seconds to deleted planted explosives (0 means don't delete)
-		0 // seconds to delete dropped smokes/chemlights (0 means don't delete)
+		0, // seconds to delete dropped smokes/chemlights (0 means don't delete)
+		60 // seconds to delete craters (0 means don't delete)
 	] execVM 'repetitive_cleanup.sqf';
 
 	will delete dead bodies after 60 seconds (1 minute)
@@ -35,7 +36,7 @@ if (!isServer) exitWith {}; // isn't server
 #define PUSH(A,B) A pushBack B;
 #define REM(A,B) A=A-[B];
 
-private ["_ttdBodies","_ttdVehiclesDead","_ttdVehiclesImmobile","_ttdWeapons","_ttdPlanted","_ttdSmokes","_addToCleanup","_unit","_objectsToCleanup","_timesWhenToCleanup","_removeFromCleanup"];
+private ["_ttdBodies","_ttdVehiclesDead","_ttdVehiclesImmobile","_ttdWeapons","_ttdPlanted","_ttdSmokes","_ttdCraters","_ttdJetParts","_addToCleanup","_unit","_objectsToCleanup","_timesWhenToCleanup","_removeFromCleanup"];
 
 _ttdBodies=[_this,0,0,[0]] call BIS_fnc_param;
 _ttdVehiclesDead=[_this,1,0,[0]] call BIS_fnc_param;
@@ -43,6 +44,8 @@ _ttdVehiclesImmobile=[_this,2,0,[0]] call BIS_fnc_param;
 _ttdWeapons=[_this,3,0,[0]] call BIS_fnc_param;
 _ttdPlanted=[_this,4,0,[0]] call BIS_fnc_param;
 _ttdSmokes=[_this,5,0,[0]] call BIS_fnc_param;
+_ttdCraters=[_this,6,0,[0]] call BIS_fnc_param;
+_ttdJetParts=[_this,7,0,[0]] call BIS_fnc_param;
 
 if({_x>0}count _this==0) exitWith {}; // all times are 0, we do not want to run this script at all
 
@@ -88,7 +91,7 @@ while{true} do {
 			{
 				{
 					[_x, _ttdWeapons] call _addToCleanup;
-				} forEach (getpos _unit nearObjects [_x, 100]);
+				} forEach (getPosATL _unit nearObjects [_x, 100]);
 			} forEach ["WeaponHolder","GroundWeaponHolder","WeaponHolderSimulated"];
 		};
 
@@ -96,7 +99,7 @@ while{true} do {
 			{
 				{
 					[_x, _ttdPlanted] call _addToCleanup;
-				} forEach (getpos _unit nearObjects [_x, 100]);
+				} forEach (getPosATL _unit nearObjects [_x, 100]);
 			} forEach ["TimeBombCore"];
 		};
 
@@ -104,8 +107,24 @@ while{true} do {
 			{
 				{
 					[_x, _ttdSmokes] call _addToCleanup;
-				} forEach (getpos _unit nearObjects [_x, 100]);
+				} forEach (getPosATL _unit nearObjects [_x, 100]);
 			} forEach ["SmokeShell"];
+		};
+		
+		if (_ttdCraters>0) then {
+			{
+				{
+					[_x, _ttdCraters] call _addToCleanup;
+				} forEach (getPosATL _unit nearObjects [_x, 100]);
+			} forEach ["CraterLong","CraterLong_small"];
+		};
+
+		if (_ttdJetParts>0) then {
+			{
+				{
+					[_x, _ttdJetParts] call _addToCleanup;
+				} forEach (getPosATL _unit nearObjects [_x, 100]);
+			} forEach ["Plane_Fighter_01_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F","rhs_k36d5_seat","ffaa_av8b2_Canopy"];
 		};
 
 	} forEach allUnits;

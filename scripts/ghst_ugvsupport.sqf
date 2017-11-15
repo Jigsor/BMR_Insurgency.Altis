@@ -2,7 +2,7 @@
 //ghst_ugvsupport = [(getmarkerpos "spawnmarker"),"typeofugv",max number of ugvs,delay in mins] execvm "scripts\ghst_ugvsupport.sqf";
 //ghst_ugvsupport = [(getmarkerpos "ugv_support"),"B_UGV_01_rcws_F",2,30] execvm "scripts\ghst_ugvsupport.sqf";
 
-private ["_spawnmark","_type","_max_num","_delay","_dir","_smoke1","_chute1","_ugv1","_wGrp","_ugv_num","_score","_points","_exit","_groundPos","_grpExists"];
+private ["_spawnmark","_type","_max_num","_delay","_dir","_smoke1","_chute1","_ugv1","_wGrp","_ugv_num","_score","_points","_deficit","_exit","_groundPos","_grpExists"];
 
 _spawnmark = _this select 0;// spawn point where ugv spawns and deletes
 _type = _this select 1;// type of ugv to spawn i.e. "B_UGV_01_rcws_F"
@@ -19,7 +19,7 @@ if (player getVariable "ghst_ugvsup" == _max_num) then {
 		player setVariable ["ugvOpScore", _score];
 		_exit = true;
 	}else{
-		if ((_score - _points) > player getVariable "ugvOpScore") then {
+		if ((_score - _points) >= player getVariable "ugvOpScore") then {
 			_ugv_num = player getVariable "ghst_ugvsup";
 			_ugv_num = _ugv_num - 1;
 			player setVariable ["ghst_ugvsup", _ugv_num];
@@ -30,7 +30,10 @@ if (player getVariable "ghst_ugvsup" == _max_num) then {
 	};
 };
 
-if (_exit) exitwith {player groupchat format ["UGV support at max number of %1", _max_num];};
+if (_exit) exitwith {
+	_deficit = abs((player getVariable "ugvOpScore") - (_score - _points));
+	player groupchat format ["UGV support at max number of %1. Requires %2 more points.", _max_num, _deficit];
+};
 
 openMap true;
 player groupchat localize "STR_BMR_ugv_mapclick";
@@ -67,6 +70,19 @@ _ugv_num = player getVariable "ghst_ugvsup";
 _ugv_num = _ugv_num + 1;
 player setVariable ["ghst_ugvsup", _ugv_num];
 
+if (player getVariable "ghst_ugvsup" == _max_num) then {//Jig adding start point counter
+	if (isNil {player getVariable "ugvOpScore"}) then {
+		player setVariable ["ugvOpScore", _score];
+	}else{
+		if ((_score - _points) >= player getVariable "ugvOpScore") then {
+			_ugv_num = player getVariable "ghst_ugvsup";
+			_ugv_num = _ugv_num - 1;
+			player setVariable ["ghst_ugvsup", _ugv_num];
+			player setVariable ["ugvOpScore", _score];
+		};
+	};
+};
+
 waituntil {(getposatl _ugv1 select 2) < 1.5};
 detach _ugv1;
 _ugv1 setpos [getpos _ugv1 select 0,getpos _ugv1 select 1,0];
@@ -95,7 +111,7 @@ if (alive _ugv1) then {// jig adding/change - ugv is recreated on landing becaus
 		player connectTerminalToUav _ugv1;
 
 		_wGrp setBehaviour "COMBAT";
-		_wGrp setSpeedMode "Normal";
+		_wGrp setSpeedMode "NORMAL";
 		_wGrp setCombatMode "RED";
 
 		_ugv1 sidechat localize "STR_BMR_ugv_movingTo_smoke";

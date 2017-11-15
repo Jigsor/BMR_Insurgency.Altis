@@ -1,15 +1,14 @@
 //Objectives\comms_tower.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_objmkr","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_staticGuns"];
+params ["_newZone","_type"];
+private ["_rnum","_objmkr","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_staticGuns"];
 
-_newZone = _this select 0;
-_type = _this select 1;
 _rnum = str(round (random 999));
 _towerPos = _newZone;
 
 // Positional info
-while {isOnRoad _newZone} do {
+while {isOnRoad _towerPos} do {
 	_towerPos = _newZone findEmptyPosition [2, 30, _type];
 	sleep 0.2;
 };
@@ -36,13 +35,10 @@ _tower setVehicleVarName _VarName;
 _tower Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
 
 // Spawn Objective enemy deffences
-_grp = [_newZone,10] call spawn_Op4_grp;
+_grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
 _stat_grp = [_newZone,4,7] call spawn_Op4_StatDef;
 
-_stat_grp setCombatMode "RED";
-
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
-
 if (DebugEnabled > 0) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
 waitUntil {sleep 1; alive _tower};
@@ -60,7 +56,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_dct";
 _taskdescE = localize "STR_BMR_Tsk_topicE_dct";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 waitUntil {sleep 3; !alive _tower};
 [_tskW, "succeeded"] call SHK_Taskmaster_upd;

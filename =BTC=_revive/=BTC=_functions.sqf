@@ -7,7 +7,7 @@ http://www.blacktemplars.altervista.org/
 */
 //Functions
 BTC_assign_actions = {
-	if ([player] call BTC_is_class_can_revive) then {
+	if ([player] call BTC_is_class_can_revive) then {//Jig changed addaction to hold action
 		ReviveAcc_id =
 		[
 			player,
@@ -22,7 +22,7 @@ BTC_assign_actions = {
 				[] call BTC_first_aid;
 				hintSilent "Player revived";
 			},
-			{player switchMove "AmovPknlMstpSrasWrflDnon"},
+			{[ [ player, "AmovPknlMstpSrasWrflDnon" ], "switchMoveEverywhere" ] call BIS_fnc_MP },
 			[],
 			6,
 			8,
@@ -600,14 +600,14 @@ BTC_mobile_check = {
 	_var = _this select 0;
 	_side = "";
 	switch (true) do {
-		case (BTC_side == west) : {_side = "BTC_mobile_west";};
-		case (BTC_side == east) : {_side = "BTC_mobile_east";};
+		case (BTC_side isEqualTo WEST) : {_side = "BTC_mobile_west";};
+		case (BTC_side isEqualTo EAST) : {_side = "BTC_mobile_east";};
 		case (str(BTC_side) == "guer") : {_side = "BTC_mobile_guer";};
 		case (str(BTC_side) == "civ") : {_side = "BTC_mobile_civ";};
 	};
 	_cond = false;
 	{
-		if ((typeName (_x getvariable _side)) == "STRING") then	{
+		if ((_x getvariable _side) isEqualType "") then	{
 			if ((_x getvariable _side) == _var) then {_cond = true;};
 		};
 	} foreach vehicles;

@@ -43,6 +43,7 @@ if (count _airCenter > 0) then
 	{
 		_aire1 = [_ins_debug] spawn {
 			params ["_ins_debug","_delay","_loop"];
+			if (INS_Op4_helis isEqualTo []) exitWith {};
 			_delay = AirRespawnDelay;
 			airhunterE1 = ObjNull;
 			random_w_player2 = ObjNull;
@@ -52,12 +53,12 @@ if (count _airCenter > 0) then
 			for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			{
 				if ((isNull airhunterE1) || (not(alive airhunterE1))) then {
-					private ["_speed","_apeDir","_randAlts","_maxalt","_height","_randomTypes","_cType","_type","_vehicle","_veh","_vehgrp","_vel","_VarHunterName","_wp0","_spawnDir","_poscreate","_vehCrew"];
+					private ["_speed","_apeDir","_randAlts","_height","_randomTypes","_type","_vehicle","_veh","_vehgrp","_vel","_VarHunterName","_wp0","_spawnDir","_poscreate","_vehCrew"];
 
 					sleep _delay;
 					//call AirEast_move_logic_fnc;
 
-					if (PatroleWPmode > 0) then {
+					if (PatroleWPmode isEqualTo 1) then {
 						random_w_player2 = ObjNull;
 						publicVariable "random_w_player2";
 						sleep 3;
@@ -71,10 +72,8 @@ if (count _airCenter > 0) then
 					_apeDir = getDir air_pat_east;
 					_spawnDir = [getPosATL air_pat_east, getPosATL air_pat_pos] call BIS_fnc_dirTo;
 					_randAlts = [70,80,90];
-					_maxalt = (count _randAlts)-1;
-					_height = _randAlts select (round random _maxalt);
-					_cType = (count INS_Op4_helis)-1;
-					_type = INS_Op4_helis select (round random _cType);
+					_height = selectRandom _randAlts;
+					_type = selectRandom INS_Op4_helis;
 
 					_vehicle = [getPosATL air_pat_east, _apeDir, _type, EAST] call bis_fnc_spawnvehicle;
 					sleep jig_tvt_globalsleep;
@@ -106,7 +105,7 @@ if (count _airCenter > 0) then
 					if (_ins_debug) then {[airhunterE1] spawn {[airhunterE1] call air_debug_mkrs;};};
 
 					if (!isNull random_w_player2) then {
-						// Hunt Player
+						// Hunt Player / Seek and Destroy
 						nul = [airhunterE1,5000,random_w_player2] call find_west_target_fnc;
 					}else{
 						// Guard Towns
@@ -130,11 +129,11 @@ if (count _airCenter > 0) then
 						} forEach (units _vehgrp);
 					};
 				};
-				sleep (1 + random 599);
+				if (_ins_debug) then {sleep 10;} else {sleep (3 + random 597);};
 			};
 		};
 	};
-	sleep (1 + random 599);
+	if (_ins_debug) then {sleep 10;} else {sleep (3 + random 597);};
 
 	// Fixed Wing
 	if ((EnableEnemyAir isEqualTo 2) || (EnableEnemyAir isEqualTo 3) || (EnableEnemyAir isEqualTo 5) || (EnableEnemyAir isEqualTo 6)) then
@@ -150,12 +149,12 @@ if (count _airCenter > 0) then
 			for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			{
 				if ((isNull airhunterE2) || (not(alive airhunterE2))) then {
-					private ["_speed","_apeDir","_randAlts","_maxalt","_height","_randomTypes","_cType","_type","_vehicle","_veh","_vehgrp","_vel","_VarHunterName","_wp0","_spawnDir","_poscreate"];
+					private ["_speed","_apeDir","_randAlts","_height","_randomTypes","_type","_vehicle","_veh","_vehgrp","_vel","_VarHunterName","_wp0","_spawnDir","_poscreate"];
 
 					sleep _delay;
 					//call AirEast_move_logic_fnc;
 
-					if (PatroleWPmode > 0) then {
+					if (PatroleWPmode isEqualTo 1) then {
 						random_w_player3 = ObjNull;
 						publicVariable "random_w_player3";
 						sleep 3;
@@ -169,10 +168,8 @@ if (count _airCenter > 0) then
 					_apeDir = getDir air_pat_east;
 					_spawnDir = [getPosATL air_pat_east, getPosATL air_pat_pos] call BIS_fnc_dirTo;
 					_randAlts = [275,375,475,575];
-					_maxalt = (count _randAlts)-1;
-					_height = _randAlts select (round random _maxalt);
-					_cType = (count INS_Op4_fixedWing)-1;
-					_type = INS_Op4_fixedWing select (round random _cType);
+					_height = selectRandom _randAlts;
+					_type = selectRandom INS_Op4_fixedWing;
 
 					_vehicle = [getPosATL air_pat_east, _apeDir, _type, EAST] call bis_fnc_spawnvehicle;
 					sleep jig_tvt_globalsleep;
@@ -203,7 +200,7 @@ if (count _airCenter > 0) then
 					if (_ins_debug) then {[airhunterE2] spawn {[airhunterE2] call air_debug_mkrs;};};
 
 					if (!isNull random_w_player3) then {
-						// Hunt Player
+						// Hunt Player / Seek and Destroy
 						nul = [airhunterE2,5000,random_w_player3] call find_west_target_fnc;
 					}else{
 						// Guard Towns
@@ -227,7 +224,7 @@ if (count _airCenter > 0) then
 						} forEach (units _vehgrp);
 					};
 				};
-				sleep (1 + random 599);
+				if (_ins_debug) then {sleep 10;} else {sleep (3 + random 597);};
 			};
 		};
 	};

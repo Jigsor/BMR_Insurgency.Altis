@@ -2,7 +2,7 @@ private ["_veh","_getTurrets","_vehConfig","_vehTurrets", "_slots", "_i"];
 _weapons = [];
 _veh = [_this,0,objnull,[objnull,""]] call bis_fnc_param;
 
-if (typename _veh != typename "") then {_veh = typeof _veh;};
+if !(_veh isEqualType "") then {_veh = typeof _veh;};
 
 _getTurrets = {
 	private ["_turrets","_turretPath","_turret","_hasGunner", "_t"];

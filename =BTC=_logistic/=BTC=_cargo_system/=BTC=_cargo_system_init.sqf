@@ -54,36 +54,3 @@ BTC_main_rc =
 	"Ship",15,
 	"Helicopter",9999
 ];
-/*
-BTC_main_c_c =
-[
-	[
-		//Cars
-		"B_MRAP_01_F",
-		"B_MRAP_01_gmg_F",
-		"B_MRAP_01_hmg_F",
-		"O_MRAP_02_F",
-		"O_MRAP_02_gmg_F",
-		"O_MRAP_02_hmg_F",
-		"B_Quadbike_01_F",
-		"C_Offroad_01_F",
-		"O_Quadbike_01_F",
-		"I_Quadbike_01_F",
-		"I_MRAP_03_F",
-		"I_MRAP_03_gmg_F",
-		"I_MRAP_03_hmg_F",
-		//Trucks
-		"B_Truck_01_transport_F",
-		"B_Truck_01_covered_F",
-		"I_Truck_02_covered_F",
-		"O_Truck_02_covered_F",
-		"I_Truck_02_transport_F",
-		"O_Truck_02_transport_F",
-		"O_Truck_02_transport_F"
-	]
-	,
-	[
-	
-	]
-];
-*/

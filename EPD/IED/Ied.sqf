@@ -62,7 +62,7 @@ for "_i" from 0 to (count safeZones) -1 do{
 		};
 	};
 
-	if(not ([_origin,[0,0,0]] call BIS_fnc_areEqual)) then {
+	if !(_origin isEqualTo [0,0,0]) then {
 		safeRoads = safeRoads + (_origin nearRoads _distance);
 	};
 };
@@ -146,7 +146,7 @@ while{_paramCounter < count _paramArray} do {
 			};
 		};
 
-		if(not ([_origin,[0,0,0]] call BIS_fnc_areEqual)) then { //don't bother if the marker doesn't exist
+		if !(_origin isEqualTo [0,0,0]) then { //don't bother if the marker doesn't exist
 			if(_distance > 1) then {
 				_side = "";
 				_iedsToPlace = 0;

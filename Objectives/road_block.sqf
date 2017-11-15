@@ -1,10 +1,9 @@
 //road_block.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_insdebug","_roads","_sample","_rest","_rad","_allGrps","_allUnits","_run","_rbActive","_roadsSorted","_nearestRoad","_roadConnectedTo","_connectedRoad","_bgPos","_roadDir","_rbmkr","_bargate","_VarName","_bunker1","_bunker2","_unit_type","_unit1","_unit2","_damage","_rbWP","_objmkr","_grp","_handle","_maxtype","_vehPos","_Lveh","_LvehGrp","_handle1","_onActiv","_onDeAct","_bgTrig","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_stat_grp","_staticGuns"];
+params ["_newZone"];
+private ["_type","_rnum","_insdebug","_roads","_sample","_rest","_rad","_allGrps","_allUnits","_run","_rbActive","_roadsSorted","_nearestRoad","_roadConnectedTo","_connectedRoad","_bgPos","_roadDir","_rbmkr","_bargate","_VarName","_bunker1","_bunker2","_unit_type","_unit1","_unit2","_damage","_rbWP","_objmkr","_grp","_handle","_maxtype","_vehPos","_Lveh","_LvehGrp","_handle1","_onActiv","_onDeAct","_bgTrig","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_stat_grp","_staticGuns"];
 
-_newZone = _this select 0;
-//_type = _this select 1;
 _rnum = str(round (random 999));
 _rest = 2;
 _rad = 200;
@@ -24,7 +23,7 @@ while {_run} do {
 	if (count _sample > 1) then {
 		_roadsSorted = ([_sample,[],{_newZone distance _x},"ASCEND"] call BIS_fnc_sortBy) - [_sample];
 		{
-		    if (!(isOnRoad getPos _x) || ["bridge", getModelInfo _x select 0] call BIS_fnc_inString) then {
+			if (!(isOnRoad getPos _x) || ["bridge", getModelInfo _x select 0] call BIS_fnc_inString) then {
 				_roadsSorted = _roadsSorted - [_x];
 			};
 		} forEach _roadsSorted;
@@ -101,23 +100,22 @@ if(_insdebug) then {
 
 //roadblock guard
 infGrp1 = createGroup INS_Op4_side;
-_unit_type = INS_men_list select (round (random ((count INS_men_list) - 1)));
+_unit_type = selectRandom INS_men_list;
 _unit1 = infGrp1 createUnit [_unit_type, getPosATL _bargate, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
 
 infGrp2 = createGroup INS_Op4_side;
-_unit_type = INS_men_list select (round (random ((count INS_men_list) - 1)));
+_unit_type = selectRandom INS_men_list;
 _unit2 = infGrp2 createUnit [_unit_type, _bunker2 modelToWorld [0,-4,-1], [], 0, "NONE"]; sleep jig_tvt_globalsleep;
 
 {
 _x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-if (EOS_DAMAGE_MULTIPLIER != 1) then {
+if !(AIdamMod isEqualTo 100) then {
 		_x removeAllEventHandlers "HandleDamage";
-		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*EOS_DAMAGE_MULTIPLIER;_damage}];
+		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 	};
 } forEach (units infGrp1),(units infGrp2);
 
 _stat_grp = [_bgPos,1,10] call spawn_Op4_StatDef;
-_stat_grp setCombatMode "RED";
 
 _allGrps pushBack infGrp1;
 _allGrps pushBack infGrp2;
@@ -152,7 +150,7 @@ _rbWP setWaypointBehaviour "SAFE";
 _rbWP setWaypointTimeout [10, 30, 60];
 
 //infantry patrol
-_grp = [_newZone,10] call spawn_Op4_grp;
+_grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
 _allGrps pushBack _grp;
 {_allUnits pushBack _x;} forEach (units _grp);
 
@@ -211,7 +209,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_hrb";
 _taskdescE = localize "STR_BMR_Tsk_descE_hrb";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 //Win/Loose-Only one outcome supported.
 while {_rbActive} do {
@@ -223,6 +221,10 @@ waitUntil {!_rbActive};
 [_tskW, "succeeded"] call SHK_Taskmaster_upd;
 [_tskE, "failed"] call SHK_Taskmaster_upd;
 
+sleep 3;
+deleteVehicle _bgTrig;
+[] spawn {RoadBlockEast animate ["Door_1_rot", 1];};
+
 //cleanup
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
@@ -230,7 +232,7 @@ sleep 90;
 _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
 {deleteVehicle _x; sleep 0.1} forEach _staticGuns;
 {deleteVehicle _x; sleep 0.1} forEach _allUnits;
-{deleteVehicle _x; sleep 0.1} forEach [_bgTrig,_bargate,_bunker1,_bunker2,_Lveh];
+{deleteVehicle _x; sleep 0.1} forEach [_bargate,_bunker1,_bunker2,_Lveh];
 {deleteGroup _x} forEach _allGrps;
 {deleteMarker _x} forEach ["ObjectiveMkr","ins_sm_roadblock"];
 

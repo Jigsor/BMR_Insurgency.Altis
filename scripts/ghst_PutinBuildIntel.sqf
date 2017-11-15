@@ -16,12 +16,12 @@ activated_cache = [];
 _uncaped_eos_mkrs = all_eos_mkrs;
 _hide_intel = Intel_Loc_Alpha;
 
-if (DebugEnabled > 0) then {titletext ["ghst_PutinBuildIntel running","plain down"];};
+if (DebugEnabled > 0) then {titletext ["Creating Intel","plain down"]};
 
 "activated_cache" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 waitUntil {sleep 1; count ghst_Build_objs > 0};
 
-if (!(activated_cache isEqualTo [])) then {activated_cache = [];publicVariable "activated_cache";sleep 3;};
+if !(activated_cache isEqualTo []) then {activated_cache = [];publicVariable "activated_cache";sleep 3;};
 
 activated_cache = activated_cache + [ghst_Build_objs select (count ghst_Build_objs)-1];
 publicVariable "activated_cache";
@@ -29,7 +29,7 @@ sleep 2;
 
 if ([activated_cache] in _all_cache_pos) exitWith {};
 
-if (!([activated_cache] in _all_cache_pos)) then {_all_cache_pos pushBack activated_cache;};
+if !([activated_cache] in _all_cache_pos) then {_all_cache_pos pushBack activated_cache};
 _current_cache = activated_cache select 0;
 
 {if (getMarkerColor _x == "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} foreach _uncaped_eos_mkrs;
@@ -38,23 +38,19 @@ _total_intelObjs = (round(_uncaped_mkr_count/Intel_Count));//total max suitcases
 
 _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_total_intelObjs] spawn
 {
-	private ["_nearBuildings","_all_cache_pos","_intel","_rnum","_objtype","_intel_types","_imks","_veh_name","_VarName","_params_PutinBuild","_position_mark","_intel_coor_selection","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_jigxcoor","_jigycoor","_intel_coor","_loop","_p","_n","_i","_markname","_mark1","_nul","_unit1","_mkr_position","_iobj","_current_cache","_total_intelObjs","_hide_intel","_uncaped_eos_mkrs","_current_cache","_debug","_uncaped_mkr_count","_total_intelObjs"];
+	params ["_uncaped_eos_mkrs","_hide_intel","_current_cache","_uncaped_mkr_count","_total_intelObjs"];
+	private ["_nearBuildings","_all_cache_pos","_intel","_rnum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_intel_coor_selection","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_jigxcoor","_jigycoor","_intel_coor","_loop","_p","_n","_i","_markname","_mark1","_unit1","_mkr_position","_current_cache","_debug"];
 
-	_uncaped_eos_mkrs = _this select 0;
-	_hide_intel = _this select 1;
-	_current_cache = _this select 2;
-	_uncaped_mkr_count = _this select 3;
-	_total_intelObjs = _this select 4;
-	_iobj = 0;
-	_intel_types = ["Land_Suitcase_F","Land_Laptop_unfolded_F","Land_PortableLongRangeRadio_F","Land_SurvivalRadio_F"];
-	_objtype = _intel_types select 0;
-	_imks = [];
+	private _iobj = 0;
+	private _intel_types = ["Land_Suitcase_F","Land_Laptop_unfolded_F","Land_PortableLongRangeRadio_F","Land_SurvivalRadio_F"];
+	private _objtype = _intel_types select 0;
+	private _imks = [];
 	#define _debug false//set true for diag_log
 
-	while {((_iobj < _total_intelObjs) and (_iobj < _uncaped_mkr_count)) and alive _current_cache} do
+	while {((_iobj < _total_intelObjs) && (_iobj < _uncaped_mkr_count)) && alive _current_cache} do
 	{
 		_curr_mkr = selectRandom _uncaped_eos_mkrs;
-		if (_debug) then {diag_log format ["Current Marker %1", _curr_mkr];};
+		if (_debug) then {diag_log format ["Current Marker %1", _curr_mkr]};
 		_mkr_position = getMarkerpos _curr_mkr;
 		_rnum = str(round (random 9999));
 
@@ -93,9 +89,9 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 		if ((_radarray select 0) > (_radarray select 1)) then {_rad = (_radarray select 0);} else {_rad = (_radarray select 1);};
 
 		_nearBuildings = [_jigxcoor,_jigycoor] nearObjects ["HouseBase", _rad];
-		if (_nearBuildings isEqualTo []) then {_nearBuildings = [] + [(nearestBuilding [_jigxcoor,_jigycoor])];};//Jig adding
+		if (_nearBuildings isEqualTo []) then {_nearBuildings = [] + [(nearestBuilding [_jigxcoor,_jigycoor])]};//Jig adding
 
-		if (_debug) then {diag_log format ["Number of Buildings: %1, Number of units in array: %2, Radius Array: %3, Radius for buildings: %4, Position for Buildings: %5", count _nearBuildings, count _unitarray, _radarray, _rad, _position_mark];};
+		if (_debug) then {diag_log format ["Number of Buildings: %1, Number of units in array: %2, Radius Array: %3, Radius for buildings: %4, Position for Buildings: %5", count _nearBuildings, count _unitarray, _radarray, _rad, _position_mark]};
 
 		//Put specified objects in Buildings
 		{
@@ -180,7 +176,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 					_mark1 setmarkertext format ["Intel obj%1", _x];
 					};
 
-				if (_hide_intel isEqualTo 1) then {_imks pushBack [_x,_mark1];};
+				if (_hide_intel isEqualTo 1) then {_imks pushBack [_x,_mark1]};
 			};
 			sleep 0.1;
 		} foreach _unitarray;
@@ -200,8 +196,10 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 		};
 	};
 
+	if (DebugEnabled > 0) then {titletext ["Spawning Intel Complete","plain down"]};
+
 	if (_hide_intel isEqualTo 1) then {
-		_nul = [_imks] spawn {
+		0 = [_imks] spawn {
 			params ["_arr"];
 			while {count _arr > 0} do {
 				{
@@ -220,6 +218,6 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 
 	publicVariableServer "intel_Build_objs";
 	sleep 3;
-	
+
 	if (true) exitwith {};
 };

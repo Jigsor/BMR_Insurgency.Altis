@@ -5,130 +5,87 @@ recruit existing civilian by SupahG33K
 */
 
 if (!isServer) exitWith {};
-
-private ["_delay","_ins_debug","_basePos","_safeZone_rad","_maxtype","_loop"];
-
+private ["_ins_debug","_loop"];
 if (DebugEnabled > 0) then {_ins_debug = true;}else{waitUntil {time > 60}; _ins_debug = false;};
-_delay = true;
-_basePos = getMarkerPos "Respawn_West";
-_safeZone_rad = 600;// radius _basePos marker safe zone/spawn suicide bomber beyond this distance
+
+missionNamespace setVariable ["sstBomber",ObjNull];
+private _makeBomberGrp = {
+	private _centerC = createCenter civilian;
+	private _grp = createGroup civilian;
+	_grp
+};
+private _delay = true;
+private _basePos = getMarkerPos "Respawn_West";
+private _safeZoneRad = 600;// radius _basePos marker safe zone/spawn suicide bomber beyond this distance
+private _targetSide = WEST;
 sstBomber = ObjNull;
 random_w_player4 = ObjNull;
 random_civ_bomber = ObjNull;
-_maxtype = (count suicide_bmbr_weps)-1;
-
-"sstBomber" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
-"random_w_player4" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
-"random_civ_bomber" addPublicVariableEventHandler {call compile format ["%1",_this select 1]}; //SupahG33K - draftee
+civBomberGrp = call _makeBomberGrp;
 
 for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 {
-	sleep 2;
-	if (_delay) then {sleep 90;};
-	waitUntil {sleep 2; isNull sstBomber || !(alive sstBomber)};
-	if ((isNull sstBomber) || (not(alive sstBomber))) then
+	sleep 3;
+	if (_delay) then {sleep 90};
+	waitUntil {sleep 2; isNull sstBomber || (!alive sstBomber)};
+	if ((isNull sstBomber) || (!alive sstBomber)) then
 	{
-		private "_random_sleep";
-		if (_ins_debug) then
-		{
-			_random_sleep = [10,20] call BIS_fnc_randomInt;
-			sleep _random_sleep;
+		private "_rSleep";
+		if (_ins_debug) then {
+			_rSleep = [10,20] call BIS_fnc_randomInt;
+			sleep _rSleep;
 		} else {
-			_random_sleep = [420,1500] call BIS_fnc_randomInt;
-			sleep _random_sleep;
+			_rSleep = [1200,2700] call BIS_fnc_randomInt;//20-45 minute random loop delay
+			sleep _rSleep;
 		};
 
-		private ["_jig_bmbr_xcoor","_jig_bmbr_coor_ref","_jig_bmbr_ycoor","_bmbr_pos","_VarHunterName","_unit","_targetSide","_explosiveClass","_runCode","_nearUnits","_explosive","_centerC","_class","_civgrp","_btarget"];	
-		_centerC = createCenter civilian;
-		_civgrp = createGroup Civilian;
-		_bmbr_pos = [];
-		_targetSide = WEST;
+		if (isNull civBomberGrp) then {civBomberGrp = call _makeBomberGrp;};
+		private _bmbrPos = nil;
+		private _runCode = 1;
+		private _explosiveClass = selectRandom suicide_bmbr_weps;
+		private _VarName = "sstBomber";
 		_delay = false;
-		_runCode = 1;
-		_explosiveClass = suicide_bmbr_weps select (round random _maxtype);
-		_VarHunterName = "sstBomber";
-		random_w_player4 = nil;
+		random_w_player4 = ObjNull;
 		random_civ_bomber = nil; //SupahG33K - draftee
 
 		publicVariableServer "random_w_player4";
 		sleep 3;
 		publicVariableServer "random_civ_bomber"; //SupahG33K - draftee
 		sleep 3;
-		call find_bombee_fnc;
+		random_w_player4 = [] call find_bombee_fnc;
 		sleep 3;
 
-		if (isNil "random_w_player4") exitWith {_delay = true; diag_log "No credible target for suicide bomber";};  //No/Bad target, GNDN
+		if (isNull random_w_player4) exitWith {_delay = true; diag_log "No credible target for suicide bomber";};
 
 		if (_ins_debug) then {
 			diag_log text format ["Bomber West Human Target1: %1", random_w_player4];
 			titletext ["INS_SuicideBomber.sqf running","plain down"];
 		};
 
-		_jig_bmbr_coor_ref = getPos random_w_player4;
+		private _playerPos = getPos random_w_player4;
 
-		if (isNil "_jig_bmbr_coor_ref") exitWith {_delay = true; diag_log "Bad Position information for suicide bomber target";};  //Bad position, GNDN
-		if (_jig_bmbr_coor_ref distance _basePos < _safeZone_rad) exitWith {_delay = true; diag_log "Suicide Bomber target inside base area - aborting";};  //Target inside safe zone, GNDN
-
-		_jig_bmbr_xcoor = (getPos random_w_player4 select 0);
-		_jig_bmbr_ycoor = (getPos random_w_player4 select 1);
-		if (_ins_debug) then {diag_log text format ["Random Player Bomber Target Pos : %1", _jig_bmbr_coor_ref];};
+		if (isNil "_playerPos") exitWith {diag_log "Bad Position information for suicide bomber target"; _delay = true;};
+		if (_ins_debug) then {diag_log text format ["Random Player Bomber Target Pos : %1", _playerPos];};
+		if (_playerPos distance _basePos < _safeZoneRad) exitWith {_delay = true; diag_log "Suicide Bomber target inside base area - aborting";};
 
 		//SupahG33K - look for existing local civilian
-		call find_civ_bomber_fnc;
+		random_civ_bomber = [] call find_civ_bomber_fnc;
 		sleep 3;
 
-		//SupahG33K - Create a new bomber if we can't recruit one
-		if(isNil "random_civ_bomber") then {
-			diag_log "No Civilian Jihadi Draftee Available";
-			_bmbr_pos = _bmbr_pos + [_jig_bmbr_xcoor,_jig_bmbr_ycoor] call bmbr_spawnpos_fnc;
+		private "_unit";
+		if (!isNull random_civ_bomber) then {
 
-			private _c = 0;
-
-			while {_bmbr_pos isEqualTo []} do
-			{
-				_bmbr_pos = _bmbr_pos + [_jig_bmbr_xcoor,_jig_bmbr_ycoor] call bmbr_spawnpos_fnc;
-				if (!(_bmbr_pos isEqualTo [])) exitWith {_bmbr_pos;};
-				_c = _c + 1;
-				if (_c > 3) exitWith {if (_ins_debug) then {hintsilent "suitable pos for sstBomber not found";}; _bmbr_pos = [];};
-				sleep 10;
-			};
-			if (_bmbr_pos isEqualTo []) exitWith {_delay = true;};
-
-			_class = INS_civlist select (floor (random (count INS_civlist)));
-			_unit = _civgrp createUnit [_class, _bmbr_pos, [], 0, "NONE"];
-			sleep jig_tvt_globalsleep;
-
-			_unit addeventhandler ["killed",{_this call killed_ss_bmbr_fnc; [(_this select 0)] spawn remove_carcass_fnc}];
-
-			_bmbrdir = [random_w_player4, _unit] call BIS_fnc_dirTo;
-			if (_bmbrdir < 0) then {_bmbrdir = _bmbrdir + 360}; //SupahG33K - check for negative heading
-
-			_unit setDir _bmbrdir;
-			[_unit] joinSilent _civgrp;
-			(group _unit) setVariable ["zbe_cacheDisabled",true];
-			_unit SetUnitPos "UP";
-			_unit setSkill ["endurance", 1];
-			_unit setSkill ["spotTime", 0.8];
-			_unit setSkill ["courage", 1];
-			_unit setSkill ["spotDistance", 1];
-			_unit allowFleeing 0;
-			_unit enableStamina false;
-			_unit disableAI "AUTOTARGET";
-			_unit disableAI "FSM";
-			_unit setVehicleVarName _VarHunterName; sstBomber = _unit;
-			_unit Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarHunterName];
-			uiSleep 3;
-		} else {
 			//diag_log "SupahG33K - Civilian Jihadi Draftee found and being equipped for martyrdom";
 			if (_ins_debug) then {titletext ["Civilian Jihadi Draftee found and being equipped for martyrdom","plain down"];};
+
 			_unit = random_civ_bomber;
 			_unit addeventhandler ["killed",{_this call killed_ss_bmbr_fnc}];
 
 			_bmbrdir = [random_w_player4, _unit] call BIS_fnc_dirTo;
-			if (_bmbrdir < 0) then {_bmbrdir = _bmbrdir + 360}; //SupahG33K - check for negative heading
+			if (_bmbrdir < 0) then {_bmbrdir = _bmbrdir + 360};
 
 			_unit setDir _bmbrdir;
-			[_unit] joinSilent _civgrp;
+			[_unit] joinSilent civBomberGrp;
 			_unit SetUnitPos "UP";
 			_unit setSkill ["endurance", 1];
 			_unit setSkill ["spotTime", 0.8];
@@ -138,16 +95,60 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			_unit enableStamina false;
 			_unit disableAI "AUTOTARGET";
 			_unit disableAI "FSM";
-			_unit setVehicleVarName _VarHunterName; sstBomber = _unit;
-			_unit Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarHunterName];
+			_unit setVehicleVarName _VarName; sstBomber = _unit;
+			_unit Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
 			sleep 3;
 			//diag_log "SupahG33K Civilian Jihadi Draftee briefed and sent on his way";
+		}
+		else
+		{
+			//Create a new bomber if we can't recruit one
+			diag_log "No Civilian Jihadi Draftee Available";
+
+			_bmbrPos = [(_playerPos select 0),(_playerPos select 1),_ins_debug] call bmbrBuildPos;
+			sleep 1.5;
+
+			if (str(_bmbrPos) isEqualTo "[0,0,0]") then {
+				//1 in 3 chance bomber will try to spawn on ground if no building available else delay
+				if(floor random 3 isEqualTo 2) then {
+					_bmbrPos = [(_playerPos select 0),(_playerPos select 1)] call bmbr_spawnpos_fnc;
+					sleep 1.5;
+					if (isNil "_bmbrPos") exitWith {_delay = true};
+				};
+			};
+			if (_bmbrPos isEqualTo []) exitWith {_delay = true};
+
+			private _class = selectRandom INS_civlist;
+			if (isNull civBomberGrp) then {civBomberGrp = call _makeBomberGrp;};
+			_unit = civBomberGrp createUnit [_class, _bmbrPos, [], 0, "NONE"]; sleep 0.1;
+			_unit setVehicleVarName _VarName; sstBomber = _unit;
+			missionNamespace setVariable [_VarName,_unit,true];
+			_unit Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+
+			(group _unit) setVariable ["zbe_cacheDisabled",true];
+			_unit setVariable ["asr_ai_exclude",true];
+			//publicVariable _VarName; sleep 3;
+
+			_unit addeventhandler ["killed",{_this call killed_ss_bmbr_fnc; [(_this select 0)] spawn remove_carcass_fnc}];
+			_bmbrdir = [random_w_player4, _unit] call BIS_fnc_dirTo;
+			if (_bmbrdir < 0) then {_bmbrdir = _bmbrdir + 360}; //SupahG33K - check for negative heading
+
+			_unit setDir _bmbrdir;
+			_unit SetUnitPos "UP";
+			_unit setSkill ["endurance", 1];
+			_unit setSkill ["spotTime", 0.8];
+			_unit setSkill ["courage", 1];
+			_unit setSkill ["spotDistance", 1];
+			_unit allowFleeing 0;
+			_unit enableStamina false;
+			_unit disableAI "AUTOTARGET";
+			_unit disableAI "FSM";
 		};
 
 		// movement section
 		while {alive sstBomber && _runCode isEqualTo 1} do
 		{
-			_nearUnits = nearestObjects [_unit, ["CAManBase"], 300];
+			private _nearUnits = nearestObjects [_unit, ["CAManBase"], 300];
 			_nearUnits deleteAt 0;
 
 			{
@@ -156,14 +157,14 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 
 			if(count _nearUnits > 0) then
 			{
-				_btarget = _nearUnits select 0;
+				private _btarget = _nearUnits select 0;
 
 				[_unit,_btarget] spawn {
-					params ["_unit","_btarget"];
+					params ["_u","_targ"];
 
-					while {alive _unit and !isNull _btarget} do {
-						_unit doMove (getPosATL _btarget);
-						_unit setspeedMode "NORMAL";
+					while {alive _u and !isNull _targ} do {
+						_u doMove (getPosATL _targ);
+						_u setspeedMode "NORMAL";
 						sleep 8;
 					};
 				};//Jig adding
@@ -187,41 +188,37 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 				if(_unit distance (_nearUnits select 0) < 17)
 				exitWith
 				{
-					_unit setspeedMode "full";
+					_unit setspeedMode "FULL";
 					_runCode = 0;
-					_explosive = _explosiveClass createVehicle (position _unit);
+					private _explosive = _explosiveClass createVehicle (position _unit);
 					sleep jig_tvt_globalsleep;
 
 					//Shout and explode
 					[_unit,_explosive] spawn {
-						_unit = _this select 0;
-						_explosive = _this select 1;
-						//_unit setmimic "combat";
-						nul = [_unit,"shout"] call mp_Say3D_fnc;
-						//_unit setRandomLip true;
-						uiSleep 2;
-						_explosive setDamage 1;
-						_unit addRating 2000;
+						params ["_u","_exp"];
+						//_u setmimic "combat";
+						nul = [_u,"shout"] call mp_Say3D_fnc;
+						//_u setRandomLip true;
+						uiSleep 2.1;
+						_exp setDamage 1;
+						_u addRating 2000;
 					};
 
-					//Remove explosive and event handlers
+					//Remove explosive
 					[_explosive,_unit] spawn {
-						_explosive = _this select 0;
-						_unit = _this select 1;
-						waitUntil {!alive _unit};
-						deleteVehicle _explosive;
+						params ["_exp","_u"];
+						waitUntil {!alive _u};
+						deleteVehicle _exp;
 					};
 
-					_unitpos = (getPosATL _unit);
-					if(round(random(1)) isEqualTo 0) then
-					{
-					_explosive attachTo [_unit,[-0.02,-0.07,0.042],"rightHand"];
-					_unit setPos _unitpos;
-					}
-					else
-					{
-					_explosive attachTo [_unit,[-0.02,-0.07,0.042],"leftHand"];
-					_unit setPos _unitpos;
+					private _unitpos = (getPosATL _unit);
+					if(floor random 2 isEqualTo 0) then {
+						_explosive attachTo [_unit,[-0.02,-0.07,0.042],"rightHand"];
+						_unit setPos _unitpos;
+					} else {
+						_explosive attachTo [_unit,[0, 0.15, 0.15],"Pelvis"];
+						_explosive setVectorDirAndUp [[1, 0, 0], [0, 1, 0]];
+						_unit setPos _unitpos;
 					};
 				};
 			}
@@ -232,10 +229,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			_unit setdamage 1;
 			sleep 1;
 			deleteVehicle _unit;
-			sleep 1;
 			};// Jig adding else
-
-			if (!isNull _civgrp) then {deleteGroup _civgrp;};
 
 			sleep 1;
 		};

@@ -13,6 +13,7 @@ _grp = createGroup _side;
 
 _vehPositions=[(_vehicleType select 0)] call BIS_fnc_vehicleRoles;
 _vehicle = createVehicle [(_vehicleType select 0), _position, [], 0, _special];
+if ((_vehicleType select 0) isKindof "StaticWeapon") then {_vehicle setDir (random 359);};
 
 _vehCrew=[];
 
@@ -33,6 +34,8 @@ _vehCrew=[];
 	};
 	//sleep 0.3;
 }foreach _vehPositions;
+
+if (INS_op_faction isEqualTo 16) then {[_vehicle] call Trade_Biofoam_fnc};
 
 _return=[_vehicle,_vehCrew,_grp];
 

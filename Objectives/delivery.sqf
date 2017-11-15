@@ -1,20 +1,20 @@
 //Objectives\delivery.sqf mission by Jigsor
 
 sleep 2;
-private ["_newZone","_smoke","_smkArr","_type","_rnum","_objmkr","_AA","_VarName","_grp","_vehgrp","_AAveh","_stat_grp","_inf_patrol","_AA_mob_patrol","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_droppoint","_dropedcargo","_veh","_text","_deliverydone","_MHQ3DelReady","_sphere","_cargoPos","_staticGuns"];
+params ["_newZone"];
+private ["_smoke","_smkArr","_type","_rnum","_objmkr","_AA","_VarName","_grp","_vehgrp","_AAveh","_stat_grp","_inf_patrol","_AA_mob_patrol","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_droppoint","_dropedcargo","_veh","_text","_deliverydone","_MHQ3DelReady","_sphere","_cargoPos","_staticGuns"];
 
-_newZone = _this select 0;
 _rnum = str(round (random 999));
-_MHQ3DelReady = false;
-_cargoPos = Del_box_Pos;
 _deliverydone = 0;
 deliveryfail = 0;
+_MHQ3DelReady = false;
 Demo_Loaded = false;
 Demo_Unloaded = false;
 Demo_Near = false;
 Demo_End = false;
 Task_Transport = [];
 _smkArr = [];
+_cargoPos = getPos Del_box_Pos;
 
 if ((INS_op_faction > 3) || (INS_op_faction isEqualTo 0)) then {
 	_type = selectRandom INS_Op4_Veh_AA;
@@ -105,7 +105,7 @@ _tmarker = createMarker ["Task_Transport", _newPos];
 publicVariable "Task_Transport";
 sleep 2;
 
-[] spawn { while {!isNull Demo_Arrow} do { "Task_Transport" setMarkerPos getposATL MHQ_3; sleep 1; }; };
+[] spawn { while {!isNull Demo_Arrow} do { "Task_Transport" setMarkerPos getPosWorld MHQ_3; sleep 1; }; };
 
 // create west task
 _tskW = "tskW_Freight_Delivery" + _rnum;
@@ -124,20 +124,19 @@ waitUntil {sleep 1; Demo_Loaded};
 
 deleteVehicle Demo_Arrow; sleep 0.1;
 deleteVehicle _sphere; sleep 0.1;
-MHQ_3 setDamage 0; sleep 0.1;
+MHQ_3 setDamage 0; sleep 0.3;
 
 [] spawn {
 	while {Demo_Loaded} do {
 		if (alive MHQ_3) then {
-			"Task_Transport" setMarkerPos getposasl MHQ_3;
+			"Task_Transport" setMarkerPos getPosWorld MHQ_3;
 			sleep 1.2;
 		};
 	};
 };
 
-_veh = MHQ_3;
 
-waitUntil {sleep 0.5; (isPlayer (driver _veh)) && {(isEngineOn _veh) && (!isnull (driver _veh))}};
+waitUntil {sleep 0.3; (isPlayer (driver MHQ_3)) && {(isEngineOn MHQ_3) && (!isnull (driver MHQ_3))}};
 
 _MHQ3DelReady = true;
 [localize "STR_BMR_delivery_ready", "JIG_MPhint_fnc"] call BIS_fnc_mp;
@@ -162,20 +161,19 @@ _AAveh setVehicleVarName _VarName;
 _AAveh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
 
 // Spawn Objective enemy defences
-_grp = [_newZone,10] call spawn_Op4_grp;
+_grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
 _stat_grp = [_newZone,3,15] call spawn_Op4_StatDef;
-
-_stat_grp setCombatMode "RED";
 
 _inf_patrol=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 _AA_mob_patrol=[_vehgrp, position objective_pos_logic, 125] call Veh_taskPatrol_mod;
 
 if (DebugEnabled isEqualTo 1) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 // Task Conditions
 
+_veh = MHQ_3;
 [_veh] spawn {
 	params ["_veh","_text","_loop"];
 
@@ -225,20 +223,20 @@ if (Demo_Unloaded) then {
 
 	if ((_droppoint distance _dropedcargo < 750) && (deliveryfail isEqualTo 0) && {(alive _veh) && (alive (driver _veh))}) then	{
 		_text = format[localize "STR_BMR_delivery_success"];
-		[[_text],"JIG_MPTitleText_fnc",true,nil,WEST] call BIS_fnc_mp;
+		[[_text],"JIG_MPTitleText_fnc",WEST,false] call BIS_fnc_mp;
 		_deliverydone = 1;
 	};
 
 	if ((_droppoint distance _dropedcargo > 750) && (deliveryfail isEqualTo 0) && {(alive _veh) && (alive (driver _veh))}) then {
 		_text = format[localize "STR_BMR_delivery_fail"];
-		[[_text],"JIG_MPTitleText_fnc",true,nil,WEST] call BIS_fnc_mp;
+		[[_text],"JIG_MPTitleText_fnc",WEST,false] call BIS_fnc_mp;
 		deliveryfail = 1;
 	}
 	else
 	{
 		if (isnull (driver _veh) || (!alive _veh) || (!alive (driver _veh))) then {
 			_text = format[localize "STR_BMR_transport_down"];
-			[[_text],"JIG_MPTitleText_fnc",true,nil,WEST] call BIS_fnc_mp;
+			[[_text],"JIG_MPTitleText_fnc",WEST,false] call BIS_fnc_mp;
 			deliveryfail = 1;
 		};
 	};
@@ -269,7 +267,7 @@ sleep 90;
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp),(units _vehgrp);
 {deleteGroup _x} forEach [_grp, _stat_grp, _vehgrp];
 
-if (!isNull _AAveh) then {deleteVehicle _AAveh; sleep 0.1;};
+if (!isNull _AAveh) then {deleteVehicle _AAveh;};
 
 _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
 {deleteVehicle _x; sleep 0.1} forEach _staticGuns;

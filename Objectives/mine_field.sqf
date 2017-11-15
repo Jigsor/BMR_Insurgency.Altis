@@ -1,10 +1,9 @@
 //Objectives\mine_field.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_alltskmines","_objmkr","_grp","_stat_grp","_patrole","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_deadWmen","_knownmines","_nearestMines","_manArray","_checkmines","_minefielrad","_sandbags1","_ins_debug","_random_mine_cnt","_mfieldmkr","_staticGuns"];
+params ["_newZone","_type"];
+private ["_rnum","_alltskmines","_objmkr","_grp","_stat_grp","_patrole","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_deadWmen","_knownmines","_nearestMines","_manArray","_checkmines","_minefielrad","_sandbags1","_ins_debug","_random_mine_cnt","_mfieldmkr","_staticGuns"];
 
-_newZone = _this select 0;
-_type = _this select 1;
 _rnum = str(round (random 999));
 _alltskmines = [];
 _deadWmen = [];
@@ -38,19 +37,17 @@ sleep jig_tvt_globalsleep;
 _sandbags1 setVariable["persistent",true];
 
 // Spawn Objective enemy defences
-_grp = [_newZone,10] call spawn_Op4_grp;
+_grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
 _stat_grp = [_newZone,4,25] call spawn_Op4_StatDef;
 
-_stat_grp setCombatMode "RED";//"Stealth"
 _patrole = [_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 if (_ins_debug) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
 // Spawn mines
 for "_i" from 1 to _random_mine_cnt do
 {
-	private ["_newpos","_mine"];
-	_newpos = _newZone findEmptyPosition [0, _minefielrad, _type];
-	_mine = createMine [_type, _newpos, [], _minefielrad];
+	private _newpos = _newZone findEmptyPosition [0, _minefielrad, _type];
+	private _mine = createMine [_type, _newpos, [], _minefielrad];
 	sleep jig_tvt_globalsleep;
 	_alltskmines pushBack _mine;
 	_mine setVariable["persistent",true];
@@ -73,7 +70,7 @@ _taskdescE = localize "STR_BMR_Tsk_descE_cmf";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
 sleep 8;
-if (INS_environment isEqualTo 1) then {if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp;};};};
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 while {_checkmines} do
 {
@@ -88,7 +85,7 @@ while {_checkmines} do
 		};
 	} foreach _nearestMines;
 
-	_manArray = (position objective_pos_logic) nearentities [["CAManBase"],_minefielrad];
+	_manArray = (position objective_pos_logic) nearentities ["CAManBase",_minefielrad];
 
 	{
 		if (captiveNum _x isEqualTo 1) then	{
@@ -118,12 +115,12 @@ while {_checkmines} do
 "MineField" setMarkerAlpha 0;
 sleep 90;
 
-if (!isNull _sandbags1) then {deleteVehicle _sandbags1;};
+if (!isNull _sandbags1) then {deleteVehicle _sandbags1};
 _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
+{deleteVehicle _x} forEach _staticGuns;
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];
-{deleteVehicle _x; sleep 0.1} forEach _alltskmines;
+{deleteVehicle _x} forEach _alltskmines;
 
 deleteMarker "ObjectiveMkr";
 deleteMarker "MineField";

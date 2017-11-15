@@ -29,7 +29,7 @@ switch (typename _this) do {
   case (typename objNull): { _grp = group _this };
   case (typename []): {
     _grp = _this select 0;
-    if (typename _grp == typename objNull) then {_grp = group _grp};
+    if (_grp isEqualType objNull) then {_grp = group _grp};
 	if (count _this > 1) then {_marker = _this select 1};
   };
 };

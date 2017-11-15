@@ -88,11 +88,6 @@ MDLALA_fnc_Mine_Noise = {
 
 		hintSilent format ["Mine = %4\nDistance = %1\nTime Until Next Beep =  %2\nPitch = %3",_distance,_timesleep,_pitch,_minename];
 		playSound3D ["A3\UI_F\data\sound\CfgNotifications\addItemOk.wss",_unit,false,[getPosASL _unit select 0,getPosASL _unit select 1,(getPosASL _unit select 2) + 1],100,_pitch,5];
-		//playSound3D [_missiondir + "beep.wav",_unit,false,[getPosASL _unit select 0,getPosASL _unit select 1,(getPosASL _unit select 2) + 1],100,_pitch,5];
-		//playSound3D ["A3\Sounds_F\sfx\hint-3.wss",_unit,false,[getPosASL _unit select 0,getPosASL _unit select 1,(getPosASL _unit select 2) + 1],100,_pitch,5];
-		//playSound3D ["A3\missions_F\data\sounds\click.wss",_unit,false,[getPosASL _unit select 0,getPosASL _unit select 1,(getPosASL _unit select 2) + 1],100,_pitch,5];
-		//playSound3D ["A3\missions_F\data\sounds\click.wss",_unit,false,getPosASL ([_unit] call MDLALA_fnc_Condition_Detect select 0),100,5,5];
-		//playSound3D [_missiondir + "Beep.ogg",_unit,false,getPosASL _unit,100,2,10];
 		sleep _timesleep;
 	};
 
