@@ -337,7 +337,7 @@ class Params
 	{
 	title = "		IED system";
 	values[]={0,1,2};
-	texts[]={"Disabled","Brian's 200 IEDs","Jig IEDs (detectable with mine detector)"};
+	texts[]={"Disabled","brians200's IEDs","Jig IEDs (detectable with mine detector)"};
 	default = 1;
 	};
 	class INS_Dum_Param8//43
