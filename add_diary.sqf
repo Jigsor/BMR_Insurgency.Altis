@@ -15,7 +15,6 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 	<br />	nicolas_boiteux@yahoo.fr.
 	<br />vehRespawn.sqf, and ICE_HUD by Iceman77
 	<br />repetitive_cleanup.sqf v1.7, player_markers.sqf v2.6,
-	<br />set_loadout.sqf and get_loadout.sqf by aeroson.
 	<br />JW Custom Close Air Support v0.1b.by JW Custom
 	<br />Display Heading Script v3 by GeneralCarver.
 	<br />Halo =ATM= Airdrop v6.0 by pokertour.
@@ -37,7 +36,6 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 	<br />ASOR Vehicle Selector v1.4 by Lecks
 	<br />INS_SuicideBomber.sqf recruit civilian modification by SupahG33K
 	<br />fn_Battle.sqf by Mikey74
-	<br />Loadout Transfer by S.Crowe
 	<br />ADF_helipadLights.sqf by Whiztler
 	<br />Advanced Sling Loading by Duda
 	<br />
