@@ -187,7 +187,7 @@ BMR_Insurgency_v1.48_beta
 	Change: Added new IED system wich can be detected with IED detector. Old or new sytem can be selected in loby.
 	Fixed: Several MP/dedicated server issues in heli group extraction.
 	Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.
-	Fixed: Some russain translations.
+	Fixed: Some Russian translations.
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017
