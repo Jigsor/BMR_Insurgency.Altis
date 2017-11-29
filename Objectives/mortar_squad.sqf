@@ -163,7 +163,7 @@ sleep 90;
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units mortar_grp);
 {deleteGroup _x} forEach [_grp, mortar_grp];
 
-if (!isNull _sign) then {deleteVehicle _sign; sleep 0.1;};
+if (!isNull _sign) then {deleteVehicle _sign};
 {if (!isNull _x) then {deleteVehicle _x; sleep 0.1}} foreach _all_mortars;
 {if (typeof _x in INS_Op4_stat_weps) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 40]);
 

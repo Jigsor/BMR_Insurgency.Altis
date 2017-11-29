@@ -59,6 +59,7 @@ INS_intro = {
 	camDestroy _cam;
 	enableRadio true;
 	if (INS_mod_missing) then {[] spawn INS_missing_mods};
+	if (JIG_DustStorm) then {[] spawn JIG_Dust_Storm};
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
@@ -95,6 +96,7 @@ INS_intro_op4 = {
 	camDestroy _cam;
 	enableRadio true;
 	if (INS_mod_missing) then {[] spawn INS_missing_mods};
+	if (JIG_DustStorm) then {[] spawn JIG_Dust_Storm};
 };
 JIG_placeSandbag_fnc = {
 	// Player action place sandbag barrier. by Jigsor
@@ -912,4 +914,22 @@ INS_EarPlugs = {
 	}else{
 		1 fadeSound 1; hintSilent localize "STR_BMR_OFF";
 	};
+};
+JIG_dsHaze = {
+	// Dust Storm Haze
+	hintSilent localize "STR_BMR_DustStorm_On";
+	enableEnvironment [(environmentEnabled select 0), false];//Ambient sound off
+	private _ppe = ppEffectCreate ["colorCorrections", 1501];
+	_ppe ppEffectAdjust [1, 0.85, -0.001, [0.0, 0.0, 0.0, 0.0], [0.1*3, 0.1*3, 0.0, 0.8], [0.9, 0.9, 0.9, 0.0]];
+	_ppe ppEffectCommit 3;
+	_ppe ppEffectEnable true;
+};
+JIG_dsClear = {
+	// Clear Dust Storm Haze
+	private _ppe = ppEffectCreate ["colorCorrections", 1501];
+	_ppe ppEffectAdjust [1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 1] , [0.299, 0.587, 0.114, 0], [-1, -1, 0, 0, 0, 0, 0]];
+	_ppe ppEffectCommit 3;
+	_ppe ppEffectEnable true;
+	enableEnvironment [(environmentEnabled select 0), true];//Ambient sound On
+	hintSilent localize "STR_BMR_DustStorm_Off";
 };

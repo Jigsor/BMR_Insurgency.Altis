@@ -777,3 +777,35 @@ GAS_smoke_AIdamage = {
 	};
 	ToxicGasLoc = [];
 };
+JIG_DustIsOn = {
+	// If Dust Storm active then deactivate
+	private _active = missionNameSpace getVariable ["JDSactive", false];
+	if (_active) then {
+		missionNameSpace setVariable ["JDSactive", false];
+		setWind [0,0,true];
+		JIG_DustStorm = false;
+		PublicVariable "JIG_DustStorm";
+	}else{
+		false
+	};
+};
+JIG_ActivateDust = {
+	// Activate Dust Storm
+	params [["_vel", 12, [0]]];
+	missionNameSpace setVariable ["JDSactive", true];
+	private _direction = selectRandom [
+		[0,_vel,true],	//North
+		[0,-_vel,true],	//South
+		[_vel,0,true],	//East
+		[-_vel,0,true],	//West
+		[-_vel,_vel,true],	//North West
+		[_vel,_vel,true],	//North East
+		[-_vel,-_vel,true],	//South West
+		[_vel,-_vel,true]	//South East
+	];
+	setWind _direction;
+	JIG_DustStorm = true;
+	publicVariable "JIG_DustStorm";
+	sleep 3;
+	[] remoteExec ["JIG_Dust_Storm", [0,-2] select isDedicated, false];
+};

@@ -14,12 +14,14 @@ _skillset = server getvariable (_this select 1);
 	//Jig adding
 	if (side _unit == east) then {
 		_unit unlinkItem "NVGoggles_OPFOR";
+		//_unit unlinkitem (hmd _unit);
 		if ((_this select 2) in eosFacNVG) then {
 			_unit linkItem "NVGoggles_OPFOR";
 		};
 	}else{
 		if (side _unit == resistance) then {
 			_unit unlinkItem "NVGoggles_INDEP";
+			//_unit unlinkitem (hmd _unit);
 			if ((_this select 2) in eosFacNVG) then {
 				_unit linkItem "NVGoggles_INDEP";
 			};

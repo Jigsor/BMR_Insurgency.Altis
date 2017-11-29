@@ -47,6 +47,7 @@ EastScore = 0;
 LT_distance = 20;
 jig_tvt_globalsleep = 0.1;// Global sleep used after spawning a unit.
 if (isNil "lck_markercnt") then {lck_markercnt=0;};// bardosy's HuntIR
+If (isNil "JIG_DustStorm") then {JIG_DustStorm = false;};
 BTC_tk_last_warning = 3;// Max TK punishment warnings given before user input controls disabled.
 INS_maxClueDis = 400;// Maximum distance from ammo cache to Intel clue marker (? "hd_unknown").
 AIdamMod = EOS_DAMAGE_MULTIPLIER*0.01;

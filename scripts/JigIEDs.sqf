@@ -1,34 +1,26 @@
 // JigIEDs.sqf by Jigsor
 // Mines can be detected by anyone with IED detector
 
-if (!hasInterface && !isDedicated) exitWith {};
-
-JIG_IED_FX = {
-	params ["_trig"];
-	addCamShake [5, 5, 20];
-	[player, 1] call BIS_fnc_dirtEffect;
-	playSound3d['A3\Missions_F_EPA\data\sounds\combat_deafness.wss', _trig, false, getPosASL _trig, 15, 1, 50];
-};
 if (!isServer) exitWith {};
-
 [] spawn {
 
 	// Editable
-	private _IEDs = 70;							//Total IED objects including decoys
-	private _decoyChance = 25;					//Percent of decoy chance
-	private _revealMines_East = true;			//Reveal IEDs to side EAST
-	private _revealMines_West = false;			//Reveal IEDs to side WEST
-	private _revealMines_Independent = true;	//Reveal IEDs to side Independent/Resistance.
-	private _revealMines_Civilian = true;		//Reveal IEDs to side Civilian.
+	private _IEDs = 70;			//Total IED objects including decoys
+	private _decoyChance = 25;	//Percent of decoy chance
+	private _rmE = true;		//Reveal IEDs to side EAST
+	private _rmW = false;		//Reveal IEDs to side WEST
+	private _rmI = true;		//Reveal IEDs to side Independent/Resistance.
+	private _rmC = true;		//Reveal IEDs to side Civilian.
 	// End Editable
 
-	private _IED_Debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE}; //Show markers
-
-	if (_IED_Debug && hasInterface) then {hintSilent format["attempting to create %1 IEDs...",_IEDs]};
+	private _IED_Debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};//Show markers
+	if (_IED_Debug) then {
+		private _txt = format["attempting to create %1 IEDs...", _IEDs];
+		_txt remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
+	};
 
 	IEDtypes = ["IEDLandBig_F","IEDLandSmall_F","IEDUrbanBig_F","IEDUrbanSmall_F"];
 	IEDblast = ["Bo_Mk82","Rocket_03_HE_F","M_Mo_82mm_AT_LG","Bo_GBU12_LGB","Bo_GBU12_LGB_MI10","HelicopterExploSmall"];
-
 	private _roads = [worldsize/2, worldsize/2] nearRoads worldsize;
 
 	{
@@ -49,14 +41,12 @@ if (!isServer) exitWith {};
 	private _iedPosList = [];
 
 	private ["_r","_road","_name","_m"];
-
 	while{count _roads > 0 && count allIEDS < _IEDs} do {
 		_r = (count _roads - 1) min (round random (count _roads));
 		_road = _roads select _r;
 		_roads = _roads - [_road];
 
 		if (count roadsConnectedTo _road >= 2) then {
-
 			private _type = selectRandom IEDtypes,
 			private _roadSize = (boundingBox _road);
 			private _roadSidePos = (_road modelToWorld [(_roadSize select 1 select 0) * 0.6, 0, 0]);
@@ -82,11 +72,10 @@ if (!isServer) exitWith {};
 		};
 	};
 
+	private _trigs = [];
 	private _Active_IED_count = round (_IEDs -((_decoyChance/100) *_IEDs));
-
 	for "_i" from 1 to _Active_IED_count do {
 		private ["_rIEDpos","_actCond","_onActiv","_IEDtrig"];
-
 		_rIEDpos = selectRandom _iedPosList;
 		_iedPosList = _iedPosList - [_rIEDpos];
 
@@ -100,16 +89,21 @@ if (!isServer) exitWith {};
 			{deleteVehicle _x;} count nearestObjects [getPosATL thisTrigger, IEDtypes, 2, true];
 		";
 		_onDeActiv = "deleteVehicle thisTrigger";
-
 		_IEDtrig = createTrigger ["EmptyDetector", _rIEDpos];
 		_IEDtrig setTriggerArea [2, 2, 0, FALSE];
 		_IEDtrig setTriggerActivation ["WEST", "PRESENT", true];
 		_IEDtrig setTriggerTimeout [1, 1, 1, true];
 		_IEDtrig setTriggerStatements [_actCond, _onActiv, _onDeActiv];
+		_trigs pushBack _IEDtrig;
 	};
 
-	if (_revealMines_East) then {{east revealMine _x} foreach allIEDS};
-	if (_revealMines_West) then {{west revealMine _x} foreach allIEDS};
-	if (_revealMines_Independent) then {{independent revealMine _x} foreach allIEDS};
-	if (_revealMines_Civilian) then {{civilian revealMine _x} foreach allIEDS};
+	sleep 2;
+	{_x hideObjectGlobal true} forEach _trigs;
+	sleep 5;
+	{_x hideObject false} forEach _trigs;
+
+	if (_rmE) then {{east revealMine _x} count allIEDS};
+	if (_rmW) then {{west revealMine _x} count allIEDS};
+	if (_rmI) then {{independent revealMine _x} count allIEDS};
+	if (_rmC) then {{civilian revealMine _x} count allIEDS};
 };

@@ -1,6 +1,6 @@
 // SingleThreadCrateRefill.sqf by Jigsor
 // Refills all ammo boxes that have names listed in Arrays INS_Op4_wepCrates and INS_Blu4_wepCrates defined in INS_definitions.sqf.
-// Param 0=sleep delay before refilling next crate.
+// Param 0=sleep delay between refill cycles.
 
 if (!isServer) exitWith {};
 waitUntil {time > 11};

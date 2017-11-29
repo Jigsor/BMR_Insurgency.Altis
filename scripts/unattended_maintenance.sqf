@@ -47,6 +47,9 @@ if (isServer) then {
 					_justPlayers = allPlayers - entities "HeadlessClient_F";
 					if (count _justPlayers isEqualTo 0) then {
 
+						//Disable Dust Storm if left running.
+						if (missionNameSpace getVariable ["JDSactive", false]) then {[] call JIG_DustIsOn};
+
 						//Delete Infantry AI recruits leftovers from diconnected players and zeus 
 						_abandonedAI = allMissionObjects "CAManBase";
 						{deleteVehicle _x} count (_abandonedAI select {(getNumber(configFile >> "CfgVehicles" >> typeOf _x >> "isUav")==0 && isNull objectParent _x) || (!(simulationEnabled (leader group _x)))});

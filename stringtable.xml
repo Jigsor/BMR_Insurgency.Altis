@@ -19,14 +19,14 @@
 		<Original>Press U key for Group Manager</Original>
 		<German>Drücke Taste U für Gruppenmanager</German>
 		<French>Appuyez sur la touche U pour le gestionnaire de groupe</French>
-		<Russian>Нажмите клавишу U для Диспетчера Групп</Russian>
+		<Russian>Нажмите клавишу у для Диспетчера Групп</Russian>
 		<Spanish>Pulse la tecla U para el Administrador de Grupo</Spanish>
 	</Key>
 	<Key ID="STR_BMR_intro_tip2">
 		<Original>Press Y key for Graphic Settings, Digital Heading and HUD</Original>
 		<German>Drücke Taste Z für Grafikeinstellungen, Richtungsanzeige und Statusanzeige </German>
 		<French>Appuyez sur la touche Y pour les paramètres graphiques, Heading numérique et HUD</French>
-		<Russian>Нажмите клавишу Y для настройки графики, цифрового заголовка и HUD</Russian>
+		<Russian>Нажмите клавишу ы для настройки графики, цифрового заголовка и HUD</Russian>
 		<Spanish>Pulse la tecla Y para Ajustes Gráficos, Rubro Digital y HUD</Spanish>
 	</Key>
 	<Key ID="STR_BMR_load_VAprofile">
@@ -690,7 +690,7 @@
 		<French>Protéger BARRAGE ROUTIER</French>
 		<Russian>защищать контрольная точка</Russian>
 		<Spanish>Proteger Barricada</Spanish>
-	</Key>	
+	</Key>
 	<Key ID="STR_BMR_Tsk_topic_global_Retrieve_Intel">
 		<Original>Retrieve Intel</Original>
 		<German>Abrufen von Informationen</German>
@@ -704,7 +704,7 @@
 		<French>Récupérer des informations avant les joueurs ennemis</French>
 		<Russian>Извлечение информации перед игроками противника</Russian>
 		<Spanish>Recuperar la imformación antes de que los jugadores enemigos</Spanish>
-	</Key>	
+	</Key>
 	<Key ID="STR_BMR_delivery_ready">
 		<Original>MHQ_3 cargo loaded and engines on. Clear for dust off</Original>
 		<German>MHQ_3 Fracht geladen und Maschinen an. Fertig zum Abflug</German>
@@ -851,6 +851,20 @@
 		<French>Fermer Dialog</French>
 		<Russian>Закрыть окно</Russian>
 		<Spanish>Cerrar Diálogo</Spanish>
+	</Key>
+	<Key ID="STR_BMR_DustStorm_On">
+		<Original>Dust Storm Incoming</Original>
+		<German>Staubsturm einkommend</German>
+		<French>Tempête de poussière arrivant</French>
+		<Russian>Пыльный шторм</Russian>
+		<Spanish>Tormenta de polvo al llegar</Spanish>
+	</Key>
+	<Key ID="STR_BMR_DustStorm_Off">
+		<Original>Dust Storm Cleared</Original>
+		<German>Staubsturm gelöscht</German>
+		<French>Tempête de poussière sortante</French>
+		<Russian>Очистить пыльную бурю</Russian>
+		<Spanish>Tormenta de polvo saliente</Spanish>
 	</Key>
 	<Key ID="STR_ATM_Alt">
 		<Original>Altitude:</Original>

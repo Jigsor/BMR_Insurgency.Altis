@@ -443,4 +443,16 @@ if (DebugEnabled > 0) then {
 			};
 		};
 	};
+
+	//Admin Briefing Menu
+	[] spawn {
+		private _l = true;
+		while {_l} do {
+			if (serverCommandAvailable "#lock") then {
+				#include "scripts\AdminMenu.sqf"
+				_l = false;
+			};
+			sleep 60;
+		};
+	};
 };

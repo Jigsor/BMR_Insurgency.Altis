@@ -175,8 +175,10 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 			[player,true] spawn INS_Zeus_MP;
 
 
-11/15/2017
+11/28/2017
 BMR_Insurgency_v1.48_beta
+	Added: Dust Storm script.
+	Added: Admin briefing section with buttons for Zeus, Brighter Nights, Dust Storms and Vehicle Reward.	
 	Added: Reassinging damage event handlers to AI on locality changed when unassigning zeus from yourself.
 	Added: chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
 	Change: Increased delay loop for suicide bomber and now suicide bomber can no longer spawn in same building as target.

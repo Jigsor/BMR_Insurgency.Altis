@@ -35,7 +35,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			_rSleep = [10,20] call BIS_fnc_randomInt;
 			sleep _rSleep;
 		} else {
-			_rSleep = [1200,2700] call BIS_fnc_randomInt;//20-45 minute random loop delay
+			_rSleep = [900,2400] call BIS_fnc_randomInt;//15-40 minute random loop delay
 			sleep _rSleep;
 		};
 

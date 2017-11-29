@@ -625,6 +625,69 @@ Trade_Biofoam_fnc = {
 	} forEach _objItems;
 	true
 };
+JIG_Dust_Storm_Server = {
+	// Admin Menu Dust Storm Toggle
+	if !([] call JIG_DustIsOn) then {
+		[] spawn JIG_ActivateDust;
+	};
+};
+JIG_Dust_Storm = {
+	// Client Side Dust Storm
+	if (!hasInterface) exitWith {};
+	waituntil {!isNull player};
+	if (JIG_DustStorm) then {call JIG_dsHaze};// Haze color correction
+	[] spawn {// Dust
+		private ["_color","_alpha","_d"];
+		while {JIG_DustStorm} do {
+			_pos = position player;
+			_color = [1,0.894,0.631];
+			_alpha = 0.02 + random 0.02;
+			_d = "#particlesource" createVehicleLocal _pos;
+			_d setParticleParams [["\A3\data_f\ParticleEffects\Universal\universal.p3d", 16, 12, 8], "", "Billboard", 1, 6, [0, 0, -5], [(wind select 0), (wind select 1), -1], 1, 1.275, 1, 0.01, [20], [_color + [0], _color + [_alpha], _color + [0]], [1000], 1, 0.1, "", "", _pos];
+			_d setParticleRandom [3, [-30, -30, 0], [0, 0, 0], 1, 0, [0, 0, 0, 0.01], 0, 0, 0, 1];
+			_d setParticleCircle [30, [0, 0, 0]];
+			_d setDropInterval 0.01;
+			uiSleep 1 + random 2;
+			deleteVehicle _d;
+		};
+	};
+	[] spawn {// Branches/TumbleWeeds
+		private ["_b","_ran"];
+		while {JIG_DustStorm} do {
+			_ran = ceil random 5;
+			playsound format ["wind%1",_ran];
+			_b  = "#particlesource" createVehicleLocal (getpos player);
+			if (vehicle player != player) then {_b attachto [vehicle player];} else {_b attachto [player];};
+			_b setParticleRandom [0, [10, 10, 7], [(wind select 0), (wind select 1), 5], 2, 0.1, [0, 0, 0, 0.5], 1, 1];
+			_b setParticleCircle [100, [0, 0, 0]];
+			_b setParticleParams [["\A3\data_f\ParticleEffects\Hit_Leaves\Sticks_Green", 1, 1, 1], "", "SpaceObject", 3, 7, [0,0,0], [(wind select 0), (wind select 1),10], 5, 0.000001, 0.0, 0.04, [0.5 + random 3], [[0.68,0.68,0.68,1]], [1.5,1], 1, 1, "", "", vehicle player, 0, true, 1, [[0,0,0,0]]];
+			_b setDropInterval 0.6;
+			sleep 5 + random 10;
+			deleteVehicle _b;
+		};
+	};
+	[] spawn {// Leaves
+		private "_l";
+		while {JIG_DustStorm} do {
+			_l  = "#particlesource" createVehicleLocal (getpos player);
+			if (vehicle player != player) then {_l attachto [vehicle player];} else {_l attachto [player];};
+			_l setParticleRandom [0, [10, 10, 7], [(wind select 0), (wind select 1), 5], 2, 0.1, [0, 0, 0, 0.5], 1, 1];
+			_l setParticleCircle [100, [0, 0, 0]];
+			_l setParticleParams [["\A3\data_f\cl_leaf3", 1, 0, 1], "", "SpaceObject", 3, 7, [0,0,0], [(wind select 0), (wind select 1), 6], 2, 0.00003, 0.0, 0.00001, [0.5 + random 3], [[0.1,0.1,0.1,1]], [1.5,1], 1, 1, "", "", vehicle player, 0, true, 1, [[0,0,0,0]]];
+			_l setDropInterval 0.2;
+			uiSleep 0.2 + random 0.5;
+			deleteVehicle _l;
+		};
+		call JIG_dsClear;// Clear color correction
+	};
+};
+JIG_IED_FX = {
+	if (!hasInterface) exitWith {};
+	params ["_trig"];
+	addCamShake [5, 5, 20];
+	[player, 1] call BIS_fnc_dirtEffect;
+	playSound3d['A3\Missions_F_EPA\data\sounds\combat_deafness.wss', _trig, false, getPosASL _trig, 15, 1, 50];
+};
 switchMoveEverywhere = compileFinal " _this select 0 switchMove (_this select 1); ";
 INS_BluFor_Siren = compileFinal " if (isServer) then {
 	[INS_BF_Siren,""siren""] call mp_Say3D_fnc;

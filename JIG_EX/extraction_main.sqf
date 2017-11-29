@@ -7,7 +7,7 @@
 if (!isServer) exitWith {};
 if (!hasInterface && !isDedicated) exitWith {};
 [] spawn {
-	private ["_recruitsArry","_playerArry","_range","_poscreate","_speed","_SAdir","_spwnairdir","_randomAltitudes","_height","_type","_vehicle","_veh","_vel","_vehgrp","_VarName","_wp0","_evacComplete""_availableSeats","_ext_caller_group_count","_chopper_to_small","_vehgrp_units","_gunners_removed","_has_gunner_pos","_without_gunner_pos","_switch_driver","_animateDoors","_localityChanged"];
+	private ["_recruitsArry","_playerArry","_range","_poscreate","_speed","_SAdir","_spwnairdir","_height","_type","_vehicle","_veh","_vel","_vehgrp","_VarName","_wp0","_evacComplete""_availableSeats","_ext_caller_group_count","_chopper_to_small","_vehgrp_units","_gunners_removed","_has_gunner_pos","_without_gunner_pos","_switch_driver","_animateDoors","_localityChanged"];
 
 	evac_toggle = false;publicVariable "evac_toggle";
 	sleep 0.3;
@@ -49,8 +49,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 		_speed = 60;// starting speed
 		_SAdir = getDir EvacSpawnPad;
 		_spwnairdir = [getPosATL EvacSpawnPad, getPosATL EvacLZpad] call BIS_fnc_dirTo;
-		_randomAltitudes = [35,45,55];
-		_height = selectRandom _randomAltitudes;
+		_height = selectRandom [35,45,55];
 		if (JIG_EX_Random_Type) then {
 			_type = selectRandom JIG_EX_Chopper_Type;
 		} else {
