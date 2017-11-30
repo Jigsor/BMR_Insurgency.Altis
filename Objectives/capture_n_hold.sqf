@@ -29,7 +29,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerText "Capture and Hold";
 
 //Spawn Objective Object
-_outpost = createVehicle [_type, _newZone, [], 0, "None"];
+_outpost = createVehicle [_type, _newZone, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 
 _outpost setDir (random 359);

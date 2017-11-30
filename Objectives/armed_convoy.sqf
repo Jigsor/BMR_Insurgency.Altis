@@ -27,7 +27,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerText "Armed Convoy";
 
 // Spawn Objective center object
-_cone = createVehicle [_objType, _newZone, [], 0, "None"];
+_cone = createVehicle [_objType, _newZone, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 _cone setVectorUp [0,0,1];
 _cone enablesimulation false;

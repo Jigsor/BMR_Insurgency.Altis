@@ -23,7 +23,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerText "Mortar Squad";
 
 // Spawn Objective center object
-_sign = createVehicle [_type, _newZone, [], 0, "None"];//Vanilla
+_sign = createVehicle [_type, _newZone, [], 0, "NONE"];//Vanilla
 sleep jig_tvt_globalsleep;
 
 while {isOnRoad _signPos} do {
@@ -79,9 +79,9 @@ if (isNil "_offset_pos2" || _offset_pos2 distance _newZone > 125) then {_offset_
 _offset_pos3 = [getMarkerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
 if (isNil "_offset_pos3" || _offset_pos3 distance _newZone > 125) then {_offset_pos3 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
 
-_static1 = createVehicle [_mortar_type, _offset_pos1, [], 0, "None"]; sleep jig_tvt_globalsleep;
-_static2 = createVehicle [_mortar_type, _offset_pos2, [], 0, "None"]; sleep jig_tvt_globalsleep;
-_static3 = createVehicle [_mortar_type, _offset_pos3, [], 0, "None"]; sleep jig_tvt_globalsleep;
+_static1 = createVehicle [_mortar_type, _offset_pos1, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
+_static2 = createVehicle [_mortar_type, _offset_pos2, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
+_static3 = createVehicle [_mortar_type, _offset_pos3, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
 
 _static1 setDir 0;
 _static2 setDir 120;

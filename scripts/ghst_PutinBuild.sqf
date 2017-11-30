@@ -60,7 +60,7 @@ private _cache_loop = [] spawn
 		_mkr_position = getMarkerpos _curr_mkr;
 		_rnum = str(round (random 999));
 
-		_ammocache = createVehicle [_objtype , position air_pat_pos, [], 0, "None"];
+		_ammocache = createVehicle [_objtype , position air_pat_pos, [], 0, "NONE"];
 		sleep jig_tvt_globalsleep;
 
 		_ammocache addeventhandler ["handledamage",{_this call JIG_ammmoCache_damage}];

@@ -24,7 +24,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Eliminate Leader";
 
-_bunker = createVehicle [_type, _newZone, [], 0, "None"];
+_bunker = createVehicle [_type, _newZone, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 
 _bunker setDir (random 359);

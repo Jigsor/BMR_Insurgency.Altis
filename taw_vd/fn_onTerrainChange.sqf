@@ -6,7 +6,7 @@
 */
 private["_type"];
 _type = [_this,0,"",[""]] call BIS_fnc_param;
-if(_type == "") exitWith {};
+if(_type isEqualTo "") exitWith {};
 
 switch (_type) do {
 	case "none": {if(isNil "tawvd_disablenone") then {setTerrainGrid 50;};};

@@ -32,7 +32,7 @@ if (count _roads > 0) then {
 };
 
 // Spawn Objective Object
-_tower = createVehicle [_type, _towerPos, [], 0, "None"];
+_tower = createVehicle [_type, _towerPos, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 
 if (_roadNear) then {_tower setDir _roadDir - 90;};

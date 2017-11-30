@@ -25,7 +25,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerText "Radio Tower";
 
 // Spawn Objective Object
-_tower = createVehicle [_type, _newZone, [], 0, "None"];
+_tower = createVehicle [_type, _newZone, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 
 _tower setVectorUp [0,0,1];

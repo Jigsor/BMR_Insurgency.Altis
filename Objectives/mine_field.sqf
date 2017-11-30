@@ -32,7 +32,7 @@ _mfieldmkr = createMarker ["MineField", _newZone];
 "MineField" setMarkerSize [65, 65];
 
 // Spawn Objective Objects
-_sandbags1 = createVehicle ["Land_BagFence_Round_F", _newZone, [], 0, "None"];
+_sandbags1 = createVehicle ["Land_BagFence_Round_F", _newZone, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 _sandbags1 setVariable["persistent",true];
 

@@ -54,7 +54,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerText "Pilot Rescue";
 
 // Spawn Objective Objects
-_wreck = createVehicle [_type, _newZone, [], 0, "None"];
+_wreck = createVehicle [_type, _newZone, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 
 _wreck setDir (random 359);

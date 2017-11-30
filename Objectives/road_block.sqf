@@ -82,10 +82,10 @@ RoadBlockEast setPos [getpos RoadBlockEast select 0,getpos RoadBlockEast select 
 
 [] spawn {RoadBlockEast animate ["Door_1_rot", 1];};
 
-_bunker1 = createVehicle ["Land_BagBunker_Small_F", _bargate modelToWorld [7.5,-2,-4], [], 0, "CAN COLLIDE"]; sleep jig_tvt_globalsleep;
+_bunker1 = createVehicle ["Land_BagBunker_Small_F", _bargate modelToWorld [7.5,-2,-4], [], 0, "CAN_COLLIDE"]; sleep jig_tvt_globalsleep;
 _bunker1 setdir (_roadDir -240);
 
-_bunker2 = createVehicle ["Land_BagBunker_Small_F", _bargate modelToWorld [-8.5,-2,-4], [], 0, "CAN COLLIDE"]; sleep jig_tvt_globalsleep;
+_bunker2 = createVehicle ["Land_BagBunker_Small_F", _bargate modelToWorld [-8.5,-2,-4], [], 0, "CAN_COLLIDE"]; sleep jig_tvt_globalsleep;
 _bunker2 setdir (_roadDir -110);
 
 {_x setPos [getpos _x select 0,getpos _x select 1,0];} forEach [_bunker1,_bunker2];

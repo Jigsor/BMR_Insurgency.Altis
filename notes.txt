@@ -175,7 +175,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 			[player,true] spawn INS_Zeus_MP;
 
 
-11/28/2017
+11/30/2017
 BMR_Insurgency_v1.48_beta
 	Added: Dust Storm script.
 	Added: Admin briefing section with buttons for Zeus, Brighter Nights, Dust Storms and Vehicle Reward.	
@@ -184,12 +184,14 @@ BMR_Insurgency_v1.48_beta
 	Change: Increased delay loop for suicide bomber and now suicide bomber can no longer spawn in same building as target.
 	Change: Shortening group spawn delay on capture N hold depending on defender count size and server fps for higher intensity.
 	Change: Option Environment effects (ambient life + sound) removed from lobby and replaced by button for ambient life in Y menu.
-	Change: Redesigned Y button menu GUI.
+	Change: Redesigned Y button GUI menu.
 	Change: Many code efficiency tweaks.
-	Change: Added new IED system wich can be detected with IED detector. Old or new sytem can be selected in loby.
+	Change: Added new IED system wich can be detected with IED detector. Old or new sytem can be selected in lobby.
 	Fixed: Several MP/dedicated server issues in heli group extraction.
 	Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.
 	Fixed: Some Russian translations.
+	Fixed: Sometimes dead players would not recieve Task update notifications.
+	Fixed: Several unknown enum value errors starting with patch A3 1.78.
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017
