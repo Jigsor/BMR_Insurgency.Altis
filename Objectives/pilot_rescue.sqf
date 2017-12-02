@@ -79,7 +79,7 @@ _pilot Call Compile Format ["%1=_This ; PublicVariable ""%1""",_pilotVarName];
 _pilot setUnitPos "UP";
 _pilot disableAI "MOVE";
 _pilot allowfleeing 0;
-_pilot setBehaviour "Careless";
+_pilot setBehaviour "CARELESS";
 removeallweapons _pilot;
 _pilot setCaptive true;
 [ [ _pilot, "AmovPercMstpSsurWnonDnon" ], "switchMoveEverywhere" ] call BIS_fnc_MP;

@@ -107,8 +107,8 @@ zlt_fnc_fastropeaiunits = {
 	_grunits = _this select 1;
 
 	doStop (driver _heli );
-	(driver _heli) setBehaviour "Careless";
-	(driver _heli) setCombatMode "Blue";
+	(driver _heli) setBehaviour "CARELESS";
+	(driver _heli) setCombatMode "BLUE";
 
 	_heli spawn zlt_fnc_tossropes;
 
@@ -125,8 +125,8 @@ zlt_fnc_fastropeaiunits = {
 		waituntil {sleep 0.5; { (getpos _x select 2) < 1 } count _units == count _units; };
 		sleep 10;
 		(driver _heli) doFollow (leader group (driver _heli ));
-		(driver _heli) setBehaviour "Aware";
-		(driver _heli) setCombatMode "White";
+		(driver _heli) setBehaviour "AWARE";
+		(driver _heli) setCombatMode "WHITE";
 		_heli call zlt_fnc_cutropes;
 	};
 };

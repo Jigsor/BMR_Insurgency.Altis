@@ -22,4 +22,6 @@ _menu = _menu + "
 ";
 private _link1 = format ["<br/>	<execute expression=""player spawn INS_Vehicle_Reward;"">%1</execute>", localize "STR_BMR_veh_reward"];
 _menu = _menu + _link1;
+private _link2 = format ["<br/><br/>	<execute expression=""[] spawn {waitUntil {!isNull player}; [player,player] call INS_Flip_Veh;};"">%1</execute>", localize "STR_BMR_flip_veh"];
+_menu = _menu + _link2;
 player createDiaryRecord ["Diary", ["Administrator Menu", _menu]];

@@ -329,7 +329,6 @@ INS_Flip_Veh = {
 	_veh = (nearestObjects [_target, ["LandVehicle"], 15]) select 0;
 	if (!isNil "_veh") then {
 		if ((damage _veh < 1) && {(count crew _veh isEqualTo 0)}) then {
-			_veh setOwner (owner _caller);
 			_veh setPos [getPos _veh select 0, getPos _veh select 1, 0];
 		};
 	};
