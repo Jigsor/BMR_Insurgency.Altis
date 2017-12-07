@@ -178,7 +178,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 12/2/2017
 BMR_Insurgency_v1.48_beta
 	Added: Dust Storm script.
-	Added: Admin briefing section with buttons for Zeus, Brighter Nights, Filp Vehicle, Dust Storms and Vehicle Reward.
+	Added: Admin briefing section with buttons for Zeus, Brighter Nights, Filp Vehicle, Dust Storms and Vehicle Reward.	
 	Added: Reassinging damage event handlers to AI on locality changed when unassigning zeus from yourself.
 	Added: chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
 	Change: Increased delay loop for suicide bomber and now suicide bomber can no longer spawn in same building as target.
@@ -205,8 +205,6 @@ mission.sqm files modified for versions with RHS in mission name.
 Fixed: error- Cannot create non-ai vehicle rhssaf_army_m10_digital_spec_exp replaced with rhssaf_army_m10_digital_exp
 Fixed: removed aircraft "RHS_Su25SM_KH29_vvsc" and "RHS_Mi8AMTSh_UPK23_vvsc" which currently contain config errors.
 Fixed: removed one of the melb heli classes that no longer exists.
-Fixed: Possibility of foot civilians wapoint count to grow indefinitely.
-Fixed: Possible mixup of eos trigger name between civs and combatants. Does this fix occational unchached AI?
 Added: addon activation for Mk.V SOC, Mig29/L-18, M1220 M1232 type vehicles.
 Added: rhsusf_M1078A1R_SOV_M2_D_fmtv_socom to West Repair Trucks
 Added: new ejection seat from RHS update 0.4.3 to cleanup.
