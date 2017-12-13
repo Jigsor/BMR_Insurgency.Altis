@@ -136,7 +136,7 @@ if (DebugEnabled > 0) then {
 
 	if (INS_SEH_check) then {
 		//Remove any stacked event handler left behind by any mission/rejoin if exists on player. Ideally it should happen once player disconnects or leaves any mission automatically. Shitty work around below. Upvote Issue here: http://feedback.arma3.com/view.php?id=24841
-		//To allow a particular pre-existing stacked event handler from a mod for example, add the name of the key to array StackedEHkeysWhiteList in INS_definitions.sqf and INSfncs\Remedy_SEHs_fnc.sqf.
+		//To allow a particular pre-existing stacked event handler from a mod for example, add the name of the key to array StackedEHkeysWhiteList in INS_definitions.sqf and INSfncs\common\Remedy_SEHs_fnc.sqf.
 		//Detect a stacked EH in debug by type in example line below. indexVarX returns event key string.
 		//_data = missionNameSpace getVariable "BIS_stackedEventhandlers_oneachframe"; indexVarX = _data select count _data - 1;
 		{
@@ -220,6 +220,40 @@ if (DebugEnabled > 0) then {
 			pdammod = INSpDamMul*0.01;
 			player addEventHandler ["HandleDamage",{_damage = (_this select 2)*pdammod;_damage}];
 		};
+	};
+
+	//Temporary door fix untill terrains are updated?
+	if ((toLower (worldName) isEqualTo "kunduz") || (toLower (worldName) isEqualTo "lythium")) then {
+		inGameUISetEventHandler ["action","
+			if (_this select 4 == 'Close Door') then {
+				_intersects = [cursorTarget, 'VIEW'] intersect [ASLToATL eyepos player, (screentoworld [0.5,0.5])];
+				{_intersects pushBack _x} forEach  ([cursorTarget, 'GEOM'] intersect [ASLToATL eyepos player, (screentoworld [0.5,0.5])]);
+				_select_door = format ['%1_rot', (_intersects select 0) select 0];
+				cursorObject animate [_select_door, 0];true
+			};
+			if (_this select 4 == 'Open Door') then {
+				_intersects = [cursorTarget, 'VIEW'] intersect [ASLToATL eyepos player, (screentoworld [0.5,0.5])];
+				{_intersects pushBack _x} forEach  ([cursorTarget, 'GEOM'] intersect [ASLToATL eyepos player, (screentoworld [0.5,0.5])]);
+				_select_door = format ['%1_rot', (_intersects select 0) select 0];
+				cursorObject animate [_select_door, 1];true
+			};
+		"];
+	} else {//inGameUISetEventHandler is not stackable
+		//DLC Vehicle Restriction Bypass
+		inGameUISetEventHandler ["Action","
+			private _obj = cursorTarget;
+			private _appID = getObjectDLC _obj;
+			if (!isNil '_appID') then {
+				if (_appID in (getDLCs 2)) then {
+					private _act = format ['%1', (_this select 4)];
+					if (_obj isKindOf 'Car') then {[_act, _obj] call CarHax};
+					if (_obj isKindOf 'Plane') then {[_act, _obj] call PlaneHax};
+					if (_obj isKindOf 'Helicopter') then {[_act, _obj] call HeliHax};
+					if (_obj isKindOf 'Tank') then {[_act, _obj] call TankHax};
+					if (_obj isKindOf 'ShipHax') then {[_act, _obj] call ShipHax};
+				};
+			};
+		"];
 	};
 
 	// Routines //

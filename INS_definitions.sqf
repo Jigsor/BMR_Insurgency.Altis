@@ -286,7 +286,7 @@ if (isServer) then {
 	objective_list_copy = + objective_list;
 	if (isNil "StructureBlackList") then {StructureBlackList = [];};
 
-	// Detect ASR_AI mod // (If not detected on server then recruit skills are set with function INS_Recruit_skill in INSfncs\client_fncs.sqf.)
+	// Detect ASR_AI mod // (If not detected on server then recruit skills are set with function INS_Recruit_skill in INSfncs\client\client_fncs.sqf.)
 	ASRrecSkill = if (isClass(configFile >> "cfgPatches" >> "asr_ai_main")) then {1}else{0};publicVariable "ASRrecSkill";
 
 	if (isNil "INS_MHQ_killed") then {INS_MHQ_killed = "";};

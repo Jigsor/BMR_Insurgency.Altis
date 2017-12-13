@@ -19,7 +19,7 @@ if (isMultiplayer) then {enableSaving [false, false];};
 if (isMultiplayer) then {
 	if (!hasInterface && !isDedicated) then
 	{
-		call compile preProcessFileLineNumbers "INSfncs\headless_client_fncs.sqf";
+		call compile preProcessFileLineNumbers "INSfncs\hc\headless_client_fncs.sqf";
 		diag_log format ["HEADLESSCLIENT: %1 Connected HEADLESSCLIENT ID: %2", name player, owner player];
 
 		private _enableLogs = true;// set to false to disable logging to headless client(s) .rpt
@@ -49,8 +49,8 @@ if (isMultiplayer) then {
 
 // Common Functions
 call compile preprocessFile "INS_definitions.sqf";
-Remedy_SEHs_fnc = call compile preprocessFile "INSfncs\Remedy_SEHs_fnc.sqf";
-call compile preProcessFileLineNumbers "INSfncs\commom_fncs.sqf";
+Remedy_SEHs_fnc = call compile preprocessFile "INSfncs\common\Remedy_SEHs_fnc.sqf";
+call compile preProcessFileLineNumbers "INSfncs\common\commom_fncs.sqf";
 call compile preprocessFile "=BTC=_TK_punishment\=BTC=_tk_init.sqf";
 if (INS_p_rev < 4) then {
 	call compile preprocessFile "=BTC=_revive\=BTC=_revive_init.sqf";
@@ -214,8 +214,8 @@ nul = ["mission"] execVM "hcam_init.sqf";
 if (isServer) then
 {
 	call compile preprocessFile "init_server.sqf";
-	call compile preprocessFileLineNumbers "INSfncs\AirPatrole_Fncs.sqf";
-	rej_fnc_bezier = compile preProcessFileLineNumbers "INSfncs\rej_fnc_bezier.sqf";
+	call compile preprocessFileLineNumbers "INSfncs\server\AirPatrole_Fncs.sqf";
+	rej_fnc_bezier = compile preProcessFileLineNumbers "INSfncs\server\rej_fnc_bezier.sqf";
 
 	if ((DebugEnabled isEqualTo 1) && (tky_perfmon > 0)) then {
 		if (AI_SpawnDis > 1000) then {
@@ -239,7 +239,7 @@ if (!isDedicated && hasInterface) then
 		waitUntil {!isNull player && player == player};
 		#include "add_diary.sqf"
 		if (DebugEnabled isEqualTo 0) then {["BIS_ScreenSetup", false] call BIS_fnc_blackOut;};
-		call compile preprocessFile "INSfncs\client_fncs.sqf";
+		call compile preprocessFile "INSfncs\client\client_fncs.sqf";
 		call compile preprocessFile "ATM_airdrop\functions.sqf";
 
 		player sideChat localize "STR_BMR_loading";

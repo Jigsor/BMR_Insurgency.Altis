@@ -11,7 +11,7 @@ BTC_assign_actions = {
 		ReviveAcc_id =
 		[
 			player,
-			"First aid",
+			(localize "str_a3_cfgrespawntemplates_revive_displayname"),
 			"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_revive_ca.paa",
 			"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_reviveMedic_ca.paa",
 			"[] call BTC_check_action_first_aid",

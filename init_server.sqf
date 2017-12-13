@@ -1,7 +1,7 @@
 // init_server.sqf by Jigsor //
 
 // Server Functions //
-call compile preprocessFileLineNumbers "INSfncs\server_fncs.sqf";
+call compile preprocessFileLineNumbers "INSfncs\server\server_fncs.sqf";
 
 // Weather //
 if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {

@@ -6,5 +6,7 @@ class BMRINS
 		class airLoadoutDefs {preInit = 1;};
 		class replacePylons {preInit = 1;};
 		class reinstateSensors {preInit = 1;};
+		class civVehTextureGlobal {};
+		class setPlate {};
 	};
 };

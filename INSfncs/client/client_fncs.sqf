@@ -671,16 +671,15 @@ JIG_map_click = {
 
 		["Reward_mapclick","onMapSingleClick", {
 
-			private ["_nearestRoad","_roads","_marker"];
 			if (isOnRoad _pos) then {
-				_nearestRoad = objNull;
-				_roads = _pos nearRoads 15;
+				private _nearestRoad = objNull;
+				private _roads = _pos nearRoads 15;
 				if (count _roads > 0) then {
 					_nearestRoad = ([_roads,[],{_pos distance _x},"ASCEND"] call BIS_fnc_sortBy) select 0;
 				};
 			};
 
-			_marker=createMarkerLocal ["VehDrop", _pos];
+			private _marker=createMarkerLocal ["VehDrop", _pos];
 			"VehDrop" setMarkerShapeLocal "ICON";
 			"VehDrop" setMarkerSizeLocal [1, 1];
 			"VehDrop" setMarkerTypeLocal "mil_dot";
@@ -710,9 +709,8 @@ JIG_map_click = {
 INS_AI_revive = {
 	// Initialize =BTC= Quick Revive for all group members including AI by Jigsor.
 	if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
-		private ["_pA","_aiA"];
-		_pA = [];
-		_aiA = [];
+		private _pA = [];
+		private _aiA = [];
 		_grp = group player;
 
 		if (count bon_recruit_queue > 0) then { waitUntil {sleep 1; count bon_recruit_queue < 1}; };
@@ -773,19 +771,17 @@ INS_UI_pref = {
 };
 INS_aiHalo = {
 	// AI halo based on/uses functions from ATM_airdrop.
-	private ["_target","_loadout","_target","_halo_pos","_jumpAlt","_openChuteAlt","_freefall","_headgear","_back_pack","_back_pack_items","_back_pack_weap","_back_pack_maga"];
-	_target = _this select 0;
-	_halo_pos = _this select 1;
-	_openChuteAlt = 75;//This does not work in Arma 3 as of v1.5. AI will open chute at 150m.
-	_jumpAlt = 450;
-	_freefall = true;
-	_loadout = [];
-	_headgear = headgear _target;
-	_back_pack = backpack _target;
-	_back_pack_items = getItemCargo (unitBackpack _target);
-	_back_pack_weap = getWeaponCargo (unitBackpack _target);
-	_back_pack_maga = getMagazineCargo (unitBackpack _target);
-	_loadout = [_headgear, _back_pack, _back_pack_items, _back_pack_weap, _back_pack_maga];
+	params ["_target","_halo_pos"];
+	private _openChuteAlt = 75;//This does not work in Arma 3 as of v1.5. AI will open chute at 150m.
+	private _jumpAlt = 450;
+	private _freefall = true;
+	private _loadout = [];
+	private _headgear = headgear _target;
+	private _back_pack = backpack _target;
+	private _back_pack_items = getItemCargo (unitBackpack _target);
+	private _back_pack_weap = getWeaponCargo (unitBackpack _target);
+	private _back_pack_maga = getMagazineCargo (unitBackpack _target);
+	private _loadout = [_headgear, _back_pack, _back_pack_items, _back_pack_weap, _back_pack_maga];
 
 	0=[_target] call Frontpack;
 
@@ -829,22 +825,22 @@ mhq_actions2_fnc = {
 };
 INS_MHQ_mkr = {
 	// Tracking MHQ marker by Jigsor.
-	params ["_mhq","_op4","_mhqPos","_mkrName","_color","_mkr"];
+	params ["_mhq","_op4","_mhqPos"];
 
 	if (_mhq isEqualTo objNull) exitWith {hint format ["Mobile Headquarters %1 does not exist", _mhq]};
 	if (vehicleVarName _mhq != "") then {
-		_mkrName = vehicleVarName _mhq;
+		private _mkrName = vehicleVarName _mhq;
 	}else{
-		_mkrName = format ["%1", _mhq];
+		private _mkrName = format ["%1", _mhq];
 	};
 	if ((_op4 isEqualTo TRUE) && {(_mkrName isEqualTo "Opfor_MHQ")}) then {
-		_color = "ColorRed";
+		private _color = "ColorRed";
 	}else{
-		_color = "ColorGreen";
+		private _color = "ColorGreen";
 	};
 
 	deleteMarkerLocal _mkrName;
-	_mkr = createMarkerLocal [_mkrName, _mhqPos];
+	private _mkr = createMarkerLocal [_mkrName, _mhqPos];
 	_mkr setMarkerTypeLocal "mil_dot";
 	_mkr setMarkerTextLocal _mkrName;
 	_mkr setMarkerColorLocal _color;
@@ -931,4 +927,121 @@ JIG_dsClear = {
 	_ppe ppEffectEnable true;
 	enableEnvironment [(environmentEnabled select 0), true];//Ambient sound On
 	hintSilent localize "STR_BMR_DustStorm_Off";
+};
+CarHax = {
+	params ["_action","_veh"];
+	private _p = player;
+	switch (_action) do {
+		//Prowler Unarmed
+		case "Get in Prowler (Unarmed) as Driver": {_p moveInDriver _veh};
+		case "Get in Prowler (Unarmed) as Gunner": {_p moveInTurret [_veh, [5]]};
+		//Prowler Armed
+		case "Get in Prowler (Armed) as Driver": {_p moveInDriver _veh};
+		case "Get in Prowler (Armed) as Gunner": {_p moveInTurret [_veh, [0]]};
+		//Qilin Armed
+		case "Get in Qilin (Armed) as Driver": {_p moveInDriver _veh};
+		case "Get in Qilin (Armed) as Gunner": {_p moveInTurret [_veh, [0]]};
+		//Qilin Unarmed
+		case "Get in Qilin (Unarmed) as Driver": {_p moveInDriver _veh};
+		case "Get in Qilin (Unarmed) as Gunner": {_p moveInTurret [_veh, [5]]};
+		//Prowler Light
+		case "Get in Prowler (Light) as Driver": {_p moveInDriver _veh};
+		//Van Ambulance
+		case "Get in Van (Ambulance) as Driver": {_p moveInDriver _veh};
+		//Van Cargo
+		case "Get in Van (Cargo) as Driver": {_p moveInDriver _veh};
+		//Van Services
+		case "Get in Van (Services) as Driver": {_p moveInDriver _veh};
+		//Van Transport
+		case "Get in Van Transport as Driver": {_p moveInDriver _veh};
+		//MB 4WD
+		case "Get in MB 4WD as Driver": {_p moveInDriver _veh};
+		//Karts
+		case "Get in Kart as Driver": {_p moveInDriver _veh};
+		case "Get in Kart (Fuel) as Driver": {_p moveInDriver _veh};
+		default {};
+	};
+};
+PlaneHax = {
+	params ["_action","_veh"];
+	private _p = player;
+	switch (_action) do {
+		//Black Wasp
+		case "Get in F/A-181 Black Wasp II as Pilot": {_p moveInDriver _veh};
+		//Black Wasp Stealth
+		case "Get in F/A-181 Black Wasp II (Stealth) as Pilot": {_p moveInDriver _veh};
+		//Shikra
+		case "Get in To-201 Shikra as Pilot": {_p moveInDriver _veh};
+		//Shikra Stealth
+		case "Get in To-201 Shikra (Stealth) as Pilot": {_p moveInDriver _veh};
+		//Gryphon
+		case "Get in A-149 Gryphon as Pilot": {_p moveInDriver _veh};
+		//Blackfish Armed
+		case "Get in V-44 X Blackfish (Armed) as Pilot": {_p moveInDriver _veh};
+		case "To Pilot's seat": {_p moveInDriver _veh};
+		case "Get in V-44 X Blackfish (Armed) as Copilot": {_p moveInTurret [_veh, [0]]};
+		case "To Copilot's seat": {_p moveInTurret [_veh, [0]]};
+		case "Get in V-44 X Blackfish (Armed) as Left door gunner": {_p moveInTurret [_veh, [1]]};
+		case "To Left door gunner's seat": {_p moveInTurret [_veh, [1]]};
+		case "Get in V-44 X Blackfish (Armed) as Right door gunner": {_p moveInTurret [_veh, [2]]};
+		case "To Right door gunner's seat": {_p moveInTurret [_veh, [2]]};
+		//Blackfish Vehicle Transport
+		case "Get in V-44 X Blackfish (Vehicle Transport) as Pilot": {_p moveInDriver _veh};
+		case "To Pilot's seat": {_p moveInDriver _veh};
+		case "Get in V-44 X Blackfish (Vehicle Transport) as Copilot": {_p moveInTurret [_veh, [0]]};
+		case "To Copilot's seat": {_p moveInTurret [_veh, [0]]};
+		case "Get in V-44 X Blackfish (Vehicle Transport) as Passenger (Left Seat)": {_p moveInTurret [_veh, [1]]};
+		case "To Passenger (Left Seat)'s seat": {_p moveInTurret [_veh, [1]]};
+		case "Get in V-44 X Blackfish (Vehicle Transport) as Passenger (Right Seat)": {_p moveInTurret [_veh, [2]]};
+		case "To Passenger (Right Seat)'s seat": {_p moveInTurret [_veh, [2]]};
+		//Y-32 Xi'an Infantry Transport
+		case "Get in Y-32 Xi'an (Infantry Transport) as Pilot": {_p moveInDriver _veh};
+		case "Get in Y-32 Xi'an (Infantry Transport) as Gunner": {_p moveInTurret [_veh, [0]]};
+		//Y-32 Xi'an Vehicle Transport
+		case "Get in Y-32 Xi'an (Vehicle Transport) as Pilot": {_p moveInDriver _veh};
+		case "Get in Y-32 Xi'an (Vehicle Transport) as Gunner": {_p moveInTurret [_veh, [0]]};
+		default {};
+	};
+};
+HeliHax = {
+	params ["_action","_veh"];
+	private _p = player;
+	switch (_action) do {
+		//Armed Huron
+		case "Get in CH-67 Huron as Pilot": {_p moveInDriver _veh};
+		case "Get in CH-67 Huron as Copilot": {_p moveInTurret [_veh, [0]]};
+		case "Get in CH-67 Huron as Left door gunner": {_p moveInTurret [_veh, [1]]};
+		case "Get in CH-67 Huron as Right door gunner": {_p moveInTurret [_veh, [2]]};
+		//Huron Unarmed
+		case "Get in CH-67 Huron (Unarmed) as Pilot": {_p moveInDriver _veh};
+		case "Get in CH-67 Huron (Unarmed) as Copilot": {_p moveInTurret [_veh, [0]]};
+		//Taru Bench
+		case "Get in Mi-290 Taru (Bench) as Pilot": {_p moveInDriver _veh};
+		case "Get in Mi-290 Taru (Bench) as Copilot": {_p moveInTurret [_veh, [0]]};
+		case "Get in Mi-290 Taru (Bench) as Loadmaster": {_p moveInTurret [_veh, [1]]};
+		//Taru
+		case "Get in Mi-290 Taru as Pilot": {_p moveInDriver _veh};
+		case "Get in Mi-290 Taru as Copilot": {_p moveInTurret [_veh, [0]]};
+		case "Get in Mi-290 Taru as Loadmaster": {_p moveInTurret [_veh, [1]]};
+		default {};
+	};
+};
+TankHax = {
+	params ["_action","_veh"];
+	private _p = player;
+	switch (_action) do {
+		default {};
+	};
+};
+ShipHax = {
+	params ["_action","_veh"];
+	private _p = player;
+	switch (_action) do {
+		//SeaDoo
+		case "Get in Water Scooter as Driver": {_p moveInDriver _veh};
+		case "Get in Water Scooter Ride in back": {_p moveInCargo _veh};
+		//RHIB
+		case "Get in RHIB as Driver": {_p moveInDriver _veh};
+		default {};
+	};
 };

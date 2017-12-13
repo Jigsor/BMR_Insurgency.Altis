@@ -100,6 +100,8 @@ player createDiaryRecord ["Diary", ["INFO","
 	-------------------
 	<br />Vehicles from base will respawn if destroyed. All Blufor Mobile Head Quarters have Virtual Arsenal. Opfor MHQ has deploy option to move ammo crates to MHQ location. The Bobcat can Tow other vehicles. GhostHawks can lift light vehicles. Mohawk and Huron can lift heavy and light vehicles. Earn a Vehicle Reward of any type by destroying an ammo cache if Enemy Armor Probability parameter is set above 0%. After destroying ammo cache, scroll and click Vehicle Reward action. Mapclick desired position for reward. Wait until vehicle icon appears in top left corner. Click icon to view full list of available vehicles. Scroll then click on vehicle to view some information about it. After selection click close button and look for Vehicle Reward map marker to find the vehicle. You may postpone reward at vehicle menu by pressing escape. Be warned if you die before you spawn the vehicle you will loose the reward action.
 	<br />
+	<br />Non DLC owner can enter driver or gunner of most DLC vehicles without restriction - complete vehicle list is W.I.P.
+	<br />
 	-------------------
 	<br />-- Respawn --
 	<br />

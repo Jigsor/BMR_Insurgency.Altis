@@ -25,7 +25,7 @@ if (_mA==1) then {_mAH = 0;_mAN = 0;};
 if (_mA==2) then {_mAH = 0.5;_mAN = 0.5;};
 
 // INITIATE ZONE
-_trig=format ["EOSTrigger%1",_mkr];
+_trig=format ["EOScivTrig%1",_mkr];
 
 if (!_cache) then {
 	if ismultiplayer then {
@@ -66,7 +66,7 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 	for "_counter" from 1 to _aGrps do {
 		if (isnil "_aGrp") then {_aGrp=[];};
 		if (_cache) then {
-			_cacheGrp=format ["HP%1",_counter];
+			_cacheGrp=format ["CHP%1",_counter];
 			_units=_eosActivated getvariable _cacheGrp;
 			_aSize=[_units,_units];
 			_aMin=_aSize select 0;
@@ -89,7 +89,7 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 	for "_counter" from 1 to _bGrps do {
 		if (isnil "_bGrp") then {_bGrp=[];};
 		if (_cache) then {
-			_cacheGrp=format ["PA%1",_counter];
+			_cacheGrp=format ["CPA%1",_counter];
 			_units=_eosActivated getvariable _cacheGrp;
 			_bSize=[_units,_units];
 			_bMin=_bSize select 0;
@@ -220,7 +220,7 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 			if (!isnil "_bGrp") then {
 				_n=0;
 				{
-					_n=_n+1;_units={alive _x} count units _x;_cacheGrp=format ["PA%1",_n];
+					_n=_n+1;_units={alive _x} count units _x;_cacheGrp=format ["CPA%1",_n];
 					if (_debug) then{player sidechat format ["ID:%1,cache - %2",_cacheGrp,_units];};
 					_eosActivated setvariable [_cacheGrp,_units];
 					{deleteVehicle _x} foreach units _x;deleteGroup _x;
@@ -231,7 +231,7 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 			if (!isnil "_aGrp") then {
 				_n=0;
 				{
-					_n=_n+1;_units={alive _x} count units _x;_cacheGrp=format ["HP%1",_n];
+					_n=_n+1;_units={alive _x} count units _x;_cacheGrp=format ["CHP%1",_n];
 					if (_debug) then{player sidechat format ["ID:%1,cache - %2",_cacheGrp,_units];};
 					_eosActivated setvariable [_cacheGrp,_units];
 					{deleteVehicle _x} foreach units _x;deleteGroup _x;

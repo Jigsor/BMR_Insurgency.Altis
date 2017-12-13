@@ -158,35 +158,30 @@ Optional Reccomended Mods:
 	This mod adds extra functionality to Zeus and can be installed on client only.
 
 Handy commands for logged in Administrators or local Hosts of BMR Insurgency through debug console (escape key):
-	1. To give yourself a vehicle reward execute local:
-			player spawn INS_Vehicle_Reward;
-	2. To change time on the fly substitute 8 to desired number of hours and execute on server:
+	1. To change time on the fly substitute 8 to desired number of hours and execute on server:
 			skiptime + 8;
-	3. To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
-		To activate brighter nights execute global:
-			[3] call INS_Brighter_Nights;
-		To deactivate brighter nights execute global:
-			[1] call INS_Brighter_Nights;
-	4. Give yourself action to reveal all units on the map up to 1000 meter radius for 15 seconds. Adjust these parameters as you see fit. Execute local:
-			player addAction["Reveal All Units","scripts\Reveal_Marker.sqf", [1000,15], 1, false, true, "", "true"];
-	5. Become Zeus. Run code once to create/become Zeus. Run code again to remove yourself from Zeus. This is handy to unload the the AI you created from your machine to the server and is a very unique way to handling client load caused by Zeus. Control + Y to open/close interface. Change true to false to bypass announcement.
-		Caution using this command durring high AI/object counts because it causes high network traffic for a few moments and requires much network syncronization. Best to use durring lulls or not to often.
-		Execute local:
-			[player,true] spawn INS_Zeus_MP;
+	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
+			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access). 
 
-
-12/2/2017
+12/12/2017
 BMR_Insurgency_v1.48_beta
 	Added: Dust Storm script.
-	Added: Admin briefing section with buttons for Zeus, Brighter Nights, Filp Vehicle, Dust Storms and Vehicle Reward.	
+	Added: Admin briefing section with buttons for Zeus, Brighter Nights, Filp Vehicle, Dust Storms and Vehicle Reward.
 	Added: Reassinging damage event handlers to AI on locality changed when unassigning zeus from yourself.
-	Added: chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
+	Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
+	Added: Temporary fix foor broken door actions in Lythium and Kunduz;
+	Added: Non owner work around for entering driver and turrets in DLC vehicles.(Currently only affects English A3 versioned owners).
+	Added: Globalization of civilian vehicle textures in Civilian Traffic. (everyone sees the same texure/color now).
+	Added: Support of custom licence plates.(new command currently in Dev Branch).
 	Change: Increased delay loop for suicide bomber and now suicide bomber can no longer spawn in same building as target.
 	Change: Shortening group spawn delay on capture N hold depending on defender count size and server fps for higher intensity.
 	Change: Option Environment effects (ambient life + sound) removed from lobby and replaced by button for ambient life in Y menu.
 	Change: Redesigned Y button GUI menu.
 	Change: Many code efficiency tweaks.
 	Change: Added new IED system wich can be detected with IED detector. Old or new sytem can be selected in lobby.
+	Change: Replaced "First Aid" action with A3 Nexus localization of "Revive".
+	Change: W.I.P. - reorganization of functions.
+	Change: Switched to hmd command for removal and replacement of NVGs in eos.
 	Fixed: Several MP/dedicated server issues in heli group extraction.
 	Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.
 	Fixed: Some Russian translations.
@@ -205,6 +200,8 @@ mission.sqm files modified for versions with RHS in mission name.
 Fixed: error- Cannot create non-ai vehicle rhssaf_army_m10_digital_spec_exp replaced with rhssaf_army_m10_digital_exp
 Fixed: removed aircraft "RHS_Su25SM_KH29_vvsc" and "RHS_Mi8AMTSh_UPK23_vvsc" which currently contain config errors.
 Fixed: removed one of the melb heli classes that no longer exists.
+Fixed: Possibility of foot civilians wapoint count to grow indefinitely.
+Fixed: Possible mixup of eos trigger name between civs and combatants. Does this fix occational unchached AI?
 Added: addon activation for Mk.V SOC, Mig29/L-18, M1220 M1232 type vehicles.
 Added: rhsusf_M1078A1R_SOV_M2_D_fmtv_socom to West Repair Trucks
 Added: new ejection seat from RHS update 0.4.3 to cleanup.

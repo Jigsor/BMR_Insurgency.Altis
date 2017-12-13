@@ -99,6 +99,8 @@ MAD_spawnCar = {
 		_spawncar setvariable ["MAD_car_driver", _driver];
 		(group _driver) setVariable ["zbe_cacheDisabled",true];
 
+		[_spawncar] call BMRINS_fnc_civVehTextureGlobal;
+		//[_spawncar] call BMRINS_fnc_setPlate;
 		[leader _sqname] call MAD_carWaypoint;
 	};
 };

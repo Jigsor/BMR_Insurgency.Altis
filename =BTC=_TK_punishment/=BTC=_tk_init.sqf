@@ -56,8 +56,8 @@ BTC_Teamkill = {
 		};
 		case (BTC_teamkiller > BTC_tk_blackscreen_punishment && BTC_teamkiller <= BTC_tk_last_warning) : 
 		{
-			private ["_n","_msg"];
-			_msg = "";
+			playSound "boo";//Jig adding
+			private _msg = "";
 			disableUserInput true;
 			if (BTC_teamkiller == BTC_tk_last_warning) then
 			{
@@ -66,8 +66,7 @@ BTC_Teamkill = {
 				_msg = "YOU HAVE BEEN PUNISHED FOR TEAMKILLING!";
 			};
 			player setPos [0,0,0];
-			playSound "boo";//Jig adding
-			_n = 0;
+			private _n = 0;
 			while {_n < 60} do
 			{
 				titleText [_msg,"BLACK FADED"];
