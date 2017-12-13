@@ -932,31 +932,20 @@ CarHax = {
 	params ["_action","_veh"];
 	private _p = player;
 	switch (_action) do {
-		//Prowler Unarmed
 		case "Get in Prowler (Unarmed) as Driver": {_p moveInDriver _veh};
 		case "Get in Prowler (Unarmed) as Gunner": {_p moveInTurret [_veh, [5]]};
-		//Prowler Armed
 		case "Get in Prowler (Armed) as Driver": {_p moveInDriver _veh};
 		case "Get in Prowler (Armed) as Gunner": {_p moveInTurret [_veh, [0]]};
-		//Qilin Armed
 		case "Get in Qilin (Armed) as Driver": {_p moveInDriver _veh};
 		case "Get in Qilin (Armed) as Gunner": {_p moveInTurret [_veh, [0]]};
-		//Qilin Unarmed
 		case "Get in Qilin (Unarmed) as Driver": {_p moveInDriver _veh};
 		case "Get in Qilin (Unarmed) as Gunner": {_p moveInTurret [_veh, [5]]};
-		//Prowler Light
 		case "Get in Prowler (Light) as Driver": {_p moveInDriver _veh};
-		//Van Ambulance
 		case "Get in Van (Ambulance) as Driver": {_p moveInDriver _veh};
-		//Van Cargo
 		case "Get in Van (Cargo) as Driver": {_p moveInDriver _veh};
-		//Van Services
 		case "Get in Van (Services) as Driver": {_p moveInDriver _veh};
-		//Van Transport
 		case "Get in Van Transport as Driver": {_p moveInDriver _veh};
-		//MB 4WD
 		case "Get in MB 4WD as Driver": {_p moveInDriver _veh};
-		//Karts
 		case "Get in Kart as Driver": {_p moveInDriver _veh};
 		case "Get in Kart (Fuel) as Driver": {_p moveInDriver _veh};
 		default {};
@@ -966,17 +955,11 @@ PlaneHax = {
 	params ["_action","_veh"];
 	private _p = player;
 	switch (_action) do {
-		//Black Wasp
 		case "Get in F/A-181 Black Wasp II as Pilot": {_p moveInDriver _veh};
-		//Black Wasp Stealth
 		case "Get in F/A-181 Black Wasp II (Stealth) as Pilot": {_p moveInDriver _veh};
-		//Shikra
 		case "Get in To-201 Shikra as Pilot": {_p moveInDriver _veh};
-		//Shikra Stealth
 		case "Get in To-201 Shikra (Stealth) as Pilot": {_p moveInDriver _veh};
-		//Gryphon
 		case "Get in A-149 Gryphon as Pilot": {_p moveInDriver _veh};
-		//Blackfish Armed
 		case "Get in V-44 X Blackfish (Armed) as Pilot": {_p moveInDriver _veh};
 		case "To Pilot's seat": {_p moveInDriver _veh};
 		case "Get in V-44 X Blackfish (Armed) as Copilot": {_p moveInTurret [_veh, [0]]};
@@ -985,7 +968,6 @@ PlaneHax = {
 		case "To Left door gunner's seat": {_p moveInTurret [_veh, [1]]};
 		case "Get in V-44 X Blackfish (Armed) as Right door gunner": {_p moveInTurret [_veh, [2]]};
 		case "To Right door gunner's seat": {_p moveInTurret [_veh, [2]]};
-		//Blackfish Vehicle Transport
 		case "Get in V-44 X Blackfish (Vehicle Transport) as Pilot": {_p moveInDriver _veh};
 		case "To Pilot's seat": {_p moveInDriver _veh};
 		case "Get in V-44 X Blackfish (Vehicle Transport) as Copilot": {_p moveInTurret [_veh, [0]]};
@@ -994,12 +976,14 @@ PlaneHax = {
 		case "To Passenger (Left Seat)'s seat": {_p moveInTurret [_veh, [1]]};
 		case "Get in V-44 X Blackfish (Vehicle Transport) as Passenger (Right Seat)": {_p moveInTurret [_veh, [2]]};
 		case "To Passenger (Right Seat)'s seat": {_p moveInTurret [_veh, [2]]};
-		//Y-32 Xi'an Infantry Transport
 		case "Get in Y-32 Xi'an (Infantry Transport) as Pilot": {_p moveInDriver _veh};
 		case "Get in Y-32 Xi'an (Infantry Transport) as Gunner": {_p moveInTurret [_veh, [0]]};
-		//Y-32 Xi'an Vehicle Transport
 		case "Get in Y-32 Xi'an (Vehicle Transport) as Pilot": {_p moveInDriver _veh};
 		case "Get in Y-32 Xi'an (Vehicle Transport) as Gunner": {_p moveInTurret [_veh, [0]]};
+		case "Get in Caesar BTT as Pilot": {_p moveInDriver _veh};
+		case "Get in Caesar BTT as Copilot": {_p moveInTurret [_veh, [0]]};
+		case "Get in Caesar BTT (Racing) as Pilot": {_p moveInDriver _veh};
+		case "Get in Caesar BTT (Racing) as Copilot": {_p moveInTurret [_veh, [0]]};
 		default {};
 	};
 };
@@ -1007,19 +991,15 @@ HeliHax = {
 	params ["_action","_veh"];
 	private _p = player;
 	switch (_action) do {
-		//Armed Huron
 		case "Get in CH-67 Huron as Pilot": {_p moveInDriver _veh};
 		case "Get in CH-67 Huron as Copilot": {_p moveInTurret [_veh, [0]]};
 		case "Get in CH-67 Huron as Left door gunner": {_p moveInTurret [_veh, [1]]};
 		case "Get in CH-67 Huron as Right door gunner": {_p moveInTurret [_veh, [2]]};
-		//Huron Unarmed
 		case "Get in CH-67 Huron (Unarmed) as Pilot": {_p moveInDriver _veh};
 		case "Get in CH-67 Huron (Unarmed) as Copilot": {_p moveInTurret [_veh, [0]]};
-		//Taru Bench
 		case "Get in Mi-290 Taru (Bench) as Pilot": {_p moveInDriver _veh};
 		case "Get in Mi-290 Taru (Bench) as Copilot": {_p moveInTurret [_veh, [0]]};
 		case "Get in Mi-290 Taru (Bench) as Loadmaster": {_p moveInTurret [_veh, [1]]};
-		//Taru
 		case "Get in Mi-290 Taru as Pilot": {_p moveInDriver _veh};
 		case "Get in Mi-290 Taru as Copilot": {_p moveInTurret [_veh, [0]]};
 		case "Get in Mi-290 Taru as Loadmaster": {_p moveInTurret [_veh, [1]]};
@@ -1037,10 +1017,8 @@ ShipHax = {
 	params ["_action","_veh"];
 	private _p = player;
 	switch (_action) do {
-		//SeaDoo
 		case "Get in Water Scooter as Driver": {_p moveInDriver _veh};
 		case "Get in Water Scooter Ride in back": {_p moveInCargo _veh};
-		//RHIB
 		case "Get in RHIB as Driver": {_p moveInDriver _veh};
 		default {};
 	};

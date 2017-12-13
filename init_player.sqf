@@ -243,15 +243,13 @@ if (DebugEnabled > 0) then {
 		inGameUISetEventHandler ["Action","
 			private _obj = cursorTarget;
 			private _appID = getObjectDLC _obj;
-			if (!isNil '_appID') then {
-				if (_appID in (getDLCs 2)) then {
-					private _act = format ['%1', (_this select 4)];
-					if (_obj isKindOf 'Car') then {[_act, _obj] call CarHax};
-					if (_obj isKindOf 'Plane') then {[_act, _obj] call PlaneHax};
-					if (_obj isKindOf 'Helicopter') then {[_act, _obj] call HeliHax};
-					if (_obj isKindOf 'Tank') then {[_act, _obj] call TankHax};
-					if (_obj isKindOf 'ShipHax') then {[_act, _obj] call ShipHax};
-				};
+			if (!isNil '_appID' && {_appID in getDLCs 2}) then {
+				private _act = format ['%1', (_this select 4)];
+				if (_obj isKindOf 'Car') then {[_act, _obj] call CarHax};
+				if (_obj isKindOf 'Plane') then {[_act, _obj] call PlaneHax};
+				if (_obj isKindOf 'Helicopter') then {[_act, _obj] call HeliHax};
+				if (_obj isKindOf 'Tank') then {[_act, _obj] call TankHax};
+				if (_obj isKindOf 'Ship') then {[_act, _obj] call ShipHax};
 			};
 		"];
 	};
