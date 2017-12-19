@@ -6,10 +6,9 @@
 #define STR_FAST_ROPE "Fast Rope"
 #define STR_CUT_ROPES "Cut Ropes"
 
-if (isdedicated) exitwith {};
-if (IamHC) exitwith {};
+if (isDedicated || IamHC) exitwith {};
 
-waituntil {player == player};
+waituntil {!isNull player && player == player};
 
 zlt_rope_ropes = [];
 zlt_mutexAction = false;
@@ -147,7 +146,8 @@ zlt_fnc_fastropeUnit = {
 	_ropes = (_veh getVariable ["zlt_ropes", []]);
 	if (count _ropes == 0) exitWith {};
 	_ropeSel = selectRandom _ropes;
-	_unit action ["Eject",_veh];
+	//_unit action ["Eject",_veh];
+	_unit action ["getOut",_veh];
 	sleep 0.5;
 	_unit leaveVehicle _veh;
 	moveOut _unit;

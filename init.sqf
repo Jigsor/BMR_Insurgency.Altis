@@ -23,7 +23,8 @@ if (isMultiplayer) then {
 		diag_log format ["HEADLESSCLIENT: %1 Connected HEADLESSCLIENT ID: %2", name player, owner player];
 
 		[] spawn {
-			waitUntil {time > 3 && !isNil "all_eos_mkrs"};
+			if (!isJIP) then {waitUntil {time > 3};};
+			waitUntil {!isNil "all_eos_mkrs"};
 			if (INS_mod_missing) then {[] spawn INS_missing_mods};
 			if (INS_persistence isEqualTo 0) then {profileNamespace setVariable ["BMR_INS_progress", []]};
 
@@ -205,11 +206,11 @@ switch (INS_op_faction) do {
 		} else {INS_mod_missing = true;};
 	};
 };
-if (isServer) then {if (CiviFoot isEqualTo 1) then {[]execVM "eos_civ\OpenMeCiv.sqf";};};// Civilians
+if (isServer && {CiviFoot isEqualTo 1}) then {[]execVM "eos_civ\OpenMeCiv.sqf"};// Civilians
 
 // Common Scripts
 execVM "Objectives\shk_taskmaster.sqf";
-if (JigHeliExtraction isEqualTo 1) then {if (!IamHC) then {null = [] execVM "JIG_EX\extraction_init.sqf";};};
+if ((JigHeliExtraction isEqualTo 1) && {!IamHC}) then {null = [] execVM "JIG_EX\extraction_init.sqf"};
 if (CiviMobiles > 0) then {[CiviMobiles, 400, 500] execVM "scripts\MAD_traffic.sqf"};
 if (INS_logistics > 0) then {_logistic = execVM "=BTC=_Logistic\=BTC=_logistic_init.sqf"};
 if (INS_logistics > 1) then {[] execVM "scripts\fn_advancedSlingLoadingInit.sqf"};
