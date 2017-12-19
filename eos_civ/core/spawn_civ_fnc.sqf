@@ -15,7 +15,7 @@ EOS_Civ_Deactivate = {
 	private ["_mkr"];
 		_mkr=(_this select 0);
 	{
-		_x setmarkercolor "colorblack";
+		_x setmarkercolor "colorBlack";
 		_x setmarkerAlpha 0;
 	}foreach _mkr;
 };

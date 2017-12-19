@@ -21,7 +21,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerSize [2, 2];
 "ObjectiveMkr" setMarkerShape "ICON";
 "ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "ColorRed";
+"ObjectiveMkr" setMarkerColor "colorRed";
 "ObjectiveMkr" setMarkerText "Eliminate Leader";
 
 _bunker = createVehicle [_type, _newZone, [], 0, "NONE"];

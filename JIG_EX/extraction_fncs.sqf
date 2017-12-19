@@ -34,7 +34,7 @@ extraction_pos_fnc = {
 		"tempPUmkr" setMarkerSize [1, 1];
 		"tempPUmkr" setMarkerShape "ICON";
 		"tempPUmkr" setMarkerType "mil_dot";
-		"tempPUmkr" setMarkerColor "ColorOrange";
+		"tempPUmkr" setMarkerColor "colorOrange";
 		"tempPUmkr" setMarkerText "Extraction Position";
 		[[[_mkr],east],"Hide_Mkr_fnc",EAST] spawn BIS_fnc_MP;
 
@@ -78,7 +78,7 @@ drop_off_pos_fnc = {
 		"tempDropMkr" setMarkerSize [1, 1];
 		"tempDropMkr" setMarkerShape "ICON";
 		"tempDropMkr" setMarkerType "mil_dot";
-		"tempDropMkr" setMarkerColor "ColorOrange";
+		"tempDropMkr" setMarkerColor "colorOrange";
 		"tempDropMkr" setMarkerText "Drop Off Position";
 		[[[_tempPUmkr2],east],"Hide_Mkr_fnc",EAST] spawn BIS_fnc_MP;
 
@@ -104,7 +104,7 @@ Evac_Spawn_Loc = {
 	"EvacSpawnMkr" setMarkerSize [1, 1];
 	"EvacSpawnMkr" setMarkerShape "ICON";
 	"EvacSpawnMkr" setMarkerType "Empty";
-	"EvacSpawnMkr" setMarkerColor "ColorRed";
+	"EvacSpawnMkr" setMarkerColor "colorRed";
 	"EvacSpawnMkr" setMarkerText "Evac Spawn Pos";
 	"EvacSpawnMkr" setMarkerPos [(getMarkerPos "tempPUmkr" select 0) + (JIG_EX_Spawn_Dis * sin floor(random 360)), (getMarkerPos "tempPUmkr" select 1) + (JIG_EX_Spawn_Dis * cos floor(random 360)), 0];
 	_mkrPos = getMarkerPos "EvacSpawnMkr";

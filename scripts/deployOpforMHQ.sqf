@@ -50,7 +50,7 @@ INS_sup_Cbox setPos _pos6;
 _op4MHQ = createMarker ["OpforWeapons", _newPosAmmo];
 _op4MHQ setMarkerShape "ICON";
 _op4MHQ setMarkerType "b_hq";
-_op4MHQ setMarkerColor "ColorRed";
+_op4MHQ setMarkerColor "colorRed";
 _op4MHQ setMarkerText _mark;
 _op4MHQ setMarkerSize [0.5, 0.5];
 [[[_op4MHQ],INS_Blu_side],"Hide_Mkr_fnc",true] call BIS_fnc_MP;

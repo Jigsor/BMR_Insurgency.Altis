@@ -55,7 +55,7 @@ ATM_Jump_mapclick = if(true) then{
 	call compile format ['
 	mkr_halo = createmarker ["mkr_halo", ATM_Jump_Clickpos];
 	"mkr_halo" setMarkerTypeLocal "hd_dot";
-	"mkr_halo" setMarkerColorLocal "ColorGreen";
+	"mkr_halo" setMarkerColorLocal "colorGreen";
 	"mkr_halo" setMarkerTextLocal "Jump";'];
 };
 

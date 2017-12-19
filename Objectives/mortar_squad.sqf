@@ -19,7 +19,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerSize [2, 2];
 "ObjectiveMkr" setMarkerShape "ICON";
 "ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "ColorRed";
+"ObjectiveMkr" setMarkerColor "colorRed";
 "ObjectiveMkr" setMarkerText "Mortar Squad";
 
 // Spawn Objective center object
@@ -144,7 +144,7 @@ while {_run} do {
 				_x commandArtilleryFire [_pos, _type, floor (random 5)];
 			} forEach (units mortar_grp);
 		};
-		sleep 20;
+		sleep 22;
 	}else{
 		_run = false;
 	};

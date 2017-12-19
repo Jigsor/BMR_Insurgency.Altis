@@ -42,7 +42,7 @@ Air_Dest_fnc = {
 			"aomkr" setMarkerSize [1, 1];
 			"aomkr" setMarkerShape "ICON";
 			"aomkr" setMarkerType "Empty";//"mil_dot"
-			"aomkr" setMarkerColor "ColorRed";//ColorRedAlpha "ColorRed"
+			"aomkr" setMarkerColor "colorRed";//ColorRedAlpha "ColorRed"
 			"aomkr" setMarkerText "Enemy Occupied";
 			"aomkr" setMarkerPos (getPosATL air_pat_pos);
 
@@ -52,7 +52,7 @@ Air_Dest_fnc = {
 			"cyclewpmrk" setMarkerSize [1, 1];
 			"cyclewpmrk" setMarkerShape "ICON";
 			"cyclewpmrk" setMarkerType "Empty";//"mil_dot"
-			"cyclewpmrk" setMarkerColor "ColorRed";
+			"cyclewpmrk" setMarkerColor "colorRed";
 			"cyclewpmrk" setMarkerText "WPcycle";
 			"cyclewpmrk" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin floor(random 360)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos floor(random 360)), 0];//cycle waypoint distance is _AirWP_span meters from AO marker
 
@@ -65,7 +65,7 @@ Air_Dest_fnc = {
 			"spawnaire" setMarkerSize [1, 1];
 			"spawnaire" setMarkerShape "ICON";
 			"spawnaire" setMarkerType "Empty";//"mil_dot"
-			"spawnaire" setMarkerColor "ColorRed";
+			"spawnaire" setMarkerColor "colorRed";
 			"spawnaire" setMarkerText "SpawnAirEst";
 			"spawnaire" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -300)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -300)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdire = getMarkerPos "spawnaire";
@@ -80,7 +80,7 @@ Air_Dest_fnc = {
 			"spawnairw" setMarkerSize [1, 1];
 			"spawnairw" setMarkerShape "ICON";
 			"spawnairw" setMarkerType "Empty";//"mil_dot"
-			"spawnairw" setMarkerColor "ColorRed";
+			"spawnairw" setMarkerColor "colorRed";
 			"spawnairw" setMarkerText "Retreat";
 			"spawnairw" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -60)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -60)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdirw = getMarkerPos "spawnairw";
@@ -97,7 +97,7 @@ Air_Dest_fnc = {
 			"aomkr" setMarkerSize [1, 1];
 			"aomkr" setMarkerShape "ICON";
 			"aomkr" setMarkerType "Empty";
-			"aomkr" setMarkerColor "ColorRed";
+			"aomkr" setMarkerColor "colorRed";
 			"aomkr" setMarkerText "Enemy Occupied";
 			"aomkr" setMarkerPos (getPosATL air_pat_pos);
 
@@ -106,7 +106,7 @@ Air_Dest_fnc = {
 			"cyclewpmrk" setMarkerSize [1, 1];
 			"cyclewpmrk" setMarkerShape "ICON";
 			"cyclewpmrk" setMarkerType "Empty";
-			"cyclewpmrk" setMarkerColor "ColorRed";
+			"cyclewpmrk" setMarkerColor "colorRed";
 			"cyclewpmrk" setMarkerText "WPcycle";
 			"cyclewpmrk" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin floor(random 360)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos floor(random 360)), 0];//cycle waypoint distance is _AirWP_span meters from AO marker
 
@@ -118,7 +118,7 @@ Air_Dest_fnc = {
 			"spawnaire" setMarkerSize [1, 1];
 			"spawnaire" setMarkerShape "ICON";
 			"spawnaire" setMarkerType "Empty";
-			"spawnaire" setMarkerColor "ColorRed";
+			"spawnaire" setMarkerColor "colorRed";
 			"spawnaire" setMarkerText "SpawnAirEst";
 			"spawnaire" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -300)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -300)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdire = getMarkerPos "spawnaire";
@@ -132,7 +132,7 @@ Air_Dest_fnc = {
 			"spawnairw" setMarkerSize [1, 1];
 			"spawnairw" setMarkerShape "ICON";
 			"spawnairw" setMarkerType "Empty";
-			"spawnairw" setMarkerColor "ColorRed";
+			"spawnairw" setMarkerColor "colorRed";
 			"spawnairw" setMarkerText "Retreat";
 			"spawnairw" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -60)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -60)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdirw = getMarkerPos "spawnairw";
@@ -157,7 +157,7 @@ AirEast_move_logic_fnc = {
 		"curAEspawnpos" setMarkerSize [2, 2];
 		"curAEspawnpos" setMarkerShape "ICON";
 		"curAEspawnpos" setMarkerType "Empty";//"mil_dot"
-		"curAEspawnpos" setMarkerColor "ColorOrange";
+		"curAEspawnpos" setMarkerColor "colorOrange";
 		publicVariable "curAEspawnpos";
 	};
 	true
@@ -326,7 +326,7 @@ find_west_target_fnc = {
 					};
 				} forEach _tgtArray;
 
-				_cntrPos =  getPos (_nrstWTgts select 0);
+				_cntrPos = getPos (_nrstWTgts select 0);
 
 				if ((count _nrstWTgts !=0) && {(format ["%1", _cntrPos] != "[0,0,0]")}) then {
 					//chase enemy if exist and have valid position
@@ -462,7 +462,7 @@ air_debug_mkrs = {
 			_WPmkr = createMarker [_currWP, getWPPos [_airhunter, _i]];
 			_WPmkr setMarkerText _currWP;
 			_WPmkr setMarkerType "waypoint";
-			_WPmkr setMarkerColor "ColorOrange";
+			_WPmkr setMarkerColor "colorOrange";
 			_wpMkrList pushBack _WPmkr;
 		};
 	};

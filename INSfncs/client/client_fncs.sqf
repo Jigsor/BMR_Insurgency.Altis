@@ -720,8 +720,7 @@ INS_AI_revive = {
 	};
 };
 INS_Vehicle_Reward = {
-	// Issues Vehicle Reward action to player by Jigsor. Admins can create vehicle at any time. Run the following command locally from debug console.
-	// player spawn INS_Vehicle_Reward;
+	// Issues Vehicle Reward action to player by Jigsor. Admins can create vehicle at any time from breifing admin panel
 	player setVariable ["createEnabled", true];
 	_id = player addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_veh_reward") + "</t>",{call JIG_map_click}, [], 10, false, true];
 };
@@ -825,22 +824,22 @@ mhq_actions2_fnc = {
 };
 INS_MHQ_mkr = {
 	// Tracking MHQ marker by Jigsor.
-	params ["_mhq","_op4","_mhqPos"];
+	params ["_mhq","_op4","_mhqPos","_mkrName","_color","_mkr"];
 
 	if (_mhq isEqualTo objNull) exitWith {hint format ["Mobile Headquarters %1 does not exist", _mhq]};
 	if (vehicleVarName _mhq != "") then {
-		private _mkrName = vehicleVarName _mhq;
+		_mkrName = vehicleVarName _mhq;
 	}else{
-		private _mkrName = format ["%1", _mhq];
+		_mkrName = format ["%1", _mhq];
 	};
 	if ((_op4 isEqualTo TRUE) && {(_mkrName isEqualTo "Opfor_MHQ")}) then {
-		private _color = "ColorRed";
+		_color = "colorRed";
 	}else{
-		private _color = "ColorGreen";
+		_color = "colorGreen";
 	};
 
 	deleteMarkerLocal _mkrName;
-	private _mkr = createMarkerLocal [_mkrName, _mhqPos];
+	_mkr = createMarkerLocal [_mkrName, _mhqPos];
 	_mkr setMarkerTypeLocal "mil_dot";
 	_mkr setMarkerTextLocal _mkrName;
 	_mkr setMarkerColorLocal _color;

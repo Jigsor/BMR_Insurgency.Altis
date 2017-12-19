@@ -28,7 +28,7 @@ if (count _airCenter > 0) then
 		"curAEspawnpos" setMarkerSize [2, 2];
 		"curAEspawnpos" setMarkerShape "ICON";
 		"curAEspawnpos" setMarkerType "mil_dot";//"Empty"
-		"curAEspawnpos" setMarkerColor "ColorOrange";
+		"curAEspawnpos" setMarkerColor "colorOrange";
 		"curAEspawnpos" setMarkerText "Initial Air Spawn";
 		publicVariable "curAEspawnpos";
 		sleep 2;

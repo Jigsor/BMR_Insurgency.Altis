@@ -22,21 +22,30 @@ if (isMultiplayer) then {
 		call compile preProcessFileLineNumbers "INSfncs\hc\headless_client_fncs.sqf";
 		diag_log format ["HEADLESSCLIENT: %1 Connected HEADLESSCLIENT ID: %2", name player, owner player];
 
-		private _enableLogs = true;// set to false to disable logging to headless client(s) .rpt
-		if (_enableLogs) then {
-			[] spawn {
-				waitUntil {time > 3};
-				if (INS_mod_missing) then {[] spawn INS_missing_mods;};
+		[] spawn {
+			waitUntil {time > 3 && !isNil "all_eos_mkrs"};
+			if (INS_mod_missing) then {[] spawn INS_missing_mods};
+			if (INS_persistence isEqualTo 0) then {profileNamespace setVariable ["BMR_INS_progress", []]};
 
-				private "_AllEnemyGroups";
-				while {true} do {
-					sleep 60.123;
+			private _enableLogs = true;// set false to disable logging on headless client(s) .rpt Frames per second, Headless client ID, Total group count, Total unit count.
+			private "_AllEnemyGroups";
+			private _uncapturedMkrs = all_eos_mkrs;
+			private _c = if (INS_persistence isEqualTo 1) then {0} else {7};
+
+			while {true} do {
+				sleep 60.123;
+				if (_enableLogs) then {
 					_AllEnemyGroups=[];
-					//{if (count units _x>0 and side _x==INS_Op4_side) then {_AllEnemyGroups pushBack _x}} forEach allGroups;// count non empty enemy groups
-					{if (side _x==INS_Op4_side) then {_AllEnemyGroups pushBack _x;};} forEach allGroups;// count all enemy groups empty or not
-
-					diag_log format ["HEADLESSCLIENT FPS: %1 TIME: %2 IDCLIENT: %3 TOTAL ENEMY GROUPS: %4", diag_fps, time, owner player, count _AllEnemyGroups];
+					{if (side _x==INS_Op4_side) then {_AllEnemyGroups pushBack _x;};} forEach allGroups;
+					diag_log format ["HEADLESSCLIENT FPS: %1 TIME: %2 IDCLIENT: %3 TOTAL ENEMY GROUPS: %4 TOTAL UNITS: %5", diag_fps, time, owner player, count _AllEnemyGroups, count allUnits];
 				};
+				//Save progression every 5 minutes if lobby option permits
+				if ((INS_persistence isEqualTo 1) && {_c isEqualTo 6}) then {
+					{if (getMarkerColor _x isEqualTo "colorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1;};} foreach _uncapturedMkrs;
+					profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
+					_c = 0;
+				};
+				if !(_c isEqualTo 7) then {_c = _c + 1};
 			};
 		};
 	};

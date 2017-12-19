@@ -52,7 +52,6 @@ if ((_ins_debug) and (_newZone isEqualTo [])) exitWith {
 };
 
 // select random objective from list
-if (objective_list isEqualTo []) exitWith {finish = true; publicvariable "finish";};
 _objsel = objective_list select (floor(random (count objective_list)));
 
 // uncomment the following lines one at a time to test individual missions

@@ -2,14 +2,14 @@
 
 sleep 2;
 params ["_newZone","_objType"];
-private ["_VehPool","_rnum","_range","_randVeh","_veh","_objmkr","_cone","_VarName","_grp","_handle","_type","_obj_leader","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_type","_vehicle1","_newPos","_veh1","_vehicle2","_veh2","_vehicle3","_veh3","_vehicle4","_veh4","_handle1","_allVeh","_staticGuns"];
+private ["_VehPool","_rnum","_range","_randVeh","_objmkr","_cone","_VarName","_grp","_handle","_type","_obj_leader","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_type","_vehicle1","_newPos","_veh1","_vehicle2","_veh2","_vehicle3","_veh3","_vehicle4","_veh4","_handle1","_allVeh"];
 
 _VehPool = + INS_Op4_Veh_Tracked;
 _rnum = str(round (random 999));
 _range = 500;
 
 _randVeh = {
-	_veh = selectRandom _VehPool;
+	private _veh = selectRandom _VehPool;
 	if ((count _VehPool) > 1) then {
 		_VehPool = _VehPool - [_veh];
 	};
@@ -23,7 +23,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerSize [2, 2];
 "ObjectiveMkr" setMarkerShape "ICON";
 "ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "ColorRed";
+"ObjectiveMkr" setMarkerColor "colorRed";
 "ObjectiveMkr" setMarkerText "Armed Convoy";
 
 // Spawn Objective center object
@@ -92,13 +92,13 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_dac";
 _taskdescE = localize "STR_BMR_Tsk_descE_dac";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
-
 waitUntil {{alive _x} count units aconvoy_grp > 0};
 sleep 0.1;
 
+if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+
 // Only one outcome supported.
-waitUntil {{alive _x} count units aconvoy_grp < 1};
+waitUntil {sleep 1; {alive _x} count units aconvoy_grp < 1};
 
 [_tskW, "succeeded"] call SHK_Taskmaster_upd;
 [_tskE, "failed"] call SHK_Taskmaster_upd;
@@ -110,10 +110,10 @@ sleep 90;
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp, aconvoy_grp];
 
-if (!isNull _cone) then {deleteVehicle _cone; sleep 0.1;};
-{if (!isNull _x) then {deleteVehicle _x; sleep 0.1}} foreach _allVeh;
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
+if (!isNull _cone) then {deleteVehicle _cone};
+{if (!isNull _x) then {deleteVehicle _x;}} foreach _allVeh;
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x;} forEach _staticGuns;
 
 deleteMarker "ObjectiveMkr";
 

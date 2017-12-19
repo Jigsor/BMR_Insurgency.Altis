@@ -701,3 +701,6 @@ null=[["m865"],[0,0],[0,0],[1,3],[0],[0],[0,0],[_fac1,1,AI_SpawnDis,_side,true]]
 null=[["m866"],[0,0],[0,0],[1,3],[0],[0],[0,0],[_fac1,1,AI_SpawnDis,_side,true]] call EOS_Spawn;
 null=[["m867"],[0,0],[0,0],[1,3],[0],[0],[0,0],[_fac1,1,AI_SpawnDis,_side,true]] call EOS_Spawn;
 null=[["m868"],[0,0],[0,0],[1,3],[0],[0],[0,0],[_fac1,1,AI_SpawnDis,_side,true]] call EOS_Spawn;
+
+//Persistence and headless client JIP setup
+[] call BMRINS_fnc_persistence;

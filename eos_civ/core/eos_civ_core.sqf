@@ -59,7 +59,7 @@ if (!(getmarkercolor _mkr == CivVictoryColor)) then { //IF MARKER IS GREEN DO NO
 };
 
 waituntil {triggeractivated _eosActivated};	//WAIT UNTIL PLAYERS IN ZONE
-if (!(getmarkercolor _mkr == "colorblack")) then {
+if (!(getmarkercolor _mkr == "colorBlack")) then {
 	if (!(getmarkercolor _mkr == CivVictoryColor)) then {_mkr setmarkerAlpha _mAH;};
 
 	// SPAWN HOUSE PATROLS
@@ -190,8 +190,8 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 	_eosAct=true;
 	while {_eosAct} do {
 		// IF PLAYER LEAVES THE AREA OR ZONE DEACTIVATED
-		if (!triggeractivated _eosActivated || getmarkercolor _mkr == "colorblack") exitwith {
-			if (_debug) then {if (!(getmarkercolor _mkr == "colorblack")) then {hint "Restarting Zone AND deleting units";}else{hint "EOS zone deactivated";};};
+		if (!triggeractivated _eosActivated || getmarkercolor _mkr == "colorBlack") exitwith {
+			if (_debug) then {if (!(getmarkercolor _mkr == "colorBlack")) then {hint "Restarting Zone AND deleting units";}else{hint "EOS zone deactivated";};};
 			//CACHE LIGHT VEHICLES
 			if (!isnil "_cGrp") then {
 				{
@@ -266,7 +266,7 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 		};
 		if (triggeractivated _clear and triggeractivated _taken and !_civZone)exitwith {// IF ZONE CAPTURED BEGIN CHECKING FOR ENEMIES
 			_cGrps=0;_aGrps=0;_bGrps=0;_dGrps=0;_eGrps=0;_fGrps=0;
-			while {triggeractivated _eosActivated AND !(getmarkercolor _mkr == "colorblack")} do {
+			while {triggeractivated _eosActivated AND !(getmarkercolor _mkr == "colorBlack")} do {
 				if (!triggeractivated _clear) then {
 					_mkr setmarkercolor CivhostileColor;
 					_mkr setmarkerAlpha _mAH;
@@ -286,7 +286,7 @@ if (!(getmarkercolor _mkr == "colorblack")) then {
 
 	deletevehicle _clear;deletevehicle _taken;
 
-	if (!(getmarkercolor _mkr == "colorblack")) then {
+	if (!(getmarkercolor _mkr == "colorBlack")) then {
 		null = [_mkr,[_aGrps,_aSize],[_bGrps,_bSize],[_cGrps,_cSize],[_dGrps,_eGrps,_fGrps,_fSize],_settings,true] execVM "eos_civ\core\eos_civ_core.sqf";
 	}else{
 		_Mkr setmarkeralpha 0;

@@ -37,7 +37,7 @@ if (_numberOfPoints >= 1) then
 			_markname = format["%1 %2%3",("testmarker"),(ceil random 999),(ceil random 999),(ceil random 999)];
 			_marker = createMarker [_markname,[_x,_y,0]];
 			_markname setMarkerType "hd_dot";
-			_markname setMarkerColor "ColorBlack";
+			_markname setMarkerColor "colorBlack";
 		};
 		_positions pushback [_x,_y,0];
 	};

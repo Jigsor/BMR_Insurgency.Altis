@@ -291,7 +291,7 @@ JIG_ammmoCache_damage = {
 			private _rpos = getPosATL _cache;
 			[_rpos] spawn {
 				params ["_pos"];
-				private _uArr = _pos nearEntities ["CAManBase",100];
+				private _uArr = _pos nearEntities ["CAManBase",200];
 				{
 					private _u = _x;
 					if ((!isPlayer _u) || {(side _u == INS_Op4_side)}) then {

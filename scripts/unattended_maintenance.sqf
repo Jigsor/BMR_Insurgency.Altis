@@ -4,12 +4,11 @@
 if (isServer) then {
 	waitUntil {time > 128};
 
-	private ["_remFog","_ctearFogThresh","_deacDelay","_czPosArrys","_ctearZones","_trees","_mpos","_justPlayers","_ctime","_waitTime","_update"];
-	_remFog = FALSE;
-	_deacDelay = ((DeAct_Gzone_delay * 60) + 120);
-	if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {_remFog = TRUE;};
-	_czPosArrys = [];
-	_ctearZones = Blu4_mkrs + ["Airfield"];
+	private _deacDelay = ((DeAct_Gzone_delay * 60) + 120);
+	private _czPosArrys = [];
+	private _ctearZones = Blu4_mkrs + ["Airfield"];
+	private _remFog = if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {TRUE} else {FALSE};
+	private "_mpos";
 
 	{
 		_mpos = getmarkerPos _x;
@@ -26,32 +25,32 @@ if (isServer) then {
 
 		// Clear Blufor base markers of fallen bushes and trees
 		{
-			_trees = nearestTerrainObjects [_x, ["TREE","SMALL TREE","BUSH"], 50, false];
+			private _trees = nearestTerrainObjects [_x, ["TREE","SMALL TREE","BUSH"], 50, false];
 			{if (damage _x isEqualTo 1) then {hideobject _x}} foreach _trees;
 		} forEach _czPosArrys;
 
 		if (isNil "_resetHC") then {_resetHC = true;};
-		_justPlayers = allPlayers - entities "HeadlessClient_F";
+		private _justPlayers = allPlayers - entities "HeadlessClient_F";
 
 		if (count _justPlayers isEqualTo 0) then {
 
 			[_deacDelay] spawn {
-				params ["_deacDelay","_toggle","_ctime","_waitTime","_justPlayers","_abandonedAI"];
-				_toggle = server getVariable ["INS_UAMT", true];
+				params ["_deacDelay"];
+				private _toggle = server getVariable ["INS_UAMT", true];
 				if (_toggle) then {
-					_ctime = floor time;
-					_waitTime = _ctime + _deacDelay;
+					private _ctime = floor time;
+					private _waitTime = _ctime + _deacDelay;
 					if (_waitTime < time) then {
 						waitUntil {sleep 30; time > _waitTime};
 					};
-					_justPlayers = allPlayers - entities "HeadlessClient_F";
+					private _justPlayers = allPlayers - entities "HeadlessClient_F";
 					if (count _justPlayers isEqualTo 0) then {
 
 						//Disable Dust Storm if left running.
 						if (missionNameSpace getVariable ["JDSactive", false]) then {[] call JIG_DustIsOn};
 
 						//Delete Infantry AI recruits leftovers from diconnected players and zeus 
-						_abandonedAI = allMissionObjects "CAManBase";
+						private _abandonedAI = allMissionObjects "CAManBase";
 						{deleteVehicle _x} count (_abandonedAI select {(getNumber(configFile >> "CfgVehicles" >> typeOf _x >> "isUav")==0 && isNull objectParent _x) || (!(simulationEnabled (leader group _x)))});
 
 						// Delete craters, ruins, non-Strategic objects, HEV halo pods + pod doors, Jets DLC canopys + ejection seats
@@ -121,15 +120,15 @@ if (isServer) then {
 				if ((HC_1Present) || (HC_2Present)) then {
 					if !(CCServerAdminPasswordCC isEqualTo "") then {// if server side script \Server\HC_Reset.sqf does its job then CCServerAdminPasswordCC will equal passwordAdmin from Server.cfg.
 						if (Any_HC_present) then {
-							_ctime = floor time;
-							_waitTime = _ctime + _deacDelay;
+							private _ctime = floor time;
+							private _waitTime = _ctime + _deacDelay;
 							if (_waitTime < time) then {
 								waitUntil {sleep 1; time > _waitTime};
 							};
 
-							_justPlayers = allPlayers - entities "HeadlessClient_F";
+							private _justPlayers = allPlayers - entities "HeadlessClient_F";
 							if (count _justPlayers isEqualTo 0) then {
-								//_update = false;
+								//private _update = false;
 								//_update = [] call curr_EOSmkr_states_fnc;
 								//waitUntil {_update};
 								if (!isNil "HC_1") then {CCServerAdminPasswordCC serverCommand ("#kick " + "HC_1"); _resetHC = false;};
@@ -151,5 +150,3 @@ if (isServer) then {
 		};
 	};
 };
-
-//if (!hasInterface && !isDedicated) then {execVM "scripts\HC_deleteEmptyGrps.sqf";};

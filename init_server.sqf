@@ -38,6 +38,7 @@ if (isNil "intel_Build_objs") then {intel_Build_objs = [];};
 if (isNil "activated_cache_pos") then {activated_cache_pos = [];};
 if (isNil "paddscore") then {paddscore = 0;};
 
+addMissionEventHandler ["HandleDisconnect", {_unit = _this select 0; if !(isPlayer leader (group _unit)) then {{deleteVehicle _x} count (units (group _unit));}; deleteVehicle _unit;}];
 "BTC_to_server" addPublicVariableEventHandler BTC_m_fnc_only_server;
 "ghst_Build_objs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "activated_cache_pos" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
@@ -254,25 +255,8 @@ if (Airfield_opt) then
 	};
 };
 
-addMissionEventHandler ["HandleDisconnect", {
-    _unit = _this select 0;
-    deleteVehicle _unit;
-}];
-
 // Tasks //
 [] spawn {
-/*
-// Persistence Check/Set Marker Color
-	if (!isNil {profileNamespace getVariable "BMR_INS_progress"}) then {
-		waitUntil {! isNil "VictoryColor"};
-		private _uncapedMarkers = profileNamespace getVariable "BMR_INS_progress";
-		{
-			if !(_x in all_eos_mkrs) then {
-				_x setMarkerColor VictoryColor;
-			};
-		} foreach _uncapedMarkers;
-	};
-*/
 	waitUntil {! isNil "SHK_Taskmaster_Tasks"};
 
 	if (DebugEnabled isEqualTo 1) then {

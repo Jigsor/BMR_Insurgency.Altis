@@ -52,8 +52,8 @@ disableEOSmkrs_fnc = {
 	waitUntil {!isNil "EOS_Spawn"}; sleep 1;
 	private _arr = server getVariable "EOSmkrStates";
 	{
-		if (getMarkerColor _x == "ColorGreen") then {
-			_x setMarkerColorLocal "colorblack";
+		if (getMarkerColor _x == "colorGreen") then {
+			_x setMarkerColorLocal "colorBlack";
 			_x setmarkerAlpha 0;
 		};
 	} forEach _arr;
@@ -130,7 +130,7 @@ JIG_load_VA_profile_MHQ1 = {
 				_name_index = _this select 1;
 				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
 				_id = MHQ_1 addAction [("<t color=""#00ffe9"">") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
-				sleep 15;
+				sleep 20;
 				MHQ_1 removeAction _id;
 			};
 			_name_index = _name_index + 2;
@@ -148,7 +148,7 @@ JIG_load_VA_profile_MHQ2 = {
 				_name_index = _this select 1;
 				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
 				_id = MHQ_2 addAction [("<t color=""#00ffe9"">") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
-				sleep 15;
+				sleep 20;
 				MHQ_2 removeAction _id;
 			};
 			_name_index = _name_index + 2;
@@ -166,7 +166,7 @@ JIG_load_VA_profile_MHQ3 = {
 				_name_index = _this select 1;
 				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
 				_id = MHQ_3 addAction [("<t color=""#00ffe9"">") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
-				sleep 15;
+				sleep 20;
 				MHQ_3 removeAction _id;
 			};
 			_name_index = _name_index + 2;
@@ -348,9 +348,7 @@ mhq_obj_fnc = {
 	_obj
 };
 INS_Zeus_MP = {
-	// Admin can toggle Zeus on or off in Debug Console with following command
-	// [player,true] spawn INS_Zeus_MP;
-	// ZEUS interface key (Left Ctrl + y)
+	// Admin can toggle Zeus on or off in breifing admin panel.
 	private ["_unit", "_announce"];
 	_unit = [_this,0,objNull] call bis_fnc_param;
 	_announce = [_this,1,false] call bis_fnc_param;
@@ -419,6 +417,9 @@ INS_toggle_Zeus = {
 	[_curator,_addons,{true},""] call BIS_fnc_manageCuratorAddons;
 	_curator addCuratorAddons _addons;
 	_curator addCuratorEditableObjects [allUnits,true];
+	//if (!isNil "BTC_cargo_repo") then {
+	//	_curator removeCuratorEditableObjects [[BTC_cargo_repo],true];
+	//};
 	_unit assignCurator _curator;
 
 	if (DebugEnabled isEqualTo 1) then {diag_log curatorAddons _curator;};
@@ -434,7 +435,7 @@ Terminal_acction_MPfnc = {
 			TerminalAcctionID =
 			[
 				Land_DataTerminal_Obj,
-				"DownLoad Data",
+				(localize "STR_BMR_Tsk_topic_global_Retrieve_Intel"),
 				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
 				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
 				"_this distance Land_DataTerminal_Obj < 2",

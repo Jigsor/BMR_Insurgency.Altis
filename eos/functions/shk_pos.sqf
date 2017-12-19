@@ -43,13 +43,12 @@ Example of creating multiple positions:
 			_m%1 = createMarker[""mySpot%1"",[_p select 0,_p select 1]];
 			_m%1 setMarkerShape ""ICON"";
 			_m%1 setMarkerType ""DOT"";
-			_m%1 setmarkercolor ""colorred"";
+			_m%1 setmarkercolor ""colorRed"";
 			",_i];
 		};
 	};
 */
-private "_getpos";
-_getpos = {
+private _getpos = {
 	private ["_origo","_dir","_dist"];
 	_origo = _this select 0;
 	_dir = _this select 1;

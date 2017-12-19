@@ -464,10 +464,11 @@ if (DebugEnabled > 0) then {
 				{
 					if (local player) then {
 						sleep 5;
-						private _mhqAcc = [INS_MHQ_killed,_op4] call mhq_actions2_fnc;
-						private _mhqObj = objNull;
+						private ["_mhqPos","_mhqAcc","_mhqObj"];
+						_mhqAcc = [INS_MHQ_killed,_op4] call mhq_actions2_fnc;
+						_mhqObj = objNull;
 						_mhqObj = [INS_MHQ_killed] call mhq_obj_fnc;
-						private _mhqPos = getPosASL _mhqObj;
+						_mhqPos = getPosASL _mhqObj;
 						_nul = [_mhqObj,_op4,_mhqPos] spawn INS_MHQ_mkr;
 						INS_MHQ_killed = "";
 					};

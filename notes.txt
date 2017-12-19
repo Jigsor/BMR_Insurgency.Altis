@@ -163,25 +163,29 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access). 
 
-12/12/2017
+12/18/2017
 BMR_Insurgency_v1.48_beta
 	Added: Dust Storm script.
 	Added: Admin briefing section with buttons for Zeus, Brighter Nights, Filp Vehicle, Dust Storms and Vehicle Reward.
 	Added: Reassinging damage event handlers to AI on locality changed when unassigning zeus from yourself.
 	Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
-	Added: Temporary fix foor broken door actions in Lythium and Kunduz;
+	Added: Temporary fix for broken door actions in Lythium and Kunduz.
 	Added: Non owner work around for entering driver and turrets in DLC vehicles.(Currently only affects English A3 versioned owners).
 	Added: Globalization of civilian vehicle textures in Civilian Traffic. (everyone sees the same texure/color now).
 	Added: Support of custom licence plates.(new command currently in Dev Branch).
+	Added: Saving of grid zone progression persistence system. Can be cleared-default or enabled/restored from lobby parameter. W.I.P.
+	Added: Support for JIP of Healdess client incase of cick or crash of Headless client. HC must be present at mission start. W.I.P.
+	Change: VA quick profile loadout action list on MHQs extended from 15 to 20 seconds.
 	Change: Increased delay loop for suicide bomber and now suicide bomber can no longer spawn in same building as target.
-	Change: Shortening group spawn delay on capture N hold depending on defender count size and server fps for higher intensity.
+	Change: Shortening group spawn delay on Capture N Hold obkective depending on defender count size and server fps for higher intensity.
 	Change: Option Environment effects (ambient life + sound) removed from lobby and replaced by button for ambient life in Y menu.
 	Change: Redesigned Y button GUI menu.
-	Change: Many code efficiency tweaks.
+	Change: Many code efficiency tweaks/optimizations.
 	Change: Added new IED system wich can be detected with IED detector. Old or new sytem can be selected in lobby.
 	Change: Replaced "First Aid" action with A3 Nexus localization of "Revive".
 	Change: W.I.P. - reorganization of functions.
 	Change: Switched to hmd command for removal and replacement of NVGs in eos.
+	Fixed: AI recruits are deleted when player disconnects if player's former group leader is not another player.
 	Fixed: Several MP/dedicated server issues in heli group extraction.
 	Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.
 	Fixed: Some Russian translations.

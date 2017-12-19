@@ -17,7 +17,7 @@ call compile preprocessfilelinenumbers "eos\AI_Skill.sqf";
 EOS_Deactivate = {
 	private _mkr=(_this select 0);
 	{
-		_x setmarkercolor "colorblack";
+		_x setmarkercolor "colorBlack";
 		_x setmarkerAlpha 0;
 	}foreach _mkr;
 };

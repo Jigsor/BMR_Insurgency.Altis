@@ -89,7 +89,7 @@ while {(_granatpos select 2 > 2)} do {
 		lck_marker = 0;
 		_markercon = createMarker [format["huntirmarker%1",lck_markercnt], getPos _sattgt];
 		_markercon setMarkerType "mil_dot";
-		_markercon setMarkerColor "ColorBlack";
+		_markercon setMarkerColor "colorBlack";
 		_markercon setMarkerText format["HuntIR%1",lck_markercnt];
 		lck_markercnt = lck_markercnt + 1;
 		publicVariable "lck_markercnt";

@@ -32,7 +32,7 @@ if ([activated_cache] in _all_cache_pos) exitWith {};
 if !([activated_cache] in _all_cache_pos) then {_all_cache_pos pushBack activated_cache};
 _current_cache = activated_cache select 0;
 
-{if (getMarkerColor _x == "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} foreach _uncaped_eos_mkrs;
+{if (getMarkerColor _x == "colorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} foreach _uncaped_eos_mkrs;
 _uncaped_mkr_count = (count _uncaped_eos_mkrs);
 _total_intelObjs = (round(_uncaped_mkr_count/Intel_Count));//total max suitcases per ammo cache
 
@@ -66,7 +66,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 		publicVariable _VarName;
 		sleep 0.3;
 
-		_params_PutinBuild = [[_mkr_position],[50,50,0],[_intel],[true,"ColorBlack",[3,3],true],false];
+		_params_PutinBuild = [[_mkr_position],[50,50,0],[_intel],[true,"colorBlack",[3,3],true],false];
 
 		_position_mark = _params_PutinBuild select 0;//position
 		_intel_coor_selection = _position_mark select (count _position_mark)-1;
@@ -170,7 +170,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 				_mark1 = createMarker [_markname, _pos];
 				_mark1 setMarkerShape "Ellipse";
 				_mark1 setmarkersize _msize;
-				_mark1 setmarkercolor _mcolor;//"ColorBlack";
+				_mark1 setmarkercolor _mcolor;//"colorBlack";
 				_mark1 setmarkerAlpha _hide_intel;//hide intel location markers
 					if (_markunitspos) then {
 					_mark1 setmarkertext format ["Intel obj%1", _x];

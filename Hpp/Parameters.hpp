@@ -25,7 +25,7 @@ class Params
 	"Static Weather 50% Overcast",
 	"Static Weather 75% Overcast",
 	"Static Weather 100% Overcast (Weather Disabled)",
-	"Dynamic Real Weather Enabled",
+	"Dynamic Real Weather Enabled (time accelerated x 2.6)",
 	"Dynamic Random Weather Enabled"};
 	default = 0;
 	};
@@ -340,49 +340,56 @@ class Params
 	texts[]={"Disabled","brians200's IEDs","Jig IEDs (detectable with mine detector)"};
 	default = 1;
 	};
-	class INS_Dum_Param8//43
+	class INS_persistence//43
+	{
+	title = "		Enable progression saving?";
+	values[]={0,1};
+	texts[]={"No, clear progression if any is saved","Yes, save mission progression and restore if any is saved"};
+	default = 0;
+	};
+	class INS_Dum_Param8//44
 	{
 	title = ":: Intel/AmmoCaches ::";
 	values[]={0};
 	texts[]={ ""};
 	default = 0;
 	};
-	class EnemyAmmoCache//44
+	class EnemyAmmoCache//45
 	{
 	title = "		Enable Enemy Ammo Caches?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
 	};
-	class Intel_Loc_Alpha//45
+	class Intel_Loc_Alpha//46
 	{
 	title = "		Show Intel Location Markers?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
 	};
-	class Intel_Count//46
+	class Intel_Count//47
 	{
 	title = "		Maximum possible intel per occupied grid zone ratio";
 	values[]={2,3,4,5,6};
 	texts[]={"1 intel : 2 zones","1 intel : 3 zones","1 intel : 4 zones","1 intel : 5 zones","1 intel : 6 zones"};
 	default = 4;
 	};
-	class INS_Dum_Param9//47
+	class INS_Dum_Param9//48
 	{
 	title = ":: Debug ::";
 	values[]={0};
 	texts[]={ ""};
 	default = 0;
 	};
-	class DebugEnabled//48
+	class DebugEnabled//49
 	{
 	title = "		Debug mode?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 0;
 	};
-	class tky_perfmon//49
+	class tky_perfmon//50
 	{
 	title = "		Run performance monitor? (Requires Debug mode Enabled.)";
 	values[]={0,30,60,300};

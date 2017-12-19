@@ -24,20 +24,18 @@ DEBUG = false;
 // Handle parameters
 private ["_grp","_dst","_marker"];
 _dst = 250;
-switch (typename _this) do {
-  case (typename grpNull): { _grp = _this };
-  case (typename objNull): { _grp = group _this };
-  case (typename []): {
-    _grp = _this select 0;
-    if (_grp isEqualType objNull) then {_grp = group _grp};
+if (_this isEqualType grpNull) then { _grp = _this };
+if (_this isEqualType objNull) then { _grp = group _this };
+if (_this isEqualType [])then {
+	_grp = _this select 0;
+	if (_grp isEqualType objNull) then {_grp = group _grp};
 	if (count _this > 1) then {_marker = _this select 1};
-  };
 };
 
 _grp setBehaviour "AWARE";
 _grp setSpeedMode "NORMAL";
 _grp setCombatMode "RED";
-_grp setFormation (["STAG COLUMN", "WEDGE", "ECH LEFT", "ECH RIGHT", "VEE", "DIAMOND"] call BIS_fnc_selectRandom);
+_grp setFormation (selectRandom ["STAG COLUMN", "WEDGE", "ECH LEFT", "ECH RIGHT", "VEE", "DIAMOND"]);
 
 private ["_cnt","_wps","_slack"];
 _cnt = 4 + (floor random 3) + (floor (_dst / 100)); // number of waypoints
@@ -46,7 +44,7 @@ _slack = _dst / 5.5;
 if (_slack < 20) then {_slack = 20};
 
 // Find positions for waypoints
-private ["_a","_p"];
+private "_p";
 while {count _wps < _cnt} do {
 if (surfaceiswater (getpos(leader _grp)) ) then {
 	_p = [_mkr,true] call SHK_pos;}else{_p = [_mkr,true] call SHK_pos;
@@ -72,7 +70,7 @@ for "_i" from 1 to (_cnt - 1) do {
       _m = createMarker [format["SHK_patrol_WP%1%2",(floor(_cur select 0)),(floor(_cur select 1))],_cur];
       _m setMarkerShape "Ellipse";
       _m setMarkerSize [20,20];
-      _m setmarkerColor "ColorRed";
+      _m setmarkerColor "colorRed";
     };
 };
 
@@ -89,6 +87,6 @@ if (DEBUG) then {
       _m = createMarker [format["SHK_patrol_%1%2%3",(floor(_p select 0)),(floor(_p select 1)),floor time],_p];
       _m setMarkerShape "Icon";
       _m setMarkerType "mil_dot";
-      _m setmarkerColor "ColorBlue";
+      _m setmarkerColor "colorBlue";
     };
 };

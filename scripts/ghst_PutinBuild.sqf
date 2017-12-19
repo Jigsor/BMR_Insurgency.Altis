@@ -54,7 +54,7 @@ private _cache_loop = [] spawn
 
 		private ["_all_cache_pos","_ammocache","_rnum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_new_city","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_haveguards","_minguards","_maxguards","_sideguards","_jigcoor","_jigxcoor","_jigycoor","_cache_coor","_menlist","_nearBuildings","_loop","_p","_n","_i","_markname","_mark1","_nul","_egrp","_trig1stat","_trig1act","_trg1","_mkr_position","_activated_cache","_alive_cache","_curr_mkr","_buildObj"];
 
-		{if (getMarkerColor _x == "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} count _uncaped_eos_mkrs;
+		{if (getMarkerColor _x == "colorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} count _uncaped_eos_mkrs;
 		_curr_mkr = selectRandom _uncaped_eos_mkrs;
 		_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_curr_mkr];
 		_mkr_position = getMarkerpos _curr_mkr;
@@ -81,7 +81,7 @@ private _cache_loop = [] spawn
 		publicVariable _VarName;
 		sleep 1;
 
-		_params_PutinBuild = [[_mkr_position],[100,100,0],[_ammocache],[true,"ColorOrange",[2,2],true],[6,10,EAST],0.5,true];
+		_params_PutinBuild = [[_mkr_position],[100,100,0],[_ammocache],[true,"colorOrange",[2,2],true],[6,10,EAST],0.5,true];
 
 		_position_mark = _params_PutinBuild select 0;//position
 			_new_city = _position_mark select (count _position_mark)-1;
@@ -176,7 +176,7 @@ private _cache_loop = [] spawn
 				_mark1 = createMarker [_markname, _pos];
 				_mark1 setMarkerShape "Ellipse";
 				_mark1 setmarkersize _msize;
-				_mark1 setmarkercolor _mcolor;//"ColorBlack";
+				_mark1 setmarkercolor _mcolor;//"colorBlack";
 				_mark1 setmarkerAlpha 0;//0 to hide marker
 					if (_markunitspos) then {
 					_mark1 setmarkertext format ["Ammo Cache:%1", _x];
@@ -215,7 +215,7 @@ private _cache_loop = [] spawn
 				"cachemkr" setMarkerSize [1, 1];
 				"cachemkr" setMarkerShape "ICON";
 				"cachemkr" setMarkerType "mil_dot";
-				"cachemkr" setMarkerColor "ColorRed";
+				"cachemkr" setMarkerColor "colorRed";
 				"cachemkr" setMarkerText "Ammo Cache";
 			}else{
 				_objmkr = createMarker ["cachemkr", activated_cache_pos];

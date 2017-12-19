@@ -21,7 +21,7 @@ _objmkr = createMarker ["ObjectiveMkr", _towerPos];
 "ObjectiveMkr" setMarkerSize [2, 2];
 "ObjectiveMkr" setMarkerShape "ICON";
 "ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "ColorRed";
+"ObjectiveMkr" setMarkerColor "colorRed";
 "ObjectiveMkr" setMarkerText "Cut Power";
 
 _roads = _towerPos nearRoads 20;
