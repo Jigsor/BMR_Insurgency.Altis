@@ -4,13 +4,13 @@
 
 private ["_spawnmark","_type","_max_num","_delay","_dir","_smoke1","_chute1","_ugv1","_wGrp","_ugv_num","_score","_points","_deficit","_exit","_groundPos","_grpExists"];
 
-_spawnmark = _this select 0;// spawn point where ugv spawns and deletes
+_spawnmark = _this select 0;// ugv spawn point
 _type = _this select 1;// type of ugv to spawn i.e. "B_UGV_01_rcws_F"
-_max_num = _this select 2;//max number of ugvs allowed per player
+_max_num = _this select 2;// max number of ugvs allowed per player
 _delay = (_this select 3) * 60;// time before ugv support can be called again
 _grpExists = false;
 _score = getPlayerScores player select 5;
-_points = 25;
+_points = 25;// points required for each additional UGV after _max_num is reached
 _exit = false;
 
 //Jig adding block below. If _max_num is reached then if _points earned since last call attemp then 1 ugv request allowed.

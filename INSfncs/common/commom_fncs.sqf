@@ -15,7 +15,12 @@ JIG_MPTitleText_fnc = {
 };
 INS_missing_mods = {
 	if (!isDedicated && hasInterface) then {
-		player sideChat "BMR Insurgency warning. This machine is missing mods and will not trigger spawning of enemy AI. Check mod installations.";
+		if (isServer) then {
+			player sideChat "BMR Insurgency warning. This machine is missing mods and will not spawn enemy AI. Check mod installations.";
+		}else{
+			player sideChat "BMR Insurgency warning. This machine is missing mods you may not see and enemies or their equipment. Check mod installations.";
+			//("BMR_Layer_end4" call BIS_fnc_rscLayer) cutText [ "This machine is missing required mod(s). Check mod installations and try again.", "BLACK OUT", 1, true ]; sleep 10; endMission "END4";// Uncomment this line to kick players missing mods required by the mission.
+		};
 	}else{
 		diag_log "BMR Insurgency warning. This machine is missing mods and will not spawn enemy AI. Check mod installations.";
 	};

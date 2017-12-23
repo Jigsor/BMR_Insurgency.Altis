@@ -237,11 +237,9 @@ SHK_Taskmaster_addTask = {
 			//if (_state in ["created","assigned"]) then {
 				//_x setcurrenttask _handle;
 			//};
-			switch (toupper(typename _dest)) do {
-				case "OBJECT": { _handle setsimpletasktarget [_dest,true] };
-				case "STRING": { _handle setsimpletaskdestination (getmarkerpos _dest) };
-				case "ARRAY": { _handle setsimpletaskdestination _dest };
-			};
+			if (_dest isEqualType ObjNull) then { _handle setsimpletasktarget [_dest,true] };
+			if (_dest isEqualType "") then { _handle setsimpletaskdestination (getmarkerpos _dest) };
+			if (_dest isEqualType []) then { _handle setsimpletaskdestination _dest };
 
 			_handles set [count _handles,_handle];
 
@@ -547,10 +545,8 @@ SHK_Taskmaster_upd = {
 			SHK_Taskmaster_Tasks set [_i,_task];
 		};
 		if (count _this > 2) then {
-			switch (typename (_this select 2)) do {
-				case (typename ""): { (_this select 2) call SHK_Taskmaster_assign };
-				case (typename []): { (_this select 2) spawn { sleep 1; _this call SHK_Taskmaster_add} };
-			};
+			if ((_this select 2) isEqualType "") then { (_this select 2) call SHK_Taskmaster_assign };
+			if ((_this select 2) isEqualType []) then { (_this select 2) spawn { sleep 1; _this call SHK_Taskmaster_add} };
 		};
 		publicvariable "SHK_Taskmaster_Tasks";
 		/*

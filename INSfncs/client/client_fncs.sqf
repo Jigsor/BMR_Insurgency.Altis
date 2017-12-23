@@ -411,18 +411,12 @@ JIG_transfer_fnc = {
 	_dir = random 359;
 
 	titleText ["", "BLACK OUT"];
-	switch (typeName _dest) do {
-		case "ARRAY" : {
-			_pos = [(_dest select 0)-2*sin(_dir),(_dest select 1)-2*cos(_dir),_dest select 2];
-			if (surfaceIsWater _pos) then {
-				player setposASL _pos;
-			} else {
-				player setPos _pos;
-			};
-		};
-		case "OBJECT" : {player setPos [(getPosATL _dest select 0)-10*sin(_dir),(getPosATL _dest select 1)-10*cos(_dir)];};
-		case "STRING" : {player setPos [(getMarkerPos _dest select 0)-10*sin(_dir),(getMarkerPos _dest select 1)-10*cos(_dir)];};
+	if (_dest isEqualType []) then {
+		_pos = [(_dest select 0)-2*sin(_dir),(_dest select 1)-2*cos(_dir),_dest select 2];
+		if (surfaceIsWater _pos) then {player setposASL _pos;} else {player setPos _pos;};
 	};
+	if (_dest isEqualType objNull) then {player setPos [(getPosATL _dest select 0)-10*sin(_dir),(getPosATL _dest select 1)-10*cos(_dir)];};
+	if (_dest isEqualType "") then {player setPos [(getMarkerPos _dest select 0)-10*sin(_dir),(getMarkerPos _dest select 1)-10*cos(_dir)];};
 	titleText ["", "BLACK IN",2];
 	true
 };

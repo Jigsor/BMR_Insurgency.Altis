@@ -39,8 +39,7 @@ if (isDedicated) then {waitUntil {!isNil JIG_EX_Caller};};
 // Editing the following line required./////////////////////////////////////////////////////////////////////////////////
 JIG_EX_Caller = CAS1;// Name of playable unit in editor who can call in Extraction Via scroll action, ie; s1, TeamLeader or TL1. This edit is required at the very least to run script pack.
 
-private "_all_players";
-_all_players = playableUnits;
+private _all_players = playableUnits;
 if ((isServer) and (not (JIG_EX_Caller in _all_players))) then {waitUntil {sleep 10; (JIG_EX_Caller in _all_players)};};// Server wait until caller's slot has player
 
 ext_caller_group = grpNull;
@@ -75,8 +74,7 @@ if (!isDedicated) then {
 	EvacHeliW1 = ObjNull;
 	resetEvac = true;
 	publicVariable "resetEvac";
-	private "_ex_caller";
-	_ex_caller = JIG_EX_Caller;
+	private _ex_caller = JIG_EX_Caller;
 	_ex_caller addEventHandler ["killed", {_nul = _this execVM "JIG_EX\respawnAddActionHE.sqf";}];
 };// addaction on player killed/ reset Evac for JIP JIG_EX_Caller
 
@@ -95,9 +93,8 @@ while {true} do {
 			if (!(isNull player)) then {
 				sleep 5;// wait for server eventhandlers to initialize
 				if (JIG_EX_Caller == player) then {
-					private "_ex_caller";
 					jig_ex_actid_show = 9999;
-					_ex_caller = JIG_EX_Caller;
+					private _ex_caller = JIG_EX_Caller;
 					_ex_caller removeaction jig_ex_actid_show;
 					jig_ex_actid_show = _ex_caller addAction [("<t color=""#12F905"">") + (localize "STR_BMR_heli_extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];
 				};

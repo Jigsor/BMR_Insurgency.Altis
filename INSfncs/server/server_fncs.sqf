@@ -188,7 +188,7 @@ fnc_ghst_rand_position = {
 	//_pos = [[1,1,2],[300,500,60]] call fnc_ghst_rand_position;
 	//_pos = ["marker",[]] call fnc_ghst_rand_position;
 	*/
-	private ["_dir","_position_mark","_radx","_rady","_pos","_xpos","_ypos","_loop"];
+	private ["_dir","_position_mark","_radx","_rady","_pos","_xpos","_ypos"];
 
 	_pos_mark = _this select 0;//position or marker
 	_radarray = _this select 1;//array of x,y radius and direction
@@ -210,7 +210,7 @@ fnc_ghst_rand_position = {
 		_rady = (getMarkerSize _pos_mark) select 1;//radius b if position is a marker
 		_dir = (markerDir _pos_mark) * -1;//Marker Direction
 	};
-	_loop = true;
+	private _loop = true;
 	while {_loop} do {
 		_rx = (random (_radx * 2)) - _radx;
 		_ry = (random (_rady * 2)) - _rady;
@@ -560,7 +560,7 @@ bmbr_spawnpos_fnc = {
 };
 spawn_Op4_grp = {
 	// Creates infantry group. by Jigsor
-	params ["_newZone","_grpSize","_grp","_unit_type","_unit","_damage"];
+	params ["_newZone","_grpSize","_grp","_unit_type","_unit"];
 	_grp = createGroup INS_Op4_side;
 
 	for "_i" from 0 to (_grpSize - 2) do {

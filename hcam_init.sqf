@@ -7,8 +7,7 @@ if ( (_this select 0) == "mission" ) then {
 };
 
 
-if (isDedicated) exitWith {};
-if (IamHC) exitwith {};
+if (!hasInterface) exitwith {};
 if (INS_ACE_core) exitwith {};
 
 // Define vars (or see if they have already been assigned by the server)

@@ -93,7 +93,7 @@ BTC_Teamkill = {
 		};
 	};
 };
-if (!isDedicated && !IamHC) then {
+if (hasInterface) then {
 	[] spawn {
 		waitUntil {!isNull player && player == player};
 		player addEventHandler ["Killed", BTC_EH_killed];

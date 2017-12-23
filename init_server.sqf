@@ -38,7 +38,6 @@ if (isNil "intel_Build_objs") then {intel_Build_objs = [];};
 if (isNil "activated_cache_pos") then {activated_cache_pos = [];};
 if (isNil "paddscore") then {paddscore = 0;};
 
-addMissionEventHandler ["HandleDisconnect", {_unit = _this select 0; if !(isPlayer leader (group _unit)) then {{deleteVehicle _x} count (units (group _unit));}; deleteVehicle _unit;}];
 "BTC_to_server" addPublicVariableEventHandler BTC_m_fnc_only_server;
 "ghst_Build_objs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "activated_cache_pos" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
@@ -47,6 +46,18 @@ addMissionEventHandler ["HandleDisconnect", {_unit = _this select 0; if !(isPlay
 "side_mission_mkrs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "objective_list" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 if (INS_GasGrenadeMod isEqualTo 1) then {"ToxicGasLoc" addPublicVariableEventHandler {(_this select 1) spawn GAS_smoke_AIdamage};};
+
+// Mission EventHandlers //
+addMissionEventHandler ["HandleDisconnect", {
+	_unit = (_this select 0);
+	if !(isPlayer leader (group _unit)) then {
+		{deleteVehicle _x} forEach  (units (group _unit) select {(_x isKindOf "Man")});
+	};
+	if (typeOf _unit isEqualTo "HeadlessClient_F") then {
+		{deleteVehicle _x} forEach (allUnits select {!(side _x isEqualTo west) && !(side _x isEqualTo civilian) && (_x isKindOf "Man")});
+	};
+	deleteVehicle _unit;
+}];
 
 // Editor object settings //
 [] spawn {

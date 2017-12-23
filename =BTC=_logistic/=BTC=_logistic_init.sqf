@@ -5,7 +5,7 @@ Date: 20/03/2013
 Visit us at: http://www.blacktemplars.altervista.org/
 */
 
-if (IamHC) exitwith {};
+if (!hasInterface && !isServer) exitwith {};
 if (isServer) then {
 	BTC_id_repo = 10;publicVariable "BTC_id_repo";
 	BTC_cargo_repo = "Land_HBarrierBig_F" createVehicle [- 5000,- 5000,0];publicVariable "BTC_cargo_repo";

@@ -6,8 +6,7 @@
 #define STR_FAST_ROPE "Fast Rope"
 #define STR_CUT_ROPES "Cut Ropes"
 
-if (isDedicated || IamHC) exitwith {};
-
+if (!hasInterface) exitwith {};
 waituntil {!isNull player && player == player};
 
 zlt_rope_ropes = [];

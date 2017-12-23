@@ -19,7 +19,7 @@
  *
  ******************************************************************************/
 
-if (IamHC) exitWith {};
+if (!hasInterface) exitWith {};
 
 //// Wait until player ready, exit if server
 waitUntil {!isNull player};

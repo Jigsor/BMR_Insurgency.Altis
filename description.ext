@@ -88,6 +88,12 @@ class CfgDebriefing
 		description = "You have been kicked for team killing for the remainder of mission duration.";
 		picture = "";
 	};
+	class END4
+	{
+		title = "Missing Mods";
+		description = "This machine is missing required mod(s). Check mod installations and try again.";
+		picture = "";
+	};
 };
 
 class RscTitles {
