@@ -33,7 +33,7 @@ sleep jig_tvt_globalsleep;
 _outpost setDir (random 359);
 _outpost setVectorUp [0,0,1];
 _outpost setVehicleVarName _VarName;
-_outpost Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+_outpost Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
 
 //Spawn Objective enemy defences
 private _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
@@ -87,14 +87,10 @@ if (timesup) then {timesup = false;};
 private _text = format [localize "STR_BMR_outpost_caped"];
 [[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
 
-private _defenderArr = objective_pos_logic nearEntities ["CAManBase", _defender_rad];
-{
-	if ((!(side _x == INS_Blu_side)) || (captiveNum _x isEqualTo 1)) then {
-		_defenderArr = _defenderArr - [_x];
-	};
-} forEach _defenderArr;
+private _defenderArr = [];
+{_defenderArr pushBack _x} forEach (objective_pos_logic nearEntities ["CAManBase", _defender_rad] select {(side _x isEqualTo west) && !(captiveNum _x isEqualTo 1) && (_x isKindOf "Man")});
 sleep 3;
-if (isNil "_defenderArr") then {_defenderArr = [];};
+
 private _defcnt = count _defenderArr;
 private "_holdTime";
 

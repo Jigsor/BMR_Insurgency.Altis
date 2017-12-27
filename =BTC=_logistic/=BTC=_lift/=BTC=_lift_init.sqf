@@ -20,7 +20,7 @@ if (BTC_def_hud == 1) then {
 BTC_cargo = ObjNull;
 //Functions
 BTC_lift_check = {
-	if (!(vehicle player isKindOf "Helicopter") || !(driver (vehicle player) == player) || BTC_lifted == 1) exitWith {false};
+	if (!(vehicle player isKindOf "Helicopter") || !(player isEqualTo driver objectParent player) || BTC_lifted isEqualTo 1) exitWith {false};
 	_array = [vehicle player] call BTC_get_liftable_array;
 	if (count _array isEqualTo 0) exitWith {false};
 	_chopper  = vehicle player;
@@ -122,7 +122,7 @@ BTC_fnc_hud = {
 			if (_cargo isKindOf "LandVehicle") then {_pic_cargo = getText (configFile >> "cfgVehicles" >> typeof _cargo >> "picture");} else {_pic_cargo = "";};
 			_name_cargo = getText (configFile >> "cfgVehicles" >> typeof _cargo >> "displayName");
 			_obj_pic ctrlSetText _pic_cargo;
-			if (BTC_lifted == 1) then {_obj_name ctrlSetText (format ["[%1 m] ",(round((getpos _cargo select 2) * 10))/10] + _name_cargo);} else {_obj_name ctrlSetText _name_cargo;};
+			if (BTC_lifted isEqualTo 1) then {_obj_name ctrlSetText (format ["[%1 m] ",(round((getpos _cargo select 2) * 10))/10] + _name_cargo);} else {_obj_name ctrlSetText _name_cargo;};
 			if ((abs _cargo_z) > BTC_lift_max_h) then {_arrow ctrlSetText BTC_arrow_down;};
 			if ((abs _cargo_z) < BTC_lift_min_h) then {_arrow ctrlSetText BTC_arrow_up;};
 			if ((abs _cargo_z) > BTC_lift_min_h && (abs _cargo_z) < BTC_lift_max_h) then {_arrow ctrlSetText BTC_complete;};
@@ -152,10 +152,10 @@ BTC_l_camera = {
 	};
 };
 [] spawn {
-	if (BTC_def_hud isEqualTo 1) then {player addAction [("<t color=""#ED2744"">" + ("Hud On\Off") + "</t>"),BTC_dir_action, [[],{if (BTC_Hud_Cond) then {BTC_Hud_Cond = false;} else {BTC_Hud_Cond = true;_hud = [] spawn BTC_fnc_hud;};}], -8, false, false, "", "(vehicle player) isKindOf ""Helicopter"" && driver (vehicle player) == player"];};
-	if (BTC_def_pip isEqualTo 1) then {player addAction [("<t color=""#ED2744"">" + ("Camera On\Off") + "</t>"),BTC_dir_action, [[],BTC_l_camera], -9, false, false, "", "(vehicle player) isKindOf 'Helicopter'"];};
-	player addAction [("<t color=""#ED2744"">" + ("Lift") + "</t>"),BTC_dir_action, [[],BTC_attach_cargo], 9, true, false, "", "[] call BTC_lift_check"];
-	player addAction [("<t color=""#ED2744"">" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_detach_cargo], -9, true, false, "", "BTC_lifted == 1"];
+	if (BTC_def_hud isEqualTo 1) then {player addAction [("<t color='#ED2744'>" + ("Hud On\Off") + "</t>"),BTC_dir_action, [[],{if (BTC_Hud_Cond) then {BTC_Hud_Cond = false;} else {BTC_Hud_Cond = true;_hud = [] spawn BTC_fnc_hud;};}], -8, false, false, "", "(vehicle player) isKindOf 'Helicopter' && driver (vehicle player) == player"];};
+	if (BTC_def_pip isEqualTo 1) then {player addAction [("<t color='#ED2744'>" + ("Camera On\Off") + "</t>"),BTC_dir_action, [[],BTC_l_camera], -9, false, false, "", "(vehicle player) isKindOf 'Helicopter'"];};
+	player addAction [("<t color='#ED2744'>" + ("Lift") + "</t>"),BTC_dir_action, [[],BTC_attach_cargo], 9, true, false, "", "[] call BTC_lift_check"];
+	player addAction [("<t color='#ED2744'>" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_detach_cargo], -9, true, false, "", "BTC_lifted isEqualTo 1"];
 	player addEventHandler ["Respawn",
 	{
 		[] spawn {
@@ -164,10 +164,10 @@ BTC_l_camera = {
 			BTC_cargo    = ObjNull;
 			BTC_Hud_Cond = false;
 			BTC_lifted   = 0;
-			if (BTC_def_hud isEqualTo 1) then {player addAction [("<t color=""#ED2744"">" + ("Hud On\Off") + "</t>"),BTC_dir_action, [[],{if (BTC_Hud_Cond) then {BTC_Hud_Cond = false;} else {BTC_Hud_Cond = true;_hud = [] spawn BTC_fnc_hud;};}], -8, false, false, "", "(vehicle player) isKindOf ""Helicopter"" && driver (vehicle player) == player"];};
-			if (BTC_def_pip isEqualTo 1) then {player addAction [("<t color=""#ED2744"">" + ("Camera On\Off") + "</t>"),BTC_dir_action, [[],BTC_l_camera], -9, false, false, "", "(vehicle player) isKindOf 'Helicopter'"];};
-			player addAction [("<t color=""#ED2744"">" + ("Lift") + "</t>"),BTC_dir_action, [[],BTC_attach_cargo], 9, true, false, "", "[] call BTC_lift_check"];
-			player addAction [("<t color=""#ED2744"">" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_detach_cargo], -9, true, false, "", "BTC_lifted == 1"];
+			if (BTC_def_hud isEqualTo 1) then {player addAction [("<t color='#ED2744'>" + ("Hud On\Off") + "</t>"),BTC_dir_action, [[],{if (BTC_Hud_Cond) then {BTC_Hud_Cond = false;} else {BTC_Hud_Cond = true;_hud = [] spawn BTC_fnc_hud;};}], -8, false, false, "", "(vehicle player) isKindOf 'Helicopter' && driver (vehicle player) == player"];};
+			if (BTC_def_pip isEqualTo 1) then {player addAction [("<t color='#ED2744'>" + ("Camera On\Off") + "</t>"),BTC_dir_action, [[],BTC_l_camera], -9, false, false, "", "(vehicle player) isKindOf 'Helicopter'"];};
+			player addAction [("<t color='#ED2744'>" + ("Lift") + "</t>"),BTC_dir_action, [[],BTC_attach_cargo], 9, true, false, "", "[] call BTC_lift_check"];
+			player addAction [("<t color='#ED2744'>" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_detach_cargo], -9, true, false, "", "BTC_lifted isEqualTo 1"];
 		};
 	}];
 };

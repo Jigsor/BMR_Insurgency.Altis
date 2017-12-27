@@ -10,7 +10,7 @@ class BTC_Hud
    	movingEnable=0;
    	duration=1e+011;
    	name = "BTC_Hud_Name";
-   	onLoad = "uiNamespace setVariable [""HUD"", _this select 0];";
+   	onLoad = "uiNamespace setVariable ['HUD', _this select 0];";
    	controlsBackground[] = {};
    	objects[] = {};
    	class controls 

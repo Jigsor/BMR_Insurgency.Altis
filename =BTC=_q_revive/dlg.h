@@ -7,7 +7,7 @@
 	objects[] = {};
 	controls[] = {respawn,call_for_help,text_time};
 
-	onLoad = "uiNamespace setVariable [""btc_qr_dlg"", _this select 0];";
+	onLoad = "uiNamespace setVariable ['btc_qr_dlg', _this select 0];";
 
 	class Background 
 	{
@@ -93,7 +93,7 @@ class btc_qr_dlg_resp
 	objects[] = {};
 	controls[] = {confirm,spawn_list};
 
-	onLoad = "uiNamespace setVariable [""btc_qr_dlg_resp"", _this select 0];";
+	onLoad = "uiNamespace setVariable ['btc_qr_dlg_resp', _this select 0];";
 
 	class confirm 
 	{

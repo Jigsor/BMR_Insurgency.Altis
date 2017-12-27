@@ -115,7 +115,7 @@ mhq_actions_fnc = {
 		};
 		case (_var isEqualTo "Opfor_MHQ"): {
 			_veh addAction [("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
-			//_veh addAction[("<t color=""#12F905"">") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side"];
+			//_veh addAction[("<t color='#12F905'>") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side"];
 		};
 		case (_var isEqualTo ""): {};
 	};
@@ -134,7 +134,7 @@ JIG_load_VA_profile_MHQ1 = {
 				private ["_name_index","_loadout_name"];
 				_name_index = _this select 1;
 				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
-				_id = MHQ_1 addAction [("<t color=""#00ffe9"">") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
+				_id = MHQ_1 addAction [("<t color='#00ffe9'>") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
 				sleep 20;
 				MHQ_1 removeAction _id;
 			};
@@ -152,7 +152,7 @@ JIG_load_VA_profile_MHQ2 = {
 				private ["_name_index","_loadout_name"];
 				_name_index = _this select 1;
 				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
-				_id = MHQ_2 addAction [("<t color=""#00ffe9"">") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
+				_id = MHQ_2 addAction [("<t color='#00ffe9'>") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
 				sleep 20;
 				MHQ_2 removeAction _id;
 			};
@@ -170,7 +170,7 @@ JIG_load_VA_profile_MHQ3 = {
 				private ["_name_index","_loadout_name"];
 				_name_index = _this select 1;
 				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
-				_id = MHQ_3 addAction [("<t color=""#00ffe9"">") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
+				_id = MHQ_3 addAction [("<t color='#00ffe9'>") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
 				sleep 20;
 				MHQ_3 removeAction _id;
 			};
@@ -379,6 +379,8 @@ INS_toggle_Zeus = {
 	};
 
 	if (!(_unit in playableUnits)) exitWith {};
+
+	(localize "STR_BMR_loading") remoteExec ["JIG_MPhint_fnc", _unit];
 
 	_curatorCreate = true;
 	{

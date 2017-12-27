@@ -96,7 +96,7 @@ while {true} do {
 					jig_ex_actid_show = 9999;
 					private _ex_caller = JIG_EX_Caller;
 					_ex_caller removeaction jig_ex_actid_show;
-					jig_ex_actid_show = _ex_caller addAction [("<t color=""#12F905"">") + (localize "STR_BMR_heli_extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];
+					jig_ex_actid_show = _ex_caller addAction [("<t color='#12F905'>") + (localize "STR_BMR_heli_extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];
 				};
 			};
 		};

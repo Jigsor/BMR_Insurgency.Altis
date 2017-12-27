@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access). 
 
-12/22/2017
+12/26/2017
 BMR_Insurgency_v1.48_beta
 	Added: Dust Storm script.
 	Added: Admin briefing section with buttons for Zeus, Brighter Nights, Filp Vehicle, Dust Storms and Vehicle Reward.
@@ -177,7 +177,7 @@ BMR_Insurgency_v1.48_beta
 	Added: Support for JIP of Headless client incase of kick or crash of Headless client. HC must be present at mission start.
 	Change: VA quick profile loadout action list on MHQs extended from 15 to 20 seconds.
 	Change: Increased delay loop for suicide bomber and now suicide bomber can no longer spawn in same building as target.
-	Change: Shortening group spawn delay on Capture N Hold obkective depending on defender count size and server fps for higher intensity.
+	Change: Shortening group spawn delay on Capture N Hold objective depending on defender count size and server fps for higher intensity.
 	Change: Option Environment effects (ambient life + sound) removed from lobby and replaced by button for ambient life in Y menu.
 	Change: Redesigned Y button GUI menu.
 	Change: Many code efficiency tweaks/optimizations.
@@ -191,6 +191,7 @@ BMR_Insurgency_v1.48_beta
 	Fixed: Some Russian translations.
 	Fixed: Sometimes dead players would not recieve Task update notifications.
 	Fixed: Several unknown enum value errors starting with patch A3 1.78.
+	Fixed: Drag, Carry and Load into vehicle for unconcious players. Finally :) 
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017

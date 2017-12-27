@@ -75,7 +75,7 @@
 
 #define SL_TEXTURES 0x10
 
-// progress bar 
+// progress bar
 #define ST_VERTICAL 0x01
 #define ST_HORIZONTAL 0
 
@@ -127,7 +127,7 @@ class ASORVS_RscText {
 		left=0.0145;		top="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 20) - (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2)) / 2";		w="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2) * (3/4)";		h="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2)";	};	class  TextPos{left="(((safezoneW / safezoneH) min 1.2) / 32) * 1.5";		top="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 20)*2 - (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2)) / 2";		right=0.005;		bottom=0;	};	soundEnter[]={"\A3\ui_f\data\Sound\RscButtonMenu\soundEnter",0.09,1};
 	soundPush[]={"\A3\ui_f\data\Sound\RscButtonMenu\soundPush",0,0};
 	soundClick[]={"\A3\ui_f\data\Sound\RscButtonMenu\soundClick",0.07,1};
-	soundEscape[]={"\A3\ui_f\data\Sound\RscButtonMenu\soundEscape",0.09,1};		class  Attributes{font="PuristaMedium";		color="#E5E5E5";		align="left";		shadow="false";	};	class  AttributesImage{
+	soundEscape[]={"\A3\ui_f\data\Sound\RscButtonMenu\soundEscape",0.09,1};	class  Attributes{font="PuristaMedium";		color="#E5E5E5";		align="left";		shadow="false";	};	class  AttributesImage{
 		font="PuristaMedium";		color="#E5E5E5";		align="false";	};	idc=-1;	style=0;	default=0;	w=0.313726;	h=0.104575;	animTextureNormal="\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\normal_ca.paa";	animTextureDisabled="\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\disabled_ca.paa";	animTextureOver="\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\over_ca.paa";	animTextureFocused="\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\focus_ca.paa";	animTexturePressed="\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\down_ca.paa";	animTextureDefault="\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\normal_ca.paa";	period=0.5;	font="PuristaMedium";	size="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2)";	sizeEx="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2)";	text="";	action="";};class ASORVS_RscFrame{
 	colorBackground[]={0,0,0,0};	colorText[]={1,1,1,1};	type=0;	idc=-1;	style=64;	shadow=2;	font="PuristaMedium";	sizeEx=0.02;	text="";};class ASORVS_RscSlider{
 	color[]={1,1,1,0.8};	colorActive[]={1,1,1,1};	access=0;	type=3;	style=1024;	w=0.3;	shadow=0;	h=0.025;};class ASORVS_IGUIBack{
@@ -139,7 +139,7 @@ class ASORVS_RscText {
 		left="0.25 * (((safezoneW / safezoneH) min 1.2) / 40)";		top="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) - (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)) / 2";		right=0.005;		bottom=0;	};	class Attributes{
 		font="PuristaLight";		color="#E5E5E5";		align="left";		shadow="false";	};	class ShortcutPos{left="(6.25 * (((safezoneW / safezoneH) min 1.2) / 40)) - 0.0225 - 0.005";		top=0.005;		w=0.0225;		h=0.03;	};	soundEnter[]={"\A3\ui_f\data\sound\RscButtonMenu\soundEnter",0.09,1};	soundPush[]={"\A3\ui_f\data\sound\RscButtonMenu\soundPush",0.09,1};	soundClick[]={"\A3\ui_f\data\sound\RscButtonMenu\soundClick",0.09,1};	soundEscape[]={"\A3\ui_f\data\sound\RscButtonMenu\soundEscape",0.09,1};};class ASORVS_RscButtonMenuOK{idc=1;	shortcuts[]={"0x00050000 + 0",28,57,156};	default=1;	text="OK";	soundPush[]={"\A3\ui_f\data\sound\RscButtonMenuOK\soundPush",0.09,1};};class ASORVS_RscButtonMenuCancel{idc=2;	shortcuts[]={"0x00050000 + 1"};	text="Cancel";};class ASORVS_RscControlsGroup{
 	class VScrollbar{color[]={1,1,1,1};		autoScrollEnabled=1;		width=0.021;		autoScrollSpeed=-1;		autoScrollDelay=5;		autoScrollRewind=0;		shadow=0;	};	class HScrollbar{color[]={1,1,1,1};		height=0.028;		shadow=0;	};	class Controls{};	class ScrollBar{color[]={1,1,1,0.6};		colorActive[]={1,1,1,1};		colorDisabled[]={1,1,1,0.3};		shadow=0;		thumb="\A3\ui_f\data\gui\cfg\scrollbar\thumb_ca.paa";		arrowFull="\A3\ui_f\data\gui\cfg\scrollbar\arrowFull_ca.paa";		arrowEmpty="\A3\ui_f\data\gui\cfg\scrollbar\arrowEmpty_ca.paa";		border="\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";	};	type=15;	idc=-1;	x=0;	y=0;	w=1;	h=1;	shadow=0;	style=16;};
-class ASORVS_RscProgress 
+class ASORVS_RscProgress
 {
 	type = 8;
 	style = 0;

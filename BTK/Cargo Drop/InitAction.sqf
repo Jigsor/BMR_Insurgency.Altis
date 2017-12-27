@@ -23,7 +23,7 @@ if (_BTK_CargoDrop_ActionAdded) exitWith {};
 
 //// If no action continue here
 _Transporter setVariable ["BTK_CargoDrop_ActionAdded", true];
-_CargoAction = _Transporter addAction [("<t color=""#fadfbe"">" + (localize "STR_BMR_load_cargo") + "</t>"),"BTK\Cargo Drop\Engine.sqf",["LoadCargo"], 5, false, false, "", "vehicle _this == player"];
+_CargoAction = _Transporter addAction [("<t color='#12F905'>" + (localize "STR_BMR_load_cargo") + "</t>"),"BTK\Cargo Drop\Engine.sqf",["LoadCargo"], 5, false, false, "", "vehicle _this == player"];
 
 //// remove Action
 waitUntil {(position _Unit distance _Transporter > 20) || !(alive _Unit) || !(alive _Transporter)};

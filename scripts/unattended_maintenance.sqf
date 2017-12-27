@@ -2,7 +2,8 @@
 // Routines performed by server when it has 0 players. Ex. cleanup and HC reset.
 
 if (isServer) then {
-	waitUntil {time > 128};
+	waitUntil {time > 1};
+	sleep 128;
 
 	private _deacDelay = ((DeAct_Gzone_delay * 60) + 120);
 	private _czPosArrys = [];

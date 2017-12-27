@@ -26,7 +26,6 @@ if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {
 		0 setFog 0;
 		skipTime 24;
 		sleep 1;
-		//setWind [1,1,false];
 		simulWeatherSync;
 	};
 }else{

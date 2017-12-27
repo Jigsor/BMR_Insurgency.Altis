@@ -16,4 +16,4 @@ publicVariable "JIG_EX_Caller";
 if (!isNull EvacHeliW1) exitWith {call Cancel_Evac_fnc};
 
 sleep 5;
-jig_ex_actid_show = player addAction [("<t color=""#12F905"">") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];
+jig_ex_actid_show = player addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];

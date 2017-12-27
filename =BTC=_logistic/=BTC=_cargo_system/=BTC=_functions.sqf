@@ -23,7 +23,7 @@ BTC_l_check_vehicle = {
 					_obj = _this select 0;
 					_veh = _this select 1;					
 					//player sideChat format ["%1",_obj];
-					_unload = _veh addaction [("<t color=""#ffcc00"">") + (format ["UnLoad %1",getText (configFile >> "cfgVehicles" >> typeof _obj >> "displayName")]) + "</t>",BTC_dir_action,[[_veh,_obj],BTC_l_unload],7,true,false,"","true"];
+					_unload = _veh addaction [("<t color='#ffcc00'>") + (format ["UnLoad %1",getText (configFile >> "cfgVehicles" >> typeof _obj >> "displayName")]) + "</t>",BTC_dir_action,[[_veh,_obj],BTC_l_unload],7,true,false,"","true"];
 					private _sleep = time + 15;
 					waitUntil {BTC_action_cargo || (time > _sleep)};
 					_veh removeAction _unload;
@@ -127,7 +127,7 @@ BTC_l_drag = {
 	_drag attachto [player,[0,2,0.2]];
 	sleep 0.1;
 	if ((position _drag select 2) < - 0.5) then {_drag attachto [player,[0,1,1.2]];};
-	_release = player addaction [("<t color=""#00FF00"">") + ("Release") + "</t>",BTC_dir_action,[[],BTC_l_release],7,true,false,"","true"];
+	_release = player addaction [("<t color='#00FF00'>") + ("Release") + "</t>",BTC_dir_action,[[],BTC_l_release],7,true,false,"","true"];
 	WaitUntil {!Alive player || ((animationstate player == "acinpknlmstpsraswrfldnon") || (animationstate player == "acinpknlmwlksraswrfldb"))};
 	_act  = 0;
 	While {BTC_l_dragging && isNull objectParent player && Alive player && ((animationstate player == "acinpknlmstpsraswrfldnon") || (animationstate player == "acinpknlmwlksraswrfldb"))} do
@@ -137,7 +137,7 @@ BTC_l_drag = {
 		if (count _array > 0 && _veh != _array select 0) then {
 			_veh = _array select 0;
 			_name_veh	= getText (configFile >> "cfgVehicles" >> typeof _veh >> "displayName");
-			_text_action	= ("<t color=""#ED2744"">" + "Load in " + (_name_veh) + "</t>");
+			_text_action	= ("<t color='#ED2744'>" + "Load in " + (_name_veh) + "</t>");
 			_load = player addAction [_text_action,BTC_dir_action, [[_veh],BTC_l_load], 7, true, true];
 			_act  = 1;
 		};

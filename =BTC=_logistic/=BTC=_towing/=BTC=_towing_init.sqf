@@ -6,7 +6,7 @@ Visit us at: http://www.blacktemplars.altervista.org/
 */
 waitUntil {!isNull player && player == player};
 
-BTC_towed      = ObjNull;
+BTC_towed = ObjNull;
 BTC_cargo_attached = ObjNull;
 //Functions
 BTC_tow_check =
@@ -60,15 +60,15 @@ BTC_t_detach_cargo =
 };
 [] spawn
 {
-	player addAction [("<t color=""#ED2744"">" + ("Tow") + "</t>"),BTC_dir_action, [[],BTC_t_attach_cargo], 9, true, false, "", "[] call BTC_tow_check"];
-	player addAction [("<t color=""#ED2744"">" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_t_detach_cargo], -9, true, false, "", "BTC_attached isEqualTo 1"];
-	player addEventHandler ["Respawn", 
+	player addAction [("<t color='#ED2744'>" + ("Tow") + "</t>"),BTC_dir_action, [[],BTC_t_attach_cargo], 9, true, false, "", "[] call BTC_tow_check"];
+	player addAction [("<t color='#ED2744'>" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_t_detach_cargo], -9, true, false, "", "BTC_attached isEqualTo 1"];
+	player addEventHandler ["Respawn",
 	{
-		[] spawn 
+		[] spawn
 		{
 			WaitUntil {sleep 1; Alive player};
-			player addAction [("<t color=""#ED2744"">" + ("Tow") + "</t>"),BTC_dir_action, [[],BTC_t_attach_cargo], 9, true, false, "", "[] call BTC_tow_check"];
-			player addAction [("<t color=""#ED2744"">" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_t_detach_cargo], -9, true, false, "", "BTC_attached isEqualTo 1"];
+			player addAction [("<t color='#ED2744'>" + ("Tow") + "</t>"),BTC_dir_action, [[],BTC_t_attach_cargo], 9, true, false, "", "[] call BTC_tow_check"];
+			player addAction [("<t color='#ED2744'>" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_t_detach_cargo], -9, true, false, "", "BTC_attached isEqualTo 1"];
 		};
 	}];
 };

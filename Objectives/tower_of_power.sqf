@@ -2,7 +2,7 @@
 
 sleep 2;
 params ["_newZone","_type"];
-private ["_rnum","_objmkr","_roads","_roadNear","_roadSegment","_roadDir","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_towerPos","_staticGuns"];
+private ["_rnum","_objmkr","_roads","_roadNear","_roadSegment","_roadDir","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_towerPos"];
 
 _roadNear = false;
 _rnum = str(round (random 999));
@@ -40,7 +40,7 @@ _tower setVectorUp [0,0,1];
 _tower addeventhandler ["handledamage",{_this call JIG_tower_damage}];
 _VarName = "PowerTower1";
 _tower setVehicleVarName _VarName;
-_tower Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+_tower Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
 
 // Spawn Objective enemy deffences
 _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
@@ -75,14 +75,14 @@ if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] cal
 waitUntil {sleep 2; !alive _tower};
 
 [] spawn {
-	private ["_lights","_lamps","_txtstr"];
-	_lights = INS_lights;
+	private _lights = INS_lights;
 
 	nul = [objective_pos_logic,"HighVoltage"] call mp_Say3D_fnc;
 	[[], "hv_tower_effect"] call BIS_fnc_mp;
 
 	[localize "STR_BMR_PowerTower_success", "JIG_MPhint_fnc"] call BIS_fnc_mp;
 
+	private "_lamps";
 	for [{_i=0},{_i < (count _lights)},{_i=_i+1}] do {
 		_lamps = getPosATL objective_pos_logic nearObjects [_lights select _i, 1000];
 		sleep 0.01;
@@ -103,7 +103,7 @@ sleep 90;
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];
 
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
 {deleteVehicle _x; sleep 0.1} forEach _staticGuns;
 {if (typeof _x in objective_ruins) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 30]);
 

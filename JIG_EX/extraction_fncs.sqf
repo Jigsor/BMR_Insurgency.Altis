@@ -87,7 +87,7 @@ drop_off_pos_fnc = {
 		_VarLZName = "DropLZpad";
 		_veh setVehicleVarName _VarLZName;
 		missionNamespace setVariable [_VarLZName,_veh,true];
-		_veh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarLZName];
+		_veh Call Compile Format ["%1=_this ; publicVariable '%1'",_VarLZName];
 		sleep 1;
 	};
 

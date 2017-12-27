@@ -807,18 +807,19 @@ INS_aiHalo = {
 mhq_actions2_fnc = {
 	// Add action for VA and quick VA profile to respawned MHQs by Jigsor.
 	params ["_var","_op4"];
-	switch (true) do {
-		case (_var isEqualTo "MHQ_1") : {if (!_op4) then {MHQ_1 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];};};
-		case (_var isEqualTo "MHQ_2") : {if (!_op4) then {MHQ_2 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ2", [(_this select 1)]]; MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];};};
-		case (_var isEqualTo "MHQ_3") : {if (!_op4) then {MHQ_3 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ3", [(_this select 1)]]; MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];};};
-		case (_var isEqualTo "Opfor_MHQ") : {if (_op4) then {Opfor_MHQ addAction [("<t size='1.5' shadow='2' color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];};};
+	switch (_var) do {
+		case "MHQ_1" : {if (!_op4) then {MHQ_1 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];};};
+		case "MHQ_2" : {if (!_op4) then {MHQ_2 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ2", [(_this select 1)]]; MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];};};
+		case "MHQ_3" : {if (!_op4) then {MHQ_3 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ3", [(_this select 1)]]; MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];};};
+		case "Opfor_MHQ" : {if (_op4) then {Opfor_MHQ addAction [("<t size='1.5' shadow='2' color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];};};
 		default {};
 	};
 	true
 };
 INS_MHQ_mkr = {
 	// Tracking MHQ marker by Jigsor.
-	params ["_mhq","_op4","_mhqPos","_mkrName","_color","_mkr"];
+	params ["_mhq","_op4","_mhqPos"];
+	private ["_mkrName","_color"];
 
 	if (_mhq isEqualTo objNull) exitWith {hint format ["Mobile Headquarters %1 does not exist", _mhq]};
 	if (vehicleVarName _mhq != "") then {
@@ -833,7 +834,7 @@ INS_MHQ_mkr = {
 	};
 
 	deleteMarkerLocal _mkrName;
-	_mkr = createMarkerLocal [_mkrName, _mhqPos];
+	private _mkr = createMarkerLocal [_mkrName, _mhqPos];
 	_mkr setMarkerTypeLocal "mil_dot";
 	_mkr setMarkerTextLocal _mkrName;
 	_mkr setMarkerColorLocal _color;

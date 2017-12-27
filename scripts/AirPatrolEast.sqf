@@ -91,7 +91,7 @@ if (count _airCenter > 0) then
 
 					_VarHunterName = "airhunterE1";
 					_veh setVehicleVarName _VarHunterName;
-					_veh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarHunterName];
+					_veh Call Compile Format ["%1=_this ; publicVariable '%1'",_VarHunterName];
 
 					// Initial Waypoint
 					_wp0 = _vehgrp addWaypoint [getPosATL air_pat_east, 200];
@@ -186,7 +186,7 @@ if (count _airCenter > 0) then
 
 					_VarHunterName = "airhunterE2";
 					_veh setVehicleVarName _VarHunterName;
-					_veh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarHunterName];
+					_veh Call Compile Format ["%1=_this ; publicVariable '%1'",_VarHunterName];
 
 					// Initial Waypoint
 					_wp0 = _vehgrp addWaypoint [getPosATL air_pat_east, 200];

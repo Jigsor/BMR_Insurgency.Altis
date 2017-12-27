@@ -33,7 +33,7 @@ BTC_EH_killed = {
 			{
 				hint format ["%1 TK you! You can decide to punish him by action menu", name _this];
 				WaitUntil {Alive player};
-				_action = player addAction [("<t color=""#ED2744"">") + ("Punish " + name _this) + "</t>","=BTC=_TK_punishment\=BTC=_punish_action.sqf",[name _this], 8, true, true, "", "true"];
+				_action = player addAction [("<t color='#ED2744'>") + ("Punish " + name _this) + "</t>","=BTC=_TK_punishment\=BTC=_punish_action.sqf",[name _this], 8, true, true, "", "true"];
 				_timeout = time + 30;
 				WaitUntil {sleep 1; (_timeout < time)};
 				player removeAction _action;

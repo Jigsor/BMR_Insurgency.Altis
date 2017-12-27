@@ -11,6 +11,6 @@ if(not isNull _b) then {
 		_itemRequirement = _itemRequirement + format[" and ((items player) find ""%1"" > -1)", itemsRequiredToDisarm select _i];
 	};
 
-	_unit addAction [("<t color=""#27EE1F"">") + ("Disarm") + "</t>", "EPD\IED\Disarm.sqf", [ _b, _pd, _iedNumber], 10, false, true, "", format["(_target distance _this < 3) %1", _itemRequirement]];
+	_unit addAction [("<t color='#27EE1F'>") + ("Disarm") + "</t>", "EPD\IED\Disarm.sqf", [ _b, _pd, _iedNumber], 10, false, true, "", format["(_target distance _this < 3) %1", _itemRequirement]];
 
 };

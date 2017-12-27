@@ -96,7 +96,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			_unit disableAI "AUTOTARGET";
 			_unit disableAI "FSM";
 			_unit setVehicleVarName _VarName; sstBomber = _unit;
-			_unit Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+			_unit Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
 			sleep 3;
 			//diag_log "SupahG33K Civilian Jihadi Draftee briefed and sent on his way";
 		}
@@ -123,7 +123,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			_unit = civBomberGrp createUnit [_class, _bmbrPos, [], 0, "NONE"]; sleep 0.1;
 			_unit setVehicleVarName _VarName; sstBomber = _unit;
 			missionNamespace setVariable [_VarName,_unit,true];
-			_unit Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+			_unit Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
 
 			(group _unit) setVariable ["zbe_cacheDisabled",true];
 			_unit setVariable ["asr_ai_exclude",true];

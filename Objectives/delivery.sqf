@@ -2,7 +2,7 @@
 
 sleep 2;
 params ["_newZone"];
-private ["_smoke","_smkArr","_type","_rnum","_objmkr","_AA","_VarName","_grp","_vehgrp","_AAveh","_stat_grp","_inf_patrol","_AA_mob_patrol","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_droppoint","_dropedcargo","_veh","_text","_deliverydone","_MHQ3DelReady","_sphere","_cargoPos","_staticGuns"];
+private ["_smoke","_smkArr","_type","_rnum","_objmkr","_AA","_VarName","_grp","_vehgrp","_AAveh","_stat_grp","_inf_patrol","_AA_mob_patrol","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_droppoint","_dropedcargo","_veh","_deliverydone","_MHQ3DelReady","_sphere","_cargoPos"];
 
 _rnum = str(round (random 999));
 _deliverydone = 0;
@@ -57,7 +57,7 @@ if (isNil "MHQ_3" || !Alive MHQ_3) then {// Create Helicopter MHQ_3 if it doesn'
 		_heli addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 		[_heli] call paint_heli_fnc;
 		_heli setVehicleVarName _HeliName; MHQ_3 = _heli;
-		_heli Call Compile Format ["%1=_This ; PublicVariable ""%1""",_HeliName];
+		_heli Call Compile Format ["%1=_this ; publicVariable '%1'",_HeliName];
 		sleep 3;
 		_actualPos = (getPosATL MHQ_3);
 		_cargoPos = [_actualPos, 5, 14, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;
@@ -142,7 +142,7 @@ _MHQ3DelReady = true;
 [localize "STR_BMR_delivery_ready", "JIG_MPhint_fnc"] call BIS_fnc_mp;
 sleep 2;
 
-_text = format [localize "STR_BMR_delivery_ready"];
+private _text = format [localize "STR_BMR_delivery_ready"];
 [[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
 sleep 3;
 
@@ -158,7 +158,7 @@ _AAveh addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 
 _VarName = "DeliveryDefence";
 _AAveh setVehicleVarName _VarName;
-_AAveh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+_AAveh Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
 
 // Spawn Objective enemy defences
 _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
@@ -175,7 +175,7 @@ if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] cal
 
 _veh = MHQ_3;
 [_veh] spawn {
-	params ["_veh","_text","_loop"];
+	params ["_veh","_loop"];
 
 	for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 	{
@@ -187,7 +187,7 @@ _veh = MHQ_3;
 			[localize "STR_BMR_delivery_destroyed_aborted", "JIG_MPhint_fnc"] call BIS_fnc_mp;
 			sleep 3;
 
-			_text = format [localize "STR_BMR_delivery_destroyed_aborted"];
+			private _text = format [localize "STR_BMR_delivery_destroyed_aborted"];
 			[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
 			[[_text],"JIG_MPsideChatEast_fnc"] call BIS_fnc_mp;
 
@@ -269,7 +269,7 @@ sleep 90;
 
 if (!isNull _AAveh) then {deleteVehicle _AAveh;};
 
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
 {deleteVehicle _x; sleep 0.1} forEach _staticGuns;
 {if (typeOf _x in objective_ruins) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 30]);
 if (ObjNull in _smkArr) then {{_smkArr = _smkArr - [objNull]} forEach _smkArr;}; {deleteVehicle _x;} count _smkArr;

@@ -64,7 +64,7 @@ _wreck allowdamage false;
 
 _VarName = "OspreyWreck";
 _wreck setVehicleVarName _VarName;
-_wreck Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+_wreck Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
 
 _pilot_grp = createGroup INS_Blu_side;
 _pilot = _pilot_grp createUnit [_pilotType, _newZone, [], 0, "NONE"];
@@ -74,7 +74,7 @@ _pilot addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 
 _pilotVarName = "DownedPilot";
 _pilot setVehicleVarName _pilotVarName;
-_pilot Call Compile Format ["%1=_This ; PublicVariable ""%1""",_pilotVarName];
+_pilot Call Compile Format ["%1=_this ; publicVariable '%1'",_pilotVarName];
 
 _pilot setUnitPos "UP";
 _pilot disableAI "MOVE";

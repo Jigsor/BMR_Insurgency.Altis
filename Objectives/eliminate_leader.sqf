@@ -37,7 +37,7 @@ _stat_grp = [_newZone,4,10] call spawn_Op4_StatDef;
 _obj_leader = leader _grp;
 _VarName = "ObjLeader";
 _obj_leader setVehicleVarName _VarName;
-_obj_leader Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+_obj_leader Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
 
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 

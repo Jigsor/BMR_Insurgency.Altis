@@ -13,7 +13,6 @@ if (isServer) then {
 if (isDedicated) exitwith {};
 
 if (INS_logistics isEqualTo 1) then {BTC_active_lift = 1;} else {BTC_active_lift = 0;};//adding Duda's Advanced SlingLoading option
-BTC_active_fast_rope = 0;
 BTC_active_cargo     = 1;
 BTC_active_towing    = 1;
 //Common
@@ -21,12 +20,12 @@ BTC_dir_action = "=BTC=_logistic\=BTC=_addAction.sqf";
 BTC_l_placement_area = 20;
 if (BTC_active_lift isEqualTo 1) then {
 	//Lift
-	BTC_lift_pilot    = [];
+	BTC_lift_pilot    = [];// Leave empty if all soldiers can use choppers to lift or ristrict by class name ex. ["US_Soldier_Pilot_EP1","USMC_Soldier_Pilot", ...etc etc];
 	BTC_lift          = 1;
 	BTC_lifted        = 0;
-	BTC_lift_min_h    = 7;
-	BTC_lift_max_h    = 13;
-	BTC_lift_radius   = 4;
+	BTC_lift_min_h    = 7;// Min height required to lift an object
+	BTC_lift_max_h    = 13;// Max height required to lift an object
+	BTC_lift_radius   = 4;// You have to stay in this radius to lift an object
 	BTC_def_hud       = 1;
 	BTC_def_pip       = 1;
 	BTC_l_pip_cond    = false;
@@ -40,6 +39,7 @@ if (BTC_active_lift isEqualTo 1) then {
 		_chopper = _this select 0;
 		_array   = [];
 		switch (typeOf _chopper) do	{
+	// Modify the array to change liftable objects by chopper class
 	//A3
 			//CH49 Mowhawk
 			case "I_Heli_Transport_02_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Land_BagFence_Long_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","B_UGV_01_F","B_UGV_01_rcws_F","Air","Ship","ffaa_et_pizarro_mauser","ffaa_et_toa_mando","ffaa_et_toa_zapador","ffaa_et_toa_ambulancia","ffaa_et_toa_m2","ffaa_et_toa_spike"] + BTC_fob_materials};
@@ -141,13 +141,6 @@ if (BTC_active_lift isEqualTo 1) then {
 		};
 		_array
 	};
-};
-if (BTC_active_fast_rope isEqualTo 1) then {
-	//Fast roping
-	BTC_fast_rope_h = 35;
-	BTC_fast_rope_h_min = 5;
-	BTC_roping_chopper = ["B_Heli_Light_01_F","O_Heli_Light_02_F","B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F","I_Heli_Transport_02_F","BTC_EI_ch49","CH_47F","UH60M","UH60M_MEV","UH1H","UH1Y","Cha_Mi24_D","Cha_Mi35_ACR"];
-	_rope = [] execVM "=BTC=_logistic\=BTC=_fast_roping\=BTC=_fast_roping_init.sqf";
 };
 if (BTC_active_cargo isEqualTo 1) then {
 	//Cargo System

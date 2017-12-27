@@ -171,14 +171,14 @@
 		<German>%1 hat die Munitionskiste zerstört</German>
 		<French>%1 Détruit Cache Munitions</French>
 		<Russian>%1 уничтожил ящик с боеприпасами</Russian>
-		<Spanish>%1 Destruido caché Munición</Spanish>
+		<Spanish>%1 Destruido Caché Munición</Spanish>
 	</Key>
 	<Key ID="STR_BMR_who_destroyed_tower">
 		<Original>%1 has destroyed the Tower</Original>
 		<German>%1 hat den Turm zerstört</German>
-		<French>%1 Tour détruits</French>
+		<French>Tour détruite par %1</French>
 		<Russian>%1 уничтожил башню</Russian>
-		<Spanish>%1 Torre destruido</Spanish>
+		<Spanish>%1 Destruido la Torre</Spanish>
 	</Key>
 	<Key ID="STR_BMR_veh_awarded">
 		<Original>Vehicle Awarded</Original>
@@ -222,19 +222,12 @@
 		<Russian>Вы достигли максимально допустимого размера группы</Russian>
 		<Spanish>Ha alcanzado el máximo. el tamaño del grupo permitido</Spanish>
 	</Key>
-	<Key ID="STR_BMR_leader_recruit_restrict">
-		<Original>Only group leaders can recruit AI</Original>
-		<German>Nur Teamleiter können AI rekrutieren</German>
-		<French>Seuls les chefs de groupe peuvent recuit AI</French>
-		<Russian>Только лидеры группы могут нанять AI</Russian>
-		<Spanish>Sólo los líderes de grupo pueden reclutar AI</Spanish>
-	</Key>
-	<Key ID="STR_BMR_recruit_restrict_halo">
-		<Original>Only group leaders can order AI to HALO</Original>
-		<German>Nur Teamleiter können AI Falschirmspringer ordern</German>
-		<French>Seuls les chefs de groupe peuvent commander AI pour HALO</French>
-		<Russian>Только лидеры группы могут заказать AI HALO</Russian>
-		<Spanish>Sólo los líderes de grupo pueden ordenar AI a HALO</Spanish>
+	<Key ID="STR_BMR_group_leaders_only">
+		<Original>Reserved for group leaders</Original>
+		<German>Eingeschränkt auf Gruppenleiter</German>
+		<French>Réservé aux chefs de groupe</French>
+		<Russian>Ограничено лидером группы</Russian>
+		<Spanish>Restringido a los líderes del grupo</Spanish>
 	</Key>
 	<Key ID="STR_BMR_flip_restrict">
 		<Original>You must be on foot to flip vehicle</Original>
@@ -747,6 +740,13 @@
 		<Russian>Загрузить груз</Russian>
 		<Spanish>Carga</Spanish>
 	</Key>
+	<Key ID="STR_BMR_unload_cargo">
+		<Original>Unload cargo</Original>
+		<German>Entlade Fracht</German>
+		<French>Décharger des cargaisons</French>
+		<Russian>Выгрузить груз</Russian>
+		<Spanish>Descargue la carga</Spanish>
+	</Key>
 	<Key ID="STR_BMR_heli_extraction">
 		<Original>Heli Extraction</Original>
 		<German>Helikopter Evakuierung </German>
@@ -802,13 +802,6 @@
 		<French>Conservateur Removed</French>
 		<Russian>Куратор Удалены</Russian>
 		<Spanish>Fuera Curador</Spanish>
-	</Key>
-	<Key ID="STR_BMR_unload_cargo">
-		<Original>Unload cargo</Original>
-		<German>Entlade Fracht</German>
-		<French>Décharger des cargaisons</French>
-		<Russian>Выгрузить груз</Russian>
-		<Spanish>Descargue la carga</Spanish>
 	</Key>
 	<Key ID="STR_BMR_start_time">
 		<Original>Set the start time:</Original>

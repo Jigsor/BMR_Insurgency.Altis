@@ -161,7 +161,6 @@ if (DebugEnabled > 0) then {
 	[] spawn {
 		sleep 5;
 		waitUntil {!isNull (findDisplay 46)};
-		//handle = (findDisplay 46) displayAddEventHandler ["KeyDown", "_this call Jig_fnc_keyHandler"];
 		(findDisplay 46) displayAddEventHandler ["KeyDown", "_this call Jig_fnc_keyHandler"];
 		(findDisplay 46) displayAddEventHandler ["KeyDown", {if ((_this select 1) in ((actionKeys 'User3') + [0x3d])) then {call INS_planeReverse_key_F3;};}];
 	};
@@ -412,7 +411,7 @@ if (DebugEnabled > 0) then {
 					if ((local player) and (rewardp == _uid)) then {
 						//[activated_cache_pos,45,1,0.01] spawn JIG_circling_cam;// optional cache cam
 						player setVariable ["createEnabled", true];
-						_id = player addAction[("<t size='1.5' shadow='2' color=""#12F905"">") + (localize "STR_BMR_veh_reward") + "</t>",{call JIG_map_click}, [], 10, false, true];// Use it or loose it when player dies.
+						_id = player addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_veh_reward") + "</t>",{call JIG_map_click}, [], 10, false, true];// Use it or loose it when player dies.
 						[_text] spawn JIG_MPsideChatWest_fnc;
 						rewardp = "";
 						publicVariable "rewardp";
