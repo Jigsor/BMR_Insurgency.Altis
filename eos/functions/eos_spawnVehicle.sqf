@@ -32,7 +32,6 @@ _vehCrew=[];
 		_unit MoveInTurret [_vehicle,_currentPosition select 1];
 		_vehCrew pushBack _unit;
 	};
-	//sleep 0.3;
 }foreach _vehPositions;
 
 if (INS_op_faction isEqualTo 16) then {[_vehicle] call Trade_Biofoam_fnc};

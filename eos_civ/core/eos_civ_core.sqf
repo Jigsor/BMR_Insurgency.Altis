@@ -158,7 +158,7 @@ if (!(getmarkercolor _mkr == "colorBlack")) then {
 	if (isnil "_fGrp") then {_fGrp=[];};
 	if ((_fSize select 0) > 0) then {_vehType=4}else{_vehType=3};
 	_newpos = [(markerpos _mkr), 1500, random 360] call BIS_fnc_relPos;
-	_fGroup=[_newpos,_side,_faction,_vehType,"fly"]call EOS_fnc_spawcivnvehicle;
+	_fGroup=[_newpos,_side,_faction,_vehType,"FLY"]call EOS_fnc_spawcivnvehicle;
 	_fGrp set [count _fGrp,_fGroup];
 
 	if ((_fSize select 0) > 0) then {
@@ -246,7 +246,8 @@ if (!(getmarkercolor _mkr == "colorBlack")) then {
 					{deleteVehicle _x} forEach (_crew);
 					if (!(vehicle player == _vehicle)) then {{deleteVehicle _x} forEach[_vehicle];};
 					{deleteVehicle _x} foreach units _grp;deleteGroup _grp;
-				}foreach _eGrp;};
+				}foreach _eGrp;
+			};
 
 			// CACHE HELICOPTER TRANSPORT
 			if (!isnil "_fGrp") then {
@@ -264,7 +265,8 @@ if (!(getmarkercolor _mkr == "colorBlack")) then {
 			_eosAct=false;
 			if (_debug) then {hint "Zone Cached";};
 		};
-		if (triggeractivated _clear and triggeractivated _taken and !_civZone)exitwith {// IF ZONE CAPTURED BEGIN CHECKING FOR ENEMIES
+		if (triggeractivated _clear and triggeractivated _taken and !_civZone)exitwith
+		{// IF ZONE CAPTURED BEGIN CHECKING FOR ENEMIES
 			_cGrps=0;_aGrps=0;_bGrps=0;_dGrps=0;_eGrps=0;_fGrps=0;
 			while {triggeractivated _eosActivated AND !(getmarkercolor _mkr == "colorBlack")} do {
 				if (!triggeractivated _clear) then {

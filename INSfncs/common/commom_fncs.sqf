@@ -434,6 +434,8 @@ INS_toggle_Zeus = {
 	if (_announce) then {
 		_text = format[localize "STR_BMR_is_curator",name _unit];
 		[_text,"JIG_MPhint_fnc"] call BIS_fnc_mp;
+	} else {
+		"Zeus Loaded" remoteExec ["JIG_MPhint_fnc", _unit];
 	};
 };
 Terminal_acction_MPfnc = {

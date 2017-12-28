@@ -20,12 +20,14 @@ if !isserver exitwith {};
 // Handle parameters
 private ["_grp","_dst","_marker"];
 _dst = 250;
+//Jig updated commands from typename to isEqualType.
 if (_this isEqualType grpNull) then { _grp = _this };
 if (_this isEqualType objNull) then { _grp = group _this };
 if (_this isEqualType [])then {
 	_grp = _this select 0;
 	if (_grp isEqualType objNull) then {_grp = group _grp};
-	if (count _this > 1) then {_marker = _this select 1};
+	//if (count _this > 1) then {_marker = _this select 1};//original..wtf?
+	if (count _this > 1) then {private _mkr = _this select 1};//Jig
 };
 
 _grp setBehaviour "SAFE";
@@ -40,14 +42,14 @@ _slack = _dst / 5.5;
 if (_slack < 20) then {_slack = 20};
 
 // Find positions for waypoints
-private ["_a","_p"];
+private "_p";
 while {count _wps < _cnt} do {
 	if (surfaceiswater (getpos(leader _grp)) ) then {
 		_p = [_mkr,true] call SHK_civ_pos;
 		}else{
 		_p = [_mkr,true] call SHK_civ_pos;
 	};
-    _wps set [count _wps, _p];
+    _wps pushBack _p;
 };
 
 // Create waypoints
@@ -61,7 +63,7 @@ for "_i" from 1 to (_cnt - 1) do {
     [_grp,_i] setWaypointTimeout [0,2,16];
 
     // When completing waypoint have 33% chance to choose a random next wp
-    [_grp,_i] setWaypointStatements ["true", "if ((random 3) > 2) then { group this setCurrentWaypoint [(group this), (floor (random (count (waypoints (group this)))))];};"];
+	[_grp,_i] setWaypointStatements ["true", "if ((random 3) > 2) then { group this setCurrentWaypoint [(group this), (ceil (random (count (waypoints (group this)))))];};"];//Fixed-Groups would set current waypoint to grid [0,0,0]-Jig
 
     if (DEBUG) then {
       private "_m";

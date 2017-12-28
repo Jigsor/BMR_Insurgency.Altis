@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access). 
 
-12/26/2017
+12/27/2017
 BMR_Insurgency_v1.48_beta
 	Added: Dust Storm script.
 	Added: Admin briefing section with buttons for Zeus, Brighter Nights, Filp Vehicle, Dust Storms and Vehicle Reward.
@@ -185,13 +185,15 @@ BMR_Insurgency_v1.48_beta
 	Change: Replaced "First Aid" action with A3 Nexus localization of "Revive".
 	Change: W.I.P. - reorganization of functions.
 	Change: Switched to hmd command for removal and replacement of NVGs in eos.
+	Change: TASKMASTER updated to v0.44 and modified with optimizations.
 	Fixed: AI recruits are deleted when player disconnects if player's former group leader is not another player.
 	Fixed: Several MP/dedicated server issues in heli group extraction.
 	Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.
 	Fixed: Some Russian translations.
 	Fixed: Sometimes dead players would not recieve Task update notifications.
 	Fixed: Several unknown enum value errors starting with patch A3 1.78.
-	Fixed: Drag, Carry and Load into vehicle for unconcious players. Finally :) 
+	Fixed: Drag, Carry and Load into vehicle for unconcious players. Finally :)
+	Fixed: Foot patrols spawned in grids by eos would eventually stop patrolling and wonder off to grid [0,0,0].
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017

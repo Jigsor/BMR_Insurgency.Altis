@@ -1,8 +1,8 @@
 /* == TASKMASTER ===============================================================================
 
-Version 0.39
+  Version 0.44
 Author: Shuko (shuko@quakenet, miika@miikajarvinen.fi)
-Contributors: cuel, galzohar, zuff
+  Contributors: Alwarren, cuel, Fat_Lurch, galzohar, Levrex, zuff
 Forum: http://forums.bistudio.com/showthread.php?160974-SHK_Taskmaster
 
 == Creating a briefing =======================================================================
@@ -29,7 +29,7 @@ Example:
 		Description	string     Task description, the actual text body
 
 	Optional parameters:
-		Condition	boolean/side/faction/unit/group/string   Units the task is added to. Default is everyone
+      Condition     boolean/side/faction/unit/group/string/array   Units the task is added to. Default is everyone
 		Marker		array     Marker related to the task. It will be created only for the units who have the
 								task. Marker will be hidden after task is completed. Can be an array of marker
 								arrays, if you want to create multiple markers.
@@ -40,7 +40,7 @@ Example:
 		Text		string    Marker text.
 		Shape		string    Marker shape: Icon, Ellipse, Rectangle
 		Size		number or array     Marker size. If number given, it's used for both X and Y dimension.
-		State		string    Task state of the newly created task. Default is "created".
+      State         string    Task state of the newly created task. Default is "created". Using "assigned" creates the task as assigned and sets it current.
 		Destination	object/position/marker	Place to create task destination (game's built-in waypoint/marker). If an object is given, setSimpleTaskTarget command is used, attaching the destination to it.
 
 	- Condition -
@@ -148,6 +148,11 @@ Example:
 	calls, for example "sleep 1;".
 
 == Version history ======================================================================
+	0.44  Added: An array can now be used as a condition.
+	0.43  Added: Using "assigned" task state will automatically set that task as current task. Use "created" to avoid that.
+	0.42  Changed: Support for all non-BIS factions.
+	0.41  Fixed: More robust inCompleted function.
+	0.40  Fixed: Marker text
 	0.39  Added: More marker options.
 	0.38  Added: SHK_Taskmaster_isCompleted now takes multiple tasks are parameter. Also, added _areCompleted as a wrapper function.
 	0.37  Changed: Task creation order was reversed in Arma 2. It was changed in Arma 3. Changed the order in script to be correct with A3. Automatic current task assignment was removed, use the SHK_Taskmaster_setCurrentLocal.
@@ -172,7 +177,6 @@ Example:
 	0.12  Fixed: Task updates now wait for player to be alive (after respawn etc).
 	0.11  Fixed: Missed !isnull player check, which caused problems in marker handling.
 */
-#define FACTIONLIST ["BLU_F","OPF_F","IND_F","IND_G_F","CIV_F"]
 DEBUG = false;
 /* == COMMON =================================================================================== */
 SHK_Taskmaster_initDone = false;
@@ -234,9 +238,9 @@ SHK_Taskmaster_addTask = {
 			_handle setsimpletaskdescription [(_this select 2),(_this select 1),""];
 			_handle settaskstate _state;
 
-			//if (_state in ["created","assigned"]) then {
-				//_x setcurrenttask _handle;
-			//};
+			if (_state == "assigned") then {
+				_x setcurrenttask _handle;
+			};
 			if (_dest isEqualType ObjNull) then { _handle setsimpletasktarget [_dest,true] };
 			if (_dest isEqualType "") then { _handle setsimpletaskdestination (getmarkerpos _dest) };
 			if (_dest isEqualType []) then { _handle setsimpletaskdestination _dest };
@@ -257,7 +261,7 @@ SHK_Taskmaster_addTask = {
 
 							_type = "selector_selectedMission";
 							if (count _x > 2) then {
-								private _tmp = (_x select 2); 
+								private _tmp = (_x select 2);
 								if (_tmp != "") then {
 									_type = _tmp;
 								};
@@ -277,7 +281,7 @@ SHK_Taskmaster_addTask = {
 							if (count _x > 4) then {
 								private _tmp = (_x select 4);
 								if (_tmp != "") then {
-									_color = _tmp;
+									_txt = _tmp;
 								};
 							};
 							_m setmarkertextlocal _txt;
@@ -349,6 +353,7 @@ SHK_Taskmaster_checkCond = {
 		Out: boolean
 	*/
 	params ["_unit","_cond"];
+
 	if (!isNil "_cond") then {
 		if DEBUG then { diag_log format ["SHK_Taskmaster> typename condition: %1",typename _cond]};
 		switch (typename _cond) do {
@@ -356,8 +361,9 @@ SHK_Taskmaster_checkCond = {
 			case (typename objNull): { _unit == _cond };
 			case (typename WEST):    { (side _unit == _cond) };
 			case (typename true):    { _cond };
+			case (typename []):      { (_unit in _cond) };
 			case (typename ""): {
-				if (_cond in FACTIONLIST) then {
+				if (_cond call SHK_Taskmaster_isFaction) then {
 					(faction _unit == _cond)
 				} else {
 					(call compile format ["%1",_cond])
@@ -488,7 +494,9 @@ SHK_Taskmaster_isCompleted = {
 				} else {
 					_this set [_i,false]
 				};
-			};
+	} else {                            // Set unknown tasks names to false to prevent error message
+		_this set [_i, false];          // Usually, passing a wrong task name is an error, but it shouldn't give a script error
+	};                                  // and this will allow to check dynamic tasks
 		} foreach SHK_Taskmaster_Tasks;
 	} foreach _this;
 
@@ -497,6 +505,22 @@ SHK_Taskmaster_isCompleted = {
 	};
 
 	_b;
+};
+SHK_Taskmaster_isFaction = {
+	/* Checks if a string is a valid BIS or an addon faction
+	In: string	Faction name
+	Out: boolean
+	*/
+	private ["_cond", "_cfg", "_result"];
+	_cond = _this;
+	_cfg = configFile >> "cfgFactionClasses";
+	_result = false;
+	for "_i" from 0 to (count _cfg)-1 do {
+		if (configName (_cfg select _i) == _cond) exitWith {
+			_result = true;
+		};
+	};
+	_result;
 };
 SHK_Taskmaster_setCurrentLocal = {
 	/* Set the given task as current task. */
@@ -640,7 +664,7 @@ if !isdedicated then {
 /*
 	Initially wait for server to send the task list for briefing. After briefing is created, add
 	an eventhandler to catch the updated task list server might send.
- 
+
 	Wait for briefing tasks to be created before enabling taskhints. This prevents hints from briefing tasks
 	from being spammed at the start of the mission.
 */

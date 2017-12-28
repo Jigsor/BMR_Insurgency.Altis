@@ -139,6 +139,7 @@ if (!(getmarkercolor _mkr == "colorBlack")) then {
 		if (surfaceiswater _newpos) then {_vehType=8;}else{_vehType=2;};
 
 		_dGroup=[_newpos,_side,_faction,_vehType]call EOS_fnc_spawnvehicle;
+		//diag_log format ["SpawnedVehicle: %1 Vehicle Crew: %2 Vehicle Group: %3", _dGroup select 0, _dGroup select 1, _dGroup select 2];//Jig
 
 		0=[(_dGroup select 2),"ARMskill",_faction] call eos_fnc_grouphandlers;
 		0 = [(_dGroup select 2),_mkr] call EOS_fnc_taskpatrol;
@@ -166,7 +167,7 @@ if (!(getmarkercolor _mkr == "colorBlack")) then {
 		if (isnil "_fGrp") then {_fGrp=[];};
 		if ((_fSize select 0) > 0) then {_vehType=4}else{_vehType=3};
 		_newpos = [(markerpos _mkr), 1500, random 360] call BIS_fnc_relPos;
-		_fGroup=[_newpos,_side,_faction,_vehType,"fly"]call EOS_fnc_spawnvehicle;
+		_fGroup=[_newpos,_side,_faction,_vehType,"FLY"]call EOS_fnc_spawnvehicle;
 		_fGrp set [count _fGrp,_fGroup];
 
 		if ((_fSize select 0) > 0) then {
@@ -280,7 +281,6 @@ if (!(getmarkercolor _mkr == "colorBlack")) then {
 			_eosAct=false;
 			if (_debug) then {hint "Zone Cached";};
 		};
-
 		if (triggeractivated _clear and triggeractivated _taken and !_civZone)exitwith
 		{// IF ZONE CAPTURED BEGIN CHECKING FOR ENEMIES
 			_cGrps=0;_aGrps=0;_bGrps=0;_dGrps=0;_eGrps=0;_fGrps=0;
@@ -299,7 +299,6 @@ if (!(getmarkercolor _mkr == "colorBlack")) then {
 			// PLAYER LEFT ZONE
 			_eosAct=false;
 		};
-
 		uiSleep 2; //Cache: Reduce cpu usage from while loop //rip
 	};
 

@@ -60,7 +60,7 @@ if (isServer) then {
 								{deleteVehicle _x} count (allMissionObjects _x);
 							};
 						} forEach ["Land_Sleeping_bag_F","Land_Sleeping_bag_blue_F","Land_Sleeping_bag_brown_F","B_Patrol_Respawn_tent_F","Respawn_TentDome_F","Respawn_TentA_F","CraterLong","CraterLong_small","Ruins","OPTRE_HEV","OPTRE_HEV_Door","Plane_Fighter_01_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F","rhs_k36d5_seat","rhs_mi28_wing_right","rhs_mi28_wing_left"];
-						sleep 3;
+						sleep 2;
 
 						// Delete abandoned sandbags placed by medics.
 						private _abandoned = allMissionObjects "Land_BagFence_Round_F";
@@ -71,7 +71,7 @@ if (isServer) then {
 								};
 							} forEach _abandoned;
 							{deleteVehicle _x} count _abandoned;
-							sleep 3;
+							sleep 2;
 						};
 
 						// Delete all mines beyond 500 meters away from objective position
@@ -84,7 +84,7 @@ if (isServer) then {
 							} forEach _mines;
 							{deleteVehicle _x} count _mines;
 						};
-						sleep 3;
+						sleep 2;
 
 						// Delete empty groups.
 						{

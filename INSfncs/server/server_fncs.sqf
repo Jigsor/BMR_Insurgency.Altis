@@ -709,6 +709,30 @@ INS_Tsk_GrpMkrs = {
 	deleteMarker _newMkr;
 	{deleteMarker _x;} forEach _wpMkrArray;
 };
+Inf_taskPatrol_mod = {
+	//Optimized version of BIS_fnc_taskPatrol used for infantry by Jigsor.
+	params [["_grp",grpNull],["_pos",[]],["_maxDist",0],["_blacklist",[]]];
+
+	_grp setBehaviour "SAFE";
+
+	private _prevPos = _pos;
+	for "_i" from 0 to (2 + (floor (random 3))) do {
+		private _newPos = [_prevPos, 50, _maxDist, 1, 0, 60 * (pi / 180), 0, _blacklist] call BIS_fnc_findSafePos;
+		_prevPos = _newPos;
+		private _wp = _grp addWaypoint [_newPos, 0];
+		_wp setWaypointType "MOVE";
+		_wp setWaypointCompletionRadius 20;
+		if (_i == 0) then {//Set the group's speed and formation at the first waypoint.
+			_wp setWaypointSpeed "LIMITED";
+			_wp setWaypointFormation "STAG COLUMN";
+		};
+	};
+
+	private _wp = _grp addWaypoint [_pos, 0];
+	_wp setWaypointType "CYCLE";
+	_wp setWaypointCompletionRadius 20;
+	true
+};
 Veh_taskPatrol_mod = {
 	// BIS_fnc_taskPatrol modified by Demonized to fix some vehicle bugs not moving when speed or behaviour was not defined for each wp.
 	_grp = _this select 0;
@@ -721,7 +745,7 @@ Veh_taskPatrol_mod = {
 		_wp setWaypointType "MOVE";
 		_wp setWaypointSpeed "LIMITED";
 		_wp setWaypointBehaviour "SAFE";
-		_wp setWaypointFormation "COLUMN";//"STAG COLUMN"
+		_wp setWaypointFormation "COLUMN";
 		_wp setWaypointCompletionRadius 20;
 	};
 

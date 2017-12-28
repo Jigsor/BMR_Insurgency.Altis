@@ -24,12 +24,14 @@ DEBUG = false;
 // Handle parameters
 private ["_grp","_dst","_marker"];
 _dst = 250;
+//Jig updated commands from typename to isEqualType.
 if (_this isEqualType grpNull) then { _grp = _this };
 if (_this isEqualType objNull) then { _grp = group _this };
 if (_this isEqualType [])then {
 	_grp = _this select 0;
 	if (_grp isEqualType objNull) then {_grp = group _grp};
-	if (count _this > 1) then {_marker = _this select 1};
+	//if (count _this > 1) then {_marker = _this select 1};//original..wtf?
+	if (count _this > 1) then {private _mkr = _this select 1};//Jig
 };
 
 _grp setBehaviour "AWARE";
@@ -62,8 +64,9 @@ for "_i" from 1 to (_cnt - 1) do {
     _wp setWaypointCompletionRadius (5 + _slack);
     [_grp,_i] setWaypointTimeout [0,2,16];
 
-    // When completing waypoint have 33% chance to choose a random next wp
-    [_grp,_i] setWaypointStatements ["true", "if ((random 3) > 2) then { group this setCurrentWaypoint [(group this), (floor (random (count (waypoints (group this)))))];};"];
+	// When completing waypoint have 33% chance to choose a random next wp
+	[_grp,_i] setWaypointStatements ["true", "if ((random 3) > 2) then { group this setCurrentWaypoint [(group this), (ceil (random (count (waypoints (group this)))))];};"];//Fixed-Groups would set current waypoint to grid [0,0,0]-Jig
+	//diag_log format ["Original WayPoint Pos: %1", (getWPPos [_grp, _i])];
 
     if (DEBUG) then {
       private "_m";

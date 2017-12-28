@@ -27,7 +27,7 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 	<br />T-Helmetcam by Tajin
 	<br />HuntIR script v1.0 by Bardosy
 	<br />tky_evo_performance report by GITS Tankbuster
-	<br />SHK_buildingpos.sqf v0.12 and shk_taskmaster by Shuko
+	<br />SHK_buildingpos.sqf v0.12 and shk_taskmaster v0.44 by Shuko
 	<br />BTK Cargo Drop v1.92 by sxp2high
 	<br />zbe_cache_script_v4.6a by zorrobyte
 	<br />Bon's Infantry Recruitment Redux -- by Moser
