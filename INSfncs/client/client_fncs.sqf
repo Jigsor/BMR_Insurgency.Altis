@@ -736,12 +736,12 @@ INS_Recruit_skill = {
 };
 INS_Depleated_Loadout = {
 	// Save current kit when player reloads magazine
-	INS_SaveLoadout = [player, [missionNamespace, "BMRInsInv"]] call BIS_fnc_saveInventory;
+	INS_SaveLoadout = getUnitLoadout player;
 	true
 };
 INS_RespawnLoadout = {
 	// Save respawn kit used with "Save Respawn Loadout" action by Jigsor
-	INS_SaveLoadout = [(_this select 1), [missionNamespace, "BMRInsInv"]] call BIS_fnc_saveInventory;
+	INS_SaveLoadout = getUnitLoadout player;
 	_kitSaved = "A3\Sounds_F\sfx\Beep_Target.wss";
 	playsound3d [_kitSaved, (_this select 0), false, getPosasl (_this select 1), 10,0.5,10];
 	true
@@ -751,7 +751,7 @@ INS_RestoreLoadout = {
 	if (isNil "INS_SaveLoadout") then {
 		player setUnitLoadout loadout;
 	}else{
-		[player, [missionNamespace, "BMRInsInv"]] call BIS_fnc_loadInventory;
+		player setUnitLoadout INS_SaveLoadout;
 	};
 	true
 };

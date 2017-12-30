@@ -29,6 +29,7 @@ _tempmkr1 setMarkerShape "ELLIPSE";
 "extractmkr" setMarkerType "mil_dot";
 "extractmkr" setMarkerColor "Color3_FD_F";
 "extractmkr" setMarkerText "Requested Extraction Position";
+"extractmkr" setMarkerAlpha 0;
 sleep 0.1;
 
 if !(getMarkerColor "dropmkr" isEqualTo "") then {deleteMarker "dropmkr"};
@@ -39,6 +40,7 @@ _tempmkr2 setMarkerShape "ELLIPSE";
 "dropmkr" setMarkerType "mil_dot";
 "dropmkr" setMarkerColor "Color3_FD_F";
 "dropmkr" setMarkerText "Requested Drop Off Position";
+"dropmkr" setMarkerAlpha 0;
 sleep 0.1;
 
 hintSilent "";
@@ -50,6 +52,7 @@ ctrlActivate ((findDisplay 12) displayCtrl 107);// map texture toggle
 [] spawn {["Click on Map for Extraction Point or escape to cancel",0,.1,3,.005,.1] call bis_fnc_dynamictext;};
 
 ["Ext_pu_mapclick","onMapSingleClick", {
+	"extractmkr" setMarkerAlpha 1;
 	"extractmkr" setMarkerPos _pos;
 	GetClick = false;
 }] call BIS_fnc_addStackedEventHandler;
@@ -75,6 +78,7 @@ openMap true;
 [] spawn {["Click on Map for Drop Point or escape to cancel",0,.1,3,.005,.1] call bis_fnc_dynamictext;};
 
 ["Ext_do_mapclick","onMapSingleClick", {
+	"dropmkr" setMarkerAlpha 1;
 	"dropmkr" setMarkerPos _pos;
 	GetClick = false;
 }] call BIS_fnc_addStackedEventHandler;

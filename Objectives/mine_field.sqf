@@ -2,7 +2,7 @@
 
 sleep 2;
 params ["_newZone","_type"];
-private ["_rnum","_alltskmines","_objmkr","_grp","_stat_grp","_patrole","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_deadWmen","_knownmines","_nearestMines","_manArray","_checkmines","_minefielrad","_sandbags1","_ins_debug","_random_mine_cnt","_mfieldmkr","_staticGuns"];
+private ["_rnum","_alltskmines","_objmkr","_grp","_stat_grp","_patrole","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_deadWmen","_knownmines","_nearestMines","_manArray","_checkmines","_minefielrad","_sandbags1","_ins_debug","_random_mine_cnt","_mfieldmkr"];
 
 _rnum = str(round (random 999));
 _alltskmines = [];
@@ -116,7 +116,7 @@ while {_checkmines} do
 sleep 90;
 
 if (!isNull _sandbags1) then {deleteVehicle _sandbags1};
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
 {deleteVehicle _x} forEach _staticGuns;
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];

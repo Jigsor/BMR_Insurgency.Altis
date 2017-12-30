@@ -135,7 +135,7 @@ if (DebugEnabled > 0) then {
 	// Player event handlers //
 
 	if (INS_SEH_check) then {
-		//Remove any stacked event handler left behind by any mission/rejoin if exists on player. Ideally it should happen once player disconnects or leaves any mission automatically. Shitty work around below. Upvote Issue here: http://feedback.arma3.com/view.php?id=24841
+		//Remove any stacked event handler left behind by any mission/rejoin if exists on player. Ideally it should happen once player disconnects or leaves any mission automatically but, it does not. Shitty work around below.
 		//To allow a particular pre-existing stacked event handler from a mod for example, add the name of the key to array StackedEHkeysWhiteList in INS_definitions.sqf and INSfncs\common\Remedy_SEHs_fnc.sqf.
 		//Detect a stacked EH in debug by type in example line below. indexVarX returns event key string.
 		//_data = missionNameSpace getVariable "BIS_stackedEventhandlers_oneachframe"; indexVarX = _data select count _data - 1;
@@ -221,7 +221,7 @@ if (DebugEnabled > 0) then {
 		};
 	};
 
-	//Temporary door fix untill terrains are updated?
+	//Temporary door fix untill Kunduz and Lythium terrains are updated?
 	if ((toLower (worldName) isEqualTo "kunduz") || (toLower (worldName) isEqualTo "lythium")) then {
 		inGameUISetEventHandler ["action","
 			if (_this select 4 == 'Close Door') then {
@@ -238,7 +238,8 @@ if (DebugEnabled > 0) then {
 			};
 		"];
 	} else {//inGameUISetEventHandler is not stackable
-		//DLC Vehicle Restriction Bypass
+
+	//DLC Vehicle Restriction Bypass
 		inGameUISetEventHandler ["Action","
 			private _obj = cursorTarget;
 			private _appID = getObjectDLC _obj;

@@ -186,7 +186,7 @@ Cancel_Evac_fnc = {
 			hint "This is the end my friend";
 		};
 	};
-	if (!isServer) exitWith {[] remoteExec ["Evac_MPcleanUp", 2, false]};
+	if (!isServer) exitWith {[] remoteExec ["Evac_MPcleanUp", 2, false]; resetEvac = false;};
 	(call Evac_MPcleanUp)
 };
 JIP_Reset_Evac_fnc = {

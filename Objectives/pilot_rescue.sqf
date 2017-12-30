@@ -2,7 +2,7 @@
 
 sleep 2;
 params ["_newZone","_type"];
-private ["_pilotType","_rnum","_pilot_grp","_handle","_op4_side","_blu4_side","_tsk_failed","_hero","_objmkr","_wreck","_VarName","_pilot","_grp","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_loop","_nearUnits","_hero_speed","_pilotVarName","_end_loop","_radius","_base_pos","_staticGuns"];
+private ["_pilotType","_rnum","_pilot_grp","_handle","_op4_side","_blu4_side","_tsk_failed","_hero","_objmkr","_wreck","_VarName","_pilot","_grp","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_loop","_nearUnits","_hero_speed","_pilotVarName","_end_loop","_radius","_base_pos"];
 
 _op4_side = INS_Op4_side;
 _blu4_side = INS_Blu_side;
@@ -159,7 +159,7 @@ sleep 30;
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp, _pilot_grp];
 
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
 {deleteVehicle _x} forEach _staticGuns;
 {if (typeof _x in objective_ruins) then {deleteVehicle _x}} forEach (NearestObjects [objective_pos_logic, [], 30]);
 if (!isNull _wreck) then {deleteVehicle _wreck};

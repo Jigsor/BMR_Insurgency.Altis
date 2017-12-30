@@ -1,5 +1,4 @@
 // unattended_maintenance.sqf by Jigsor
-// Routines performed by server when it has 0 players. Ex. cleanup and HC reset.
 
 if (isServer) then {
 	waitUntil {time > 1};
@@ -16,11 +15,6 @@ if (isServer) then {
 		_czPosArrys pushBack _mpos;
 	} forEach _ctearZones;
 
-	//Uncomment line below to use Headless client kick functionality
-	//0 = [] execVM "\Server\HC_Reset.sqf"; // Server.cfg. allowedFilePatching=2 and -filePatching launch parameter maybe required.
-
-	private "_resetHC";
-
 	while {true} do {
 		sleep 400.0123;
 
@@ -30,9 +24,9 @@ if (isServer) then {
 			{if (damage _x isEqualTo 1) then {hideobject _x}} foreach _trees;
 		} forEach _czPosArrys;
 
-		if (isNil "_resetHC") then {_resetHC = true;};
 		private _justPlayers = allPlayers - entities "HeadlessClient_F";
 
+		// Routines performed by server when it has 0 players. //
 		if (count _justPlayers isEqualTo 0) then {
 
 			[_deacDelay] spawn {
@@ -47,10 +41,10 @@ if (isServer) then {
 					private _justPlayers = allPlayers - entities "HeadlessClient_F";
 					if (count _justPlayers isEqualTo 0) then {
 
-						//Disable Dust Storm if left running.
+						// Disable Dust Storm if left running.
 						if (missionNameSpace getVariable ["JDSactive", false]) then {[] call JIG_DustIsOn};
 
-						//Delete Infantry AI recruits leftovers from diconnected players and zeus 
+						// Delete Infantry AI recruits leftovers from diconnected players and zeus if any
 						private _abandonedAI = allMissionObjects "CAManBase";
 						{deleteVehicle _x} count (_abandonedAI select {(getNumber(configFile >> "CfgVehicles" >> typeOf _x >> "isUav")==0 && isNull objectParent _x) || (!(simulationEnabled (leader group _x)))});
 
@@ -75,15 +69,7 @@ if (isServer) then {
 						};
 
 						// Delete all mines beyond 500 meters away from objective position
-						private _mines = allMines;
-						if !(_mines isEqualTo []) then {
-							{
-								if ((_x distance objective_pos_logic) < 500) then {
-									_mines = _mines - [_x];
-								};
-							} forEach _mines;
-							{deleteVehicle _x} count _mines;
-						};
+						{deleteVehicle _x} forEach (allMines select {((_x distance objective_pos_logic) > 500) && !(_x getVariable "persistent")});
 						sleep 2;
 
 						// Delete empty groups.
@@ -111,42 +97,7 @@ if (isServer) then {
 				};
 			};
 
-			// Reset Headless Client.
-			/*	//Will kick HCs once when no players exist and no zones active. As of A3 v1.66 HCs will not auto rejoin and resume!
-				//Auto HC kick will not occur again until player(s) join then leave server and server is empty.
-				//This is a preventative work-around not a fix for HC spawn bug that sometimes randomly occurs.
-				//If bug occurs while server has players then HC will need to manually be restarted or kicked in order to resolve.
-
-			if (_resetHC) then {
-				if ((HC_1Present) || (HC_2Present)) then {
-					if !(CCServerAdminPasswordCC isEqualTo "") then {// if server side script \Server\HC_Reset.sqf does its job then CCServerAdminPasswordCC will equal passwordAdmin from Server.cfg.
-						if (Any_HC_present) then {
-							private _ctime = floor time;
-							private _waitTime = _ctime + _deacDelay;
-							if (_waitTime < time) then {
-								waitUntil {sleep 1; time > _waitTime};
-							};
-
-							private _justPlayers = allPlayers - entities "HeadlessClient_F";
-							if (count _justPlayers isEqualTo 0) then {
-								//private _update = false;
-								//_update = [] call curr_EOSmkr_states_fnc;
-								//waitUntil {_update};
-								if (!isNil "HC_1") then {CCServerAdminPasswordCC serverCommand ("#kick " + "HC_1"); _resetHC = false;};
-								if (!isNil "HC_2") then {CCServerAdminPasswordCC serverCommand ("#kick " + "HC_2"); _resetHC = false;};
-								if !(_resetHC) then {
-									Any_HC_present = false;
-									publicVariable "Any_HC_present";
-								};
-							};
-						};
-					};
-				};
-			};
-			*/
-
-		}else{
-			_resetHC = true;
+		} else {
 			server setVariable ["INS_UAMT", true];
 		};
 	};

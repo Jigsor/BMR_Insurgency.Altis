@@ -1,4 +1,4 @@
-// Persistence Check/Set zone marker color and removed cooresponding triggers.
+// Persistence Check/Set zone marker color and removed corresponding triggers.
 // By Jigsor
 HCPresent = if (isNil "Any_HC_present") then {False} else {True};
 if (isServer && !HCPresent && {INS_persistence isEqualTo 0}) then {

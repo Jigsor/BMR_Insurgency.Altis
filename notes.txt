@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access). 
 
-12/27/2017
+12/30/2017
 BMR_Insurgency_v1.48_beta
 	Added: Dust Storm script.
 	Added: Admin briefing section with buttons for Zeus, Brighter Nights, Filp Vehicle, Dust Storms and Vehicle Reward.
@@ -186,6 +186,7 @@ BMR_Insurgency_v1.48_beta
 	Change: W.I.P. - reorganization of functions.
 	Change: Switched to hmd command for removal and replacement of NVGs in eos.
 	Change: TASKMASTER updated to v0.44 and modified with optimizations.
+	Change: "Save Respawn Loadout" action now uses getunitloadout command amd is restored with setunitloadout command.
 	Fixed: AI recruits are deleted when player disconnects if player's former group leader is not another player.
 	Fixed: Several MP/dedicated server issues in heli group extraction.
 	Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.
