@@ -231,7 +231,7 @@ INS_end_mssg = {
 	};
 	true
 };
-hv_tower_effect = {
+HV_tower_effect = {
 	if (!isDedicated && hasInterface) then {
 		private ["_emitter","_source","_lightningpos"];
 		_emitter = objective_pos_logic;
@@ -374,7 +374,9 @@ INS_toggle_Zeus = {
 
 		if (_announce) then {
 			_text = format [localize "STR_BMR_curator_removed", name _unit];
-			[_text,"JIG_MPhint_fnc"] call BIS_fnc_mp;
+			_text remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
+		} else {
+			(localize "STR_BMR_curator_removed") remoteExec ["JIG_MPhint_fnc", _unit];
 		};
 	};
 
@@ -433,9 +435,9 @@ INS_toggle_Zeus = {
 
 	if (_announce) then {
 		_text = format[localize "STR_BMR_is_curator",name _unit];
-		[_text,"JIG_MPhint_fnc"] call BIS_fnc_mp;
+		_text remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 	} else {
-		"Zeus Loaded" remoteExec ["JIG_MPhint_fnc", _unit];
+		(localize "STR_BMR_initialize_done") remoteExec ["JIG_MPhint_fnc", _unit];
 	};
 };
 Terminal_acction_MPfnc = {

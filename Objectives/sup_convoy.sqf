@@ -109,12 +109,10 @@ sleep 90;
 
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp, sconvoy_grp];
-
 if (!isNull _cone) then {deleteVehicle _cone};
-{if (!isNull _x) then {deleteVehicle _x;}} foreach _allVeh;
+{deleteVehicle _x} foreach (_allVeh select {!isNull _x});
 private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x;} forEach _staticGuns;
-
+{deleteVehicle _x} forEach _staticGuns;
 deleteMarker "ObjectiveMkr";
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};

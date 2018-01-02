@@ -51,7 +51,7 @@ if (DebugEnabled > 0) then {
 	setTerrainGrid 25;
 	gc_heading_on = false;
 	status_hud_on = false;
-	INS_SaveLoadout = nil;
+	INS_SavedLoadout = nil;
 	if (!isJIP) then {intel_objArray = [];};
 	INS_editor_Pgrp = groupId (group player);
 	//if (local player) then {player setVariable ["BIS_enableRandomization", false]};// Disables randomization of gear

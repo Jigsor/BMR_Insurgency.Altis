@@ -162,11 +162,9 @@ sleep 90;
 
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units mortar_grp);
 {deleteGroup _x} forEach [_grp, mortar_grp];
-
 if (!isNull _sign) then {deleteVehicle _sign};
-{if (!isNull _x) then {deleteVehicle _x; sleep 0.1}} foreach _all_mortars;
-{if (typeof _x in INS_Op4_stat_weps) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 40]);
-
+{deleteVehicle _x} forEach (_all_mortars select {!isNull _x});
+{deleteVehicle _x} forEach ((NearestObjects [objective_pos_logic, [], 40]) select {typeof _x in INS_Op4_stat_weps});
 deleteMarker "ObjectiveMkr";
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};

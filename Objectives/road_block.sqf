@@ -229,11 +229,10 @@ deleteVehicle _bgTrig;
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
 
-private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
-{deleteVehicle _x; sleep 0.1} forEach _allUnits;
-{deleteVehicle _x; sleep 0.1} forEach [_bargate,_bunker1,_bunker2,_Lveh];
+{deleteVehicle _x} forEach [_bargate,_bunker1,_bunker2,_Lveh];
 {deleteGroup _x} forEach _allGrps;
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x} forEach _staticGuns, _allUnits;
 {deleteMarker _x} forEach ["ObjectiveMkr","ins_sm_roadblock"];
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};

@@ -291,16 +291,13 @@ JIG_ammmoCache_damage = {
 			private _rpos = getPosATL _cache;
 			[_rpos] spawn {
 				params ["_pos"];
-				private _uArr = _pos nearEntities ["CAManBase",200];
-				{
-					private _u = _x;
-					if ((!isPlayer _u) || {(side _u == INS_Op4_side)}) then {
-						_uArr = _uArr - [_u];
-					};
-				} forEach _uArr;
+				private _uArr = [];
+				{_uArr pushBack _x} forEach (_pos nearEntities ["CAManBase",200] select {((captiveNum _x isEqualTo 0) || (lifeState _x isEqualTo "HEALTHY") || (lifeState _x isEqualTo "INJURED")) && ((side _x isEqualTo west) && (isPlayer _x))});
 				if !(_uArr isEqualTo []) then {
 					private _source = _uArr select 0;
 					[_source] call JIG_issue_reward;
+					private _text = format ["%1-%2", localize "STR_BMR_veh_awarded", name _source];
+					_txt remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 				};
 			};
 		};
@@ -383,8 +380,8 @@ opfor_NVG = {
 };
 editorAI_GasMask = {
 	// Add Gas Masks to all existing AI units by Jigsor.
-	private _ai = allUnits;
-	{if (isPlayer _x) then {_ai =_ai - [_x];};} count _ai;
+	private _ai = [];
+	{_ai pushBack _x} forEach (allUnits select {(!isPlayer _x) && (_x isKindOf "Man")});
 	{
 		removeHeadgear _x;
 		if (side _x isEqualTo resistance) then {_x addHeadgear "H_CrewHelmetHeli_I";};
@@ -416,20 +413,14 @@ curr_EOSmkr_states_fnc = {
 };
 find_bombee_fnc = {
 	// Find suicide bomber player target. by Jigsor
-	private ["_missionPlayers","_btarget","_bombeeSpeeding"];
-	_btarget = ObjNull;
-	_missionPlayers = playableUnits;
+	private _potentialTargets = [];
+	private _btarget = ObjNull;
 
-	{
-		_bombeeSpeeding = (vectorMagnitudeSqr velocity _x > 8);
-		_pos = (getPosATL _x);
-		if ((_bombeeSpeeding) || (_pos select 2 > 3)) then {_missionPlayers = _missionPlayers - [_x];};
-	} count _missionPlayers;// exclude players in moving vehicles, exclude above ground players such as players in aircraft or in high structures
+	// exclude east players, players in moving vehicles, exclude above ground players such as players in aircraft or in high structures
+	{_potentialTargets pushBack _x} forEach (playableUnits select {(vectorMagnitudeSqr velocity _x < 9) && ((getPosATL _x) select 2 < 3.1) && (side _x isEqualTo west)});
 
-	{if (side _x isEqualTo east) then {_missionPlayers = _missionPlayers - [_x];};} count _missionPlayers;// exclude east players
-
-	if (count _missionPlayers > 0) then	{
-		_btarget = selectRandom _missionPlayers;
+	if (count _potentialTargets > 0) then	{
+		_btarget = selectRandom _potentialTargets;
 	};
 	_btarget
 };

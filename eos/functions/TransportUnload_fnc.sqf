@@ -19,7 +19,7 @@ _wp1 setWaypointSpeed "FULL";
 _wp1 setWaypointType "UNLOAD";
 _wp1 setWaypointStatements ["true", "(vehicle this) LAND 'GET IN';"];
 
- waituntil {_vehicle distance _pad < 30};
+ waituntil {sleep 0.2; _vehicle distance _pad < 30};
 _cargoGrp leaveVehicle _vehicle;
 
 waitUntil{sleep 0.2; {_x in _vehicle} count units _cargoGrp == 0};

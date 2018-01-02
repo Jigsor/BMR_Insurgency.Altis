@@ -192,7 +192,7 @@ private _rwave = [_newZone,_ins_debug,_defcnt] spawn {
 	[_cnhWaveUnits,_cnhWaveGrps] spawn {
 		params ["_unitsArr","_grpsArr"];
 		sleep 120;
-		{if (alive _x) then {deleteVehicle _x; sleep 0.1}} forEach _unitsArr;
+		{deleteVehicle _x} forEach (_unitsArr select {alive _x});
 		{deleteGroup _x} count _grpsArr;
 	};
 };
@@ -229,15 +229,12 @@ while {_caped} do {
 sleep 180;
 
 if (!isNull _outpost) then {deleteVehicle _outpost};
-
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];
+{deleteVehicle _x} forEach ((NearestObjects [objective_pos_logic, [], 40]) select {typeOf _x in INS_men_list});
+{deleteVehicle _x} forEach ((NearestObjects [objective_pos_logic, [], 30]) select {typeOf _x in objective_ruins});
 private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
 {deleteVehicle _x} forEach _staticGuns;
-
-{if (typeOf _x in INS_men_list) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 40]);
-{if (typeOf _x in objective_ruins) then {deleteVehicle _x}} forEach (NearestObjects [objective_pos_logic, [], 30]);
-
 deleteMarker "ObjectiveMkr";
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf"};

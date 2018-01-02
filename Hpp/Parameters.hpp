@@ -342,9 +342,9 @@ class Params
 	};
 	class INS_persistence//43
 	{
-	title = "		Enable progression saving?";
-	values[]={0,1};
-	texts[]={"No, clear progression if any is saved","Yes, save mission progression and restore if any is saved"};
+	title = "		Enable Progression Saving and Restoration?";
+	values[]={0,1,2};
+	texts[]={"No, clear progression if any is saved","Yes, save mission progression and restore if any is saved","Yes, save mission progression and clear progression if any is saved"};
 	default = 0;
 	};
 	class INS_Dum_Param8//44

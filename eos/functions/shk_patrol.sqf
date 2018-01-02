@@ -65,7 +65,7 @@ for "_i" from 1 to (_cnt - 1) do {
     [_grp,_i] setWaypointTimeout [0,2,16];
 
 	// When completing waypoint have 33% chance to choose a random next wp
-	[_grp,_i] setWaypointStatements ["true", "if ((random 3) > 2) then { group this setCurrentWaypoint [(group this), (ceil (random (count (waypoints (group this)))))];};"];//Fixed-Groups would set current waypoint to grid [0,0,0]-Jig
+	[_grp,_i] setWaypointStatements ["true", "if ((random 3) > 2) then { group this setCurrentWaypoint [(group this), (ceil (random (count (waypoints (group this)))))];};"];//Fixed: Groups would set current waypoint to grid [0,0,0]-Jig
 	//diag_log format ["Original WayPoint Pos: %1", (getWPPos [_grp, _i])];
 
     if (DEBUG) then {

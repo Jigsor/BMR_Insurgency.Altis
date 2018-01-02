@@ -195,12 +195,11 @@ if (_sideWin isEqualTo 1) then {
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
 
-private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];
-{deleteVehicle _x; sleep 0.1} forEach (server getVariable "INS_ObjectiveStatics");
-if (!isNull _device) then {deleteVehicle _device;};
+if (!isNull _device) then {deleteVehicle _device};
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x} forEach _staticGuns;
 deleteMarker "ObjectiveMkr";
 
 // Initialize new objective

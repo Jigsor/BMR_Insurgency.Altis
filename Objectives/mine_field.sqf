@@ -116,13 +116,11 @@ while {_checkmines} do
 sleep 90;
 
 if (!isNull _sandbags1) then {deleteVehicle _sandbags1};
-private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x} forEach _staticGuns;
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];
 {deleteVehicle _x} forEach _alltskmines;
-
-deleteMarker "ObjectiveMkr";
-deleteMarker "MineField";
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x} forEach _staticGuns;
+{deleteMarker _x} forEach ["ObjectiveMkr","MineField"];
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};

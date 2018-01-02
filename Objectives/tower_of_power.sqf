@@ -78,7 +78,7 @@ waitUntil {sleep 2; !alive _tower};
 	private _lights = INS_lights;
 
 	nul = [objective_pos_logic,"HighVoltage"] call mp_Say3D_fnc;
-	[[], "hv_tower_effect"] call BIS_fnc_mp;
+	[] remoteExec ['HV_tower_effect', [0,-2] select isDedicated, false];
 
 	[localize "STR_BMR_PowerTower_success", "JIG_MPhint_fnc"] call BIS_fnc_mp;
 
@@ -102,11 +102,9 @@ sleep 90;
 
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];
-
+{deleteVehicle _x} forEach ((NearestObjects [objective_pos_logic, [], 30]) select {typeOf _x in objective_ruins});
 private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
-{if (typeof _x in objective_ruins) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 30]);
-
+{deleteVehicle _x} forEach _staticGuns;
 deleteMarker "ObjectiveMkr";
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};

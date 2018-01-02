@@ -161,9 +161,9 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	1. To change time on the fly substitute 8 to desired number of hours and execute on server:
 			skiptime + 8;
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
-			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access). 
+			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-12/30/2017
+1/1/2018
 BMR_Insurgency_v1.48_beta
 	Added: Dust Storm script.
 	Added: Admin briefing section with buttons for Zeus, Brighter Nights, Filp Vehicle, Dust Storms and Vehicle Reward.

@@ -266,13 +266,11 @@ sleep 90;
 
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp),(units _vehgrp);
 {deleteGroup _x} forEach [_grp, _stat_grp, _vehgrp];
-
-if (!isNull _AAveh) then {deleteVehicle _AAveh;};
-
+if (!isNull _AAveh) then {deleteVehicle _AAveh};
+{deleteVehicle _x} forEach ((NearestObjects [objective_pos_logic, [], 30]) select {typeOf _x in objective_ruins});
+{deleteVehicle _x} forEach (_smkArr select {!isNull _x});
 private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
-{if (typeOf _x in objective_ruins) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 30]);
-if (ObjNull in _smkArr) then {{_smkArr = _smkArr - [objNull]} forEach _smkArr;}; {deleteVehicle _x;} count _smkArr;
+{deleteVehicle _x} forEach _staticGuns;
 
 Delivery_Box hideObjectGlobal true;
 deleteMarker "ObjectiveMkr";

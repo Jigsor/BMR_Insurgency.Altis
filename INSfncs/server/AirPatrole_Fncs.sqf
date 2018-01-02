@@ -26,7 +26,7 @@ RandomAirCenterOp4 = {
 };
 Air_Dest_fnc = {
 	//creates 3 markerks in triangle -- "cyclewpmrk", "spawnaire" "spawnairw" and one in center of triangle -- "aomkr"
-	// center logic object is air_pat_pos. Other logics forEach other way point markers are placed around center logic
+	// center logic object is air_pat_pos. Other logics for each other way point markers are placed around center logic
 	private ["_AirWP_span""_posHpad","_posnewAO","_currentmarker","_wpcyclemark","_spwnaire","_spwnairepos","_spwnairedir","_spwnairw","_spwnairwpos","_spwnairwdir","_spwnairdire","_spwnairenewdir","_spwnairdirw","_spwnairwnewdir"];
 	_AirWP_span = 3500;
 	_posHpad = [ getPosATL air_pat_pos select 0, (getPosATL air_pat_pos select 1)];
@@ -164,13 +164,12 @@ AirEast_move_logic_fnc = {
 };
 find_west_target_fnc = {
 	// based on example by Mattar_Tharkari in BIS community forums http://forums.bistudio.com/showthread.php?145573-How-to-make-AI-vehicle-follow-chase-players/page2
-	private ["_vcl","_dis","_hunted","_future_time","_gamelogic","_delay","_wpRad","_cfgMapSize","_sqrt","_mh","_patrolRad","_towns","_r","_randomTownPos","_wpArray","_i","_wp1","_tgtArray","_nrstWTgts","_cntrPos"];
+	private ["_vcl","_dis","_hunted","_future_time","_delay","_wpRad","_cfgMapSize","_sqrt","_mh","_patrolRad","_towns","_r","_randomTownPos","_wpArray","_i","_wp1","_nrstWTgts","_cntrPos"];
 
 	_vcl = _this select 0;
 	_dis = _this select 1;//search distance
 	_hunted = _this select 2;
 	_future_time = time + AirRespawnDelay + 120;
-	_gamelogic = CENTER;
 	if (typeOf _vcl in INS_Op4_helis) then {
 		_delay = 30;
 		_wpRad = selectRandom [12,24,36,48,60];
@@ -187,7 +186,7 @@ find_west_target_fnc = {
 	}else{
 		_patrolRad = 10000;
 	};
-	_towns = nearestLocations [getPosATL _gamelogic, ["NameVillage","NameCity","NameCityCapital"], _patrolRad];
+	_towns = nearestLocations [getPosATL CENTER, ["NameVillage","NameCity","NameCityCapital"], _patrolRad];
 
 	//movement loop
 	while {alive _vcl} do {
@@ -207,23 +206,13 @@ find_west_target_fnc = {
 			if ((isNull _hunted) || (_vcl distance _hunted > _dis)) then {
 				_vcl setVehicleAmmo 1;
 				_vcl setFuel 1;
-				_tgtArray = (position _vcl) nearEntities [["Air","CAManBase"],_dis];
-				{
-					if (captiveNum _x isEqualTo 1) then {
-						_tgtArray = _tgtArray - [_x];
-					}
-				} forEach _tgtArray;
 
 				_nrstWTgts = [];
-				{
-					if (side _x == WEST) then
-					{ //change to EAST if need to follow EAST
-						_nrstWTgts pushBack _x;
-					};
-				} forEach _tgtArray;
+				{_nrstWTgts pushBack _x} forEach ((position _vcl) nearEntities [["Air","CAManBase"], _dis] select {((captiveNum _x isEqualTo 0) || (lifeState _x isEqualTo "HEALTHY") || (lifeState _x isEqualTo "INJURED")) && (side _x isEqualTo west)});
+					//need to test array order of _nrstWTgts
 
 				_cntrPos =  getPos (_nrstWTgts select 0);
-				if ((count _nrstWTgts !=0) && {(format ["%1", _cntrPos] != "[0,0,0]")}) then {
+				if (!(_nrstWTgts isEqualTo []) && {(format ["%1", _cntrPos] != "[0,0,0]")}) then {
 					//chase enemy if exist and have valid position
 					_wp1 setWaypointPosition [_cntrPos, _wpRad];
 					(group _vcl) setCurrentWaypoint _wp1;
@@ -289,10 +278,11 @@ find_west_target_fnc = {
 
 				while {isNull _hunted} do {
 					if (count _towns !=0 && alive _vcl) then {
-						_r = floor(random count _towns);
+						_r = ceil(random count _towns);
 						_randomTownPos = position (_towns select _r);
-						_wpArray = wayPoints (group _vcl);
+						_towns deleteAt _r;
 
+						_wpArray = wayPoints (group _vcl);
 						for "_i" from 0 to (count _wpArray -1) do {
 							deleteWaypoint [(group _vcl), _i]
 						};
@@ -302,8 +292,6 @@ find_west_target_fnc = {
 						_wp1 setWaypointPosition [_randomTownPos, _wpRad];
 						(group _vcl) setCurrentWaypoint _wp1;
 						sleep 200;
-
-						_towns deleteAt _r;
 					};
 					if ((_towns isEqualTo []) || (!alive _vcl)) exitWith {};
 					if (time > _future_time) then {[_vcl] spawn {(_this select 0) setFuel 0; sleep 60; if (alive (_this select 0)) then {(_this select 0) setdamage 1;};};};
@@ -311,24 +299,13 @@ find_west_target_fnc = {
 
 				_vcl setVehicleAmmo 1;
 				_vcl setFuel 1;
-				_tgtArray = (position _vcl) nearEntities [["Air","CAManBase"],2000];
-				{
-					if (captiveNum _x isEqualTo 1) then {
-						_tgtArray = _tgtArray - [_x];
-					}
-				} forEach _tgtArray;
 
 				_nrstWTgts = [];
-				{
-					if (side _x == WEST) then
-					{
-						_nrstWTgts pushBack _x;
-					};
-				} forEach _tgtArray;
-
+				{_nrstWTgts pushBack _x} forEach ((position _vcl) nearEntities [["Air","CAManBase"], 2000] select {((captiveNum _x isEqualTo 0) || (lifeState _x isEqualTo "HEALTHY") || (lifeState _x isEqualTo "INJURED")) && (side _x isEqualTo west)});
+				//need to test array order of above
 				_cntrPos = getPos (_nrstWTgts select 0);
 
-				if ((count _nrstWTgts !=0) && {(format ["%1", _cntrPos] != "[0,0,0]")}) then {
+				if (!(_nrstWTgts isEqualTo []) && {(format ["%1", _cntrPos] != "[0,0,0]")}) then {
 					//chase enemy if exist and have valid position
 					_wp1 setWaypointPosition [_cntrPos, _wpRad];
 					(group _vcl) setCurrentWaypoint _wp1;
@@ -416,32 +393,28 @@ east_AO_guard_cycle_wp = {
 	_wp3 setWaypointType "MOVE";
 	_wp3 setWaypointBehaviour "AWARE";
 	_wp3 setWaypointCombatMode "RED";
-	_wp3 setWaypointStatements ["true", ""];
+	_wp3 setWaypointStatements ["true", "if ((random 10) > 8) then {[objectParent this,5000,objNull] spawn find_west_target_fnc;};"];
 
 	_wp4 = _vehgrp addWaypoint [getMarkerPos "aomkr", 250];
 	_wp4 setWaypointType "CYCLE";
 	_wp4 setWaypointBehaviour "AWARE";
 	_wp4 setWaypointCombatMode "RED";
-	_wp4 setWaypointStatements ["true", "_vcl setVehicleAmmo 1;_vcl setFuel 1;"];
+	_wp4 setWaypointStatements ["true", "objectParent this setVehicleAmmo 1; objectParent this setFuel 1;"];
 };
 find_me2_fnc = {
-	private _missionPlayers = playableUnits;
-	{
-		if (side _x isEqualTo east) then {_missionPlayers = _missionPlayers - [_x];};
-	} forEach _missionPlayers;// exclude east players
-	if (count _missionPlayers < 1) exitWith {random_w_player2 = ObjNull; publicVariable "random_w_player2";};
-	random_w_player2 = selectRandom _missionPlayers;
+	private _bluforPlayers = [];
+	{_bluforPlayers pushBack _x} forEach (playableUnits select {side _x isEqualTo west});
+	if (count _bluforPlayers < 1) exitWith {random_w_player2 = ObjNull; publicVariable "random_w_player2";};
+	random_w_player2 = selectRandom _bluforPlayers;
 	publicVariable "random_w_player2";
 	if (DebugEnabled > 0) then {diag_log text format ["Variable West Human Target: %1", random_w_player2]};
 	true
 };
 find_me3_fnc = {
-	private _missionPlayers = playableUnits;
-	{
-		if (side _x isEqualTo east) then {_missionPlayers = _missionPlayers - [_x];};
-	} forEach _missionPlayers;// exclude east players
-	if (count _missionPlayers < 1) exitWith {random_w_player3 = ObjNull; publicVariable "random_w_player3";};
-	random_w_player3 = selectRandom _missionPlayers;
+	private _bluforPlayers = [];
+	{_bluforPlayers pushBack _x} forEach (playableUnits select {side _x isEqualTo west});
+	if (count _bluforPlayers < 1) exitWith {random_w_player3 = ObjNull; publicVariable "random_w_player3";};
+	random_w_player3 = selectRandom _bluforPlayers;
 	publicVariable "random_w_player3";
 	if (DebugEnabled > 0) then {diag_log text format ["Variable West Human Target: %1", random_w_player3]};
 	true
@@ -454,7 +427,7 @@ air_debug_mkrs = {
 
 	sleep 10;
 	if (alive leader _airhunter) then {while {count wayPoints (group _airhunter) < 1} do {sleep 10};};
-	
+
 	_patrolWPmkrs = {
 		_wpMkrList = [];
 		for "_i" from 1 to (count (wayPoints _airhunter)) -1 do {

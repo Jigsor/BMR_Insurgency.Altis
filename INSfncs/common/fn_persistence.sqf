@@ -1,7 +1,7 @@
 // Persistence Check/Set zone marker color and removed corresponding triggers.
 // By Jigsor
 HCPresent = if (isNil "Any_HC_present") then {False} else {True};
-if (isServer && !HCPresent && {INS_persistence isEqualTo 0}) then {
+if (isServer && !HCPresent && {INS_persistence isEqualTo 0 || INS_persistence isEqualTo 2}) then {
 	profileNamespace setVariable ["BMR_INS_progress", []];
 };
 
