@@ -32,6 +32,6 @@ class ASORVS
 		class vectorLerp {scope = 1;};
 		class VehicleSlots {scope=1;};
 		class VehicleWeapons {scope=1;};
-		class zoom {scope = 1;};	};
-
+		class zoom {scope = 1;};
+	};
 };

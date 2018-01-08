@@ -7,7 +7,7 @@ if (isServer) then {
 	private _deacDelay = ((DeAct_Gzone_delay * 60) + 120);
 	private _czPosArrys = [];
 	private _ctearZones = Blu4_mkrs + ["Airfield"];
-	private _remFog = if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {TRUE} else {FALSE};
+	private _remFog = if (JIPweather isEqualTo 0 || {JIPweather >3}) then {TRUE} else {FALSE};
 	private "_mpos";
 
 	{

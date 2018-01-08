@@ -14,3 +14,12 @@ remove_carcass_fnc = {
 		_unit removeAllEventHandlers "killed";
 	};
 };
+HC_deleteEmptyGrps = {
+	{
+		if ((count (units _x)) == 0) then {
+			deleteGroup _x;
+			_x = grpNull;
+			_x = nil
+		};
+	} forEach allGroups;
+};

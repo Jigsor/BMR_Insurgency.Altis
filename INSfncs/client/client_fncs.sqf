@@ -702,7 +702,7 @@ JIG_map_click = {
 };
 INS_AI_revive = {
 	// Initialize =BTC= Quick Revive for all group members including AI by Jigsor.
-	if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
+	if (INS_p_rev isEqualTo 4 || INS_p_rev isEqualTo 5) then {
 		private _pA = [];
 		private _aiA = [];
 		_grp = group player;

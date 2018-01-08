@@ -77,7 +77,7 @@
 
 #define SL_TEXTURES       0x10
 
-// progress bar 
+// progress bar
 #define ST_VERTICAL       0x01
 #define ST_HORIZONTAL     0
 
@@ -112,8 +112,7 @@
 //Base Classes//
 ////////////////
 
-class Jig_RscPicture
-{
+class Jig_RscPicture {
 	deletable = 0;
 	fade = 0;
 	access = 0;
@@ -137,8 +136,7 @@ class Jig_RscPicture
 	tooltipColorShade[] = {0,0,0,0.65};
 };
 
-class Jig_RscButton
-{
+class Jig_RscButton {
 	deletable = 0;
 	fade = 0;
 	access = 0;
@@ -170,11 +168,6 @@ class Jig_RscButton
 	offsetY = 0.003;
 	offsetPressedX = 0.002;
 	offsetPressedY = 0.002;
-	//sizeEx = 0.038;
-	//offsetX = 0;
-	//offsetY = 0;
-	//offsetPressedX = 0;
-	//offsetPressedY = 0;
 	borderSize = 0;
 	blinkingPeriod = 0;
 };

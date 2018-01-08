@@ -61,7 +61,7 @@ private _fireF = 1;
 
 while {_uncaped} do {
 	if (_fireF isEqualTo 1) then {
-		if ((daytime > 20.00) || (daytime < 4.00)) then {
+		if (daytime > 20.00 || daytime < 4.00) then {
 			private _sfCount = [1,6] call BIS_fnc_randomInt;
 			null=[_sfCount,1,220,"red",100,_newZone] spawn Drop_SmokeFlare_fnc;
 			_fireF = 2;

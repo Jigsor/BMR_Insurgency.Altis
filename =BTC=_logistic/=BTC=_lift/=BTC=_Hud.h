@@ -1,12 +1,6 @@
-/*
-x = (_xPos/100) * safezoneW + safezoneX;
-y = (_yPos/100) * safezoneH + safezoneY;
-w = (_width/100) * safezoneW;
-h = (_height/100) * safezoneH;  
-*/
 class BTC_Hud
 {
-   	idd = 1000;
+	idd = 100002
    	movingEnable=0;
    	duration=1e+011;
    	name = "BTC_Hud_Name";
@@ -15,8 +9,7 @@ class BTC_Hud
    	objects[] = {};
    	class controls 
 	{
-		class Radar
-		{
+		class Radar {
 			type = 0;
 			idc = 1001;
 			style = 48;
@@ -30,8 +23,7 @@ class BTC_Hud
 			colorText[] = {1, 1, 1, 1};
 			text = "=BTC=_Logistic\=BTC=_Lift\img\igui_radar_air_ca.paa";
 		};
-		class Img_Obj
-		{
+		class Img_Obj {
 			type = 0;
 			idc = 1002;
 			style = 48;
@@ -45,8 +37,7 @@ class BTC_Hud
 			colorText[] = {1, 1, 1, 1};
 			text = "=BTC=_Logistic\=BTC=_Lift\img\=BTC=_Obj.paa";
 		};
-		class Pic_Obj
-		{
+		class Pic_Obj {
 			type = 0;
 			idc = 1003;
 			style = 48;
@@ -60,8 +51,7 @@ class BTC_Hud
 			colorText[] = {1, 1, 1, 1};
 			text = "";
 		};
-		class Arrow
-		{
+		class Arrow {
 			type = 0;
 			idc = 1004;
 			style = 48;
@@ -75,8 +65,7 @@ class BTC_Hud
 			colorText[] = {1, 1, 1, 1};
 			text = "";
 		};
-		class Type_Obj
-		{
+		class Type_Obj {
 			type = 0;
 			idc = 1005;
 			style = 0x00;

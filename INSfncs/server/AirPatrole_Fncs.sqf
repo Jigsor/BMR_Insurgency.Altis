@@ -146,13 +146,13 @@ Air_Dest_fnc = {
 	true
 };
 AirEast_move_logic_fnc = {
-	private ["_ranAEguard","_lastpos","_currentmarker"];
+	private ["_ranAEguard","_lastpos"];
 	_ranAEguard = [getPos EastAirLogic select 0, getPos EastAirLogic select 1, 0];
 	_lastpos = [getMarkerPos "curAEspawnpos" select 0, getMarkerPos "curAEspawnpos" select 1, 0];
 	if (_ranAEguard distance _lastpos > 1) then	{
 		EastAirLogic setPos getMarkerPos "spawnaire";
 		if !(getMarkerColor "curAEspawnpos" isEqualTo "") then {deleteMarker "curAEspawnpos"};
-		_currentmarker = createMarker ["curAEspawnpos", getPosATL EastAirLogic];
+		private _currentmarker = createMarker ["curAEspawnpos", getPosATL EastAirLogic];
 		_currentmarker setMarkerShape "ELLIPSE";
 		"curAEspawnpos" setMarkerSize [2, 2];
 		"curAEspawnpos" setMarkerShape "ICON";
@@ -393,7 +393,7 @@ east_AO_guard_cycle_wp = {
 	_wp3 setWaypointType "MOVE";
 	_wp3 setWaypointBehaviour "AWARE";
 	_wp3 setWaypointCombatMode "RED";
-	_wp3 setWaypointStatements ["true", "if ((random 10) > 8) then {[objectParent this,5000,objNull] spawn find_west_target_fnc;};"];
+	_wp3 setWaypointStatements ["true", "if ((random 6) < 1) then {[objectParent this,5000,objNull] spawn find_west_target_fnc;};"];
 
 	_wp4 = _vehgrp addWaypoint [getMarkerPos "aomkr", 250];
 	_wp4 setWaypointType "CYCLE";
@@ -402,8 +402,10 @@ east_AO_guard_cycle_wp = {
 	_wp4 setWaypointStatements ["true", "objectParent this setVehicleAmmo 1; objectParent this setFuel 1;"];
 };
 find_me2_fnc = {
-	private _bluforPlayers = [];
-	{_bluforPlayers pushBack _x} forEach (playableUnits select {side _x isEqualTo west});
+	private _bluforPlayers = playableUnits;
+	{
+		if (side _x isEqualTo east) then {_bluforPlayers = _bluforPlayers - [_x];};
+	} forEach _bluforPlayers;// exclude east players
 	if (count _bluforPlayers < 1) exitWith {random_w_player2 = ObjNull; publicVariable "random_w_player2";};
 	random_w_player2 = selectRandom _bluforPlayers;
 	publicVariable "random_w_player2";
@@ -411,8 +413,10 @@ find_me2_fnc = {
 	true
 };
 find_me3_fnc = {
-	private _bluforPlayers = [];
-	{_bluforPlayers pushBack _x} forEach (playableUnits select {side _x isEqualTo west});
+	private _bluforPlayers = playableUnits;
+	{
+		if (side _x isEqualTo east) then {_bluforPlayers = _bluforPlayers - [_x];};
+	} forEach _bluforPlayers;// exclude east players
 	if (count _bluforPlayers < 1) exitWith {random_w_player3 = ObjNull; publicVariable "random_w_player3";};
 	random_w_player3 = selectRandom _bluforPlayers;
 	publicVariable "random_w_player3";

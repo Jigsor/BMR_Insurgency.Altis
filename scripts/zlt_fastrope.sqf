@@ -143,9 +143,8 @@ zlt_fnc_fastropeUnit = {
 	_unit = _this;
 	_veh = vehicle _unit;
 	_ropes = (_veh getVariable ["zlt_ropes", []]);
-	if (count _ropes == 0) exitWith {};
+	if (_ropes isEqualTo []) exitWith {};
 	_ropeSel = selectRandom _ropes;
-	//_unit action ["Eject",_veh];
 	_unit action ["getOut",_veh];
 	sleep 0.5;
 	_unit leaveVehicle _veh;

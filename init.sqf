@@ -13,17 +13,17 @@ RESISTANCE setFriend [EAST, 1];
 EAST setFriend [RESISTANCE, 1];
 WEST setFriend [RESISTANCE, 0];
 
-if (isMultiplayer) then {enableSaving [false, false];};
-
-// Init Headless Client
 if (isMultiplayer) then {
-	if (!hasInterface && !isDedicated) then
-	{
+	enableSaving [false, false];
+
+	// Init Headless Client
+	if (!hasInterface && !isDedicated) then {
+		[] call BMRINS_fnc_HCpresent;
 		call compile preProcessFileLineNumbers "INSfncs\hc\headless_client_fncs.sqf";
 		diag_log format ["HEADLESSCLIENT: %1 Connected HEADLESSCLIENT ID: %2", name player, owner player];
 
 		[] spawn {
-			if (!isJIP) then {waitUntil {time > 3};};
+			if (!isJIP) then {waitUntil {time > 3}};
 			waitUntil {!isNil "all_eos_mkrs"};
 			if (INS_mod_missing) then {[] spawn INS_missing_mods};
 			if ((INS_persistence isEqualTo 0) || (INS_persistence isEqualTo 2)) then {profileNamespace setVariable ["BMR_INS_progress", []]};
@@ -31,22 +31,24 @@ if (isMultiplayer) then {
 			private _enableLogs = true;// set false to disable logging on headless client(s) .rpt Frames per second, Headless client ID, Total group count, Total unit count.
 			private "_AllEnemyGroups";
 			private _uncapturedMkrs = all_eos_mkrs;
-			private _c = if ((INS_persistence isEqualTo 1) || (INS_persistence isEqualTo 2)) then {0} else {7};
+			private _c = if (INS_persistence isEqualTo 1 || INS_persistence isEqualTo 2) then {0} else {7};
+			private _s = if (INS_persistence isEqualTo 1 || INS_persistence isEqualTo 2) then {true}else{false};
 
 			while {true} do {
 				sleep 60.123;
 				if (_enableLogs) then {
 					_AllEnemyGroups=[];
-					{if (side _x==INS_Op4_side) then {_AllEnemyGroups pushBack _x;};} forEach allGroups;
+					{_AllEnemyGroups pushBack _x} forEach (allGroups select {side _x isEqualTo INS_Op4_side});
 					diag_log format ["HEADLESSCLIENT FPS: %1 TIME: %2 IDCLIENT: %3 TOTAL ENEMY GROUPS: %4 TOTAL UNITS: %5", diag_fps, time, owner player, count _AllEnemyGroups, count allUnits];
 				};
-				//Save progression every 5 minutes if lobby option permits
-				if ((INS_persistence isEqualTo 1) || (INS_persistence isEqualTo 2) && {_c isEqualTo 6}) then {
-					{if (getMarkerColor _x isEqualTo "colorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1;};} foreach _uncapturedMkrs;
+				//Save progression every 5 minutes approximately if lobby option permits
+				if (_s && {_c isEqualTo 6}) then {
+					{if (getMarkerColor _x isEqualTo "colorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1};} foreach _uncapturedMkrs;
 					profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
 					_c = 0;
 				};
 				if !(_c isEqualTo 7) then {_c = _c + 1};
+				if (_c isEqualTo 5) then {[] spawn HC_deleteEmptyGrps};
 			};
 		};
 	};
@@ -65,12 +67,12 @@ call compile preprocessFile "=BTC=_TK_punishment\=BTC=_tk_init.sqf";
 if (INS_p_rev < 4) then {
 	call compile preprocessFile "=BTC=_revive\=BTC=_revive_init.sqf";
 }else{
-	if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
+	if (INS_p_rev isEqualTo 4 || INS_p_rev isEqualTo 5) then {
 		call compile preprocessFile "=BTC=_q_revive\config.sqf";
 	};
 };
 if (INS_IEDs isEqualTo 1 && !IamHC) then {
-	if !(INS_op_faction isEqualTo 17) then {[] spawn {call compile preprocessFileLineNumbers "EPD\Ied_Init.sqf";};};
+	if !(INS_op_faction isEqualTo 17) then {[] spawn {call compile preprocessFileLineNumbers "EPD\Ied_Init.sqf"}};
 };
 
 // EOS
@@ -248,7 +250,7 @@ if (!isDedicated && hasInterface) then
 	[] spawn {
 		waitUntil {!isNull player && player == player};
 		#include "add_diary.sqf"
-		if (DebugEnabled isEqualTo 0) then {["BIS_ScreenSetup", false] call BIS_fnc_blackOut;};
+		if (DebugEnabled isEqualTo 0) then {["BIS_ScreenSetup", false] call BIS_fnc_blackOut};
 		call compile preprocessFile "INSfncs\client\client_fncs.sqf";
 		call compile preprocessFile "ATM_airdrop\functions.sqf";
 

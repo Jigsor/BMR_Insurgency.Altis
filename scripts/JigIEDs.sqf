@@ -21,16 +21,14 @@ if (!isServer) exitWith {};
 
 	IEDtypes = ["IEDLandBig_F","IEDLandSmall_F","IEDUrbanBig_F","IEDUrbanSmall_F"];
 	IEDblast = ["Bo_Mk82","Rocket_03_HE_F","M_Mo_82mm_AT_LG","Bo_GBU12_LGB","Bo_GBU12_LGB_MI10","HelicopterExploSmall"];
-	private _roads = [worldsize/2, worldsize/2] nearRoads worldsize;
+	private _roads = [];
 
-	{
-		if ((["bridge", getModelInfo _x select 0] call BIS_fnc_inString) ||
-		(_x distance2D (getMarkerPos "Respawn_West") < 750) ||
-		(_x distance2D (getMarkerPos "Airfield") < 1000) ||
-		(_x distance2D (getMarkerPos "Respawn_East") < 200)) then {
-			_roads = _roads - [_x];
-		};
-	} forEach _roads;
+	{_roads pushBack _x} forEach ([worldsize/2, worldsize/2] nearRoads worldsize select {
+		!(["bridge", getModelInfo _x select 0] call BIS_fnc_inString) &&
+		(_x distance2D (getMarkerPos "Respawn_West") > 750) &&
+		(_x distance2D (getMarkerPos "Airfield") > 1000) &&
+		(_x distance2D (getMarkerPos "Respawn_East") > 200)
+	});
 
 	if (!isNil "allMkrs") then {{deleteMarker _x} forEach allMkrs;};
 	if (!isNil "allIEDS") then {{deleteVehicle _x} forEach allIEDS;};
@@ -92,7 +90,7 @@ if (!isServer) exitWith {};
 		_IEDtrig = createTrigger ["EmptyDetector", _rIEDpos];
 		_IEDtrig setTriggerArea [2, 2, 0, FALSE];
 		_IEDtrig setTriggerActivation ["WEST", "PRESENT", true];
-		_IEDtrig setTriggerTimeout [1, 1, 1, true];
+		_IEDtrig setTriggerTimeout [0.5, 0.5, 0.5, true];
 		_IEDtrig setTriggerStatements [_actCond, _onActiv, _onDeActiv];
 		_trigs pushBack _IEDtrig;
 	};

@@ -45,8 +45,8 @@ WestScore = 0;
 EastScore = 0;
 LT_distance = 20;
 jig_tvt_globalsleep = 0.1;// Global sleep used after spawning a unit.
-if (isNil "lck_markercnt") then {lck_markercnt=0;};// bardosy's HuntIR
-If (isNil "JIG_DustStorm") then {JIG_DustStorm = false;};
+if (isNil "lck_markercnt") then {lck_markercnt=0};// bardosy's HuntIR
+If (isNil "JIG_DustStorm") then {JIG_DustStorm = false};
 BTC_tk_last_warning = 3;// Max TK punishment warnings given before user input controls disabled.
 INS_maxClueDis = 400;// Maximum distance from ammo cache to Intel clue marker (? "hd_unknown").
 AIdamMod = EOS_DAMAGE_MULTIPLIER*0.01;
@@ -56,11 +56,11 @@ IamHC = false;
 INS_MHQ_enabled = false;
 INS_mod_missing = false;
 INS_SEH_check = true;
-if (isNil "timesup") then {timesup = false;};
-if (INS_p_rev isEqualTo 5 or {INS_p_rev isEqualTo 7}) then {INS_MHQ_enabled = true;};
+if (isNil "timesup") then {timesup = false};
+if (INS_p_rev isEqualTo 5 or {INS_p_rev isEqualTo 7}) then {INS_MHQ_enabled = true};
 INS_ACE_para = if (isClass(configFile >> "cfgPatches" >> "ace_parachute")) then {TRUE}else{FALSE};
 INS_ACE_core = if (isClass(configFile >> "CfgMods" >> "cba") && isClass(configFile >> "CfgMods" >> "ace")) then {TRUE}else{FALSE};
-if ((isClass(configFile >> "CfgPatches" >> "task_force_radio")) || {(isClass (configFile >> "CfgPatches" >> "acre_main"))}) then {INS_SEH_check = false;};
+if ((isClass(configFile >> "CfgPatches" >> "task_force_radio")) || {(isClass (configFile >> "CfgPatches" >> "acre_main"))}) then {INS_SEH_check = false};
 
 //array
 ghst_Build_objs = [];// all ammo cache objects array
@@ -96,21 +96,21 @@ INS_ending_videos = [
 ];
 
 //namespace
-if (INS_ACE_core) then {missionNamespace setVariable ["ace_medical_preventinstadeath", true];};
+if (INS_ACE_core) then {missionNamespace setVariable ["ace_medical_preventinstadeath", true]};
 
 // Headless Client Variables ///////////////////////////////////////
 if  (!isServer && !hasInterface) then {
 	IamHC = true;
 	Any_HC_present = true; publicVariable "Any_HC_present";
-	if (name player == "HC_1") then {HC_1Present = true; publicVariable "HC_1Present";};
-	if (name player == "HC_2") then {HC_2Present = true; publicVariable "HC_2Present";};
+	if (name player == "HC_1") then {HC_1Present = true; publicVariable "HC_1Present"};
+	if (name player == "HC_2") then {HC_2Present = true; publicVariable "HC_2Present"};
 };
 
 // Client Variables /////////////////////////////////////////////////
 if (!isServer) then {
-	if (isNil "StackedEHkeysWhiteList") then {StackedEHkeysWhiteList = ["CBA_PFH","updateEOSmkrs","BABE_MAINLOOP","processPlayerPositionsHandler"];};
-	if (isNil "PVEH_netSay3D") then {PVEH_NetSay3D = [objNull,0];};
-	if (isNil "INS_MHQ_killed") then {INS_MHQ_killed = "";};
+	if (isNil "StackedEHkeysWhiteList") then {StackedEHkeysWhiteList = ["CBA_PFH","updateEOSmkrs","BABE_MAINLOOP","processPlayerPositionsHandler"]};
+	if (isNil "PVEH_netSay3D") then {PVEH_NetSay3D = [objNull,0]};
+	if (isNil "INS_MHQ_killed") then {INS_MHQ_killed = ""};
 	ebox = ObjNull;
 	epad = ObjNull;
 };
@@ -283,12 +283,12 @@ if (isServer) then {
 	objective_ruins = ["Land_TTowerBig_1_ruins_F","Land_TTowerBig_2_ruins_F","Land_Cargo40_color_V3_ruins_F","Land_HighVoltageTower_dam_F","Land_Cargo_HQ_V3_ruins_F"];publicVariable "objective_ruins";// Objective/mission ruins models
 	side_mission_mkrs_copy = + side_mission_mkrs;
 	objective_list_copy = + objective_list;
-	if (isNil "StructureBlackList") then {StructureBlackList = [];};
+	if (isNil "StructureBlackList") then {StructureBlackList = []};
 
 	// Detect ASR_AI mod // (If not detected on server then recruit skills are set with function INS_Recruit_skill in INSfncs\client\client_fncs.sqf.)
 	ASRrecSkill = if (isClass(configFile >> "cfgPatches" >> "asr_ai_main")) then {1}else{0};publicVariable "ASRrecSkill";
 
-	if (isNil "INS_MHQ_killed") then {INS_MHQ_killed = "";};
+	if (isNil "INS_MHQ_killed") then {INS_MHQ_killed = ""};
 	suicide_bmbr_weps = ["ModuleExplosive_SatchelCharge_F"];
 	suicide_bmbr_miniweps = ["MiniGrenade"];
 	suicide_bmbr_deadman = ["mini_Grenade","GrenadeHand","APERSBoundingMine_Range_Ammo","IEDUrbanSmall_Remote_Ammo"];
@@ -318,7 +318,7 @@ if (INS_op_faction isEqualTo 1) then {
 };
 
 // AAF
-if ((INS_op_faction isEqualTo 2) || (INS_op_faction isEqualTo 3)) then {
+if (INS_op_faction isEqualTo 2 || INS_op_faction isEqualTo 3) then {
 	INS_Op4_side = RESISTANCE;
 	INS_men_list = ["I_soldier_F","I_Soldier_lite_F","I_soldier_AT_F","I_soldier_GL_F","I_soldier_LAT_F","I_soldier_exp_F","I_soldier_F","I_soldier_AR_F","I_soldier_repair_F","I_soldier_LAT_F","I_soldier_AR_F","I_soldier_M_F","I_soldier_AT_F","I_soldier_AA_F","I_soldier_F","I_soldier_TL_F","I_medic_F","I_soldier_GL_F","I_soldier_F"];
 	INS_Op4_medic = "I_medic_F";
@@ -335,7 +335,7 @@ if ((INS_op_faction isEqualTo 2) || (INS_op_faction isEqualTo 3)) then {
 };
 
 // CSAT (Pacific)
-if ((INS_op_faction isEqualTo 4) || (INS_op_faction isEqualTo 5)) then {
+if (INS_op_faction isEqualTo 4 || INS_op_faction isEqualTo 5) then {
 	INS_Op4_side = EAST;
 	INS_men_list = ["O_T_Soldier_A_F","O_T_Soldier_AAR_F","O_T_Support_AMG_F","O_T_Support_AMort_F","O_T_Soldier_AAA_F","O_T_Soldier_AAT_F","O_T_Soldier_AR_F","O_T_Medic_F","O_T_Crew_F","O_T_Engineer_F","O_T_Soldier_Exp_F","O_T_Soldier_GL_F","O_T_Support_GMG_F","O_T_Support_MG_F","O_T_Support_Mort_F","O_T_Soldier_M_F","O_T_Soldier_AA_F","O_T_Soldier_AT_F","O_T_Officer_F","O_T_Soldier_PG_F","O_T_Soldier_Repair_F","O_T_Soldier_F","O_T_Soldier_LAT_F","O_T_Soldier_SL_F","O_T_Soldier_TL_F","O_T_Soldier_UAV_F","O_T_Recon_Exp_F","O_T_Recon_JTAC_F","O_T_Recon_M_F","O_T_Recon_Medic_F","O_T_Recon_F","O_T_Recon_LAT_F","O_T_Recon_TL_F","O_T_Sniper_F","O_T_Spotter_F","O_T_ghillie_tna_F","O_V_Soldier_ghex_F","O_V_Soldier_TL_ghex_F","O_V_Soldier_Exp_ghex_F","O_V_Soldier_Medic_ghex_F","O_V_Soldier_M_ghex_F","O_V_Soldier_LAT_ghex_F","O_V_Soldier_JTAC_ghex_F"];
 	INS_Op4_medic = "O_soldierU_medic_F";

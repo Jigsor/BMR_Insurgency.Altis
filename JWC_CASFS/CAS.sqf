@@ -1,6 +1,6 @@
-private ["_velocityZ"];
-
 if (waitCAS) exitWith {titleText ["CAS already enroute, cancel current CAS or wait for bomb drop before next request!","PLAIN DOWN"]};
+
+private "_velocityZ";
 
 waitCAS = true;
 _object = _this select 0;
@@ -33,7 +33,7 @@ _grp = _veh select 2;
 _vel = velocity _buzz;
 _buzz setVelocity [(_vel select 0)+(sin _dirTo*_speed),(_vel select 1)+ (cos _dirTo*_speed),(_vel select 2)];
 
-[_buzz] execVM "JWC_CASFS\track.sqf";
+[_buzz] remoteExec ["JWC_CAStrack", 2, false];//Moved handling to server. Jig
 
 _buzz allowDamage false;
 
@@ -100,7 +100,7 @@ if (usedCAS < usedCAS) then {
 
 [_buzz] spawn doCounterMeasure;
 
-if ((alive _buzz) && (_casType == "JDAM")) then {
+if ((alive _buzz) && (_casType isEqualTo "JDAM")) then {
 	_drop = createAgent ["Logic", [getPos _buzz select 0, getPos _buzz select 1, 0], [] , 0 , "CAN_COLLIDE"];
 	_soundpos = getposATL _drop;
 	_height = 225 + _lock;
@@ -128,7 +128,7 @@ if ((alive _buzz) && (_casType == "JDAM")) then {
 	deleteVehicle _drop;
 };
 
-if ((alive _buzz) && (_casType == "CBU")) then {
+if ((alive _buzz) && (_casType isEqualTo "CBU")) then {
 	_drop = createAgent ["Logic", [getPos _buzz select 0, getPos _buzz select 1, 0], [] , 0 , "CAN_COLLIDE"];
 	_soundpos = getposATL _drop;
 	_height = 225 + _lock;
@@ -166,7 +166,7 @@ if ((alive _buzz) && (_casType == "CBU")) then {
 	deleteVehicle _drop;
 };
 
-if ((alive _buzz) && (_casType == "COMBO")) then {
+if ((alive _buzz) && (_casType isEqualTo "COMBO")) then {
 	_drop = createAgent ["Logic", [getPos _buzz select 0, getPos _buzz select 1, 0], [] , 0 , "CAN_COLLIDE"];
 	_soundpos = getposATL _drop;
 	_height = 225 + _lock;
@@ -236,7 +236,7 @@ if ((alive _buzz) && (_casType == "COMBO")) then {
 	};
 };
 
-if (_casType == "COMBO") then {
+if (_casType isEqualTo "COMBO") then {
   (leader _grp) sideChat localize "STR_JWC_CAS_multi_confirm";
 }else{
   (leader _grp) sideChat localize "STR_JWC_CAS_single_confirm";

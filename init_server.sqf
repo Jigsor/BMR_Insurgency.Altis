@@ -32,25 +32,25 @@ if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {
 ["Initialize", [true]] call BIS_fnc_dynamicGroups;
 
 // PublicVariable EventHandlers //
-if (isNil "ghst_Build_objs") then {ghst_Build_objs = [];};
-if (isNil "intel_Build_objs") then {intel_Build_objs = [];};
-if (isNil "activated_cache_pos") then {activated_cache_pos = [];};
-if (isNil "paddscore") then {paddscore = 0;};
+if (isNil "ghst_Build_objs") then {ghst_Build_objs = []};
+if (isNil "intel_Build_objs") then {intel_Build_objs = []};
+if (isNil "activated_cache_pos") then {activated_cache_pos = []};
+if (isNil "paddscore") then {paddscore = 0};
 
 "BTC_to_server" addPublicVariableEventHandler BTC_m_fnc_only_server;
 "ghst_Build_objs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "activated_cache_pos" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "paddscore" addPublicVariableEventHandler {_data = _this select 1; (_data select 0) addScore (_data select 1);};
-"PVEH_netSay3D" addPublicVariableEventHandler {private _array = _this select 1; (_array select 0) say3D (_array select 1);};
+"PVEH_netSay3D" addPublicVariableEventHandler {private _array = _this select 1; (_array select 0) say3D (_array select 1)};
 "side_mission_mkrs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "objective_list" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
-if (INS_GasGrenadeMod isEqualTo 1) then {"ToxicGasLoc" addPublicVariableEventHandler {(_this select 1) spawn GAS_smoke_AIdamage};};
+if (INS_GasGrenadeMod isEqualTo 1) then {"ToxicGasLoc" addPublicVariableEventHandler {(_this select 1) spawn GAS_smoke_AIdamage}};
 
 // Mission EventHandlers //
 addMissionEventHandler ["HandleDisconnect", {
 	_unit = (_this select 0);
 	if !(isPlayer leader (group _unit)) then {
-		{deleteVehicle _x} forEach  (units (group _unit) select {(_x isKindOf "Man")});
+		{deleteVehicle _x} forEach (units (group _unit) select {(_x isKindOf "Man")});
 	};
 	if (typeOf _unit isEqualTo "HeadlessClient_F") then {
 		{deleteVehicle _x} forEach (allUnits select {!(side _x isEqualTo west) && !(side _x isEqualTo civilian) && (_x isKindOf "Man")});
@@ -110,13 +110,13 @@ Delivery_Box hideObjectGlobal true;
 [180] execVM "scripts\SingleThreadCrateRefill.sqf";
 
 // Param enabled scripts/settings //
-if (INS_GasGrenadeMod isEqualTo 1) then {[] spawn editorAI_GasMask;};
-if (Fatigue_ability < 1) then {{[_x] spawn INS_full_stamina;} forEach playableUnits;};
-if (EnableEnemyAir > 0) then {0 = [] execVM "scripts\AirPatrolEast.sqf";};
+if (INS_GasGrenadeMod isEqualTo 1) then {[] spawn editorAI_GasMask};
+if (Fatigue_ability < 1) then {{[_x] spawn INS_full_stamina;} forEach playableUnits};
+if (EnableEnemyAir > 0) then {0 = [] execVM "scripts\AirPatrolEast.sqf"};
 if (DebugEnabled isEqualTo 1) then {
-	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 30; nul = [] execVM "scripts\INS_SuicideBomber.sqf";};};
+	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 30; nul = [] execVM "scripts\INS_SuicideBomber.sqf"}};
 }else{
-	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 600; nul = [] execVM "scripts\INS_SuicideBomber.sqf";};};
+	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 600; nul = [] execVM "scripts\INS_SuicideBomber.sqf"}};
 };
 
 // Clean up Maintenance //
@@ -131,9 +131,7 @@ if (DebugEnabled isEqualTo 1) then {
 	5*60 // seconds to delete canopies,ejection seats
 ] execVM 'scripts\repetitive_cleanup.sqf';
 
-{_x setVariable ["persistent",true];} forEach [Jig_m_obj,Delivery_Box];
-{_x setVariable ["persistent",true];} forEach INS_Blu4_wepCrates;
-{_x setVariable ["persistent",true];} forEach INS_Op4_wepCrates;
+{_x setVariable ["persistent",true]} forEach [Jig_m_obj,Delivery_Box], INS_Blu4_wepCrates, INS_Op4_wepCrates;
 
 execVM "scripts\remove_boobyTraps.sqf";
 execVM "scripts\unattended_maintenance.sqf";
@@ -147,7 +145,7 @@ if (Airfield_opt) then
 			{ _x hideObjectGlobal true } foreach (nearestTerrainObjects [[21020.1,7311.07,0],["TREE","SMALL TREE","BUSH"],175]);
 		};
 	};
-	{_x animateSource ["Door_7_sound_source", 1];} ForEach nearestObjects [(getMarkerPos "Airfield"), ["Land_Ss_hangar","Land_Ss_hangard","WarfareBAirport"], 500];
+	{_x animateSource ["Door_7_sound_source", 1]} ForEach nearestObjects [(getMarkerPos "Airfield"), ["Land_Ss_hangar","Land_Ss_hangard","WarfareBAirport"], 500];
 
 	//Default empty Bluefor Fixed Wing
 	private ["_mod","_class","_dirfw1","_fw1","_type"];

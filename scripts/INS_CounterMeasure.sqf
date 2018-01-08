@@ -1,13 +1,9 @@
 //INS_CounterMeasure.sqf by Jigsor
 
-if !(driver (vehicle player) == player) exitWith {hint "Restricted to Pilot"};
-if ((INS_op_faction) isEqualTo 17) exitWith {hintSilent "Auto Flare feature bypassed"};
+if !(player isEqualTo driver objectParent player) exitWith {hint "Restricted to Pilot"};
+if (INS_op_faction isEqualTo 17) exitWith {hintSilent "Auto Flare feature bypassed"};//IFA3
 
-if (isNil {vehicle player getVariable "INS_autoFlare"}) then {
-	(vehicle player) setVariable ["INS_autoFlare",true];
-};
-
-if (vehicle player getVariable "INS_autoFlare") then {
+if (vehicle player getVariable ["INS_autoFlare",true]) then {
 
 	(vehicle player) addEventHandler ["IncomingMissile", {
 

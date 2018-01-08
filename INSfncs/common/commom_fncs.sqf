@@ -669,7 +669,7 @@ JIG_Dust_Storm = {
 			_ran = ceil random 5;
 			playsound format ["wind%1",_ran];
 			_b  = "#particlesource" createVehicleLocal (getpos player);
-			if (vehicle player != player) then {_b attachto [vehicle player];} else {_b attachto [player];};
+			if !(isNull objectParent player) then {_b attachto [vehicle player];} else {_b attachto [player];};
 			_b setParticleRandom [0, [10, 10, 7], [(wind select 0), (wind select 1), 5], 2, 0.1, [0, 0, 0, 0.5], 1, 1];
 			_b setParticleCircle [100, [0, 0, 0]];
 			_b setParticleParams [["\A3\data_f\ParticleEffects\Hit_Leaves\Sticks_Green", 1, 1, 1], "", "SpaceObject", 3, 7, [0,0,0], [(wind select 0), (wind select 1),10], 5, 0.000001, 0.0, 0.04, [0.5 + random 3], [[0.68,0.68,0.68,1]], [1.5,1], 1, 1, "", "", vehicle player, 0, true, 1, [[0,0,0,0]]];
@@ -682,7 +682,7 @@ JIG_Dust_Storm = {
 		private "_l";
 		while {JIG_DustStorm} do {
 			_l  = "#particlesource" createVehicleLocal (getpos player);
-			if (vehicle player != player) then {_l attachto [vehicle player];} else {_l attachto [player];};
+			if !(isNull objectParent player) then {_l attachto [vehicle player];} else {_l attachto [player];};
 			_l setParticleRandom [0, [10, 10, 7], [(wind select 0), (wind select 1), 5], 2, 0.1, [0, 0, 0, 0.5], 1, 1];
 			_l setParticleCircle [100, [0, 0, 0]];
 			_l setParticleParams [["\A3\data_f\cl_leaf3", 1, 0, 1], "", "SpaceObject", 3, 7, [0,0,0], [(wind select 0), (wind select 1), 6], 2, 0.00003, 0.0, 0.00001, [0.5 + random 3], [[0.1,0.1,0.1,1]], [1.5,1], 1, 1, "", "", vehicle player, 0, true, 1, [[0,0,0,0]]];
@@ -700,6 +700,21 @@ JIG_IED_FX = {
 	[player, 1] call BIS_fnc_dirtEffect;
 	playSound3d['A3\Missions_F_EPA\data\sounds\combat_deafness.wss', _trig, false, getPosASL _trig, 15, 1, 50];
 };
+JWC_CAStrack = {
+	// Code by JW Custom
+	params [["_plane",objNull]];
+	_markerName = format ["track%1",random 99999];
+	_marker = createMarker[_markerName, [0,0,0]];
+	_markerName setMarkerType "c_plane";
+	_markerName setMarkerColor "ColorBLUFOR";
+	while {!isNull _plane} do {
+	  _markerName setMarkerDir (getDir _plane);
+	  _markerName setMarkerPos (getPosWorld _plane);
+	  uiSleep 0.1;
+	};
+	deleteMarker _marker;
+};
+
 switchMoveEverywhere = compileFinal " _this select 0 switchMove (_this select 1); ";
 INS_BluFor_Siren = compileFinal " if (isServer) then {
 	[INS_BF_Siren,""siren""] call mp_Say3D_fnc;

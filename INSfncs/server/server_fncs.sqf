@@ -400,17 +400,6 @@ JIPmkr_updateClient_fnc = {
 	} forEach _coloredMarkers;
 	true
 };
-curr_EOSmkr_states_fnc = {
-	private ["_colorArr","_coloredEOSmkrs","_color"];
-	_colorArr = [];
-	_coloredEOSmkrs=server getVariable "EOSmarkers";
-	{
-		_color = getMarkercolor _x;
-		_colorArr pushBack _color;
-	} forEach _coloredEOSmkrs;
-	server setVariable ["EOSmkrStates",_colorArr,true];
-	true
-};
 find_bombee_fnc = {
 	// Find suicide bomber player target. by Jigsor
 	private _potentialTargets = [];
@@ -551,7 +540,8 @@ bmbr_spawnpos_fnc = {
 };
 spawn_Op4_grp = {
 	// Creates infantry group. by Jigsor
-	params ["_newZone","_grpSize","_grp","_unit_type","_unit"];
+	params ["_newZone","_grpSize"];
+	private ["_grp","_unit_type","_unit"];
 	_grp = createGroup INS_Op4_side;
 
 	for "_i" from 0 to (_grpSize - 2) do {
@@ -579,7 +569,7 @@ spawn_Op4_grp = {
 spawn_Op4_StatDef = {
 	// Static Gunner group creation and placements. by Jigsor
 	params ["_newZone","_grpSize","_radius"];
-	private ["_allGuns1","_interval","_assets","_randType","_circle","_startPos","_finalPos","_type","_static","_statGrp","_unitType","_allGuns2","_list1","_list2","_ranSel"];
+	private ["_allGuns1","_interval","_assets","_randType","_circle","_startPos","_finalPos","_type","_static","_statGrp","_unitType","_allGuns2"];
 
 	_assets = [];
 	_allGuns1 = [];
@@ -652,6 +642,7 @@ spawn_Op4_StatDef = {
 
 	// Roof top placement
 	if (_grpSize > 2) then {
+		private ["_list1","_ranSel"];
 		_list1 = [];
 		_ranSel = selectRandom _allGuns1;
 		_list1 pushBack _ranSel;

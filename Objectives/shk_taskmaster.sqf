@@ -405,7 +405,7 @@ SHK_Taskmaster_handleEvent = {
 		In: array	SHK_Taskmaster_Tasks from pubvar eventhandler
 		Out:
 	*/
-	waituntil {sleep 2; alive player};
+	waituntil {sleep 3; alive player};
 	private "_name";
 	{
 		_name = _x select 0;
@@ -646,7 +646,8 @@ if isserver then {
 	};
 };
 /* == CLIENT =================================================================================== */
-if !isdedicated then {
+//if !isdedicated then {
+if (hasInterface) then {
 	SHK_Taskmaster_showHints = false;
 	SHK_Taskmaster_TasksLocal = []; // Array member: ["TaskName","TaskState",TaskHandles]
 	/*

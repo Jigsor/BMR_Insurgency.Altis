@@ -1,14 +1,14 @@
 // init_player.sqf by Jigsor //
 
-if (isNil "aomkr") then {aomkr = [];};//air patrole center marker
+if (isNil "aomkr") then {aomkr = []};//air patrole center marker
 "aomkr" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 
 if (DebugEnabled > 0) then {
 	waitUntil {!isNull player && player == player};
 
-	if (isNil "spawnaire") then {spawnaire = [];};
-	if (isNil "spawnairw") then {spawnairw = [];};
-	if (isNil "cyclewpmrk") then {cyclewpmrk = [];};
+	if (isNil "spawnaire") then {spawnaire = []};
+	if (isNil "spawnairw") then {spawnairw = []};
+	if (isNil "cyclewpmrk") then {cyclewpmrk = []};
 
 	"spawnaire" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 	"spawnairw" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
@@ -35,9 +35,8 @@ if (DebugEnabled > 0) then {
 		};
 	};
 
-	if (tky_perfmon > 0) then {_nul1 = [tky_perfmon] execVM "scripts\tky_evo_performance_report.sqf";};
-	{_x setMarkerAlphaLocal 1;} forEach Op4_mkrs;
-	{_x setMarkerAlphaLocal 1;} forEach Blu4_mkrs;
+	if (tky_perfmon > 0) then {_nul1 = [tky_perfmon] execVM "scripts\tky_evo_performance_report.sqf"};
+	{_x setMarkerAlphaLocal 1} forEach Op4_mkrs, Blu4_mkrs;
 };
 
 [] spawn {
@@ -52,16 +51,16 @@ if (DebugEnabled > 0) then {
 	gc_heading_on = false;
 	status_hud_on = false;
 	INS_SavedLoadout = nil;
-	if (!isJIP) then {intel_objArray = [];};
+	if (!isJIP) then {intel_objArray = []};
 	INS_editor_Pgrp = groupId (group player);
 	//if (local player) then {player setVariable ["BIS_enableRandomization", false]};// Disables randomization of gear
-	if (AI_radio_volume isEqualTo 1) then {0 fadeRadio 0;};
-	if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {player call btc_qr_fnc_unit_init;};// BTC Quick Revive
-	if (INS_GasGrenadeMod isEqualTo 1) then {player setVariable ["inSmoke",false];};
-	if (Remove_grass_opt isEqualTo 1) then {tawvd_disablenone = true;};// Disables the grass Option 'None' button in Taw View Distance UI
-	if (_playertype in INS_W_PlayerUAVop) then {player setVariable ["ghst_ugvsup", 0];};
-	if (_playertype in INS_W_PlayerEng) then {player setVariable ["INS_farp_deployed", false];};
-	if (_playertype in INS_W_PlayerEOD) then {0=[] execVM "scripts\minedetector.sqf";};
+	if (AI_radio_volume isEqualTo 1) then {0 fadeRadio 0};
+	if (INS_p_rev isEqualTo 4 || INS_p_rev isEqualTo 5) then {player call btc_qr_fnc_unit_init};// BTC Quick Revive
+	if (INS_GasGrenadeMod isEqualTo 1) then {player setVariable ["inSmoke",false]};
+	if (Remove_grass_opt isEqualTo 1) then {tawvd_disablenone = true};// Disables the grass Option 'None' button in Taw View Distance UI
+	if (_playertype in INS_W_PlayerUAVop) then {player setVariable ["ghst_ugvsup", 0]};
+	if (_playertype in INS_W_PlayerEng) then {player setVariable ["INS_farp_deployed", false]};
+	if (_playertype in INS_W_PlayerEOD) then {0=[] execVM "scripts\minedetector.sqf"};
 
 	// Fatigue and Stamina
 	setStaminaScheme "FastDrain";
@@ -175,7 +174,7 @@ if (DebugEnabled > 0) then {
 		player addEventHandler ["Respawn", {[] spawn JIG_p_actions_resp; (_this select 0) spawn INS_RestoreLoadout; (_this select 0) spawn INS_UI_pref}];
 	};
 
-	if (!isServer) then {"PVEH_netSay3D" addPublicVariableEventHandler {private "_array"; _array = _this select 1; (_array select 0) say3D (_array select 1);};};
+	if (!isServer) then {"PVEH_netSay3D" addPublicVariableEventHandler {private _array = _this select 1; (_array select 0) say3D (_array select 1)}};
 
 	if (INS_GasGrenadeMod isEqualTo 1) then {
 		player addEventHandler ["Fired", {
@@ -198,7 +197,7 @@ if (DebugEnabled > 0) then {
 	};
 
 	if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
-		player addEventHandler ["Killed",{_this spawn {sleep 3; deletevehicle (_this select 0)};}];
+		player addEventHandler ["Killed",{_this spawn {sleep 3; deletevehicle (_this select 0)}}];
 		player addEventHandler ["Respawn", {
 			[(_this select 0)] spawn {
 				waitUntil {sleep 1; alive (_this select 0)};
@@ -206,11 +205,11 @@ if (DebugEnabled > 0) then {
 			};
 		}];
 	}else{
-		If (side player == east) then {player addEventHandler ["Killed", {Op4handle = [_this select 0] execVM "scripts\MoveOp4Base.sqf";}];};
+		If (side player == east) then {player addEventHandler ["Killed", {Op4handle = [_this select 0] execVM "scripts\MoveOp4Base.sqf"}];};
 	};
 
 	if (!(INS_ACE_core) && !(INSpDamMul isEqualTo 100)) then {
-		if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
+		if (INS_p_rev isEqualTo 4 || INS_p_rev isEqualTo 5) then {
 			[] spawn {
 				waitUntil {time > 4};
 				hint "Player damage modifier not compatible with BTC Quick Revive. Default damage will be taken (100%)";
@@ -266,7 +265,7 @@ if (DebugEnabled > 0) then {
 			player setUnitTrait ['Engineer',true];
 			player setUnitTrait ['Medic',true];
 			[] spawn INS_intro_op4;
-			[] spawn {sleep 10; [player] call Op4_spawn_pos;};
+			[] spawn {sleep 10; [player] call Op4_spawn_pos};
 			[] spawn {
 				waitUntil {time > 1};
 				loadout_handler = [player] execVM "scripts\DefLoadoutOp4.sqf";
@@ -280,10 +279,10 @@ if (DebugEnabled > 0) then {
 					_mhqPos = getPos Opfor_MHQ; _nul = [_mhqObj,_op4,_mhqPos] spawn INS_MHQ_mkr;
 					INS_Op4_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to Opfor_MHQ</t>", "call JIG_transfer_fnc", ["Opfor_MHQ"], 1];
 				};
-				if (!isNil "MHQ_1") then {removeAllActions MHQ_1;};
-				if (!isNil "MHQ_2") then {removeAllActions MHQ_2;};
-				if (!isNil "MHQ_3") then {removeAllActions MHQ_3;};
-				player addEventHandler ["GetInMan",{if ((_this select 2) isKindOf "Plane") then {_this select 0 action ["GetOut", (_this select 2)]}}];
+				if (!isNil "MHQ_1") then {removeAllActions MHQ_1};
+				if (!isNil "MHQ_2") then {removeAllActions MHQ_2};
+				if (!isNil "MHQ_3") then {removeAllActions MHQ_3};
+				player addEventHandler ["GetInMan",{if ((_this select 2) isKindOf "Plane") then {_this select 0 action ["getOut", (_this select 2)]}}];
 			};
 		};
 		If (side player == west) then {
@@ -318,7 +317,7 @@ if (DebugEnabled > 0) then {
 			if (INS_play_op4 isEqualTo 0) exitWith {};
 			player setUnitTrait ['Engineer',true];
 			player setUnitTrait ['Medic',true];
-			[] spawn {[player] call Op4_spawn_pos;};
+			[] spawn {[player] call Op4_spawn_pos};
 			[] spawn {
 				loadout_handler = [player] execVM "scripts\DefLoadoutOp4.sqf";
 				waitUntil { scriptDone loadout_handler };
@@ -334,9 +333,7 @@ if (DebugEnabled > 0) then {
 			};
 		};
 		If (side player == west) then {
-			[] spawn {
-				loadout = getUnitLoadout player;
-			};
+			[] spawn {loadout = getUnitLoadout player};
 			if (INS_MHQ_enabled) then {
 				private ["_op4","_mhqPos","_mhqObj1","_mhqObj2","_mhqObj3"];
 				_op4 = false;
@@ -361,7 +358,7 @@ if (DebugEnabled > 0) then {
 		[] spawn {
 			private _delay = round (3600 / timeMultiplier);
 			while {true} do {
-				if ((daytime > 21.00) || (daytime < 3.50)) then {
+				if (daytime > 21.00 || daytime < 3.50) then {
 					[3] call INS_Brighter_Nights;
 				}else{
 					[1] call INS_Brighter_Nights;
@@ -374,7 +371,7 @@ if (DebugEnabled > 0) then {
 	// 3rd Person PoV to vehicles only
 	if (limitPOV isEqualTo 1) then {
 		[player] spawn PVPscene_POV;
-		player addEventHandler ["Respawn", {[(_this select 0)] spawn PVPscene_POV;}];
+		player addEventHandler ["Respawn", {[(_this select 0)] spawn PVPscene_POV}];
 	};
 
 	// Ambient Radio Chatter in/near Vehicles (TPW code)
@@ -430,14 +427,14 @@ if (DebugEnabled > 0) then {
 		[] spawn {
 			if ((typeOf player) in INS_PlayerPilot) exitWith {};
 			If (side player == east) exitWith {};// exclude Op4 players
-			private "_veh";
 			while {true} do {
-				if (vehicle player != player) then {
-					_veh = vehicle player;
+				if !(isNull objectParent player) then {
+					private _veh = vehicle player;
 					if ((_veh isKindOf "Plane") || {((_veh isKindOf "Helicopter") && !(_veh isKindOf "ParachuteBase"))}) then {
-						if (driver _veh == player) then {
+						if (isCopilotEnabled _veh) then {_veh enableCopilot false};
+						if (player isEqualTo driver _veh) then {
 							if (isEngineOn _veh) then {_veh engineOn false};
-							player action ["GetOut", _veh];
+							player action ["getOut", _veh];
 							hintSilent localize "STR_BMR_restrict_pilot";
 						};
 					};
@@ -450,7 +447,7 @@ if (DebugEnabled > 0) then {
 	// INS MHQ respawn actions and markers
 	if (INS_MHQ_enabled) then {
 		[] spawn {
-			waitUntil{not isNull player};
+			waitUntil{!isNull player};
 
 			private _op4 = if (side player == east) then {TRUE}else{FALSE};
 
