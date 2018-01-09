@@ -815,3 +815,29 @@ JIG_ActivateDust = {
 	sleep 3;
 	[] remoteExec ["JIG_Dust_Storm", [0,-2] select isDedicated, false];
 };
+INSciviKilled_fnc = {
+	params [["_unit",objNull],["_killer",objNull]];
+	if (!(vehicleVarName _unit isEqualTo "sstBomber") && {!isNull _killer}) then {
+		if (!isPlayer _killer) exitWith {};
+		private _killerName = name _killer;
+		private _killed = name _unit;
+		private _penalty = -3500;
+		private _tally = (rating _killer) + _penalty;
+		private _txt = format ["%1, Killed Civilian %2", _killerName, _killed];
+		_killer addRating _tally;
+		[_txt] remoteExec ["JIG_MPSystemChat_fnc", [0,-2] select isDedicated];
+		//_killer remoteExec ["JIG_Boo", _killer];
+	};
+	sleep 2;
+	if !(_unit isKindOf "Man") then {
+		{_x setPos position _unit} forEach crew _unit;
+		sleep 120;
+		deleteVehicle _unit;
+	};
+	if (_unit isKindOf "Man") then {
+		if !((vehicle _unit) isKindOf "Man") then {_unit setPos (position vehicle _unit)};
+		sleep 135;
+		hideBody _unit;
+		_unit removeAllEventHandlers "killed";
+	};
+};

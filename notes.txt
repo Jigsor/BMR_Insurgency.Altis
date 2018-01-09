@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-1/7/2018
+1/9/2018
 BMR_Insurgency_v1.48_beta
 	Some changes in this version are still be tested and so may contain bugs..
 	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
@@ -177,6 +177,7 @@ BMR_Insurgency_v1.48_beta
 	Added: Support of custom licence plates.(new command currently in Dev Branch).
 	Added: Saving of grid zone progression persistence system. Can be cleared and disabled by default, enabled and restored or enabled and cleared to start from new from lobby parameter.
 	Added: Support for JIP of Headless Client incase of kick or crash of Headless client. Requires HC to be present at mission start, one of the persistence options enabled and mission to be cached into Server and HC.
+	Added: Negative rating to innocent civilian killer and system chat message of who killed who.
 	Change: VA quick profile loadout action list on MHQs extended from 15 to 20 seconds.
 	Change: Increased delay loop for suicide bomber and now bomber can no longer spawn in same building as target.
 	Change: Shortening group spawn delay on Capture N Hold objective depending on defender count size and server fps for higher intensity.

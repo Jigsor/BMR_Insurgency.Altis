@@ -587,7 +587,7 @@ if (INS_op_faction isEqualTo 17) then {
 };
 
 // Serviceable West UAVs
-INS_W_Serv_UAVs = ["B_T_UAV_03_F","B_UAV_02_CAS_F","B_UAV_02_F","B_UAV_01_F","B_UAV_05_F","B_UAV_02_dynamicLoadout_F","B_T_UAV_03_dynamicLoadout_F","ffaa_reaper_multirrol","ffaa_reaper_gbu","ffaa_reaper_maverick","ffaa_et_searcherIII","ffaa_lanzador_nasams","CUP_B_USMC_MQ9"];
+INS_W_Serv_UAVs = ["B_T_UAV_03_F","B_UAV_02_CAS_F","B_UAV_02_F","B_UAV_01_F","B_UAV_05_F","B_UAV_02_dynamicLoadout_F","B_T_UAV_03_dynamicLoadout_F","ffaa_reaper_multirrol","ffaa_reaper_gbu","ffaa_reaper_maverick","ffaa_et_searcherIII","ffaa_lanzador_nasams","CUP_B_USMC_MQ9","CUP_B_USMC_DYN_MQ9","CUP_B_AH6X_USA"];
 
 // Aircraft lacking chaff
 INS_add_Chaff = ["B_Heli_Light_01_F","B_Heli_Light_01_armed_F","B_Heli_Light_01_stripped_F","B_Heli_Light_01_dynamicLoadout_F","CUP_B_AH6M_USA","CUP_B_MH6M_USA"];

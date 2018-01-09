@@ -4,6 +4,8 @@
 JIG_MPhint_fnc = {if (!isDedicated && hasInterface) then { hintSilent _this };};
 JIG_MPsideChatWest_fnc = { [West,"HQ"] SideChat (_this select 0); };
 JIG_MPsideChatEast_fnc = { [East,"HQ"] SideChat (_this select 0); };
+JIG_MPSystemChat_fnc = { systemChat (_this select 0); };
+JIG_Boo = {playSound "boo";};
 JIG_MPTitleText_fnc = {
 	if (!isDedicated && hasInterface) then {
 		params ["_text"];
