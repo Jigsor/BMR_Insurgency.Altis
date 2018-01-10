@@ -94,6 +94,7 @@ MAD_spawnCar = {
 		//Driver
 		_civtype = selectRandom INS_civlist;
 		_driver = _sqname createUnit [_civtype,_spawnpos, [], 0, "FORM"];
+		_driver addeventhandler ["killed", {_this spawn INSciviKilled_fnc}];
 		_driver moveindriver _spawncar;
 		_driver setbehaviour "SAFE";
 		_spawncar setvariable ["MAD_car_driver", _driver];

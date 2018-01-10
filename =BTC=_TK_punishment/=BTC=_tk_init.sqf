@@ -44,7 +44,7 @@ BTC_EH_killed = {
 BTC_Teamkill = {
 	player addrating 9999;
 	BTC_teamkiller = BTC_teamkiller + 1;
-	_uid = getPlayerUID player;
+	private _uid = getPlayerUID player;
 	BTC_logic setVariable [_uid,BTC_teamkiller,true];
 	switch (true) do
 	{
@@ -65,7 +65,7 @@ BTC_Teamkill = {
 			} else {
 				_msg = "YOU HAVE BEEN PUNISHED FOR TEAMKILLING!";
 			};
-			player setPos [0,0,0];
+			player setPos [100,100,0];
 			private _n = 0;
 			while {_n < 60} do
 			{
