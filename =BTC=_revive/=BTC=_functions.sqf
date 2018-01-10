@@ -305,8 +305,6 @@ BTC_player_killed = {
 			player setVelocity [0,0,0];
 			player setPosATL _pos;
 			deletevehicle _body;
-			_side = playerSide;
-			_injured = player;
 			if (BTC_injured_marker isEqualTo 1) then {BTC_marker_pveh = [0,BTC_side,_pos,_body_marker];publicVariable "BTC_marker_pveh";};
 			disableUserInput true;
 			for [{_n = BTC_revive_time_min}, {_n > 0 && player getVariable "BTC_need_revive" == 1}, {_n = _n - 0.5}] do {

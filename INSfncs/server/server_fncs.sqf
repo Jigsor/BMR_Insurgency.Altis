@@ -799,7 +799,7 @@ JIG_ActivateDust = {
 	// Activate Dust Storm
 	params [["_vel", 12, [0]]];
 	missionNameSpace setVariable ["JDSactive", true];
-	private _direction = selectRandom [
+	private _dir = selectRandom [
 		[0,_vel,true],	//North
 		[0,-_vel,true],	//South
 		[_vel,0,true],	//East
@@ -809,7 +809,7 @@ JIG_ActivateDust = {
 		[-_vel,-_vel,true],	//South West
 		[_vel,-_vel,true]	//South East
 	];
-	setWind _direction;
+	setWind _dir;
 	JIG_DustStorm = true;
 	publicVariable "JIG_DustStorm";
 	sleep 3;
@@ -817,13 +817,12 @@ JIG_ActivateDust = {
 };
 INSciviKilled_fnc = {
 	params [["_unit",objNull],["_killer",objNull]];
-	if (!(vehicleVarName _unit isEqualTo "sstBomber") && {!isNull _killer}) then {
-		if (!isPlayer _killer) exitWith {};
+	if (!(vehicleVarName _unit isEqualTo "sstBomber") && {!isNull _killer} && {isPlayer _killer}) then {
 		private _killerName = name _killer;
 		private _killed = name _unit;
 		private _penalty = -3500;
 		private _tally = (rating _killer) + _penalty;
-		private _txt = format ["%1, Killed Civilian %2", _killerName, _killed];
+		private _txt = format ["%1 Killed Civilian %2", _killerName, _killed];
 		_killer addRating _tally;
 		[_txt] remoteExec ["JIG_MPSystemChat_fnc", [0,-2] select isDedicated];
 		//_killer remoteExec ["JIG_Boo", _killer];

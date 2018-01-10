@@ -120,12 +120,12 @@ if (DebugEnabled isEqualTo 1) then {
 };
 
 // Clean up Maintenance //
-[
+[	//(0 means don't delete)
 	2*60, // seconds to delete dead bodies
 	5*60, // seconds to delete dead vehicles
-	0, // (0 means don't delete)
+	0, // immobile vehicles
 	2*60, // seconds to delete dropped weapons
-	0, // (0 means don't delete)// interferes with minefield task if set above 0
+	0, // planted explosives - interferes with minefield task if set above 0
 	6*60, // seconds to delete dropped smokes/chemlights
 	1*60, // seconds to delete craters
 	5*60 // seconds to delete canopies,ejection seats
