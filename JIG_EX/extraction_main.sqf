@@ -74,7 +74,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 
 		_VarName = "EvacHeliW1";
 		_veh setVehicleVarName _VarName;
-		_veh Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
+		_veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 		_veh setVariable["persistent",true];
 
 		_availableSeats = EvacHeliW1 emptyPositions "Cargo";

@@ -54,11 +54,4 @@ if !(_player in _hcEntities) then {
 } else {
 	waitUntil {!isNil "all_eos_mkrs"};
 	[all_eos_mkrs] remoteExec ["BMRINS_fnc_HC_allEOSmkrs",_player];
-	/*
-	if (_didJIP) then {
-		waitUntil {!isNil {server getVariable "EOSmkrStates"}};
-		waitUntil {!isNil "disableEOSmkrs_fnc"};
-		[[],"disableEOSmkrs_fnc",_player] call BIS_fnc_MP;
-	};
-	*/
 };

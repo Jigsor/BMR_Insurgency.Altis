@@ -16,7 +16,7 @@ BTC_fnc_tk_PVEH = {
 	_name  = _array select 0;
 	_punisher = _array select 1;
 	hint format ["%1 has committed TK and has been punished by %2",_name,_punisher];
-	if (name player == _name) then {_spawn = [] spawn BTC_Teamkill;};
+	if (name player == _name) then {_spawn = [] spawn BTC_Teamkill};
 };
 BTC_EH_killed = {
 	_body = _this select 0;
@@ -65,7 +65,7 @@ BTC_Teamkill = {
 			} else {
 				_msg = "YOU HAVE BEEN PUNISHED FOR TEAMKILLING!";
 			};
-			player setPos [100,100,0];
+			player setPos [101,101,0];
 			private _n = 0;
 			while {_n < 60} do
 			{
@@ -78,12 +78,12 @@ BTC_Teamkill = {
 		};
 		case (BTC_teamkiller > BTC_tk_last_warning) : 
 		{
-			if (isNil "Kick_For_Duration") then {Kick_For_Duration = [];};
+			if (isNil "Kick_For_Duration") then {Kick_For_Duration = []};
 			Kick_For_Duration pushBack _uid;
 			publicVariableServer "Kick_For_Duration";//Jig adding
 			disableUserInput true;
 			titleText ["YOU HAVE BEEN PUNISHED FOR TEAMKILLING!\nYOU ARE NOT WELCOME ANYMORE","BLACK FADED"];
-			player setPos [0,0,0];
+			player setPos [101,101,0];
 			while {true} do
 			{
 				titleText ["YOU HAVE BEEN PUNISHED FOR TEAMKILLING!\nYOU ARE NOT WELCOME ANYMORE","BLACK FADED"];

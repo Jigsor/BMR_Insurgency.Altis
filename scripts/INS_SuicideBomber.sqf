@@ -65,7 +65,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 		private _playerPos = getPos random_w_player4;
 
 		if (isNil "_playerPos") exitWith {diag_log "Bad Position information for suicide bomber target"; _delay = true;};
-		if (_ins_debug) then {diag_log text format ["Random Player Bomber Target Pos : %1", _playerPos];};
+		if (_ins_debug) then {diag_log text format ["Random Player Bomber Target Pos : %1", _playerPos]};
 		if (_playerPos distance _basePos < _safeZoneRad) exitWith {_delay = true; diag_log "Suicide Bomber target inside base area - aborting";};
 
 		//SupahG33K - look for existing local civilian
@@ -96,7 +96,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			_unit disableAI "AUTOTARGET";
 			_unit disableAI "FSM";
 			_unit setVehicleVarName _VarName; sstBomber = _unit;
-			_unit Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
+			_unit Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 			sleep 3;
 			//diag_log "SupahG33K Civilian Jihadi Draftee briefed and sent on his way";
 		}
@@ -119,11 +119,11 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			if (_bmbrPos isEqualTo []) exitWith {_delay = true};
 
 			private _class = selectRandom INS_civlist;
-			if (isNull civBomberGrp) then {civBomberGrp = call _makeBomberGrp;};
+			if (isNull civBomberGrp) then {civBomberGrp = call _makeBomberGrp};
 			_unit = civBomberGrp createUnit [_class, _bmbrPos, [], 0, "NONE"]; sleep 0.1;
 			_unit setVehicleVarName _VarName; sstBomber = _unit;
 			missionNamespace setVariable [_VarName,_unit,true];
-			_unit Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
+			_unit Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 
 			(group _unit) setVariable ["zbe_cacheDisabled",true];
 			_unit setVariable ["asr_ai_exclude",true];

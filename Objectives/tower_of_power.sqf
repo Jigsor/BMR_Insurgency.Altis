@@ -40,7 +40,7 @@ _tower setVectorUp [0,0,1];
 _tower addeventhandler ["handledamage",{_this call JIG_tower_damage}];
 _VarName = "PowerTower1";
 _tower setVehicleVarName _VarName;
-_tower Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
+_tower Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 
 // Spawn Objective enemy deffences
 _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;

@@ -6,7 +6,7 @@
 */
  
 // Global hint
-JIG_EX_MPhint_fnc = { hint _this };
+JIG_EX_MPhint_fnc = {if (hasInterface) then { hint _this };};
 extraction_pos_fnc = {
 	// Actual Evac Position based on requested map click evac position
 	private ["_posnotfound","_c","_dis","_cooX","_cooY","_wheX","_wheY","_randPos","_newPos","_mkr","_veh","_lzName"];
@@ -43,7 +43,7 @@ extraction_pos_fnc = {
 		_lzName = "EvacLZpad";
 		_veh setVehicleVarName _lzName;
 		missionNamespace setVariable [_lzName,_veh,true];
-		_veh Call Compile Format ["%1=_This; PublicVariable ""%1""",_lzName];
+		_veh Call Compile Format ["%1=_this; publicVariable '%1'", _lzName];
 		sleep 1;
 	};
 
@@ -87,7 +87,7 @@ drop_off_pos_fnc = {
 		_VarLZName = "DropLZpad";
 		_veh setVehicleVarName _VarLZName;
 		missionNamespace setVariable [_VarLZName,_veh,true];
-		_veh Call Compile Format ["%1=_this ; publicVariable '%1'",_VarLZName];
+		_veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarLZName];
 		sleep 1;
 	};
 
@@ -115,31 +115,31 @@ Evac_Spawn_Loc = {
 Ex_LZ_smoke_fnc = {
 	// Pops Smoke and Chemlight at Extraction LZ
 	[localize "STR_BMR_heli_extraction_smoke", "JIG_EX_MPhint_fnc"] call BIS_fnc_mp;
-	private ["_smokeColor","_chemLight","_smoke","_i","_flrObj"];
+	private ["_smokeColor","_chemLight","_smoke","_c","_flrObj"];
 	_smokeColor = JIG_EX_Smoke_Color;
 	_chemLight = createVehicle ["Chemlight_green", getPosATL EvacLZpad, [], 0, "NONE"];
 	sleep 1;
 	_flrObj = "F_20mm_Red" createvehicle ((EvacHeliW1) ModelToWorld [0,100,200]);
 	_flrObj setVelocity [0,0,-10];
 	sleep 0.1;
-	_i = 0;
-	while {_i < 7} do {
+	_c = 0;
+	while {_c < 7} do {
 		_smoke = createVehicle [_smokeColor, [(position EvacLZpad select 0) + 2, (position EvacLZpad select 1) + 2, 55], [], 0, "NONE"];
-		_i = _i + 1;
+		_c = _c + 1;
 		sleep 20;
 	};
 	deleteVehicle _chemLight;
 };
 Drop_LZ_smoke_fnc = {
 	// Pops Smoke and Chemlight at Drop Off LZ
-	private ["_smokeColor","_chemLight","_smoke","_i"];
+	private ["_smokeColor","_chemLight","_smoke","_c"];
 	_smokeColor = JIG_EX_Smoke_Color;
 	_chemLight = createVehicle ["Chemlight_green", getPosATL DropLZpad, [], 0, "NONE"];
 	sleep 1;
-	_i = 0;
-	while {_i < 3} do {
+	_c = 0;
+	while {_c < 3} do {
 		_smoke = createVehicle [_smokeColor, [(position DropLZpad select 0) + 1, (position DropLZpad select 1) + 1, 55], [], 0, "NONE"];
-		_i = _i + 1;
+		_c = _c + 1;
 		sleep 12.5;
 	};
 };
@@ -159,7 +159,7 @@ Evac_MPcleanUp = {
 
 		private "_p";
 		{
-			_P = _x;
+			_p = _x;
 			if (isPlayer _p) then {
 				[[_p], objNull] remoteExec ["moveOut", _p, false];
 				_toDelete = _toDelete - [_p];

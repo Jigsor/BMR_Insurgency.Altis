@@ -33,7 +33,7 @@ sleep jig_tvt_globalsleep;
 _outpost setDir (random 359);
 _outpost setVectorUp [0,0,1];
 _outpost setVehicleVarName _VarName;
-_outpost Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName];
+_outpost Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 
 //Spawn Objective enemy defences
 private _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;

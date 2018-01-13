@@ -68,7 +68,7 @@ _bargate = createVehicle ["Land_BarGate_F", _bgPos, [], 0, "NONE"]; sleep jig_tv
 
 _VarName = "RoadBlockEast";
 _bargate setVehicleVarName _VarName;
-_bargate Call Compile Format ["%1=_this ; publicVariable '%1'",_VarName]; sleep 0.1;
+_bargate Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; sleep 0.1;
 
 waitUntil {sleep 1; alive RoadBlockEast};
 _bargate allowDamage false;

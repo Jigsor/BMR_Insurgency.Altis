@@ -272,6 +272,5 @@ if (!isDedicated && hasInterface) then
 		call compile preprocessFile "init_player.sqf";
 		[] call compile preprocessFile "INSui\UI\HUD.sqf";
 		if (INS_Player_Markers isEqualTo 1) then {0 = [] execVM 'scripts\player_markers.sqf';};
-		execVM "BTK\Cargo Drop\Start.sqf";
 	};
 };

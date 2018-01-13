@@ -7,7 +7,7 @@ _pnf = false;
 _rwp = nil;
 _bp = getMarkerPos "Respawn_West";
 _aP = playableUnits - entities INS_op4_players;// exclude east players
-_mL = if (INS_p_rev > 5) then {false;}else{true;};
+_mL = if (INS_p_rev > 5) then {false}else{true};
 
 waitUntil {!isNull _op4_player};
 

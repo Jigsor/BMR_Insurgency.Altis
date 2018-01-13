@@ -308,6 +308,7 @@ if (DebugEnabled > 0) then {
 					INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_2</t>", "call JIG_transfer_fnc", ["MHQ_2"], 4.1];
 					INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_3</t>", "call JIG_transfer_fnc", ["MHQ_3"], 4];
 				};
+				execVM "BTK\Cargo Drop\InitBTK.sqf";
 			};
 		};
 	}
@@ -350,6 +351,7 @@ if (DebugEnabled > 0) then {
 				INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_2</t>", "call JIG_transfer_fnc", ["MHQ_2"], 4.1];
 				INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_3</t>", "call JIG_transfer_fnc", ["MHQ_3"], 4];
 			};
+			execVM "BTK\Cargo Drop\InitBTK.sqf";
 		};
 	};
 

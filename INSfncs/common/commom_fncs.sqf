@@ -55,17 +55,6 @@ JIPmkr_updateServer_fnc = {
 	}forEach _JIPmkr;
 	true
 };
-disableEOSmkrs_fnc = {
-	waitUntil {!isNil "EOS_Spawn"}; sleep 1;
-	private _arr = server getVariable "EOSmkrStates";
-	{
-		if (getMarkerColor _x == "colorGreen") then {
-			_x setMarkerColorLocal "colorBlack";
-			_x setmarkerAlpha 0;
-		};
-	} forEach _arr;
-	true
-};
 anti_collision = {
 	// fixes wheels stuck in ground/vehicles exploding when entering bug by Jigsor.
 	params ["_obj"];
