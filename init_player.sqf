@@ -68,7 +68,6 @@ if (DebugEnabled > 0) then {
 		if (local Player) then {
 			[] spawn {
 				if (ASRrecSkill isEqualTo 1 and INS_ACE_core) then {sleep 15;};
-				if (INS_ACE_core) then {player setVariable ["ACE_SYS_STAMINA_MULTI", 0.0001]};
 				[player] call INS_full_stamina;
 			};
 		};
@@ -111,7 +110,7 @@ if (DebugEnabled > 0) then {
 	};
 
 	// Op4 MHQ
-	Opfor_MHQ addAction[("<t color=""#12F905"">") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
+	Opfor_MHQ addAction[("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
 
 	// Op4 Weapon Box
 	//INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];// uncomment to allow Op4 access to Virtual Arsenal.
@@ -123,8 +122,8 @@ if (DebugEnabled > 0) then {
 	if (max_ai_recruits > 1) then {INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#1d78ed'>") + (localize "STR_BMR_recruit_inf") + "</t>","bon_recruit_units\open_dialog.sqf", [], 1];};
 
 	// Player actions for Engineer's Farp/vehicle service point
-	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_maintenance_veh") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],INS_maintenance_veh], 8, true, true, "", "count (nearestObjects [_this, [""LandVehicle"",""Air""], 10]) > 0"];
-	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_repair_wreck") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_repair_wreck], 8, true, true, "", "count (nearestObjects [_this, [""LandVehicle"",""Air""], 10]) > 0"];
+	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_maintenance_veh") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],INS_maintenance_veh], 8, true, true, "", "count (nearestObjects [_this, ['LandVehicle','Air'], 10]) > 0"];
+	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_repair_wreck") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_repair_wreck], 8, true, true, "", "count (nearestObjects [_this, ['LandVehicle','Air'], 10]) > 0"];
 	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_flip_veh") + "</t>","call INS_Flip_Veh", nil, 8];
 
 	// Player Object Actions //

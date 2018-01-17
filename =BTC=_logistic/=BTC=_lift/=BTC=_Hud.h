@@ -1,6 +1,6 @@
 class BTC_Hud
 {
-	idd = 100002
+	idd = 100002;
    	movingEnable=0;
    	duration=1e+011;
    	name = "BTC_Hud_Name";

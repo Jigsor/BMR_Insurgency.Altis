@@ -1,5 +1,5 @@
 //deployOpforMHQ.sqf by Jigsor
-//Opfor_MHQ addAction[("<t color=""#12F905"">") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
+//Opfor_MHQ addAction[("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
 
 private ["_target","_caller","_allboxes","_playerPos","_mark","_depDir","_pos2","_pos3","_pos4","_pos5","_pos6","_op4MHQ","_newPosAmmo"];
 

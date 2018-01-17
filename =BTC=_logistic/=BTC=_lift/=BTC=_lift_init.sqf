@@ -151,23 +151,22 @@ BTC_l_camera = {
 		if (BTC_l_pip_cond) then {BTC_l_pip_cond = false;[] call BIS_fnc_liveFeedTerminate;};
 	};
 };
-[] spawn {
+BTC_lift_acts = {
 	if (BTC_def_hud isEqualTo 1) then {player addAction [("<t color='#ED2744'>" + ("Hud On\Off") + "</t>"),BTC_dir_action, [[],{if (BTC_Hud_Cond) then {BTC_Hud_Cond = false;} else {BTC_Hud_Cond = true;_hud = [] spawn BTC_fnc_hud;};}], -8, false, false, "", "objectParent player isKindOf 'Helicopter' && player isEqualTo driver objectParent player"];};
 	if (BTC_def_pip isEqualTo 1) then {player addAction [("<t color='#ED2744'>" + ("Camera On\Off") + "</t>"),BTC_dir_action, [[],BTC_l_camera], -9, false, false, "", "objectParent player isKindOf 'Helicopter'"];};
 	player addAction [("<t color='#ED2744'>" + ("Lift") + "</t>"),BTC_dir_action, [[],BTC_attach_cargo], 9, true, false, "", "[] call BTC_lift_check"];
 	player addAction [("<t color='#ED2744'>" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_detach_cargo], -9, true, false, "", "BTC_lifted isEqualTo 1"];
-	player addEventHandler ["Respawn",
-	{
+};
+[] spawn {
+	call BTC_lift_acts;
+	player addEventHandler ["Respawn", {
 		[] spawn {
-			WaitUntil {sleep 4; Alive player};
+			waitUntil {sleep 2; Alive player};
 			BTC_l_pip_cond = false;
 			BTC_cargo    = ObjNull;
 			BTC_Hud_Cond = false;
 			BTC_lifted   = 0;
-			if (BTC_def_hud isEqualTo 1) then {player addAction [("<t color='#ED2744'>" + ("Hud On\Off") + "</t>"),BTC_dir_action, [[],{if (BTC_Hud_Cond) then {BTC_Hud_Cond = false;} else {BTC_Hud_Cond = true;_hud = [] spawn BTC_fnc_hud;};}], -8, false, false, "", "objectParent player isKindOf 'Helicopter' && player isEqualTo driver objectParent player"];};
-			if (BTC_def_pip isEqualTo 1) then {player addAction [("<t color='#ED2744'>" + ("Camera On\Off") + "</t>"),BTC_dir_action, [[],BTC_l_camera], -9, false, false, "", "objectParent player isKindOf 'Helicopter'"];};
-			player addAction [("<t color='#ED2744'>" + ("Lift") + "</t>"),BTC_dir_action, [[],BTC_attach_cargo], 9, true, false, "", "[] call BTC_lift_check"];
-			player addAction [("<t color='#ED2744'>" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_detach_cargo], -9, true, false, "", "BTC_lifted isEqualTo 1"];
+			call BTC_lift_acts;
 		};
 	}];
 };

@@ -27,7 +27,7 @@ RandomAirCenterOp4 = {
 Air_Dest_fnc = {
 	//creates 3 markerks in triangle -- "cyclewpmrk", "spawnaire" "spawnairw" and one in center of triangle -- "aomkr"
 	// center logic object is air_pat_pos. Other logics for each other way point markers are placed around center logic
-	private ["_AirWP_span""_posHpad","_posnewAO","_currentmarker","_wpcyclemark","_spwnaire","_spwnairepos","_spwnairedir","_spwnairw","_spwnairwpos","_spwnairwdir","_spwnairdire","_spwnairenewdir","_spwnairdirw","_spwnairwnewdir"];
+	private ["_AirWP_span","_posHpad","_posnewAO","_currentmarker","_wpcyclemark","_spwnaire","_spwnairepos","_spwnairedir","_spwnairw","_spwnairwpos","_spwnairwdir","_spwnairdire","_spwnairenewdir","_spwnairdirw","_spwnairwnewdir"];
 	_AirWP_span = 3500;
 	_posHpad = [ getPosATL air_pat_pos select 0, (getPosATL air_pat_pos select 1)];
 	if (!isNil "aomkr") then

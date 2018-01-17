@@ -70,11 +70,12 @@ private _cache_loop = [] spawn
 		_ammocache setVariable ["BTC_cannot_drag",1,true];
 		_ammocache setVariable ["BTC_cannot_load",1,true];
 		_ammocache setVariable ["BTC_cannot_place",1,true];
+		if (INS_ACE_core) then {_ammocache setVariable ["ace_cookoff_enable", false, true]};
 
 		[_ammocache] call remove_charge_fnc;
 
 		_veh_name = getText (configFile >> "cfgVehicles" >> (_objtype) >> "displayName");
-		_VarName = ("ghst_obj" + _rnum);
+		_VarName = ("ammo_cache" + _rnum);
 		_ammocache setVehicleVarName _VarName;
 
 		missionNamespace setVariable [_VarName,_ammocache];

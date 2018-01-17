@@ -357,7 +357,7 @@ JIG_load_VA_profile = {
 				private ["_name_index","_loadout_name"];
 				_name_index = _this select 1;
 				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
-				_id = INS_Wep_box addAction	[("<t size='1.5' shadow='2' color=""#00ffe9"">") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
+				_id = INS_Wep_box addAction [("<t size='1.5' shadow='2' color='#00ffe9'>") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
 				sleep 15;
 				INS_Wep_box removeAction _id;
 			};
@@ -370,7 +370,7 @@ JIG_p_actions_resp = {
 	waitUntil {sleep 1; alive player};
 	private _playertype = typeOf (vehicle player);
 	// Engineer
-	if (_playertype in INS_W_PlayerEng) then {player addAction[("<t color=""#12F905"">") + (localize "STR_BMR_cunstruct_farp") + "</t>","scripts\repair_special.sqf",0,1, false, true,"test2"];};
+	if (_playertype in INS_W_PlayerEng) then {player addAction[("<t color='#12F905'>") + (localize "STR_BMR_cunstruct_farp") + "</t>","scripts\repair_special.sqf",0,1, false, true,"test2"];};
 	// JTAC
 	if (_playertype in INS_W_PlayerJTAC) then {null = [player, 500, true, 3] execVM "JWC_CASFS\addAction.sqf";};
 	// Medic
@@ -864,8 +864,6 @@ GAS_inSmoke = {
 	// We are in smoke. code by Larrow
 	player setVariable ["inSmoke",true];
 
-	private "_sound";
-
 	"dynamicBlur" ppEffectEnable true;
 	"dynamicBlur" ppEffectAdjust [12];
 	"dynamicBlur" ppEffectCommit 5;
@@ -875,7 +873,7 @@ GAS_inSmoke = {
 
 	//While were in smoke
 	while { alive player && not captive player && [] call GAS_smokeNear } do {
-		_sound = selectRandom Choke_Sounds;
+		private _sound = selectRandom Choke_Sounds;
 		playsound3d [_sound, player, false, getPosasl player, 10,1,30];
 		player setDamage (damage player + 0.14);
 		//if(floor random 2 isEqualTo 0) then {hint "You Should Wear a Gas Mask";};

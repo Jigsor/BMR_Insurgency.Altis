@@ -76,13 +76,13 @@ player createDiaryRecord ["Diary", ["Credits","
 	<br />were modified by Jigsor =BMR=.
 	<br/><br/><img image='images\bmrbw.paa' widwidth='256' height='256'/>"]];
 player createDiaryRecord ["Diary", ["INFO","
-	-------------------
+	--------------------
 	<br />-- Settings --
 	<br />
-	-------------------
-	<br />Press Y key for Graphic Settings, Digital Heading and HUD.
+	--------------------
+	<br />Press Y key for Graphic Settings, Digital Heading, FPS/Stamina/Health HUD and Ambient Wild Life toggle.
 	<br />
-	<br />Squads are can be altered by pressing U.
+	<br />Join, Create, or Leave Squads/Groups with U key menu. Only squad leaders can recuit AI if option enabled by admin.
 	<br />
 	<br />Supported PIP live feeds from the helmet-cameras of their fellow group members. Requires Tactical Glasses and helmet with camera. * - Activates camera / switches to next group member. Alt+* - Deactivates camera. Shift+* - Toggles size of the display.
 	<br />
@@ -115,5 +115,30 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br />While waiting for a revive you can spectate and control camera with usual movement controls.
 	<br />
 	<br />To have a fully restored loadout/kit after respawn or revive, use scroll action Save Respawn Loadout at main ammo box.
+	<br />
+	------------------------
+	<br />-- Gas Grenades --
+	<br />
+	------------------------
+	Vanilla Arma 3 Yellow hand and GL smoke grenades are Toxic and can kill players or AI.
+	<br />
+	<br />For immunity wear A3 Heli Crew, Pilot, CRTG Combat Stealth or Viper Green Hex helmets.
+	<br />
+	<br />Moded support for gas masks include masks from from Hidden Identity Pack v2, Identity Pack v3, NATO SF and Russian Spetsnaz Weapons, FM-12 strapless from AVON FM12 Respirator Pack, OPTRE_UNSC_CH252_Helmet_Vacuum_DES and OPTRE_UNSC_ODST_Helmet_CBRN from Operation TREBUCHET.
+	<br />
+	<br />Adim can disable gas grenades from lobby parameter.
+	<br />
+	----------------------------------------------
+	<br />-- Transfer / HALO Flag Pole Actions --
+	<br />
+	----------------------------------------------
+	<br />Transfer to MHQ_1, MHQ_2, and MHQ_3. This will teleport you to an emty seat inside of these vehicles where as transferring to MHQs from respawn menu will put you outside of the vehicles.
+	<br />
+	<br />HALO- set drop height to desired height and/or assign a key to cut away ropes incase you chuts gets hung on an object. You can skip this step and close the dialoge box. In this case the default drop height is 500 and no key is assigned to cut away ropes.
+	<br />
+	<br />Click on map the location you wish to HALO. Do not open or click any other user interface at this step. It will result in HALO at undesired location.
+	<br />
+	<br />A parachute will automatically be provided for you and will move your back pack to ventril position. Chute automatically open at 150 meters and backpack returned to back when landed.
+	<br />
   "]];
 player createDiaryRecord ["Diary", ["Briefing","Gather Intel on Ammo Cache location by picking up suitcases. Destroy Ammo Caches with satchel or demo charges. Clear all red zones of enemy forces. Complete random objectives. Get Some!"]];

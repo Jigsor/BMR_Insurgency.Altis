@@ -163,12 +163,12 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-1/12/2018
+1/17/2018
 BMR_Insurgency_v1.48_beta
 	Some changes in this version are still be tested and so may contain bugs..
 	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
 	Added: Admin briefing section with text buttons for Zeus assign and unassign with public or private notice, Global Brighter Nights toggle, Filp Vehicle, High/low speed Dust Storms on-off toggle and local Vehicle Reward.
-		Admin must login and wait up to 1 minute before panel appears. Panel will remain until admin goes back to lobby.
+		Admin must login and wait up to 1 minute before panel appears. Panel will remain available until admin goes back to lobby.
 	Added: Reassigning damage event handlers to AI on locality changed when unassigning zeus from yourself.
 	Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
 	Added: Temporary fix for broken door actions in Lythium and Kunduz.

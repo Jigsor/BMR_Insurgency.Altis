@@ -169,7 +169,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeS)) exitWith {
 	", _ObjectName,_TransporterName];
 
 	// add unload/drop Action
-	_UnloadAction = _Transporter addAction [("<t color='#12F905'>" + (localize "STR_BMR_unload_cargo") + "</t>"),"BTK\Cargo Drop\Engine.sqf",["UnloadCargo"], 9];
+	_UnloadAction = _Transporter addAction [("<t size='1.5' shadow='2' color='#12F905'>" + (localize "STR_BMR_unload_cargo") + "</t>"),"BTK\Cargo Drop\Engine.sqf",["UnloadCargo"], 9];
 
 	// Wait until unload
 	waitUntil {UnloadCargo || !(alive _Transporter) || !(alive _Object)};
@@ -348,7 +348,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeM)) exitWith {
 	", _ObjectName,_TransporterName];
 
 	// add unload/drop Action
-	_UnloadAction = _Transporter addAction [("<t color='#12F905'>" + (localize "STR_BMR_unload_cargo") + "</t>"),"BTK\Cargo Drop\Engine.sqf",["UnloadCargo"], 9];
+	_UnloadAction = _Transporter addAction [("<t size='1.5' shadow='2' color='#12F905'>" + (localize "STR_BMR_unload_cargo") + "</t>"),"BTK\Cargo Drop\Engine.sqf",["UnloadCargo"], 9];
 
 	// Wait until unload
 	waitUntil {UnloadCargo || !(alive _Transporter) || !(alive _Object)};
@@ -529,7 +529,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeL)) exitWith {
 	", _ObjectName,_TransporterName];
 
 	// add unload/drop Action
-	_UnloadAction = _Transporter addAction [("<t color='#12F905'>" + (localize "STR_BMR_unload_cargo") + "</t>"),"BTK\Cargo Drop\Engine.sqf",["UnloadCargo"], 9];
+	_UnloadAction = _Transporter addAction [("<t size='1.5' shadow='2' color='#12F905'>" + (localize "STR_BMR_unload_cargo") + "</t>"),"BTK\Cargo Drop\Engine.sqf",["UnloadCargo"], 9];
 
 	// Wait until unload
 	waitUntil {UnloadCargo || !(alive _Transporter) || !(alive _Object)};
@@ -740,7 +740,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 
 	// add unload/drop Action
 	UnloadCargo = false;
-	_UnloadAction = _Transporter addAction [("<t color='#12F905'>" + (localize "STR_BMR_unload_cargo") + "</t>"),"BTK\Cargo Drop\Engine.sqf",["UnloadCargo"], 9];
+	_UnloadAction = _Transporter addAction [("<t size='1.5' shadow='2' color='#12F905'>" + (localize "STR_BMR_unload_cargo") + "</t>"),"BTK\Cargo Drop\Engine.sqf",["UnloadCargo"], 9];
 
 	// Wait until unload
 	waitUntil {UnloadCargo || !(alive _Transporter) || !(alive _Object)};

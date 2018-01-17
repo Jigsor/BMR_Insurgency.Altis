@@ -122,7 +122,7 @@ BTC_l_drag = {
 	if (format ["%1", _drag getVariable "BTC_being_drag"] == "1") exitWith {hint "You can't drag this object! it's being dragged!";};
 	BTC_l_dragging = true;
 	_drag setvariable ["BTC_Being_Drag",1,true];
-	BTC_display_EH_l = (findDisplay 46) displayAddEventHandler ["KeyDown", "if (_this select 1 == 45) then {_anim = [] spawn {sleep 0.01;player switchMove ""acinpknlmstpsraswrfldnon"";};};"];			
+	BTC_display_EH_l = (findDisplay 46) displayAddEventHandler ["KeyDown", "if (_this select 1 == 45) then {_anim = [] spawn {sleep 0.01;player switchMove 'acinpknlmstpsraswrfldnon';};};"];			
 	player playMove "acinpknlmstpsraswrfldnon";
 	_drag attachto [player,[0,2,0.2]];
 	sleep 0.1;
@@ -292,4 +292,14 @@ BTC_l_keydown = {
 			case (BTC_l_camera_placement && _key isEqualTo 16 && _ctrl) : {private _n = (BTC_cam_rel_pos select 2) + 0.5;if !((abs _n) > BTC_l_placement_area) then {BTC_cam_rel_pos = [BTC_cam_rel_pos select 0,BTC_cam_rel_pos select 1,_n];};};
 		};
 	};
+};
+BTC_CS_acts = {
+	BTC_action_cargo   = false;
+	BTC_l_dragging     = false;
+	BTC_l_actions_cond = true;
+	_dlg   = player addaction [("<t color='#00FF00'>") + ("Check Vehicle") + "</t>",BTC_dir_action,[[],BTC_l_check_vehicle],-7,false,false,"","BTC_l_actions_cond && count (nearestObjects [player, BTC_def_vehicles, 5]) > 0 || {vehicle player isKindOf _x} count BTC_def_vehicles > 0"];
+	_sel   = player addaction [("<t color='#00FF00'>") + ("Select") + "</t>",BTC_dir_action,[[],BTC_l_select],-7,false,false,"","BTC_l_actions_cond && isNull objectParent player && count (nearestObjects [player, BTC_def_cargo, 5]) > 0"];
+	_load  = player addaction [("<t color='#00FF00'>") + ("Load") + "</t>",BTC_dir_action,[[],BTC_l_load],-7,false,false,"","BTC_l_actions_cond && isNull objectParent player && !isNull BTC_cargo_selected && count (nearestObjects [player, BTC_def_vehicles, 5]) > 0"];
+	_drag  = player addaction [("<t color='#00FF00'>") + ("Drag") + "</t>",BTC_dir_action,[[],BTC_l_drag],-7,false,true,"","BTC_l_actions_cond && isNull objectParent player && count (nearestObjects [player, BTC_def_drag, 5]) > 0"];
+	_plac  = player addaction [("<t color='#00FF00'>") + ("Place") + "</t>",BTC_dir_action,[[],BTC_l_placement],-7,false,false,"","BTC_l_actions_cond && isNull objectParent player && count (nearestObjects [player, BTC_def_placement, 5]) > 0"];
 };

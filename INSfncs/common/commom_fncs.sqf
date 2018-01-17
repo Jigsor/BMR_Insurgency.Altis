@@ -321,7 +321,7 @@ Push_Vehicle = {
 	if (_isWater) exitWith {titleText[localize "STR_BMR_push_restrict1","PLAIN DOWN",1]};
 	_veh setOwner (owner _unit);
 	_unit playMove "AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown";
-	if (currentWeapon _unit == "") then {sleep 1;} else {sleep 2;};
+	if (currentWeapon _unit isEqualTo "") then {sleep 1;} else {sleep 2;};
 	_veh setVelocity [(sin(direction _unit))*3, (cos(direction _unit))*3, 0];
 	true
 };

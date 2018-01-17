@@ -70,7 +70,7 @@ aero_player_markers_pos = [0,0];
 _getNextMarker = {
 	_markerNumber = _markerNumber + 1;
 	private _marker = format["um%1",_markerNumber];
-	if(getMarkerType _marker == "") then {
+	if(getMarkerType _marker isEqualTo "") then {
 		createMarkerLocal [_marker, _this];
 	} else {
 		_marker setMarkerPosLocal _this;
