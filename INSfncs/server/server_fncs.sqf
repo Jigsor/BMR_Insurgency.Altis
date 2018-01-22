@@ -233,7 +233,6 @@ JIG_issue_reward = {
 		_pScore = 20;
 		_p addrating 2000;
 		_p addScore _pScore;
-		paddscore = [_p, _pscore]; publicVariable "paddscore";
 		[West,"HQ"] sideChat "+20 points";
 		rewardp = getPlayerUID _p;
 		publicVariable "rewardp";
@@ -243,7 +242,6 @@ JIG_issue_reward = {
 	}else{
 		_pScore = -10;
 		_p addScore _pScore;
-		paddscore = [_p, _pscore]; publicVariable "paddscore";
 		[East,"HQ"] sideChat "-10 points";
 	};
 };
@@ -465,7 +463,7 @@ killed_ss_bmbr_fnc = {
 	_pScore = 1;
 	_killer addrating 1000;
 	_killer addScore _pScore;
-	paddscore = [_killer, _pscore]; publicVariable "paddscore";
+	paddscore = [_killer, _pscore]; publicVariableServer "paddscore";
 	true
 };
 bmbrBuildPos = {

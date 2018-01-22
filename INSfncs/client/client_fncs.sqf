@@ -26,7 +26,7 @@ INS_intro = {
 	showCinemaBorder false;
 	enableRadio false;
 	setViewDistance 1100;
-	if (daytime > 19.00 || daytime < 5.00) then {camUseNVG true};
+	if (daytime > 20.00 || daytime < 4.50) then {camUseNVG true};
 	_dir = (direction player) -180;
 	_rx = selectRandom [38,-38];
 	_ry = selectRandom [38,-38];
@@ -63,11 +63,19 @@ INS_intro = {
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
+	waitUntil {
+		if (missionnamespace getvariable ["BIS_fnc_startLoadingScreen_ids",[]] isEqualTo []) then {
+			true
+		}else{
+			diag_log str (missionnamespace getvariable ["BIS_fnc_startLoadingScreen_ids",[]]);
+			false
+		};
+	};
 	disableSerialization;
 	showCinemaBorder false;
 	enableRadio false;
 	setViewDistance 1800;
-	if (daytime > 19.00 || daytime < 5.00) then {camUseNVG true};
+	if (daytime > 20.00 || daytime < 4.50) then {camUseNVG true};
 	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
 	_ok = preloadTitleRsc ["bmr_intro", "PLAIN"];
 	0 = 0 spawn INS_intro_playTrack;
@@ -91,7 +99,8 @@ INS_intro_op4 = {
 	[] spawn {
 	player sideChat localize "STR_BMR_initialize_done";
 	player sideChat localize "STR_BMR_intro_tip1";
-	player sideChat localize "STR_BMR_intro_tip2";};
+	player sideChat localize "STR_BMR_intro_tip2";
+	player sideChat "If black screen bug then go back to lobby and return";};
 	setViewDistance -1;
 	camDestroy _cam;
 	enableRadio true;

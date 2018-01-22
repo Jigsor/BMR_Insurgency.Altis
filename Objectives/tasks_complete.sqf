@@ -20,7 +20,7 @@ while {true} do {
 };
 
 if (_INS_tsks_finished) then {
-	private _c = if (INS_persistence isEqualTo 1 || INS_persistence isEqualTo 2)then {0} else {7};
+	private _c = if (INS_persistence isEqualTo 1 || INS_persistence isEqualTo 2) then {0} else {7};
 	private _uncapturedMkrs = all_eos_mkrs;
 	while {true} do {
 		{if (getMarkerColor _x isEqualTo "colorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1;};} foreach _uncapturedMkrs;

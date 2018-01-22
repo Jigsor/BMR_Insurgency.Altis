@@ -184,7 +184,7 @@ fnc_mp_intel = {
 	params ["_intelobj","_cachepos"];
 
 	if (!isNull _intelobj) then {
-		_intelobj addAction ["<t color='#ffff00'>Grab Intel</t>", "call JIG_intel_found", _cachepos, 6, true, true, "",""];
+		_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", "call JIG_intel_found", _cachepos, 6, true, true, "",""];
 		intel_objArray pushBack _intelobj;
 	};
 	if (ObjNull in intel_objArray) then {{intel_objArray = intel_objArray - [objNull]} foreach intel_objArray;};
@@ -363,12 +363,13 @@ INS_toggle_Zeus = {
 		unassignCurator _curator;
 		deleteVehicle _curator;
 
+		_text = format [localize "STR_BMR_curator_removed", name _unit];
 		if (_announce) then {
-			_text = format [localize "STR_BMR_curator_removed", name _unit];
 			_text remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 		} else {
 			(localize "STR_BMR_curator_removed") remoteExec ["JIG_MPhint_fnc", _unit];
 		};
+		diag_log _text;
 	};
 
 	if (!(_unit in playableUnits)) exitWith {};
@@ -424,12 +425,13 @@ INS_toggle_Zeus = {
 
 	if (DebugEnabled isEqualTo 1) then {diag_log curatorAddons _curator;};
 
+	_text = format[localize "STR_BMR_is_curator",name _unit];
 	if (_announce) then {
-		_text = format[localize "STR_BMR_is_curator",name _unit];
 		_text remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 	} else {
 		(localize "STR_BMR_initialize_done") remoteExec ["JIG_MPhint_fnc", _unit];
 	};
+	diag_log _text;
 };
 Terminal_acction_MPfnc = {
 	if (hasInterface) then {

@@ -39,7 +39,7 @@ _total_intelObjs = (round(_uncaped_mkr_count/Intel_Count));//total max suitcases
 _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_total_intelObjs] spawn
 {
 	params ["_uncaped_eos_mkrs","_hide_intel","_current_cache","_uncaped_mkr_count","_total_intelObjs"];
-	private ["_nearBuildings","_all_cache_pos","_intel","_rnum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_intel_coor_selection","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_jigxcoor","_jigycoor","_intel_coor","_loop","_p","_n","_i","_markname","_mark1","_unit1","_mkr_position","_current_cache","_debug"];
+	private ["_nearBuildings","_all_cache_pos","_intel","_strNum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_intel_coor_selection","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_jigxcoor","_jigycoor","_intel_coor","_loop","_p","_n","_i","_markname","_mark1","_unit1","_mkr_position","_current_cache"];
 
 	private _iobj = 0;
 	private _intel_types = ["Land_Suitcase_F","Land_Laptop_unfolded_F","Land_PortableLongRangeRadio_F","Land_SurvivalRadio_F"];
@@ -52,7 +52,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 		_curr_mkr = selectRandom _uncaped_eos_mkrs;
 		if (_debug) then {diag_log format ["Current Marker %1", _curr_mkr]};
 		_mkr_position = getMarkerpos _curr_mkr;
-		_rnum = str(round (random 9999));
+		_strNum = str(_iobj);
 
 		_intel = createVehicle [_objtype , position air_pat_pos, [], 0, "CAN_COLLIDE"];
 		sleep jig_tvt_globalsleep;
@@ -60,13 +60,13 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 		_intel allowDamage false;
 		_intel setVariable["persistent",true];
 		_veh_name = getText (configFile >> "cfgVehicles" >> (_objtype) >> "displayName");
-		_VarName = ("ghst_obj" + _rnum);
+		_VarName = ("ghst_obj" + _strNum);
 		_intel setVehicleVarName _VarName;
 		missionNamespace setVariable [_VarName,_intel];
 		publicVariable _VarName;
 		sleep 0.3;
 
-		_params_PutinBuild = [[_mkr_position],[50,50,0],[_intel],[true,"colorBlack",[3,3],true],false];
+		_params_PutinBuild = [[_mkr_position],[50,50,0],[_intel],[true,"colorBlack",[3,3],true]];
 
 		_position_mark = _params_PutinBuild select 0;//position
 		_intel_coor_selection = _position_mark select (count _position_mark)-1;
@@ -77,7 +77,6 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 			_mcolor = _markunitsarray select 1;
 			_msize = _markunitsarray select 2;// marker size 3
 			_markunitspos = _markunitsarray select 3;
-		//#define _debug _params_PutinBuild select 4//set to true for diag_log
 
 		_intel_coor = _intel_coor_selection;
 		_jigxcoor = _intel_coor select 0;
@@ -121,7 +120,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 				if (_debug) then {_p = _p + 1};
 			};
 
-			//_debug
+			// Usefull debug info
 			if (_debug) then {
 				diag_log format ["Ran Position Loop %1 Times", _p];
 				if !(isNil "_position") then {
@@ -199,7 +198,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 	if (DebugEnabled > 0) then {titletext ["Spawning Intel Complete","plain down"]};
 
 	if (_hide_intel isEqualTo 1) then {
-		0 = [_imks] spawn {
+		[_imks] spawn {
 			params ["_arr"];
 			while {count _arr > 0} do {
 				{

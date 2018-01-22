@@ -18,7 +18,7 @@ if (isMultiplayer) then {
 
 	// Init Headless Client
 	if (!hasInterface && !isDedicated) then {
-		[] call BMRINS_fnc_HCpresent;
+		call BMRINS_fnc_HCpresent;
 		call compile preProcessFileLineNumbers "INSfncs\hc\headless_client_fncs.sqf";
 		diag_log format ["HEADLESSCLIENT: %1 Connected HEADLESSCLIENT ID: %2", name player, owner player];
 
@@ -41,7 +41,7 @@ if (isMultiplayer) then {
 					{_AllEnemyGroups pushBack _x} forEach (allGroups select {side _x isEqualTo INS_Op4_side});
 					diag_log format ["HEADLESSCLIENT FPS: %1 TIME: %2 IDCLIENT: %3 TOTAL ENEMY GROUPS: %4 TOTAL UNITS: %5", diag_fps, time, owner player, count _AllEnemyGroups, count allUnits];
 				};
-				//Save progression every 5 minutes approximately if lobby option permits
+				//Save progression approximately every 5 minutes if lobby option permits.
 				if (_s && {_c isEqualTo 6}) then {
 					{if (getMarkerColor _x isEqualTo "colorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1};} foreach _uncapturedMkrs;
 					profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
@@ -216,9 +216,8 @@ if ((JigHeliExtraction isEqualTo 1) && {!IamHC}) then {null = [] execVM "JIG_EX\
 if (CiviMobiles > 0) then {[CiviMobiles, 400, 500] execVM "scripts\MAD_traffic.sqf"};
 if (INS_logistics > 0) then {_logistic = execVM "=BTC=_Logistic\=BTC=_logistic_init.sqf"};
 if (INS_logistics > 1) then {[] execVM "scripts\fn_advancedSlingLoadingInit.sqf"};
-if (max_ai_recruits > 1) then {[] execVM "bon_recruit_units\init.sqf"};
+if (max_ai_recruits > 1) then {execVM "bon_recruit_units\init.sqf"};
 if (INS_IEDs isEqualTo 2) then {execVM "scripts\JigIEDs.sqf"};
-execVM "scripts\zlt_fastrope.sqf";
 execVM "JWC_CASFS\initCAS.sqf";
 nul = ["mission"] execVM "hcam_init.sqf";
 
@@ -251,8 +250,8 @@ if (!isDedicated && hasInterface) then
 		waitUntil {!isNull player && player == player};
 		#include "add_diary.sqf"
 		if (DebugEnabled isEqualTo 0) then {["BIS_ScreenSetup", false] call BIS_fnc_blackOut};
-		call compile preprocessFile "INSfncs\client\client_fncs.sqf";
-		call compile preprocessFile "ATM_airdrop\functions.sqf";
+		call compile preProcessFileLineNumbers "INSfncs\client\client_fncs.sqf";
+		call compile preProcessFileLineNumbers "ATM_airdrop\functions.sqf";
 
 		player sideChat localize "STR_BMR_loading";
 
@@ -270,7 +269,8 @@ if (!isDedicated && hasInterface) then
 		};
 
 		call compile preprocessFile "init_player.sqf";
-		[] call compile preprocessFile "INSui\UI\HUD.sqf";
+		call compile preprocessFile "INSui\UI\HUD.sqf";
 		if (INS_Player_Markers isEqualTo 1) then {0 = [] execVM 'scripts\player_markers.sqf';};
+		execVM "scripts\zlt_fastrope.sqf";
 	};
 };

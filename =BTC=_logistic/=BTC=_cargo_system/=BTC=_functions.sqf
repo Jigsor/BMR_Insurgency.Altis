@@ -11,8 +11,7 @@ BTC_l_check_vehicle = {
 	if (isNull objectParent player) then {_array = nearestObjects [player, BTC_def_vehicles, 5];} else {_array = [vehicle player];};
 	if (count _array > 0) then {_veh = _array select 0;};
 	if (!isNull _veh) then {
-		//if (!isNil {_veh getVariable "BTC_cargo_cont"}) then
-		if (isNil {_veh getVariable "BTC_cargo_cont"}) then {_veh setVariable ["BTC_cargo_cont",[],false];};
+		if (isNil {_veh getVariable "BTC_cargo_cont"}) then {_veh setVariable ["BTC_cargo_cont",[],false]};
 		_text = "";
 		private _cargo = _veh getVariable "BTC_cargo_cont";
 		_text = _text + "Vehicle: " + getText (configFile >> "cfgVehicles" >> typeof _veh >> "displayName") + format ["<br/>CC: %1/%2",[_veh] call BTC_check_cc,[_veh] call BTC_get_cc] + "<br/>Cargo:<br/>";
@@ -21,7 +20,7 @@ BTC_l_check_vehicle = {
 				_text = _text + getText (configFile >> "cfgVehicles" >> typeof _x >> "displayName") + format [" [%1]",[_x] call BTC_get_rc] + "<br/>";
 				[_x,_veh] spawn {
 					_obj = _this select 0;
-					_veh = _this select 1;					
+					_veh = _this select 1;
 					//player sideChat format ["%1",_obj];
 					_unload = _veh addaction [("<t color='#ffcc00'>") + (format ["UnLoad %1",getText (configFile >> "cfgVehicles" >> typeof _obj >> "displayName")]) + "</t>",BTC_dir_action,[[_veh,_obj],BTC_l_unload],7,true,false,"","true"];
 					private _sleep = time + 15;
@@ -37,10 +36,9 @@ BTC_l_check_vehicle = {
 };
 BTC_l_select = {
 	_array = nearestObjects [player, BTC_def_cargo, 5];
-	if (count _array > 0) then 
-	{
+	if (count _array > 0) then {
 		BTC_cargo_selected = _array select 0;
-		if (format ["%1", BTC_cargo_selected getVariable "BTC_cannot_load"] == "1") then 
+		if (format ["%1", BTC_cargo_selected getVariable "BTC_cannot_load"] == "1") then
 		{hint "You can not load this object";BTC_cargo_selected = objNull;} else {hint parseText format ["%1 selected<br/>CR: %2",getText (configFile >> "cfgVehicles" >> typeof BTC_cargo_selected >> "displayName"),[BTC_cargo_selected] call BTC_get_rc];};
 	};
 };
@@ -56,9 +54,8 @@ BTC_l_load = {
 		if (BTC_cargo_selected distance _veh < 15 && speed _veh < 2 && _cond) then {
 			hint format ["Loading %1 in %2",_obj_name,_veh_name];BTC_l_dragging = false;
 			sleep 3;
-			if (Alive BTC_cargo_selected && Alive _veh && BTC_cargo_selected distance _veh < 15 && speed _veh <= 2 && speed _veh >= -2) then
-			{
-				if (isNil {_veh getVariable "BTC_cargo_cont"}) then {_veh setVariable ["BTC_cargo_cont",[],false];};
+			if (Alive BTC_cargo_selected && Alive _veh && BTC_cargo_selected distance _veh < 15 && speed _veh <= 2 && speed _veh >= -2) then {
+				if (isNil {_veh getVariable "BTC_cargo_cont"}) then {_veh setVariable ["BTC_cargo_cont",[],false]};
 				_cargo_cont = _veh getVariable "BTC_cargo_cont";
 				_cargo_cont = _cargo_cont + [BTC_cargo_selected];
 				_veh setVariable ["BTC_cargo_cont",_cargo_cont,true];
@@ -122,12 +119,12 @@ BTC_l_drag = {
 	if (format ["%1", _drag getVariable "BTC_being_drag"] == "1") exitWith {hint "You can't drag this object! it's being dragged!";};
 	BTC_l_dragging = true;
 	_drag setvariable ["BTC_Being_Drag",1,true];
-	BTC_display_EH_l = (findDisplay 46) displayAddEventHandler ["KeyDown", "if (_this select 1 == 45) then {_anim = [] spawn {sleep 0.01;player switchMove 'acinpknlmstpsraswrfldnon';};};"];			
+	BTC_display_EH_l = (findDisplay 46) displayAddEventHandler ["KeyDown", "if (_this select 1 == 45) then {_anim = [] spawn {sleep 0.01;player switchMove 'acinpknlmstpsraswrfldnon';};};"];
 	player playMove "acinpknlmstpsraswrfldnon";
 	_drag attachto [player,[0,2,0.2]];
 	sleep 0.1;
-	if ((position _drag select 2) < - 0.5) then {_drag attachto [player,[0,1,1.2]];};
-	_release = player addaction [("<t color='#00FF00'>") + ("Release") + "</t>",BTC_dir_action,[[],BTC_l_release],7,true,false,"","true"];
+	if ((position _drag select 2) < - 0.5) then {_drag attachto [player,[0,1,1.2]]};
+	_release = player addaction [("<t color='#00FF00'>") + (localize "STR_BTC_Release") + "</t>",BTC_dir_action,[[],BTC_l_release],7,true,false,"","true"];
 	WaitUntil {!Alive player || ((animationstate player == "acinpknlmstpsraswrfldnon") || (animationstate player == "acinpknlmwlksraswrfldb"))};
 	_act  = 0;
 	While {BTC_l_dragging && isNull objectParent player && Alive player && ((animationstate player == "acinpknlmstpsraswrfldnon") || (animationstate player == "acinpknlmwlksraswrfldb"))} do
@@ -160,13 +157,13 @@ BTC_get_cc = {
 	_type = typeOf _obj;
 	_cc	= 0;_cond = false;
 	for "_i" from 0 to (count BTC_def_cc - 1) do {
-		if (typeName (BTC_def_cc select _i) == "STRING" && !_cond) then	{
-			if (!_cond && _type == (BTC_def_cc select _i)) then {_cc = (BTC_def_cc select (_i + 1));_cond = true;};
+		if ((BTC_def_cc select _i) isEqualType "" && !_cond) then {
+			if (!_cond && _type isEqualTo (BTC_def_cc select _i)) then {_cc = (BTC_def_cc select (_i + 1));_cond = true;};
 		};
 	};
 	if (!_cond) then {
 		for "_i" from 0 to (count BTC_main_cc - 1) do {
-			if (typeName (BTC_main_cc select _i) == "STRING") then {
+			if ((BTC_main_cc select _i) isEqualType "") then {
 				if (!_cond && _type isKindOf (BTC_main_cc select _i)) then {_cc = (BTC_main_cc select (_i + 1));_cond = true;};
 			};
 		};
@@ -195,7 +192,7 @@ BTC_get_rc = {
 BTC_check_cc = {
 	private ["_n","_array_class","_cargo"];
 	_veh  = _this select 0;
-	if (isNil {_veh getVariable "BTC_cargo_cont"}) then {_veh setVariable ["BTC_cargo_cont",[],false];};
+	if (isNil {_veh getVariable "BTC_cargo_cont"}) then {_veh setVariable ["BTC_cargo_cont",[],false]};
 	_cargo = _veh getVariable "BTC_cargo_cont";
 	_tot_rc   = 0;
 	{_tot_rc = _tot_rc + ([_x] call BTC_get_rc);} foreach _cargo;
@@ -297,9 +294,9 @@ BTC_CS_acts = {
 	BTC_action_cargo   = false;
 	BTC_l_dragging     = false;
 	BTC_l_actions_cond = true;
-	_dlg   = player addaction [("<t color='#00FF00'>") + ("Check Vehicle") + "</t>",BTC_dir_action,[[],BTC_l_check_vehicle],-7,false,false,"","BTC_l_actions_cond && count (nearestObjects [player, BTC_def_vehicles, 5]) > 0 || {vehicle player isKindOf _x} count BTC_def_vehicles > 0"];
-	_sel   = player addaction [("<t color='#00FF00'>") + ("Select") + "</t>",BTC_dir_action,[[],BTC_l_select],-7,false,false,"","BTC_l_actions_cond && isNull objectParent player && count (nearestObjects [player, BTC_def_cargo, 5]) > 0"];
-	_load  = player addaction [("<t color='#00FF00'>") + ("Load") + "</t>",BTC_dir_action,[[],BTC_l_load],-7,false,false,"","BTC_l_actions_cond && isNull objectParent player && !isNull BTC_cargo_selected && count (nearestObjects [player, BTC_def_vehicles, 5]) > 0"];
-	_drag  = player addaction [("<t color='#00FF00'>") + ("Drag") + "</t>",BTC_dir_action,[[],BTC_l_drag],-7,false,true,"","BTC_l_actions_cond && isNull objectParent player && count (nearestObjects [player, BTC_def_drag, 5]) > 0"];
-	_plac  = player addaction [("<t color='#00FF00'>") + ("Place") + "</t>",BTC_dir_action,[[],BTC_l_placement],-7,false,false,"","BTC_l_actions_cond && isNull objectParent player && count (nearestObjects [player, BTC_def_placement, 5]) > 0"];
+	_dlg   = player addaction [("<t color='#00FF00'>") + ("Check Vehicle") + "</t>",BTC_dir_action,[[],BTC_l_check_vehicle],-7,false,false,"","BTC_l_actions_cond && count (nearestObjects [player, BTC_def_vehicles, 5]) > 0 || {objectParent player isKindOf _x} count BTC_def_vehicles > 0"];
+	_sel   = player addaction [("<t color='#00FF00'>") + (localize "STR_BTC_Select") + "</t>",BTC_dir_action,[[],BTC_l_select],-7,false,false,"","BTC_l_actions_cond && isNull objectParent player && count (nearestObjects [player, BTC_def_cargo, 5]) > 0"];
+	_load  = player addaction [("<t color='#00FF00'>") + (localize "STR_BTC_Load") + "</t>",BTC_dir_action,[[],BTC_l_load],-7,false,false,"","BTC_l_actions_cond && isNull objectParent player && !isNull BTC_cargo_selected && count (nearestObjects [player, BTC_def_vehicles, 5]) > 0"];
+	_drag  = player addaction [("<t color='#00FF00'>") + (localize "STR_BTC_Drag") + "</t>",BTC_dir_action,[[],BTC_l_drag],-7,false,true,"","BTC_l_actions_cond && isNull objectParent player && count (nearestObjects [player, BTC_def_drag, 5]) > 0"];
+	_plac  = player addaction [("<t color='#00FF00'>") + (localize "STR_BTC_Place") + "</t>",BTC_dir_action,[[],BTC_l_placement],-7,false,false,"","BTC_l_actions_cond && isNull objectParent player && count (nearestObjects [player, BTC_def_placement, 5]) > 0 && !(typeof cursorObject isEqualTo 'Land_Suitcase_F')"];
 };

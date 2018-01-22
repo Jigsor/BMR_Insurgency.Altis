@@ -117,7 +117,7 @@ if (local player) then {
 // SERVER SIDE SCRIPT
 if (!isServer) exitWith{};
 
-if(!_realtime) then { setTimeMultiplier _timeratio; };
+if(!_realtime) then {setTimeMultiplier _timeratio};
 
 // apply weather
 skipTime -24;
@@ -167,6 +167,9 @@ while {true} do {
 		_wind = [random 3, random 3, true];
 	};
 	_lastrain = _rain;
+
+	private _DSactive = missionNameSpace getVariable ["JDSactive", false];
+	if (_rain > 0 && {_DSactive}) then {[] call JIG_DustIsOn; sleep 3;};
 
 	wcweather = [_rain, _fog, _overcast, _wind, date];
 	60 setRain (wcweather select 0);

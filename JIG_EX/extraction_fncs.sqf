@@ -223,16 +223,15 @@ animate_doors_fnc = {
 };
 AmbExRadio_fnc = {
 	// Ambient Radio Chatter in/near Vehicles (TPW code)
+	if (ambRadioChatter isEqualTo 1) exitWith {};
 	private _run = true;
 	private _c = 0;
 	while {_run} do	{
-		if (player != vehicle player) then {
+		if (!(isNull objectParent player) && {!(objectParent player isKindOf "ParachuteBase")} && {!(objectParent player isKindOf "StaticWeapon")}) then {
 			playmusic format ["RadioAmbient%1",floor (random 31)];
-		}
-		else
-		{
+		} else {
 			private _veh = ((position player) nearEntities ["Air", 10]) select 0;
-			if !(isnil "_veh") then {
+			if !(isNil "_veh") then {
 				private _sound = format ["A3\Sounds_F\sfx\radio\ambient_radio%1.wss",floor (random 31)];
 				playsound3d [_sound,_veh,true,getPosasl _veh,1,1.1,20];
 			};

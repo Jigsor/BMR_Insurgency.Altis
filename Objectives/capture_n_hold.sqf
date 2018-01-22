@@ -176,7 +176,7 @@ private _rwave = [_newZone,_ins_debug,_defcnt] spawn {
 			};
 			if (_ins_debug) then {[_rgrp1] spawn INS_Tsk_GrpMkrs};
 
-			sleep 27;
+			uiSleep 27;
 			if (diag_fps < 26 || _defcnt < 3) then {sleep 27};
 			if (!makewave) exitWith {};
 

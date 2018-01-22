@@ -9,8 +9,7 @@ waitUntil {!isNull player && player == player};
 BTC_towed = ObjNull;
 BTC_cargo_attached = ObjNull;
 //Functions
-BTC_tow_check =
-{
+BTC_tow_check = {
 	if (!(vehicle player isKindOf "LandVehicle") || BTC_attached == 1) exitWith {false};
 	_array = [vehicle player] call BTC_get_towable_array;
 	if (count _array isEqualTo 0) exitWith {false};
@@ -32,8 +31,7 @@ BTC_tow_check =
 	};
 	_can_lift
 };
-BTC_t_attach_cargo =
-{
+BTC_t_attach_cargo = {
 	private ["_cargo"];
 	_tower = vehicle player;
 	_array = [vehicle player] call BTC_get_towable_array;
@@ -47,8 +45,7 @@ BTC_t_attach_cargo =
 	_tower vehicleChat format ["%1 attached", _name_cargo];
 	BTC_cargo_attached = _cargo;
 };
-BTC_t_detach_cargo =
-{
+BTC_t_detach_cargo = {
 	detach BTC_cargo_attached;
 	_name_cargo  = getText (configFile >> "cfgVehicles" >> typeof BTC_cargo_attached >> "displayName");
 	vehicle player vehicleChat format ["%1 dropped", _name_cargo];
@@ -58,17 +55,16 @@ BTC_t_detach_cargo =
 	BTC_cargo_attached = ObjNull;
 	BTC_attached = 0;
 };
-[] spawn
-{
-	player addAction [("<t color='#ED2744'>" + ("Tow") + "</t>"),BTC_dir_action, [[],BTC_t_attach_cargo], 9, true, false, "", "[] call BTC_tow_check"];
-	player addAction [("<t color='#ED2744'>" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_t_detach_cargo], -9, true, false, "", "BTC_attached isEqualTo 1"];
-	player addEventHandler ["Respawn",
-	{
-		[] spawn
-		{
-			WaitUntil {sleep 1; Alive player};
-			player addAction [("<t color='#ED2744'>" + ("Tow") + "</t>"),BTC_dir_action, [[],BTC_t_attach_cargo], 9, true, false, "", "[] call BTC_tow_check"];
-			player addAction [("<t color='#ED2744'>" + ("Release") + "</t>"),BTC_dir_action, [[],BTC_t_detach_cargo], -9, true, false, "", "BTC_attached isEqualTo 1"];
+BTC_tow_acts = {
+	player addAction [("<t color='#ED2744'>" + (localize "STR_BTC_Tow") + "</t>"), BTC_dir_action, [[],BTC_t_attach_cargo], 9, true, false, "", "[] call BTC_tow_check"];
+	player addAction [("<t color='#ED2744'>" + (localize "STR_BTC_Release") + "</t>"), BTC_dir_action, [[],BTC_t_detach_cargo], -9, true, false, "", "BTC_attached isEqualTo 1"];
+};
+[] spawn {
+	call BTC_tow_acts;
+	player addEventHandler ["Respawn", {
+		[] spawn {
+			waitUntil {sleep 1; alive player};
+			call BTC_tow_acts;
 		};
 	}];
 };

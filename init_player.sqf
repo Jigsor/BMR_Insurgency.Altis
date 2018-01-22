@@ -36,7 +36,7 @@ if (DebugEnabled > 0) then {
 	};
 
 	if (tky_perfmon > 0) then {_nul1 = [tky_perfmon] execVM "scripts\tky_evo_performance_report.sqf"};
-	{_x setMarkerAlphaLocal 1} forEach Op4_mkrs, Blu4_mkrs;
+	{_x setMarkerAlphaLocal 1} forEach Op4_mkrs + Blu4_mkrs;
 };
 
 [] spawn {
@@ -354,18 +354,24 @@ if (DebugEnabled > 0) then {
 		};
 	};
 
-	// Brighter Nights
-	if (Brighter_Nights isEqualTo 1) then {
-		[] spawn {
-			private _delay = round (3600 / timeMultiplier);
-			while {true} do {
-				if (daytime > 21.00 || daytime < 3.50) then {
+	[] spawn {
+		private _delay = round (3600 / timeMultiplier);
+		while {true} do {
+			if (daytime > 21.00 || daytime < 3.50) then {
+				// Brighter Nights
+				if (Brighter_Nights isEqualTo 1) then {
 					[3] call INS_Brighter_Nights;
 				}else{
 					[1] call INS_Brighter_Nights;
 				};
-				uiSleep _delay;
+				// Experimental-Improve AI detection of player at night for better AI responsiveness.
+				player setUnitTrait ["camouflageCoef", 50];// resets to default after changing uniform or respawning...booo.
+				player setUnitTrait ["audibleCoef", 50];
+			}else{
+				player setUnitTrait ["camouflageCoef", 1.8];
+				player setUnitTrait ["audibleCoef", 1.8];
 			};
+			uiSleep _delay;
 		};
 	};
 
@@ -379,7 +385,7 @@ if (DebugEnabled > 0) then {
 	if (ambRadioChatter isEqualTo 1) then {
 		[] spawn {
 			while {true} do	{
-				if (player != vehicle player) then {
+					if (!(isNull objectParent player) && {!(objectParent player isKindOf "ParachuteBase")} && {!(objectParent player isKindOf "StaticWeapon")}) then {
 						playMusic format ["RadioAmbient%1",floor (random 31)];
 					} else {
 						private _veh = ((position player) nearEntities [["Air","Landvehicle"], 10]) select 0;
@@ -475,7 +481,7 @@ if (DebugEnabled > 0) then {
 		};
 	};
 
-	//Admin Briefing Menu
+	// Admin Briefing Menu only for logged in admins not voted admins
 	[] spawn {
 		private _l = true;
 		while {_l} do {
