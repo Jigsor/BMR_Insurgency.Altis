@@ -21,10 +21,11 @@ INS_missing_mods = {
 			player sideChat "BMR Insurgency warning. This machine is missing mods and will not spawn enemy AI. Check mod installations.";
 		}else{
 			player sideChat "BMR Insurgency warning. This machine is missing mods you may not see and enemies or their equipment. Check mod installations.";
-			//("BMR_Layer_end4" call BIS_fnc_rscLayer) cutText [ "This machine is missing required mod(s). Check mod installations and try again.", "BLACK OUT", 1, true ]; sleep 10; endMission "END4";// Uncomment this line to kick players missing mods required by the mission.
+			// Uncomment next line to kick players missing mods required by the mission.
+			//("BMR_Layer_end4" call BIS_fnc_rscLayer) cutText [ "This machine is missing required mod(s). Check mod installations and try again.", "BLACK OUT", 1, true ]; sleep 10; endMission "END4";
 		};
 	}else{
-		diag_log "BMR Insurgency warning. This machine is missing mods and will not spawn enemy AI. Check mod installations.";
+		diag_log "!!!BMR Insurgency warning!!! This machine is missing mods and will not spawn enemy AI. Check mod installations.";
 	};
 };
 Hide_Mkr_fnc = {
@@ -196,7 +197,7 @@ fnc_jip_mp_intel = {
 	params ["_intelobj","_cachepos"];
 
 	if (!isNull _intelobj) then {
-		_intelobj addAction ["<t color='#ffff00'>Grab Intel</t>", "call JIG_intel_found", _cachepos, 6, true, true, "",""];
+		_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", _cachepos, 6, true, true, "",""];
 	};
 	true
 };
@@ -392,8 +393,8 @@ INS_toggle_Zeus = {
 				[_x] call BTC_AIunit_init;
 				_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 				if !(AIdamMod isEqualTo 100) then {
-					_x removeAllEventHandlers "HandleDamage";
-					_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
+					_x removeAllEventHandlers 'HandleDamage';
+					_x addEventHandler ['HandleDamage',{_damage = (_this select 2)*AIdamMod;_damage}];
 					_x addEventHandler ['Local',{
 						if (_this select 1) then {
 							(_this select 0) removeAllEventHandlers 'HandleDamage';
@@ -418,9 +419,7 @@ INS_toggle_Zeus = {
 	[_curator,_addons,{true},""] call BIS_fnc_manageCuratorAddons;
 	_curator addCuratorAddons _addons;
 	_curator addCuratorEditableObjects [allUnits,true];
-	//if (!isNil "BTC_cargo_repo") then {
-	//	_curator removeCuratorEditableObjects [[BTC_cargo_repo],true];
-	//};
+	//if (!isNil "BTC_cargo_repo") then {_curator removeCuratorEditableObjects [[BTC_cargo_repo],true]};
 	_unit assignCurator _curator;
 
 	if (DebugEnabled isEqualTo 1) then {diag_log curatorAddons _curator;};
@@ -707,7 +706,6 @@ JWC_CAStrack = {
 	};
 	deleteMarker _marker;
 };
-
 switchMoveEverywhere = compileFinal " _this select 0 switchMove (_this select 1); ";
 INS_BluFor_Siren = compileFinal " if (isServer) then {
 	[INS_BF_Siren,""siren""] call mp_Say3D_fnc;

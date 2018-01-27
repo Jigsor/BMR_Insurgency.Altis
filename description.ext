@@ -10,7 +10,7 @@ class Header
 {
     gameType = Coop;
     minPlayers = 1;
-    maxPlayers = 31;
+    maxPlayers = 32;
 };
 
 enableDebugConsole		= 1;// 0 = Default behavior, available only in editor, 1 = Available in SP and for hosts / logged in admins, 2 = Available for everyone

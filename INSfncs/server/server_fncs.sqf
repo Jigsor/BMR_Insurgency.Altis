@@ -62,27 +62,27 @@ BTC_AI_init = {
 paint_heli_fnc = {
 	//Paints blufor helis (typically Mowhawk and Hellcat) a different color matching terrain as to not mistake them for Opfor helis by Jigsor.
 	params ["_veh"];
-	private ["_color","_darkGrey","_sandColor","_green1","_green2"];
-	_darkGrey = [
+	private _darkGrey = [
 		[0,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"],
 		[1,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"],
 		[2,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"]
 	];
-	_sandColor = [
+	private _sandColor = [
 		[0,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"],
 		[1,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"],
 		[2,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"]
 	];
-	_green1 = [
+	private _green1 = [
 		[0,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"],
 		[1,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"],
 		[2,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"]
 	];
-	_green2 = [
+	private _green2 = [
 		[0,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"],
 		[1,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"],
 		[2,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"]
 	];
+	private "_color";
 	switch (true) do {
 		case (toLower (worldName) isEqualTo "altis"): {_color = _darkGrey;};
 		case (toLower (worldName) isEqualTo "tanoa"): {_color = _green2;};
@@ -109,7 +109,7 @@ paint_heli_fnc = {
 		default {_color = [];};
 	};
 	if !(_color isEqualTo []) then {
-		{_veh setObjectTextureGlobal _x} forEach _color;
+		{_veh setObjectTextureGlobal _x;} forEach _color;
 	};
 };
 add_UAV_crew = {
@@ -545,10 +545,10 @@ spawn_Op4_grp = {
 	for "_i" from 0 to (_grpSize - 2) do {
 		_unit_type = selectRandom INS_men_list;
 		_unit = _grp createUnit [_unit_type, _newZone, [], 0, "NONE"];
-		sleep 0.5;
+		sleep 0.4;
 	};
 	_grp createUnit [INS_Op4_medic, _newZone, [], 0, "NONE"];
-	sleep 0.5;
+	sleep 0.4;
 
 	(group _unit) setVariable ["zbe_cacheDisabled",false];
 	if (BTC_p_skill isEqualTo 1) then {[_grp] call BTC_AI_init};
@@ -823,7 +823,7 @@ INSciviKilled_fnc = {
 		private _txt = format ["%1 Killed Civilian %2", _killerName, _killed];
 		_killer addRating _tally;
 		[_txt] remoteExec ["JIG_MPSystemChat_fnc", [0,-2] select isDedicated];
-		//_killer remoteExec ["JIG_Boo", _killer];
+		//_killer remoteExec ["JIG_Boo", _killer];//too cheesy?
 	};
 	sleep 2;
 	if !(_unit isKindOf "Man") then {

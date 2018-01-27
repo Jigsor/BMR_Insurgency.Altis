@@ -1,11 +1,11 @@
-private["_player","_didJIP","_update","_intel","_text","_hcEntities"];
+private["_player","_didJIP","_update","_intel","_hcEntities"];
 
 _player = _this select 0;
 _didJIP =  _this select 1;
 _update = false;
 _hcEntities = entities "HeadlessClient_F";
 
-//_text = format["%1 joined the game!",name _player];
+//private _text = format["%1 joined the game!",name _player];
 //[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_MP;
 //[[_text],"JIG_MPsideChatEast_fnc"] call BIS_fnc_MP;
 

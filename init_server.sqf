@@ -112,7 +112,7 @@ Delivery_Box hideObjectGlobal true;
 // Param enabled scripts/settings //
 if (INS_GasGrenadeMod isEqualTo 1) then {[] spawn editorAI_GasMask};
 if (Fatigue_ability < 1) then {{[_x] spawn INS_full_stamina;} forEach playableUnits};
-if (EnableEnemyAir > 0) then {0 = [] execVM "scripts\AirPatrolEast.sqf"};
+if (EnableEnemyAir > 0) then {execVM "scripts\AirPatrolEast.sqf"};
 if (DebugEnabled isEqualTo 1) then {
 	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 30; nul = [] execVM "scripts\INS_SuicideBomber.sqf"}};
 }else{
@@ -271,14 +271,14 @@ if (Airfield_opt) then
 		sleep 2;
 		tasks_handler = [] execVM "Objectives\random_objectives.sqf";
 		waitUntil { scriptDone tasks_handler };
-		if (EnemyAmmoCache isEqualTo 1) then {execVM "scripts\ghst_PutinBuild.sqf";};
+		if (EnemyAmmoCache isEqualTo 1) then {execVM "scripts\ghst_PutinBuild.sqf"};
 		sleep 30;
 		execVM "Objectives\tasks_complete.sqf";
 	}else{
 		sleep 45;
 		tasks_handler = [] execVM "Objectives\random_objectives.sqf";
 		waitUntil { scriptDone tasks_handler };
-		if (EnemyAmmoCache isEqualTo 1) then {execVM "scripts\ghst_PutinBuild.sqf";};
+		if (EnemyAmmoCache isEqualTo 1) then {execVM "scripts\ghst_PutinBuild.sqf"};
 		sleep 75;
 		execVM "Objectives\tasks_complete.sqf";
 	};

@@ -223,7 +223,7 @@ animate_doors_fnc = {
 };
 AmbExRadio_fnc = {
 	// Ambient Radio Chatter in/near Vehicles (TPW code)
-	if (ambRadioChatter isEqualTo 1) exitWith {};
+	if (ambRadioChatter isEqualTo 1 || !hasInterface) exitWith {};
 	private _run = true;
 	private _c = 0;
 	while {_run} do	{

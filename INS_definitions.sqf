@@ -104,7 +104,7 @@ if  (!isServer && !hasInterface) then {
 	Any_HC_present = true; publicVariable "Any_HC_present";
 	if (name player == "HC_1") then {HC_1Present = true; publicVariable "HC_1Present"};
 	if (name player == "HC_2") then {HC_2Present = true; publicVariable "HC_2Present"};
-};
+};// This block ^ may no longer be necessary/is redundant since fn_HCpresent.sqf addition is called preinit and is required now.
 
 // Client Variables /////////////////////////////////////////////////
 if (!isServer) then {
@@ -605,7 +605,7 @@ if ((INS_op_faction < 4) || (EnableEnemyAir < 4)) then {
 };	//Notice: "Opposing Army/Mod Initialization" lobby parameter will not use moded aircraft for air patrol. You must select moded option in lobby parameter "Enable JIG Enemy Air Patrols?"
 
 // Default Stock A3 plus Apex Expansion's Aircraft used for air patrol.
-if ((INS_op_faction isEqualTo 4) || (INS_op_faction isEqualTo 5)) then {
+if (INS_op_faction isEqualTo 4 || INS_op_faction isEqualTo 5) then {
 	INS_Op4_fixedWing = ["O_T_VTOL_02_vehicle_F","I_Plane_Fighter_03_AA_F","I_Plane_Fighter_03_CAS_F","O_Plane_CAS_02_F"];
 	INS_Op4_helis = ["O_Heli_Attack_02_black_F"];
 };	//Notice: "Opposing Army/Mod Initialization" lobby parameter will not use moded aircraft for air patrol. You must select moded option in lobby parameter "Enable JIG Enemy Air Patrols?"
@@ -620,7 +620,7 @@ INS_W_PlayerMedic = ["B_T_Recon_Medic_F","B_T_Medic_F","B_medic_F","B_recon_medi
 INS_W_PlayerEOD = ["B_recon_exp_F","B_T_Recon_Exp_F","B_T_Soldier_Exp_F","B_T_Engineer_F","B_engineer_F","B_soldier_repair_F","B_soldier_exp_F","rhsusf_army_ocp_engineer","B_mas_mar_soldier_exp_F_rec_d","B_mas_mar_soldier_exp_F_rec_dn","B_mas_mar_soldier_exp_F_d","B_mas_mar_soldier_repair_F_d","B_mas_mar_soldier_exp_F_rec_v","B_mas_mar_soldier_exp_F_v","rhsusf_socom_marsoc_cso_eod","rhsusf_usmc_marpat_wd_engineer","rhsusf_usmc_marpat_wd_explosives","rhsusf_army_ocp_explosives","OPTRE_UNSC_Army_Soldier_Demolitions_DES","OPTRE_UNSC_Army_Soldier_Engineer_DES","OPTRE_UNSC_ODST_Soldier_DemolitionsExpert","LIB_GER_Scout_sniper_w","LIB_GER_Scout_sniper_2_w","LIB_DAK_Sniper","LNRD_Luftwaffe_sniper","SG_sturmtrooper_sniper","LIB_GER_scout_sniper","CUP_B_US_Soldier_Engineer_EOD","CUP_B_FR_Soldier_Exp_DES"];//can deactivate mines/IEDs and use deployable mine detector
 INS_W_PlayerUAVop = ["B_soldier_UAV_F","B_T_Soldier_UAV_F","B_soldier_UAV_F","rhsusf_army_ocp_uav","B_mas_mar_Soldier_UAV_F_v","B_mas_mar_Soldier_UAV_F_d","rhsusf_usmc_marpat_wd_uav","OPTRE_UNSC_Army_Soldier_UAV_Op_DES","CUP_B_USMC_Soldier_UAV_FROG_DES"];// can call in UGV air drop and use huntIR
 INS_W_PlayerSniper = ["B_T_ghillie_tna_F","B_T_Sniper_F","B_T_Spotter_F","B_T_Recon_M_F","B_T_soldier_M_F","B_recon_M_F","B_spotter_F","B_sniper_F","B_soldier_M_F","B_ghillie_ard_F","B_ghillie_lsh_F","B_ghillie_sard_F","B_Recon_Sharpshooter_F","rhsusf_army_ocp_marksman","rhsusf_army_ocp_sniper_m107","B_mas_mar_soldier_Sg_F_v","B_mas_mar_soldier_Mhg_F_v","B_mas_mar_soldier_M_F_v","B_mas_mar_soldier_M_F_d","B_mas_mar_soldier_Mhg_F_d","B_mas_mar_soldier_Sg_F_d","B_mas_mar_soldier_M_F_rec_d","B_mas_mar_soldier_M_F_rec_v","rhsusf_socom_marsoc_sniper","rhsusf_usmc_marpat_d_sniper","rhsusf_usmc_marpat_d_spotter","rhsusf_usmc_recon_marpat_wd_marksman","rhsusf_usmc_marpat_wd_sniper","rhsusf_usmc_marpat_wd_spotter","OPTRE_UNSC_Army_Soldier_Sniper_DES","OPTRE_UNSC_Army_Soldier_Marksman_DES","CUP_B_USMC_Soldier_Marksman_FROG_DES","CUP_B_US_Soldier_Marksman","CUP_B_US_Sniper_M107","CUP_B_US_Spotter"];// can use bullet cam
-if (toLower (worldName) isEqualTo "tanoa") then {INS_op4_players = "O_T_Medic_F";} else {INS_op4_players = "O_medic_F";};// Opfor players
+INS_op4_players = if (toLower (worldName) isEqualTo "tanoa") then {"O_T_Medic_F"} else {"O_medic_F"};// Opfor players
 INS_all_medics = ["B_T_Recon_Medic_F","B_T_Medic_F","O_T_Medic_F","O_T_Recon_Medic_F","O_V_Soldier_Medic_ghex_F","O_medic_F","B_medic_F","B_recon_medic_F","rhsusf_army_ocp_medic","B_mas_mar_medic_F_v","B_mas_mar_medic_F_d","B_mas_mar_medic_F_rec_d","B_mas_mar_medic_F_rec_v","B_mas_mar_medic_F_rec_vn","OPTRE_UNSC_ODST_Soldier_Paramedic","OPTRE_Ins_URF_Medic","LIB_GER_Medic_w","LIB_DAK_medic","LNRD_Luftwaffe_medic","SG_sturmtrooper_medic","LIB_GER_medic","LIB_SOV_medic"];
 INS_PlayerPilot = [];// Classes who can pilot aircraft. Empty array for no restrictions.
 

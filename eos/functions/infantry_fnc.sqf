@@ -24,6 +24,7 @@ _grp=createGroup _side;
 for "_x" from 1 to _grpSize do {
 	_unitType=selectRandom _pool;
 	_unit = _grp createUnit [_unitType, _pos, [], 6, "FORM"];
+	if !(side _unit isEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};
 	(group _unit) setVariable ["zbe_cacheDisabled",true];
 };
 

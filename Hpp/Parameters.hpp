@@ -338,14 +338,14 @@ class Params
 	title = "		IED system";
 	values[]={0,1,2};
 	texts[]={"Disabled","brians200's IEDs","Jig IEDs (detectable with mine detector)"};
-	default = 1;
+	default = 2;
 	};
 	class INS_persistence//43
 	{
 	title = "		Enable Progression Saving and Restoration?";
 	values[]={0,1,2};
 	texts[]={"No, clear progression if any is saved","Yes, save mission progression and restore if any is saved","Yes, save mission progression and clear progression if any is saved"};
-	default = 0;
+	default = 2;
 	};
 	class INS_Dum_Param8//44
 	{

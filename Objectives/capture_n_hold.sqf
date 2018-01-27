@@ -72,7 +72,7 @@ while {_uncaped} do {
 
 	private _manArray = objective_pos_logic nearEntities ["CAManBase", _cap_rad];
 	{
-		if ((!(side _x == INS_Blu_side)) || (captiveNum _x isEqualTo 1)) then {
+		if (!(side _x isEqualTo INS_Blu_side) || (captiveNum _x isEqualTo 1)) then {
 			_manArray = _manArray - [_x];
 		};
 	} forEach _manArray;
@@ -106,10 +106,9 @@ switch (true) do {
 };
 
 private _currTime = time;
-if (_ins_debug) then {diag_log format["TIMER PARAMETERS: Server Time %1, Timer Length %2, Defenders %3", _currTime, _holdTime, _defcnt];};
+if (_ins_debug) then {diag_log format["***CnH TIMER PARAMETERS: Server Time %1, Timer Length %2, Defenders %3", _currTime, _holdTime, _defcnt];};
 
-//[[[_currTime,false,_holdTime," Hold Outpost"],"scripts\Timer.sqf"],"BIS_fnc_execVM",true] call BIS_fnc_MP;//with JIP persistance
-[[[_currTime,false,_holdTime," Hold Outpost"],"scripts\Timer.sqf"],"BIS_fnc_execVM"] call BIS_fnc_MP;// without JIP persistance
+[[[false,_holdTime," Hold Outpost"],"scripts\Timer.sqf"],"BIS_fnc_execVM"] call BIS_fnc_MP;// without JIP persistance
 
 private _rwave = [_newZone,_ins_debug,_defcnt] spawn {
 
@@ -201,7 +200,7 @@ while {_caped} do {
 	_manArray = objective_pos_logic nearEntities [["CAManBase","Landvehicle"],_hold_rad];
 
 	{
-		if ((!(side _x == INS_Blu_side)) || (captiveNum _x isEqualTo 1)) then {
+		if (!(side _x isEqualTo INS_Blu_side) || (captiveNum _x isEqualTo 1)) then {
 			_manArray = _manArray - [_x];
 		};
 	} forEach _manArray;

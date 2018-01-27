@@ -156,7 +156,7 @@ BTC_fnc_PVEH = {
 BTC_first_aid = {
 	private ["_injured","_array_item_injured","_array_item","_cond"];
 	_men = nearestObjects [player, ["Man"], 2];
-	if (count _men > 1) then {_injured = _men select 1;};
+	if (count _men > 1) then {_injured = _men select 1};
 	if (format ["%1",_injured getVariable "BTC_need_revive"] != "1") exitWith {};
 	_array_item = items player;
 	_array_item_injured = items _injured;

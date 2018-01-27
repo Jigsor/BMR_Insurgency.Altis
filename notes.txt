@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-1/22/2018
+1/26/2018
 BMR_Insurgency_v1.48_beta
 	Some changes in this version are still be tested and so may contain bugs..
 	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
@@ -180,6 +180,7 @@ BMR_Insurgency_v1.48_beta
 	Added: Negative rating to innocent civilian killer and system chat message of who killed who.
 	Added: Pickup Intel, BTC logistics and BTC Revive action translations.
 	Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
+	Added: 2 headless Clients supported out of the box by default instead of 1.
 	Change: Increased delay loop for suicide bomber and now bomber can no longer spawn in same building as target.
 	Change: VA quick profile loadout action list on MHQs extended from 15 to 20 seconds.
 	Change: Shortening enemy group spawn delay on Capture N Hold objective depending on defender count size and server fps for higher intensity.
@@ -194,12 +195,16 @@ BMR_Insurgency_v1.48_beta
 	Change: Only heli MHQ_3 has Load Cargo action applied instead of all helis for use with Delivery objective.
 	Change: Removed ablility to place/reposition/hide intel with BTC logistics actions.
 	Change: Only affects ACE_3 moded machines: Disabled ACE Cook Off on Ammo Cache since cache has its own cook off effects and server can issue reward before destroyer wanders off to far to measure. Nearest alive/concious player detection for reward issue increased from 100 to 200 meters from cache./Needs testing feedback.
+	Fixed: Enemy AI faction combinations of East mixed with Independent are now group with the major faction's side, meaning both factions trigger zone occupation for AI spawned by EOS
+	Fixed: Hold timer discrepancy between players affecting Capture N Hold objective.
 	Fixed: AI recruits are deleted when player disconnects if player's former group leader is not another player.
 	Fixed: Several MP/dedicated server issues in heli group extraction.
 	Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.
 	Fixed: Some Russian translations.
+	Fixed: By BIS. Headless Client would crash after 500-800 AI deaths.
+	Fixed: Highjacked vehicles would delete while occupied by players.
 	Fixed: Task update notifications did not wait until player was alive.
-	Fixed: Several "unknown enum value" errors starting with A3 patch 1.78.
+	Fixed: Several legitimate "unknown enum value" errors starting with A3 patch 1.78.
 	Fixed: Drag, Carry and Load into vehicle for downed players. Finally :)
 	Fixed: Foot patrols spawned in grids by eos would eventually stop patrolling and wonder off to grid [0,0,0].
 	Fixed: Copilot could take control of aircraft if pilot restriction was enabled and his class type was not whitelisted.
