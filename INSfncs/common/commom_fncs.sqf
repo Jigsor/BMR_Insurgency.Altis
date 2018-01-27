@@ -197,7 +197,7 @@ fnc_jip_mp_intel = {
 	params ["_intelobj","_cachepos"];
 
 	if (!isNull _intelobj) then {
-		_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", _cachepos, 6, true, true, "",""];
+		_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", "call JIG_intel_found", _cachepos, 6, true, true, "",""];
 	};
 	true
 };
