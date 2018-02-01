@@ -81,7 +81,7 @@ addMissionEventHandler ["HandleDisconnect", {
 		[MHQ_3] call paint_heli_fnc;
 		if (INS_MHQ_enabled) then {
 			MHQ_3 addEventhandler ["killed","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [MHQ_3, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_3"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call paint_heli_fnc; [_this] call anti_collision; INS_MHQ_killed = "MHQ_3"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			_nul = [MHQ_3, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_3"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call paint_heli_fnc; [_this] call anti_collision; [_this] spawn BMR_resetDamage; INS_MHQ_killed = "MHQ_3"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 	if (!isNil "Opfor_MHQ") then {

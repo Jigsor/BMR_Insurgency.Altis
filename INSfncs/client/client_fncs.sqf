@@ -100,7 +100,7 @@ INS_intro_op4 = {
 	player sideChat localize "STR_BMR_initialize_done";
 	player sideChat localize "STR_BMR_intro_tip1";
 	player sideChat localize "STR_BMR_intro_tip2";
-	player sideChat "If black screen bug then go back to lobby and return";};
+	player sideChat "If black screen bug try Y menu, Toggle Headling or go back to lobby and return";};
 	setViewDistance -1;
 	camDestroy _cam;
 	enableRadio true;
@@ -237,7 +237,7 @@ INS_maintenance_veh = {
 	// code by Xeno
 	private ["_config","_count","_i","_mags","_obj","_type","_type_name"];
 
-	_obj = (nearestObjects [position player, ["LandVehicle","Air"], 10]) select 0;
+	_obj = (nearestObjects [position player, ["LandVehicle","Air"], 15]) select 0;
 	if (!alive _obj) exitWith {hint localize "STR_BMR_Vehicle_destroyed"};
 	_type = typeOf _obj;
 	hint format ["%1 under maintenance",typeOf _obj];

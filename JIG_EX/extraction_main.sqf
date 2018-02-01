@@ -157,7 +157,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 			if (!isDedicated) then {
 				_vehgrp_leader addEventHandler ["GetOutMan",{if (alive(_this select 2)) then {_this select 0 moveInDriver (_this select 2)};}];
 			} else {
-				[_vehgrp_leader] remoteExec ["JigEx_RemoteGetoutMan", JIG_EX_Caller, false];
+				[_vehgrp_leader] remoteExec ["JigEx_RemoteGetoutMan", JIG_EX_Caller];
 				sleep 3;
 			};
 

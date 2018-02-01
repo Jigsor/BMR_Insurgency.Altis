@@ -481,8 +481,8 @@ if (INS_op_faction isEqualTo 12) then {
 	INS_Op4_Veh_Support = ["CUP_O_BMP2_AMB_TKA","CUP_O_LR_Ambulance_TKA","CUP_O_Ural_TKA","CUP_O_Ural_Reammo_TKA","CUP_O_Ural_Refuel_TKA","CUP_O_Ural_Repair_TKA"];
 	INS_Op4_Veh_AA = ["CUP_O_ZSU23_TK"];
 	INS_Op4_stat_weps = ["O_HMG_01_high_F","CUP_O_ZU23_TK","CUP_O_AGS_TK","CUP_O_2b14_82mm_TK","CUP_O_D30_TK","CUP_O_D30_AT_TK","CUP_O_SPG9_TK"];
-	INS_Op4_fixedWing = ["CUP_B_SU34_LGB_CDF","CUP_I_SU34_LGB_AAF","CUP_O_Su25_TKA","CUP_O_Su25_TKA"];
-	INS_Op4_helis = ["CUP_O_UH1H_TKA","CUP_O_Mi24_D_TK","CUP_O_Mi17_TK","O_Heli_Attack_02_black_F"];
+	INS_Op4_fixedWing = ["CUP_B_SU34_LGB_CDF","CUP_I_SU34_LGB_AAF","CUP_O_Su25_TKA","CUP_O_Su25_Dyn_TKA","CUP_O_L39_TK"];
+	INS_Op4_helis = ["CUP_O_UH1H_TKA","CUP_O_Mi24_D_Dynamic_TK","CUP_O_Mi17_TK","O_Heli_Attack_02_black_F","CUP_AirVehicles_Ka50"];
 	INS_civ_Veh_Car = ["CUP_C_Golf4_whiteblood_Civ","CUP_C_Golf4_random_Civ","CUP_C_Golf4_camo_Civ","CUP_C_Golf4_camodigital_Civ","CUP_C_Golf4_camodark_Civ","CUP_C_LR_Transport_CTK","CUP_C_Octavia_CIV","CUP_C_Datsun","CUP_C_Datsun_4seat","CUP_C_Datsun_Plain","CUP_C_Datsun_Covered","CUP_C_Skoda_White_CIV","CUP_C_Skoda_Green_CIV","CUP_C_Skoda_Red_CIV","CUP_C_Skoda_Blue_CIV","CUP_C_SUV_TK"];
 	INS_civ_Veh_Utl = ["CUP_C_Ural_Civ_01","CUP_C_Ural_Open_Civ_01","CUP_C_Ural_Civ_02","CUP_C_Ural_Civ_03","CUP_C_Ural_Open_Civ_03","CUP_C_UAZ_Open_TK_CIV","CUP_C_UAZ_Unarmed_TK_CIV","C_Truck_02_covered_F","C_Truck_02_box_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];	
 	INS_civlist = ["CUP_C_TK_Man_07_Waist","CUP_C_TK_Man_04","CUP_C_TK_Man_04_Jack","CUP_C_TK_Man_04_Waist","CUP_C_TK_Man_07","CUP_C_TK_Man_07_Coat","CUP_C_TK_Man_07_Waist","CUP_C_TK_Man_08","CUP_C_TK_Man_08_Jack","CUP_C_TK_Man_08_Waist","CUP_C_TK_Man_05_Coat","CUP_C_TK_Man_05_Jack","CUP_C_TK_Man_05_Waist","CUP_C_TK_Man_06_Coat","CUP_C_TK_Man_06_Jack","CUP_C_TK_Man_06_Waist","CUP_C_TK_Man_02","CUP_C_TK_Man_02_Jack","CUP_C_TK_Man_02_Waist","CUP_C_TK_Man_01_Waist","CUP_C_TK_Man_01_Coat","CUP_C_TK_Man_01_Jack","CUP_C_TK_Man_03_Coat","CUP_C_TK_Man_03_Jack","CUP_C_TK_Man_03_Waist"];//Takistani Civilians

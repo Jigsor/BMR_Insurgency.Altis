@@ -209,7 +209,6 @@ find_west_target_fnc = {
 
 				_nrstWTgts = [];
 				{_nrstWTgts pushBack _x} forEach ((position _vcl) nearEntities [["Air","CAManBase"], _dis] select {((captiveNum _x isEqualTo 0) || (lifeState _x isEqualTo "HEALTHY") || (lifeState _x isEqualTo "INJURED")) && (side _x isEqualTo west)});
-					//need to test array order of _nrstWTgts
 
 				_cntrPos =  getPos (_nrstWTgts select 0);
 				if (!(_nrstWTgts isEqualTo []) && {(format ["%1", _cntrPos] != "[0,0,0]")}) then {

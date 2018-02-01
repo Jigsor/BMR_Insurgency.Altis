@@ -161,7 +161,7 @@ Evac_MPcleanUp = {
 		{
 			_p = _x;
 			if (isPlayer _p) then {
-				[[_p], objNull] remoteExec ["moveOut", _p, false];
+				[[_p], objNull] remoteExec ["moveOut", _p];
 				_toDelete = _toDelete - [_p];
 			};
 		} forEach _toDelete;
@@ -186,7 +186,7 @@ Cancel_Evac_fnc = {
 			hint "This is the end my friend";
 		};
 	};
-	if (!isServer) exitWith {[] remoteExec ["Evac_MPcleanUp", 2, false]; resetEvac = false;};
+	if (!isServer) exitWith {[] remoteExec ["Evac_MPcleanUp", 2]; resetEvac = false;};
 	(call Evac_MPcleanUp)
 };
 JIP_Reset_Evac_fnc = {

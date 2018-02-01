@@ -23,6 +23,16 @@ if (isServer) then {
 			private _trees = nearestTerrainObjects [_x, ["TREE","SMALL TREE","BUSH"], 50, false];
 			{if (damage _x isEqualTo 1) then {hideobject _x}} foreach _trees;
 		} forEach _czPosArrys;
+		sleep 3;
+
+		// Delete empty groups.
+		{
+			if ((count (units _x)) == 0) then {
+				deleteGroup _x;
+				_x = grpNull;
+				_x = nil
+			}
+		} forEach allGroups;
 
 		private _justPlayers = allPlayers - entities "HeadlessClient_F";
 
@@ -71,15 +81,6 @@ if (isServer) then {
 						// Delete all mines beyond 500 meters away from objective position
 						{deleteVehicle _x} forEach (allMines select {((_x distance objective_pos_logic) > 500) && !(_x getVariable "persistent")});
 						sleep 2;
-
-						// Delete empty groups.
-						{
-							if ((count (units _x)) == 0) then {
-								deleteGroup _x;
-								_x = grpNull;
-								_x = nil
-							}
-						} forEach allGroups;
 
 						server setVariable ["INS_UAMT", false];
 					}else{

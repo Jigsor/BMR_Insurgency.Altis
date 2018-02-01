@@ -33,7 +33,7 @@ _grp = _veh select 2;
 _vel = velocity _buzz;
 _buzz setVelocity [(_vel select 0)+(sin _dirTo*_speed),(_vel select 1)+ (cos _dirTo*_speed),(_vel select 2)];
 
-[_buzz] remoteExec ["JWC_CAStrack", 2, false];//Moved handling to server. Jig
+[_buzz] remoteExec ["JWC_CAStrack", 2];//Moved handling to server. Jig
 
 _buzz allowDamage false;
 

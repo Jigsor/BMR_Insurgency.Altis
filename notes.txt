@@ -87,10 +87,10 @@ BMR_Insurgency_v1_47.napfwinter
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Napf_Island_A3
 
 BMR_Insurgency_v1_47.Mog
-Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@CUP_Terrains_CWA;@Mogadishu;@MBG Buildings African Generic (Arma2 Legacy)
+Required mods: @CUP_Terrains_Core;@Mogadishu;@MBG Buildings African Generic (Arma2 Legacy)
 
 BMR_Insurgency_v1_47_RHS.Mog
-Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@CUP_Terrains_CWA;@Mogadishu;@MBG Buildings African Generic (Arma2 Legacy);@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
+Required mods: @CUP_Terrains_Core;@Mogadishu;@MBG Buildings African Generic (Arma2 Legacy);@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_47.clafghan
 Required mods: @CUP_Terrains_Core;@CLA_CLAFGHAN
@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-1/26/2018
+1/31/2018
 BMR_Insurgency_v1.48_beta
 	Some changes in this version are still be tested and so may contain bugs..
 	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
@@ -178,7 +178,7 @@ BMR_Insurgency_v1.48_beta
 	Added: Saving of grid zone progression persistence system. Can be cleared and disabled by default, enabled and restored or enabled and cleared to start from new by lobby parameter.
 	Added: Support for JIP of Headless Client incase of kick or crash of Headless Client. Requires HC to be present at mission start, one of the persistence options enabled and mission to be cached into Server and HC.
 	Added: Negative rating to innocent civilian killer and system chat message of who killed who.
-	Added: Pickup Intel, BTC logistics and BTC Revive action translations.
+	Added: Several action translations including Pickup Intel, BTC logistics and BTC Revive and Push etc.
 	Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
 	Added: 2 headless Clients supported out of the box by default instead of 1.
 	Change: Increased delay loop for suicide bomber and now bomber can no longer spawn in same building as target.
@@ -190,7 +190,6 @@ BMR_Insurgency_v1.48_beta
 	Change: Some reorganization of functions.
 	Change: TASKMASTER updated to v0.44 and modified with optimizations.
 	Change: Added new light weight IED system in wich IEDs can be detected with IED detector and uses real IED objects. Old or new sytem Brians200's/Jig IEDs can be selected in lobby. Jig IEDs places IEDs on road and road side and does not depend on markers placed in the editor. The number of IEDs and percentage of fake IEDs can be changed in scripts\JigIEDs.sqf. The placement will always be random. Enable Debug Mode lobby parameter to see IED locations.
-	Change: Replaced "First Aid" action with A3 Nexus localization of "Revive".-Todo change action color if possible?
 	Change: "Save Respawn Loadout" action now works without having to load a saved preset from arsenal previously.
 	Change: Only heli MHQ_3 has Load Cargo action applied instead of all helis for use with Delivery objective.
 	Change: Removed ablility to place/reposition/hide intel with BTC logistics actions.
@@ -213,6 +212,7 @@ BMR_Insurgency_v1.48_beta
 	Fixed: Some times BTC Lift HUD toggle and Lift scroll actions in Helis would not appear.
 	Fixed: Opfor players occationally receive constant black screen at start untill going back to lobby and starting again in multiplayer enviroment. Needs testing/feedback.
 	Fixed: Accumulation of empty groups when headless client present.
+	Fixed: Arsenal actions on respawned MHQs missing for JIP players.
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017

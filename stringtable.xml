@@ -1027,5 +1027,12 @@
 <Russian>тянуть на бечеве</Russian>
 <Spanish>Toar</Spanish>
 </Key>
+<Key ID="STR_BMR_Push">
+<Original>Push</Original>
+<German>Drücken</German>
+<French>Pousser</French>
+<Russian>От себя</Russian>
+<Spanish>Empujar</Spanish>
+</Key>
 </Container>
 </Project>

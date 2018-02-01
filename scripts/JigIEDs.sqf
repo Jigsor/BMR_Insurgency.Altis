@@ -85,7 +85,7 @@ if (!isServer) exitWith {};
 			selectRandom IEDblast createVehicle getPosATL thisTrigger;
 			{
 				_irP = _x;
-				[thisTrigger] remoteExec ['JIG_IED_FX', _irP, false];
+				[thisTrigger] remoteExec ['JIG_IED_FX', _irP];
 			} forEach thisList;
 			{deleteVehicle _x;} count nearestObjects [getPosATL thisTrigger, IEDtypes, 2, true];
 		";

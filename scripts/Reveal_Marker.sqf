@@ -61,7 +61,6 @@ private _mN = 0;
 private _mA = [];
 for '_i' from 0 to (_time * 2) step 1 do {
 	{
-		private ["_t","_c","_n","_m"];
 		private _t = _x call _getType;
 		private _c = _x call _getColor;
 		_pos = getPosASL _x;

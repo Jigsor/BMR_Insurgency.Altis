@@ -811,7 +811,7 @@ JIG_ActivateDust = {
 	JIG_DustStorm = true;
 	publicVariable "JIG_DustStorm";
 	sleep 3;
-	[] remoteExec ["JIG_Dust_Storm", [0,-2] select isDedicated, false];
+	[] remoteExec ["JIG_Dust_Storm", [0,-2] select isDedicated];
 };
 INSciviKilled_fnc = {
 	params [["_unit",objNull],["_killer",objNull]];

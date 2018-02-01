@@ -11,13 +11,13 @@ _menu = _menu + "
 	<br/><executeClose expression=""[player,false] spawn INS_Zeus_MP;"">	Assign or remove ZEUS privately</executeClose>
 	<br/>
 	<br/><font size='18'>BRIGHTER NIGHTS</font>
-	<br/><executeClose expression=""[] spawn {waitUntil {!isNil 'INS_Brighter_Nights'}; [3] remoteExec ['INS_Brighter_Nights', [0,-2] select isDedicated, false];};"">	Activate Brighter Nights</executeClose>
-	<br/><executeClose expression=""[] spawn {waitUntil {!isNil 'INS_Brighter_Nights'}; [1] remoteExec ['INS_Brighter_Nights', [0,-2] select isDedicated, false];};"">	Deactivate Brighter Nights</executeClose>
+	<br/><executeClose expression=""[] spawn {waitUntil {!isNil 'INS_Brighter_Nights'}; [3] remoteExec ['INS_Brighter_Nights', [0,-2] select isDedicated];};"">	Activate Brighter Nights</executeClose>
+	<br/><executeClose expression=""[] spawn {waitUntil {!isNil 'INS_Brighter_Nights'}; [1] remoteExec ['INS_Brighter_Nights', [0,-2] select isDedicated];};"">	Deactivate Brighter Nights</executeClose>
 	<br/>
 	<br/><font size='18'>DUST STORM</font>
 	<br/>Click any to start Dust Storm. Click any to end Dust Storm.
-	<br/><executeClose expression=""[] spawn {waitUntil {!isNil 'JIG_Dust_Storm_Server'}; [12] remoteExec ['JIG_Dust_Storm_Server', 2, false];};"">	Low Speed Dust Storm</executeClose>
-	<br/><executeClose expression=""[] spawn {waitUntil {!isNil 'JIG_Dust_Storm_Server'}; [22] remoteExec ['JIG_Dust_Storm_Server', 2, false];};"">	High Speed Dust Storm</executeClose>
+	<br/><executeClose expression=""[] spawn {waitUntil {!isNil 'JIG_Dust_Storm_Server'}; [12] remoteExec ['JIG_Dust_Storm_Server', 2];};"">	Low Speed Dust Storm</executeClose>
+	<br/><executeClose expression=""[] spawn {waitUntil {!isNil 'JIG_Dust_Storm_Server'}; [22] remoteExec ['JIG_Dust_Storm_Server', 2];};"">	High Speed Dust Storm</executeClose>
 	<br/>
 	<br/><font size='18'>GIVE YOURSELF VEHICLE REWARD</font>
 ";
@@ -47,6 +47,6 @@ private _tips ="
 	<br/>
 	<br/>For example, each bullet fired causes an error on machines that do not have the mod it comes from and that moded chopper/unifor the client is flying in wich server or some players cannot see has no armor for those machines missing the mod. Performance will continually degrade after some time for all machines. This mission can run weeks on end without performance degradation if mod these steps are taken.
 	<br/>
-";
+	<br/>9. Restoring mission progression is only intended to work with one terrain. This means you must load the same terrain mission version in wich saving progession was enabled. Ex. Saving progression on BMR Insurgency Altis was enabled then Admin loaded BMR Insurgency Tanoa with progession restoration enabled. This will not work correctly.";
 _menu = _menu + _tips;
 player createDiaryRecord ["Diary", ["Administrator Menu", _menu]];

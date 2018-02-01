@@ -116,7 +116,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/>Vanilla Arma 3 Yellow hand and GL smoke grenades are Toxic and can kill players or AI.
 	<br/>
-	<br/>For immunity wear A3 Heli Crew, Pilot, CRTG Combat Stealth or Viper Green Hex helmets. Some moded gasmasks are also supported.
+	<br/>For immunity wear A3 Heli Crew, Pilot, CRTG Combat Stealth or Viper Green Hex helmets.
 	<br/>
 	<br/>Moded support for gas masks include masks from from Hidden Identity Pack v2, Identity Pack v3, NATO SF and Russian Spetsnaz Weapons, FM-12 strapless from AVON FM12 Respirator Pack, OPTRE_UNSC_CH252_Helmet_Vacuum_DES and OPTRE_UNSC_ODST_Helmet_CBRN from Operation TREBUCHET.
 	<br/>

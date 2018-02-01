@@ -478,9 +478,9 @@ BTC_check_action_first_aid = {
 		if ((_men select 1) getVariable "BTC_revive_side" == str (BTC_side)) then {_cond = true;} else {_cond = false;};
 	};
 	if (_cond && BTC_need_first_aid isEqualTo 1) then {
-		if (_array_item find "FirstAidKit" == -1) then {_cond = false;};
+		if (_array_item find "FirstAidKit" == -1) then {_cond = false};
 		_array_item_injured = items _injured;
-		if (!_cond && _array_item_injured find "FirstAidKit" != -1) then {_cond = true;};
+		if (!_cond && _array_item_injured find "FirstAidKit" != -1) then {_cond = true};
 	};
 	_cond
 };
@@ -510,8 +510,8 @@ BTC_can_revive = {
 	_cond = false;
 	{if (_unit isKindOf _x) then {_cond = true};} foreach BTC_who_can_revive;
 	if (_cond && BTC_need_first_aid isEqualTo 1) then {
-		if (_array_item_unit find "FirstAidKit" == -1) then {_cond = false;};
-		if (!_cond && _array_item_injured find "FirstAidKit" != -1) then {_cond = true;};
+		if (_array_item_unit find "FirstAidKit" == -1) then {_cond = false};
+		if (!_cond && _array_item_injured find "FirstAidKit" != -1) then {_cond = true};
 	};
 	_cond
 };
@@ -612,7 +612,7 @@ BTC_vehicle_mobile_respawn = {
 	switch (_var) do {
 		case "MHQ_1" : {_VarName = "MHQ_1"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; _veh setVariable["persistent",true]; [[_veh,_var],"mhq_actions_fnc",WEST] spawn BIS_fnc_MP;};
 		case "MHQ_2" : {_VarName = "MHQ_2"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; _veh setVariable["persistent",true]; [[_veh,_var],"mhq_actions_fnc",WEST] spawn BIS_fnc_MP;};
-		case "MHQ_3" : {_VarName = "MHQ_3"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; _veh setVariable["persistent",true]; [[_veh,_var],"mhq_actions_fnc",WEST] spawn BIS_fnc_MP; [_veh] call paint_heli_fnc;};
+		case "MHQ_3" : {_VarName = "MHQ_3"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; _veh setVariable["persistent",true]; [[_veh,_var],"mhq_actions_fnc",WEST] spawn BIS_fnc_MP; [_veh] call paint_heli_fnc; [_veh] spawn BMR_resetDamage;};
 		case "Opfor_MHQ" : {_VarName = "Opfor_MHQ"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [[_veh,_var],"mhq_actions_fnc",EAST] spawn BIS_fnc_MP;};
 	};
 };
@@ -653,16 +653,6 @@ BTC_3d_markers_pvp = {
 			};
 		} foreach playableUnits;
 	}];
-};
-BTC_revive_loop = {
-	while {true} do	{
-		sleep 1;
-		if (Alive player && format ["%1",player getVariable "BTC_need_revive"] != "1") then {
-			//hintsilent format ["%1 %2",currentWeaponMode player,currentMagazineDetail player];
-			//diag_log text format ["SAVED %1",dialog];
-			BTC_gear = [player] call BTC_get_gear;
-		};
-	};
 };
 //Dialog
 BTC_r_get_list = {

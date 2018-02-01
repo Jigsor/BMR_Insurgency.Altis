@@ -1,13 +1,13 @@
 //commom_fncs.sqf by Jigsor
 
 // Global hint
-JIG_MPhint_fnc = {if (!isDedicated && hasInterface) then { hintSilent _this };};
+JIG_MPhint_fnc = {if (hasInterface) then { hintSilent _this };};
 JIG_MPsideChatWest_fnc = { [West,"HQ"] SideChat (_this select 0); };
 JIG_MPsideChatEast_fnc = { [East,"HQ"] SideChat (_this select 0); };
 JIG_MPSystemChat_fnc = { systemChat (_this select 0); };
 JIG_Boo = {playSound "boo";};
 JIG_MPTitleText_fnc = {
-	if (!isDedicated && hasInterface) then {
+	if (hasInterface) then {
 		params ["_text"];
 		copyToClipboard str(_text);
 		sleep 3;
@@ -16,7 +16,7 @@ JIG_MPTitleText_fnc = {
 	};
 };
 INS_missing_mods = {
-	if (!isDedicated && hasInterface) then {
+	if (hasInterface) then {
 		if (isServer) then {
 			player sideChat "BMR Insurgency warning. This machine is missing mods and will not spawn enemy AI. Check mod installations.";
 		}else{
@@ -30,7 +30,7 @@ INS_missing_mods = {
 };
 Hide_Mkr_fnc = {
 	params ["_mkrarray","_hidden_side"];
-	if (isDedicated || !hasInterface) exitWith {};
+	if (!hasInterface) exitWith {};
 	if (side player == _hidden_side) then {
 		{
 			_x setMarkerAlphaLocal 0;
@@ -62,6 +62,11 @@ anti_collision = {
 	_obj setVectorUP (surfaceNormal [(getPosATL _obj) select 0,(getPosATL _obj) select 1]);
 	_obj setPos [(getPosATL _obj) select 0,(getPosATL _obj) select 1,((getPos _obj) select 2) + 0.3];
 	true
+};
+BMR_resetDamage = {
+	params ["_veh"];
+	sleep 2;
+	if (!isNull _veh && {damage _veh > 0}) then {_veh setdamage 0};
 };
 Playable_Op4_disabled = {
 	if (!isServer && hasInterface) then {
@@ -173,19 +178,16 @@ JIG_load_VA_profile_MHQ3 = {
 mp_Say3D_fnc = {
 	// code by Twirly
 	params ["_obj","_snd"];
-
 	PVEH_netSay3D = [_obj,_snd];
 	publicVariable "PVEH_netSay3D";
-
-	if (!isDedicated && hasInterface) then {_obj say3D _snd};
+	if (hasInterface) then {_obj say3D _snd};
 	true
 };
 fnc_mp_intel = {
 	// Intel addaction. by Jigsor
 	params ["_intelobj","_cachepos"];
-
 	if (!isNull _intelobj) then {
-		_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", "call JIG_intel_found", _cachepos, 6, true, true, "",""];
+		_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", "call JIG_intel_found", _cachepos, 6];
 		intel_objArray pushBack _intelobj;
 	};
 	if (ObjNull in intel_objArray) then {{intel_objArray = intel_objArray - [objNull]} foreach intel_objArray;};
@@ -195,9 +197,8 @@ fnc_mp_intel = {
 fnc_jip_mp_intel = {
 	// JIP Intel addaction. by Jigsor
 	params ["_intelobj","_cachepos"];
-
 	if (!isNull _intelobj) then {
-		_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", "call JIG_intel_found", _cachepos, 6, true, true, "",""];
+		_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", "call JIG_intel_found", _cachepos, 6];
 	};
 	true
 };
@@ -298,22 +299,21 @@ JIG_base_protection = {
 	true
 };
 fnc_mp_push = {
-	if (!isDedicated && hasInterface) then {
+	if (hasInterface) then {
 		params ["_veh"];
-		_veh addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
+		_veh addAction [("<t color='#FF9900'>") + (localize "STR_BMR_Push") + "</t>", {call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
 	};
 	true
 };
 Push_Acc = {
 	params ["_veh"];
-	[[_veh],"fnc_mp_push"] call BIS_fnc_MP;
+	[_veh] remoteExec ["fnc_mp_push", [0,-2] select isDedicated];
 	true
 };
 Push_Vehicle = {
 	/* Boat push script - v0.1
 	Pushes the boat in the direction the player is looking
 	Created by BearBison */
-
 	private ["_veh","_unit","_isWater"];
 	_veh = _this select 0;
 	_unit = _this select 1;
@@ -444,7 +444,7 @@ Terminal_acction_MPfnc = {
 				"_this distance Land_DataTerminal_Obj < 2",
 				"true",
 				{[Land_DataTerminal_Obj, 3] call BIS_fnc_DataTerminalAnimate},
-				{hintSilent "Dont stop"},
+				{hintSilent "Recieving..."},
 				{
 					private _side = (side player) call bis_fnc_sideID;
 					missionNamespace setVariable ["datadownloadedby",_side,true];

@@ -182,9 +182,9 @@ while {true} do {
 
 	//Jig adding Brighter Nights by Ralian
 	if (daytime > 21.00 || daytime < 3.50) then {
-		[3] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated, false];
+		[3] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated];
 	}else{
-		[1] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated, false];
+		[1] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated];
 	};
 
 	sleep _timeforecast;

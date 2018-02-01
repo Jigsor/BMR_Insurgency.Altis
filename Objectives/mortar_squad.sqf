@@ -39,7 +39,7 @@ if (count _roads > 0) then {
 	_roadDir = direction _roadSegment;
 };
 
-if (_roadNear) then {_sign setDir _roadDir - 90;};
+if (_roadNear) then {_sign setDir _roadDir - 90};
 _sign setVectorUp [0,0,1];
 
 // Spawn Objective enemy defences
@@ -63,8 +63,7 @@ sleep 1;
 
 {
 	_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-	if !(AIdamMod isEqualTo 100) then
-	{
+	if !(AIdamMod isEqualTo 100) then {
 		_x removeAllEventHandlers "HandleDamage";
 		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 	};

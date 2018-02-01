@@ -123,7 +123,7 @@ if (count _outof_range_members > 0) then {
 	} forEach (units ext_caller_group);
 	{
 		_orP = _x;
-		[[_orP], grpNull] remoteExec ["join", _orP, false];
+		[[_orP], grpNull] remoteExec ["join", _orP];
 	} forEach _outof_range_members;
 	sleep 3;
 };
