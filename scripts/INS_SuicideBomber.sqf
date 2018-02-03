@@ -127,7 +127,6 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 
 			(group _unit) setVariable ["zbe_cacheDisabled",true];
 			_unit setVariable ["asr_ai_exclude",true];
-			//publicVariable _VarName; sleep 3;
 
 			_unit addeventhandler ["killed",{_this call killed_ss_bmbr_fnc; [(_this select 0)] spawn remove_carcass_fnc}];
 			_bmbrdir = [random_w_player4, _unit] call BIS_fnc_dirTo;

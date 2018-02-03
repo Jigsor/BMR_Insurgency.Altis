@@ -152,10 +152,10 @@ BTC_l_camera = {
 	};
 };
 BTC_lift_acts = {
-	if (BTC_def_hud isEqualTo 1) then {player addAction [("<t color='#ED2744'>" + ("Lift Hud On\Off") + "</t>"),BTC_dir_action, [[],{if (BTC_Hud_Cond) then {BTC_Hud_Cond = false;} else {BTC_Hud_Cond = true;_hud = [] spawn BTC_fnc_hud;};}], -8, false, false, "", "objectParent player isKindOf 'Helicopter' && player isEqualTo driver objectParent player"]};
-	if (BTC_def_pip isEqualTo 1) then {player addAction [("<t color='#ED2744'>" + ("Belly Camera On\Off") + "</t>"),BTC_dir_action, [[],BTC_l_camera], -9, false, false, "", "objectParent player isKindOf 'Helicopter'"]};
-	player addAction [("<t color='#ED2744'>" + (localize "STR_BTC_Lift") + "</t>"),BTC_dir_action, [[],BTC_attach_cargo], 9, true, false, "", "[] call BTC_lift_check"];
-	player addAction [("<t color='#ED2744'>" + (localize "STR_BTC_Release") + "</t>"),BTC_dir_action, [[],BTC_detach_cargo], -9, true, false, "", "BTC_lifted isEqualTo 1"];
+	if (BTC_def_hud isEqualTo 1) then {player addAction [("<t color='#00ffe9'>" + ("Lift Hud On\Off") + "</t>"),BTC_dir_action, [[],{if (BTC_Hud_Cond) then {BTC_Hud_Cond = false;} else {BTC_Hud_Cond = true;_hud = [] spawn BTC_fnc_hud;};}], -8, false, false, "", "objectParent player isKindOf 'Helicopter' && player isEqualTo driver objectParent player"]};
+	if (BTC_def_pip isEqualTo 1) then {player addAction [("<t color='#00ffe9'>" + ("Belly Camera On\Off") + "</t>"),BTC_dir_action, [[],BTC_l_camera], -9, false, false, "", "objectParent player isKindOf 'Helicopter'"]};
+	player addAction [("<t color='#00ffe9'>" + (localize "STR_BTC_Lift") + "</t>"),BTC_dir_action, [[],BTC_attach_cargo], 9, true, false, "", "[] call BTC_lift_check"];
+	player addAction [("<t color='#00ffe9'>" + (localize "STR_BTC_Release") + "</t>"),BTC_dir_action, [[],BTC_detach_cargo], -9, true, false, "", "BTC_lifted isEqualTo 1"];
 };
 [] spawn {
 	call BTC_lift_acts;

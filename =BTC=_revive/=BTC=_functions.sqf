@@ -181,7 +181,7 @@ BTC_drag = {
 	_injured setVariable ["BTC_dragged",1,true];
 	_injured attachTo [player, [0, 1.1, 0.092]];
 	player playMoveNow "AcinPknlMstpSrasWrflDnon";
-	_id = player addAction [("<t color='#ED2744'>") + ("Drop") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_release], 9, true, true, "", "true"];
+	_id = player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Release") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_release], 9, true, true, "", "true"];
 	//_injured playMoveNow "AinjPpneMstpSnonWrflDb_grab";
 	BTC_drag_pveh = [1,_injured];publicVariable "BTC_drag_pveh";
 	WaitUntil {!Alive player || ((animationstate player == "acinpknlmstpsraswrfldnon") || (animationstate player == "acinpknlmwlksraswrfldb"))};
@@ -196,7 +196,7 @@ BTC_drag = {
 		if (count _array_veh > 0 && _veh_selected != _array_veh select 0) then {
 			_veh_selected    = _array_veh select 0;
 			_name_veh        = getText (configFile >> "cfgVehicles" >> typeof _veh_selected >> "displayName");
-			_text_action     = ("<t color='#ED2744'>" + "Load wounded in " + (_name_veh) + "</t>");
+			_text_action     = ("<t color='#ED2744'>" + (localize "STR_BTC_Load_wounded_in") + (_name_veh) + "</t>");
 			_action_id = player addAction [_text_action,"=BTC=_revive\=BTC=_addAction.sqf",[[_injured,_veh_selected],BTC_load_in], 7, true, true];
 			_act  = 1;
 		};
@@ -220,7 +220,7 @@ BTC_carry = {
 	_injured setVariable ["BTC_dragged",1,true];
 	detach _injured;
 	player playMoveNow "acinpknlmstpsraswrfldnon_acinpercmrunsraswrfldnon";
-	_id = player addAction [("<t color='#ED2744'>") + ("Drop") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_release], 9, true, true, "", "true"];
+	_id = player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Release") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_release], 9, true, true, "", "true"];
 	BTC_carry_pveh = [5,_injured,_healer];publicVariable "BTC_carry_pveh";
 	WaitUntil {!Alive player || ((animationstate player == "acinpercmstpsraswrfldnon") || (animationstate player == "acinpercmrunsraswrfldf") || (animationstate player == "acinpercmrunsraswrfldr") || (animationstate player == "acinpercmrunsraswrfldl"))};
 	_injured attachto [player,[0.15, 0.15, 0]];_injured setDir 180;
@@ -235,7 +235,7 @@ BTC_carry = {
 		if (count _array_veh > 0 && _veh_selected != _array_veh select 0) then {
 			_veh_selected    = _array_veh select 0;
 			_name_veh        = getText (configFile >> "cfgVehicles" >> typeof _veh_selected >> "displayName");
-			_text_action     = ("<t color='#ED2744'>" + "Load wounded in " + (_name_veh) + "</t>");
+			_text_action     = ("<t color='#ED2744'>" + (localize "STR_BTC_Load_wounded_in") + (_name_veh) + "</t>");
 			_action_id = player addAction [_text_action,"=BTC=_revive\=BTC=_addAction.sqf",[[_injured,_veh_selected],BTC_load_in], 7, true, true];
 			_act  = 1;
 		};

@@ -3,6 +3,7 @@
 <Container name="BMR_Insurgency_Stringtable">
 <Key ID="STR_BMR_loading">
 <Original>Loading...</Original>
+<English>Loading...</English>
 <German>Lade...</German>
 <French>Chargement...</French>
 <Russian>Загрузка...</Russian>
@@ -10,6 +11,7 @@
 </Key>
 <Key ID="STR_BMR_initialize_done">
 <Original>Initialization Complete</Original>
+<English>Initialization Complet</English>
 <German>Initialisierung komplett</German>
 <French>Initialisation totale</French>
 <Russian>Инициализация завершена</Russian>
@@ -17,6 +19,7 @@
 </Key>
 <Key ID="STR_BMR_intro_tip1">
 <Original>Press U key for Group Manager</Original>
+<English>Press U key for Group Manager</English>
 <German>Drücke Taste U für Gruppenmanager</German>
 <French>Appuyez sur la touche U pour le gestionnaire de groupe</French>
 <Russian>Нажмите клавишу у для Диспетчера Групп</Russian>
@@ -24,6 +27,7 @@
 </Key>
 <Key ID="STR_BMR_intro_tip2">
 <Original>Press Y key for Graphic Settings, Digital Heading and HUD</Original>
+<English>Press Y key for Graphic Settings, Digital Heading and HUD</English>
 <German>Drücke Taste Z für Grafikeinstellungen, Richtungsanzeige und Statusanzeige </German>
 <French>Appuyez sur la touche Y pour les paramètres graphiques, Heading numérique et HUD</French>
 <Russian>Нажмите клавишу ы для настройки графики, цифрового заголовка и HUD</Russian>
@@ -31,6 +35,7 @@
 </Key>
 <Key ID="STR_BMR_load_VAprofile">
 <Original>Load VA profile</Original>
+<English>Load VA profile</English>
 <German>Lade Virtual Arsenal Profil</German>
 <French>Charge profil Arsenal virtuel</French>
 <Russian>Загрузить профиль ВА</Russian>
@@ -38,6 +43,7 @@
 </Key>
 <Key ID="STR_BMR_open_VA">
 <Original>Open Virtual Arsenal</Original>
+<English>Open Virtual Arsenal</English>
 <German>Öffne Virtual Arsenal</German>
 <French>Ouvrir Arsenal Virtuel</French>
 <Russian>Открыть Виртуальный Арсенал</Russian>
@@ -45,6 +51,7 @@
 </Key>
 <Key ID="STR_BMR_halo_jump">
 <Original>HALO jump</Original>
+<English>HALO jump</English>
 <German>Fallschirmsprung</German>
 <French>HALO saut</French>
 <Russian>Прыжок HALO</Russian>
@@ -52,6 +59,7 @@
 </Key>
 <Key ID="STR_BMR_ai_halo_jump">
 <Original>AI HALO jump</Original>
+<English>AI HALO jump</English>
 <German>AI Falschirmsprung</German>
 <French>AI HALO saut</French>
 <Russian>Прыжок HALO AI</Russian>
@@ -59,6 +67,7 @@
 </Key>
 <Key ID="STR_BMR_save_loadout">
 <Original>Save Respawn Loadout</Original>
+<English>Save Respawn Loadout</English>
 <German>Speichere Equipment</German>
 <French>Sauvegarder les équipement</French>
 <Russian>Сохранить снаряжение</Russian>
@@ -66,6 +75,7 @@
 </Key>
 <Key ID="STR_BMR_load_saved_loadout">
 <Original>Load Saved Loadout</Original>
+<English>Load Saved Loadout</English>
 <German>Lade Equipment</German>
 <French>Équipez équipements sauvé</French>
 <Russian>Загрузить сохраненное снаряжение</Russian>
@@ -73,6 +83,7 @@
 </Key>
 <Key ID="STR_BMR_restore_default_loadout">
 <Original>Restore Default Loadout</Original>
+<English>Restore Default Loadout</English>
 <German>Lade Standard Equipment</German>
 <French>Restaurer les équipement défaut</French>
 <Russian>Восстановить снаряжение по умолчанию</Russian>
@@ -80,6 +91,7 @@
 </Key>
 <Key ID="STR_BMR_earPlugs">
 <Original>Ear Plugs</Original>
+<English>Ear Plugs</English>
 <German>Ohrstöpsel</German>
 <French>Des bouchons d'oreilles</French>
 <Russian>беруши</Russian>
@@ -87,6 +99,7 @@
 </Key>
 <Key ID="STR_BMR_recruit_inf">
 <Original>Recruit Infantry</Original>
+<English>Recruit Infantry</English>
 <German>Rekrutiere Infanterie</German>
 <French>Recruter Infanterie</French>
 <Russian>Нанять пехоту</Russian>
@@ -94,6 +107,7 @@
 </Key>
 <Key ID="STR_BMR_cunstruct_farp">
 <Original>Construct FARP</Original>
+<English>Construct FARP</English>
 <German>Konstruiere FARP</German>
 <French>Construire l'avenir réarmement et de ravitaillement point</French>
 <Russian>Постровить точку заправки/перевооружения</Russian>
@@ -101,6 +115,7 @@
 </Key>
 <Key ID="STR_BMR_place_sandbag">
 <Original>Place Sandbag</Original>
+<English>Place Sandbag</English>
 <German>Platziere Sandsäcke</German>
 <French>lieu Barrière</French>
 <Russian>Разместить мешки с песком</Russian>
@@ -108,6 +123,7 @@
 </Key>
 <Key ID="STR_BMT_remove_sandbag">
 <Original>Remove Sandbag</Original>
+<English>Remove Sandbag</English>
 <German>Sandsack Entfernen</German>
 <French>Supprimer la barrière</French>
 <Russian>Удалить мешки с песком</Russian>
@@ -115,6 +131,7 @@
 </Key>
 <Key ID="STR_BMR_ugv_air_drop">
 <Original>UGV Air Drop</Original>
+<English>UGV Air Drop</English>
 <German>UF anfordern</German>
 <French>VYNH largage</French>
 <Russian>Выброска Бнт</Russian>
@@ -122,6 +139,7 @@
 </Key>
 <Key ID="STR_BMR_bullet_cam_on">
 <Original>Bullet Camera On</Original>
+<English>Bullet Camera On</English>
 <German>Kugel Kamera an</German>
 <French>Caméra Bullet Sur</French>
 <Russian>Камера пули вкл.</Russian>
@@ -129,6 +147,7 @@
 </Key>
 <Key ID="STR_BMR_bullet_cam_off">
 <Original>Bullet Camera Off</Original>
+<English>Bullet Camera Off</English>
 <German>Kugel Kamera aus</German>
 <French>Caméra Bullet éteindre</French>
 <Russian>Камера пули откл.</Russian>
@@ -136,6 +155,7 @@
 </Key>
 <Key ID="STR_BMR_ON">
 <Original>On</Original>
+<English>On</English>
 <German>Auf</German>
 <French>Sur</French>
 <Russian>вкл</Russian>
@@ -143,6 +163,7 @@
 </Key>
 <Key ID="STR_BMR_OFF">
 <Original>Off</Original>
+<English>Off</English>
 <German>Aus</German>
 <French>De</French>
 <Russian>выкл</Russian>
@@ -150,6 +171,7 @@
 </Key>
 <Key ID="STR_BMR_found_intel">
 <Original>%1 found intel</Original>
+<English>%1 found intel</English>
 <German>%1 hat Hinweise gefunden</German>
 <French>%1 trouvé intel</French>
 <Russian>%1 нашел информацию</Russian>
@@ -157,17 +179,16 @@
 </Key>
 <Key ID="STR_BMR_Cache_Destroyed">
 <Original>Ammo Cache has been destroyed</Original>
+<English>Ammo Cache has been destroyed</English>
 <German>Munitionskiste zerstört</German>
 <French>Munitions Cache Détruit</French>
 <Russian>Ящик с боеприпасами уничтожен</Russian>
 <Spanish>Munición caché Destroyed</Spanish>
-<Italian>Ammo Cache Destroyed</Italian>
-<Czech>Ammo Cache Destroyed</Czech>
 <Polish>Zniszczony Ammo Cache</Polish>
-<Portuguese>Ammo Cache Destroyed</Portuguese>
 </Key>
 <Key ID="STR_BMR_who_destroyed_ammocache">
 <Original>%1 has destroyed the Ammo Cache</Original>
+<English>%1 has destroyed the Ammo Cache</English>
 <German>%1 hat die Munitionskiste zerstört</German>
 <French>%1 Détruit Cache Munitions</French>
 <Russian>%1 уничтожил ящик с боеприпасами</Russian>
@@ -175,6 +196,7 @@
 </Key>
 <Key ID="STR_BMR_who_destroyed_tower">
 <Original>%1 has destroyed the Tower</Original>
+<English>%1 has destroyed the Tower</English>
 <German>%1 hat den Turm zerstört</German>
 <French>Tour détruite par %1</French>
 <Russian>%1 уничтожил башню</Russian>
@@ -182,6 +204,7 @@
 </Key>
 <Key ID="STR_BMR_veh_awarded">
 <Original>Vehicle Awarded</Original>
+<English>Vehicle Awarded</English>
 <German>Fahrzeug erhalten</German>
 <French>véhicule Attribué</French>
 <Russian>Автомобиль Награжден</Russian>
@@ -189,6 +212,7 @@
 </Key>
 <Key ID="STR_BMR_veh_reward">
 <Original>Vehicle Reward</Original>
+<English>Vehicle Reward</English>
 <German>Fahrzeug zur Belohnung</German>
 <French>Récompense de véhicules</French>
 <Russian>Автомобиль Награда</Russian>
@@ -196,13 +220,15 @@
 </Key>
 <Key ID="STR_BMR_restrict_pilot">
 <Original>Only Pilots can fly</Original>
+<English>Only Pilots can fly</English>
 <German>Nur Piloten dürfen fliegen</German>
 <French>Seuls les pilotes peuvent voler</French>
 <Russian>Только пилоты могут летать</Russian>
 <Spanish>Sólo los pilotos pueden volar</Spanish>
 </Key>
 <Key ID="STR_BMR_Farp_restrict">
-<Original>You must be on foot to build FARP.</Original>
+<Original>You must be on foot to build FARP</Original>
+<English>You must be on foot to build FARP</English>
 <German>Du must zu Fuss sein um FARP zu bauen</German>
 <French>Vous devez être sur pied pour construire une station-service.</French>
 <Russian>Вы должны быть вне техники, чтобы построить Точку Заправки/Перевооружения</Russian>
@@ -210,6 +236,7 @@
 </Key>
 <Key ID="STR_BMR_Sandbag_restrict">
 <Original>You must be on foot to place sandbag</Original>
+<English>You must be on foot to place sandbag</English>
 <German>Du musst zu Fuss sein um Sandsäcke zu platzieren</German>
 <French>Vous devez être sur pied pour placer un sac de sable</French>
 <Russian>Вы должны быть вне техники чтобы разместить мешки с меском</Russian>
@@ -217,6 +244,7 @@
 </Key>
 <Key ID="STR_BMR_Max_recruit_limit">
 <Original>You've reached the max. allowed group size</Original>
+<English>You've reached the max. allowed group size</English>
 <German>Du hast die maximal erlaubte Gruppengrösse erreicht</German>
 <French>Vous avez atteint le maximum autorisé pour la taille du groupe</French>
 <Russian>Вы достигли максимально допустимого размера группы</Russian>
@@ -224,6 +252,7 @@
 </Key>
 <Key ID="STR_BMR_group_leaders_only">
 <Original>Reserved for group leaders</Original>
+<English>Reserved for group leaders</English>
 <German>Eingeschränkt auf Gruppenleiter</German>
 <French>Réservé aux chefs de groupe</French>
 <Russian>Ограничено лидером группы</Russian>
@@ -231,6 +260,7 @@
 </Key>
 <Key ID="STR_BMR_flip_restrict">
 <Original>You must be on foot to flip vehicle</Original>
+<English>You must be on foot to flip vehicle</English>
 <German>Du musst zu Fuss sein um Fahrzeug zu drehen</German>
 <French>Vous devez être sur pied pour retourner véhicule</French>
 <Russian>Вы должны быть вне техники чтобы перевернуть транспорт</Russian>
@@ -238,6 +268,7 @@
 </Key>
 <Key ID="STR_BMR_Op4MHQ_deploy_restrict">
 <Original>Exit vehicle to deploy MHQ</Original>
+<English>Exit vehicle to deploy MHQ</English>
 <German>Aussteigen um MHQ zu platzieren</German>
 <French>Sortir le véhicule à déployer MHQ</French>
 <Russian>Выйдите из транспорта чтобы развернуть MHQ</Russian>
@@ -245,6 +276,7 @@
 </Key>
 <Key ID="STR_BMR_push_restrict1">
 <Original>You can't push from in the water</Original>
+<English>You can't push from in the water</English>
 <German>Du kannst nicht vom Wasser aus schieben</German>
 <French>Vous ne pouvez pas pousser à partir dans l'eau</French>
 <Russian>Вы не можете нажать в воде</Russian>
@@ -252,6 +284,7 @@
 </Key>
 <Key ID="STR_BMR_push_restrict2">
 <Original>You can't push from inside the vehicle</Original>
+<English>You can't push from inside the vehicle</English>
 <German>Du kannst nicht aus dem Innenbereich des Fahrzeuges schieben</German>
 <French>Vous ne pouvez pas pousser l'intérieur du véhicule</French>
 <Russian>Вы не можете нажать внутри техники</Russian>
@@ -259,6 +292,7 @@
 </Key>
 <Key ID="STR_BMR_NoSpace_forMHQ">
 <Original>Move MHQ to clearer area</Original>
+<English>Move MHQ to clearer area</English>
 <German>Bewege MHQ in freien Bereich</German>
 <French>Déplacer MHQ de zone claire</French>
 <Russian>Переместить MHQ к чистой местности</Russian>
@@ -266,6 +300,7 @@
 </Key>
 <Key ID="STR_BMR_UGV_supReady">
 <Original>UGV Support Ready</Original>
+<English>UGV Support Ready</English>
 <German>UGV Unterstützung bereit</German>
 <French>Drone Appuyer prêt</French>
 <Russian>UGV поддержка готова</Russian>
@@ -273,6 +308,7 @@
 </Key>
 <Key ID="STR_BMR_Bail_restrictOnDamage">
 <Original>Not enough damage to bail</Original>
+<English>Not enough damage to bail</English>
 <German>Nicht genug Schaden um abzuspringen</German>
 <French>Pas assez de dégâts pour éjecter</French>
 <Russian>Недостаточно урона, чтобы выпрыгнуть</Russian>
@@ -280,6 +316,7 @@
 </Key>
 <Key ID="STR_BMR_ai_halo_inprogress">
 <Original>AI HALO in progress</Original>
+<English>AI HALO in progress</English>
 <German>AI Fallschirmspringer auf dem Weg</German>
 <French>AI HALO en cours</French>
 <Russian>AI HALO в процессе</Russian>
@@ -287,6 +324,7 @@
 </Key>
 <Key ID="STR_BMR_Vehicle_destroyed">
 <Original>The vehicle has been destroyed</Original>
+<English>The vehicle has been destroyed</English>
 <German>Das Fahrzeug wurde zerstört</German>
 <French>Le véhicule a été détruit</French>
 <Russian>Техника была уничтожена</Russian>
@@ -294,6 +332,7 @@
 </Key>
 <Key ID="STR_BMR_useMaint_action">
 <Original>Use the maintenance action!</Original>
+<English>Use the maintenance action!</English>
 <German>Benutze die Reparatur Funktion</German>
 <French>Utilisez l'action de maintenance!</French>
 <Russian>Используйте действие технического обслуживания!</Russian>
@@ -301,6 +340,7 @@
 </Key>
 <Key ID="STR_BMR_Maint_done">
 <Original>Maintenance complete</Original>
+<English>Maintenance complete</English>
 <German>Reparatur abgeschlossen</German>
 <French>Maintenance terminée</French>
 <Russian>Обслуживание завершено</Russian>
@@ -308,6 +348,7 @@
 </Key>
 <Key ID="STR_BMR_RepairTruck_toFar">
 <Original>Move closer to repair truck</Original>
+<English>Move closer to repair truck</English>
 <German>Gehe näher um LKW zu reparieren</German>
 <French>Rapprochez-vous de l'ingénieur chariot</French>
 <Russian>Подойдите ближе к автомастерской</Russian>
@@ -315,6 +356,7 @@
 </Key>
 <Key ID="STR_BMR_maintenance_veh">
 <Original>Maintenance vehicle</Original>
+<English>Maintenance vehicle</English>
 <German>Repariere Fahrzeug</German>
 <French>Véhicule d'entretien</French>
 <Russian>Техническое обслуживание транспорта</Russian>
@@ -322,6 +364,7 @@
 </Key>
 <Key ID="STR_BMR_repair_wreck">
 <Original>Repair wreck</Original>
+<English>Repair wreck</English>
 <German>Repariere Wrack</German>
 <French>réparation épave</French>
 <Russian>Починить повреждения</Russian>
@@ -329,6 +372,7 @@
 </Key>
 <Key ID="STR_BMR_flip_veh">
 <Original>Flip Vehicle</Original>
+<English>Flip Vehicle</English>
 <German>Drehe Fahrzeug</German>
 <French>Bascule Véhicule</French>
 <Russian>Перевернуть транспорт</Russian>
@@ -336,6 +380,7 @@
 </Key>
 <Key ID="STR_BMR_HuntIR_tip1">
 <Original>Shoot a white flare grenade toward your recon area</Original>
+<English>Shoot a white flare grenade toward your recon area</English>
 <German>Schiesse eine weisse Leuchtkugel in deine Aufklärungszone</German>
 <French>Fire un évasement blanc vers votre zone de recon</French>
 <Russian>Выстрелите белой осветительной гранатой в сторону вашей места разведки</Russian>
@@ -343,6 +388,7 @@
 </Key>
 <Key ID="STR_BMR_HuntIR_tip2">
 <Original>Wrong ammo for HuntIR</Original>
+<English>Wrong ammo for HuntIR</English>
 <German>Falsche Munition für HuntIR</German>
 <French>Mauvais type de munitions</French>
 <Russian>Неправильные боеприпасы для HuntIR</Russian>
@@ -350,6 +396,7 @@
 </Key>
 <Key ID="STR_BMR_missing_map">
 <Original>Missing map item!</Original>
+<English>Missing map item!</English>
 <German>Fehlende Kartenposition!</German>
 <French>Élément de carte manquant</French>
 <Russian>Отсутствующий элемент на карте</Russian>
@@ -357,6 +404,7 @@
 </Key>
 <Key ID="STR_BMR_reward_mapclick">
 <Original>Click on Map for Vehicle Drop Point</Original>
+<English>Click on Map for Vehicle Drop Point</English>
 <German>Klicke auf die Karte für Fahrzeug Absetzbereich</German>
 <French>Cliquez sur la carte pour Drop Point véhicule</French>
 <Russian>Нажмите на карте для точки сброса техники</Russian>
@@ -364,6 +412,7 @@
 </Key>
 <Key ID="STR_BMR_ai_halo_mapclick">
 <Original>Click on Map for AI HALO location</Original>
+<English>Click on Map for AI HALO location</English>
 <German>Klicke auf die Karte für Fallschirm Absprungzone</German>
 <French>Cliquez sur la carte pour l'emplacement AI HALO</French>
 <Russian>Нажмите на карте для позиции AI HALO</Russian>
@@ -371,6 +420,7 @@
 </Key>
 <Key ID="STR_BMR_ugv_mapclick">
 <Original>Click on the map where you want the UGV to land or press escape to cancel</Original>
+<English>Click on the map where you want the UGV to land or press escape to cancel</English>
 <German>Klicke auf die Karte für UGV Landezone oder drücke Esc zum abrechen</German>
 <French>Clic gauche sur la carte où vous souhaitez l' UGV à la terre ou appuyez sur Echap pour annuler</French>
 <Russian>Нажмите на карте там, где вы хотите сбросить UGV или нажмите Escape для отмены</Russian>
@@ -378,6 +428,7 @@
 </Key>
 <Key ID="STR_BMR_postpone_reward">
 <Original>You've postponed vehicle creation</Original>
+<English>You've postponed vehicle creation</English>
 <German>Sie haben Fahrzeug Erstellung verschoben</German>
 <French>Vous avez reporté la création d'un véhicule</French>
 <Russian>Вы отложили создание автомобиля</Russian>
@@ -385,13 +436,15 @@
 </Key>
 <Key ID="STR_BMR_ugv_movingTo_smoke">
 <Original>UGV landed and moving to smoke</Original>
+<English>UGV landed and moving to smoke</English>
 <German>UGV gelandet und bewegt sich zum Rauch</German>
 <French>UGV atterri et se déplaçant à fumer</French>
 <Russian>UGV приземлился и двигается в дым</Russian>
 <Spanish>UGV aterrizó y se mueve a fumar</Spanish>
 </Key>
 <Key ID="STR_BMR_ugv_lost">
-<Original>Shit we lost UGV support</Original>
+<Original>Shit, we lost UGV support</Original>
+<English>Shit, we lost UGV support</English>
 <German>Scheisse, wir haben die UGV Unterstützung verloren</German>
 <French>Merde, nous avons perdu le soutien UGV</French>
 <Russian>Дерьмо, мы потеряли UGV поддержку</Russian>
@@ -399,6 +452,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_dhvt">
 <Original>Destroy High Voltage Tower</Original>
+<English>Destroy High Voltage Tower</English>
 <German>Zerstöre Hochspannungsturm</German>
 <French>Détruisez Tour High Voltage</French>
 <Russian>Уничтожить высоковольтную башню</Russian>
@@ -406,6 +460,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descW_dhvt">
 <Original>Cut area power to give you tactical advantage by destroying the high voltage tower with satchel or charge</Original>
+<English>Cut area power to give you tactical advantage by destroying the high voltage tower with satchel or charge</English>
 <German>Zerstöre den Hochspannungsturm um einen taktischen Vorteil wegen Stromausfall zu erlangen, benutze dafür eine Spreng- oder Rucksackladung</German>
 <French>Couper le courant de la zone pour vous donner un avantage tactique en détruisant tour à haute tension avec sacoche ou la charge</French>
 <Russian>Отрежьте силу в зоне, чтобы дать вам тактическое превосходство, путем уничтожения высоковольтной башни подрывным ранцем или зарядом</Russian>
@@ -413,6 +468,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_dhvt">
 <Original>Protect High Voltage Tower</Original>
+<English>Protect High Voltage Tower</English>
 <German>Beschütze den Hochspannungsturm</German>
 <French>Protéger Tour High Voltage</French>
 <Russian>Защитите высоковольтную башню</Russian>
@@ -420,6 +476,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descE_dhvt">
 <Original>Protect high voltage tower to keep the lights on in the area</Original>
+<English>Protect high voltage tower to keep the lights on in the area</English>
 <German>Beschütze den Hochspannungsturm damit die Lichter in der Umgebung an bleiben</German>
 <French>Protéger la tour à haute tension pour garder les lumières allumées dans la région</French>
 <Russian>Защитите высоковольтную башню, чтобы сохранить свет на местности</Russian>
@@ -427,6 +484,7 @@
 </Key>
 <Key ID="STR_BMR_PowerTower_success">
 <Original>City is losing power within a radius of 1000 meters. Good Job!</Original>
+<English>City is losing power within a radius of 1000 meters. Good Job!</English>
 <German>Im Umkreis von 1000 Metern ist der Strom in der Stadt ausgefallen. Gute Arbeit!</German>
 <French>Ville est en train de perdre le pouvoir au sein de 1000 mètres de rayon. Bon Travail!</French>
 <Russian>Город теряет силу в радиусе 1000 метров. Отличная работа!</Russian>
@@ -434,6 +492,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_cnho">
 <Original>Capture Outpost</Original>
+<English>Capture Outpost</English>
 <German>Erobere Aussenposten</German>
 <French>capture d' Outpost</French>
 <Russian>Захватите заставу</Russian>
@@ -441,6 +500,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descW_cnho">
 <Original>Capture and Hold Outpost. Stay within a 50 meter radius of objective center once captured for duration of timer.</Original>
+<English>Capture and Hold Outpost. Stay within a 50 meter radius of objective center once captured for duration of timer.</English>
 <German>Erobere und Halte den Aussenposten. Bleibe im Umkreis von 50 Metern zur Objektmitte bis die Zeit abgelaufen ist.</German>
 <French>Capturer et tenir Outpost. Restez dans un rayon de 50 mètres du centre de l'objectif une fois capturés pour la durée de la minuterie.</French>
 <Russian>Захватите и удерживайте заставу. Оставайтесь в радиусе 50 метров от центра задания после захвата.</Russian>
@@ -448,6 +508,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_cnho">
 <Original>Defend Outpost</Original>
+<English>Defend Outpost</English>
 <German>Verteidige Aussenposten</German>
 <French>Défendre Outpost</French>
 <Russian>Защитите заставу</Russian>
@@ -455,6 +516,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descE_cnho">
 <Original>Defend and Hold Outpost</Original>
+<English>Defend and Hold Outpost</English>
 <German>Verteidige und Halte den Aussenposten</German>
 <French>Défendre et tenir Outpost</French>
 <Russian>Защитите и удерживайте заставу</Russian>
@@ -462,6 +524,7 @@
 </Key>
 <Key ID="STR_BMR_outpost_caped">
 <Original>Outpost Captured. Enemy reinforcements are in route</Original>
+<English>Outpost Captured. Enemy reinforcements are in route</English>
 <German>Aussenposten eingenommen. Gegnerische Verstärkung ist auf dem Weg</German>
 <French>Capturé Outpost. Les renforts ennemis sont en voie</French>
 <Russian>Застава захвачена. Вражеские подкрепления в пути</Russian>
@@ -469,6 +532,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_dms">
 <Original>Destroy Mortar Squad</Original>
+<English>Destroy Mortar Squad</English>
 <German>Zerstöre Granatwerfer</German>
 <French>Détruisez Mortier Squad</French>
 <Russian>Уничтожьте Минометный Отряд</Russian>
@@ -476,6 +540,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_dms">
 <Original>Defend Mortar Squad</Original>
+<English>Defend Mortar Squad</English>
 <German>Verteidige Granatwerfer</German>
 <French>Défendre Mortier Squad</French>
 <Russian>Защитите Минометный Отряд</Russian>
@@ -483,6 +548,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_eil">
 <Original>Eliminate Insurgent Leader</Original>
+<English>Eliminate Insurgent Leader</English>
 <German>Eliminiere Rebellenführer</German>
 <French>Éliminer chef des insurgés</French>
 <Russian>Ликвидировать Лидера Повстанцев</Russian>
@@ -490,6 +556,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_eil">
 <Original>Defend Insurgent Leader</Original>
+<English>Defend Insurgent Leader</English>
 <German>Verteidige Rebellenführer</German>
 <French>Défendre chef des insurgés</French>
 <Russian>Защитите Лидера Повстанцев</Russian>
@@ -497,6 +564,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_cmf">
 <Original>Clear mine field</Original>
+<English>Clear mine field</English>
 <German>Räume Minenfeld</German>
 <French>Effacer fieldDefend de la mine et maintenez Outpost</French>
 <Russian>Очистить минное поле</Russian>
@@ -504,6 +572,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descW_cmf">
 <Original>Clear mine field of enemies and deactivate or detonate all mines in minefield</Original>
+<English>Clear mine field of enemies and deactivate or detonate all mines in minefield</English>
 <German>Eliminiere Gegner im Minenfeld und deaktiviere oder sprenge alle Minen</German>
 <French>Domaine de enemys de la mine claire et désactiver ou faire exploser toutes les mines en champs de mines</French>
 <Russian>Очистить минное поле от врагов и деактивировать или взорвать все минны</Russian>
@@ -511,6 +580,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_cmf">
 <Original>Defend mine field</Original>
+<English>Defend mine field</English>
 <German>Verteidige Minenfeld</German>
 <French>Défendre champ de mines</French>
 <Russian>Защитите минное поле</Russian>
@@ -518,6 +588,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descE_cmf">
 <Original>Eliminate any West unit in mine field</Original>
+<English>Eliminate any West unit in mine field</English>
 <German>Eliminiere jede westliche Einheit im Minenfeld</German>
 <French>Éliminer toute unité de l'Ouest en champ de mines</French>
 <Russian>Уничтожьте любой юнит Синих в минном поле</Russian>
@@ -525,6 +596,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_rdp">
 <Original>Rescue Pilot</Original>
+<English>Rescue Pilot</English>
 <German>Rette Pilot</German>
 <French>Rescue Pilot</French>
 <Russian>Спасти пилота</Russian>
@@ -532,6 +604,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descW_rdp">
 <Original>Rescue the downed pilot and return him to base</Original>
+<English>Rescue the downed pilot and return him to base</English>
 <German>Rette den abgeschossenen Piloten und bring in zurück zur Basis</German>
 <French>Sauver le pilote abattu et le retourner à la base</French>
 <Russian>Спасти сбитого пилота и вернуть его на базу</Russian>
@@ -539,6 +612,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_rdp">
 <Original>Sabotage Pilot Rescue</Original>
+<English>Sabotage Pilot Rescue</English>
 <German>Sabotiere Pilotenrettung</German>
 <French>Sabotage pilote de sauvetage</French>
 <Russian>Сорвите спасение пилота</Russian>
@@ -546,6 +620,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descE_rdp">
 <Original>Sabotage pilot rescue by killing him before Blufor can rescue him</Original>
+<English>Sabotage pilot rescue by killing him before Blufor can rescue him</English>
 <German>Sabotiere Pilotenrettung, töte den Piloten bevor Blufor ihn retten kann</German>
 <French>Sabotage pilote de sauvetage en le tuant avant BLUFOR peut le sauver.</French>
 <Russian>Сорвите спасение пилота, убив его, прежде чем Синие спасут его</Russian>
@@ -553,6 +628,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_dac">
 <Original>Destroy Armed Convoy</Original>
+<English>Destroy Armed Convoy</English>
 <German>Zerstöre Fahrzeugkolonne</German>
 <French>Détruisez convoi armé</French>
 <Russian>Уничтожьте Вооруженный Конвой</Russian>
@@ -560,6 +636,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descW_dac">
 <Original>Destroy armed vehicle convoy of 4 and all crew members</Original>
+<English>Destroy armed vehicle convoy of 4 and all crew members</English>
 <German>Zerstöre bewaffnete Kolonne -4 Fahrzeuge- und elimiere die Besatzung</German>
 <French>Détruisez un véhicule armé convoi de 4 et tous les membres de l'équipage</French>
 <Russian>Уничтожьте конвой из четырех вооруженных машин и весь экипаж</Russian>
@@ -567,6 +644,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_dac">
 <Original>Defend Armed Convoy</Original>
+<English>Defend Armed Convoy</English>
 <German>Verteidige Fahrzeugkolonne</German>
 <French>Défendre convoi armé</French>
 <Russian>Защитите Вооруженный Конвой</Russian>
@@ -574,6 +652,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descE_dac">
 <Original>Defend armed vehicle convoy of 4 and all crew members</Original>
+<English>Defend armed vehicle convoy of 4 and all crew members</English>
 <German>Verteidige bewaffnete Kolonne -4 Fahrzeuge- und die Besatzung</German>
 <French>Défendre véhicule armé convoi de 4 et tous les membres de l'équipage</French>
 <Russian>Защитите конвой из четырех вооруженных машин и весь экипаж</Russian>
@@ -581,6 +660,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_dsc">
 <Original>Destroy Support Convoy</Original>
+<English>Destroy Support Convoy</English>
 <German>Zerstöre Unterstützungskolonne</German>
 <French>Détruisez soutien Convoi</French>
 <Russian>Уничтожьте Конвой Поддержки</Russian>
@@ -588,6 +668,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descW_dsc">
 <Original>Destroy support vehicle convoy of 4 and all crew members</Original>
+<English>Destroy support vehicle convoy of 4 and all crew members</English>
 <German>Zerstöre Unterstützungkolonne -4 Fahrzeuge- und elimiere die Besatzung</German>
 <French>Détruisez un véhicule de soutien convoi de 4 et tous les membres de l'équipage</French>
 <Russian>Уничтожьте конвой из четырех машин поддержки и весь их экипаж</Russian>
@@ -595,6 +676,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_dsc">
 <Original>Defend Support Convoy</Original>
+<English>Defend Support Convoy</English>
 <German>Verteidige Unterstützungskolonne</German>
 <French>Défendre soutien Convoi</French>
 <Russian>Защитите Конвой Поддержки</Russian>
@@ -602,6 +684,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descE_dsc">
 <Original>Defend support vehicle convoy of 4 and all crew members</Original>
+<English>Defend support vehicle convoy of 4 and all crew members</English>
 <German>Verteidige Unterstützungskolonne -4 Fahrzeuge- und die Besatzung</German>
 <French>Défendre soutien CDefend véhicule de soutien convoi de 4 et tout l'équipage membersonvoy</French>
 <Russian>Защитите конвой из 4 машин поддержки и весь их экипаж</Russian>
@@ -609,6 +692,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_dct">
 <Original>Destroy communications tower</Original>
+<English>Destroy communications tower</English>
 <German>Zerstöre Sendeturm</German>
 <French>Détruisez tour de communications</French>
 <Russian>Уничтожьте башню связи</Russian>
@@ -616,6 +700,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descW_dct">
 <Original>Destroy communications tower with satchel or charge</Original>
+<English>Destroy communications tower with satchel or charge</English>
 <German>Zerstöre den Sendeturm mit einer Spreng- oder Rucksackladung</German>
 <French>Détruisez la tour de communications avec sacoche ou la charge</French>
 <Russian>Уничтожьте башню связи подрывным ранцем или зарядом</Russian>
@@ -623,6 +708,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_dct">
 <Original>Defend communications tower</Original>
+<English>Defend communications tower</English>
 <German>Verteidige Sendeturm</German>
 <French>Défendre tour de communications</French>
 <Russian>Защитите башню связи</Russian>
@@ -630,6 +716,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_lnds">
 <Original>Deliver Supplies</Original>
+<English>Deliver Supplies</English>
 <German>Liefere Fracht</German>
 <French>Livrer des fournitures</French>
 <Russian>Доставьте припасы</Russian>
@@ -637,6 +724,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descW_lnds">
 <Original>Load and drop supply container to Delivery Zone Marker with MHQ_3. Supply container is next to MHQ_3 respawn point at base. Drop cargo within 750 meters of green smoke/Delivery Zone Marker. Check map for MHQ_3 Marker and look out for Anti Air defences. Pilot must unload cargo before exiting chopper. Engine must remain on until task is completed. Use Load Cargo and Unload Cargo actions.</Original>
+<English>Load and drop supply container to Delivery Zone Marker with MHQ_3. Supply container is next to MHQ_3 respawn point at base. Drop cargo within 750 meters of green smoke/Delivery Zone Marker. Check map for MHQ_3 Marker and look out for Anti Air defences. Pilot must unload cargo before exiting chopper. Engine must remain on until task is completed. Use Load Cargo and Unload Cargo actions.</English>
 <German>Lade Frachtcontainer in MHQ_3 und liefere ihn zur markierten Auslieferungszone. Der Frachtcontainer befindet sich neben dem MHW_3 in der Basis. Platziere den Frachtcontainer mindesten im Umkreis von 750 Metern zur, mit grünem Rauch markierten, Auslieferungszone. Halte Ausschau nach gegnerischer Luftabwehr. Pilot muss die Fracht entladen bevor er den Helikopter verlässt. Die Engine muss eingeschaltet bleiben, bis die Aufgabe abgeschlossen ist. </German>
 <French>Chargez et déposez réservoir d'alimentation de Zone de livraison Marker avec MHQ_3. Récipient d'approvisionnement est à côté de point de respawn MHQ_3 à la base. Déposer la cargaison à moins de 750 mètres de fumée verte / Zone de livraison Marker . Vérifiez la carte pour MHQ_3 Marker et regarder dehors pour défenses Anti Air. Pilote doit décharger des marchandises avant de quitter helicóptero. Le moteur doit rester allumé jusqu'à la fin de la tâche.</French>
 <Russian>Загрузите и сбросьте контейнер снабжения к маркеру зоны доставки с MHQ_3. Контейнер снабжения рядом с местом респауна MHQ_3 на базе. Сбросьте груз в 750 метрах от зеленого дыма/Маркера зоны доставки. Проверьте карту для маркера MHQ_3 и остерегайтесь ПВО. Пилот должен выгрузить груз перед выходом из вертолета. Двигатель должен оставаться включенным до завершения задачи Dvigatel' dolzhen ostavat'sya vklyuchennym do zaversheniya zadachi.</Russian>
@@ -644,6 +732,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_lnds">
 <Original>Sabatoge Delivery</Original>
+<English>Sabatoge Delivery</English>
 <German>Sabotiere Lieferung</German>
 <French>Sabatoge Livraison</French>
 <Russian>Сорвите доставку</Russian>
@@ -651,6 +740,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descE_lnds">
 <Original>Intercept Mohawk supply delivery en route to Task Marker Delivery Zone.</Original>
+<English>Intercept Mohawk supply delivery en route to Task Marker Delivery Zone.</English>
 <German>Fange die Mohawk Versorgungslieferung auf dem Weg zur markierten Auslieferungszone ab.</German>
 <French>Intercepter la livraison d'alimentation Mohawk en route vers des tâches Zone Livraison Marker.</French>
 <Russian>Перехватите Mohawk, доставляющий припасы, в пути к зоне доставки на маркер задачи.</Russian>
@@ -658,6 +748,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_drb">
 <Original>Clear Roadblock</Original>
+<English>Clear Roadblock</English>
 <German>Zerstöre Sperre</German>
 <French>DETRUIRE BARRAGE ROUTIER</French>
 <Russian>Уничтожьте контрольная точка</Russian>
@@ -665,6 +756,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descW_drb">
 <Original>Eliminate all roadblock defences</Original>
+<English>Eliminate all roadblock defences</English>
 <German>Beseitigen Sie alle Straßensperre Abwehrkräfte</German>
 <French>Éliminer toutes les défenses de barrages routiers</French>
 <Russian>Уничтожьте контрольная точка</Russian>
@@ -672,6 +764,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_hrb">
 <Original>Defend Roadblock</Original>
+<English>Defend Roadblock</English>
 <German>Sabotiere Lieferung</German>
 <French>Protéger BARRAGE ROUTIER</French>
 <Russian>защищать контрольная точка</Russian>
@@ -679,6 +772,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_descE_hrb">
 <Original>Defend Roadblock</Original>
+<English>Defend Roadblock</English>
 <German>Sabotiere Lieferung</German>
 <French>Protéger BARRAGE ROUTIER</French>
 <Russian>защищать контрольная точка</Russian>
@@ -686,6 +780,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_topic_global_Retrieve_Intel">
 <Original>Retrieve Intel</Original>
+<English>Retrieve Intel</English>
 <German>Abrufen von Informationen</German>
 <French>Récupérer des informations</French>
 <Russian>Получить информацию</Russian>
@@ -693,6 +788,7 @@
 </Key>
 <Key ID="STR_BMR_Tsk_desc_global_Retrieve_Intel">
 <Original>Retreive intel before enemy players</Original>
+<English>Retreive intel before enemy players</English>
 <German>Abrufen von Informationen vor feindlichen Spielern</German>
 <French>Récupérer des informations avant les joueurs ennemis</French>
 <Russian>Извлечение информации перед игроками противника</Russian>
@@ -700,6 +796,7 @@
 </Key>
 <Key ID="STR_BMR_delivery_ready">
 <Original>MHQ_3 cargo loaded and engines on. Clear for dust off</Original>
+<English>MHQ_3 cargo loaded and engines on. Clear for dust off</English>
 <German>MHQ_3 Fracht geladen und Maschinen an. Fertig zum Abflug</German>
 <French>MHQ_3 fret chargé et moteurs sur. Effacer pour dépoussiérer</French>
 <Russian>MHQ_3 груз загружен и двигатели запущены. Чисто для взлета</Russian>
@@ -707,6 +804,7 @@
 </Key>
 <Key ID="STR_BMR_delivery_destroyed_aborted">
 <Original>MHQ_3 with cargo has been destroyed or pilot aborted</Original>
+<English>MHQ_3 with cargo has been destroyed or pilot aborted</English>
 <German>MHQ_3 Fracht wurde zerstört oder Pilot hat abgebrochen</German>
 <French>MHQ_3 avec une cargaison a été détruite ou abandonnée pilote</French>
 <Russian>MHQ_3 с грузом был уничтожен или отменен пилотом</Russian>
@@ -714,6 +812,7 @@
 </Key>
 <Key ID="STR_BMR_delivery_success">
 <Original>Good job! Cargo delivered within range.</Original>
+<English>Good job! Cargo delivered within range.</English>
 <German>Gute Arbeit! Fracht wurde im Bereich ausgeliefert.</German>
 <French>Bon travail! Cargo livré à portée.</French>
 <Russian>Хорошая работа! Груз доставлен в пределах досягаемости.</Russian>
@@ -721,6 +820,7 @@
 </Key>
 <Key ID="STR_BMR_delivery_fail">
 <Original>Cargo not delivered within range.</Original>
+<English>Cargo not delivered within range.</English>
 <German>Fracht wurde nicht im Bereich ausgeliefert.</German>
 <French>Cargo pas livré dans la gamme.</French>
 <Russian>Груз не доставляется в пределах досягаемости.</Russian>
@@ -728,6 +828,7 @@
 </Key>
 <Key ID="STR_BMR_transport_down">
 <Original>Transport is Down</Original>
+<English>Transport is Down</English>
 <German>Transport wurde zerstört</German>
 <French>Transport est bas</French>
 <Russian>Транспорт сбит</Russian>
@@ -735,6 +836,7 @@
 </Key>
 <Key ID="STR_BMR_load_cargo">
 <Original>Load cargo</Original>
+<English>Load cargo</English>
 <German>Lade Fracht</German>
 <French>Charger des cargaisons</French>
 <Russian>Загрузить груз</Russian>
@@ -742,6 +844,7 @@
 </Key>
 <Key ID="STR_BMR_unload_cargo">
 <Original>Unload cargo</Original>
+<English>Unload cargo</English>
 <German>Entlade Fracht</German>
 <French>Décharger des cargaisons</French>
 <Russian>Выгрузить груз</Russian>
@@ -749,6 +852,7 @@
 </Key>
 <Key ID="STR_BMR_heli_extraction">
 <Original>Heli Extraction</Original>
+<English>Heli Extraction</English>
 <German>Helikopter Evakuierung </German>
 <French>Extraction d'hélicoptère</French>
 <Russian>Вертолет Эвакуации</Russian>
@@ -756,6 +860,7 @@
 </Key>
 <Key ID="STR_BMR_heli_extraction_cancel">
 <Original>Cancel Extraction</Original>
+<English>Cancel Extraction</English>
 <German>Breche Evakuierung ab</German>
 <French>Annuler Extraction</French>
 <Russian>Отменить эвакуацию</Russian>
@@ -763,6 +868,7 @@
 </Key>
 <Key ID="STR_BMR_heli_extraction_smoke">
 <Original>Smoke out at Evac LZ</Original>
+<English>Smoke out at Evac LZ</English>
 <German>Rauchmarkierung an der Evakuierungs Landezone</German>
 <French>Enfumer à la zone d'atterrissage d'evacextraction</French>
 <Russian>Дым на зоне приземления Эвакуации</Russian>
@@ -770,6 +876,7 @@
 </Key>
 <Key ID="STR_BMR_heli_extraction_inbound">
 <Original>Evac Inbound</Original>
+<English>Evac Inbound</English>
 <German>Helikopter zur Evakuierung im Anflug</German>
 <French>Evacuation en attente</French>
 <Russian>Эвакуация в пути</Russian>
@@ -777,6 +884,7 @@
 </Key>
 <Key ID="STR_BMR_heli_extraction_down">
 <Original>We've lost Evac</Original>
+<English>We've lost Evac</English>
 <German>Helikopter zur Evakuierung wurde zerstört</German>
 <French>Nous avons perdu evacextraction</French>
 <Russian>Мы потеряли Эвакуацию</Russian>
@@ -784,6 +892,7 @@
 </Key>
 <Key ID="STR_BMR_heli_extraction_standby">
 <Original>Evac on Standby</Original>
+<English>Evac on Standby</English>
 <German>Helikopter zur Evakuierung ist bereit</German>
 <French>Evacextraction en attente</French>
 <Russian>Эвакуация в режиме ожидания</Russian>
@@ -791,6 +900,7 @@
 </Key>
 <Key ID="STR_BMR_is_curator">
 <Original>%1 is Curator</Original>
+<English>%1 is Curator</English>
 <German>%1 ist Kuratorin</German>
 <French>%1 est Conservateur</French>
 <Russian>%1 является Куратор</Russian>
@@ -798,6 +908,7 @@
 </Key>
 <Key ID="STR_BMR_curator_removed">
 <Original>Curator Removed</Original>
+<English>Curator Removed</English>
 <German>Kuratorin Entfernt</German>
 <French>Conservateur Removed</French>
 <Russian>Куратор Удалены</Russian>
@@ -805,6 +916,7 @@
 </Key>
 <Key ID="STR_BMR_start_time">
 <Original>Set the start time:</Original>
+<English>Set the start time:</English>
 <German>Definiere Startzeit</German>
 <French>Définir l'heure de début:</French>
 <Russian>Установить время начала:</Russian>
@@ -812,6 +924,7 @@
 </Key>
 <Key ID="STR_BMR_UI_view_settings">
 <Original>Clients Settings</Original>
+<English>Clients Settings</English>
 <German>Spieler Einstellungen</German>
 <French>Paramètres d'affichage</French>
 <Russian>Настройки клиента</Russian>
@@ -819,6 +932,7 @@
 </Key>
 <Key ID="STR_BMR_UI_toggle_heading">
 <Original>Toggle Heading</Original>
+<English>Toggle Heading</English>
 <German>Schalte Richtungsanzeige ein</German>
 <French>Rubrique Basculer</French>
 <Russian>направление</Russian>
@@ -826,6 +940,7 @@
 </Key>
 <Key ID="STR_BMR_UI_status_hud">
 <Original>Status Hud</Original>
+<English>Status Hud</English>
 <German>Status HUD</German>
 <French>Statut Hud</French>
 <Russian>Статус HUD</Russian>
@@ -833,6 +948,7 @@
 </Key>
 <Key ID="STR_BMR_ambientLife">
 <Original>Ambient Life</Original>
+<English>Ambient Life</English>
 <German>Umgebungsleben</German>
 <French>Vie Ambiante</French>
 <Russian>Окружающая жизнь</Russian>
@@ -840,6 +956,7 @@
 </Key>
 <Key ID="STR_BMR_UI_close_dialog">
 <Original>Close Dialog</Original>
+<English>Close Dialog</English>
 <German>Schliesse Dialog</German>
 <French>Fermer Dialog</French>
 <Russian>Закрыть окно</Russian>
@@ -847,6 +964,7 @@
 </Key>
 <Key ID="STR_BMR_DustStorm_On">
 <Original>Dust Storm Incoming</Original>
+<English>Dust Storm Incoming</English>
 <German>Staubsturm einkommend</German>
 <French>Tempête de poussière arrivant</French>
 <Russian>Пыльный шторм</Russian>
@@ -854,6 +972,7 @@
 </Key>
 <Key ID="STR_BMR_DustStorm_Off">
 <Original>Dust Storm Cleared</Original>
+<English>Dust Storm Cleared</English>
 <German>Staubsturm gelöscht</German>
 <French>Tempête de poussière sortante</French>
 <Russian>песчаная буря прекратилась</Russian>
@@ -861,6 +980,7 @@
 </Key>
 <Key ID="STR_ATM_Alt">
 <Original>Altitude:</Original>
+<English>Altitude:</English>
 <German>Höhe</German>
 <French>L'altitude</French>
 <Russian>Высота:</Russian>
@@ -868,6 +988,7 @@
 </Key>
 <Key ID="STR_ATM_Keys">
 <Original>Select Key:</Original>
+<English>Select Key:</English>
 <German>Wähle Taste:</German>
 <French>Sélectionner une touche:</French>
 <Russian>Выберите клавишу:</Russian>
@@ -875,6 +996,7 @@
 </Key>
 <Key ID="STR_ATM_Main">
 <Original>Choose your Altitude and Cut Key</Original>
+<English>Choose your Altitude and Cut Key</English>
 <German>Wähle Höhe und Schneiden Taste</German>
 <French>Choisissez votre altitude et clé</French>
 <Russian>Выберите высоту и кнопку отрезания</Russian>
@@ -882,6 +1004,7 @@
 </Key>
 <Key ID="STR_ATM_hover">
 <Original>Your select Altitude</Original>
+<English>Your select Altitude</English>
 <German>Deine gewählte Höhe</German>
 <French>Votre altitude choisie</French>
 <Russian>Ваш выбор высоты</Russian>
@@ -889,6 +1012,7 @@
 </Key>
 <Key ID="STR_ATM_hinton">
 <Original>Select Altitude and Designate LZ for HALO Jump on the map</Original>
+<English>Select Altitude and Designate LZ for HALO Jump on the map</English>
 <German>Wähle Absprunghöhe und Landezone für Fallschirmsprung auf der Karte</German>
 <French>Sélectionnez votre altitude et position de saut en cliquant du bouton gauche de la souris sur la carte</French>
 <Russian>Выберите высоту и назначте зону посадки для прыжка HALO на карте</Russian>
@@ -896,6 +1020,7 @@
 </Key>
 <Key ID="STR_ATM_hintjump">
 <Original>PRESS KEY TO CUT-AWAY ROPES</Original>
+<English>PRESS KEY TO CUT-AWAY ROPES</English>
 <German>Drücke Taste zum Zerschneiden der Leinen</German>
 <French>Appuyez sur votre touche sélectionnée pour couper le parachute lignes</French>
 <Russian>Нажмите кнопку для отрезания веревок</Russian>
@@ -903,6 +1028,7 @@
 </Key>
 <Key ID="STR_ATM_hintload">
 <Original>loading loadout...</Original>
+<English>loading loadout...</English>
 <German>lade Equipment...</German>
 <French>Matériel de chargement</French>
 <Russian>загрузка снаряжения</Russian>
@@ -910,6 +1036,7 @@
 </Key>
 <Key ID="STR_ATM_Close">
 <Original>Close</Original>
+<English>Close</English>
 <German>schliessen</German>
 <French>Fermer</French>
 <Russian>Закрыть</Russian>
@@ -917,6 +1044,7 @@
 </Key>
 <Key ID="STR_JWC_CAS_field_system">
 <Original>Open CAS field system</Original>
+<English>Open CAS field system</English>
 <German>Öffne CAS Feldsystem</German>
 <French>Ouvert CAS système de champ</French>
 <Russian>Открыть полевую систему CAS</Russian>
@@ -924,6 +1052,7 @@
 </Key>
 <Key ID="STR_JWC_CAS_inbound">
 <Original>Coordinates received, CAS inbound</Original>
+<English>Coordinates received, CAS inbound</English>
 <German>Koordinaten erhalten, CAS auf dem Weg</German>
 <French>Coordonne reçu, entrant CAS</French>
 <Russian>Координаты получены, CAS приближается</Russian>
@@ -931,6 +1060,7 @@
 </Key>
 <Key ID="STR_JWC_CAS_aborted">
 <Original>CAS mission aborted</Original>
+<English>CAS mission aborted</English>
 <German>CAS Einsatz abgebrochen</German>
 <French>CAS mission avortée</French>
 <Russian>Миссия CAS прервана</Russian>
@@ -938,6 +1068,7 @@
 </Key>
 <Key ID="STR_JWC_CAS_single_confirm">
 <Original>Bomb dropped</Original>
+<English>Bomb dropped</English>
 <German>Bombe abgeworfen</German>
 <French>Bombe a chuté</French>
 <Russian>бомба упала</Russian>
@@ -945,6 +1076,7 @@
 </Key>
 <Key ID="STR_JWC_CAS_multi_confirm">
 <Original>Bombs dropped</Original>
+<English>Bombs dropped</English>
 <German>Bomben abgeworfen</German>
 <French>Bombes larguées</French>
 <Russian>бомбы упали</Russian>
@@ -952,6 +1084,7 @@
 </Key>
 <Key ID="STR_JWC_CAS_rtb">
 <Original>CAS RTB 5 mikes</Original>
+<English>CAS RTB 5 mikes</English>
 <German>CAS zurück zur Basis, wieder Einsatzbereit in 5 Minuten</German>
 <French>CAS retour à la base 5 minutes</French>
 <Russian>CAS вернется на базу через 5 минут</Russian>
@@ -959,6 +1092,7 @@
 </Key>
 <Key ID="STR_BMR_GrabIntel">
 <Original>Grab Intel</Original>
+<English>Grab Intel</English>
 <German>Sammeln Sie die Informationen</German>
 <French>Ramasser l'intelligence</French>
 <Russian>собирать информацию</Russian>
@@ -966,6 +1100,7 @@
 </Key>
 <Key ID="STR_BTC_Drag">
 <Original>Drag</Original>
+<English>Drag</English>
 <German>Ziehen</German>
 <French>Traîner</French>
 <Russian>лобовое сопротивление</Russian>
@@ -973,13 +1108,23 @@
 </Key>
 <Key ID="STR_BTC_Carry">
 <Original>Carry</Original>
+<English>Carry</English>
 <German>Tragen</German>
 <French>Porter</French>
 <Russian>Нести</Russian>
 <Spanish>Llevar</Spanish>
 </Key>
+<Key ID="STR_BTC_Load_wounded_in">
+<Original>Load wounded in_</Original>
+<English>Load wounded in_</English>
+<German>Verwundete laden_</German>
+<French>Charge blessée dans la_</French>
+<Russian>Груз, раненный в_</Russian>
+<Spanish>Cargar heridos en el_</Spanish>
+</Key>
 <Key ID="STR_BTC_Pull_out_injured">
 <Original>Pull out injured</Original>
+<English>Pull out injured</English>
 <German>Verletzte ausziehen</German>
 <French>Retirer les blessés</French>
 <Russian>Вытащить травму</Russian>
@@ -987,6 +1132,7 @@
 </Key>
 <Key ID="STR_BTC_Select">
 <Original>Select</Original>
+<English>Select</English>
 <German>Selektieren</German>
 <French>Sélectionner</French>
 <Russian>Выбрать</Russian>
@@ -994,6 +1140,7 @@
 </Key>
 <Key ID="STR_BTC_Load">
 <Original>Load</Original>
+<English>Load</English>
 <German>Laden</German>
 <French>Charger</French>
 <Russian>нагрузка</Russian>
@@ -1001,6 +1148,7 @@
 </Key>
 <Key ID="STR_BTC_Place">
 <Original>Placement</Original>
+<English>Placement</English>
 <German>Platzierung</German>
 <French>Repositionner</French>
 <Russian>Переехать</Russian>
@@ -1008,6 +1156,7 @@
 </Key>
 <Key ID="STR_BTC_Lift">
 <Original>Lift</Original>
+<English>Lift</English>
 <German>Aufziehen</German>
 <French>Hisser</French>
 <Russian>Выпуск</Russian>
@@ -1015,6 +1164,7 @@
 </Key>
 <Key ID="STR_BTC_Release">
 <Original>Release</Original>
+<English>Release</English>
 <German>Freisetzung</German>
 <French>Laisser aller</French>
 <Russian>подъемник</Russian>
@@ -1022,6 +1172,7 @@
 </Key>
 <Key ID="STR_BTC_Tow">
 <Original>Tow</Original>
+<English>Tow</English>
 <German>Schleppen</German>
 <French>Remorquer</French>
 <Russian>тянуть на бечеве</Russian>
@@ -1029,6 +1180,7 @@
 </Key>
 <Key ID="STR_BMR_Push">
 <Original>Push</Original>
+<English>Push</English>
 <German>Drücken</German>
 <French>Pousser</French>
 <Russian>От себя</Russian>
