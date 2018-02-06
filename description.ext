@@ -206,6 +206,6 @@ class RscTitles {
 
 		};
 	};
-	#include "=BTC=_Logistic\=BTC=_Lift\=BTC=_Hud.h"
+	#include "=BTC=_logistic\=BTC=_lift\=BTC=_Hud.h"
 	#include "INSui\UI\defines.hpp"
 };

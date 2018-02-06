@@ -1,8 +1,17 @@
-// Persistence Check/Set zone marker color and removed corresponding triggers.
-// By Jigsor
+/*
+ Persistence Check/Set zone marker color and remove corresponding triggers.
+ By Jigsor
+ Crucial note reguarding use of Headless Client (HC):
+ HC must have mission cached to memory or else HC is not recognized in time and both server and HC will fail in EOS If HC JIPs.
+ HC can only JIP/reconnect and resume properly if it was present at mission start so when using HC and running a new version/edit of this mission, mission must be loaded twice with #missions command.
+ Reccomened to use -loadMissionToMemory startup parameter on server.
+ Currently does not work with Vanilla Terrains for some unknown reason.
+*/
+
 HCPresent = if (isNil "Any_HC_present") then {False} else {True};
 if (isServer && !HCPresent && {INS_persistence isEqualTo 0 || INS_persistence isEqualTo 2}) then {
 	profileNamespace setVariable ["BMR_INS_progress", []];
+	//saveProfileNamespace;// adding this line does not fix vanilla terrain incompatibility.
 };
 
 if ((!isServer && hasInterface) || (HCPresent && isServer)) exitWith{};
