@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-2/1/2018
+2/5/2018
 BMR_Insurgency_v1.48_beta
 	Some changes in this version are still be tested and so may contain bugs..
 	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
@@ -171,13 +171,13 @@ BMR_Insurgency_v1.48_beta
 		Admin must login and wait up to 1 minute before panel appears. Panel will remain available until admin goes back to lobby.
 	Added: Dust Storm will auto terminate if enabled when Random or Real Weather is enabled and it starts to rain.
 	Added: Reassigning damage event handlers to AI on locality changed when unassigning Zeus from yourself.
-	Added: Temporary fix for broken door actions in Lythium and Kunduz.
 	Added: Non owner work around for entering driver and turrets in DLC vehicles.(Currently only affects English A3 versioned owners).
+	Added: Temporary fix for broken door actions in Lythium and Kunduz.(can be removed if these terrains get updated and fixed)+(Non owner DLC bypass for vehicles not used with these terrains because inGameUISetEventHandler is not stackable).
 	Added: Globalization of civilian vehicle textures in Civilian Traffic. (everyone sees the same texure/color now).
 	Added: Support of custom licence plates.(new command currently in Dev Branch).
 	Added: Saving of grid zone progression persistence system. Can be cleared and disabled by default, enabled and restored or enabled and cleared to start from new by lobby parameter.
-	Added: Support for JIP of Headless Client incase of kick or crash of Headless Client. Requires HC to be present at mission start, one of the persistence options enabled and mission to be cached into Server and HC.
-	Added: Negative rating to innocent civilian killer and system chat message of who killed who.
+	Added: Support for JIP of Headless Client incase of kick or crash of Headless Client. Requires HC to be present at mission start, one of the persistence options enabled and mission to be cached into Server and HC. To top off uncaptured zones with enemy, HC can be kicked/will auto rejoin .
+	Added: Negative rating to innocent civilian killer of -3500 and system chat message of who killed who.
 	Added: Several action translations including Pickup Intel, BTC logistics and BTC Revive and Push etc.
 	Added: 2 headless Clients supported out of the box by default instead of 1.
 	Added: StructureBlacklist to Mogadishu.
@@ -196,7 +196,7 @@ BMR_Insurgency_v1.48_beta
 	Change: Removed ablility to place/reposition/hide intel with BTC logistics actions.
 	Change: Only affects ACE_3 moded machines: Disabled ACE Cook Off on Ammo Cache since cache has its own cook off effects and server can issue reward before destroyer wanders off to far to measure. Nearest alive/concious player detection for reward issue increased from 100 to 200 meters from cache./Needs testing feedback.
 	Fixed: Enemy AI faction combinations of East mixed with Independent are now group with the major faction's side, meaning both factions trigger zone occupation for AI spawned by EOS
-	Fixed: Hold timer discrepancy between players affecting Capture N Hold objective.
+	Fixed: Hold timer discrepancy between players affecting Capture N Hold objective. Everyones now sees same time on countdown timer.
 	Fixed: AI recruits are deleted when player disconnects if player's former group leader is not another player.
 	Fixed: Several MP/dedicated server issues in heli group extraction.
 	Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.

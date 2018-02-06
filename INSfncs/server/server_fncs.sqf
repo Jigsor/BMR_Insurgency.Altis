@@ -327,7 +327,7 @@ JIG_tower_damage = {
 };
 miss_object_pos_fnc = {
 	// Objective position. by Jigsor
-	params ["_cooX","_cooY","_dis","_wheX","_wheY","_ObjRandomPos","_empty","_goodPos","_newPos","_mkr"];
+	params ["_cooX","_cooY","_dis","_wheX","_wheY","_ObjRandomPos","_empty","_goodPos","_mkrType","_newPos","_mkr"];
 
 	_dis = 150;
 	_wheX = random (_dis*2)-_dis;
@@ -335,6 +335,7 @@ miss_object_pos_fnc = {
 	_ObjRandomPos = [_cooX+_wheX,_cooY+_wheY,0];
 	_empty = [];
 	_goodPos = [];
+	_mkrType = if (DebugEnabled isEqualTo 1) then {"mil_dot"}else{"EMPTY"};	
 	_newPos = _ObjRandomPos isFlatEmpty [25,384,0.4,2,0,false,ObjNull];
 
 	while {(count _newPos) < 1} do {
@@ -348,12 +349,12 @@ miss_object_pos_fnc = {
 	};
 
 	if (!(_newPos isEqualTo [])) then {
-		if !(getMarkerType "tempObjMkr" isEqualTo "") then {deleteMarkerLocal "tempObjMkr";};
+		if !(getMarkerType "tempObjMkr" isEqualTo "") then {deleteMarkerLocal "tempObjMkr"};
 		_mkr = createMarkerLocal ["tempObjMkr", _newPos];
 		_mkr setMarkerShapeLocal "ELLIPSE";
 		"tempObjMkr" setMarkerSizeLocal [1, 1];
 		"tempObjMkr" setMarkerShapeLocal "ICON";
-		"tempObjMkr" setMarkerTypeLocal "mil_dot";//"EMPTY"
+		"tempObjMkr" setMarkerTypeLocal _mkrType;
 	};
 	if (_newPos isEqualTo []) exitWith {_empty};
 	_newPos

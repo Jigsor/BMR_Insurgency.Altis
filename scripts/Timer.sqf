@@ -6,7 +6,7 @@ if (hasInterface) then {
 
 	killtime = _this select 0;
 	_minutes = _this select 1;
-	_chars2 = _this select 2;	
+	_chars2 = _this select 2;
 	_countdown = (60 * _minutes) +1;
 	private _done = false;
 
@@ -32,7 +32,6 @@ if (hasInterface) then {
 		};
 		while {uiSleep 0.5; _countdown > 0} do {//uiSleep does not seem affected by fps
 			if (killtime) exitwith {_done = true};
-			//Find how much time is left
 			_countdown = _countdown - 0.5;
 			if (_countdown > 0) then {
 				hintSilent parseText format ["<t size='1.5' color='#ffffba0c'>%1</t>", ([floor (_countdown / 60), _countdown mod 60] call _numbersToTimeString)];

@@ -41,6 +41,7 @@ if (count _airCenter > 0) then
 	{
 		private _aire1 = [_ins_debug] spawn {
 			params ["_debug","_delay","_loop"];
+			if (isNil "INS_Op4_helis") then {INS_Op4_helis = ["O_Heli_Attack_02_black_F"]};
 			if (INS_Op4_helis isEqualTo []) exitWith {};
 			_delay = AirRespawnDelay;
 			airhunterE1 = ObjNull;
@@ -138,6 +139,8 @@ if (count _airCenter > 0) then
 	{
 		private _aire2 = [_ins_debug] spawn {
 			params ["_debug","_delay","_loop"];
+			if (isNil "INS_Op4_fixedWing") then {INS_Op4_fixedWing = ["I_Plane_Fighter_03_AA_F","I_Plane_Fighter_03_CAS_F","O_Plane_CAS_02_F"]};
+			if (INS_Op4_fixedWing isEqualTo []) exitWith {};
 			_delay = AirRespawnDelay;
 			airhunterE2 = ObjNull;
 			random_w_player3 = ObjNull;

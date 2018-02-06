@@ -38,10 +38,10 @@ if (!isServer) exitWith {};
 
 	allMkrs = [];
 	allIEDS = [];
-	private _n = 0;
+	private _c = 0;
 	private _iedPosList = [];
 
-	private ["_r","_road","_name","_m"];
+	private ["_r","_road","_n","_m"];
 	while{count _roads > 0 && count allIEDS < _IEDs} do {
 		_r = (count _roads - 1) min (round random (count _roads));
 		_road = _roads select _r;
@@ -63,11 +63,12 @@ if (!isServer) exitWith {};
 			allIEDS pushBack _ied;
 			_ied setVariable ["persistent",true];
 
-			_n = _n + 1;
-			_name = format["IED_%1", _n];
-			_m = createMarker [_name, getPosWorld _ied];
+			_c = _c + 1;
+			_n = format["IED_%1", _c];
+			_m = createMarker [_n, getPosWorld _ied];
 			_m setMarkerType "mil_dot";
-			_m setMarkerText _name;
+			_m setMarkerColor "ColorBrown";
+			_m setMarkerText _n;
 			_m setMarkerAlpha _debug;
 			allMkrs pushBack _m;
 		};

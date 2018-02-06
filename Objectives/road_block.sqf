@@ -46,7 +46,7 @@ waitUntil {sleep 1; !_run};
 _nearestRoad = _roads select 0;
 _bgPos = getPos _nearestRoad;
 _connectedRoad = _roadConnectedTo select 0;
-_roadDir = [_nearestRoad, _connectedRoad] call BIS_fnc_DirTo;
+_roadDir = [_nearestRoad, _connectedRoad] call BIS_fnc_dirTo;
 _bgPos = getPos _nearestRoad;
 
 //create objective marker
@@ -108,8 +108,8 @@ _unit_type = selectRandom INS_men_list;
 _unit2 = infGrp2 createUnit [_unit_type, _bunker2 modelToWorld [0,-4,-1], [], 0, "NONE"]; sleep jig_tvt_globalsleep;
 
 {
-_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-if !(AIdamMod isEqualTo 100) then {
+	_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
+	if !(AIdamMod isEqualTo 100) then {
 		_x removeAllEventHandlers "HandleDamage";
 		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 	};
