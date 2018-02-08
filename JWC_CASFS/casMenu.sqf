@@ -19,7 +19,7 @@ if ((_lockToOwner) && (_caller != _owner) && (vehicle _owner isKindOf "Man")) ex
 _borderMarker = createMarkerLocal["maxDist", getPos _caller];
 _borderMarker setMarkerShapeLocal "ELLIPSE";
 _borderMarker setMarkerSizeLocal[maxDisReq, maxDisReq];
-_borderMarker setMarkerColorLocal "colorRed";
+_borderMarker setMarkerColorLocal "ColorRed";
 _borderMarker setMarkerBrushLocal "Border";
 
 casType = "JDAM";

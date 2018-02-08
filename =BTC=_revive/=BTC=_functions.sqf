@@ -59,7 +59,7 @@ BTC_fnc_PVEH = {
 				_marker = createmarkerLocal [format ["FA_%1", _pos], _pos];
 				format ["FA_%1", _pos] setmarkertypelocal "mil_box";
 				format ["FA_%1", _pos] setMarkerTextLocal format ["F.A. %1", name _unit];
-				format ["FA_%1", _pos] setmarkerColorlocal "colorGreen";
+				format ["FA_%1", _pos] setmarkerColorlocal "ColorGreen";
 				format ["FA_%1", _pos] setMarkerSizeLocal [0.3, 0.3];
 				[_pos,_unit] spawn
 				{
@@ -561,17 +561,17 @@ BTC_mobile_marker = {
 		_marker = createmarkerLocal [format ["%1", _var], getPos _obj];
 		format ["%1", _var] setmarkertypelocal "mil_dot";
 		format ["%1", _var] setMarkerTextLocal format ["%1", _var];
-		format ["%1", _var] setmarkerColorlocal "colorGreen";
+		format ["%1", _var] setmarkerColorlocal "ColorGreen";
 		format ["%1", _var] setMarkerSizeLocal [0.5, 0.5];
 		hint format ["%1 is available!", _var];
 		while {Alive _obj} do {
 			format ["%1", _var] setMarkerPosLocal (getPos _obj);
-			if (speed _obj <= 5 && speed _obj >= -3) then {format ["%1", _var] setMarkerTextLocal format ["%1 deployed", _var];format ["%1", _var] setmarkerColorlocal "colorGreen";} else {format ["%1", _var] setMarkerTextLocal format ["%1 is moving", _var];format ["%1", _var] setmarkerColorlocal "colorBlack";};
+			if (speed _obj <= 5 && speed _obj >= -3) then {format ["%1", _var] setMarkerTextLocal format ["%1 deployed", _var];format ["%1", _var] setmarkerColorlocal "ColorGreen";} else {format ["%1", _var] setMarkerTextLocal format ["%1 is moving", _var];format ["%1", _var] setmarkerColorlocal "ColorBlack";};
 			sleep 1;
 		};
 		hint format ["%1 has been destroyed!", _var];
 		format ["%1", _var] setMarkerTextLocal format ["%1 destroyed!", _var];
-		format ["%1", _var] setmarkerColorlocal "colorRed";
+		format ["%1", _var] setmarkerColorlocal "ColorRed";
 		if (BTC_mobile_respawn isEqualTo 0) exitWith {};
 	};
 };

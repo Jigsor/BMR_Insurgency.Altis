@@ -60,7 +60,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerSize [2, 2];
 "ObjectiveMkr" setMarkerShape "ICON";
 "ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "colorRed";
+"ObjectiveMkr" setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Destroy Roadblock";
 
 //create roadblock

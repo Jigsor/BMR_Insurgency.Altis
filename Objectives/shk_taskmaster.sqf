@@ -268,7 +268,7 @@ SHK_Taskmaster_addTask = {
 							};
 							_m setmarkertypelocal _type;
 
-							_color = "colorRed";
+							_color = "ColorRed";
 							if (count _x > 3) then {
 								private	_tmp = (_x select 3);
 								if (_tmp != "") then {

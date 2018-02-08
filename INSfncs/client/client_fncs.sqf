@@ -451,7 +451,7 @@ killedInfo_fnc = {
 		if (_killerName == "Error: No unit") then {_killerName = "Unidentified"};
 		uiSleep 7;
 		_text = format ["Killed by %1, from %2 meters, with %3",_killerName, str(_distance), str(_killerWeaponName)];
-		copyToClipboard str(_text);
+		//copyToClipboard str(_text);
 		if (!isServer) then {
 			("BMR_KilledInfo_Layer" call BIS_fnc_rscLayer) cutText [_text,"PLAIN"];
 		}else{
@@ -734,7 +734,6 @@ INS_Recruit_skill = {
 	_unit setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 	_unit setSkill ["aimingShake", 0.6];
 	_unit setSkill ["aimingSpeed", 0.5];
-	_unit setSkill ["endurance", 0.6];
 	_unit setSkill ["spotDistance", 0.6];
 	_unit setSkill ["spotTime", 0.5];
 	_unit setSkill ["courage", 0.5];
@@ -834,9 +833,9 @@ INS_MHQ_mkr = {
 		_mkrName = format ["%1", _mhq];
 	};
 	if ((_op4 isEqualTo TRUE) && {(_mkrName isEqualTo "Opfor_MHQ")}) then {
-		_color = "colorRed";
+		_color = "ColorRed";
 	}else{
-		_color = "colorGreen";
+		_color = "ColorGreen";
 	};
 
 	deleteMarkerLocal _mkrName;

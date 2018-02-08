@@ -23,12 +23,11 @@ if (_INS_tsks_finished) then {
 	private _c = if (INS_persistence isEqualTo 1 || INS_persistence isEqualTo 2) then {0} else {7};
 	private _uncapturedMkrs = all_eos_mkrs;
 	while {true} do {
-		{if (getMarkerColor _x isEqualTo "colorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1;};} foreach _uncapturedMkrs;
+		{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1;};} foreach _uncapturedMkrs;
 
 		//Save progression every 5 minutes if lobby option permits
 		if ((INS_persistence isEqualTo 1 || INS_persistence isEqualTo 2) && {_c isEqualTo 6}) then {
 			profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
-			//saveProfileNamespace;// adding this line does not fix vanilla terrain incompatibility.
 			_c = 0;
 		};
 		if !(_c isEqualTo 7) then {_c = _c + 1};
@@ -41,7 +40,6 @@ if (_INS_tsks_finished) then {
 if (_allZonesCaptured) then {
 	{_curtasks pushBack (_x select 0);} forEach SHK_Taskmaster_Tasks;
 	profileNamespace setVariable ["BMR_INS_progress", []];
-	//saveProfileNamespace;// adding this line does not fix vanilla terrain incompatibility.
 
 	while {true} do {
 		{

@@ -45,6 +45,6 @@ if(EPD_IED_debug) then {
 	call compile format ['
 	bombmarker_%1 = createmarker ["bombmarker_%1", _iedPos];
 	"bombmarker_%1" setMarkerTypeLocal "hd_warning";
-	"bombmarker_%1" setMarkerColorLocal "colorRed";
+	"bombmarker_%1" setMarkerColorLocal "ColorRed";
 	"bombmarker_%1" setMarkerTextLocal "%2";', _iedNumber, _iedSize];
 };

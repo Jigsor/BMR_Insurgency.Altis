@@ -12,7 +12,7 @@ if(EPD_IED_debug) then {
 	call compile format ['
 	fakebombmarker_%1 = createmarker ["fakebombmarker_%1", _junkPosition];
 	"fakebombmarker_%1" setMarkerTypeLocal "hd_warning";
-	"fakebombmarker_%1" setMarkerColorLocal "colorBlue";
+	"fakebombmarker_%1" setMarkerColorLocal "ColorBlue";
 	"fakebombmarker_%1" setMarkerTextLocal "fake";
 	', _fakeNumber];
 };

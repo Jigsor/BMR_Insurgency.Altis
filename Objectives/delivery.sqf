@@ -28,7 +28,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerSize [2, 2];
 "ObjectiveMkr" setMarkerShape "ICON";
 "ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "colorRed";
+"ObjectiveMkr" setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Delivery Zone";
 
 "deliveryfail" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
@@ -98,7 +98,7 @@ _tmarker = createMarker ["Task_Transport", _newPos];
 "Task_Transport" setMarkerShape "ICON";
 "Task_Transport" setMarkerSize [2, 2];
 "Task_Transport" setMarkerType "mil_dot";
-"Task_Transport" setMarkerColor "colorBlue";
+"Task_Transport" setMarkerColor "ColorBlue";
 "Task_Transport" setMarkerText "Task_Transport";
 publicVariable "Task_Transport";
 sleep 2;

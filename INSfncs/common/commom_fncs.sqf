@@ -698,7 +698,7 @@ JWC_CAStrack = {
 	_markerName = format ["track%1",random 99999];
 	_marker = createMarker[_markerName, [0,0,0]];
 	_markerName setMarkerType "c_plane";
-	_markerName setMarkerColor "ColorBLUFOR";
+	_markerName setMarkerColor "colorBLUFOR";
 	while {!isNull _plane} do {
 	  _markerName setMarkerDir (getDir _plane);
 	  _markerName setMarkerPos (getPosWorld _plane);
@@ -706,6 +706,15 @@ JWC_CAStrack = {
 	};
 	deleteMarker _marker;
 };
+Manual_ProgressionSave = {
+	//Force zone marker progression saving on HC and Server
+	if !(isServer || IamHC) exitWith {};
+	private _uncapturedMkrs = all_eos_mkrs;
+	{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x];};} foreach _uncapturedMkrs;
+	profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
+	//saveProfileNamespace;//<-unnecessary
+	diag_log "***Manual Progression Save Complete";
+};	
 switchMoveEverywhere = compileFinal " _this select 0 switchMove (_this select 1); ";
 INS_BluFor_Siren = compileFinal " if (isServer) then {
 	[INS_BF_Siren,""siren""] call mp_Say3D_fnc;

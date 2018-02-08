@@ -171,7 +171,7 @@ for "_counter" from 1 to _timeout do {
 	if (_waves > 1) then {hint format ["Next wave ETA : %1",(_timeout - _counter)]};
 	};
 	sleep 1;
-	if (!triggeractivated _bastActive || getmarkercolor _mkr == "colorBlack") exitwith {
+	if (!triggeractivated _bastActive || getmarkercolor _mkr == "ColorBlack") exitwith {
 		hint "Zone lost. You must re-capture it";
 		_mkr setmarkercolor hostileColor;
 		_mkr setmarkeralpha _mAN;
@@ -195,7 +195,7 @@ if (triggeractivated _bastActive and triggeractivated _bastClear and (_waves < 1
 	};
 };
 
-waituntil {getmarkercolor _mkr == "colorBlack" OR getmarkercolor _mkr == VictoryColor OR getmarkercolor _mkr == hostileColor or !triggeractivated  _bastActive};
+waituntil {getmarkercolor _mkr == "ColorBlack" OR getmarkercolor _mkr == VictoryColor OR getmarkercolor _mkr == hostileColor or !triggeractivated  _bastActive};
 if (_debug) then {player sidechat "delete units"};
 {
 	{deleteVehicle _x} foreach units _x;
@@ -240,4 +240,4 @@ if (count _fGrp > 0) then {
 };
 
 deletevehicle _bastActive;deletevehicle _bastClear;deletevehicle _basActivated;
-if (getmarkercolor _mkr == "colorBlack") then {_mkr setmarkeralpha 0};
+if (getmarkercolor _mkr == "ColorBlack") then {_mkr setmarkeralpha 0};

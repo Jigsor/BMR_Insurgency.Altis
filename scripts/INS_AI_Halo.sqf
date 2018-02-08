@@ -30,7 +30,7 @@ waitUntil {visibleMap};
 	"AI_halo" setMarkerShapeLocal "ICON";
 	"AI_halo" setMarkerSizeLocal [1, 1];
 	"AI_halo" setMarkerTypeLocal "mil_dot";
-	"AI_halo" setMarkerColorLocal "colorGreen";
+	"AI_halo" setMarkerColorLocal "ColorGreen";
 	"AI_halo" setMarkerTextLocal "AI_halo";
 
 }] call BIS_fnc_addStackedEventHandler;

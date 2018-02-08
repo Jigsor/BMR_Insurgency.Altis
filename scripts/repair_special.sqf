@@ -66,7 +66,7 @@ _mssg = format["%1's FARP",(name player)];
 _medmark = createMarker [_mark, _pos];
 _medmark setMarkerShape "ICON";
 _medmark setMarkerType "b_hq";
-_medmark setMarkerColor "colorGreen";
+_medmark setMarkerColor "ColorGreen";
 _medmark setMarkerText _mssg;
 _medmark setMarkerSize [0.5, 0.5];
 

@@ -30,7 +30,6 @@ BTC_AIunit_init = {
 	_unit setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 	_unit setSkill ["aimingShake", 0.6];
 	_unit setSkill ["aimingSpeed", 0.5];
-	_unit setSkill ["endurance", 0.6];
 	_unit setSkill ["spotDistance", 0.6];
 	_unit setSkill ["spotTime", 0.5];
 	_unit setSkill ["courage", 0.5];
@@ -48,7 +47,6 @@ BTC_AI_init = {
 		_x setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 		_x setSkill ["aimingShake", 0.6];
 		_x setSkill ["aimingSpeed", 0.5];
-		_x setSkill ["endurance", 0.6];
 		_x setSkill ["spotTime", 0.5];
 		_x setSkill ["courage", 0.5];
 		_x setSkill ["spotDistance", 0.6];
@@ -242,7 +240,10 @@ JIG_issue_reward = {
 	}else{
 		_pScore = -10;
 		_p addScore _pScore;
-		[East,"HQ"] sideChat "-10 points";
+		[East,"HQ"] sideChat "-10 points";		
+		_penalty = -1500;
+		_tally = (rating _p) + _penalty;
+		_p addRating _tally;
 	};
 };
 JIG_ammmoCache_damage = {
@@ -282,7 +283,7 @@ JIG_ammmoCache_damage = {
 			};
 			"Bo_Air_LGB" createVehicle _pos;
         };
-		if (!isNull _source) then {
+		if (!isNull _source && {isPlayer _source}) then {
 			[_source] spawn JIG_issue_reward;
 		}else{
 			//Reward compatibility fix for ACE explosives
@@ -817,7 +818,8 @@ JIG_ActivateDust = {
 INSciviKilled_fnc = {
 	params [["_unit",objNull],["_killer",objNull]];
 	if (!(vehicleVarName _unit isEqualTo "sstBomber") && {!isNull _killer} && {isPlayer _killer}) then {
-		private _killerName = name _killer;
+		//private _killerName = name _killer;
+		private _killerName = if (name _killer == "Error: No unit") then {"Unidentified"}else{name _killer};
 		private _killed = name _unit;
 		private _penalty = -3500;
 		private _tally = (rating _killer) + _penalty;
@@ -825,17 +827,22 @@ INSciviKilled_fnc = {
 		_killer addRating _tally;
 		[_txt] remoteExec ["JIG_MPSystemChat_fnc", [0,-2] select isDedicated];
 		//_killer remoteExec ["JIG_Boo", _killer];//too cheesy?
+
+		private _mTxt = format ["%1", _killerName];
+		private _m = createMarker [_mTxt, getPosWorld _killer];
+		_m setMarkerType "hd_warning";
+		_m setMarkerColor "ColorRed";
+		_m setMarkerText _mTxt;
+	
+		[_m, _killer] spawn {
+			params ["_m","_killer"];
+			for "_i" from 1 to 12 do {//show civ killer marker for approx. 12 seconds
+				uiSleep 1;
+				if (!alive _killer) exitWith {};
+				_m setMarkerPos getPosWorld _killer;
+			};
+			deleteMarker _m;
+		};
 	};
-	sleep 2;
-	if !(_unit isKindOf "Man") then {
-		{_x setPos position _unit} forEach crew _unit;
-		sleep 120;
-		deleteVehicle _unit;
-	};
-	if (_unit isKindOf "Man") then {
-		if !((vehicle _unit) isKindOf "Man") then {_unit setPos (position vehicle _unit)};
-		sleep 135;
-		hideBody _unit;
-		_unit removeAllEventHandlers "killed";
-	};
+	_unit spawn remove_carcass_fnc;
 };

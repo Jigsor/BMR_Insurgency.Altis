@@ -26,9 +26,9 @@ Bastion_Spawn=compile preprocessfilelinenumbers "eos\core\b_launch.sqf";
 null=[] execVM "eos\core\spawn_fnc.sqf";
 if (isServer) then {["updateEOSmkrs","onplayerConnected", {[] execVM "eos\functions\EOS_Markers.sqf";}] call BIS_fnc_addStackedEventHandler;};
 
-VictoryColor="colorGreen";	// Colour of marker after completion
-hostileColor="colorRed";	// Default colour when enemies active
-bastionColor="colorOrange";	// Colour for bastion marker
+VictoryColor="ColorGreen";	// Colour of marker after completion
+hostileColor="ColorRed";	// Default colour when enemies active
+bastionColor="ColorOrange";	// Colour for bastion marker
 EOS_KILLCOUNTER=false;		// Counts killed units
 
 // Infantry markers

@@ -1186,5 +1186,13 @@
 <Russian>От себя</Russian>
 <Spanish>Empujar</Spanish>
 </Key>
+<Key ID="STR_BMR_SaveProgression">
+<Original>Save Progression</Original>
+<English>Save Progression</English>
+<German>Speichern Sie den Fortschritt</German>
+<French>Enregistrer la progression</French>
+<Russian>Сохранить прогрессию</Russian>
+<Spanish>Guardar progresión</Spanish>
+</Key>
 </Container>
 </Project>

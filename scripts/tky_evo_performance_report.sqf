@@ -77,24 +77,24 @@ while {true} do
 
 			if (!alive _x) then
 			{
-				_deadmark setMarkerColorLocal "colorBlack";
+				_deadmark setMarkerColorLocal "ColorBlack";
 				_deadmark setMarkerTextLocal format ["Dead %1", typeOf _x];
 			}
 			else
 			{
 				if (side _x == west) then {
-					_deadmark setMarkerColorLocal "colorBlue";
+					_deadmark setMarkerColorLocal "ColorBlue";
 				}else{
 					if (side _x == east) then {
-						_deadmark setMarkerColorLocal "colorRed";
+						_deadmark setMarkerColorLocal "ColorRed";
 					}else{
 						if (side _x == resistance) then {
-							_deadmark setMarkerColorLocal "colorGreen";
+							_deadmark setMarkerColorLocal "ColorGreen";
 						}else{
 							if (side _x == civilian) then {
-								_deadmark setMarkerColorLocal "colorWhite";
+								_deadmark setMarkerColorLocal "ColorWhite";
 							}else{
-								_deadmark setMarkerColorLocal "colorYellow";
+								_deadmark setMarkerColorLocal "ColorYellow";
 							};
 						};
 					};
@@ -119,7 +119,7 @@ while {true} do
 							}else{
 								if (_x isKindOf "Animal_Base_F") then {
 									_deadmark setMarkerTextLocal format ["%1", typeOf _x];
-									_deadmark setMarkerColorLocal "colorBrown";
+									_deadmark setMarkerColorLocal "ColorBrown";
 								}else{
 									if (_x isKindOf "SoldierWB") then {
 										_deadmark setMarkerTextLocal format ["Sol %1", typeOf _x];

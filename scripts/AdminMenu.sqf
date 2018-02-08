@@ -23,11 +23,19 @@ _menu = _menu + "
 ";
 private _link1 = format ["<br/>	<executeClose expression=""player spawn INS_Vehicle_Reward;"">%1</executeClose>", localize "STR_BMR_veh_reward"];
 _menu = _menu + _link1;
-private _link2 = format ["<br/><br/>	<executeClose expression=""[] spawn {waitUntil {!isNull player}; [player,player] call INS_Flip_Veh;};"">%1</executeClose>", localize "STR_BMR_flip_veh"];
+_menu = _menu + "
+	<br/><br/><font size='18'>Flip Near Vehicle</font>
+";
+private _link2 = format ["<br/>	<executeClose expression=""[] spawn {waitUntil {!isNull player}; [player,player] call INS_Flip_Veh;};"">%1</executeClose>", localize "STR_BMR_flip_veh"];
 _menu = _menu + _link2;
+_menu = _menu + "
+	<br/><br/><font size='18'>Manual Mission Progression Save</font>
+";
+private _link3 = format ["<br/>	<executeClose expression=""[] spawn {waitUntil {!isNil 'Manual_ProgressionSave'}; [] remoteExec ['Manual_ProgressionSave'];};"">%1</executeClose>", localize "STR_BMR_SaveProgression"];
+_menu = _menu + _link3;
 private _tips ="
 	<br/>
-	<br/><font size='18'>Recommendations</font>
+	<br/><font size='18'>Recommendations:</font>
 	<br/>
 	<br/>1. Do not use damage modifiers on players and only use them on unmoded A3 AI units with exception when using OPTRE mod.
 	<br/>
@@ -41,12 +49,19 @@ private _tips ="
 	<br/>
 	<br/>6. Hide enemyTags in Server Difficulty Settings so that Enemy AI markers do not appear on map.
 	<br/>
-	<br/>7. Lower Server Difficulty setting viewDistance to 1000 for increased performance. Note this also affects air patrole spoting/weapons engaement capability.
+	<br/>7. Lower Server Difficulty setting viewDistance to 1000-1200 for increased performance. Note this also affects air patrole spotting/weapons engagement capability.
 	<br/>
 	<br/>8. Restrict mods by using server keys and install all non client side mods on server for maximum performance of server and all clients.
 	<br/>
 	<br/>For example, each bullet fired causes an error on machines that do not have the mod it comes from and that moded chopper/unifor the client is flying in wich server or some players cannot see has no armor for those machines missing the mod. Performance will continually degrade after some time for all machines. This mission can run weeks on end without performance degradation if mod these steps are taken.
 	<br/>
-	<br/>9. Restoring mission progression is only intended to work with one terrain. This means you must load the same terrain mission version in wich saving progession was enabled. Ex. Saving progression on BMR Insurgency Altis was enabled then Admin loaded BMR Insurgency Tanoa with progession restoration enabled. This will not work correctly.";
+	<br/>9. Restoring mission progression is only intended to work with one terrain. This means you must load the same terrain mission version in wich saving progession was enabled. Ex. Saving progression on BMR Insurgency Altis was enabled then Admin loaded BMR Insurgency Tanoa with progession restoration enabled. This will not work correctly.
+	<br/>
+	<br/>10. Select one of the progression saving options in lobby when using Headless Client incase HC crashes or gets kicked so it may rejoin and continue where it left off.
+	<br/>
+	<br/>11. Manually kicking Headless Client will effectivley reset/reinforce uncaptured zones as if no enemy had been killed in these zones. If using 2 headless clients then both should be kicked. As a side affect the current objective may complete or its defences deleted because all enemy AI get deleted when a headless client disconnects and leaves AI behind.
+	<br/>
+	<br/>12. When not using headless client using progression saving, the server does not begin auto saving progression untill one task has been completed.
+";
 _menu = _menu + _tips;
 player createDiaryRecord ["Diary", ["Administrator Menu", _menu]];

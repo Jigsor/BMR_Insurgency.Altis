@@ -87,7 +87,6 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			_unit setDir _bmbrdir;
 			[_unit] joinSilent civBomberGrp;
 			_unit SetUnitPos "UP";
-			_unit setSkill ["endurance", 1];
 			_unit setSkill ["spotTime", 0.8];
 			_unit setSkill ["courage", 1];
 			_unit setSkill ["spotDistance", 1];
@@ -134,7 +133,6 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 
 			_unit setDir _bmbrdir;
 			_unit SetUnitPos "UP";
-			_unit setSkill ["endurance", 1];
 			_unit setSkill ["spotTime", 0.8];
 			_unit setSkill ["courage", 1];
 			_unit setSkill ["spotDistance", 1];

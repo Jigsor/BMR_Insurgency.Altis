@@ -26,7 +26,7 @@ if (isMultiplayer) then {
 			if (!isJIP) then {waitUntil {time > 3}};
 			waitUntil {!isNil "all_eos_mkrs"};
 			if (INS_mod_missing) then {[] spawn INS_missing_mods};
-			if ((INS_persistence isEqualTo 0) || (INS_persistence isEqualTo 2)) then {profileNamespace setVariable ["BMR_INS_progress", []]};
+			if (INS_persistence isEqualTo 0 || INS_persistence isEqualTo 2) then {profileNamespace setVariable ["BMR_INS_progress", []]};
 
 			private _enableLogs = true;// set false to disable logging on headless client(s) .rpt Frames per second, Headless client ID, Total group count, Total unit count.
 			private "_AllEnemyGroups";
@@ -43,7 +43,7 @@ if (isMultiplayer) then {
 				};
 				//Save progression approximately every 5 minutes if lobby option permits.
 				if (_s && {_c isEqualTo 6}) then {
-					{if (getMarkerColor _x isEqualTo "colorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1};} foreach _uncapturedMkrs;
+					{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1};} foreach _uncapturedMkrs;
 					profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
 					_c = 0;
 				};

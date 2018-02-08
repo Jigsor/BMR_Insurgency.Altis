@@ -75,7 +75,7 @@ for "_i" from 1 to (_cnt - 1) do {
       _m = createMarker [format["SHK_patrol_WP%1%2",(floor(_cur select 0)),(floor(_cur select 1))],_cur];
       _m setMarkerShape "Ellipse";
       _m setMarkerSize [20,20];
-      _m setmarkerColor "colorRed";
+      _m setmarkerColor "ColorRed";
     };
 };
 
@@ -92,6 +92,6 @@ if (DEBUG) then {
       _m = createMarker [format["SHK_patrol_%1%2%3",(floor(_p select 0)),(floor(_p select 1)),floor time],_p];
       _m setMarkerShape "Icon";
       _m setMarkerType "mil_dot";
-      _m setmarkerColor "colorBlue";
+      _m setmarkerColor "ColorBlue";
     };
 };

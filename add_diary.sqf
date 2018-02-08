@@ -66,7 +66,7 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 	<br/>	Robert Lynn Lewellen. AKA Spectrum Warrior of Elite Arma Warriors
 	<br/>	who exposed me to scripting, Insurgency and Evolution game modes back in Arma 1.
 	<br/>
-	"]];
+"]];
 player createDiaryRecord ["Diary", ["Credits","
 	<br/>Mission Author - Jigsor =BMR=
 	<br/>
@@ -132,8 +132,10 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/>A parachute will automatically be provided for you and will move your back pack to ventril position. Back pack will be returned to back after landing.
 	<br/>
+	<br/>If windy, head into wind with forward key untill touchdown to increase survivability.
+	<br/>
 	<br/><font size='20'>SERVER ADMINS</font>
 	<br/>
 	<br/>Gain access to Breifing ADMINISTRATOR TOOLS panel by logging in as Admin. The panel may take a minute to appear. Once the panel appears in breifing section it will remain if loged out untill you rejoin the game. This way multiple Admins may have access to the tools.
-  "]];
+"]];
 player createDiaryRecord ["Diary", ["Briefing","Gather Intel on Ammo Cache location by picking up suitcases. Destroy Ammo Caches with satchel or demo charges. Clear all red zones of enemy forces. Complete random objectives. Get Some!"]];

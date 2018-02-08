@@ -15,7 +15,7 @@ EOS_Civ_Deactivate = {
 	private ["_mkr"];
 		_mkr=(_this select 0);
 	{
-		_x setmarkercolor "colorBlack";
+		_x setmarkercolor "ColorBlack";
 		_x setmarkerAlpha 0;
 	}foreach _mkr;
 };
@@ -31,7 +31,7 @@ _mkrID=format ["%3:%1,%2",_mkr,_n,_note];
 deletemarker _mkrID;
 _debugMkr = createMarker[_mkrID,_pos];
 _mkrID setMarkerType "Mil_dot";
-_mkrID setMarkercolor "colorBlue";
+_mkrID setMarkercolor "ColorBlue";
 _mkrID setMarkerText _mkrID;
 _mkrID setMarkerAlpha 0.5;
 };

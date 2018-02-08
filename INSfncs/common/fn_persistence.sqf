@@ -5,13 +5,12 @@
  HC must have mission cached to memory or else HC is not recognized in time and both server and HC will fail in EOS If HC JIPs.
  HC can only JIP/reconnect and resume properly if it was present at mission start so when using HC and running a new version/edit of this mission, mission must be loaded twice with #missions command.
  Reccomened to use -loadMissionToMemory startup parameter on server.
- Currently does not work with Vanilla Terrains for some unknown reason.
 */
 
 HCPresent = if (isNil "Any_HC_present") then {False} else {True};
 if (isServer && !HCPresent && {INS_persistence isEqualTo 0 || INS_persistence isEqualTo 2}) then {
 	profileNamespace setVariable ["BMR_INS_progress", []];
-	//saveProfileNamespace;// adding this line does not fix vanilla terrain incompatibility.
+	//saveProfileNamespace;//<-unnecessary
 };
 
 if ((!isServer && hasInterface) || (HCPresent && isServer)) exitWith{};
@@ -33,7 +32,7 @@ if (count (profileNamespace getVariable ["BMR_INS_progress", []]) > 0) then {
 
 	{	_mkr = _x;
 		_trig = format ["EOSTrigger%1", _mkr];
-		_mkr setMarkerColor "colorGreen";
+		_mkr setMarkerColor "ColorGreen";
 		deleteVehicle (server getVariable _trig);
 	} count _capturedMkrs;
 

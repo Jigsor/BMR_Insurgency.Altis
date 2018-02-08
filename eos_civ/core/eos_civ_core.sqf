@@ -54,13 +54,13 @@ if (!_cache) then {
 };
 
 _mkr setmarkerAlpha _mAN;
-if (!(getmarkercolor _mkr == CivVictoryColor)) then { //IF MARKER IS GREEN DO NOT CHANGE COLOUR
+if !(getmarkercolor _mkr isEqualTo CivVictoryColor) then { //IF MARKER IS GREEN DO NOT CHANGE COLOUR
 	_mkr setmarkercolor CivhostileColor;
 };
 
 waituntil {triggeractivated _eosActivated};	//WAIT UNTIL PLAYERS IN ZONE
-if (!(getmarkercolor _mkr == "colorBlack")) then {
-	if (!(getmarkercolor _mkr == CivVictoryColor)) then {_mkr setmarkerAlpha _mAH;};
+if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
+	if !(getmarkercolor _mkr isEqualTo VictoryColor) then {_mkr setmarkerAlpha _mAH;};
 
 	// SPAWN HOUSE PATROLS
 	for "_counter" from 1 to _aGrps do {
@@ -190,8 +190,8 @@ if (!(getmarkercolor _mkr == "colorBlack")) then {
 	_eosAct=true;
 	while {_eosAct} do {
 		// IF PLAYER LEAVES THE AREA OR ZONE DEACTIVATED
-		if (!triggeractivated _eosActivated || getmarkercolor _mkr == "colorBlack") exitwith {
-			if (_debug) then {if (!(getmarkercolor _mkr == "colorBlack")) then {hint "Restarting Zone AND deleting units";}else{hint "EOS zone deactivated";};};
+		if (!triggeractivated _eosActivated || getmarkercolor _mkr == "ColorBlack") exitwith {
+			if (_debug) then {if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {hint "Restarting Zone AND deleting units";}else{hint "EOS zone deactivated";};};
 			//CACHE LIGHT VEHICLES
 			if (!isnil "_cGrp") then {
 				{
@@ -268,7 +268,7 @@ if (!(getmarkercolor _mkr == "colorBlack")) then {
 		if (triggeractivated _clear and triggeractivated _taken and !_civZone)exitwith
 		{// IF ZONE CAPTURED BEGIN CHECKING FOR ENEMIES
 			_cGrps=0;_aGrps=0;_bGrps=0;_dGrps=0;_eGrps=0;_fGrps=0;
-			while {triggeractivated _eosActivated AND !(getmarkercolor _mkr == "colorBlack")} do {
+			while {triggeractivated _eosActivated AND !(getmarkercolor _mkr isEqualTo "ColorBlack")} do {
 				if (!triggeractivated _clear) then {
 					_mkr setmarkercolor CivhostileColor;
 					_mkr setmarkerAlpha _mAH;
@@ -288,7 +288,7 @@ if (!(getmarkercolor _mkr == "colorBlack")) then {
 
 	deletevehicle _clear;deletevehicle _taken;
 
-	if (!(getmarkercolor _mkr == "colorBlack")) then {
+	if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 		null = [_mkr,[_aGrps,_aSize],[_bGrps,_bSize],[_cGrps,_cSize],[_dGrps,_eGrps,_fGrps,_fSize],_settings,true] execVM "eos_civ\core\eos_civ_core.sqf";
 	}else{
 		_Mkr setmarkeralpha 0;

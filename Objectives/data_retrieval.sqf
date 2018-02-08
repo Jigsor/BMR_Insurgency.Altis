@@ -19,7 +19,7 @@ _ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
 // Find nearest occupied grid zones
 objective_pos_logic setPos _startPos;
 
-{if (getMarkerColor _x == "colorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} count _uncaped_eos_mkrs;
+{if (getMarkerColor _x == "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} count _uncaped_eos_mkrs;
 if ((count _uncaped_eos_mkrs) isEqualTo 0) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};//skip objective
 
 _nearMkrs = [_uncaped_eos_mkrs,[],{objective_pos_logic distance (getMarkerPos _x)},"ASCEND"] call BIS_fnc_sortBy;
@@ -148,7 +148,7 @@ _objmkr = createMarker ["ObjectiveMkr", _bldgPos];
 "ObjectiveMkr" setMarkerSize [2, 2];
 "ObjectiveMkr" setMarkerShape "ICON";
 "ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "colorRed";
+"ObjectiveMkr" setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Data Terminal";
 
 // create defenses
