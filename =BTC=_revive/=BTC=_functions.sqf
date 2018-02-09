@@ -19,8 +19,15 @@ BTC_assign_actions = {
 			{player playMove "AinvPknlMstpSlayWrflDnon_medic"},
 			{hintSilent ""},
 			{
-				[] call BTC_first_aid;
-				hintSilent "Player revived";
+				private _revived = call BTC_first_aid;
+				if (!isNull _revived) then {
+					private _txt = format ["%1 revived %2", name player, name _revived];
+					if (side player isEqualTo INS_Blu_side) then {
+						[_txt] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
+					}else{
+						[_txt] remoteExec ["JIG_MPsideChatEast_fnc", [0,-2] select isDedicated];
+					};
+				};
 			},
 			{[ [ player, "AmovPknlMstpSrasWrflDnon" ], "switchMoveEverywhere" ] call BIS_fnc_MP },
 			[],
@@ -155,22 +162,25 @@ BTC_fnc_PVEH = {
 };
 BTC_first_aid = {
 	private ["_injured","_array_item_injured","_array_item","_cond"];
+	_injured = objNull;
 	_men = nearestObjects [player, ["Man"], 2];
+	if (count _men < 2) exitWith {_injured};
 	if (count _men > 1) then {_injured = _men select 1};
-	if (format ["%1",_injured getVariable "BTC_need_revive"] != "1") exitWith {};
+	if (format ["%1",_injured getVariable "BTC_need_revive"] != "1") exitWith {_injured};
 	_array_item = items player;
 	_array_item_injured = items _injured;
 	_cond = false;
 	if (BTC_need_first_aid isEqualTo 0) then {_cond = true};
 	if ((_array_item_injured find "FirstAidKit" == -1) && (BTC_need_first_aid isEqualTo 1)) then {_cond = false;} else {_cond = true;};
-	if (!_cond && BTC_need_first_aid isEqualTo 1) then {if ((_array_item find "FirstAidKit" == -1)) then {_cond = false;} else {_cond = true;};};
-	if (!_cond) exitWith {hint "Can't revive him";};
-	if (BTC_need_first_aid isEqualTo 1) then {if (_array_item_injured find "FirstAidKit" == -1) then {player removeItem "FirstAidKit";};};
+	if ((!_cond && BTC_need_first_aid isEqualTo 1) && {_array_item find "FirstAidKit" == -1}) then {_cond = false;} else {_cond = true;};
+	if (!_cond) exitWith {hint "Can't revive him"; _injured};
+	if (BTC_need_first_aid isEqualTo 1 && {_array_item_injured find "FirstAidKit" == -1}) then {player removeItem "FirstAidKit"};
 	waitUntil {!Alive player || (animationState player != "AinvPknlMstpSlayWrflDnon_medic" && animationState player != "amovpercmstpsraswrfldnon_amovpknlmstpsraswrfldnon" && animationState player != "amovpknlmstpsraswrfldnon_ainvpknlmstpslaywrfldnon" && animationState player != "ainvpknlmstpslaywrfldnon_amovpknlmstpsraswrfldnon")};
 	if (Alive player && Alive _injured && format ["%1",player getVariable "BTC_need_revive"] == "0") then {
 		_injured setVariable ["BTC_need_revive",0,true];
 		_injured playMoveNow "AinjPpneMstpSnonWrflDnon_rolltoback";
 	};
+	_injured
 };
 BTC_drag = {
 	private "_injured";
@@ -182,7 +192,6 @@ BTC_drag = {
 	_injured attachTo [player, [0, 1.1, 0.092]];
 	player playMoveNow "AcinPknlMstpSrasWrflDnon";
 	_id = player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Release") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_release], 9, true, true, "", "true"];
-	//_injured playMoveNow "AinjPpneMstpSnonWrflDb_grab";
 	BTC_drag_pveh = [1,_injured];publicVariable "BTC_drag_pveh";
 	WaitUntil {!Alive player || ((animationstate player == "acinpknlmstpsraswrfldnon") || (animationstate player == "acinpknlmwlksraswrfldb"))};
 	private ["_act","_veh_selected","_array","_array_veh","_name_veh","_text_action","_action_id"];
@@ -191,7 +200,7 @@ BTC_drag = {
 	{
 		_array = nearestObjects [player, ["Air","LandVehicle"], 5];
 		_array_veh = [];
-		{if (_x emptyPositions "cargo" != 0) then {_array_veh = _array_veh + [_x];};} foreach _array;
+		{if (_x emptyPositions "cargo" != 0) then {_array_veh pushBack _x;};} foreach _array;
 		if (count _array_veh isEqualTo 0) then {_veh_selected = objNull};
 		if (count _array_veh > 0 && _veh_selected != _array_veh select 0) then {
 			_veh_selected    = _array_veh select 0;

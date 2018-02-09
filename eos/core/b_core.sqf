@@ -240,4 +240,4 @@ if (count _fGrp > 0) then {
 };
 
 deletevehicle _bastActive;deletevehicle _bastClear;deletevehicle _basActivated;
-if (getmarkercolor _mkr == "ColorBlack") then {_mkr setmarkeralpha 0};
+if (getmarkercolor _mkr isEqualTo "ColorBlack") then {_mkr setmarkeralpha 0};

@@ -20,16 +20,16 @@ _debug=if (count _settings > 5) then {_settings select 5} else {false};
 _cache= if (count _this > 6) then {_this select 6} else {false};
 
 _mz=Max_Act_Gzones;
-if (RedHot > 0) then {RedHot = RedHot -1;};
+if (RedHot > 0) then {RedHot = RedHot -1};
 
-if (_side==EAST) then {_enemyFaction="east";_civZone=false;};
-if (_side==WEST) then {_enemyFaction="west";_civZone=false;};
-if (_side==INDEPENDENT) then {_enemyFaction="GUER";_civZone=false;};
-if (_side==CIVILIAN) then {_enemyFaction="civ";_civZone=true;};
+if (_side isEqualTo EAST) then {_enemyFaction="east";_civZone=false;};
+if (_side isEqualTo WEST) then {_enemyFaction="west";_civZone=false;};
+if (_side isEqualTo INDEPENDENT) then {_enemyFaction="GUER";_civZone=false;};
+if (_side isEqualTo CIVILIAN) then {_enemyFaction="civ";_civZone=true;};
 
-if (_mA==0) then {_mAH = 1;_mAN = 0.5;};
-if (_mA==1) then {_mAH = 0;_mAN = 0;};
-if (_mA==2) then {_mAH = 0.5;_mAN = 0.5;};
+if (_mA isEqualTo 0) then {_mAH = 1;_mAN = 0.5;};
+if (_mA isEqualTo 1) then {_mAH = 0;_mAN = 0;};
+if (_mA isEqualTo 2) then {_mAH = 0.5;_mAN = 0.5;};
 
 // INITIATE ZONE
 _trig=format ["EOSTrigger%1",_mkr];
@@ -283,7 +283,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 			};
 
 			_eosAct=false;
-			if (_debug) then {hint "Zone Cached";};
+			if (_debug) then {hint "Zone Cached"};
 		};
 		if (triggeractivated _clear and triggeractivated _taken and !_civZone)exitwith
 		{// IF ZONE CAPTURED BEGIN CHECKING FOR ENEMIES

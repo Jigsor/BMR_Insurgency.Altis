@@ -529,11 +529,11 @@ Drop_SmokeFlare_fnc = {
 		_col = "";
 	}else{
 		switch (true) do {
-			case (_col isEqualTo "red") : {_cA = [1.0,0,0];};
-			case (_col isEqualTo "green") : {_cA = [0,1.0,0];};
-			case (_col isEqualTo "yellow") : {_cA = [1.0,1.0,0];};
-			case (_col isEqualTo "white") : {_cA = [1.0,1.0,1.0];};
-			default {_cA = [1.0,1.0,1.0];};
+			case (_col isEqualTo "red") : {_cA = [1.0,0,0]};
+			case (_col isEqualTo "green") : {_cA = [0,1.0,0]};
+			case (_col isEqualTo "yellow") : {_cA = [1.0,1.0,0]};
+			case (_col isEqualTo "white") : {_cA = [1.0,1.0,1.0]};
+			default {_cA = [1.0,1.0,1.0]};
 		};
 	};
 

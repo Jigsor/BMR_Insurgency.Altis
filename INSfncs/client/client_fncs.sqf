@@ -26,7 +26,7 @@ INS_intro = {
 	showCinemaBorder false;
 	enableRadio false;
 	setViewDistance 1100;
-	if (daytime > 20.00 || daytime < 4.50) then {camUseNVG true};
+	if (daytime > 20.50 || daytime < 4.50) then {camUseNVG true};
 	_dir = (direction player) -180;
 	_rx = selectRandom [38,-38];
 	_ry = selectRandom [38,-38];
@@ -75,7 +75,7 @@ INS_intro_op4 = {
 	showCinemaBorder false;
 	enableRadio false;
 	setViewDistance 1800;
-	if (daytime > 20.00 || daytime < 4.50) then {camUseNVG true};
+	if (daytime > 20.50 || daytime < 4.50) then {camUseNVG true};
 	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
 	_ok = preloadTitleRsc ["bmr_intro", "PLAIN"];
 	0 = 0 spawn INS_intro_playTrack;
@@ -397,7 +397,8 @@ JIG_p_actions_resp = {
 		_id = player addAction [(localize "STR_BMR_bullet_cam_on"),{call INS_bullet_cam}, 0, -9, false];
 	};
 	// All players mission settings
-	if (Fatigue_ability < 1) then {[player] call INS_full_stamina;};
+	if (Fatigue_ability < 1) then {[player] call INS_full_stamina};
+	showChat true;
 	true
 };
 PVPscene_POV = {

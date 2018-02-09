@@ -95,14 +95,14 @@ private _defcnt = count _defenderArr;
 private "_holdTime";
 
 switch (true) do {
-	case (_defcnt isEqualTo 2) : {_holdTime = 7;};
-	case (_defcnt isEqualTo 3) : {_holdTime = 8;};
-	case (_defcnt isEqualTo 4) : {_holdTime = 9;};
-	case (_defcnt isEqualTo 5) : {_holdTime = 10;};
-	case (_defcnt isEqualTo 6) : {_holdTime = 11;};
-	case (_defcnt isEqualTo 7) : {_holdTime = 12;};
-	case (_defcnt > 7) : {_holdTime = 13;};
-	default {_holdTime = 7;};
+	case (_defcnt isEqualTo 2) : {_holdTime = 7};
+	case (_defcnt isEqualTo 3) : {_holdTime = 8};
+	case (_defcnt isEqualTo 4) : {_holdTime = 9};
+	case (_defcnt isEqualTo 5) : {_holdTime = 10};
+	case (_defcnt isEqualTo 6) : {_holdTime = 11};
+	case (_defcnt isEqualTo 7) : {_holdTime = 12};
+	case (_defcnt > 7) : {_holdTime = 13};
+	default {_holdTime = 7};
 };
 
 private _currTime = time;

@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-2/7/2018
+2/8/2018
 BMR_Insurgency_v1.48_beta
 	Some changes in this version are still be tested and so may contain bugs..
 	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
@@ -181,6 +181,7 @@ BMR_Insurgency_v1.48_beta
 	Added: Several action translations including Pickup Intel, BTC logistics and BTC Revive and Push etc.
 	Added: 2 headless Clients supported out of the box by default instead of 1.
 	Added: StructureBlacklist to Mogadishu.
+	Added: HQ side chat message who revived who.
 	Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
 	Change: Increased delay loop for suicide bomber and now bomber can no longer spawn in same building as target.
 	Change: VA quick profile loadout action list on MHQs extended from 15 to 20 seconds.
@@ -208,13 +209,15 @@ BMR_Insurgency_v1.48_beta
 	Fixed: Drag, Carry and Load into vehicle for downed players. Finally :)
 	Fixed: Foot patrols spawned in grids by eos would eventually stop patrolling and wonder off to grid [0,0,0].
 	Fixed: Copilot could take control of aircraft if pilot restriction was enabled and his class type was not whitelisted.
-	Fixed: Possible long standing eos script error spam and fps loss on server occured when Headless Client present.
+	Fixed: Possible long standing eos script error spam and fps loss on server occured when headless client present.
 	Fixed: Moved CAS aircraft traking marker handling to server incase player disconnects before completion and leaves marker behind.
-	Fixed: Some times BTC Lift HUD toggle and Lift scroll actions in Helis would not appear.
+	Fixed: Often times BTC Lift HUD toggle and Lift scroll actions in Helis would not appear.
 	Fixed: Opfor players occationally receive constant black screen at start untill going back to lobby and starting again in multiplayer enviroment. Needs testing/feedback.
 	Fixed: Accumulation of empty groups when headless client present.
 	Fixed: Arsenal actions on respawned MHQs missing for JIP players.
 	Fixed: Error- Unsupported language English in stringtable.
+	Fixed: Script error on player providing revive when injured was to far away after the end of revive.
+	Fixed: Work around for arma bug on some machines chat dissappears after respawn.
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017

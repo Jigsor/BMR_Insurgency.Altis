@@ -40,15 +40,15 @@ private _getType = {
 			case 3: {
 				_t = if(_v isKindOf "LandVehicle") then {"c_car"}else{"c_unknown"};
 			};
-			default {_t="mil_triangle";};
+			default {_t="mil_triangle"};
 		};
 	}else{
 		switch (_s) do {
-			case 0: {_t="o_inf";};
-			case 1: {_t="b_inf";};
-			case 2: {_t="n_inf";};
-			case 3: {_t="c_unknown";};
-			default {_t="n_unknown";};
+			case 0: {_t="o_inf"};
+			case 1: {_t="b_inf"};
+			case 2: {_t="n_inf"};
+			case 3: {_t="c_unknown"};
+			default {_t="n_unknown"};
 		};
 	};
 	_t
@@ -80,4 +80,4 @@ for '_i' from 0 to (_time * 2) step 1 do {
 	{deleteMarkerLocal _x;} count _mA;
 };
 
-if (DebugEnabled isEqualTo 1) then {player addAction["Reveal All Units","scripts\Reveal_Marker.sqf", [600,15], 1, false, true, "", "true"];};
+if (DebugEnabled isEqualTo 1) then {player addAction["Reveal All Units","scripts\Reveal_Marker.sqf", [600,15], 1, false, true, "", "true"]};

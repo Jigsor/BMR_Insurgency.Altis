@@ -23,7 +23,7 @@ _grpSize=_r+_grpMin;
 // IF VEHICLE HAS SEATS
 if (_emptySeats > 0) then {
 	// LIMIT SEATS TO FILL TO GROUP SIZE
-	if 	(_grpSize > _emptySeats) then {_grpSize = _emptySeats};
+	if (_grpSize > _emptySeats) then {_grpSize = _emptySeats};
 	if (_debug) then {hint format ["Seats Filled : %1",_grpSize]};
 
 	for "_x" from 1 to _grpSize do {
