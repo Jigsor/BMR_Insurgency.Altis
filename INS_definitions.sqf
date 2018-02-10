@@ -96,7 +96,10 @@ INS_ending_videos = [
 ];
 
 //namespace
-if (INS_ACE_core) then {missionNamespace setVariable ["ace_medical_preventinstadeath", true]};
+if (INS_ACE_core) then {
+	missionNamespace setVariable ["ace_medical_preventinstadeath", true];
+	if (Fatigue_ability isEqualTo 0) then {missionNamespace setVariable ["ace_advanced_fatigue_enabled", false]};
+};
 
 // Headless Client Variables ///////////////////////////////////////
 if  (!isServer && !hasInterface) then {
@@ -124,7 +127,7 @@ if (isServer || !hasInterface) then {
 if (isServer) then {
 	//server getVariable "eosMarkers"; // <-- returns all eos markers listed in OpenMe.sqf even invisible ones
 	//server getVariable "eosMarkersCiv";
-	// Note: List all_eos_mkrs does not include invisible markers. List is used to place intel, ammo caches, Land Data terminal and trigger mission ending.
+	// Note: List all_eos_mkrs does not include invisible markers. List is used to place intel, ammo caches, Land Data terminal and trigger mission ending. Captured and non captured states of these markers are recoded if using progression save.
 	switch (true) do {
 		case (toLower (worldName) isEqualTo "altis"):
 		{
@@ -198,9 +201,9 @@ if (isServer) then {
 		case (toLower (worldName) isEqualTo "mog"):
 		{
 			Airfield_opt = true;
-			all_eos_mkrs = ["m1","m2","m7","m8","m15","m22","m23","m24","m37","m38","m39","m52","m59","m79","m80","m95","m96","m99","m111","m118","m119","m126","m147","m148","m165","m166","m167","m180","m183","m200","m233","m239","m246","m255","m256","m3","m4","m5","m6","m9","m10","m11","m12","m13","m14","m16","m17","m18","m19","m20","m21","m25","m26","m27","m28","m29","m30","m31","m32","m33","m34","m35","m36","m40","m41","m42","m43","m44","m45","m46","m47","m48","m49","m50","m51","m53","m54","m55","m56","m57","m58","m61","m62","m63","m64","m65","m66","m67","m68","m69","m70","m71","m72","m73","m74","m75","m76","m77","m78","m81","m82","m83","m84","m85","m86","m87","m88","m89","m90","m91","m92","m93","m94","m97","m98","m101","m102","m103","m104","m105","m106","m107","m108","m109","m110","m112","m113","m114","m115","m116","m117","m120","m121","m122","m123","m124","m125","m127","m128","m129","m130","m131","m132","m133","m134","m135","m136","m137","m138","m139","m140","m141","m142","m143","m144","m145","m146","m149","m150","m151","m152","m153","m154","m155","m156","m157","m158","m159","m160","m161","m162","m163","m164","m168","m169","m170","m171","m172","m173","m174","m175","m176","m177","m178","m179","m181","m182","m184","m185","m186","m187","m188","m189","m190","m191","m192","m193","m194","m195","m196","m197","m198","m199","m201","m202","m203","m204","m205","m206","m207","m208","m209","m210","m211","m212","m213","m214","m215","m216","m217","m218","m219","m220","m221","m222","m223","m224","m225","m226","m227","m228","m229","m230","m231","m232","m60","m234","m235","m236","m238","m240","m241","m242","m243","m244","m245","m247","m248","m249","m250","m251","m252","m253","m254","m259","m260","m261","m262","m263","m264","m265","m266","m267"];
+			all_eos_mkrs = ["m7","m10","m11","m12","m13","m14","m15","m16","m17","m18","m19","m30","m41","m42","m63","m68","m71","m78","m85","m86","m87","m90","m109","m114","m133","m134","m141","m146","m147","m152","m153","m160","m161","m170","m171","m178","m179","m182","m185","m194","m195","m202","m219","m220","m221","m228","m233","m252","m257","m264","m267","m268","m269","m274","m277","m282","m283","m284","m285","m290","m291","m302","m309","m316","m317","m318","m319","m324","m375","m376","m381","m382","m384","m385","m388","m389","m1","m2","m3","m4","m5","m6","m8","m9","m20","m21","m22","m23","m24","m25","m26","m27","m28","m29","m31","m32","m33","m34","m35","m36","m37","m38","m39","m40","m43","m44","m45","m46","m47","m48","m49","m50","m51","m52","m53","m54","m55","m56","m57","m58","m59","m60","m61","m62","m64","m65","m66","m67","m69","m70","m72","m73","m74","m75","m76","m77","m79","m80","m81","m82","m83","m84","m88","m89","m91","m92","m93","m94","m95","m96","m97","m98","m99","m100","m101","m102","m103","m104","m105","m106","m107","m108","m110","m111","m112","m113","m115","m116","m117","m118","m119","m120","m121","m122","m123","m124","m125","m126","m127","m128","m129","m130","m131","m132","m135","m136","m137","m138","m139","m140","m142","m143","m144","m145","m148","m149","m150","m151","m154","m155","m156","m157","m158","m159","m162","m163","m164","m165","m166","m167","m168","m169","m172","m173","m174","m175","m176","m177","m180","m181","m183","m184","m186","m187","m188","m189","m190","m191","m192","m193","m196","m197","m198","m199","m200","m201","m203","m204","m205","m206","m207","m208","m209","m210","m211","m212","m213","m214","m215","m216","m217","m218","m222","m223","m224","m225","m226","m227","m229","m230","m231","m232","m234","m235","m236","m237","m238","m239","m240","m241","m242","m243","m244","m245","m246","m247","m248","m249","m250","m251","m253","m254","m255","m256","m258","m259","m260","m261","m262","m263","m265","m266","m270","m271","m272","m273","m275","m276","m278","m279","m280","m281","m286","m287","m288","m289","m292","m293","m294","m295","m296","m297","m298","m299","m300","m301","m303","m304","m305","m306","m307","m308","m310","m311","m312","m313","m314","m315","m320","m340","m322","m323","m325","m326","m377","m378","m379","m380","m386","m387","m321","m327","m328","m329","m330","m331","m332","m333","m334","m335","m336","m337","m338","m339","m341","m342","m343","m344","m345","m346","m347","m348","m349","m350","m351","m383","m352","m353","m354","m355","m356","m357","m358","m359","m360","m361","m362","m363","m364","m365","m366"];
 			all_civ_eos_mkrs = ["civmkr1","civmkr2","civmkr3","civmkr4","civmkr5","civmkr6","civmkr7","civmkr8","civmkr9","civmkr10","civmkr11","civmkr12","civmkr13","civmkr14","civmkr15","civmkr16","civmkr17"];
-			StructureBlackList = ["land_mbg_apartments_big_02c","land_mbg_apartments_big_03c","Land_ContainerLine_01_F","Land_Dum_istan2_01"];
+			StructureBlackList = ["land_mbg_apartments_big_02c","land_mbg_apartments_big_03c","Land_ContainerLine_01_F"];// "Land_Dum_istan2_01" <- this building has shanty on top but no access from ground so access by halo or heli
 		};
 		case (toLower (worldName) isEqualTo "clafghan"):
 		{
@@ -485,7 +488,7 @@ if (INS_op_faction isEqualTo 12) then {
 	INS_Op4_fixedWing = ["CUP_B_SU34_LGB_CDF","CUP_I_SU34_LGB_AAF","CUP_O_Su25_TKA","CUP_O_Su25_Dyn_TKA","CUP_O_L39_TK"];
 	INS_Op4_helis = ["CUP_O_UH1H_TKA","CUP_O_Mi24_D_Dynamic_TK","CUP_O_Mi17_TK","O_Heli_Attack_02_black_F","CUP_AirVehicles_Ka50"];
 	INS_civ_Veh_Car = ["CUP_C_Golf4_whiteblood_Civ","CUP_C_Golf4_random_Civ","CUP_C_Golf4_camo_Civ","CUP_C_Golf4_camodigital_Civ","CUP_C_Golf4_camodark_Civ","CUP_C_LR_Transport_CTK","CUP_C_Octavia_CIV","CUP_C_Datsun","CUP_C_Datsun_4seat","CUP_C_Datsun_Plain","CUP_C_Datsun_Covered","CUP_C_Skoda_White_CIV","CUP_C_Skoda_Green_CIV","CUP_C_Skoda_Red_CIV","CUP_C_Skoda_Blue_CIV","CUP_C_SUV_TK"];
-	INS_civ_Veh_Utl = ["CUP_C_Ural_Civ_01","CUP_C_Ural_Open_Civ_01","CUP_C_Ural_Civ_02","CUP_C_Ural_Civ_03","CUP_C_Ural_Open_Civ_03","CUP_C_UAZ_Open_TK_CIV","CUP_C_UAZ_Unarmed_TK_CIV","C_Truck_02_covered_F","C_Truck_02_box_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];	
+	INS_civ_Veh_Utl = ["CUP_C_Ural_Civ_01","CUP_C_Ural_Open_Civ_01","CUP_C_Ural_Civ_02","CUP_C_Ural_Civ_03","CUP_C_Ural_Open_Civ_03","CUP_C_UAZ_Open_TK_CIV","CUP_C_UAZ_Unarmed_TK_CIV","C_Truck_02_covered_F","C_Truck_02_box_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];
 	INS_civlist = ["CUP_C_TK_Man_07_Waist","CUP_C_TK_Man_04","CUP_C_TK_Man_04_Jack","CUP_C_TK_Man_04_Waist","CUP_C_TK_Man_07","CUP_C_TK_Man_07_Coat","CUP_C_TK_Man_07_Waist","CUP_C_TK_Man_08","CUP_C_TK_Man_08_Jack","CUP_C_TK_Man_08_Waist","CUP_C_TK_Man_05_Coat","CUP_C_TK_Man_05_Jack","CUP_C_TK_Man_05_Waist","CUP_C_TK_Man_06_Coat","CUP_C_TK_Man_06_Jack","CUP_C_TK_Man_06_Waist","CUP_C_TK_Man_02","CUP_C_TK_Man_02_Jack","CUP_C_TK_Man_02_Waist","CUP_C_TK_Man_01_Waist","CUP_C_TK_Man_01_Coat","CUP_C_TK_Man_01_Jack","CUP_C_TK_Man_03_Coat","CUP_C_TK_Man_03_Jack","CUP_C_TK_Man_03_Waist"];//Takistani Civilians
 	INS_CAS = "CUP_B_A10_AT_USA";
 };

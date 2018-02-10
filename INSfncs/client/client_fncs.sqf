@@ -63,14 +63,15 @@ INS_intro = {
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
-	waitUntil {
-		if (missionnamespace getvariable ["BIS_fnc_startLoadingScreen_ids",[]] isEqualTo []) then {
-			true
-		}else{
-			diag_log str (missionnamespace getvariable ["BIS_fnc_startLoadingScreen_ids",[]]);
-			false
-		};
-	};
+	
+	//waitUntil {
+	//	if (missionnamespace getvariable ["BIS_fnc_startLoadingScreen_ids",[]] isEqualTo []) then {
+	//		true
+	//	}else{
+	//		diag_log str (missionnamespace getvariable ["BIS_fnc_startLoadingScreen_ids",[]]);
+	//		false
+	//	};
+	//};//<- Not a good fix for black screen bug, causes freeze at briefing.
 	disableSerialization;
 	showCinemaBorder false;
 	enableRadio false;
@@ -90,7 +91,7 @@ INS_intro_op4 = {
 	_cam camSetPos [(position center select 0) - 240, (position center select 1) + 100, 450];
 	_cam camCommit 15;
 	sleep 5;
-	("BMR_Layer" call BIS_fnc_rscLayer) cutRsc ["bmr_intro", "PLAIN"];
+	//("BMR_Layer" call BIS_fnc_rscLayer) cutRsc ["bmr_intro", "PLAIN"];//<-causes black screen bug? Needs feedback.
 	[_text, safezoneX - 0.01, safeZoneY + (1 - 0.125) * safeZoneH, true, "<t align='right' size='1.0' font='PuristaLight'>%1</t>"] spawn BIS_fnc_typeText2;
 	UIsleep 3;
 	waitUntil {camcommitted _cam};

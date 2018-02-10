@@ -63,6 +63,7 @@ BTC_detach_cargo = {
 	detach BTC_cargo_lifted;
 	_name_cargo  = getText (configFile >> "cfgVehicles" >> typeof BTC_cargo_lifted >> "displayName");
 	vehicle player vehicleChat format ["%1 dropped", _name_cargo];
+	if ((getPos BTC_cargo_lifted select 2) < -2.5) then {BTC_cargo_lifted setpos [0,0,0]; BTC_cargo_lifted setDamage 1;};
 	if (BTC_cargo_lifted isKindOf "Strategic") then {
 		_obj_fall = [BTC_cargo_lifted] spawn BTC_l_Obj_Fall;
 	} else {
@@ -82,7 +83,7 @@ BTC_detach_cargo = {
 };
 BTC_fnc_hud = {
 	disableSerialization;
-	("BTC_LiftHudLayer" call BIS_fnc_rscLayer) cutRsc ["BTC_Hud","PLAIN"];	
+	("BTC_LiftHudLayer" call BIS_fnc_rscLayer) cutRsc ["BTC_Hud","PLAIN"];
 	_ui        = uiNamespace getVariable "HUD";
 	_radar     = _ui displayCtrl 1001;
 	_obj_img   = _ui displayCtrl 1002;
@@ -151,6 +152,12 @@ BTC_l_camera = {
 		if (BTC_l_pip_cond) then {BTC_l_pip_cond = false;[] call BIS_fnc_liveFeedTerminate;};
 	};
 };
+Jig_DeadLifter = {
+	detach BTC_cargo_lifted;
+	BTC_cargo_lifted setVelocity [0,0,-5];
+	waitUntil {sleep 0.2; isTouchingGround BTC_cargo_lifted || (getPos BTC_cargo_lifted select 2) < -2.5};
+	if ((getPos BTC_cargo_lifted select 2) < -2.5) then {BTC_cargo_lifted setpos [0,0,0]; BTC_cargo_lifted setDamage 1;};
+};
 BTC_lift_acts = {
 	if (BTC_def_hud isEqualTo 1) then {player addAction [("<t color='#00ffe9'>" + ("Lift Hud On\Off") + "</t>"),BTC_dir_action, [[],{if (BTC_Hud_Cond) then {BTC_Hud_Cond = false;} else {BTC_Hud_Cond = true;_hud = [] spawn BTC_fnc_hud;};}], -8, false, false, "", "objectParent player isKindOf 'Helicopter' && player isEqualTo driver objectParent player"]};
 	if (BTC_def_pip isEqualTo 1) then {player addAction [("<t color='#00ffe9'>" + ("Belly Camera On\Off") + "</t>"),BTC_dir_action, [[],BTC_l_camera], -9, false, false, "", "objectParent player isKindOf 'Helicopter'"]};
@@ -165,6 +172,7 @@ BTC_lift_acts = {
 			BTC_l_pip_cond = false;
 			BTC_cargo    = ObjNull;
 			BTC_Hud_Cond = false;
+			if (BTC_lifted isEqualTo 1) then {[] spawn Jig_DeadLifter};
 			BTC_lifted   = 0;
 			call BTC_lift_acts;
 		};

@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-2/8/2018
+2/9/2018
 BMR_Insurgency_v1.48_beta
 	Some changes in this version are still be tested and so may contain bugs..
 	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
@@ -177,10 +177,9 @@ BMR_Insurgency_v1.48_beta
 	Added: Support of custom licence plates.(new command currently in Dev Branch).
 	Added: Saving of grid zone progression persistence system. Can be cleared and disabled by default, enabled and restored or enabled and cleared to start from new by lobby parameter.
 	Added: Support for JIP of Headless Client incase of kick or crash of Headless Client. Requires HC to be present at mission start, one of the persistence options enabled and mission to be cached into Server and HC. To top off uncaptured zones with enemy, HC can be kicked/will auto rejoin .
-	Added: Penalty for killing innocent civilians including negative rating to killer of -3500, system chat message of who killed who, Global marker revealing killer position to all sides for approx. 12 seconds.
+	Added: Penalty for killing innocent civilians including negative rating to killer of -3500, system chat message of who killed who, global warning marker revealing killer position to all sides for approx. 12 seconds.
 	Added: Several action translations including Pickup Intel, BTC logistics and BTC Revive and Push etc.
 	Added: 2 headless Clients supported out of the box by default instead of 1.
-	Added: StructureBlacklist to Mogadishu.
 	Added: HQ side chat message who revived who.
 	Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
 	Change: Increased delay loop for suicide bomber and now bomber can no longer spawn in same building as target.
@@ -194,11 +193,13 @@ BMR_Insurgency_v1.48_beta
 	Change: Added new light weight IED system in wich IEDs can be detected with IED detector and uses real IED objects. Old or new sytem Brians200's/Jig IEDs can be selected in lobby. Jig IEDs places IEDs on road and road side and does not depend on markers placed in the editor. The number of IEDs and percentage of fake IEDs can be changed in scripts\JigIEDs.sqf. The placement will always be random. Enable Debug Mode lobby parameter to see IED locations.
 	Change: "Save Respawn Loadout" action now works without having to load a saved preset from arsenal previously.
 	Change: Only heli MHQ_3 has Load Cargo action applied instead of all helis for use with Delivery objective.
+	Change: Added StructureBlacklist, a few more zone markers and relocated some zone markers to reflect Mogadishu terrain update of Dec. 2017.
 	Change: Removed ablility to place/reposition/hide intel with BTC logistics actions.
 	Change: Only affects ACE_3 moded machines: Disabled ACE Cook Off on Ammo Cache since cache has its own cook off effects and server can issue reward before destroyer wanders off to far to measure. Nearest alive/concious player detection for reward issue increased from 100 to 200 meters from cache./Needs testing feedback.
 	Fixed: Enemy AI faction combinations of East mixed with Independent are now group with the major faction's side, meaning both factions trigger zone occupation for AI spawned by EOS
 	Fixed: Hold timer discrepancy between players affecting Capture N Hold objective. Everyones now sees same time on countdown timer.
 	Fixed: AI recruits are deleted when player disconnects if player's former group leader is not another player.
+	Fixed: Vehicle would get stuck under ground if pilot did not release lifted vehicle and died or vehicle released under ground when using BTC's heli vehicle lift.
 	Fixed: Several MP/dedicated server issues in heli group extraction.
 	Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.
 	Fixed: Some Russian translations.
@@ -218,6 +219,7 @@ BMR_Insurgency_v1.48_beta
 	Fixed: Error- Unsupported language English in stringtable.
 	Fixed: Script error on player providing revive when injured was to far away after the end of revive.
 	Fixed: Work around for arma bug on some machines chat dissappears after respawn.
+	Fixed: Not all visible zone markers were accessible to caches, intel or accounted for ending trigger in Mogadishu.
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017
