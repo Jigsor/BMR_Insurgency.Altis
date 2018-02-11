@@ -9,7 +9,7 @@ _skillset = server getvariable (_this select 1);
 		_unit setSkill [_x,_skillvalue];
 	} forEach ['aimingAccuracy','aimingShake','aimingSpeed','spotDistance','spotTime','courage','reloadSpeed','commanding','general'];
 
-	if !(AIdamMod isEqualTo 100) then {_unit removeAllEventHandlers "HandleDamage";_unit addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];};
+	if !(AIdamMod isEqualTo 1) then {_unit removeAllEventHandlers "HandleDamage";_unit addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];};
 	if (EOS_CIV_KILLCOUNTER) then {_unit addEventHandler ["killed", "null=[] execVM ""eos\functions\EOS_CIV_KILLCOUNTER.sqf"""]};
 	// ADD CUSTOM SCRIPTS TO UNIT HERE
 

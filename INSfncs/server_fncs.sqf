@@ -577,7 +577,7 @@ spawn_Op4_grp = {
 
 	{
 		_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-		if !(AIdamMod isEqualTo 100) then {
+		if !(AIdamMod isEqualTo 1) then {
 			_x removeAllEventHandlers "HandleDamage";
 			_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 		};
@@ -640,7 +640,7 @@ spawn_Op4_StatDef = {
 
 	{
 		_x addeventhandler ["killed", "[(_this select 0)] spawn remove_carcass_fnc"];
-		if !(AIdamMod isEqualTo 100) then {
+		if !(AIdamMod isEqualTo 1) then {
 			_x removeAllEventHandlers "HandleDamage";
 			_x addEventHandler ["HandleDamage", {_damage = (_this select 2)*AIdamMod;_damage}];
 		};
