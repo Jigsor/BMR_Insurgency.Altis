@@ -98,11 +98,11 @@ mhq_actions_fnc = {
 	params ["_veh","_var"];
 
 	switch (true) do {
-		case (_var isEqualTo "MHQ_1"): {			
+		case (_var isEqualTo "MHQ_1"): {
 			if (INS_VA_type isEqualTo 0) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
 			if (INS_VA_type isEqualTo 1) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
 		};
-		case (_var isEqualTo "MHQ_2"): {			
+		case (_var isEqualTo "MHQ_2"): {
 			if (INS_VA_type isEqualTo 0) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
 			if (INS_VA_type isEqualTo 1) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
 		};
