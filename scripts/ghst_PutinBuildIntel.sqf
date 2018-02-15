@@ -216,7 +216,4 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 	};
 
 	publicVariableServer "intel_Build_objs";
-	sleep 3;
-
-	if (true) exitwith {};
 };

@@ -61,5 +61,6 @@ if (
 (_Transporter isKindOf "rhsusf_CH53E_USMC_D") ||
 (_Transporter isKindOf "rhsusf_CH53E_USMC_W") ||
 (_Transporter isKindOf "CUP_B_Merlin_HC3A_Armed_GB") ||
-(_Transporter isKindOf "OPTRE_Pelican_armed_black")
+(_Transporter isKindOf "OPTRE_Pelican_armed_black") ||
+(_Transporter isKindOf "ffaa_nh90_nfh_transport")
 ) then { _SelectedTransporterTypeXL = true; };

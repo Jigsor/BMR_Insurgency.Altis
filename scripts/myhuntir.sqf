@@ -53,7 +53,9 @@ openMap false;
 0 fadesound 0;
 disableserialization;
 keyspressed = compile preprocessFile "scripts\myhuntir_keydown.sqf";
-_displayID = (findDisplay 46) displaySetEventHandler ["KeyDown","_this call keyspressed"];
+//_displayID = (findDisplay 46) displaySetEventHandler ["KeyDown","_this call keyspressed"];
+HuntIR_Eh = (findDisplay 46) displayAddEventHandler ["KeyDown","_this call keyspressed"];//updated Jig
+
 //if (visibleMap) then { waituntil {not visibleMap} };
 
 //_granatpos = getPos _granat;
@@ -129,7 +131,9 @@ player cameraEffect ["terminate","back"];
 camdestroy _camera;
 deletevehicle _sattgt;
 camUseNVG false;
-(findDisplay 46) displayRemoveAllEventHandlers "KeyDown";
+//(findDisplay 46) displayRemoveAllEventHandlers "KeyDown";
+(findDisplay 46) displayRemoveEventHandler ["KeyDown", HuntIR_Eh];//updated Jig
+
 0 fadesound 1;
 
 //hintsilent format["granat itt volt x=%1, y=%2",_debugx,_debugy];

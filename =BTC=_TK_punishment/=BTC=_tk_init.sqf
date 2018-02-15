@@ -1,7 +1,7 @@
 /*
 	Created by =BTC= Giallustio
 	version 0.3
-	Visit us at: 
+	Visit us at:
 	http://www.blacktemplars.altervista.org/
 	06/03/2012
 */
@@ -24,16 +24,13 @@ BTC_EH_killed = {
 	_veh_body = vehicle _body;
 	_veh_killer = vehicle _killer;
 	_name = name _killer;
-	if (_name != name _body && BTC_vip find (name _killer) == -1) then
-	{
-		if (side _killer == BTC_side && _veh_body != _veh_killer) then
-		{
+	if (_name != name _body && BTC_vip find (name _killer) == -1) then {
+		if (side _killer == BTC_TKside && _veh_body != _veh_killer) then {
 			//BTC_tk_PVEH = [_name];publicVariable "BTC_tk_PVEH";player sidechat format ["%1 has committed TK",_name];
-			_killer spawn 
-			{
+			_killer spawn {
 				hint format ["%1 TK you! You can decide to punish him by action menu", name _this];
 				WaitUntil {Alive player};
-				_action = player addAction [("<t color='#ED2744'>") + ("Punish " + name _this) + "</t>","=BTC=_TK_punishment\=BTC=_punish_action.sqf",[name _this], 8, true, true, "", "true"];
+				_action = player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Punish") + (name _this) + "</t>","=BTC=_TK_punishment\=BTC=_punish_action.sqf",[name _this], 8, true, true, "", "true"];
 				_timeout = time + 30;
 				WaitUntil {sleep 1; (_timeout < time)};
 				player removeAction _action;
@@ -48,27 +45,23 @@ BTC_Teamkill = {
 	BTC_logic setVariable [_uid,BTC_teamkiller,true];
 	switch (true) do
 	{
-		case (BTC_teamkiller <= BTC_tk_blackscreen_punishment) : 
-		{
+		case (BTC_teamkiller <= BTC_tk_blackscreen_punishment) : {
 			titleText ["STOP TEAMKILLING!","BLACK FADED"];
 			sleep 3;
 			titleText ["STOP TEAMKILLING!","PLAIN"];
 		};
-		case (BTC_teamkiller > BTC_tk_blackscreen_punishment && BTC_teamkiller <= BTC_tk_last_warning) : 
-		{
+		case (BTC_teamkiller > BTC_tk_blackscreen_punishment && BTC_teamkiller <= BTC_tk_last_warning) : {
 			playSound "boo";//Jig adding
 			private _msg = "";
 			disableUserInput true;
-			if (BTC_teamkiller == BTC_tk_last_warning) then
-			{
+			if (BTC_teamkiller == BTC_tk_last_warning) then {
 				_msg = "STOP TEAMKILLING, LAST WARNING";
 			} else {
 				_msg = "YOU HAVE BEEN PUNISHED FOR TEAMKILLING!";
 			};
 			player setPos [101,101,0];
 			private _n = 0;
-			while {_n < 60} do
-			{
+			while {_n < 60} do {
 				titleText [_msg,"BLACK FADED"];
 				_n = _n + 1;
 				sleep 1;
@@ -76,16 +69,14 @@ BTC_Teamkill = {
 			disableUserInput false;
 			player setDamage 1;
 		};
-		case (BTC_teamkiller > BTC_tk_last_warning) : 
-		{
+		case (BTC_teamkiller > BTC_tk_last_warning) : {
 			if (isNil "Kick_For_Duration") then {Kick_For_Duration = []};
 			Kick_For_Duration pushBack _uid;
 			publicVariableServer "Kick_For_Duration";//Jig adding
 			disableUserInput true;
 			titleText ["YOU HAVE BEEN PUNISHED FOR TEAMKILLING!\nYOU ARE NOT WELCOME ANYMORE","BLACK FADED"];
 			player setPos [101,101,0];
-			while {true} do
-			{
+			while {true} do {
 				titleText ["YOU HAVE BEEN PUNISHED FOR TEAMKILLING!\nYOU ARE NOT WELCOME ANYMORE","BLACK FADED"];
 				sleep 1;
 			};
@@ -99,16 +90,16 @@ if (hasInterface) then {
 		player addEventHandler ["Killed", BTC_EH_killed];
 		"BTC_tk_PVEH" addPublicVariableEventHandler BTC_fnc_tk_PVEH;
 		player addrating 9999;
-		BTC_side = side player;
+		//BTC_TKside = side player;
+		BTC_TKside = playerSide;
 		BTC_vip = [];
 		private _uid = getPlayerUID player;
-		if (isNil {BTC_logic getVariable _uid}) then
-		{
+		if (isNil {BTC_logic getVariable _uid}) then {
 			BTC_logic setVariable [_uid,0,true];
 			BTC_teamkiller = 0;
 		}else{
 			BTC_teamkiller = BTC_logic getVariable _uid;
-			if (BTC_teamkiller > BTC_tk_last_warning) then {_tk = [] spawn BTC_Teamkill;}
+			if (BTC_teamkiller > BTC_tk_last_warning) then {_tk = [] spawn BTC_Teamkill}
 		};
 	};
 };

@@ -30,14 +30,10 @@ Keys = 0;
 IsCutRope = false;
 
 _ctrl = _dialog displayCtrl 2903;
-{
-	_index = _ctrl lbAdd _x;
-} forEach ["Fr Keyboard","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","US Keyboard","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+{_index = _ctrl lbAdd _x} count ["Fr Keyboard","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","US Keyboard","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 lbSetCurSel [2903, 0];
 
 ATM_Jump_mapclick = false;
-//onMapSingleClick "ATM_Jump_clickpos = _pos; ATM_Jump_mapclick = true; onMapSingleClick ''; true;";
-
 ["PlayerHalo_mapclick","onMapSingleClick", {
 	ATM_Jump_clickpos = _pos;
 	ATM_Jump_mapclick = true;
@@ -60,11 +56,11 @@ ATM_Jump_mapclick = if(true) then{
 };
 
 _target = player;
-RedOn = _target addAction["<t color='#B40404'>Chemlight Red On</t>", "ATM_airdrop\atm_chem_on.sqf",["Chemlight_red"],6,false,false,"","_target == ( player)"];
-BlueOn = _target addAction["<t color='#68ccf6'>Chemlight Blue On</t>", "ATM_airdrop\atm_chem_on.sqf",["Chemlight_blue"],6,false,false,"","_target == ( player)"];
-YellowOn = _target addAction["<t color='#fcf018'>Chemlight Yellow On</t>", "ATM_airdrop\atm_chem_on.sqf",["Chemlight_yellow"],6,false,false,"","_target == ( player)"];
-GreenOn = _target addAction["<t color='#30fd07'>Chemlight Green On</t>", "ATM_airdrop\atm_chem_on.sqf",["Chemlight_green"],6,false,false,"","_target == ( player)"];
-IrOn = _target addAction["<t color='#FF00CC'>Strobe IR On</t>", "ATM_airdrop\atm_chem_on.sqf",["NVG_TargetC"],6,false,false,"","_target == ( player)"];
+RedOn = _target addAction["<t color='#B40404'>Chemlight Red On</t>", "ATM_airdrop\atm_chem_on.sqf",["Chemlight_red"],6,false,false,"","_target == player"];
+BlueOn = _target addAction["<t color='#68ccf6'>Chemlight Blue On</t>", "ATM_airdrop\atm_chem_on.sqf",["Chemlight_blue"],6,false,false,"","_target == player"];
+YellowOn = _target addAction["<t color='#fcf018'>Chemlight Yellow On</t>", "ATM_airdrop\atm_chem_on.sqf",["Chemlight_yellow"],6,false,false,"","_target == player"];
+GreenOn = _target addAction["<t color='#30fd07'>Chemlight Green On</t>", "ATM_airdrop\atm_chem_on.sqf",["Chemlight_green"],6,false,false,"","_target == player"];
+IrOn = _target addAction["<t color='#FF00CC'>Strobe IR On</t>", "ATM_airdrop\atm_chem_on.sqf",["NVG_TargetC"],6,false,false,"","_target == player"];
 
 _loadout=[_target] call ATM_Getloadout;
 
@@ -80,12 +76,12 @@ deleteMarker "mkr_halo";
 0=[_target] call Frontpack;
 
 removeBackpack _target;
-sleep 0,5;
+sleep 0.5;
 _target addBackpack "B_Parachute";
-if ((getPos _target select 2) >= 8000) then{
+if ((getPos _target select 2) >= 8000) then {
 	removeHeadgear _target;
 	_target addHeadgear "H_CrewHelmetHeli_B";
-	sleep 0,5;
+	sleep 0.5;
 };
 
 hintsilent "";
@@ -110,7 +106,6 @@ while {(getPos _target select 2) > 2} do {
 };
 
 _target switchmove "";//Jig adding
-
 hint Localize "STR_ATM_hintload";
 _target removeAction RedOn;
 _target removeAction BlueOn;
@@ -119,14 +114,10 @@ _target removeAction GreenOn;
 _target removeaction Iron;
 deletevehicle (_target getvariable "frontpack"); _target setvariable ["frontpack",nil,true];
 deletevehicle (_target getvariable "lgtarray"); _target setvariable ["lgtarray",nil,true];
-if (!IsCutRope) then {
-	(findDisplay 46) displayRemoveEventHandler ["KeyDown", Cut_Rope];
-};
+if (!IsCutRope) then {(findDisplay 46) displayRemoveEventHandler ["KeyDown", Cut_Rope]};
 
 sleep 3;
 hintsilent "";
 sleep 1;
 
 0=[_target,_loadout] call ATM_Setloadout;
-
-if (true) exitWith {};

@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-2/9/2018
+2/14/2018
 BMR_Insurgency_v1.48_beta
 	Some changes in this version are still be tested and so may contain bugs..
 	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
@@ -172,16 +172,19 @@ BMR_Insurgency_v1.48_beta
 	Added: Dust Storm will auto terminate if enabled when Random or Real Weather is enabled and it starts to rain.
 	Added: Reassigning damage event handlers to AI on locality changed when unassigning Zeus from yourself.
 	Added: Non owner work around for entering driver and turrets in DLC vehicles.(Currently only affects English A3 versioned owners).
-	Added: Temporary fix for broken door actions in Lythium and Kunduz.(can be removed if these terrains get updated and fixed)+(Non owner DLC bypass for vehicles not used with these terrains because inGameUISetEventHandler is not stackable).
+	Added: Temporary fix for broken door actions Kunduz.(can be removed if terrain gets updated and fixed)+(Non owner DLC bypass for vehicles not used with Kunduz because inGameUISetEventHandler is not stackable).
 	Added: Globalization of civilian vehicle textures in Civilian Traffic. (everyone sees the same texure/color now).
 	Added: Support of custom licence plates.(new command currently in Dev Branch).
 	Added: Saving of grid zone progression persistence system. Can be cleared and disabled by default, enabled and restored or enabled and cleared to start from new by lobby parameter.
-	Added: Support for JIP of Headless Client incase of kick or crash of Headless Client. Requires HC to be present at mission start, one of the persistence options enabled and mission to be cached into Server and HC. To top off uncaptured zones with enemy, HC can be kicked/will auto rejoin .
+	Added: Support for JIP of Headless Client incase of kick or crash of Headless Client. Requires HC to be present at mission start, one of the persistence options enabled and mission to be cached into Server and HC. To top off uncaptured zones with enemy, HC can be kicked/will auto rejoin.
 	Added: Penalty for killing innocent civilians including negative rating to killer of -3500, system chat message of who killed who, global warning marker revealing killer position to all sides for approx. 12 seconds.
 	Added: Several action translations including Pickup Intel, BTC logistics and BTC Revive and Push etc.
 	Added: 2 headless Clients supported out of the box by default instead of 1.
 	Added: HQ side chat message who revived who.
+	Added: Lobby option for full Arsenal or custom whitelisted Arsenal. Customizations by class names can be edited in INSfncs\common\fn_BluforVA.sqf and fn_InsurgentVA.sqf. If Whitelisted Arsenal is used then VA Quick Profile will not be available. (W.I.P)
 	Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
+	Added: Support for new NH90 heli from FFAA.
+	Added: Workaround for rare occurrence that players may not be able to see chat messeges after respawn.
 	Change: Increased delay loop for suicide bomber and now bomber can no longer spawn in same building as target.
 	Change: VA quick profile loadout action list on MHQs extended from 15 to 20 seconds.
 	Change: Shortening enemy group spawn delay on Capture N Hold objective depending on defender count size and server fps for higher intensity.
@@ -217,9 +220,12 @@ BMR_Insurgency_v1.48_beta
 	Fixed: Accumulation of empty groups when headless client present.
 	Fixed: Arsenal actions on respawned MHQs missing for JIP players.
 	Fixed: Error- Unsupported language English in stringtable.
-	Fixed: Script error on player providing revive when injured was to far away after the end of revive.
+	Fixed: Script error on player providing revive after the end of revive when injured was to far away.
 	Fixed: Work around for arma bug on some machines chat dissappears after respawn.
 	Fixed: Not all visible zone markers were accessible to caches, intel or accounted for ending trigger in Mogadishu.
+	Fixed: Unexpected behavior occured in BTK punishment when player switched to side "Enemy".
+	Fixed: After using HuntIR, any other existing display event handlers were deleted.
+	Fixed: Cut Rope on ATM Halo drop works repeatably and chute will auto open if drop height is altered.
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017

@@ -124,5 +124,3 @@ switch (_objsel) do
 };
 
 //missionNamespace setVariable ["CurrentSideMission", _objsel, true];
-
-if (true) exitWith {};

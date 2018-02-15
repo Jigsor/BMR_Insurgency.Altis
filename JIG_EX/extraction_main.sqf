@@ -292,5 +292,4 @@ if (!hasInterface && !isDedicated) exitWith {};
 		sleep 1.2;
 		[localize "STR_BMR_heli_extraction_standby", "JIG_EX_MPhint_fnc", ext_caller_group, false, false] call BIS_fnc_mp;
 	};
-	if (true) exitwith {};
 };

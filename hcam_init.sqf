@@ -6,11 +6,9 @@ if ( (_this select 0) == "mission" ) then {
 	hcam_configpath = "\userconfig\T\";
 };
 
-
 if (!hasInterface) exitwith {};
 if (INS_ACE_core) exitwith {};
 
-// Define vars (or see if they have already been assigned by the server)
 if (isNil "hcam_goggles") then {
   hcam_goggles = ["G_Tactical_Clear"];
 };
@@ -35,6 +33,5 @@ hcam_ui_init = {
 	(_disp displayCtrl 0) ctrlSetText "#(argb,256,256,1)r2t(rendertarget0,1.0)";
 };
 
-// Init
 waitUntil {!isNull (findDisplay 46)};
 (findDisplay 46) displayAddEventHandler ["KeyDown"," nul=[_this select 1,_this select 2,_this select 3,_this select 4] execVM (hcam_basepath+'input.sqf'); "];

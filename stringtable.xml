@@ -1178,6 +1178,14 @@
 <Russian>тянуть на бечеве</Russian>
 <Spanish>Toar</Spanish>
 </Key>
+<Key ID="STR_BTC_Punish">
+<Original>Punish_</Original>
+<English>Punish_</English>
+<German>Bestrafen_</German>
+<French>Punir_</French>
+<Russian>наказать_</Russian>
+<Spanish>Castigar_</Spanish>
+</Key>
 <Key ID="STR_BMR_Push">
 <Original>Push</Original>
 <English>Push</English>

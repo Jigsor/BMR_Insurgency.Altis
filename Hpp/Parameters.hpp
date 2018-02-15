@@ -333,63 +333,70 @@ class Params
 	texts[]={"No, respawn with inventory you had at death (Reload Magazine to Save Kit)","Yes"};
 	default = 1;
 	};
-	class INS_IEDs//42
+	class INS_VA_type//42
+	{
+	title = "		Virtual Arsenal Type";
+	values[]={0,1};
+	texts[]={"Unrestricted Contents", "Whitelisted Contents"};
+	default = 0;
+	};
+	class INS_IEDs//43
 	{
 	title = "		IED system";
 	values[]={0,1,2};
 	texts[]={"Disabled","brians200's IEDs","Jig IEDs (detectable with mine detector)"};
 	default = 2;
 	};
-	class INS_persistence//43
+	class INS_persistence//44
 	{
 	title = "		Enable Progression Saving and Restoration?";
 	values[]={0,1,2};
 	texts[]={"No, clear progression if any is saved","Yes, save mission progression and restore if any is saved","Yes, save mission progression and clear progression if any is saved"};
 	default = 2;
 	};
-	class INS_Dum_Param8//44
+	class INS_Dum_Param8//45
 	{
 	title = ":: Intel/AmmoCaches ::";
 	values[]={0};
 	texts[]={ ""};
 	default = 0;
 	};
-	class EnemyAmmoCache//45
+	class EnemyAmmoCache//46
 	{
 	title = "		Enable Enemy Ammo Caches?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
 	};
-	class Intel_Loc_Alpha//46
+	class Intel_Loc_Alpha//47
 	{
 	title = "		Show Intel Location Markers?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
 	};
-	class Intel_Count//47
+	class Intel_Count//48
 	{
 	title = "		Maximum possible intel per occupied grid zone ratio";
 	values[]={2,3,4,5,6};
 	texts[]={"1 intel : 2 zones","1 intel : 3 zones","1 intel : 4 zones","1 intel : 5 zones","1 intel : 6 zones"};
 	default = 4;
 	};
-	class INS_Dum_Param9//48
+	class INS_Dum_Param9//49
 	{
 	title = ":: Debug ::";
 	values[]={0};
 	texts[]={ ""};
 	default = 0;
 	};
-	class DebugEnabled//49
+	class DebugEnabled//50
 	{
 	title = "		Debug mode?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 0;
 	};
-	class tky_perfmon//50
+	class tky_perfmon//51
 	{
 	title = "		Run performance monitor? (Requires Debug mode Enabled.)";
 	values[]={0,30,60,300};

@@ -133,7 +133,7 @@ class RscTitles {
 		movingEnable = 0;
 		enableSimulation = 1;
 		enableDisplay = 1;
-		duration = 99999999;
+		duration = 1e+011;
 		fadein = 0;
 		fadeout = 0;
 		class controls {
@@ -149,10 +149,10 @@ class RscTitles {
 				colorText[] = {1,1,1,1};
 				colorBackground[] = {0, 0, 0, 0};
 				font = "TahomaB";
-					sizeEx = 0;
-					lineSpacing = 0;
-					fixedWidth = 0;
-					shadow = 0;
+				sizeEx = 0;
+				lineSpacing = 0;
+				fixedWidth = 0;
+				shadow = 0;
 			};
 			class RscHcamCam: RscPicture {
 				idc = 0;
@@ -166,10 +166,10 @@ class RscTitles {
 				colorText[] = {1,1,1,1};
 				colorBackground[] = {0, 0, 0, 0.3};
 				font = "TahomaB";
-					sizeEx = 0;
-					lineSpacing = 0;
-					fixedWidth = 0;
-					shadow = 0;
+				sizeEx = 0;
+				lineSpacing = 0;
+				fixedWidth = 0;
+				shadow = 0;
 			};
 			class HcamText
 			{
@@ -183,8 +183,8 @@ class RscTitles {
 				colorText[]       = {0,0,0,0.75};
 				colorBackground[] = {1, 1, 1, 0.2}; // no background
 				font = "TahomaB";
-					sizeEx = 0.02;
-					text="";
+				sizeEx = 0.02;
+				text="";
 			};
 			class RscHcamFront: RscPicture {
 				idc = 3;
@@ -198,12 +198,11 @@ class RscTitles {
 				colorText[] = {1,1,1,1};
 				colorBackground[] = {0, 0, 0, 0};
 				font = "TahomaB";
-					sizeEx = 0;
-					lineSpacing = 0;
-					fixedWidth = 0;
-					shadow = 0;
+				sizeEx = 0;
+				lineSpacing = 0;
+				fixedWidth = 0;
+				shadow = 0;
 			};
-
 		};
 	};
 	#include "=BTC=_logistic\=BTC=_lift\=BTC=_Hud.h"

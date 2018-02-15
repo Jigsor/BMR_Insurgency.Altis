@@ -60,6 +60,7 @@ INS_intro = {
 	enableRadio true;
 	if (INS_mod_missing) then {[] spawn INS_missing_mods};
 	if (JIG_DustStorm) then {[] spawn JIG_Dust_Storm};
+	if (INS_full_loadout isEqualTo 0) then {player sideChat "Reload Magazine to Save Kit"};
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
@@ -107,6 +108,7 @@ INS_intro_op4 = {
 	enableRadio true;
 	if (INS_mod_missing) then {[] spawn INS_missing_mods};
 	if (JIG_DustStorm) then {[] spawn JIG_Dust_Storm};
+	if (INS_full_loadout isEqualTo 0) then {player sideChat "Reload Magazine to Save Kit"};
 };
 JIG_placeSandbag_fnc = {
 	// Player action place sandbag barrier. by Jigsor
@@ -406,11 +408,8 @@ PVPscene_POV = {
 	// Limit 3rd person view to vehicles only
 	[(_this select 0)] spawn {
 		while {alive (_this select 0)} do {
-			//if (cameraView in ["EXTERNAL","GROUP"]) then {
-			if (cameraView isEqualTo "EXTERNAL" || cameraView isEqualTo "GROUP") then {
-				if (isNull objectParent player) then {
-					player switchCamera "INTERNAL";
-				};
+			if (cameraView in ["EXTERNAL","GROUP"] && {isNull objectParent player}) then {
+				player switchCamera "INTERNAL";
 			};
 			uiSleep 0.1;
 		};
@@ -424,10 +423,10 @@ JIG_transfer_fnc = {
 	titleText ["", "BLACK OUT"];
 	if (_dest isEqualType []) then {
 		_pos = [(_dest select 0)-2*sin(_dir),(_dest select 1)-2*cos(_dir),_dest select 2];
-		if (surfaceIsWater _pos) then {player setposASL _pos;} else {player setPos _pos;};
+		if (surfaceIsWater _pos) then {player setposASL _pos} else {player setPos _pos};
 	};
-	if (_dest isEqualType objNull) then {player setPos [(getPosATL _dest select 0)-10*sin(_dir),(getPosATL _dest select 1)-10*cos(_dir)];};
-	if (_dest isEqualType "") then {player setPos [(getMarkerPos _dest select 0)-10*sin(_dir),(getMarkerPos _dest select 1)-10*cos(_dir)];};
+	if (_dest isEqualType objNull) then {player setPos [(getPosATL _dest select 0)-10*sin(_dir),(getPosATL _dest select 1)-10*cos(_dir)]};
+	if (_dest isEqualType "") then {player setPos [(getMarkerPos _dest select 0)-10*sin(_dir),(getMarkerPos _dest select 1)-10*cos(_dir)]};
 	titleText ["", "BLACK IN",2];
 	true
 };
@@ -815,10 +814,28 @@ mhq_actions2_fnc = {
 	// Add action for VA and quick VA profile to respawned MHQs by Jigsor.
 	params ["_var","_op4"];
 	switch (_var) do {
-		case "MHQ_1" : {if (!_op4) then {MHQ_1 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];};};
-		case "MHQ_2" : {if (!_op4) then {MHQ_2 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ2", [(_this select 1)]]; MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];};};
-		case "MHQ_3" : {if (!_op4) then {MHQ_3 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ3", [(_this select 1)]]; MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];};};
-		case "Opfor_MHQ" : {if (_op4) then {Opfor_MHQ addAction [("<t size='1.5' shadow='2' color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];};};
+		case "MHQ_1" : {
+			if (!_op4) then {
+				MHQ_1 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]];
+				if (INS_VA_type isEqualTo 0) then {MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
+				if (INS_VA_type isEqualTo 1) then {MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+			};
+		};
+		case "MHQ_2" : {
+			if (!_op4) then {
+				MHQ_2 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]];
+				if (INS_VA_type isEqualTo 0) then {MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
+				if (INS_VA_type isEqualTo 1) then {MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+			};
+		};
+		case "MHQ_3" : {
+			if (!_op4) then {
+				MHQ_3 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]];
+				if (INS_VA_type isEqualTo 0) then {MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
+				if (INS_VA_type isEqualTo 1) then {MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+			};
+		};
+		case "Opfor_MHQ" : {if (_op4) then {Opfor_MHQ addAction [("<t size='1.5' shadow='2' color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"]}};
 		default {};
 	};
 	true
@@ -855,7 +872,7 @@ INS_MHQ_mkr = {
 };
 GAS_smokeNear = {
 	//Are we near a smoke shell. Are we not wearing a gas mask. code by Larrow modified by Jigsor
-	if ((headgear player in INS_gasMaskH) || {(goggles player in INS_gasMaskG)}) then {
+	if (headgear player in INS_gasMaskH || {goggles player in INS_gasMaskG}) then {
 		false
 	}else{
 		_smokeShell = player nearObjects ["GrenadeHand", 30];
@@ -1021,4 +1038,24 @@ ShipHax = {
 		case "Get in RHIB as Driver": {_p moveInDriver _veh};
 		default {};
 	};
+};
+JIG_VA = {
+	// Whitelisted Virtual Arsenal by Jigsor
+	_VAobj = _this select 0 select 0;
+	_caller = _this select 0 select 1;
+	_list = [];
+	_remArsAct = {{if (_this actionParams _x select 0 isEqualTo (localize "STR_A3_Arsenal")) exitWith {_this removeAction _x}} forEach actionIDs _this};
+	if (playerside isEqualTo WEST) then {_list = call BMRINS_fnc_BluforVA};
+	if (playerside isEqualTo EAST) then {_list = call BMRINS_fnc_InsurgentVA};
+	clearMagazineCargoGlobal _VAobj;
+	clearWeaponCargoGlobal _VAobj;
+	clearItemCargoGlobal _VAobj;
+	clearBackpackCargoGlobal _VAobj;
+	["Open",[nil,_VAobj,_caller]] call bis_fnc_arsenal;
+	[_VAobj,((backpackCargo _VAobj) + (_list select 0))] call BIS_fnc_addVirtualBackpackCargo;
+	[_VAobj,((itemCargo _VAobj) + (_list select 1))] call BIS_fnc_addVirtualItemCargo;
+	[_VAobj,((magazineCargo _VAobj) + (_list select 2))] call BIS_fnc_addVirtualMagazineCargo;
+	[_VAobj,((weaponCargo _VAobj) + (_list select 3))] call BIS_fnc_addVirtualWeaponCargo;
+	sleep 1;
+	_VAobj call _remArsAct;
 };

@@ -2,10 +2,10 @@
 
 // Global hint
 JIG_MPhint_fnc = {if (hasInterface) then { hintSilent _this };};
-JIG_MPsideChatWest_fnc = { [West,"HQ"] SideChat (_this select 0); };
-JIG_MPsideChatEast_fnc = { [East,"HQ"] SideChat (_this select 0); };
-JIG_MPSystemChat_fnc = { systemChat (_this select 0); };
-JIG_Boo = {playSound "boo";};
+JIG_MPsideChatWest_fnc = {[West,"HQ"] SideChat (_this select 0)};
+JIG_MPsideChatEast_fnc = {[East,"HQ"] SideChat (_this select 0)};
+JIG_MPSystemChat_fnc = { systemChat (_this select 0)};
+JIG_Boo = {playSound "boo"};
 JIG_MPTitleText_fnc = {
 	if (hasInterface) then {
 		params ["_text"];
@@ -98,17 +98,17 @@ mhq_actions_fnc = {
 	params ["_veh","_var"];
 
 	switch (true) do {
-		case (_var isEqualTo "MHQ_1"): {
-			_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true"];
-			_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
+		case (_var isEqualTo "MHQ_1"): {			
+			if (INS_VA_type isEqualTo 0) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
+			if (INS_VA_type isEqualTo 1) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
 		};
-		case (_var isEqualTo "MHQ_2"): {
-			_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true"];
-			_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
+		case (_var isEqualTo "MHQ_2"): {			
+			if (INS_VA_type isEqualTo 0) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
+			if (INS_VA_type isEqualTo 1) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
 		};
 		case (_var isEqualTo "MHQ_3"): {
-			_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true"];
-			_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
+			if (INS_VA_type isEqualTo 0) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
+			if (INS_VA_type isEqualTo 1) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
 		};
 		case (_var isEqualTo "Opfor_MHQ"): {
 			_veh addAction [("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
@@ -273,7 +273,7 @@ JIG_base_protection = {
 
 				_intrude_pos = (getPosATL _unit);
 				_dis2 = (_intrude_pos distance _trigPos);
-				if (_dis2 <= _dis1) then {(vehicle _unit) call BIS_fnc_neutralizeUnit;};
+				if (_dis2 <= _dis1) then {(vehicle _unit) call BIS_fnc_neutralizeUnit};
 			};
 			if (local player && _unit == player) then {
 				private ["_intrude_pos","_trigPos","_dis1","_dis2"];
@@ -289,7 +289,7 @@ JIG_base_protection = {
 
 				_intrude_pos = (getPosATL _unit);
 				_dis2 = (_intrude_pos distance _trigPos);
-				if (_dis2 <= _dis1) then {(vehicle _unit) call BIS_fnc_neutralizeUnit;};
+				if (_dis2 <= _dis1) then {(vehicle _unit) call BIS_fnc_neutralizeUnit};
 			}else{
 				sleep 0.899;
 				(vehicle _unit) call BIS_fnc_neutralizeUnit;
@@ -322,12 +322,12 @@ Push_Vehicle = {
 	if (_isWater) exitWith {titleText[localize "STR_BMR_push_restrict1","PLAIN DOWN",1]};
 	_veh setOwner (owner _unit);
 	_unit playMove "AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown";
-	if (currentWeapon _unit isEqualTo "") then {sleep 1;} else {sleep 2;};
+	if (currentWeapon _unit isEqualTo "") then {sleep 1} else {sleep 2};
 	_veh setVelocity [(sin(direction _unit))*3, (cos(direction _unit))*3, 0];
 	true
 };
 INS_fog_effect = {
-	if (!isDedicated && hasInterface) then {null=["ObjectiveMkr",100,11,10,3,7,-0.3,0.1,0.5,1,1,1,13,12,15,true,2,2.1,0.1,4,6,0,3.5,17.5] execFSM "scripts\Fog.fsm";};
+	if (!isDedicated && hasInterface) then {null=["ObjectiveMkr",100,11,10,3,7,-0.3,0.1,0.5,1,1,1,13,12,15,true,2,2.1,0.1,4,6,0,3.5,17.5] execFSM "scripts\Fog.fsm"};
 };
 mhq_obj_fnc = {
 	// returns MHQ vehicleVarname object
@@ -335,10 +335,10 @@ mhq_obj_fnc = {
 	_var = _this select 0;
 	_obj = objNull;
 	switch (true) do {
-		case (_var isEqualTo "MHQ_1") : {_obj = MHQ_1; if (vehicleVarname MHQ_1 isEqualTo "") then {MHQ_1 setVehicleVarname "MHQ_1"; MHQ_1 = _obj;};};
-		case (_var isEqualTo "MHQ_2") : {_obj = MHQ_2; if (vehicleVarname MHQ_2 isEqualTo "") then {MHQ_2 setVehicleVarname "MHQ_2"; MHQ_2 = _obj;};};
-		case (_var isEqualTo "MHQ_3") : {_obj = MHQ_3; if (vehicleVarname MHQ_3 isEqualTo "") then {MHQ_3 setVehicleVarname "MHQ_3"; MHQ_3 = _obj;};};
-		case (_var isEqualTo "Opfor_MHQ") : {_obj = Opfor_MHQ; if (vehicleVarname Opfor_MHQ isEqualTo "") then {Opfor_MHQ setVehicleVarname "Opfor_MHQ"; Opfor_MHQ = _obj;};};
+		case (_var isEqualTo "MHQ_1") : {_obj = MHQ_1; if (vehicleVarname MHQ_1 isEqualTo "") then {MHQ_1 setVehicleVarname "MHQ_1"; MHQ_1 = _obj}};
+		case (_var isEqualTo "MHQ_2") : {_obj = MHQ_2; if (vehicleVarname MHQ_2 isEqualTo "") then {MHQ_2 setVehicleVarname "MHQ_2"; MHQ_2 = _obj}};
+		case (_var isEqualTo "MHQ_3") : {_obj = MHQ_3; if (vehicleVarname MHQ_3 isEqualTo "") then {MHQ_3 setVehicleVarname "MHQ_3"; MHQ_3 = _obj}};
+		case (_var isEqualTo "Opfor_MHQ") : {_obj = Opfor_MHQ; if (vehicleVarname Opfor_MHQ isEqualTo "") then {Opfor_MHQ setVehicleVarname "Opfor_MHQ"; Opfor_MHQ = _obj}};
 		case (_var isEqualTo "") : {};
 		default {};
 	};
@@ -411,7 +411,7 @@ INS_toggle_Zeus = {
 	_cfgPatches = configfile >> "cfgpatches";
 	for "_i" from 0 to (count _cfgPatches - 1) do {
 		_class = _cfgPatches select _i;
-		if (isclass _class) then {_addons pushBack (configname _class);};
+		if (isclass _class) then {_addons pushBack (configname _class)};
 	};
 
 	_addons call bis_fnc_activateaddons;
@@ -422,7 +422,7 @@ INS_toggle_Zeus = {
 	//if (!isNil "BTC_cargo_repo") then {_curator removeCuratorEditableObjects [[BTC_cargo_repo],true]};
 	_unit assignCurator _curator;
 
-	if (DebugEnabled isEqualTo 1) then {diag_log curatorAddons _curator;};
+	if (DebugEnabled isEqualTo 1) then {diag_log curatorAddons _curator};
 
 	_text = format[localize "STR_BMR_is_curator",name _unit];
 	if (_announce) then {
@@ -544,7 +544,7 @@ Drop_SmokeFlare_fnc = {
 		if (_range > 500) then {_range = 500};
 	};
 
-	if ((count _this) -1 < 5) then {_mapClick = true;}else{_pos = _this select 5;};
+	if ((count _this) -1 < 5) then {_mapClick = true}else{_pos = _this select 5};
 
 	if (_mapClick) then {
 		if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint localize "STR_BMR_missing_map"};
@@ -562,7 +562,7 @@ Drop_SmokeFlare_fnc = {
 		waituntil {mapclick or !(visiblemap)};
 		["Flare_mapclick", "onMapSingleClick"] call BIS_fnc_removeStackedEventHandler;
 
-		if (!visibleMap) exitwith {hint "Standby";};
+		if (!visibleMap) exitwith {hint "Standby"};
 
 		_pos = clickpos;
 		sleep 1;
@@ -714,7 +714,7 @@ Manual_ProgressionSave = {
 	profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
 	//saveProfileNamespace;//<-unnecessary
 	diag_log "***Manual Progression Save Complete";
-};	
+};
 switchMoveEverywhere = compileFinal " _this select 0 switchMove (_this select 1); ";
 INS_BluFor_Siren = compileFinal " if (isServer) then {
 	[INS_BF_Siren,""siren""] call mp_Say3D_fnc;

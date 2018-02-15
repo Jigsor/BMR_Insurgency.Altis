@@ -138,5 +138,3 @@ sleep _delay;
 _ugv_num = player getVariable "ghst_ugvsup";
 _ugv_num = _ugv_num - 1;
 player setVariable ["ghst_ugvsup", _ugv_num];
-
-if (true) exitwith {};

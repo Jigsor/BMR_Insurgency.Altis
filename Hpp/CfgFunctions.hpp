@@ -11,5 +11,7 @@ class BMRINS
 		class setPlate {};
 		class persistence {};
 		class HC_allEOSmkrs {};
+		class BluforVA {};
+		class InsurgentVA {};
 	};
 };

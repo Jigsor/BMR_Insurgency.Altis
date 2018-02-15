@@ -1,7 +1,5 @@
 if (waitCAS) exitWith {titleText ["CAS already enroute, cancel current CAS or wait for bomb drop before next request!","PLAIN DOWN"]};
 
-private "_velocityZ";
-
 waitCAS = true;
 _object = _this select 0;
 _distance = _this select 1;
@@ -10,7 +8,7 @@ _num = _this select 3;
 _casType = _this select 4;
 _loc = getMarkerPos (_this select 5);
 _id = _this select 6;
-_soundarray = ["Shell1","Shell2","Shell3","Shell4"];
+_rndsound = selectRandom ["Shell1","Shell2","Shell3","Shell4"];
 
 _lockobj = createAgent ["Logic", [(_loc select 0), (_loc select 1), 0], [] , 0 , "CAN_COLLIDE"];
 _lockobj setPos _loc;
@@ -100,6 +98,7 @@ if (usedCAS < usedCAS) then {
 
 [_buzz] spawn doCounterMeasure;
 
+private "_velocityZ";
 if ((alive _buzz) && (_casType isEqualTo "JDAM")) then {
 	_drop = createAgent ["Logic", [getPos _buzz select 0, getPos _buzz select 1, 0], [] , 0 , "CAN_COLLIDE"];
 	_soundpos = getposATL _drop;
@@ -123,7 +122,6 @@ if ((alive _buzz) && (_casType isEqualTo "JDAM")) then {
 	_bVelX = ((_loc select 0)-(getPos _bomb select 0))/_bDrop;
 	_bVelY = ((_loc select 1)-(getPos _bomb select 1))/_bDrop;
 	_bomb setVelocity [_bVelX,_bVelY,(velocity _bomb select 2) - _velocityZ];
-	_rndsound = selectRandom _soundarray;
 	_lockobj say _rndsound;
 	deleteVehicle _drop;
 };
@@ -152,7 +150,6 @@ if ((alive _buzz) && (_casType isEqualTo "CBU")) then {
 	_bVelX = ((_loc select 0)-(getPos _cbu select 0))/_bDrop;
 	_bVelY = ((_loc select 1)-(getPos _cbu select 1))/_bDrop;
 	_cbu setVelocity [_bVelX,_bVelY,(velocity _cbu select 2) - _velocityZ];
-	_rndsound = selectRandom _soundarray;
 	_lockobj say _rndsound;
 	waitUntil{getPos _cbu select 2 <= 40};
 	_pos = getPos _cbu;
@@ -189,7 +186,6 @@ if ((alive _buzz) && (_casType isEqualTo "COMBO")) then {
 	_bVelX = ((_loc select 0)-(getPos _bomb select 0))/_bDrop;
 	_bVelY = ((_loc select 1)-(getPos _bomb select 1))/_bDrop;
 	_bomb setVelocity [_bVelX,_bVelY,(velocity _bomb select 2) - _velocityZ];
-	_rndsound = selectRandom _soundarray;
 	_lockobj say _rndsound;
 	deleteVehicle _drop;
 	while {true} do {
@@ -221,7 +217,6 @@ if ((alive _buzz) && (_casType isEqualTo "COMBO")) then {
 	_bVelX = ((_loc select 0)-(getPos _cbu select 0))/_bDrop;
 	_bVelY = ((_loc select 1)-(getPos _cbu select 1))/_bDrop;
 	_cbu setVelocity [_bVelX,_bVelY,(velocity _cbu select 2) - _velocityZ];
-	_rndsound = selectRandom _soundarray;
 	_lockobj say _rndsound;
 	deleteVehicle _drop;
 	waitUntil{getPos _cbu select 2 <= 40};

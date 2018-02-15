@@ -676,6 +676,10 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 		if (_Transporter isKindOf "OPTRE_Pelican_armed_black") then {
 			_Object attachTo [_Transporter,[0,-4,0.04]];//[0,-4,0.14]
 		};
+		// NH90 NFH
+		if (_Transporter isKindOf "ffaa_nh90_nfh_transport") then {
+			_Object attachTo [_Transporter,[0.075,0.1,-1.2]];
+		};
 	};
 
 	// Disable R3F

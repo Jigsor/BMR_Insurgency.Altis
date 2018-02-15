@@ -7,10 +7,8 @@ http://www.blacktemplars.altervista.org/
 */
 
 ////////////////// EDITABLE \\\\\\\\\\\\\\\\\\\\\\\\\\
-switch (INS_p_rev) do
-{
-	case 0 :
-	{
+switch (INS_p_rev) do {
+	case 0 : {
 		BTC_who_can_revive = ["Man"];
 		BTC_objects_actions_west = [];
 		BTC_objects_actions_east = [];
@@ -23,8 +21,7 @@ switch (INS_p_rev) do
 			BTC_vehs_mobile_civ  = [];
 		};
 	};
-	case 1 :
-	{
+	case 1 : {
 		BTC_who_can_revive = ["Man"];
 		BTC_objects_actions_west = [INS_flag];
 		BTC_objects_actions_east = [INS_Op4_flag];
@@ -37,8 +34,7 @@ switch (INS_p_rev) do
 			BTC_vehs_mobile_civ  = [];//Editable - define mobile civilian
 		};
 	};
-	case 2 :
-	{
+	case 2 : {
 		BTC_who_can_revive = INS_all_medics;
 		BTC_objects_actions_west = [];
 		BTC_objects_actions_east = [];
@@ -51,8 +47,7 @@ switch (INS_p_rev) do
 			BTC_vehs_mobile_civ  = [];
 		};
 	};
-	case 3 :
-	{
+	case 3 : {
 		BTC_who_can_revive = INS_all_medics;
 		BTC_objects_actions_west = [INS_flag];
 		BTC_objects_actions_east = [INS_Op4_flag];
@@ -83,7 +78,7 @@ BTC_active_mobile	= 1;//Active mobile respawn (You have to put in map the vehicl
 BTC_mobile_respawn	= 1;//Active the mobile respawn fnc (1 = yes, 0 = no)
 BTC_mobile_respawn_time = 30;//Secs delay for mobile vehicle to respawn
 BTC_need_first_aid  = 1;//You need a first aid kit to revive (1 = yes, 0 = no)
-BTC_pvp				= 1; //(disable the revive option for the enemy)
+BTC_pvp				= 1;//(disable the revive option for the enemy)
 BTC_injured_marker	= 1;
 BTC_3d_can_see		= ["Man"];
 BTC_3d_distance		= 30;
@@ -92,7 +87,6 @@ BTC_3d_icon_color	= [1,0,0,1];
 BTC_dlg_on_respawn	= 1;//1 = Mobile only - 2 Leader group and mobile - 3 = Units group and mobile - 4 = All side units and mobile
 
 ////////////////// Don't edit below \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//if (!isDedicated) then {};
 //FNC
 call compile preprocessFile "=BTC=_revive\=BTC=_functions.sqf";
 
@@ -117,8 +111,7 @@ if (isDedicated) exitWith {};
 BTC_dragging = false;
 BTC_respawn_cond = false;
 //Init
-[] spawn
-{
+[] spawn {
 	waitUntil {!isNull player && player == player};
 	"BTC_drag_pveh" addPublicVariableEventHandler BTC_fnc_PVEH;
 	"BTC_carry_pveh" addPublicVariableEventHandler BTC_fnc_PVEH;
@@ -129,18 +122,18 @@ BTC_respawn_cond = false;
 	BTC_r_mobile_selected = objNull;
 	BTC_r_bleeding = 0;
 	BTC_r_bleeding_loop = false;
-	player addRating 9999;
+	//player addRating 9999;//<- redundant, initial rating applied in =BTC=_tk_init.sqf Team Kill punishment script.
 	BTC_r_list = [];
 	BTC_side = playerSide;
 	BTC_r_s_cam_view = [-15,-15,15];
 	BTC_respawn_marker = format ["respawn_%1",playerSide];
-	if (BTC_respawn_marker == "respawn_guer") then {BTC_respawn_marker = "respawn_guerrila";};
-	if (BTC_respawn_marker == "respawn_civ") then {BTC_respawn_marker = "respawn_civilian";};
+	if (BTC_respawn_marker == "respawn_guer") then {BTC_respawn_marker = "respawn_guerrila"};
+	if (BTC_respawn_marker == "respawn_civ") then {BTC_respawn_marker = "respawn_civilian"};
 	BTC_r_base_spawn = "Land_ClutterCutter_small_F" createVehicleLocal getMarkerPos BTC_respawn_marker;
 	player addEventHandler ["Killed", BTC_player_killed];
 	player setVariable ["BTC_need_revive",0,true];
 	//{_x setVariable ["BTC_need_revive",0,true];} foreach allunits;//[] spawn {while {true} do {sleep 0.1;player sidechat format ["%1",BTC_r_mobile_selected];};};
-	if (BTC_pvp isEqualTo 1) then {player setVariable ["BTC_revive_side",str (BTC_side),true];};
+	if (BTC_pvp isEqualTo 1) then {player setVariable ["BTC_revive_side",str (BTC_side),true]};
 	player setVariable ["BTC_dragged",0,true];
 
 	//player actions
