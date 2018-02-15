@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-2/14/2018
+2/15/2018
 BMR_Insurgency_v1.48_beta
 	Some changes in this version are still be tested and so may contain bugs..
 	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
@@ -226,6 +226,7 @@ BMR_Insurgency_v1.48_beta
 	Fixed: Unexpected behavior occured in BTK punishment when player switched to side "Enemy".
 	Fixed: After using HuntIR, any other existing display event handlers were deleted.
 	Fixed: Cut Rope on ATM Halo drop works repeatably and chute will auto open if drop height is altered.
+	Fixed: Ai Damage multiplier was applied unnecessarily when no modification (Default) option was selected in lobby.
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017
