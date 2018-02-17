@@ -336,8 +336,8 @@ class Params
 	class INS_VA_type//42
 	{
 	title = "		Virtual Arsenal Type";
-	values[]={0,1};
-	texts[]={"Unrestricted Contents", "Whitelisted Contents"};
+	values[]={0,1,2,3};
+	texts[]={"Unrestricted Contents Blufor Only","Whitelisted Contents Blufor Only","Whitelisted Contents Blufor and Opfor","Whitelisted Contents Opfor Only"};
 	default = 0;
 	};
 	class INS_IEDs//43

@@ -64,7 +64,7 @@ INS_intro = {
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
-	
+
 	//waitUntil {
 	//	if (missionnamespace getvariable ["BIS_fnc_startLoadingScreen_ids",[]] isEqualTo []) then {
 	//		true
@@ -779,8 +779,8 @@ INS_aiHalo = {
 	private _back_pack = backpack _target;
 	private _back_pack_items = getItemCargo (unitBackpack _target);
 	private _back_pack_weap = getWeaponCargo (unitBackpack _target);
-	private _back_pack_maga = getMagazineCargo (unitBackpack _target);
-	private _loadout = [_headgear, _back_pack, _back_pack_items, _back_pack_weap, _back_pack_maga];
+	private _back_pack_mags = getMagazineCargo (unitBackpack _target);
+	private _loadout = [_headgear, _back_pack, _back_pack_items, _back_pack_weap, _back_pack_mags];
 
 	0=[_target] call Frontpack;
 
@@ -816,23 +816,20 @@ mhq_actions2_fnc = {
 	switch (_var) do {
 		case "MHQ_1" : {
 			if (!_op4) then {
-				MHQ_1 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]];
-				if (INS_VA_type isEqualTo 0) then {MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
-				if (INS_VA_type isEqualTo 1) then {MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+				if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {MHQ_1 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}];};
+				if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
 			};
 		};
 		case "MHQ_2" : {
 			if (!_op4) then {
-				MHQ_2 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]];
-				if (INS_VA_type isEqualTo 0) then {MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
-				if (INS_VA_type isEqualTo 1) then {MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+				if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {MHQ_2 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}];};
+				if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
 			};
 		};
 		case "MHQ_3" : {
 			if (!_op4) then {
-				MHQ_3 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]];
-				if (INS_VA_type isEqualTo 0) then {MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
-				if (INS_VA_type isEqualTo 1) then {MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+				if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {MHQ_3 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}];};
+				if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
 			};
 		};
 		case "Opfor_MHQ" : {if (_op4) then {Opfor_MHQ addAction [("<t size='1.5' shadow='2' color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"]}};

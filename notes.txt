@@ -226,6 +226,7 @@ BMR_Insurgency_v1.48_beta
 	Fixed: Unexpected behavior occured in BTK punishment when player switched to side "Enemy".
 	Fixed: After using HuntIR, any other existing display event handlers were deleted.
 	Fixed: Cut Rope on ATM Halo drop works repeatably and chute will auto open if drop height is altered.
+	Fixed: Freezing occured when recruited AI HALO.
 	Fixed: Ai Damage multiplier was applied unnecessarily when no modification (Default) option was selected in lobby.
 
 Changes below were hot fixed in current v1.47 dropbox link.
