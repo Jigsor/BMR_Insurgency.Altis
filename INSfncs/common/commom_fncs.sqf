@@ -99,16 +99,16 @@ mhq_actions_fnc = {
 
 	switch (true) do {
 		case (_var isEqualTo "MHQ_1"): {
-			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
-			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 		};
 		case (_var isEqualTo "MHQ_2"): {
-			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
-			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 		};
 		case (_var isEqualTo "MHQ_3"): {
-			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}]};
-			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 		};
 		case (_var isEqualTo "Opfor_MHQ"): {
 			_veh addAction [("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];

@@ -23,7 +23,8 @@ _availableItems = [
 	//"H_HelmetO_ViperSP_ghex_F",  //Is Gas Mask
 	//"H_CrewHelmetHeli_O",        //Is Gas Mask
 	//"H_CrewHelmetHeli_I",        //Is Gas Mask
-	"O_UavTerminal",
+	//"O_UavTerminal",
+	"MineDetector",
 	"ItemCompass",
 	"ItemGPS",
 	"ItemMap",
@@ -34,7 +35,6 @@ _availableItems = [
 	"Laserdesignator",
 	"Laserdesignator_01_khk_F",
 	"Laserdesignator_03",
-	"MineDetector",
 	"NVGoggles_OPFOR",
 	"NVGoggles_INDEP",
 	"NVGoggles_tna_F",
@@ -144,7 +144,9 @@ _availableItems = [
 
 _availableMagazines = [
 // Vanilla Magazines
+	//Misc
 	"Laserbatteries",
+
 	//Throw
 	//"SmokeShellYellow"//is Gas Grenade
 	"SmokeShellGreen",
@@ -215,7 +217,7 @@ _availableMagazines = [
 
 _availableWeapons = [
 // Vanilla Weapons
-
+	//Misc
 	"Binocular",
 	"Rangefinder",
 	"Laserdesignator_02",

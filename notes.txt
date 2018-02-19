@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-2/17/2018
+2/19/2018
 BMR_Insurgency_v1.48_beta
 	Some changes in this version are still be tested and so may contain bugs..
 	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
@@ -181,7 +181,7 @@ BMR_Insurgency_v1.48_beta
 	Added: Several action translations including Pickup Intel, BTC logistics and BTC Revive and Push etc.
 	Added: 2 headless Clients supported out of the box by default instead of 1.
 	Added: HQ side chat message who revived who.
-	Added: Lobby option for full Arsenal or custom whitelisted Arsenal. Customizations by class names can be edited in INSfncs\common\fn_BluforVA.sqf and fn_InsurgentVA.sqf. If Whitelisted Arsenal is used then VA Quick Profile and save/load presets will not be available. (W.I.P)
+	Added: Lobby option for full Arsenal or custom whitelisted Arsenal. Customizations by class names can be edited in INSfncs\common\fn_BluforVA.sqf and fn_InsurgentVA.sqf. If Whitelisted Arsenal is used then VA Quick Profile and save/load presets will not be available.
 	Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
 	Added: Support for new NH90 heli from FFAA.
 	Added: Workaround for rare occurrence that players may not be able to see chat messeges after respawn.
@@ -228,6 +228,7 @@ BMR_Insurgency_v1.48_beta
 	Fixed: Cut Rope on ATM Halo drop works repeatably and chute will auto open if drop height is altered.
 	Fixed: Freezing occured when recruited AI HALO.
 	Fixed: Ai Damage multiplier was applied unnecessarily when no modification (Default) option was selected in lobby.
+	Fixed: Opfor players could green activated grid zones when no Insurgents present.
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017

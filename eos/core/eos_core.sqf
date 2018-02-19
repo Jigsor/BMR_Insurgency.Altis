@@ -42,9 +42,9 @@ if (RedHot > _mz) then {
 if (!_cache) then {
 
 	if (_heightLimit) then {
-		_actCond="((RedHot <= Max_Act_Gzones) && {{vehicle _x in thisList && isplayer _x && ((getPosATL _x) select 2) < 10} count playableunits > 0})";
+		_actCond="((RedHot <= Max_Act_Gzones) && {{vehicle _x in thisList && isplayer _x && side _x isEqualTo WEST && ((getPosATL _x) select 2) < 10} count playableunits > 0})";
 	}else{
-		_actCond="((RedHot <= Max_Act_Gzones) && {{vehicle _x in thisList && isplayer _x} count playableunits > 0})";
+		_actCond="((RedHot <= Max_Act_Gzones) && {{vehicle _x in thisList && isplayer _x && side _x isEqualTo WEST} count playableunits > 0})";
 	};
 
 	_eosActivated = createTrigger ["EmptyDetector",_mPos];

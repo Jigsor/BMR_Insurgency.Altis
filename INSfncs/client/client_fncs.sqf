@@ -64,15 +64,6 @@ INS_intro = {
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
-
-	//waitUntil {
-	//	if (missionnamespace getvariable ["BIS_fnc_startLoadingScreen_ids",[]] isEqualTo []) then {
-	//		true
-	//	}else{
-	//		diag_log str (missionnamespace getvariable ["BIS_fnc_startLoadingScreen_ids",[]]);
-	//		false
-	//	};
-	//};//<- Not a good fix for black screen bug, causes freeze at briefing.
 	disableSerialization;
 	showCinemaBorder false;
 	enableRadio false;
@@ -86,13 +77,13 @@ INS_intro_op4 = {
 	_cam = "camera" camCreate [(position center select 0) + 240, (position center select 1) + 100, 450];
 	_cam camPreload 5;
 	_cam camSetTarget _offsetPos;
-	waitUntil {preloadCamera [(position center select 0) + 240, (position center select 1) + 100, 450]};
+	waitUntil {UIsleep 0.1; preloadCamera [(position center select 0) + 240, (position center select 1) + 100, 450]};
 	_cam cameraEffect ["internal", "BACK"];
 	["BIS_ScreenSetup",true] call BIS_fnc_blackIn;
 	_cam camSetPos [(position center select 0) - 240, (position center select 1) + 100, 450];
 	_cam camCommit 15;
 	sleep 5;
-	//("BMR_Layer" call BIS_fnc_rscLayer) cutRsc ["bmr_intro", "PLAIN"];//<-causes black screen bug? Needs feedback.
+	("BMR_Layer" call BIS_fnc_rscLayer) cutRsc ["bmr_intro", "PLAIN"];
 	[_text, safezoneX - 0.01, safeZoneY + (1 - 0.125) * safeZoneH, true, "<t align='right' size='1.0' font='PuristaLight'>%1</t>"] spawn BIS_fnc_typeText2;
 	UIsleep 3;
 	waitUntil {camcommitted _cam};
@@ -816,20 +807,20 @@ mhq_actions2_fnc = {
 	switch (_var) do {
 		case "MHQ_1" : {
 			if (!_op4) then {
-				if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {MHQ_1 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}];};
-				if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+				if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {MHQ_1 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"];};
+				if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 			};
 		};
 		case "MHQ_2" : {
 			if (!_op4) then {
-				if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {MHQ_2 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}];};
-				if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+				if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {MHQ_2 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"];};
+				if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 			};
 		};
 		case "MHQ_3" : {
 			if (!_op4) then {
-				if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {MHQ_3 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}];};
-				if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}]};
+				if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {MHQ_3 addAction[("<t size='1.5' shadow='2' color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this select 1)]]; MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"];};
+				if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 			};
 		};
 		case "Opfor_MHQ" : {if (_op4) then {Opfor_MHQ addAction [("<t size='1.5' shadow='2' color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"]}};
