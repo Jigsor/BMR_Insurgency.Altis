@@ -95,7 +95,7 @@ if (DebugEnabled > 0) then {
 	};
 
 	// Virtual Arsenal
-	if (INS_VA_type isEqualTo 0) then {
+	if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {
 		INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}];
 		MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"];
 		MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"];
