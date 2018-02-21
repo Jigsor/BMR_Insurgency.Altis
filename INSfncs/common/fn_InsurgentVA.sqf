@@ -1,29 +1,31 @@
 // Modify this file with desired classnames for customization of Opfor/Resistance Arsenal. Only items listed here will be available in Virtual Arsenal.
 // If using class names from moded content then these mods must be loaded or else client side error occurs.
+// becarefull not to make opfor/resistance players to op or else blufor players will leave the server.
 if (!hasInterface) exitWith {};
 
 _availableBackpacks = [
 // Vanilla Backpacks
+	"B_Parachute",
 	"B_AssaultPack_dgtl",
 	"B_FieldPack_ocamo",
+	"B_FieldPack_ghex_F",
 	"B_FieldPack_oli",
 	"B_FieldPack_cbr",
-	"B_Kitbag_cbr",
+	"B_FieldPack_ghex_OTMedic_F",
 	"B_FieldPack_cbr_LAT",
-	"O_GMG_01_weapon_F",
-	"B_FieldPack_ghex_OTMedic_F"
+	"B_FieldPack_blk",
+	"B_TacticalPack_ocamo"
 ];
 
 _availableItems = [
 // Vanilla items
+	"G_Tactical_Clear",            //<-Required for Helmet Cam HUD
 	"FirstAidKit",                 //Required for BTC Revives
 	"Medikit",                     //Opfor Players are Medics by Class
 	"ToolKit",                     //Opfor Players are Engineers by Trait
-	"G_Tactical_Clear",            //<-Required for Helmet Cam HUD
 	//"H_HelmetO_ViperSP_ghex_F",  //Is Gas Mask
 	//"H_CrewHelmetHeli_O",        //Is Gas Mask
 	//"H_CrewHelmetHeli_I",        //Is Gas Mask
-	//"O_UavTerminal",
 	"MineDetector",
 	"ItemCompass",
 	"ItemGPS",
@@ -35,15 +37,21 @@ _availableItems = [
 	"Laserdesignator",
 	"Laserdesignator_01_khk_F",
 	"Laserdesignator_03",
+	"G_Goggles_VR",
 	"NVGoggles_OPFOR",
 	"NVGoggles_INDEP",
 	"NVGoggles_tna_F",
 	"O_NVGoggles_hex_F",
 	"O_NVGoggles_urb_F",
 	"O_NVGoggles_ghex_F",
+	"G_O_Diving",
+	"G_I_Diving",
+	"G_Lady_Blue",
 
 	//Uniforms
 	"U_I_OfficerUniform",
+	"U_O_officer_noInsignia_hex_F",
+	"U_O_PilotCoveralls",
 	"U_I_CombatUniform",
 	"U_I_CombatUniform_tshirt",
 	"U_I_CombatUniform_shortsleeve",
@@ -58,6 +66,7 @@ _availableItems = [
 	"U_IG_Guerrilla_6_1",
 	"U_BG_leader",
 	"U_BG_Guerilla1_1",
+	"U_BG_Guerilla1_2_F",
 	"U_BG_Guerilla2_1",
 	"U_BG_Guerilla2_2",
 	"U_BG_Guerilla2_3",
@@ -72,7 +81,6 @@ _availableItems = [
 	"U_OG_Guerilla3_1",
 	"U_OG_Guerilla3_2",
 	"U_OG_Guerrilla_6_1",
-	"U_I_G_Story_Protagonist_F",
 	"U_I_G_resistanceLeader_F",
 	"U_O_OfficerUniform_ocamo",
 	"U_O_SpecopsUniform_ocamo",
@@ -80,14 +88,16 @@ _availableItems = [
 	"U_O_CombatUniform_ocamo",
 	"U_O_CombatUniform_oucamo",
 	"U_O_GhillieSuit",
-	"U_O_FullGhillie_ard",
-	"U_O_FullGhillie_lsh",
-	"U_O_FullGhillie_sard",
 	"U_O_Wetsuit",
 	"U_O_T_Soldier_F",
 	"U_O_T_Officer_F",
 	"U_O_T_Sniper_F",
-	"U_O_T_FullGhillie_tna_F",
+	"U_I_C_Soldier_Bandit_3_F",
+	"U_I_C_Soldier_Para_2_F",
+	"U_I_C_Soldier_Para_3_F",
+	"U_I_C_Soldier_Para_4_F",
+	"U_I_C_Soldier_Para_1_F",
+	"U_I_C_Soldier_Camo_F",
 
 	//Helmets
 	"H_HelmetIA",
@@ -96,6 +106,30 @@ _availableItems = [
 	"H_HelmetO_ocamo",
 	"H_HelmetO_ghex_F",
 	"H_Watchcap_camo",
+	"H_HelmetLeaderO_ghex_F",
+	"H_HelmetLeaderO_ocamo",
+	"H_HelmetLeaderO_oucamo",
+	"H_HelmetSpecO_ocamo",
+	"H_HelmetSpecO_ghex_F",
+	"H_HelmetSpecO_blk",
+	"H_HelmetCrew_O",
+	"H_HelmetCrew_O_ghex_F",
+	"H_HelmetCrew_I",
+	"H_Watchcap_cbr",
+	"H_Watchcap_camo",
+	"H_Watchcap_khk",
+	"H_Booniehat_dgtl",
+	"H_Cap_blk_Raven",
+	"H_Cap_brn_SPECOPS",
+	"H_PilotHelmetHeli_O",
+	"H_PilotHelmetHeli_I",
+	"H_Bandanna_gry",
+	"H_Bandanna_blu",
+	"H_Bandanna_cbr",
+	"H_Bandanna_khk_hs",
+	"H_Bandanna_khk",
+	"H_Bandanna_sgg",
+	"H_Bandanna_sand",
 
 	//HeadGear
 	"H_Shemag_khk",
@@ -105,6 +139,9 @@ _availableItems = [
 	"H_ShemagOpen_khk",
 	"H_ShemagOpen_tan",
 	"H_Bandanna_camo",
+	"G_Balaclava_combat",
+	"G_Balaclava_oli",
+	"G_Bandanna_tan",
 
 	//Vests
 	"V_BandollierB_cbr",
@@ -115,6 +152,9 @@ _availableItems = [
 	"V_HarnessO_brn",
 	"V_TacVest_khk",
 	"V_PlateCarrierIA2_dgtl",
+	"V_BandollierB_ghex_F",
+	"V_RebreatherIR",
+	"V_RebreatherIA",
 
 	//Weapon Accessories
 	"muzzle_snds_H",
@@ -184,7 +224,6 @@ _availableMagazines = [
 	"RPG32_HE_F",
 	"RPG32_F",
 	"RPG7_F",
-	//"NLAW_F",
 
 	//Rifle/Handgun ammo
 	"6Rnd_45ACP_Cylinder",
@@ -239,14 +278,16 @@ _availableWeapons = [
 	"arifle_AKS_F",
 	"arifle_AK12_F",
 	"arifle_AK12_GL_F",
+	"srifle_DMR_01_F",
 	"hgun_PDW2000_F",
 
 	//MachineGuns
 	"LMG_Zafir_F",
-	"LMG_Mk200_F",
 	"SMG_02_F",
+	"SMG_05_F",
+	"SMG_01_F",
 
-	//launchers
+	//Launchers
 	"launch_RPG32_ghex_F",
 	"launch_O_Titan_F",
 	"launch_I_Titan_F",
@@ -254,7 +295,6 @@ _availableWeapons = [
 	"launch_I_Titan_short_F",
 	"launch_RPG32_F",
 	"launch_RPG7_F",
-	//"launch_NLAW_F",
 
 	//SideArms
 	"hgun_ACPC2_F",

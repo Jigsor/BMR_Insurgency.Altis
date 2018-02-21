@@ -1,21 +1,18 @@
 /*
  extraction_main.sqf v1.25 by Jigsor is WIP
  null = [] execVM "JIG_EX\extraction_main.sqf";
- runs in JIG_EX\extraction_init.sqf 
+ runs in JIG_EX\extraction_init.sqf
 */
 
 if (!isServer) exitWith {};
 if (!hasInterface && !isDedicated) exitWith {};
 [] spawn {
-	private ["_recruitsArry","_playerArry","_range","_poscreate","_speed","_SAdir","_spwnairdir","_height","_type","_vehicle","_veh","_vel","_vehgrp","_VarName","_wp0","_evacComplete","_availableSeats","_ext_caller_group_count","_chopper_to_small","_vehgrp_units","_gunners_removed","_has_gunner_pos","_without_gunner_pos","_switch_driver","_animateDoors","_localityChanged"];
+	private ["_recruitsArry","_playerArry","_range","_poscreate","_speed","_SAdir","_spwnairdir","_height","_type","_vehicle","_veh","_vel","_vehgrp","_VarName","_wp0","_evacComplete","_vehgrp_units","_gunners_removed","_has_gunner_pos","_without_gunner_pos","_switch_driver","_animateDoors","_localityChanged"];
 
 	evac_toggle = false;publicVariable "evac_toggle";
 	sleep 0.3;
 	_evacComplete = false;
-	_chopper_to_small = false;
 	_gunners_removed = false;
-	_ext_caller_group_count = [];
-	_ext_caller_group_count = grpNull;
 	_vehgrp = grpNull;
 	EvacHeliW1 = ObjNull;
 	ex_group_ready = false;
@@ -77,8 +74,6 @@ if (!hasInterface && !isDedicated) exitWith {};
 		_veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 		_veh setVariable["persistent",true];
 
-		_availableSeats = EvacHeliW1 emptyPositions "Cargo";
-
 		if (!(alive _veh) || !(canMove _veh)) then {[localize "STR_BMR_heli_extraction_down", "JIG_EX_MPhint_fnc", ext_caller_group, false, false] call BIS_fnc_mp;};
 
 		if !(JIG_EX_gunners) then {
@@ -126,20 +121,16 @@ if (!hasInterface && !isDedicated) exitWith {};
 		EvacHeliW1 setfuel 1;
 		sleep 0.1;
 
-		if (({alive _x and !captive _x} count units ext_caller_group) > _availableSeats) then {
-			_ext_caller_group_count = _ext_caller_group_count + [{count units ext_caller_group}];
-			for "_i" from 1 to _availableSeats do {
-				_ext_caller_group_count = _ext_caller_group_count - [_x];
-			} forEach units _ext_caller_group_count;
-			_chopper_to_small = true;
-		};// needs testing with multiple players in full chopper
-
 		if (!isNull EvacHeliW1) then {
+			private _totalSeats = [typeof EvacHeliW1,true] call BIS_fnc_crewCount;
+			private _usedSeats = count crew EvacHeliW1;
+			private _availableSeats = _totalSeats - _usedSeats;
+			private _chopper_to_small = if (({alive _x and !captive _x} count units ext_caller_group) > _availableSeats) then {true} else {false};
+
 			if (_chopper_to_small) then {
-				waitUntil {sleep 1.2; {_x in EvacHeliW1} count units ext_caller_group == {alive _x and !captive _x} count units ext_caller_group || {_x in EvacHeliW1} count units ext_caller_group <= count (units _ext_caller_group_count) || (isNull EvacHeliW1) || ((count crew EvacHeliW1) < 1)};//working?
-				//[_vehgrp] join (group JIG_EX_Caller);
+				waitUntil {sleep 1.2; {_x in EvacHeliW1} count units ext_caller_group == {alive _x and !captive _x} count units ext_caller_group || count crew EvacHeliW1 isEqualTo _totalSeats || (isNull EvacHeliW1) || ((count crew EvacHeliW1) < 1)};
 			} else	{
-				waitUntil {sleep 0.9; {_x in EvacHeliW1} count units ext_caller_group == {alive _x and !captive _x} count units ext_caller_group || (isNull EvacHeliW1) || ((count crew EvacHeliW1) < 1)};//working
+				waitUntil {sleep 0.9; {_x in EvacHeliW1} count units ext_caller_group == {alive _x and !captive _x} count units ext_caller_group || (isNull EvacHeliW1) || ((count crew EvacHeliW1) < 1)};
 			};
 		};
 

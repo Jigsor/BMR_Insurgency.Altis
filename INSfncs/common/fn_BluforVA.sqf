@@ -6,11 +6,33 @@ _availableBackpacks = [
 // Vanilla Backpacks
 	"B_Parachute",       //Not required for HALO or Bail
 	"B_AssaultPack_mcamo",
-	"B_Static_Designator_01_weapon_F",
-	"B_UAV_01_backpack_F",
+	"B_AssaultPack_Kerry",
+	"B_AssaultPack_tna_F",
+	"B_TacticalPack_mcamo",
+	"B_TacticalPack_blk",
+	"B_TacticalPack_rgr",
+	"B_TacticalPack_oli",
 	"B_Kitbag_rgr",
 	"B_Kitbag_mcamo",
-	"B_AssaultPack_tna_F"
+	"B_Kitbag_cbr",
+	"B_Static_Designator_01_weapon_F",
+	"B_UAV_01_backpack_F",
+	"B_GMG_01_A_weapon_F",
+	"B_HMG_01_A_weapon_F",
+	"B_HMG_01_high_weapon_F",
+	"B_HMG_01_weapon_F",
+	"B_GMG_01_high_weapon_F",
+	"B_GMG_01_weapon_F",
+	"B_Mortar_01_support_F",
+	"B_Mortar_01_weapon_F",
+	"B_HMG_01_support_high_F",
+	"B_HMG_01_support_F",
+	"B_Static_Designator_01_weapon_F",
+	"B_AA_01_weapon_F",
+	"B_AT_01_weapon_F",
+	"B_UAV_06_medical_backpack_F",
+	"B_UAV_01_backpack_F",
+	"C_UAV_06_medical_backpack_F"
 ];
 
 _availableItems = [
@@ -35,9 +57,15 @@ _availableItems = [
 	"NVGogglesB_blk_F",
 	"NVGogglesB_grn_F",
 	"NVGogglesB_gry_F",
+	"G_Diving",
+	"G_B_Diving",
+	"G_Lowprofile",
 	"O_NVGoggles_hex_F",
 	"O_NVGoggles_urb_F",
 	"O_NVGoggles_ghex_F",
+	"G_Goggles_VR",
+	"G_Lady_Blue",
+	"G_Aviator",
 
 	//Weapon Accessories
 	"acc_flashlight",
@@ -96,13 +124,10 @@ _availableItems = [
 	"U_B_CombatUniform_mcam",
 	"U_B_CombatUniform_mcam_tshirt",
 	"U_B_CombatUniform_mcam_worn",
+	"U_B_CombatUniform_mcam_vest",
 	"U_B_FullGhillie_lsh",
 	"U_B_FullGhillie_sard",
 	"U_B_FullGhillie_ard",
-	"U_B_CTRG_1",
-	"U_B_CTRG_2",
-	"U_B_CTRG_3",
-	"U_B_CTRG_Soldier_F",
 	"U_B_survival_uniform",
 	"U_B_CombatUniform_wdl",
 	"U_B_CombatUniform_wdl_tshirt",
@@ -112,6 +137,15 @@ _availableItems = [
 	"U_B_CombatUniform_sgg_vest",
 	"U_B_SpecopsUniform_sgg",
 	"U_B_PilotCoveralls",
+	"U_B_CTRG_1",
+	"U_B_CTRG_2",
+	"U_B_CTRG_3",
+	"U_B_CTRG_Soldier_F",
+	"U_B_CTRG_Soldier_2_F",
+	"U_B_CTRG_Soldier_3_F",
+	"U_B_CTRG_Soldier_urb_1_F",
+	"U_B_T_Soldier_SL_F",
+	"U_B_Wetsuit",
 
 	//Vests
 	"V_BandollierB_khk",
@@ -142,8 +176,6 @@ _availableItems = [
 	"H_HelmetSpecB_snakeskin",
 	"H_Cap_tan_specops_US",
 	"H_MilCap_mcamo",
-	"H_Booniehat_mcamo",
-	"H_Booniehat_tan",
 	"H_HelmetB_light_black",
 	"H_HelmetB_light_grass",
 	"H_HelmetB_light_sand",
@@ -157,7 +189,33 @@ _availableItems = [
 	"H_HelmetB_tna_F",
 	"H_HelmetB_Enh_tna_F",
 	"H_HelmetB_Light_tna_F",
+	"H_PilotHelmetHeli_B",
 	"H_Booniehat_tna_F",
+	"H_Booniehat_khk_hs",
+	"H_Booniehat_khk",
+	"H_Booniehat_mcamo",
+	"H_Booniehat_tan",
+	"H_Booniehat_oli",
+	"H_Beret_02",
+	"H_Beret_Colonel",
+	"H_Bandanna_mcamo",
+	"H_Cap_tan_specops_US",
+	"H_Cap_usblack",
+	"H_Cap_khaki_specops_UK",
+
+	//HeadGear
+	"G_Balaclava_TI_blk_F",
+	"G_Balaclava_TI_G_blk_F",
+	"G_Balaclava_TI_tna_F",
+	"G_Balaclava_TI_G_tna_F",
+	"G_Bandanna_beast",
+	"G_Bandanna_khk",
+	"G_Bandanna_oli",
+	"G_Bandanna_shades",
+	"G_Bandanna_tan",
+	"G_Combat",
+	"G_Combat_Goggles_tna_F",
+	"H_WirelessEarpiece_F",
 
 	//Vests
 	"V_Rangemaster_belt",
@@ -166,6 +224,7 @@ _availableItems = [
 	"V_Chestrig_blk",
 	"V_Chestrig_rgr",
 	"V_TacVest_blk",
+	"V_TacVestIR_blk",
 	"V_PlateCarrier1_blk",
 	"V_PlateCarrier1_rgr",
 	"V_PlateCarrier2_rgr",
@@ -182,9 +241,9 @@ _availableItems = [
 	"V_PlateCarrier2_tna_F",
 	"V_PlateCarrierSpec_tna_F",
 	"V_PlateCarrierGL_tna_F",
-	"V_BandollierB_ghex_F",
 	"V_PlateCarrier1_rgr_noflag_F",
-	"V_PlateCarrier2_rgr_noflag_F"
+	"V_PlateCarrier2_rgr_noflag_F",
+	"V_Rangemaster_belt"
 ];
 
 _availableMagazines = [
@@ -253,6 +312,7 @@ _availableMagazines = [
 	"150Rnd_556x45_Drum_Mag_F",
 	"11Rnd_45ACP_Mag",
 	"30Rnd_45ACP_Mag_SMG_01",
+	"10Rnd_127x54_Mag",
 
 	//Launcher ammo
 	"RPG32_HE_F",
@@ -277,6 +337,8 @@ _availableWeapons = [
 	"srifle_DMR_02_F",
 	"srifle_DMR_03_F",
 	"srifle_DMR_06_camo_khs_F",
+	"srifle_DMR_04_F",
+	"srifle_DMR_04_Tan_F",
 	"srifle_LRR_F",
 	"srifle_LRR_tna_F",
 	"arifle_MX_GL_F",
@@ -299,13 +361,22 @@ _availableWeapons = [
 	"arifle_SPAR_01_khk_F",
 	"arifle_SPAR_01_snd_F",
 	"arifle_SPAR_01_GL_blk_F",
-	"arifle_SPAR_02_blk_F",
 	"arifle_SPAR_03_blk_F",
+
+	//MachineGuns
+	"arifle_SPAR_02_blk_F",
+	"arifle_SPAR_02_khk_F",
+	"arifle_SPAR_02_snd_F",
+	"MMG_02_camo_F",
+	"MMG_02_black_F",
+	"MMG_02_sand_F",
+	"LMG_Mk200_F",
 	"LMG_Mk200_BI_F",
 	"SMG_01_F",
-	"MMG_02_black_F",
+	"MMG_01_tan_F",
+	"SMG_05_F",
 
-	//launchers
+	//Launchers
 	"launch_RPG32_F",//opfor
 	"launch_NLAW_F",
 	"launch_B_Titan_F",
