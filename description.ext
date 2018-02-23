@@ -1,0 +1,210 @@
+Author = "Jigsor =BMR=";
+loadScreen = "images\bmrflag.paa";
+onLoadName = "BMR Insurgency Altis";
+onLoadMission = "bmr-squad.com";
+onLoadMissionTime = false;
+overviewText = "Find and destroy all ammo caches";
+overviewPicture = "images\bmrflag.paa";
+
+class Header
+{
+    gameType = Coop;
+    minPlayers = 1;
+    maxPlayers = 32;
+};
+
+enableDebugConsole		= 1;// 0 = Default behavior, available only in editor, 1 = Available in SP and for hosts / logged in admins, 2 = Available for everyone
+allowFunctionsRecompile	= 0;// 0 = Default behavior all funtions final, 1 = allow Recompile.
+allowFunctionsLog		= 0;// Log to rpt. 0 = Default behavior Disable, 1 = Enable.
+DisabledAI				= 1;// 0 = Default fills empty playable slots with AI, 1 = Don't fill the empty playable slots.
+joinUnassigned			= 1;// 0 = Forces joining players into the first empty slot, 1 = leaves player to select their own.
+Respawn					= 3;// Base
+RespawnDelay			= 3;
+RespawnDialog			= 0;// Show scoreboard at death. 0 = disabled; 1 = enabled (default)
+showGPS					= 1;// Allow GPS
+showCompass				= 1;// Allow Compass
+showMap					= 1;// Allow Map
+showWatch				= 1;// Allow Watch
+forceRotorLibSimulation	= 0;// Default value: 0 = options based; 1 = force enable; 2 = force disable
+
+#include "Hpp\Parameters.hpp"
+
+#include "=BTC=_revive\=BTC=_respawn.h"
+#include "=BTC=_q_revive\dlg.h"
+#include "ATM_airdrop\dialog.hpp"
+#include "JWC_CASFS\casDefine.hpp"
+#include "JWC_CASFS\casMenu.hpp"
+#include "taw_vd\dialog.hpp"
+#include "INSui\Jig_Defines.hpp"
+#include "INSui\Jig_Dialogs.hpp"
+#include "bon_recruit_units\dialog\common.hpp"
+#include "bon_recruit_units\dialog\recruitment.hpp"
+#include "ASORVS\menu.hpp"
+
+#include "Hpp\Sounds.hpp"
+
+class CfgFunctions
+{
+	#include "Hpp\CfgFunctions.hpp"
+	#include "INSui\INSuiFunctions.hpp"
+	#include "taw_vd\CfgFunctions.hpp"
+	#include "ASORVS\cfgfunctions.hpp"
+};
+
+class Extended_InitPost_EventHandlers {
+    class Helicopter {
+        class INSheliActions {
+			exclude[] = {"B_UAV_01_F","I_UAV_01_F","O_UAV_01_F","B_T_UAV_03_dynamicLoadout_F"};
+			clientInit = "(_this select 0) addAction['Bail', {execVM 'scripts\INS_Bail.sqf'}, [], 8, false, false, '', '_target==(vehicle _this)'];(_this select 0) addAction['Gunner 3D Compass', {execVM 'scripts\3Dcompass.sqf'; (_this select 0)removeAction(_this select 2);}, [], -1.1, false, true, 'holdBreath', '_target==(vehicle _this)'];";
+		};
+    };
+	class Plane {
+        class INSplaneActions {
+			exclude[] = {"B_T_UAV_03_F","B_UAV_02_CAS_F","B_UAV_02_F","B_UAV_02_dynamicLoadout_F","B_UAV_05_F","ffaa_reaper_multirrol","ffaa_reaper_gbu","ffaa_reaper_maverick","ffaa_et_searcherIII","ffaa_lanzador_nasams","CUP_B_USMC_MQ9"};
+			clientInit = "(_this select 0) addAction['HALO', {execVM 'scripts\INS_Bail.sqf'}, [], 8, false, false, '', '_target==(vehicle _this)'];(_this select 0) addAction['Auto Countermeasure', {execVM 'scripts\INS_CounterMeasure.sqf'}, [], 7.9, false, false, '', '_target==(vehicle _this)'];";
+		};
+    };
+};
+
+class CfgDebriefing
+{
+	class END1
+	{
+		title = "Mission Completed";
+		subtitle = "";
+		description = "Insurgents have been defeated!";
+		pictureBackground = "images\bmrflag.paa";
+		pictureColor[] = {0.0,0.3,0.6,1};
+	};
+	class END2
+	{
+		title = "Opfor player disabled";
+		description = "Opfor player slots are currently disabled. Please rejoin and choose a Blufor slot.";
+		picture = "";
+	};
+	class END3
+	{
+		title = "Team Killed Much?";
+		description = "You have been kicked for team killing for the remainder of mission duration.";
+		picture = "";
+	};
+	class END4
+	{
+		title = "Missing Mods";
+		description = "This machine is missing required mod(s). Check mod installations and try again.";
+		picture = "";
+	};
+};
+
+class RscTitles {
+    titles[]={};
+    class bmr_intro
+    {
+        idd = -1;
+        movingEnable = 0;
+        duration = 10;
+        fadein = 2;
+        fadeout = 2;
+        name = "bmr_intro";
+        controls[] = {"title1"};
+
+		class title1
+		{
+			idc = -1;
+			type = 0;
+			style = "48 + 0x800";
+			size = 1;
+			font = "PuristaMedium";
+			sizeEx = 1;
+			text = "images\bmrinscamo3.paa";
+			x = 0.270833 * safezoneW + safezoneX;
+			y = 0.00103999 * safezoneH + safezoneY;
+			w = 0.458333 * safezoneW;
+			h = 0.999999 * safezoneH;
+			colorText[] = {1,1,1,1};
+			colorBackground[] = {0,0,0,0};
+		};
+	};
+
+	class RscPicture;
+	class RscHcamDialog {
+		idd = -1;
+		onLoad = "_this call hcam_ui_init";
+		movingEnable = 0;
+		enableSimulation = 1;
+		enableDisplay = 1;
+		duration = 1e+011;
+		fadein = 0;
+		fadeout = 0;
+		class controls {
+			class RscHcamBack: RscPicture {
+				idc = 2;
+				type = 0;
+				style = 48;
+				text = "images\back.paa";
+				x = 0.78 * safezoneW + safezoneX;
+				y = 0.67 * safezoneH + safezoneY;
+				w = 0.22 * safezoneW;
+				h = 0.17 * safezoneH;
+				colorText[] = {1,1,1,1};
+				colorBackground[] = {0, 0, 0, 0};
+				font = "TahomaB";
+				sizeEx = 0;
+				lineSpacing = 0;
+				fixedWidth = 0;
+				shadow = 0;
+			};
+			class RscHcamCam: RscPicture {
+				idc = 0;
+				type = 0;
+				style = 48;
+				text = "";
+				x = 0.80 * safezoneW + safezoneX;
+				y = 0.68 * safezoneH + safezoneY;
+				w = 0.18 * safezoneW;
+				h = 0.15 * safezoneH;
+				colorText[] = {1,1,1,1};
+				colorBackground[] = {0, 0, 0, 0.3};
+				font = "TahomaB";
+				sizeEx = 0;
+				lineSpacing = 0;
+				fixedWidth = 0;
+				shadow = 0;
+			};
+			class HcamText
+			{
+				idc = 1;
+				type  = 0;          // static
+				style = 0x01;       // center
+				x = 0.80 * safezoneW + safezoneX;
+				y = 0.81 * safezoneH + safezoneY;
+				w = 0.18 * safezoneW;
+				h = 0.02 * safezoneH;
+				colorText[]       = {0,0,0,0.75};
+				colorBackground[] = {1, 1, 1, 0.2}; // no background
+				font = "TahomaB";
+				sizeEx = 0.02;
+				text="";
+			};
+			class RscHcamFront: RscPicture {
+				idc = 3;
+				type = 0;
+				style = 48;
+				text = "images\front.paa";
+				x = 0.80 * safezoneW + safezoneX;
+				y = 0.68 * safezoneH + safezoneY;
+				w = 0.18 * safezoneW;
+				h = 0.15 * safezoneH;
+				colorText[] = {1,1,1,1};
+				colorBackground[] = {0, 0, 0, 0};
+				font = "TahomaB";
+				sizeEx = 0;
+				lineSpacing = 0;
+				fixedWidth = 0;
+				shadow = 0;
+			};
+		};
+	};
+	#include "=BTC=_logistic\=BTC=_lift\=BTC=_Hud.h"
+	#include "INSui\UI\defines.hpp"
+};
