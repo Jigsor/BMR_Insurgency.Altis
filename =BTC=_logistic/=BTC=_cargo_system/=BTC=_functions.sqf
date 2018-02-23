@@ -239,14 +239,14 @@ BTC_l_create_camera = {
 	_obj = _this select 0;
 	BTC_l_camera = "camera" camCreate (position _obj);
 	BTC_l_camera camSetTarget _obj;
-	BTC_l_camera cameraEffect ["internal", "BACK"];
+	BTC_l_camera cameraEffect ["Internal", "BACK"];
 	BTC_l_camera camSetPos (_obj modelToWorld [0,-6,15]);
 	BTC_l_camera camCommit 0;
 	showCinemaBorder false;
 	BTC_l_camera_created = true;
 };
 BTC_l_destroy_camera = {
-	player cameraEffect ["TERMINATE", "BACK"];
+	player cameraEffect ["Terminate", "BACK"];
 	camDestroy BTC_l_camera;
 	BTC_l_camera = objNull;
 	BTC_l_camera_placement = false;

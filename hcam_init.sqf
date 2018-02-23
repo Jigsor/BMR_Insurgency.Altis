@@ -9,15 +9,7 @@ if ( (_this select 0) == "mission" ) then {
 if (!hasInterface) exitwith {};
 if (INS_ACE_core) exitwith {};
 
-if (isNil "hcam_goggles") then {
-  hcam_goggles = ["G_Tactical_Clear"];
-};
-if (isNil "hcam_headgear") then {
-  hcam_headgear = ["H_HelmetB","H_HelmetB_paint"," H_HelmetB_light","H_HelmetO_ocamo","H_PilotHelmetHeli_B","H_PilotHelmetHeli_O"];
-};
-if (isNil "hcam_units") then {
-  hcam_units = "group";
-};
+if (isNil "hcam_units") then {hcam_units = "group"};
 
 hcam_active = false;
 hcam_id = 0;

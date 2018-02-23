@@ -50,8 +50,6 @@ _availableItems = [
 	"ItemWatch",
 
 	//Optics
-	"Laserdesignator_01_khk_F",
-	"Laserdesignator_03",
 	"NVGoggles",
 	"NVGoggles_tna_F",
 	"NVGogglesB_blk_F",
@@ -66,6 +64,7 @@ _availableItems = [
 	"G_Goggles_VR",
 	"G_Lady_Blue",
 	"G_Aviator",
+	"G_Tactical_Black",
 
 	//Weapon Accessories
 	"acc_flashlight",
@@ -329,7 +328,8 @@ _availableWeapons = [
 	"Binocular",
 	"Rangefinder",
 	"Laserdesignator",
-	"Laserdesignator_02",
+	"Laserdesignator_03",
+	"Laserdesignator_01_khk_F",	
 
 	//Rifles
 	"arifle_SDAR_F",

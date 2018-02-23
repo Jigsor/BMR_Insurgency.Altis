@@ -368,7 +368,7 @@ INS_toggle_Zeus = {
 		if (_announce) then {
 			_text remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 		} else {
-			(localize "STR_BMR_curator_removed") remoteExec ["JIG_MPhint_fnc", _unit];
+			(localize "STR_BMR_curator_removed") remoteExec ['JIG_MPhint_fnc', _unit];
 		};
 		diag_log _text;
 	};
@@ -428,7 +428,7 @@ INS_toggle_Zeus = {
 	if (_announce) then {
 		_text remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 	} else {
-		(localize "STR_BMR_initialize_done") remoteExec ["JIG_MPhint_fnc", _unit];
+		(localize "STR_BMR_initialize_done") remoteExec ['JIG_MPhint_fnc', _unit];
 	};
 	diag_log _text;
 };

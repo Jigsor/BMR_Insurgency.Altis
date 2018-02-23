@@ -63,11 +63,11 @@ ebox = _type createVehicle _pos3;// supply box
 player setVariable ["INS_farp_deployed", true];
 
 _mssg = format["%1's FARP",(name player)];
-_medmark = createMarker [_mark, _pos];
-_medmark setMarkerShape "ICON";
-_medmark setMarkerType "b_hq";
-_medmark setMarkerColor "ColorGreen";
-_medmark setMarkerText _mssg;
-_medmark setMarkerSize [0.5, 0.5];
+_farpMkr = createMarker [_mark, _pos];
+_farpMkr setMarkerShape "ICON";
+_farpMkr setMarkerType "b_hq";
+_farpMkr setMarkerColor "ColorGreen";
+_farpMkr setMarkerText _mssg;
+_farpMkr setMarkerSize [0.5, 0.5];
 
-[[_medmark],east] remoteExec ["Hide_Mkr_fnc", [0,-2] select isDedicated, "FARPmkr_JIP_ID"];
+[[_farpMkr],east] remoteExec ["Hide_Mkr_fnc", [0,-2] select isDedicated, "FARPmkr_JIP_ID"];

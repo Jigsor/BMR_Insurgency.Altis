@@ -1,6 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="BMR Insurgency">
 <Container name="BMR_Insurgency_Stringtable">
+<Key ID="STR_BMR_UI_Respawn">
+<Original>Respawn</Original>
+<English>Respawn</English>
+<German>Respawn</German>
+<French>Réapparition</French>
+<Russian>Возрождение</Russian>
+<Spanish>Reaparición</Spanish>
+<Italian>Rigenerazione</Italian>
+<Polish>Odrodzenie</Polish>
+<Czech>Oživit</Czech>
+<Portuguese>Ressurgimento</Portuguese>
+<Korean>재투입</Korean>
+<Japanese>リスポーン</Japanese>
+</Key>
+<Key ID="STR_BMR_UI_close_dialog">
+<Original>Close Dialog</Original>
+<English>Close Dialog</English>
+<German>Schliesse Dialog</German>
+<French>Fermer Dialog</French>
+<Russian>Закрыть окно</Russian>
+<Spanish>Cerrar Diálogo</Spanish>
+</Key>
+<Key ID="STR_BMR_UI_view_settings">
+<Original>Clients Settings</Original>
+<English>Clients Settings</English>
+<German>Spieler Einstellungen</German>
+<French>Paramètres d'affichage</French>
+<Russian>Настройки клиента</Russian>
+<Spanish>Configuración de Clientes</Spanish>
+</Key>
+<Key ID="STR_BMR_UI_toggle_heading">
+<Original>Toggle Heading</Original>
+<English>Toggle Heading</English>
+<German>Schalte Richtungsanzeige ein</German>
+<French>Rubrique Basculer</French>
+<Russian>направление</Russian>
+<Spanish>Palanca Título</Spanish>
+</Key>
+<Key ID="STR_BMR_UI_status_hud">
+<Original>Status Hud</Original>
+<English>Status Hud</English>
+<German>Status HUD</German>
+<French>Statut Hud</French>
+<Russian>Статус HUD</Russian>
+<Spanish>Estado Hud</Spanish>
+</Key>
+<Key ID="STR_BMR_UI_earPlugs">
+<Original>Ear Plugs</Original>
+<English>Ear Plugs</English>
+<German>Ohrstöpsel</German>
+<French>Des bouchons d'oreilles</French>
+<Russian>беруши</Russian>
+<Spanish>Tapones para los oídos</Spanish>
+</Key>
+<Key ID="STR_BMR_UI_ambientLife">
+<Original>Ambient Life</Original>
+<English>Ambient Life</English>
+<German>Umgebungsleben</German>
+<French>Vie Ambiante</French>
+<Russian>Окружающая жизнь</Russian>
+<Spanish>Vida Ambiental</Spanish>
+</Key>
+<Key ID="STR_BMR_UI_Confirm">
+<Original>Confirm</Original>
+<English>Confirm</English>
+<German>Bestätigen</German>
+<French>Confirmer</French>
+<Russian>подтвердить</Russian>
+<Spanish>Confirmar</Spanish>
+</Key>
+<Key ID="STR_BMR_UI_CallForHelp">
+<Original>Call for help</Original>
+<English>Call for help</English>
+<German>Hilferuf</German>
+<French>Appeler à l'aide</French>
+<Russian>Звать на помощь</Russian>
+<Spanish>Llamar por ayuda</Spanish>
+</Key>
+<Key ID="STR_ATM_Alt">
+<Original>Altitude:</Original>
+<English>Altitude:</English>
+<German>Höhe</German>
+<French>L'altitude</French>
+<Russian>Высота:</Russian>
+<Spanish>Altitude</Spanish>
+</Key>
+<Key ID="STR_ATM_Keys">
+<Original>Select Key:</Original>
+<English>Select Key:</English>
+<German>Wähle Taste:</German>
+<French>Sélectionner une touche:</French>
+<Russian>Выберите клавишу:</Russian>
+<Spanish>Seleccionar tecla</Spanish>
+</Key>
+<Key ID="STR_ATM_Main">
+<Original>Choose your Altitude and Cut Key</Original>
+<English>Choose your Altitude and Cut Key</English>
+<German>Wähle Höhe und Schneiden Taste</German>
+<French>Choisissez votre altitude et clé</French>
+<Russian>Выберите высоту и кнопку отрезания</Russian>
+<Spanish>Elija su altitud y tecla cortar</Spanish>
+</Key>
+<Key ID="STR_ATM_hover">
+<Original>Your select Altitude</Original>
+<English>Your select Altitude</English>
+<German>Deine gewählte Höhe</German>
+<French>Votre altitude choisie</French>
+<Russian>Ваш выбор высоты</Russian>
+<Spanish>Su selecto Altitud</Spanish>
+</Key>
+<Key ID="STR_ATM_hinton">
+<Original>Select Altitude and Designate LZ for HALO Jump on the map</Original>
+<English>Select Altitude and Designate LZ for HALO Jump on the map</English>
+<German>Wähle Absprunghöhe und Landezone für Fallschirmsprung auf der Karte</German>
+<French>Sélectionnez votre altitude et position de saut en cliquant du bouton gauche de la souris sur la carte</French>
+<Russian>Выберите высоту и назначте зону посадки для прыжка HALO на карте</Russian>
+<Spanish>Seleccione altitud y zona de aterrizaje designado para HALO Jump en el mapa</Spanish>
+</Key>
+<Key ID="STR_ATM_hintjump">
+<Original>PRESS KEY TO CUT-AWAY ROPES</Original>
+<English>PRESS KEY TO CUT-AWAY ROPES</English>
+<German>Drücke Taste zum Zerschneiden der Leinen</German>
+<French>Appuyez sur votre touche sélectionnée pour couper le parachute lignes</French>
+<Russian>Нажмите кнопку для отрезания веревок</Russian>
+<Spanish>Pulse la tecla para cortada CUERDAS</Spanish>
+</Key>
+<Key ID="STR_ATM_hintload">
+<Original>loading loadout...</Original>
+<English>loading loadout...</English>
+<German>lade Equipment...</German>
+<French>Matériel de chargement</French>
+<Russian>загрузка снаряжения</Russian>
+<Spanish>inventario de carga</Spanish>
+</Key>
+<Key ID="STR_ATM_Close">
+<Original>Close</Original>
+<English>Close</English>
+<German>schliessen</German>
+<French>Fermer</French>
+<Russian>Закрыть</Russian>
+<Spanish>Close</Spanish>
+</Key>
+<Key ID="STR_JWC_CAS_field_system">
+<Original>Open CAS field system</Original>
+<English>Open CAS field system</English>
+<German>Öffne CAS Feldsystem</German>
+<French>Ouvert CAS système de champ</French>
+<Russian>Открыть полевую систему CAS</Russian>
+<Spanish>Abierto CAS sistema de campo</Spanish>
+</Key>
+<Key ID="STR_JWC_CAS_inbound">
+<Original>Coordinates received, CAS inbound</Original>
+<English>Coordinates received, CAS inbound</English>
+<German>Koordinaten erhalten, CAS auf dem Weg</German>
+<French>Coordonne reçu, entrant CAS</French>
+<Russian>Координаты получены, CAS приближается</Russian>
+<Spanish>Coordina recibido, CAS en ruta</Spanish>
+</Key>
+<Key ID="STR_JWC_CAS_aborted">
+<Original>CAS mission aborted</Original>
+<English>CAS mission aborted</English>
+<German>CAS Einsatz abgebrochen</German>
+<French>CAS mission avortée</French>
+<Russian>Миссия CAS прервана</Russian>
+<Spanish>Misión CAS abortado</Spanish>
+</Key>
+<Key ID="STR_JWC_CAS_single_confirm">
+<Original>Bomb dropped</Original>
+<English>Bomb dropped</English>
+<German>Bombe abgeworfen</German>
+<French>Bombe a chuté</French>
+<Russian>бомба упала</Russian>
+<Spanish>Bomba lanzada</Spanish>
+</Key>
+<Key ID="STR_JWC_CAS_multi_confirm">
+<Original>Bombs dropped</Original>
+<English>Bombs dropped</English>
+<German>Bomben abgeworfen</German>
+<French>Bombes larguées</French>
+<Russian>бомбы упали</Russian>
+<Spanish>bombas lanzadas</Spanish>
+</Key>
+<Key ID="STR_JWC_CAS_rtb">
+<Original>CAS RTB 5 mikes</Original>
+<English>CAS RTB 5 mikes</English>
+<German>CAS zurück zur Basis, wieder Einsatzbereit in 5 Minuten</German>
+<French>CAS retour à la base 5 minutes</French>
+<Russian>CAS вернется на базу через 5 минут</Russian>
+<Spanish>Misión CAS abortado</Spanish>
+</Key>
+<Key ID="STR_BMR_DustStorm_On">
+<Original>Dust Storm Incoming</Original>
+<English>Dust Storm Incoming</English>
+<German>Staubsturm einkommend</German>
+<French>Tempête de poussière arrivant</French>
+<Russian>Пыльный шторм</Russian>
+<Spanish>Tormenta de polvo al llegar</Spanish>
+</Key>
+<Key ID="STR_BMR_DustStorm_Off">
+<Original>Dust Storm Cleared</Original>
+<English>Dust Storm Cleared</English>
+<German>Staubsturm gelöscht</German>
+<French>Tempête de poussière sortante</French>
+<Russian>песчаная буря прекратилась</Russian>
+<Spanish>Tormenta de polvo saliente</Spanish>
+</Key>
+<Key ID="STR_BMR_SaveProgression">
+<Original>Save Progression</Original>
+<English>Save Progression</English>
+<German>Speichern Sie den Fortschritt</German>
+<French>Enregistrer la progression</French>
+<Russian>Сохранить прогрессию</Russian>
+<Spanish>Guardar progresión</Spanish>
+</Key>
 <Key ID="STR_BMR_loading">
 <Original>Loading...</Original>
 <English>Loading...</English>
@@ -88,14 +302,6 @@
 <French>Restaurer les équipement défaut</French>
 <Russian>Восстановить снаряжение по умолчанию</Russian>
 <Spanish>Restaurar defecto inventario</Spanish>
-</Key>
-<Key ID="STR_BMR_earPlugs">
-<Original>Ear Plugs</Original>
-<English>Ear Plugs</English>
-<German>Ohrstöpsel</German>
-<French>Des bouchons d'oreilles</French>
-<Russian>беруши</Russian>
-<Spanish>Tapones para los oídos</Spanish>
 </Key>
 <Key ID="STR_BMR_recruit_inf">
 <Original>Recruit Infantry</Original>
@@ -914,182 +1120,6 @@
 <Russian>Куратор Удалены</Russian>
 <Spanish>Fuera Curador</Spanish>
 </Key>
-<Key ID="STR_BMR_start_time">
-<Original>Set the start time:</Original>
-<English>Set the start time:</English>
-<German>Definiere Startzeit</German>
-<French>Définir l'heure de début:</French>
-<Russian>Установить время начала:</Russian>
-<Spanish>Establezca la hora de inicio</Spanish>
-</Key>
-<Key ID="STR_BMR_UI_view_settings">
-<Original>Clients Settings</Original>
-<English>Clients Settings</English>
-<German>Spieler Einstellungen</German>
-<French>Paramètres d'affichage</French>
-<Russian>Настройки клиента</Russian>
-<Spanish>Configuración de Clientes</Spanish>
-</Key>
-<Key ID="STR_BMR_UI_toggle_heading">
-<Original>Toggle Heading</Original>
-<English>Toggle Heading</English>
-<German>Schalte Richtungsanzeige ein</German>
-<French>Rubrique Basculer</French>
-<Russian>направление</Russian>
-<Spanish>Palanca Título</Spanish>
-</Key>
-<Key ID="STR_BMR_UI_status_hud">
-<Original>Status Hud</Original>
-<English>Status Hud</English>
-<German>Status HUD</German>
-<French>Statut Hud</French>
-<Russian>Статус HUD</Russian>
-<Spanish>Estado Hud</Spanish>
-</Key>
-<Key ID="STR_BMR_ambientLife">
-<Original>Ambient Life</Original>
-<English>Ambient Life</English>
-<German>Umgebungsleben</German>
-<French>Vie Ambiante</French>
-<Russian>Окружающая жизнь</Russian>
-<Spanish>Vida Ambiental</Spanish>
-</Key>
-<Key ID="STR_BMR_UI_close_dialog">
-<Original>Close Dialog</Original>
-<English>Close Dialog</English>
-<German>Schliesse Dialog</German>
-<French>Fermer Dialog</French>
-<Russian>Закрыть окно</Russian>
-<Spanish>Cerrar Diálogo</Spanish>
-</Key>
-<Key ID="STR_BMR_DustStorm_On">
-<Original>Dust Storm Incoming</Original>
-<English>Dust Storm Incoming</English>
-<German>Staubsturm einkommend</German>
-<French>Tempête de poussière arrivant</French>
-<Russian>Пыльный шторм</Russian>
-<Spanish>Tormenta de polvo al llegar</Spanish>
-</Key>
-<Key ID="STR_BMR_DustStorm_Off">
-<Original>Dust Storm Cleared</Original>
-<English>Dust Storm Cleared</English>
-<German>Staubsturm gelöscht</German>
-<French>Tempête de poussière sortante</French>
-<Russian>песчаная буря прекратилась</Russian>
-<Spanish>Tormenta de polvo saliente</Spanish>
-</Key>
-<Key ID="STR_ATM_Alt">
-<Original>Altitude:</Original>
-<English>Altitude:</English>
-<German>Höhe</German>
-<French>L'altitude</French>
-<Russian>Высота:</Russian>
-<Spanish>Altitude</Spanish>
-</Key>
-<Key ID="STR_ATM_Keys">
-<Original>Select Key:</Original>
-<English>Select Key:</English>
-<German>Wähle Taste:</German>
-<French>Sélectionner une touche:</French>
-<Russian>Выберите клавишу:</Russian>
-<Spanish>Seleccionar tecla</Spanish>
-</Key>
-<Key ID="STR_ATM_Main">
-<Original>Choose your Altitude and Cut Key</Original>
-<English>Choose your Altitude and Cut Key</English>
-<German>Wähle Höhe und Schneiden Taste</German>
-<French>Choisissez votre altitude et clé</French>
-<Russian>Выберите высоту и кнопку отрезания</Russian>
-<Spanish>Elija su altitud y tecla cortar</Spanish>
-</Key>
-<Key ID="STR_ATM_hover">
-<Original>Your select Altitude</Original>
-<English>Your select Altitude</English>
-<German>Deine gewählte Höhe</German>
-<French>Votre altitude choisie</French>
-<Russian>Ваш выбор высоты</Russian>
-<Spanish>Su selecto Altitud</Spanish>
-</Key>
-<Key ID="STR_ATM_hinton">
-<Original>Select Altitude and Designate LZ for HALO Jump on the map</Original>
-<English>Select Altitude and Designate LZ for HALO Jump on the map</English>
-<German>Wähle Absprunghöhe und Landezone für Fallschirmsprung auf der Karte</German>
-<French>Sélectionnez votre altitude et position de saut en cliquant du bouton gauche de la souris sur la carte</French>
-<Russian>Выберите высоту и назначте зону посадки для прыжка HALO на карте</Russian>
-<Spanish>Seleccione altitud y zona de aterrizaje designado para HALO Jump en el mapa</Spanish>
-</Key>
-<Key ID="STR_ATM_hintjump">
-<Original>PRESS KEY TO CUT-AWAY ROPES</Original>
-<English>PRESS KEY TO CUT-AWAY ROPES</English>
-<German>Drücke Taste zum Zerschneiden der Leinen</German>
-<French>Appuyez sur votre touche sélectionnée pour couper le parachute lignes</French>
-<Russian>Нажмите кнопку для отрезания веревок</Russian>
-<Spanish>Pulse la tecla para cortada CUERDAS</Spanish>
-</Key>
-<Key ID="STR_ATM_hintload">
-<Original>loading loadout...</Original>
-<English>loading loadout...</English>
-<German>lade Equipment...</German>
-<French>Matériel de chargement</French>
-<Russian>загрузка снаряжения</Russian>
-<Spanish>inventario de carga</Spanish>
-</Key>
-<Key ID="STR_ATM_Close">
-<Original>Close</Original>
-<English>Close</English>
-<German>schliessen</German>
-<French>Fermer</French>
-<Russian>Закрыть</Russian>
-<Spanish>Close</Spanish>
-</Key>
-<Key ID="STR_JWC_CAS_field_system">
-<Original>Open CAS field system</Original>
-<English>Open CAS field system</English>
-<German>Öffne CAS Feldsystem</German>
-<French>Ouvert CAS système de champ</French>
-<Russian>Открыть полевую систему CAS</Russian>
-<Spanish>Abierto CAS sistema de campo</Spanish>
-</Key>
-<Key ID="STR_JWC_CAS_inbound">
-<Original>Coordinates received, CAS inbound</Original>
-<English>Coordinates received, CAS inbound</English>
-<German>Koordinaten erhalten, CAS auf dem Weg</German>
-<French>Coordonne reçu, entrant CAS</French>
-<Russian>Координаты получены, CAS приближается</Russian>
-<Spanish>Coordina recibido, CAS en ruta</Spanish>
-</Key>
-<Key ID="STR_JWC_CAS_aborted">
-<Original>CAS mission aborted</Original>
-<English>CAS mission aborted</English>
-<German>CAS Einsatz abgebrochen</German>
-<French>CAS mission avortée</French>
-<Russian>Миссия CAS прервана</Russian>
-<Spanish>Misión CAS abortado</Spanish>
-</Key>
-<Key ID="STR_JWC_CAS_single_confirm">
-<Original>Bomb dropped</Original>
-<English>Bomb dropped</English>
-<German>Bombe abgeworfen</German>
-<French>Bombe a chuté</French>
-<Russian>бомба упала</Russian>
-<Spanish>Bomba lanzada</Spanish>
-</Key>
-<Key ID="STR_JWC_CAS_multi_confirm">
-<Original>Bombs dropped</Original>
-<English>Bombs dropped</English>
-<German>Bomben abgeworfen</German>
-<French>Bombes larguées</French>
-<Russian>бомбы упали</Russian>
-<Spanish>bombas lanzadas</Spanish>
-</Key>
-<Key ID="STR_JWC_CAS_rtb">
-<Original>CAS RTB 5 mikes</Original>
-<English>CAS RTB 5 mikes</English>
-<German>CAS zurück zur Basis, wieder Einsatzbereit in 5 Minuten</German>
-<French>CAS retour à la base 5 minutes</French>
-<Russian>CAS вернется на базу через 5 минут</Russian>
-<Spanish>Misión CAS abortado</Spanish>
-</Key>
 <Key ID="STR_BMR_GrabIntel">
 <Original>Grab Intel</Original>
 <English>Grab Intel</English>
@@ -1194,13 +1224,21 @@
 <Russian>От себя</Russian>
 <Spanish>Empujar</Spanish>
 </Key>
-<Key ID="STR_BMR_SaveProgression">
-<Original>Save Progression</Original>
-<English>Save Progression</English>
-<German>Speichern Sie den Fortschritt</German>
-<French>Enregistrer la progression</French>
-<Russian>Сохранить прогрессию</Russian>
-<Spanish>Guardar progresión</Spanish>
+<Key ID="STR_BMR_NoOneNear">
+<Original>No one is nearby</Original>
+<English>No one is nearby</English>
+<German>Niemand ist in der Nähe</German>
+<French>Personne n'est à proximité</French>
+<Russian>Никто не находится поблизости</Russian>
+<Spanish>Nadie está cerca</Spanish>
+</Key>
+<Key ID="STR_BMR_start_time">
+<Original>Set the start time:</Original>
+<English>Set the start time:</English>
+<German>Definiere Startzeit</German>
+<French>Définir l'heure de début:</French>
+<Russian>Установить время начала:</Russian>
+<Spanish>Establezca la hora de inicio</Spanish>
 </Key>
 </Container>
 </Project>

@@ -333,7 +333,7 @@ BTC_player_killed = {
 			} else {
 				BTC_r_u_camera = "camera" camCreate (position player);
 				BTC_r_u_camera camSetTarget player;
-				BTC_r_u_camera cameraEffect ["internal", "BACK"];
+				BTC_r_u_camera cameraEffect ["Internal", "BACK"];
 				BTC_r_u_camera camSetPos [(getpos player select 0) + 15,(getpos player select 1) + 15,10];
 				BTC_r_u_camera camCommit 0;
 				disableSerialization;
@@ -375,7 +375,7 @@ BTC_player_killed = {
 			if (BTC_camera_unc isEqualTo 0) then {
 				(findDisplay 46) displayRemoveEventHandler ["KeyDown",BTC_display_EH];
 			} else {
-				player cameraEffect ["TERMINATE", "BACK"];
+				player cameraEffect ["Terminate", "BACK"];
 				camDestroy BTC_r_u_camera;
 				BTC_r_u_camera = objNull;
 				titleText ["", "PLAIN DOWN"];
@@ -731,7 +731,7 @@ BTC_r_create_dialog_mobile = {
 		player setVelocity [0,0,0];
 		BTC_r_camera = "camera" camCreate (position BTC_r_base_spawn);
 		BTC_r_camera camSetTarget BTC_r_base_spawn;
-		BTC_r_camera cameraEffect ["internal", "BACK"];
+		BTC_r_camera cameraEffect ["Internal", "BACK"];
 		BTC_r_camera camSetPos (BTC_r_base_spawn modelToWorld [-15,-15,15]);
 		BTC_r_camera camCommit 0;
 		BTC_r_chosen = false;
@@ -765,7 +765,7 @@ BTC_r_apply = {
 	titleText ["", "BLACK OUT"];
 	sleep 0.5;
 	titleText ["", "BLACK FADED"];
-	player cameraEffect ["terminate","back"];
+	player cameraEffect ["Terminate","BACK"];
 	camDestroy BTC_r_camera;
 	if (!isNull BTC_r_mobile_selected) then {
 		private _mobile = BTC_r_mobile_selected;
@@ -790,7 +790,7 @@ BTC_r_close = {
 	player enableSimulation true;
 	player switchMove "amovpercmstpsraswrfldnon";
 	titleText ["", "BLACK FADED"];
-	player cameraEffect ["terminate","back"];
+	player cameraEffect ["Terminate","BACK"];
 	if !(isNil "BTC_r_camera") then {//Jig - adding condition
 		camDestroy BTC_r_camera;
 	};
@@ -826,7 +826,7 @@ BTC_r_change_target = {
 	//if (isNull _target) then {BTC_r_mobile_selected = player};
 	BTC_r_mobile_selected = _target;
 	BTC_r_camera camSetTarget BTC_r_mobile_selected;
-	BTC_r_camera cameraEffect ["internal", "BACK"];
+	BTC_r_camera cameraEffect ["Internal", "BACK"];
 	BTC_r_camera camSetPos (BTC_r_mobile_selected modelToWorld [-15,-15,15]);
 	BTC_r_camera camCommit 0;
 };
@@ -893,7 +893,7 @@ BTC_r_spectator = {
 	BTC_r_camera_nvg = false;
 	BTC_r_s_camera = "camera" camCreate (position BTC_r_base_spawn);
 	BTC_r_s_camera camSetTarget BTC_r_base_spawn;
-	BTC_r_s_camera cameraEffect ["internal", "BACK"];
+	BTC_r_s_camera cameraEffect ["Internal", "BACK"];
 	BTC_r_s_camera camSetPos [(getpos BTC_r_base_spawn select 0) + 15,(getpos BTC_r_base_spawn select 1) + 15,10];
 	BTC_r_s_camera camCommit 0;
 	player enableSimulation false;

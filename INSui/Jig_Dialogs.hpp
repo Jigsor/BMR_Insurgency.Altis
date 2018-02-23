@@ -47,7 +47,7 @@ class Jig_Y_Menu {
 		class Ear_Plugs: Jig_RscButton {
 			action = "closeDialog 0; call INS_EarPlugs";
 			idc = -1;
-			text = "$STR_BMR_earPlugs";
+			text = "$STR_BMR_UI_earPlugs";
 			x = 0.425056 * safezoneW + safezoneX;
 			y = 0.543129 * safezoneH + safezoneY;
 			w = 0.15 * safezoneW;
@@ -56,7 +56,7 @@ class Jig_Y_Menu {
 		class Amb_Life_Toggle: Jig_RscButton {
 			action = "closeDialog 0; if (environmentEnabled select 0) then {enableEnvironment [false, (environmentEnabled select 1)]; hintSilent localize 'STR_BMR_OFF'} else {enableEnvironment [true, (environmentEnabled select 1)]; hintSilent localize 'STR_BMR_ON'}";
 			idc = -1;
-			text = "$STR_BMR_ambientLife";
+			text = "$STR_BMR_UI_ambientLife";
 			x = 0.425056 * safezoneW + safezoneX;
 			y = 0.589899 * safezoneH + safezoneY;
 			w = 0.15 * safezoneW;

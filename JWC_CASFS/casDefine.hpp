@@ -60,7 +60,7 @@
 class JWC_Text {
 	type = CT_STATIC;
 	idc = -1;
-        style = ST_CENTER;
+	style = ST_CENTER;
 	colorBackground[] = {0, 0, 0, 0};
 	colorText[] = {1, 1, 1, 1};
 	font = FontM;
@@ -70,7 +70,7 @@ class JWC_Text {
 class JWC_StructuredText {
 	type = CT_STRUCTURED_TEXT;
 	idc = -1;
-        style = ST_CENTER;
+	style = ST_CENTER;
 	colorBackground[] = {0, 0, 0, 0};
 	colorText[] = {1, 1, 1, 1};
 	font = FontM;
@@ -80,7 +80,7 @@ class JWC_StructuredText {
 class JWC_BG: JWC_Text {
 	type = CT_STATIC;
 	idc = -1;
-        style = ST_LEFT;
+	style = ST_LEFT;
 	colorBackground[] = {0.02, 0.11, 0.27, 0.7};
 	colorText[] = {1, 1, 1, 0};
 	font = FontM;
@@ -115,7 +115,7 @@ class JWC_Map {
 	alphaFadeStartScale = 0.350000;
 	alphaFadeEndScale = 0.400000;
 	colorBackground[]  = {0.969000, 0.957000, 0.949000, 1.000000};
-        colorText[] = {0, 0, 0, 1};
+	colorText[] = {0, 0, 0, 1};
 	colorSea[]  = {0.467000, 0.631000, 0.851000, 0.500000};
 	colorForest[]  = {0.624000, 0.780000, 0.388000, 0.500000};
 	colorForestBorder[]  = {0.000000, 0.000000, 0.000000, 0.000000};
@@ -139,8 +139,8 @@ class JWC_Map {
 	colorMainRoadsFill[]  = {1.000000, 0.600000, 0.400000, 1.000000};
 	colorGrid[]  = {0.100000, 0.100000, 0.100000, 0.600000};
 	colorGridMap[]  = {0.100000, 0.100000, 0.100000, 0.600000};
-        font = "TahomaB";
-        sizeEx = 0.04;
+	font = "TahomaB";
+	sizeEx = 0.04;
 	fontLabel = "PuristaMedium";
 	sizeExLabel = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 	fontGrid = "TahomaB";
@@ -473,12 +473,12 @@ class JWC_Button {
 		bottom = 0.005;
 	};
 	textureNoShortcut = "";
-        animTextureNormal   = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\normal_ca.paa";
-        animTextureDisabled = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\disabled_ca.paa";
-        animTextureOver     = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\over_ca.paa";
-        animTextureFocused  = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\focus_ca.paa";
-        animTexturePressed  = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\down_ca.paa";
-        animTextureDefault  = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\normal_ca.paa";
+	animTextureNormal   = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\normal_ca.paa";
+	animTextureDisabled = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\disabled_ca.paa";
+	animTextureOver     = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\over_ca.paa";
+	animTextureFocused  = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\focus_ca.paa";
+	animTexturePressed  = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\down_ca.paa";
+	animTextureDefault  = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\normal_ca.paa";
 	period = 0;
 	font = "PuristaSemibold";
 	soundEnter[] = {"\A3\ui_f\data\sound\RscButtonMenu\soundEnter", 0.09, 1};
@@ -492,10 +492,10 @@ class JWC_Button {
 		shadow = "true";
 	};
 	class AttributesImage {
-			font = "PuristaSemibold";
-			color = "#E5E5E5";
-			align = "left";
-			shadow = "true";
+		font = "PuristaSemibold";
+		color = "#E5E5E5";
+		align = "left";
+		shadow = "true";
 	};
 };
 
@@ -503,10 +503,10 @@ class JWC_CheckBox {
 	idc = -1;
 	type = 7;
 	style = 0;
-        x = 0.550;
-        y = 0.18;
-        w = 0.15;
-        h = 0.15;
+	x = 0.550;
+	y = 0.18;
+	w = 0.15;
+	h = 0.15;
 	colorText[] = {1, 0, 0, 1};
 	color[] = {0, 0, 0, 0};
 	colorBackground[] = {0, 0, 1, 1};

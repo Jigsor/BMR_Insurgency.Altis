@@ -139,7 +139,7 @@ sleep 0.3;
 waitUntil {sleep 0.3; (isPlayer (driver MHQ_3)) && {(isEngineOn MHQ_3) && (!isnull (driver MHQ_3))}};
 
 _MHQ3DelReady = true;
-[localize "STR_BMR_delivery_ready", "JIG_MPhint_fnc"] call BIS_fnc_mp;
+(localize "STR_BMR_delivery_ready") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 sleep 2;
 
 private _text = format [localize "STR_BMR_delivery_ready"];
@@ -184,7 +184,7 @@ _veh = MHQ_3;
 		};
 		sleep 0.5;
 		if ((isnull (driver _veh)) || (!alive _veh) || (!alive (driver _veh)) && {Demo_Loaded}) then {
-			[localize "STR_BMR_delivery_destroyed_aborted", "JIG_MPhint_fnc"] call BIS_fnc_mp;
+			(localize "STR_BMR_delivery_destroyed_aborted") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 			sleep 3;
 
 			private _text = format [localize "STR_BMR_delivery_destroyed_aborted"];

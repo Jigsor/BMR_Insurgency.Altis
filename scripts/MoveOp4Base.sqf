@@ -13,9 +13,9 @@ waitUntil {!isNull _op4_player};
 
 if (count _aP > 0) then {
 	{
-		_bs = speed _x;
+		_bs = (vectorMagnitudeSqr velocity _x > 8);
 		_pos = (getPos _x);
-		if (_bs > 8 || _pos select 2 > 4) then {_aP = _aP - [_x];};
+		if (_bs || _pos select 2 > 4) then {_aP = _aP - [_x];};
 	} foreach _aP;// exclude players in moving vehicles, above ground, in aircraft or in high structures
 }else{
 	_pnf = true;
@@ -55,7 +55,7 @@ if (!isNil "_rwp") then {
 };
 
 if (_pnf) then {
-	if ((INS_MHQ_enabled) && {(!isNil "Opfor_MHQ")}) then {
+	if (INS_MHQ_enabled && {!isNil "Opfor_MHQ"}) then {
 		// Move to Op4 MHQ
 		if (_mL) then {BTC_r_base_spawn setPos getMarkerPos "Opfor_MHQ"};
 		"Respawn_East" setMarkerPos getMarkerPos "Opfor_MHQ";

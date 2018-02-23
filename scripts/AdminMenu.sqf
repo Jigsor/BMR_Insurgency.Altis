@@ -61,7 +61,7 @@ private _tips ="
 	<br/>
 	<br/>11. Manually kicking Headless Client will effectivley reset/reinforce uncaptured zones as if no enemy had been killed in these zones. If using 2 headless clients then both should be kicked. As a side affect the current objective may complete or its defences deleted because all enemy AI get deleted when a headless client disconnects and leaves AI behind.
 	<br/>
-	<br/>12. When not using headless client using progression saving, the server does not begin auto saving progression untill one task has been completed.
+	<br/>12. When not using headless client and using auto progression saving, the server does not begin saving progression untill one task has been completed.
 ";
 _menu = _menu + _tips;
 player createDiaryRecord ["Diary", ["Administrator Menu", _menu]];

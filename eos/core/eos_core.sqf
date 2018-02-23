@@ -42,9 +42,9 @@ if (RedHot > _mz) then {
 if (!_cache) then {
 
 	if (_heightLimit) then {
-		_actCond="((RedHot <= Max_Act_Gzones) && {{vehicle _x in thisList && isplayer _x && side _x isEqualTo WEST && ((getPosATL _x) select 2) < 10} count playableunits > 0})";
+		_actCond="((RedHot <= Max_Act_Gzones) && {{vehicle _x in thisList && isplayer _x && ((getPosATL _x) select 2) < 10} count playableunits > 0})";
 	}else{
-		_actCond="((RedHot <= Max_Act_Gzones) && {{vehicle _x in thisList && isplayer _x && side _x isEqualTo WEST} count playableunits > 0})";
+		_actCond="((RedHot <= Max_Act_Gzones) && {{vehicle _x in thisList && isplayer _x} count playableunits > 0})";
 	};
 
 	_eosActivated = createTrigger ["EmptyDetector",_mPos];
@@ -196,7 +196,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	_taken setTriggerArea [_mkrX,_mkrY,_mkrAgl,FALSE];
 	_taken setTriggerActivation ["ANY","PRESENT",true];
 	_taken setTriggerTimeout [1, 1, 1, true];
-	_taken setTriggerStatements ["{vehicle _x in thisList && isplayer _x && ((getPosATL _x) select 2) < 5} count allUnits > 0","",""];
+	_taken setTriggerStatements ["{vehicle _x in thisList && isplayer _x && side _x isEqualTo WEST && ((getPosATL _x) select 2) < 5} count allUnits > 0","",""];
 	_eosAct=true;
 	while {_eosAct} do {
 		// IF PLAYER LEAVES THE AREA OR ZONE DEACTIVATED
@@ -206,7 +206,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 			_cc = _cacheDelay * 60 / 2; //Cache: Calculate the delay for according minutes //rip
 		}; //Cache: Decrease counter with each loop
 
-		if (_cc <= 0 && (!triggeractivated _eosActivated || getmarkercolor _mkr == "ColorBlack")) exitwith { //Cache: Check if caching counter hit 0
+		if (_cc <= 0 && (!triggeractivated _eosActivated || getmarkercolor _mkr isEqualTo "ColorBlack")) exitwith { //Cache: Check if caching counter hit 0
 			if (_debug) then {if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {hint "Restarting Zone AND deleting units";}else{hint "EOS zone deactivated";};};
 			//CACHE LIGHT VEHICLES
 			if (!isnil "_cGrp") then {

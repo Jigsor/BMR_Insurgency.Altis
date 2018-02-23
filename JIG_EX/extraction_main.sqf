@@ -1,5 +1,5 @@
 /*
- extraction_main.sqf v1.25 by Jigsor is WIP
+ extraction_main.sqf v1.25 by Jigsor
  null = [] execVM "JIG_EX\extraction_main.sqf";
  runs in JIG_EX\extraction_init.sqf
 */
@@ -78,32 +78,32 @@ if (!hasInterface && !isDedicated) exitWith {};
 
 		if !(JIG_EX_gunners) then {
 			if (_type in _has_gunner_pos) then {
-				// remove gunners from GhostHawk. //player moveInTurret [vehicle,[0]];
-				[EvacHeliW1 turretUnit [ 0 ]] join grpNull;// most all seem to use [ 0 ] as copilot
-				deleteVehicle (EvacHeliW1 turretUnit [ 0 ]);
-				[EvacHeliW1 turretUnit [ 1 ]] join grpNull;
-				deleteVehicle (EvacHeliW1 turretUnit [ 1 ]);
-				[EvacHeliW1 turretUnit [ 2 ]] join grpNull;
-				deleteVehicle (EvacHeliW1 turretUnit [ 2 ]);
+				// remove gunners from GhostHawk.
+				[EvacHeliW1 turretUnit [0]] join grpNull;// most all seem to use [0] as copilot
+				deleteVehicle (EvacHeliW1 turretUnit [0]);
+				[EvacHeliW1 turretUnit [1]] join grpNull;
+				deleteVehicle (EvacHeliW1 turretUnit [1]);
+				[EvacHeliW1 turretUnit [2]] join grpNull;
+				deleteVehicle (EvacHeliW1 turretUnit [2]);
 
 				if (_type in _chinook_types) then {
 					// remove gunners from Chinook types.
-					[EvacHeliW1 turretUnit [ 3 ]] join grpNull;
-					deleteVehicle (EvacHeliW1 turretUnit [ 3 ]);
-					[EvacHeliW1 turretUnit [ 4 ]] join grpNull;
-					deleteVehicle (EvacHeliW1 turretUnit [ 4 ]);
+					[EvacHeliW1 turretUnit [3]] join grpNull;
+					deleteVehicle (EvacHeliW1 turretUnit [3]);
+					[EvacHeliW1 turretUnit [4]] join grpNull;
+					deleteVehicle (EvacHeliW1 turretUnit [4]);
 
 					//RHS Chinooks
-					if ((_type == "RHS_CH_47F_10") || (_type == "RHS_CH_47F_light")) then {
-						[EvacHeliW1 turretUnit [ 1 ]] join grpNull;
-						deleteVehicle (EvacHeliW1 turretUnit [ 1 ]);
+					if (_type in ["RHS_CH_47F_10","RHS_CH_47F_light"]) then {
+						[EvacHeliW1 turretUnit [1]] join grpNull;
+						deleteVehicle (EvacHeliW1 turretUnit [1]);
 					};
 				};
 				_gunners_removed = true;
 			};
 			if (_type in _helcat_types) then {
-				[EvacHeliW1 turretUnit [ 0 ]] join grpNull;// most all seem to use [ 0 ] as copilot
-				deleteVehicle (EvacHeliW1 turretUnit [ 0 ]);
+				[EvacHeliW1 turretUnit [0]] join grpNull;// most all seem to use [ 0 ] as copilot
+				deleteVehicle (EvacHeliW1 turretUnit [0]);
 			};
 		};
 

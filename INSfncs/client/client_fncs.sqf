@@ -36,7 +36,7 @@ INS_intro = {
 	_cam camPreload 5;
 	_cam camSetTarget player;
 	waitUntil {preloadCamera [position camstart select 0, position camstart select 1, (position camstart select 2) + 80]};
-	_cam cameraEffect ["internal", "BACK"];
+	_cam cameraEffect ["Internal", "BACK"];
 	["BIS_ScreenSetup",true] call BIS_fnc_blackIn;
 	_camPos = [(getPos player select 0) + _rx, (getPos player select 1) + _ry, (getTerrainHeightASL (position player)) + 20];
 	_cam camSetPos [(_camPos select 0) + (100 * sin _dir), (_camPos select 1) + (100 * cos _dir), _camPos select 2];
@@ -54,7 +54,7 @@ INS_intro = {
 	player sideChat localize "STR_BMR_intro_tip1";
 	player sideChat localize "STR_BMR_intro_tip2";
 	waitUntil {camcommitted _cam};
-	player cameraEffect ["terminate","back"];
+	player cameraEffect ["Terminate", "BACK"];
 	setViewDistance -1;
 	camDestroy _cam;
 	enableRadio true;
@@ -78,7 +78,7 @@ INS_intro_op4 = {
 	_cam camPreload 5;
 	_cam camSetTarget _offsetPos;
 	waitUntil {UIsleep 0.1; preloadCamera [(position center select 0) + 240, (position center select 1) + 100, 450]};
-	_cam cameraEffect ["internal", "BACK"];
+	_cam cameraEffect ["Internal", "BACK"];
 	["BIS_ScreenSetup",true] call BIS_fnc_blackIn;
 	_cam camSetPos [(position center select 0) - 240, (position center select 1) + 100, 450];
 	_cam camCommit 15;
@@ -87,7 +87,7 @@ INS_intro_op4 = {
 	[_text, safezoneX - 0.01, safeZoneY + (1 - 0.125) * safeZoneH, true, "<t align='right' size='1.0' font='PuristaLight'>%1</t>"] spawn BIS_fnc_typeText2;
 	UIsleep 3;
 	waitUntil {camcommitted _cam};
-	player cameraEffect ["terminate","back"];
+	player cameraEffect ["Terminate","BACK"];
 	UIsleep 0.5;
 	[] spawn {
 	player sideChat localize "STR_BMR_initialize_done";
@@ -510,9 +510,9 @@ Op4_spawn_pos = {
 	_random_w_player = nil;
 	_basePos = getMarkerPos "Respawn_West";
 	_players = playableUnits;
-	if (INS_p_rev > 5) then {_movelogic = false;}else{_movelogic = true;};
+	_movelogic = if (INS_p_rev > 5) then {false}else{true};
 
-	titleCut["", "BLACK out",2];
+	//titleCut["", "BLACK OUT", 2];// causes black screen bug?
 
 	_players = _players - [_op4Player];// exclude player calling the script
 	if (count _players > 0) then {
@@ -562,7 +562,7 @@ Op4_spawn_pos = {
 	};
 
 	if (_posnotfound) then {
-		if ((INS_MHQ_enabled) && {(!isNil "Opfor_MHQ")}) then {
+		if (INS_MHQ_enabled && {!isNil "Opfor_MHQ"}) then {
 			// Move to Op4 MHQ
 			if (_movelogic) then {BTC_r_base_spawn setPos getMarkerPos "Opfor_MHQ"};
 			"Respawn_East" setMarkerPos getMarkerPos "Opfor_MHQ";
@@ -599,7 +599,7 @@ INS_bullet_cam = {
 		_null = _this spawn {
 			_missile = _this select 6;
 			_cam = "camera" camCreate (position player);
-			_cam cameraEffect ["External", "Back"];
+			_cam cameraEffect ["External", "BACK"];
 			waitUntil {
 				if (isNull _missile) exitWith {true};
 				_cam camSetTarget _missile;
@@ -607,7 +607,7 @@ INS_bullet_cam = {
 				_cam camCommit 0;
 			};
 			sleep 0.4;
-			_cam cameraEffect ["Terminate", "Back"];
+			_cam cameraEffect ["Terminate", "BACK"];
 			camDestroy _cam;
 		};
 	}];
@@ -640,7 +640,7 @@ JIG_circling_cam = {
 	waitUntil {camcommitted _cam};
 
 	_cam attachTo [_logic, [0,_camDis,_camHeight] ];
-	_cam cameraEffect ["internal", "BACK"];
+	_cam cameraEffect ["Internal", "BACK"];
 
 	while {_dir < _maxRotation} do {
 		_dir = _dir + _interval;
@@ -650,7 +650,7 @@ JIG_circling_cam = {
 
 	camDestroy _cam;
 	deleteVehicle _logic;
-	player cameraEffect ["terminate", "BACK"];
+	player cameraEffect ["Terminate", "BACK"];
 	true
 };
 JIG_map_click = {

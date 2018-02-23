@@ -430,7 +430,7 @@ find_civ_bomber_fnc = {
 				_draftee = _closestEntity;
 				_foundCiv = true;
 				//diag_log text format ["SupahG33K - Civilian Jihadi Draftee found object: %1", _draftee];
-				//_text = format ["SupahG33K - Civilian Jihadi Draftee found object: %1 class: %2", _draftee, typeOf _draftee]; [_text,"JIG_MPhint_fnc"] call BIS_fnc_mp;
+				//_text = format ["SupahG33K - Civilian Jihadi Draftee found object: %1 class: %2", _draftee, typeOf _draftee]; _txt remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 			}else{
 				_civs deleteAt 0;
 			};

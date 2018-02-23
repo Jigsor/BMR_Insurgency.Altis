@@ -7,8 +7,7 @@ class casMenu
 	onLoad="uiNamespace setVariable ['casMenu', _this select 0]";
 	controls[] = {bgEdge,bottom,top,lineTop,lineBottom,btnRequest,btnCancel,btnDummy,btnExit,checkEdge,checkbg,Checkbox,mapbg,map,snapText,snapTitle,help};
 
-	class background : JWC_BG
-	{
+	class background : JWC_BG {
 		x = 0.0;
 		y = 0.0;
 		w = 0.525;
@@ -16,8 +15,7 @@ class casMenu
 		idc = 100199;
 		colorBackground[] = {0, 0, 0, 1};
 	};
-	class bgEdge : JWC_Text
-	{
+	class bgEdge : JWC_Text {
 		x = 0.001;
 		y = 0.001;
 		w = 0.522;
@@ -29,8 +27,7 @@ class casMenu
 		moving = 0;
 		text = "";
 	};
-	class btnExit: JWC_Button
-	{
+	class btnExit: JWC_Button {
 		idc = 100111;
 		text = "Exit Menu";
 		action = "closeDialog 0";
@@ -47,16 +44,14 @@ class casMenu
 		animTextureFocused = "";
 		animTexturePressed = "";
 		animTextureDefault = "";
-		class TextPos
-		{
+		class TextPos {
 			left = 0.023;
 			top = 0.027;
 			right = 0.005;
 			bottom = 0.005;
 		};
 	};
-	class btnRequest: JWC_Button
-	{
+	class btnRequest: JWC_Button {
 		idc = 100112;
 		text = "Request CAS";
 		action = "casRequest = true; abortCAS = false; closeDialog 0";
@@ -73,16 +68,14 @@ class casMenu
 		animTextureFocused = "";
 		animTexturePressed = "";
 		animTextureDefault = "";
-		class TextPos
-		{
+		class TextPos {
 			left = 0.023;
 			top = 0.027;
 			right = 0.005;
 			bottom = 0.005;
 		};
 	};
-	class btnCancel: JWC_Button
-        {
+	class btnCancel: JWC_Button {
 		idc = 100113;
 		text = "Cancel CAS";
 		action = "abortCAS = true; closeDialog 0";
@@ -99,16 +92,14 @@ class casMenu
 		animTextureFocused = "";
 		animTexturePressed = "";
 		animTextureDefault = "";
-		class TextPos
-		{
+		class TextPos {
 			left = 0.023;
 			top = 0.027;
 			right = 0.005;
 			bottom = 0.005;
 		};
 	};
-	class btnDummy: JWC_Button
-        {
+	class btnDummy: JWC_Button {
 		idc = 100114;
 		text = "";
 		action = "";
@@ -125,16 +116,14 @@ class casMenu
 		animTextureFocused = "";
 		animTexturePressed = "";
 		animTextureDefault = "";
-		class TextPos
-		{
+		class TextPos {
 			left = 0.023;
 			top = 0.027;
 			right = 0.005;
 			bottom = 0.005;
 		};
 	};
-	class lineTop : JWC_Text
-	{
+	class lineTop : JWC_Text {
 		x = 0.001;
 		y = 0.035;
 		w = 0.522;
@@ -146,8 +135,7 @@ class casMenu
 		moving = 1;
 		text = "";
 	};
-	class top : JWC_Text
-	{
+	class top : JWC_Text {
 		x = 0.001;
 		y = 0.001;
 		w = 0.522;
@@ -159,8 +147,7 @@ class casMenu
 		moving = 1;
 		text = "CAS Field System";
 	};
-	class lineBottom : JWC_Text
-	{
+	class lineBottom : JWC_Text {
 		x = 0.001;
 		y = 0.644;
 		w = 0.522;
@@ -172,8 +159,7 @@ class casMenu
 		moving = 1;
 		text = "";
 	};
-	class bottom : JWC_Text
-	{
+	class bottom : JWC_Text {
 		x = 0.001;
 		y = 0.645;
 		w = 0.522;
@@ -185,8 +171,7 @@ class casMenu
 		moving = 0;
 		text = "";
 	};
-	class mapbg : JWC_Text
-	{
+	class mapbg : JWC_Text {
 		x = 0.011;
 		y = 0.052;
 		w = 0.502;
@@ -198,8 +183,7 @@ class casMenu
 		moving = 0;
 		text = "";
 	};
-	class map : JWC_Map
-	{
+	class map : JWC_Map {
 		idc = 100115;
 		x = 0.012;
 		y = 0.054;
@@ -207,8 +191,7 @@ class casMenu
 		h = 0.5;
 		colorBackground[] = {1, 1, 1, 1};
 	};
-	class Checkbox : JWC_CheckBox
-	{
+	class Checkbox : JWC_CheckBox {
 		idc = 100116;
 		type = 7;
 		style = 2;
@@ -232,8 +215,7 @@ class casMenu
 		checked_strings[] = {"JDAM","CBU(AP)","JDAM/CBU(AP)"};
 		onCheckBoxesSelChanged = "if (_this select 1 == 0) then {casType = 'JDAM'}; if (_this select 1 == 1) then {casType = 'CBU'}; if (_this select 1 == 2) then {casType = 'COMBO'}";
 	};
-	class checkEdge : JWC_Text
-	{
+	class checkEdge : JWC_Text {
 		x = 0.011;
 		y = 0.554;
 		w = 0.503;
@@ -245,8 +227,7 @@ class casMenu
 		moving = 0;
 		text = "";
 	};
-	class checkbg : JWC_Text
-	{
+	class checkbg : JWC_Text {
 		x = 0.012;
 		y = 0.555;
 		w = 0.500;
@@ -258,8 +239,7 @@ class casMenu
 		moving = 0;
 		text = "";
 	};
-	class snapTitle : JWC_Text
-	{
+	class snapTitle : JWC_Text {
 		idc = 100117;
 		style = ST_LEFT;
 		x = 0.012;
@@ -273,8 +253,7 @@ class casMenu
 		moving = 0;
 		text = "Press [A] to toggle 'Snap to nearest target' :";
 	};
-	class snapText : JWC_Text
-	{
+	class snapText : JWC_Text {
 		idc = 100118;
 		style = ST_LEFT;
 		x = 0.311;
@@ -288,8 +267,7 @@ class casMenu
 		moving = 0;
 		text = "<Disabled>";
 	};
-	class help : JWC_Text
-	{
+	class help : JWC_Text {
 		idc = 100119;
 		x = 0.012;
 		y = 0.058;

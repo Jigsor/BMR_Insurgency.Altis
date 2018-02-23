@@ -36,7 +36,7 @@ extraction_pos_fnc = {
 		"tempPUmkr" setMarkerType "mil_dot";
 		"tempPUmkr" setMarkerColor "ColorOrange";
 		"tempPUmkr" setMarkerText "Extraction Position";
-		[[[_mkr],east],"Hide_Mkr_fnc",EAST] spawn BIS_fnc_MP;
+		[[_mkr],east] remoteExec ["Hide_Mkr_fnc", [0,-2] select isDedicated];
 
 		_veh = createVehicle ["Land_HelipadEmpty_F", getMarkerPos "tempPUmkr", [], 0, "NONE"];
 		sleep 0.1;
@@ -80,7 +80,7 @@ drop_off_pos_fnc = {
 		"tempDropMkr" setMarkerType "mil_dot";
 		"tempDropMkr" setMarkerColor "ColorOrange";
 		"tempDropMkr" setMarkerText "Drop Off Position";
-		[[[_tempPUmkr2],east],"Hide_Mkr_fnc",EAST] spawn BIS_fnc_MP;
+		[[_tempPUmkr2],east] remoteExec ["Hide_Mkr_fnc", [0,-2] select isDedicated];
 
 		_veh = createVehicle ["Land_HelipadEmpty_F", getMarkerPos "tempDropMkr", [], 0, "NONE"];
 		sleep 0.1;

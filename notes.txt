@@ -108,7 +108,7 @@ BMR_Insurgency_v1_47_OPTRE.lingor3
 Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.82;@Operation_TREBUCHET
 
 BMR_Insurgency_v1_47_IFA3.Staszow
-Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE
+Required mods: @CUP_Terrains_Core;@IFA3_AIO_LITE
 
 BMR_Insurgency_v1_47.lythium
 Required mods: @Jbad;@LYTHIUM
@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-2/20/2018
+2/22/2018
 BMR_Insurgency_v1.48_beta
 	Some changes in this version are still be tested and so may contain bugs..
 	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
@@ -199,7 +199,7 @@ BMR_Insurgency_v1.48_beta
 	Change: Added StructureBlacklist, a few more zone markers and relocated some zone markers to reflect Mogadishu terrain update of Dec. 2017.
 	Change: Removed ablility to place/reposition/hide intel with BTC logistics actions.
 	Change: Only affects ACE_3 moded machines: Disabled ACE Cook Off on Ammo Cache since cache has its own cook off effects and server can issue reward before destroyer wanders off to far to measure. Nearest alive/concious player detection for reward issue increased from 100 to 200 meters from cache./Needs testing feedback.
-	Fixed: Enemy AI faction combinations of East mixed with Independent are now group with the major faction's side, meaning both factions trigger zone occupation for AI spawned by EOS
+	Fixed: Enemy AI faction combinations of East mixed with Independent are now grouped with the major faction's side, meaning both factions trigger zone occupation for AI spawned by EOS.
 	Fixed: Hold timer discrepancy between players affecting Capture N Hold objective. Everyones now sees same time on countdown timer.
 	Fixed: AI recruits are deleted when player disconnects if player's former group leader is not another player.
 	Fixed: Vehicle would get stuck under ground if pilot did not release lifted vehicle and died or vehicle released under ground when using BTC's heli vehicle lift.

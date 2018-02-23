@@ -223,8 +223,7 @@ if ((alive _buzz) && (_casType isEqualTo "COMBO")) then {
 	_pos = getPos _cbu;
 	_effect = "SmallSecondary" createvehicle _pos;
 	deleteVehicle _cbu;
-	for "_i" from 1 to 35 do
-	{
+	for "_i" from 1 to 35 do {
 		_explo = "G_40mm_HEDP" createvehicle _pos;
 		_explo setVelocity [-35 + (random 70),-35 + (random 70),-50];
 		sleep 0.025;
@@ -232,9 +231,9 @@ if ((alive _buzz) && (_casType isEqualTo "COMBO")) then {
 };
 
 if (_casType isEqualTo "COMBO") then {
-  (leader _grp) sideChat localize "STR_JWC_CAS_multi_confirm";
+	(leader _grp) sideChat localize "STR_JWC_CAS_multi_confirm";
 }else{
-  (leader _grp) sideChat localize "STR_JWC_CAS_single_confirm";
+	(leader _grp) sideChat localize "STR_JWC_CAS_single_confirm";
 };
 
 deleteVehicle _lockobj;

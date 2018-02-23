@@ -29,14 +29,12 @@ class BTC_r_shortcutButton
 		right = 0.0;
 		bottom = 0.0;
 	};
-
 	class ShortcutPos {
 		left = 0;
 		top = "(			(		(		((safezoneW / safezoneH) min 1.2) / 1.2) / 20) - 		(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)) / 2";
 		w = "(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1) * (3/4)";
 		h = "(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 	};
-
 	class TextPos {
 		left = "(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1) * (3/4)";
 		top = "(			(		(		((safezoneW / safezoneH) min 1.2) / 1.2) / 20) - 		(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)) / 2";
@@ -60,7 +58,6 @@ class BTC_r_shortcutButton
 		align = "left";
 		shadow = "true";
 	};
-
 	class AttributesImage {
 		font = "PuristaMedium";
 		color = "#E5E5E5";
@@ -76,7 +73,7 @@ class BTC_r_button_menu : BTC_r_shortcutButton
 	shadow = 0;
 	x = 0;
 	y = 0;
-	w = 0.15;//0.095589;
+	w = 0.15;
 	h = 0.039216;
 	animTextureNormal = "#(argb,8,8,3)color(1,1,1,1)";
 	animTextureDisabled = "#(argb,8,8,3)color(1,1,1,1)";
@@ -104,14 +101,12 @@ class BTC_r_button_menu : BTC_r_shortcutButton
 		right = 0.005;
 		bottom = 0.0;
 	};
-
 	class Attributes {
 		font = "PuristaLight";
 		color = "#E5E5E5";
 		align = "left";
 		shadow = "false";
 	};
-
 	class ShortcutPos {
 		left = "(6.25 * 			(			((safezoneW / safezoneH) min 1.2) / 40)) - 0.0225 - 0.005";
 		top = 0.005;
@@ -141,8 +136,7 @@ class BTC_r_combo
 	colorDisabled[] = {1,1,1,0.25};
 	font = "PuristaMedium";
 	sizeEx = "(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
-	class ComboScrollBar
-	{
+	class ComboScrollBar {
 		color[] = {1,1,1,0.6};
 		colorActive[] = {1,1,1,1};
 		colorDisabled[] = {1,1,1,0.3};
@@ -167,10 +161,9 @@ class BTC_respawn_button_dialog
 	};
 	class controls
 	{
-		class respawn_button : BTC_r_button_menu
-		{
+		class respawn_button : BTC_r_button_menu {
 			idc = 9;
-			text = "Respawn";
+			text = "$STR_BMR_UI_Respawn";
 			onMouseButtonClick = "BTC_respawn_cond = true;closeDialog 0;_respawn = [] spawn BTC_player_respawn;";
 			x = 0.7;
 			y = 0.6;
@@ -190,8 +183,7 @@ class BTC_move_to_mobile_dialog
 	};
 	class controls
 	{
-		class BTC_r_Apply : BTC_r_button_menu
-		{
+		class BTC_r_Apply : BTC_r_button_menu {
 			idc = -1;
 			text = "Apply";
 			onMouseButtonClick = "_spawn = [] spawn BTC_r_apply";
@@ -199,8 +191,7 @@ class BTC_move_to_mobile_dialog
 			y = 0.25;
 			default = true;
 		};
-		class BTC_r_Close : BTC_r_button_menu
-		{
+		class BTC_r_Close : BTC_r_button_menu {
 			idc = -1;
 			text = "Close";
 			onMouseButtonClick = "_spawn = [] spawn BTC_r_close";
@@ -208,8 +199,7 @@ class BTC_move_to_mobile_dialog
 			y = 0.25;
 			default = true;
 		};
-		class BTC_r_spawn_points : BTC_r_combo
-		{
+		class BTC_r_spawn_points : BTC_r_combo {
 			idc = 119;
 			onLBSelChanged = "_spawn = [] spawn BTC_r_change_target";
 			x = 0.34;
@@ -231,8 +221,7 @@ class BTC_spectating_dialog
 	};
 	class controls
 	{
-		class BTC_r_name_units : BTC_r_combo
-		{
+		class BTC_r_name_units : BTC_r_combo {
 			idc = 120;
 			onLBSelChanged = "_spawn = [] spawn BTC_r_s_change_target";
 			x = 0;
@@ -240,8 +229,7 @@ class BTC_spectating_dialog
 			w = 0.4;
 			h = 0.035;
 		};
-		class BTC_r_spect_view : BTC_r_combo
-		{
+		class BTC_r_spect_view : BTC_r_combo {
 			idc = 121;
 			onLBSelChanged = "_spawn = [] spawn BTC_r_s_change_view";
 			x = 0.5;
@@ -249,10 +237,9 @@ class BTC_spectating_dialog
 			w = 0.2;
 			h = 0.035;
 		};
-		class respawn_button : BTC_r_button_menu
-		{
+		class respawn_button : BTC_r_button_menu {
 			idc = 122;
-			text = "Respawn";
+			text = "$STR_BMR_UI_Respawn";
 			onMouseButtonClick = "BTC_respawn_cond = true;closeDialog 0;_respawn = [] spawn BTC_player_respawn;";
 			x = 0.7;
 			y = 0.2 * safezoneH + safezoneY;

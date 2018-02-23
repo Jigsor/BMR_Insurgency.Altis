@@ -240,7 +240,7 @@ private _cache_loop = [] spawn
 			};
 
 			deleteMarker "cachemkr";
-			[localize "STR_BMR_Cache_Destroyed", "JIG_MPhint_fnc"] call BIS_fnc_mp;
+			(localize "STR_BMR_Cache_Destroyed") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 			cache_destroyed = true;
 			publicVariable "cache_destroyed";
 			sleep 3;
@@ -248,7 +248,7 @@ private _cache_loop = [] spawn
 		else
 		{
 			if (!isNil "cachemkr") then {deleteMarker "cachemkr";};
-			[localize "STR_BMR_Cache_Destroyed", "JIG_MPhint_fnc"] call BIS_fnc_mp;
+			(localize "STR_BMR_Cache_Destroyed") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 			cache_destroyed = true;
 			publicVariable "cache_destroyed";
 			sleep 3;

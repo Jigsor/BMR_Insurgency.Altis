@@ -117,6 +117,10 @@ if (!isServer) then {
 	ebox = ObjNull;
 	epad = ObjNull;
 };
+if (hasInterface) then {
+	hcam_goggles = ["G_Tactical_Clear"];//Helmet Cam Goggles
+	hcam_headgear = ["H_HelmetB","H_HelmetB_paint"," H_HelmetB_light","H_HelmetO_ocamo","H_PilotHelmetHeli_B","H_PilotHelmetHeli_O"];//Helmet Cam Helmets (can still work with some helmets not listed here)
+};
 
 // Headless Client and Server Variables /////////////////////////////
 if (isServer || !hasInterface) then {

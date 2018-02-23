@@ -13,18 +13,17 @@ _ctrl = _this select 2;
 _alt = _this select 3;
 
 if (hcam_units == "group") then {
-  _units = units (group player);
+	_units = units (group player);
 } else {
-  _units = hcam_units;
+	_units = hcam_units;
 };
 
 if (_key != T_HCAM_KEY) exitWith {};
-
 if !((goggles player) in hcam_goggles) exitWith {};
 
 if (!_shift && !_ctrl && _alt) then {
 	if (hcam_active) then {
-		hcam_cam cameraEffect ["TERMINATE", "BACK"];
+		hcam_cam cameraEffect ["Terminate", "BACK"];
 		camDestroy hcam_cam;
 		hcam_cam = nil;
 	};
@@ -66,10 +65,8 @@ if (!_shift && !_ctrl && !_alt) then {
 	} else {
 		if (count _units > 1) then {
 			hcam_id = hcam_id + 1;
-			if (hcam_id >= count _units) then {
-				hcam_id = 0;
-			};
-			hcam_cam cameraEffect ["TERMINATE", "BACK"];
+			if (hcam_id >= count _units) then {hcam_id = 0};
+			hcam_cam cameraEffect ["Terminate", "BACK"];
 		};
 	};
 };

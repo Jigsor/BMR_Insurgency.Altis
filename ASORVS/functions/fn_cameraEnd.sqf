@@ -1,4 +1,4 @@
-player cameraEffect ["terminate","back"];
+player cameraEffect ["Terminate","BACK"];
 camDestroy ASORVS_Camera;
 BIS_DEBUG_CAM = nil;
 detach ASORVS_Clone;

@@ -79,8 +79,7 @@ waitUntil {sleep 2; !alive _tower};
 
 	nul = [objective_pos_logic,"HighVoltage"] call mp_Say3D_fnc;
 	[] remoteExec ['HV_tower_effect', [0,-2] select isDedicated];
-
-	[localize "STR_BMR_PowerTower_success", "JIG_MPhint_fnc"] call BIS_fnc_mp;
+	(localize "STR_BMR_PowerTower_success") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 
 	private "_lamps";
 	for [{_i=0},{_i < (count _lights)},{_i=_i+1}] do {
