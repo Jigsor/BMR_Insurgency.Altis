@@ -80,7 +80,7 @@ if (_pause > 0 and !_initialLaunch) then {
 _aGroup=[];
 for "_counter" from 1 to _PApatrols do {
 	_pos = [_mPos, _Placement, random 360] call BIS_fnc_relPos;
-	_grp=[_pos,_PAgroupSize,_faction,_side] call EOS_fnc_spawngroup;
+	_grp=[_pos,_PAgroupSize,_faction,_side] call eos_fnc_spawngroup;
 	_aGroup set [count _aGroup,_grp];
 	if (_debug) then {PLAYER SIDECHAT (format ["Spawned Patrol: %1",_counter]);0= [_mkr,_counter,"patrol",getpos (leader _grp)] call EOS_debug};
 };

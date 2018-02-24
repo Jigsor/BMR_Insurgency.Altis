@@ -15,14 +15,14 @@ _debug=if (count _settings > 5) then {_settings select 5} else {false};
 _cache= if (count _this > 6) then {_this select 6} else {false};
 
 
-if (_side==EAST) then {_enemyFaction="east";_civZone=false;};
-if (_side==WEST) then {_enemyFaction="west";_civZone=false;};
-if (_side==INDEPENDENT) then {_enemyFaction="GUER";_civZone=false;};
-if (_side==CIVILIAN) then {_enemyFaction="civ";_civZone=true;};
+if (_side isEqualTo EAST) then {_enemyFaction="east";_civZone=false;};
+if (_side isEqualTo WEST) then {_enemyFaction="west";_civZone=false;};
+if (_side isEqualTo INDEPENDENT) then {_enemyFaction="GUER";_civZone=false;};
+if (_side isEqualTo CIVILIAN) then {_enemyFaction="civ";_civZone=true;};
 
-if (_mA==0) then {_mAH = 1;_mAN = 0.5;};
-if (_mA==1) then {_mAH = 0;_mAN = 0;};
-if (_mA==2) then {_mAH = 0.5;_mAN = 0.5;};
+if (_mA isEqualTo 0) then {_mAH = 1;_mAN = 0.5;};
+if (_mA isEqualTo 1) then {_mAH = 0;_mAN = 0;};
+if (_mA isEqualTo 2) then {_mAH = 0.5;_mAN = 0.5;};
 
 // INITIATE ZONE
 _trig=format ["EOScivTrig%1",_mkr];
@@ -87,7 +87,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 
 	// SPAWN PATROLS
 	for "_counter" from 1 to _bGrps do {
-		if (isnil "_bGrp") then {_bGrp=[];};
+		if (isnil "_bGrp") then {_bGrp=[]};
 		if (_cache) then {
 			_cacheGrp=format ["CPA%1",_counter];
 			_units=_eosActivated getvariable _cacheGrp;
@@ -107,7 +107,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 
 	//SPAWN LIGHT VEHICLES
 	for "_counter" from 1 to _cGrps do {
-		if (isnil "_cGrp") then {_cGrp=[];};
+		if (isnil "_cGrp") then {_cGrp=[]};
 
 		_newpos=[_mkr,50] call eos_fnc_findsafepos_civ;
 		if (surfaceiswater _newpos) then {_vehType=8;_cargoType=10;}else{_vehType=7;_cargoType=9;};
@@ -124,10 +124,10 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 
 	//SPAWN ARMOURED VEHICLES
 	for "_counter" from 1 to _dGrps do {
-		if (isnil "_dGrp") then {_dGrp=[];};
+		if (isnil "_dGrp") then {_dGrp=[]};
 
 		_newpos=[_mkr,50] call eos_fnc_findsafepos_civ;
-		if (surfaceiswater _newpos) then {_vehType=8;}else{_vehType=2;};
+		if (surfaceiswater _newpos) then {_vehType=8}else{_vehType=2};
 
 		_dGroup=[_newpos,_side,_faction,_vehType]call EOS_fnc_spawcivnvehicle;
 
@@ -141,7 +141,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	//SPAWN STATIC PLACEMENTS
 	for "_counter" from 1 to _eGrps do {
 		if (surfaceiswater _mPos) exitwith {};
-		if (isnil "_eGrp") then {_eGrp=[];};
+		if (isnil "_eGrp") then {_eGrp=[]};
 
 		_newpos=[_mkr,50] call eos_fnc_findsafepos_civ;
 
@@ -155,7 +155,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 
 	//SPAWN CHOPPER
 	for "_counter" from 1 to _fGrps do {
-	if (isnil "_fGrp") then {_fGrp=[];};
+	if (isnil "_fGrp") then {_fGrp=[]};
 	if ((_fSize select 0) > 0) then {_vehType=4}else{_vehType=3};
 	_newpos = [(markerpos _mkr), 1500, random 360] call BIS_fnc_relPos;
 	_fGroup=[_newpos,_side,_faction,_vehType,"FLY"]call EOS_fnc_spawcivnvehicle;
@@ -170,7 +170,8 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	}else{
 		_wp1 = (_fGroup select 2) addWaypoint [(markerpos _mkr), 0];
 		_wp1 setWaypointSpeed "FULL";
-		_wp1 setWaypointType "SAD";};
+		_wp1 setWaypointType "SAD";
+	};
 
 		0=[(_fGroup select 2),"civAIRskill"] call eos_fnc_civ_grouphandlers;
 
@@ -190,30 +191,30 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	_eosAct=true;
 	while {_eosAct} do {
 		// IF PLAYER LEAVES THE AREA OR ZONE DEACTIVATED
-		if (!triggeractivated _eosActivated || getmarkercolor _mkr == "ColorBlack") exitwith {
+		if (!triggeractivated _eosActivated || getmarkercolor _mkr isEqualTo "ColorBlack") exitwith {
 			if (_debug) then {if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {hint "Restarting Zone AND deleting units";}else{hint "EOS zone deactivated";};};
 			//CACHE LIGHT VEHICLES
 			if (!isnil "_cGrp") then {
 				{
 					_vehicle = _x select 0;_crew = _x select 1;_grp = _x select 2;
-					if (!alive _vehicle || {!alive _x} foreach _crew) then { _cGrps= _cGrps - 1;};
+					if (!alive _vehicle || {!alive _x} foreach _crew) then { _cGrps= _cGrps - 1};
 					{deleteVehicle _x} forEach (_crew);
-					if (!(vehicle player == _vehicle)) then {{deleteVehicle _x} forEach[_vehicle];};
+					if ({isplayer _x} count (crew _vehicle) < 1) then {{deleteVehicle _x} forEach[_vehicle]};
 					{deleteVehicle _x} foreach units _grp;deleteGroup _grp;
 				}foreach _cGrp;
-				if (_debug) then {player sidechat format ["ID:c%1",_cGrps];};
+				if (_debug) then {player sidechat format ["ID:c%1",_cGrps]};
 			};
 
 			// CACHE ARMOURED VEHICLES
 			if (!isnil "_dGrp") then {
 				{
 					_vehicle = _x select 0;_crew = _x select 1;_grp = _x select 2;
-					if (!alive _vehicle || {!alive _x} foreach _crew) then {_dGrps= _dGrps - 1;};
+					if (!alive _vehicle || {!alive _x} foreach _crew) then {_dGrps= _dGrps - 1};
 					{deleteVehicle _x} forEach (_crew);
-					if (!(vehicle player == _vehicle)) then {{deleteVehicle _x} forEach[_vehicle];};
+					if ({isplayer _x} count (crew _vehicle) < 1) then {{deleteVehicle _x} forEach[_vehicle]};
 					{deleteVehicle _x} foreach units _grp;deleteGroup _grp;
 				}foreach _dGrp;
-				if (_debug) then {player sidechat format ["ID:c%1",_dGrps];};
+				if (_debug) then {player sidechat format ["ID:c%1",_dGrps]};
 			};
 
 			// CACHE PATROL INFANTRY
@@ -221,7 +222,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 				_n=0;
 				{
 					_n=_n+1;_units={alive _x} count units _x;_cacheGrp=format ["CPA%1",_n];
-					if (_debug) then{player sidechat format ["ID:%1,cache - %2",_cacheGrp,_units];};
+					if (_debug) then{player sidechat format ["ID:%1,cache - %2",_cacheGrp,_units]};
 					_eosActivated setvariable [_cacheGrp,_units];
 					{deleteVehicle _x} foreach units _x;deleteGroup _x;
 				}foreach _bGrp;
@@ -232,7 +233,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 				_n=0;
 				{
 					_n=_n+1;_units={alive _x} count units _x;_cacheGrp=format ["CHP%1",_n];
-					if (_debug) then{player sidechat format ["ID:%1,cache - %2",_cacheGrp,_units];};
+					if (_debug) then{player sidechat format ["ID:%1,cache - %2",_cacheGrp,_units]};
 					_eosActivated setvariable [_cacheGrp,_units];
 					{deleteVehicle _x} foreach units _x;deleteGroup _x;
 				}foreach _aGrp;
@@ -242,9 +243,9 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 			if (!isnil "_eGrp") then {
 				{
 					_vehicle = _x select 0;_crew = _x select 1;_grp = _x select 2;
-					if (!alive _vehicle || {!alive _x} foreach _crew) then {_eGrps= _eGrps - 1;};
+					if (!alive _vehicle || {!alive _x} foreach _crew) then {_eGrps= _eGrps - 1};
 					{deleteVehicle _x} forEach (_crew);
-					if (!(vehicle player == _vehicle)) then {{deleteVehicle _x} forEach[_vehicle];};
+					if ({isplayer _x} count (crew _vehicle) < 1) then {{deleteVehicle _x} forEach[_vehicle]};
 					{deleteVehicle _x} foreach units _grp;deleteGroup _grp;
 				}foreach _eGrp;
 			};
@@ -253,9 +254,9 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 			if (!isnil "_fGrp") then {
 				{
 					_vehicle = _x select 0;_crew = _x select 1;_grp = _x select 2; _cargoGrp = _x select 3;
-					if (!alive _vehicle || {!alive _x} foreach _crew) then {_fGrps= _fGrps - 1;};
+					if (!alive _vehicle || {!alive _x} foreach _crew) then {_fGrps= _fGrps - 1};
 					{deleteVehicle _x} forEach (_crew);
-					if (!(vehicle player == _vehicle)) then {{deleteVehicle _x} forEach[_vehicle];};
+					if ({isplayer _x} count (crew _vehicle) < 1) then {{deleteVehicle _x} forEach[_vehicle]};
 					{deleteVehicle _x} foreach units _grp;deleteGroup _grp;
 					if (!isnil "_cargoGrp") then {
 					{deleteVehicle _x} foreach units _cargoGrp;deleteGroup _cargoGrp;};
@@ -263,7 +264,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 			};
 
 			_eosAct=false;
-			if (_debug) then {hint "Zone Cached";};
+			if (_debug) then {hint "Zone Cached"};
 		};
 		if (triggeractivated _clear and triggeractivated _taken and !_civZone)exitwith
 		{// IF ZONE CAPTURED BEGIN CHECKING FOR ENEMIES
@@ -272,11 +273,11 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 				if (!triggeractivated _clear) then {
 					_mkr setmarkercolor CivhostileColor;
 					_mkr setmarkerAlpha _mAH;
-					if (_debug) then {hint "Zone Lost";};
+					if (_debug) then {hint "Zone Lost"};
 				}else{
 					_mkr setmarkercolor CivVictoryColor;
 					_mkr setmarkerAlpha _mAN;
-					if (_debug) then {hint "Zone Captured";};
+					if (_debug) then {hint "Zone Captured"};
 				};
 				sleep 1;
 			};

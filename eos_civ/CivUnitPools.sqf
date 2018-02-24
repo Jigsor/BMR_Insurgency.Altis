@@ -35,7 +35,7 @@ if (_type isEqualTo 2) then {
 	_temparray pushBack _crew;
 };
 
-// CREATE ATTACK CHOPPER & CREW	
+// CREATE ATTACK CHOPPER & CREW
 if (_type isEqualTo 3) then {
 	_tempUnit=selectRandom _ACHPool;
 	_temparray pushBack _tempUnit;

@@ -415,7 +415,7 @@ find_bombee_fnc = {
 };
 find_civ_bomber_fnc = {
 	// Look for a suitable draftee by SupahG33K. Slightly modified by Jigsor.
-	private ["_foundCiv","_civs","_closestEntity","_text","_draftee"];
+	private ["_foundCiv","_civs","_closestEntity","_draftee"];
 	_draftee = ObjNull;
 	if (isNull random_w_player4) exitWith {_draftee};
 	_foundCiv = false;
@@ -429,8 +429,7 @@ find_civ_bomber_fnc = {
 			if ((side _closestEntity == CIVILIAN) && {(!isPlayer _closestEntity)}) then {
 				_draftee = _closestEntity;
 				_foundCiv = true;
-				//diag_log text format ["SupahG33K - Civilian Jihadi Draftee found object: %1", _draftee];
-				//_text = format ["SupahG33K - Civilian Jihadi Draftee found object: %1 class: %2", _draftee, typeOf _draftee]; _txt remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
+				//diag_log text format ["SupahG33K - Civilian Jihadi Draftee found object: %1 class: %2", _draftee, typeOf _draftee];
 			}else{
 				_civs deleteAt 0;
 			};

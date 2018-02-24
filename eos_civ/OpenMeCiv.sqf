@@ -14,7 +14,6 @@ EXAMPLE CALL - EOS
 
 EOS_Civ_Spawn = compile preprocessfilelinenumbers "eos_civ\core\eos_civ_launch.sqf";
 null=[] execVM "eos_civ\core\spawn_civ_fnc.sqf";
-//onplayerConnected {[] execVM "eos_civ\functions\EOS_Civ_Markers.sqf";};
 if (isServer) then {["updateCivEOSmkrs","onplayerConnected", {[] execVM "eos_civ\functions\EOS_Civ_Markers.sqf";}] call BIS_fnc_addStackedEventHandler;};
 
 CivVictoryColor="ColorGreen";	// Colour of marker after completion
