@@ -468,7 +468,7 @@ JIG_intel_found = {
 
 	deleteVehicle _host;
 	sleep 0.1;
-	[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
+	[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 
 	_direction = floor random 360;
 	_distance = [10,_maxClueDis] call BIS_fnc_randomInt; // Minimum intel marker range 10m. Maximum intel marker range defined by INS_maxClueDis in INS_definitions.sqf.
@@ -773,7 +773,7 @@ INS_aiHalo = {
 	private _back_pack_mags = getMagazineCargo (unitBackpack _target);
 	private _loadout = [_headgear, _back_pack, _back_pack_items, _back_pack_weap, _back_pack_mags];
 
-	0=[_target] call Frontpack;
+	//0=[_target] call Frontpack;//<-causes freezing
 
 	removeBackpack _target;
 	sleep 0.5;

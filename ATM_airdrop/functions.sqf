@@ -160,7 +160,7 @@ Frontpack={
 		_target setvariable ["frontpack", _packHolder];
 		_packHolder setVectorDirAndUp [[0,1,0],[0,0,-1]];
 
-		waitUntil {sleep 0.2; animationState _target == "para_pilot"};
+		waitUntil {sleep 0.1; animationState _target == "para_pilot"};
 		_packHolder attachTo [vehicle _target,[0.1,0.72,0.52],"pelvis"];
 		_packHolder setVectorDirAndUp [[0,0.1,1],[0,1,0.1]];
 	};

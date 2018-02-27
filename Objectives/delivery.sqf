@@ -143,7 +143,7 @@ _MHQ3DelReady = true;
 sleep 2;
 
 private _text = format [localize "STR_BMR_delivery_ready"];
-[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
+[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 sleep 3;
 
 // Spawn Objective Object
@@ -188,8 +188,8 @@ _veh = MHQ_3;
 			sleep 3;
 
 			private _text = format [localize "STR_BMR_delivery_destroyed_aborted"];
-			[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
-			[[_text],"JIG_MPsideChatEast_fnc"] call BIS_fnc_mp;
+			[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
+			[_text] remoteExec ["JIG_MPsideChatEast_fnc", [0,-2] select isDedicated];
 
 			deliveryfail = 1;
 			publicVariableServer "deliveryfail";

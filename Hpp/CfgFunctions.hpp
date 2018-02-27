@@ -11,6 +11,8 @@ class BMRINS
 		class setPlate {};
 		class persistence {};
 		class HC_allEOSmkrs {};
+		class objPositionsGrabber {};
+		class objectMapper {};
 		class BluforVA {};
 		class InsurgentVA {};
 	};

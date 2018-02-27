@@ -42,7 +42,7 @@ while {true} do
 	diag_log format ["Groups=%1", _totalgrps];
 
 	if (!isDedicated) then
-	{	
+	{
 		player groupchat format ["Missiontime %1 Servertime %2", floor Time, floor serverTime];
 		player groupchat format ["FPS %1 WestPlayers %2 EastPlayers %3 Entities %4", floor diag_fps,  playersNumber west, playersNumber east, count _myentities];
 		player groupchat format ["Occupied Vehicles West=%1 East=%2 Resistance=%3 Civilian=%4", _westcars,_eastcars,_resistancecars,_civiliancars];

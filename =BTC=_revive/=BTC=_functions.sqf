@@ -29,7 +29,7 @@ BTC_assign_actions = {
 					};
 				};
 			},
-			{[ [ player, "AmovPknlMstpSrasWrflDnon" ], "switchMoveEverywhere" ] call BIS_fnc_MP },
+			{[player, "AmovPknlMstpSrasWrflDnon"] remoteExec ["switchMoveEverywhere", 0]},
 			[],
 			6,
 			8,

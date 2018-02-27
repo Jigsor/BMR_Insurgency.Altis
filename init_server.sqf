@@ -263,6 +263,11 @@ if (Airfield_opt) then
 	};
 };
 
+//Save Op4 Weapon Crates Orientation
+private _anchorPos = getPosATL INS_E_tent;
+private _op4CrateComposition = [INS_Op4_wepCrates,_anchorPos] call BMRINS_fnc_objPositionsGrabber;
+missionNamespace setVariable ["op4CratesOrientation", _op4CrateComposition, true];
+
 // Tasks //
 [] spawn {
 	waitUntil {! isNil "SHK_Taskmaster_Tasks"};

@@ -24,18 +24,15 @@ BTC_EH_killed = {
 	_veh_body = vehicle _body;
 	_veh_killer = vehicle _killer;
 	_name = name _killer;
-	if (_name != name _body && BTC_vip find (name _killer) == -1) then {
-		if (side _killer == BTC_TKside && _veh_body != _veh_killer) then {
-			//BTC_tk_PVEH = [_name];publicVariable "BTC_tk_PVEH";player sidechat format ["%1 has committed TK",_name];
-			_killer spawn {
-				hint format ["%1 TK you! You can decide to punish him by action menu", name _this];
-				WaitUntil {Alive player};
-				_action = player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Punish") + (name _this) + "</t>","=BTC=_TK_punishment\=BTC=_punish_action.sqf",[name _this], 8, true, true, "", "true"];
-				_timeout = time + 30;
-				WaitUntil {sleep 1; (_timeout < time)};
-				player removeAction _action;
-			};
-		};
+if ((_name != name _body && BTC_vip find (name _killer) == -1) && {isPlayer _killer} && {side _killer isEqualTo BTC_TKside && _veh_body != _veh_killer}) then {
+	//BTC_tk_PVEH = [_name];publicVariable "BTC_tk_PVEH";player sidechat format ["%1 has committed TK",_name];
+	_killer spawn {
+		hint format ["%1 TK you! You can decide to punish him by action menu", name _this];
+		WaitUntil {Alive player};
+		_action = player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Punish") + (name _this) + "</t>","=BTC=_TK_punishment\=BTC=_punish_action.sqf",[name _this], 8, true, true, "", "true"];
+		_timeout = time + 30;
+		WaitUntil {sleep 1; (_timeout < time)};
+		player removeAction _action;
 	};
 };
 BTC_Teamkill = {

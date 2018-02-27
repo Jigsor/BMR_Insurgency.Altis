@@ -236,7 +236,7 @@ JIG_issue_reward = {
 		publicVariable "rewardp";
 		_destroyerName = name _p;
 		_text = format [localize "STR_BMR_who_destroyed_ammocache",_destroyerName];
-		[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
+		[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 	}else{
 		_pScore = -10;
 		_p addScore _pScore;
@@ -321,7 +321,7 @@ JIG_tower_damage = {
 		if (!isNull _source) then {
 			_destroyerName = name _source;
 			_text = format [localize "STR_BMR_who_destroyed_tower",_destroyerName];
-			[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
+			[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 		};
     };
     _out

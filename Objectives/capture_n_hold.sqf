@@ -85,7 +85,7 @@ if (timesup) then {timesup = false;};
 "timesup" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 
 private _text = format [localize "STR_BMR_outpost_caped"];
-[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
+[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 
 private _defenderArr = [];
 {_defenderArr pushBack _x} forEach (objective_pos_logic nearEntities ["CAManBase", _defender_rad] select {(side _x isEqualTo west) && !(captiveNum _x isEqualTo 1) && (_x isKindOf "Man")});

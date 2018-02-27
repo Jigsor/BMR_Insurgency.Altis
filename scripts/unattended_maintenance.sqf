@@ -52,7 +52,7 @@ while {true} do {
 				if (count _justPlayers isEqualTo 0) then {
 
 					// Disable Dust Storm if left running.
-					if (missionNameSpace getVariable ["JDSactive", false]) then {[] call JIG_DustIsOn};
+					if (missionNameSpace getVariable ["JDSactive", false]) then {call JIG_DustIsOn};
 
 					// Delete Infantry AI recruits leftovers from diconnected players and zeus if any
 					private _abandonedAI = allMissionObjects "CAManBase";

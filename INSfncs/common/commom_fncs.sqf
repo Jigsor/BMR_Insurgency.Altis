@@ -631,7 +631,7 @@ Trade_Biofoam_fnc = {
 };
 JIG_Dust_Storm_Server = {
 	// Admin Menu Dust Storm Toggle
-	if !([] call JIG_DustIsOn) then {
+	if !(call JIG_DustIsOn) then {
 		[] spawn JIG_ActivateDust;
 	};
 };
@@ -718,7 +718,7 @@ Manual_ProgressionSave = {
 switchMoveEverywhere = compileFinal " _this select 0 switchMove (_this select 1); ";
 INS_BluFor_Siren = compileFinal " if (isServer) then {
 	[INS_BF_Siren,""siren""] call mp_Say3D_fnc;
-	[[""Enemy Presence Detected at Base!""],""JIG_MPsideChatWest_fnc""] call BIS_fnc_mp;
+	[""Enemy Presence Detected at Base!""] remoteExec [""JIG_MPsideChatWest_fnc"", [0,-2] select isDedicated];
 	[INS_BF_Siren2,""siren""] call mp_Say3D_fnc;
 	alarm1On = false;
 }; ";

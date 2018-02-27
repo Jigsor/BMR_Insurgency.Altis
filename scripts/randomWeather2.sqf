@@ -106,7 +106,7 @@ if (isServer) then {
 
 		//Jig adding
 		private _DSactive = missionNameSpace getVariable ["JDSactive", false];
-		if (rw2_Current_Weather < 3 && {_DSactive}) then {[] call JIG_DustIsOn; sleep 3;};
+		if (rw2_Current_Weather < 3 && {_DSactive}) then {call JIG_DustIsOn; sleep 3;};
 
 		[] remoteExec ["mb_fnc_UpdateWeather"];
 		rw2_Current_Weather = rw2_Next_Weather;

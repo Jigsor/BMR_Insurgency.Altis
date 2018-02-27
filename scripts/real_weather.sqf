@@ -2,7 +2,7 @@
 Author: code34 nicolas_boiteux@yahoo.fr
 Copyright (C) 2013 Nicolas BOITEUX
 
-Real weather for MP GAMES v 1.3 
+Real weather for MP GAMES v 1.3
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -52,9 +52,9 @@ _startingdate = [2013, 09, 25, INS_p_time, 00];
 // Mission starting weather "CLEAR|CLOUDY|RAIN";
 _startingweather = "CLEAR";
 
-/////////////////////////////////////////////////////////////////
+/////////////////////
 // Do not edit below
-/////////////////////////////////////////////////////////////////
+/////////////////////
 
 if(_mintime > _maxtime) exitwith {hint format["Real weather: Max time: %1 can no be higher than Min time: %2", _maxtime, _mintime];};
 _timeforecast = _mintime;
@@ -75,7 +75,7 @@ if (local player) then {
 
 	//Jig adding Brighter Nights by Ralian
 	[] spawn {
-		waitUntil {!isNil "INS_Brighter_Nights"};		
+		waitUntil {!isNil "INS_Brighter_Nights"};
 		if (daytime > 21.00 || daytime < 3.50) then {
 			[3] call INS_Brighter_Nights;
 		}else{
@@ -162,7 +162,7 @@ while {true} do {
 	_lastrain = _rain;
 
 	private _DSactive = missionNameSpace getVariable ["JDSactive", false];
-	if (_rain > 0 && {_DSactive}) then {[] call JIG_DustIsOn; sleep 3;};
+	if (_rain > 0 && {_DSactive}) then {call JIG_DustIsOn; sleep 3;};
 
 	wcweather = [_rain, _fog, _overcast, _wind, date];
 	60 setRain (wcweather select 0);

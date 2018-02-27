@@ -47,7 +47,7 @@ LT_distance = 20;
 jig_tvt_globalsleep = 0.1;// Global sleep used after spawning a unit.
 if (isNil "lck_markercnt") then {lck_markercnt=0};// bardosy's HuntIR
 If (isNil "JIG_DustStorm") then {JIG_DustStorm = false};
-BTC_tk_last_warning = 3;// Max TK punishment warnings given before user input controls disabled.
+BTC_tk_last_warning = 2;// Max TK punishment warnings given before user input controls disabled.
 INS_maxClueDis = 400;// Maximum distance from ammo cache to Intel clue marker (? "hd_unknown").
 AIdamMod = EOS_DAMAGE_MULTIPLIER*0.01;
 
@@ -66,7 +66,7 @@ if ((isClass(configFile >> "CfgPatches" >> "task_force_radio")) || {(isClass (co
 ghst_Build_objs = [];// all ammo cache objects array
 Op4_mkrs = ["Respawn_East"];
 Blu4_mkrs = ["Respawn_West","Helicopters","Mechanized","VehicleMaintenance","HelicopterRepair","HelicopterRepair2","AircraftMaintenance","Halo","Dock"];
-INS_Op4_wepCrates = [INS_weps_Cbox,INS_ammo_Cbox,INS_nade_Cbox,INS_launchers_Cbox,INS_demo_Cbox,INS_sup_Cbox,INS_E_tent];
+INS_Op4_wepCrates = [INS_weps_Cbox,INS_ammo_Cbox,INS_nade_Cbox,INS_launchers_Cbox,INS_demo_Cbox,INS_sup_Cbox,INS_E_tent];//<-these objects should have whole number directions.
 INS_Blu4_wepCrates = [INS_weps_Nbox,INS_ammo_Nbox,INS_nade_Nbox,INS_launchers_Nbox,INS_sup_Nbox];
 
 if (INS_GasGrenadeMod isEqualTo 1) then {

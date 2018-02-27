@@ -241,13 +241,13 @@ _availableMagazines = [
 	"10Rnd_762x54_Mag",
 	"30Rnd_556x45_Stanag",
 	"30Rnd_9x21_Mag",
-	"200Rnd_65x39_cased_Box",
 	"20Rnd_762x51_Mag",
 	"30Rnd_762x39_Mag_F",
 	"30Rnd_545x39_Mag_F",
 	"200Rnd_556x45_Box_F",
 	"10Rnd_9x21_Mag",
-
+	"200Rnd_65x39_cased_Box",
+	"200Rnd_65x39_cased_Box_Tracer",
 	//Put
 	"APERSBoundingMine_Range_Mag",
 	"APERSMine_Range_Mag",
@@ -290,6 +290,8 @@ _availableWeapons = [
 
 	//MachineGuns
 	"LMG_Zafir_F",
+	"LMG_Mk200_F",
+	"LMG_Mk200_BI_F",
 	"SMG_02_F",
 	"SMG_05_F",
 	"SMG_01_F",

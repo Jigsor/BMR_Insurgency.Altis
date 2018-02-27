@@ -6,8 +6,8 @@ _update = false;
 _hcEntities = entities "HeadlessClient_F";
 
 //private _text = format["%1 joined the game!",name _player];
-//[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_MP;
-//[[_text],"JIG_MPsideChatEast_fnc"] call BIS_fnc_MP;
+//[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
+//[_text] remoteExec ["JIG_MPsideChatEast_fnc", [0,-2] select isDedicated];
 
 if !(_player in _hcEntities) then {
 

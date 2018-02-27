@@ -163,72 +163,73 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-2/22/2018
+2/26/2018
 BMR_Insurgency_v1.48_beta
-	Some changes in this version are still be tested and so may contain bugs..
-	Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
-	Added: Admin briefing section with text buttons for Zeus assign and unassign with public or private notice, Global Brighter Nights toggle, Filp Vehicle, High/low speed Dust Storms on-off toggle, local Vehicle Reward and manual mission progression save.
-		Admin must login and wait up to 1 minute before panel appears. Panel will remain available until admin goes back to lobby.
-	Added: Dust Storm will auto terminate if enabled when Random or Real Weather is enabled and it starts to rain.
-	Added: Reassigning damage event handlers to AI on locality changed when unassigning Zeus from yourself.
-	Added: Non owner work around for entering driver and turrets in DLC vehicles.(Currently only affects English A3 versioned owners).
-	Added: Temporary fix for broken door actions Kunduz.(can be removed if terrain gets updated and fixed)+(Non owner DLC bypass for vehicles not used with Kunduz because inGameUISetEventHandler is not stackable).
-	Added: Globalization of civilian vehicle textures in Civilian Traffic. (everyone sees the same texure/color now).
-	Added: Support of custom licence plates.(new command currently in Dev Branch).
-	Added: Saving of grid zone progression persistence system. Can be cleared and disabled by default, enabled and restored or enabled and cleared to start from new by lobby parameter.
-	Added: Support for JIP of Headless Client incase of kick or crash of Headless Client. Requires HC to be present at mission start, one of the persistence options enabled and mission to be cached into Server and HC. To top off uncaptured zones with enemy, HC can be kicked/will auto rejoin.
-	Added: Penalty for killing innocent civilians including negative rating to killer of -3500, system chat message of who killed who, global warning marker revealing killer position to all sides for approx. 12 seconds.
-	Added: Several action translations including Pickup Intel, BTC logistics and BTC Revive and Push etc.
-	Added: 2 headless Clients supported out of the box by default instead of 1.
-	Added: HQ side chat message who revived who.
-	Added: Lobby option for full Arsenal or custom whitelisted Arsenal. Customizations by class names can be edited in INSfncs\common\fn_BluforVA.sqf and fn_InsurgentVA.sqf. If Whitelisted Arsenal is used then VA Quick Profile and save/load presets will not be available.
-	Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
-	Added: Support for new NH90 heli from FFAA.
-	Added: Workaround for rare occurrence that players may not be able to see chat messeges after respawn.
-	Change: Increased delay loop for suicide bomber and now bomber can no longer spawn in same building as target.
-	Change: VA quick profile loadout action list on MHQs extended from 15 to 20 seconds.
-	Change: Shortening enemy group spawn delay on Capture N Hold objective depending on defender count size and server fps for higher intensity.
-	Change: Sleek redesigned Y button G.U.I. menu.
-	Change: Option Environment effects (ambient life + sound) removed from lobby and replaced by button "Ambient Life" in Y menu.
-	Change: Many code efficiency optimizations including shortening of code, replacment of older script commands/techniques with newer and faster versions, removal of unused code and decreased network traffic.
-	Change: Some reorganization of functions.
-	Change: TASKMASTER updated to v0.44 and modified with optimizations.
-	Change: Added new light weight IED system in wich IEDs can be detected with IED detector and uses real IED objects. Old or new sytem Brians200's/Jig IEDs can be selected in lobby. Jig IEDs places IEDs on road and road side and does not depend on markers placed in the editor. The number of IEDs and percentage of fake IEDs can be changed in scripts\JigIEDs.sqf. The placement will always be random. Enable Debug Mode lobby parameter to see IED locations.
-	Change: "Save Respawn Loadout" action now works without having to load a saved preset from arsenal previously.
-	Change: Only heli MHQ_3 has Load Cargo action applied instead of all helis for use with Delivery objective.
-	Change: Added StructureBlacklist, a few more zone markers and relocated some zone markers to reflect Mogadishu terrain update of Dec. 2017.
-	Change: Removed ablility to place/reposition/hide intel with BTC logistics actions.
-	Change: Only affects ACE_3 moded machines: Disabled ACE Cook Off on Ammo Cache since cache has its own cook off effects and server can issue reward before destroyer wanders off to far to measure. Nearest alive/concious player detection for reward issue increased from 100 to 200 meters from cache./Needs testing feedback.
-	Fixed: Enemy AI faction combinations of East mixed with Independent are now grouped with the major faction's side, meaning both factions trigger zone occupation for AI spawned by EOS.
-	Fixed: Hold timer discrepancy between players affecting Capture N Hold objective. Everyones now sees same time on countdown timer.
-	Fixed: AI recruits are deleted when player disconnects if player's former group leader is not another player.
-	Fixed: Vehicle would get stuck under ground if pilot did not release lifted vehicle and died or vehicle released under ground when using BTC's heli vehicle lift.
-	Fixed: Several MP/dedicated server issues in heli group extraction.
-	Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.
-	Fixed: Some Russian translations.
-	Fixed: By BIS. Headless Client would crash after 500-800 AI deaths.
-	Fixed: Highjacked vehicles would delete while occupied by players.
-	Fixed: Task update notifications did not wait until player was alive.
-	Fixed: Several legitimate "unknown enum value" errors starting with A3 patch 1.78.
-	Fixed: Drag, Carry and Load into vehicle for downed players. Finally :)
-	Fixed: Foot patrols spawned in grids by eos would eventually stop patrolling and wonder off to grid [0,0,0].
-	Fixed: Copilot could take control of aircraft if pilot restriction was enabled and his class type was not whitelisted.
-	Fixed: Possible long standing eos script error spam and fps loss on server occured when headless client present.
-	Fixed: Moved CAS aircraft traking marker handling to server incase player disconnects before completion and leaves marker behind.
-	Fixed: Often times BTC Lift HUD toggle and Lift scroll actions in Helis would not appear.
-	Fixed: Opfor players occationally receive constant black screen at start untill going back to lobby and starting again in multiplayer enviroment. Needs testing/feedback.
-	Fixed: Accumulation of empty groups when headless client present.
-	Fixed: Arsenal actions on respawned MHQs missing for JIP players.
-	Fixed: Error- Unsupported language English in stringtable.
-	Fixed: Script error on player providing revive after the end of revive when injured was to far away.
-	Fixed: Work around for arma bug on some machines chat dissappears after respawn.
-	Fixed: Not all visible zone markers were accessible to caches, intel or accounted for ending trigger in Mogadishu.
-	Fixed: Unexpected behavior occured in BTK punishment when player switched to side "Enemy".
-	Fixed: After using HuntIR, any other existing display event handlers were deleted.
-	Fixed: Cut Rope on ATM Halo drop works repeatably and chute will auto open if drop height is altered.
-	Fixed: Freezing occured when recruited AI HALO.
-	Fixed: Ai Damage multiplier was applied unnecessarily when no modification (Default) option was selected in lobby.
-	Fixed: Opfor players could green activated grid zones when no Insurgents present.
+Some changes in this version are still be tested and so may contain bugs..
+Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
+Added: Admin briefing section with text buttons for Zeus assign and unassign with public or private notice, Global Brighter Nights toggle, Filp Vehicle, High/low speed Dust Storms on-off toggle, local Vehicle Reward and manual mission progression save.
+	Admin must login and wait up to 1 minute before panel appears. Panel will remain available until admin goes back to lobby.
+Added: Dust Storm will auto terminate if enabled when Random or Real Weather is enabled and it starts to rain.
+Added: Reassigning damage event handlers to AI on locality changed when unassigning Zeus from yourself.
+Added: Non owner work around for entering driver and turrets in DLC vehicles.(Currently only affects English A3 versioned owners).
+Added: Temporary fix for broken door actions Kunduz.(can be removed if terrain gets updated and fixed)+(Non owner DLC bypass for vehicles not used with Kunduz because inGameUISetEventHandler is not stackable).
+Added: Globalization of civilian vehicle textures in Civilian Traffic. (everyone sees the same texure/color now).
+Added: Support of custom licence plates.(new command currently in Dev Branch).
+Added: Saving of grid zone progression persistence system. Can be cleared and disabled by default, enabled and restored or enabled and cleared to start from new by lobby parameter.
+Added: Support for JIP of Headless Client incase of kick or crash of Headless Client. Requires HC to be present at mission start, one of the persistence options enabled and mission to be cached into Server and HC. To top off uncaptured zones with enemy, HC can be kicked/will auto rejoin.
+Added: Penalty for killing innocent civilians including negative rating to killer of -3500, system chat message of who killed who, global warning marker revealing killer position to all sides for approx. 12 seconds.
+Added: Several action translations including Pickup Intel, BTC logistics and BTC Revive and Push etc.
+Added: 2 headless Clients supported out of the box by default instead of 1.
+Added: HQ side chat message who revived who.
+Added: Lobby option for full Arsenal or custom whitelisted Arsenal. Customizations by class names can be edited in INSfncs\common\fn_BluforVA.sqf and fn_InsurgentVA.sqf. If Whitelisted Arsenal is used then VA Quick Profile and save/load presets will not be available.
+Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
+Added: Support for new NH90 heli from FFAA.
+Added: Workaround for rare occurrence that players may not be able to see chat messeges after respawn.
+Change: Increased delay loop for suicide bomber and now bomber can no longer spawn in same building as target.
+Change: VA quick profile loadout action list on MHQs extended from 15 to 20 seconds.
+Change: Shortening enemy group spawn delay on Capture N Hold objective depending on defender count size and server fps for higher intensity.
+Change: Sleek redesigned Y button G.U.I. menu.
+Change: Option Environment effects (ambient life + sound) removed from lobby and replaced by button "Ambient Life" in Y menu.
+Change: Many code efficiency optimizations including shortening of code, replacment of older script commands/techniques with newer and faster versions, removal of unused code and decreased network traffic.
+Change: Some reorganization of functions.
+Change: TASKMASTER updated to v0.44 and modified with optimizations.
+Change: Added new light weight IED system in wich IEDs can be detected with IED detector and uses real IED objects. Old or new sytem Brians200's/Jig IEDs can be selected in lobby. Jig IEDs places IEDs on road and road side and does not depend on markers placed in the editor. The number of IEDs and percentage of fake IEDs can be changed in scripts\JigIEDs.sqf. The placement will always be random. Enable Debug Mode lobby parameter to see IED locations.
+Change: "Save Respawn Loadout" action now works without having to load a saved preset from arsenal previously.
+Change: Only heli MHQ_3 has Load Cargo action applied instead of all helis for use with Delivery objective.
+Change: Added StructureBlacklist, a few more zone markers and relocated some zone markers to reflect Mogadishu terrain update of Dec. 2017.
+Change: Removed ablility to place/reposition/hide intel with BTC logistics actions.
+Change: Only affects ACE_3 moded machines: Disabled ACE Cook Off on Ammo Cache since cache has its own cook off effects and server can issue reward before destroyer wanders off to far to measure. Nearest alive/concious player detection for reward issue increased from 100 to 200 meters from cache./Needs testing feedback.
+Change: Op4 MHQ/weapon crate deployment now maintains relative direction and placement spacing as set in editor and is marked with Arsenal marker when deployed.
+Fixed: Enemy AI faction combinations of East mixed with Independent are now grouped with the major faction's side, meaning both factions trigger zone occupation for AI spawned by EOS.
+Fixed: Hold timer discrepancy between players affecting Capture N Hold objective. Everyones now sees same time on countdown timer.
+Fixed: AI recruits are deleted when player disconnects if player's former group leader is not another player.
+Fixed: Vehicle would get stuck under ground if pilot did not release lifted vehicle and died or vehicle released under ground when using BTC's heli vehicle lift.
+Fixed: Several MP/dedicated server issues in heli group extraction.
+Fixed: Al Rayak had misnamed markers in INS_definitions.sqf array all_eos_mkrs.
+Fixed: Some Russian translations.
+Fixed: By BIS. Headless Client would crash after 500-800 AI deaths.
+Fixed: Highjacked vehicles would delete while occupied by players.
+Fixed: Task update notifications did not wait until player was alive.
+Fixed: Several legitimate "unknown enum value" errors starting with A3 patch 1.78.
+Fixed: Drag, Carry and Load into vehicle for downed players. Finally :)
+Fixed: Foot patrols spawned in grids by eos would eventually stop patrolling and wonder off to grid [0,0,0].
+Fixed: Copilot could take control of aircraft if pilot restriction was enabled and his class type was not whitelisted.
+Fixed: Possible long standing eos script error spam and fps loss on server occured when headless client present.
+Fixed: Moved CAS aircraft traking marker handling to server incase player disconnects before completion and leaves marker behind.
+Fixed: Often times BTC Lift HUD toggle and Lift scroll actions in Helis would not appear.
+Fixed: Opfor players occationally receive constant black screen at start untill going back to lobby and starting again in multiplayer enviroment. Needs testing/feedback.
+Fixed: Accumulation of empty groups when headless client present.
+Fixed: Arsenal actions on respawned MHQs missing for JIP players.
+Fixed: Error- Unsupported language English in stringtable.
+Fixed: Script error on player providing revive after the end of revive when injured was to far away.
+Fixed: Work around for arma bug on some machines chat dissappears after respawn.
+Fixed: Not all visible zone markers were accessible to caches, intel or accounted for ending trigger in Mogadishu.
+Fixed: Unexpected behavior occured in BTK punishment when player switched to side "Enemy".
+Fixed: After using HuntIR, any other existing display event handlers were deleted.
+Fixed: Cut Rope on ATM Halo drop works repeatably and chute will auto open if drop height is altered.
+Fixed: Freezing occured when recruited AI HALO.
+Fixed: Ai Damage multiplier was applied unnecessarily when no modification (Default) option was selected in lobby.
+Fixed: Opfor players could green activated grid zones when no Insurgents present.
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017
