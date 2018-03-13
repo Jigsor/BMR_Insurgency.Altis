@@ -34,7 +34,7 @@ if !(getMarkerColor "OpforWeapons" isEqualTo "") then {deleteMarker "OpforWeapon
 private _mark = (localize "STR_A3_Arsenal");
 private _op4MHQ = createMarker ["OpforWeapons", getPosWorld INS_weps_Cbox];
 _op4MHQ setMarkerShape "ICON";
-_op4MHQ setMarkerType "b_hq";
+_op4MHQ setMarkerType "o_hq";
 _op4MHQ setMarkerColor "ColorRed";
 _op4MHQ setMarkerText _mark;
 _op4MHQ setMarkerSize [0.5, 0.5];

@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-3/8/2018
+3/12/2018
 BMR_Insurgency_v1.48_beta
 Some changes in this version are still be tested and so may contain bugs..
 Added: Dust Storm script. If left on by admin, it will turn off when no players on server.
@@ -185,7 +185,7 @@ Added: Lobby option for full Arsenal or custom whitelisted Arsenal. Customizatio
 Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
 Added: Support for new NH90 heli from FFAA as MHQ_3.
 Added: Workaround for rare occurrence that players may not be able to see chat messeges after respawn.
-Added: Units created by Zeus from Independant or East factions will trigger zone occupation.
+Added: Units created by Zeus from Independant or East factions will trigger zone occupation by setting their side to the Major Army/Faction's side.
 Change: Increased delay loop for suicide bomber and now bomber can no longer spawn in same building as target.
 Change: VA quick profile loadout action list on MHQs extended from 15 to 20 seconds.
 Change: Shortening enemy group spawn delay on Capture N Hold objective depending on defender count size and server fps for higher intensity.
@@ -202,6 +202,7 @@ Change: Removed ablility to place/reposition/hide intel with BTC logistics actio
 Change: Only affects ACE_3 moded machines: Disabled ACE Cook Off on Ammo Cache since cache has its own cook off effects and server can issue reward before destroyer wanders off to far to measure. Nearest alive/concious player detection for reward issue increased from 100 to 200 meters from cache./Needs testing feedback.
 Change: Op4 MHQ/weapon crate deployment now maintains relative direction and placement spacing as set in editor and is marked with Arsenal marker when deployed.
 Change: AI recruitment and Heli Extract is denied if player is not in a group lead position registerd by group manager.
+Change: Experimenting with alternative method to add actions to intel for JIP players to resolve issue of JIP players sometimes cannot pickup intel.
 Fixed: Enemy AI faction combinations of East mixed with Independent are now grouped with the major faction's side, meaning both factions always trigger zone occupation for AI spawned by EOS.
 Fixed: Hold timer discrepancy between players affecting Capture N Hold objective. Everyones now sees same time on countdown timer.
 Fixed: AI recruits are deleted when player disconnects if player's former group leader is not inherited by another player or if group abandoned with no lead player.
@@ -290,6 +291,7 @@ Fixed: Vehicle Reward was not issued to nearest blufor player to ammo cache when
 Fixed: Repair pad triggers were modifying player loadouts.
 Fixed: Missing player classes from EOD specialists. (A3 recon and OPTRE types).
 Fixed: Lobby parameter "AI accuracy on non EOS units" did not properly apply desired value.
+Change: Experimenting with alternative method to add actions to intel for JIP players to resolve issue of JIP players sometimes cannot pickup intel.
 Change: Lobby parameter "Environment effects (ambient life + sound)" supports disabling ambient life/animals seperately or including ambient sound.
 Change: Some remote execution from old BIS_fnc_MP to newer remoteExec. Improved JIP loading.
 Change: Moved blufor base to AAC Air field (Altis version).

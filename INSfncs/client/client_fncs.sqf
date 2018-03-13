@@ -355,7 +355,7 @@ JIG_load_VA_profile = {
 		private ["_name_index","_VA_Loadouts_Count"];
 		_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
 		_name_index = 0;
-		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 do	{
+		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 step 1 do {
 			[_i,_name_index] spawn {
 				private ["_name_index","_loadout_name"];
 				_name_index = _this select 1;
@@ -512,7 +512,7 @@ Op4_spawn_pos = {
 	_players = playableUnits;
 	_movelogic = if (INS_p_rev > 5) then {false}else{true};
 
-	//titleCut["", "BLACK OUT", 2];// causes black screen hang bug?
+	//titleCut["", "BLACK OUT", 2];//<-causes black screen hang bug
 
 	_players = _players - [_op4Player];// exclude player calling the script
 	if (count _players > 0) then {

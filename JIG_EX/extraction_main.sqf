@@ -28,7 +28,6 @@ if (!hasInterface && !isDedicated) exitWith {};
 	sleep 5;
 
 	while {!ex_group_ready} do {sleep 3;};
-	waitUntil {sleep 0.9; count units ext_caller_group > 0};//wait until Evac group has units
 	ex_group_ready = false;
 	publicVariable "ex_group_ready";
 	call Evac_Spawn_Loc;

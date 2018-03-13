@@ -42,7 +42,13 @@ if !(_player in _hcEntities) then {
 			_update = true;
 		};
 	};
-	{_intel = _x; [_intel,current_cache_pos] remoteExec ["fnc_jip_mp_intel",_player];} forEach intel_Build_objs;
+
+	// Line below is the old method to add acctions to intel for JIP players. On some occations for unknow reason this does not get applied and ations are missing.
+	//{_intel = _x; [_intel,current_cache_pos] remoteExec ["fnc_jip_mp_intel",_player];} forEach intel_Build_objs;//<- old way
+
+	//Line below is experimental new method to add action to intel. This might work better. Needs more play testing
+	if (!isNil "current_cache_pos" then  {[intel_Build_objs,current_cache_pos] remoteExec ["fnc_jip_mp_intel2",_player]};
+
 	if (_update) then {publicVariableServer "intel_Build_objs";};
 
 	if (!isNil {missionNamespace getVariable "Land_DataTerminal_Obj"}) then {

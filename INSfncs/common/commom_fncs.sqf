@@ -194,6 +194,18 @@ fnc_mp_intel = {
 	publicVariable "intel_objArray";
 	true
 };
+fnc_jip_mp_intel2 = {
+	// JIP Intel addaction. by Jigsor
+	params ["_intelObjList","_cachepos"];
+	waitUntil {!isNull player};	
+	{
+		private _intelobj = _x;
+		if (!isNull _intelobj) then {
+			_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", "call JIG_intel_found", _cachepos, 6];
+		};
+	} forEach _intelObjList;
+	true
+};
 fnc_jip_mp_intel = {
 	// JIP Intel addaction. by Jigsor
 	params ["_intelobj","_cachepos"];
