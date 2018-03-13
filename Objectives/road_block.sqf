@@ -46,7 +46,7 @@ waitUntil {sleep 1; !_run};
 _nearestRoad = _roads select 0;
 _bgPos = getPos _nearestRoad;
 _connectedRoad = _roadConnectedTo select 0;
-_roadDir = [_nearestRoad, _connectedRoad] call BIS_fnc_dirTo;
+_roadDir = _nearestRoad getDir _connectedRoad;
 _bgPos = getPos _nearestRoad;
 
 //create objective marker

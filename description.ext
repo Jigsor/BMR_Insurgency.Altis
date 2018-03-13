@@ -171,17 +171,16 @@ class RscTitles {
 				fixedWidth = 0;
 				shadow = 0;
 			};
-			class HcamText
-			{
+			class HcamText {
 				idc = 1;
-				type  = 0;          // static
-				style = 0x01;       // center
+				type  = 0;
+				style = 0x01;
 				x = 0.80 * safezoneW + safezoneX;
 				y = 0.81 * safezoneH + safezoneY;
 				w = 0.18 * safezoneW;
 				h = 0.02 * safezoneH;
-				colorText[]       = {0,0,0,0.75};
-				colorBackground[] = {1, 1, 1, 0.2}; // no background
+				colorText[] = {0,0,0,0.75};
+				colorBackground[] = {1, 1, 1, 0.2};
 				font = "TahomaB";
 				sizeEx = 0.02;
 				text="";

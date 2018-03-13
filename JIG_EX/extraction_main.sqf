@@ -45,7 +45,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 		_poscreate = getMarkerPos "EvacSpawnMkr";
 		_speed = 60;// starting speed
 		_SAdir = getDir EvacSpawnPad;
-		_spwnairdir = [getPosATL EvacSpawnPad, getPosATL EvacLZpad] call BIS_fnc_dirTo;
+		_spwnairdir = (getPosATL EvacSpawnPad) getDir (getPosATL EvacLZpad);
 		_height = selectRandom [35,45,55];
 		if (JIG_EX_Random_Type) then {
 			_type = selectRandom JIG_EX_Chopper_Type;
@@ -125,12 +125,12 @@ if (!hasInterface && !isDedicated) exitWith {};
 			private _totalSeats = [typeof EvacHeliW1,true] call BIS_fnc_crewCount;
 			private _usedSeats = count crew EvacHeliW1;
 			private _availableSeats = _totalSeats - _usedSeats;
-			private _chopper_to_small = if (({alive _x and !captive _x} count units ext_caller_group) > _availableSeats) then {true} else {false};
+			private _chopper_to_small = if (({alive _x && !captive _x} count units ext_caller_group) > _availableSeats) then {true} else {false};
 
 			if (_chopper_to_small) then {
-				waitUntil {sleep 1.2; {_x in EvacHeliW1} count units ext_caller_group == {alive _x and !captive _x} count units ext_caller_group || count crew EvacHeliW1 isEqualTo _totalSeats || (isNull EvacHeliW1) || ((count crew EvacHeliW1) < 1)};
-			} else	{
-				waitUntil {sleep 0.9; {_x in EvacHeliW1} count units ext_caller_group == {alive _x and !captive _x} count units ext_caller_group || (isNull EvacHeliW1) || ((count crew EvacHeliW1) < 1)};
+				waitUntil {sleep 1.2; {_x in EvacHeliW1} count units ext_caller_group == {alive _x && !captive _x} count units ext_caller_group || count crew EvacHeliW1 isEqualTo _totalSeats || (isNull EvacHeliW1) || ((count crew EvacHeliW1) < 1)};
+			} else {
+				waitUntil {sleep 0.9; {_x in EvacHeliW1} count units ext_caller_group == {alive _x && !captive _x} count units ext_caller_group || (isNull EvacHeliW1) || ((count crew EvacHeliW1) < 1)};
 			};
 		};
 
@@ -192,7 +192,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 						_vehgrp_leader moveInDriver EvacHeliW1;
 						_switch_driver = false;
 					};
-					if ((_type in _chinook_types) and (_type in _has_gunner_pos)) then {
+					if ((_type in _chinook_types) && (_type in _has_gunner_pos)) then {
 						{unassignVehicle (_x);(_x) action ["getOut", vehicle _x]; (_x) setPos [(getPosATL EvacHeliW1 select 0) - 8, (getPosATL EvacHeliW1 select 1) + 8, 0]; sleep 0.5} foreach _recruitsArry;
 						{unassignVehicle (_x);(_x) action ["getOut", vehicle _x]; (_x) setPos [(getPosATL EvacHeliW1 select 0) - 8, (getPosATL EvacHeliW1 select 1) + 8, 0]; sleep 0.5} foreach (units ext_caller_group);// Unassign leader/driver and all crew from player group, reposition.
 						{[_x] join (group EvacHeliW1); sleep 0.5;} forEach _vehgrp_units;

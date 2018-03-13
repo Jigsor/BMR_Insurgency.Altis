@@ -69,7 +69,7 @@ if (count _airCenter > 0) then
 					_poscreate = getMarkerPos "spawnaire";
 					_speed = 65;
 					_apeDir = getDir air_pat_east;
-					_spawnDir = [getPosATL air_pat_east, getPosATL air_pat_pos] call BIS_fnc_dirTo;
+					_spawnDir = (getPosATL air_pat_east) getDir (getPosATL air_pat_pos);
 					_randAlts = [70,80,90];
 					_height = selectRandom _randAlts;
 					_type = selectRandom INS_Op4_helis;
@@ -167,7 +167,7 @@ if (count _airCenter > 0) then
 					_poscreate = getMarkerPos "spawnaire";
 					_speed = 180;
 					_apeDir = getDir air_pat_east;
-					_spawnDir = [getPosATL air_pat_east, getPosATL air_pat_pos] call BIS_fnc_dirTo;
+					_spawnDir = (getPosATL air_pat_east) getDir (getPosATL air_pat_pos);
 					_randAlts = [275,375,475,575];
 					_height = selectRandom _randAlts;
 					_type = selectRandom INS_Op4_fixedWing;

@@ -59,7 +59,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 
 		if (_ins_debug) then {
 			diag_log text format ["Bomber West Human Target1: %1", random_w_player4];
-			titletext ["INS_SuicideBomber.sqf running","plain down"];
+			titleText ["INS_SuicideBomber.sqf running","PLAIN DOWN"];
 		};
 
 		private _playerPos = getPos random_w_player4;
@@ -76,12 +76,12 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 		if (!isNull random_civ_bomber) then {
 
 			//diag_log "SupahG33K - Civilian Jihadi Draftee found and being equipped for martyrdom";
-			if (_ins_debug) then {titletext ["Civilian Jihadi Draftee found and being equipped for martyrdom","plain down"];};
+			if (_ins_debug) then {titleText ["Civilian Jihadi Draftee found and being equipped for martyrdom","PLAIN DOWN"]};
 
 			_unit = random_civ_bomber;
 			_unit addeventhandler ["killed",{_this call killed_ss_bmbr_fnc}];
 
-			_bmbrdir = [random_w_player4, _unit] call BIS_fnc_dirTo;
+			_bmbrdir = random_w_player4 getDir _unit;
 			if (_bmbrdir < 0) then {_bmbrdir = _bmbrdir + 360};
 
 			_unit setDir _bmbrdir;
@@ -128,7 +128,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			_unit setVariable ["asr_ai_exclude",true];
 
 			_unit addeventhandler ["killed",{_this call killed_ss_bmbr_fnc; [(_this select 0)] spawn remove_carcass_fnc}];
-			_bmbrdir = [random_w_player4, _unit] call BIS_fnc_dirTo;
+			_bmbrdir = random_w_player4 getDir _unit;
 			if (_bmbrdir < 0) then {_bmbrdir = _bmbrdir + 360}; //SupahG33K - check for negative heading
 
 			_unit setDir _bmbrdir;

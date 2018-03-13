@@ -1,15 +1,15 @@
 // MoveOp4Base.sqf by Jigsor
 // Relocate Op4 Base/"Respawn_East" marker position.
-private ["_op4_player","_mL","_aP","_bs","_rwp","_pP","_cooX","_cooY","_dis","_wheX","_wheY","_Op4rP","_pnf","_c","_sP","_centerPos","_bp","_dir"];
+private ["_op4Player","_mL","_aP","_bs","_rwp","_pP","_cooX","_cooY","_dis","_wheX","_wheY","_Op4rP","_pnf","_c","_sP","_centerPos","_bp","_dir"];
 
-_op4_player = _this select 0;
+_op4Player = _this select 0;
 _pnf = false;
 _rwp = nil;
 _bp = getMarkerPos "Respawn_West";
-_aP = playableUnits - entities INS_op4_players;// exclude east players
+_aP = playableUnits - entities INS_op4_Players;// exclude east players
 _mL = if (INS_p_rev > 5) then {false}else{true};
 
-waitUntil {!isNull _op4_player};
+waitUntil {sleep 1; !isNull _op4Player};
 
 if (count _aP > 0) then {
 	{
@@ -21,11 +21,11 @@ if (count _aP > 0) then {
 	_pnf = true;
 };
 
-if (count _aP > 0) then {	
-	_rwp = _aP select (floor (random (count _aP)));
+if (count _aP > 0) then {
+	_rwp = selectRandom _aP;
 	_aP = _aP - ["_rwp"];
 	while {!isNil "_rwp" && {_rwp distance _bp < 600}} do {
-		_rwp = _aP select (floor (random (count _aP)));
+		_rwp = selectRandom _ap;
 		_aP = _aP - ["_rwp"];
 	};
 };// exclude players to close to blufor base
@@ -55,12 +55,14 @@ if (!isNil "_rwp") then {
 };
 
 if (_pnf) then {
-	if (INS_MHQ_enabled && {!isNil "Opfor_MHQ"}) then {
+	if (INS_MHQ_exists && {!isNil "Opfor_MHQ"}) then {
 		// Move to Op4 MHQ
-		if (_mL) then {BTC_r_base_spawn setPos getMarkerPos "Opfor_MHQ"};
-		"Respawn_East" setMarkerPos getMarkerPos "Opfor_MHQ";
-		_dir = random 359;
-		player setPos [(getMarkerPos "Opfor_MHQ" select 0)-10*sin(_dir),(getMarkerPos "Opfor_MHQ" select 1)-10*cos(_dir)];
+		if !(getMarkerColor "Opfor_MHQ" isEqualTo "") then {
+			if (_mL) then {BTC_r_base_spawn setPos getMarkerPos "Opfor_MHQ"};
+			"Respawn_East" setMarkerPos getMarkerPos "Opfor_MHQ";
+			_dir = round(random 360);
+			player setPos [(getMarkerPos "Opfor_MHQ" select 0)-10*sin(_dir),(getMarkerPos "Opfor_MHQ" select 1)-10*cos(_dir)];
+		};
 	}else{
 		// Move Op4 Base to center
 		_centerPos = getPosATL center;

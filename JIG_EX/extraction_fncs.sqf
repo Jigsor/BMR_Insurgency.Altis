@@ -4,7 +4,7 @@
  runs in JIG_EX\extraction_init.sqf
  Heli Extraction Position and Evacuation Functions
 */
- 
+
 // Global hint
 JIG_EX_MPhint_fnc = {if (hasInterface) then { hint _this };};
 extraction_pos_fnc = {
@@ -97,7 +97,7 @@ drop_off_pos_fnc = {
 };
 Evac_Spawn_Loc = {
 	// Spawn position of Evac heli
-	private ["_mkr","_mkrPos","_eDir","_veh","_VarSHName"];
+	private ["_mkr","_mkrPos"];
 	if !(getMarkerColor "EvacSpawnMkr" isEqualTo "") then {deleteMarker "EvacSpawnMkr"};
 	_mkr = createMarker ["EvacSpawnMkr", getposATL EvacLZpad];
 	_mkr setMarkerShape "ELLIPSE";
@@ -108,9 +108,9 @@ Evac_Spawn_Loc = {
 	"EvacSpawnMkr" setMarkerText "Evac Spawn Pos";
 	"EvacSpawnMkr" setMarkerPos [(getMarkerPos "tempPUmkr" select 0) + (JIG_EX_Spawn_Dis * sin floor(random 360)), (getMarkerPos "tempPUmkr" select 1) + (JIG_EX_Spawn_Dis * cos floor(random 360)), 0];
 	_mkrPos = getMarkerPos "EvacSpawnMkr";
-	_eDir = [_mkrPos, EvacLZpad] call BIS_fnc_dirTo;
 	EvacSpawnPad = createVehicle ["Land_HelipadEmpty_F", getMarkerPos "EvacSpawnMkr", [], 0, "NONE"];
-	EvacSpawnPad setDir _eDir;
+	EvacSpawnPad setDir (_mkrPos getDir EvacLZpad);
+	EvacSpawnPad setpos getpos EvacSpawnPad;
 };
 Ex_LZ_smoke_fnc = {
 	// Pops Smoke and Chemlight at Extraction LZ
@@ -160,7 +160,7 @@ Evac_MPcleanUp = {
 		private "_p";
 		{
 			_p = _x;
-			if (isPlayer _p) then {
+			if (isPlayer _p && {!isNull objectParent _p && {!(_p isEqualTo (driver objectParent _p))}}) then {
 				[[_p], objNull] remoteExec ["moveOut", _p];
 				_toDelete = _toDelete - [_p];
 			};

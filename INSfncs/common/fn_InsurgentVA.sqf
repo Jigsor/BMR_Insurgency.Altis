@@ -223,8 +223,8 @@ _availableMagazines = [
 
 	//Launcher ammo
 	"Titan_AA",
-	"Titan_AT",
-	"Titan_AP",
+	//"Titan_AT",
+	//"Titan_AP",
 	"RPG32_HE_F",
 	"RPG32_F",
 	"RPG7_F",
@@ -300,8 +300,8 @@ _availableWeapons = [
 	"launch_RPG32_ghex_F",
 	"launch_O_Titan_F",
 	"launch_I_Titan_F",
-	"launch_O_Titan_short_F",
-	"launch_I_Titan_short_F",
+	//"launch_O_Titan_short_F",
+	//"launch_I_Titan_short_F",
 	"launch_RPG32_F",
 	"launch_RPG7_F",
 

@@ -240,7 +240,7 @@ JIG_issue_reward = {
 	}else{
 		_pScore = -10;
 		_p addScore _pScore;
-		[East,"HQ"] sideChat "-10 points";		
+		[East,"HQ"] sideChat "-10 points";
 		_penalty = -1500;
 		_tally = (rating _p) + _penalty;
 		_p addRating _tally;
@@ -336,7 +336,7 @@ miss_object_pos_fnc = {
 	_ObjRandomPos = [_cooX+_wheX,_cooY+_wheY,0];
 	_empty = [];
 	_goodPos = [];
-	_mkrType = if (DebugEnabled isEqualTo 1) then {"mil_dot"}else{"EMPTY"};	
+	_mkrType = if (DebugEnabled isEqualTo 1) then {"mil_dot"}else{"EMPTY"};
 	_newPos = _ObjRandomPos isFlatEmpty [25,384,0.4,2,0,false,ObjNull];
 
 	while {(count _newPos) < 1} do {
@@ -603,7 +603,7 @@ spawn_Op4_StatDef = {
 		_static = createVehicle [_type, _finalPos, [], 0, "NONE"];
 		_static allowDamage false;
 		_static modelToWorld _finalPos;
-		_static setDir ([_newZone, _finalPos] call BIS_fnc_dirTo);
+		_static setDir (_newZone getDir _finalPos);
 		_allGuns1 pushBack _static;
 		_allGuns2 pushBack _static;
 	};
@@ -817,7 +817,6 @@ JIG_ActivateDust = {
 INSciviKilled_fnc = {
 	params [["_unit",objNull],["_killer",objNull]];
 	if (!(vehicleVarName _unit isEqualTo "sstBomber") && {!isNull _killer} && {isPlayer _killer}) then {
-		//private _killerName = name _killer;
 		private _killerName = if (name _killer == "Error: No unit") then {"Unidentified"}else{name _killer};
 		private _killed = name _unit;
 		private _penalty = -3500;
@@ -832,7 +831,7 @@ INSciviKilled_fnc = {
 		_m setMarkerType "hd_warning";
 		_m setMarkerColor "ColorRed";
 		_m setMarkerText _mTxt;
-	
+
 		[_m, _killer] spawn {
 			params ["_m","_killer"];
 			for "_i" from 1 to 12 do {//show civ killer marker for approx. 12 seconds

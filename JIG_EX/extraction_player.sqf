@@ -15,7 +15,11 @@ _recruitsArry = [];
 _target removeAction _action;
 
 if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint localize "STR_BMR_missing_map"; player addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf", JIG_EX_Caller removeAction jig_ex_actid_show, 1, false, true, "", "player ==_target"];};
-if (_caller != (leader group _caller)) exitWith {hint localize "STR_BMR_group_leaders_only"; player addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>", "JIG_EX\extraction_player.sqf", JIG_EX_Caller removeAction jig_ex_actid_show, 1, false, true, "", "player ==_target"];};
+if (_caller != (leader group _caller) || !("bis_dg_reg" in (allvariables group player))) exitWith {
+	hint localize "STR_BMR_group_leaders_only";
+	player sideChat localize "STR_BMR_group_leaders_only";
+	player addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>", "JIG_EX\extraction_player.sqf", JIG_EX_Caller removeAction jig_ex_actid_show, 1, false, true, "", "player ==_target"];
+};
 
 extractmkr = [];
 dropmkr = [];

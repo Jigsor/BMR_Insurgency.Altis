@@ -61,7 +61,7 @@ Air_Dest_fnc = {
 			_spwnaire = createMarker ["spawnaire", getPosATL air_pat_pos];
 			_spwnaire setMarkerShape "ELLIPSE";
 			_spwnairepos = getMarkerPos "cyclewpmrk";
-			_spwnairedir = [_spwnairepos, air_pat_pos] call BIS_fnc_dirTo;
+			_spwnairedir = _spwnairepos getDir air_pat_pos;
 			"spawnaire" setMarkerSize [1, 1];
 			"spawnaire" setMarkerShape "ICON";
 			"spawnaire" setMarkerType "Empty";//"mil_dot"
@@ -69,7 +69,7 @@ Air_Dest_fnc = {
 			"spawnaire" setMarkerText "SpawnAirEst";
 			"spawnaire" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -300)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -300)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdire = getMarkerPos "spawnaire";
-			_spwnairenewdir = [_spwnairdire, air_pat_pos] call BIS_fnc_dirTo;
+			_spwnairenewdir = _spwnairdire getDir air_pat_pos;
 			"spawnaire" setMarkerDir _spwnairenewdir;//point marker direction towards aomkr
 
 			air_pat_east setPosATL getMarkerPos "spawnaire";
@@ -84,7 +84,7 @@ Air_Dest_fnc = {
 			"spawnairw" setMarkerText "Retreat";
 			"spawnairw" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -60)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -60)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdirw = getMarkerPos "spawnairw";
-			_spwnairwnewdir = [_spwnairdirw, air_pat_pos] call BIS_fnc_dirTo;
+			_spwnairwnewdir = _spwnairdirw getDir air_pat_pos;
 			"spawnairw" setMarkerDir _spwnairwnewdir;//point marker direction towards aomkr
 
 			air_pat_west setPosATL getMarkerPos "spawnairw";
@@ -114,7 +114,7 @@ Air_Dest_fnc = {
 			_spwnaire = createMarker ["spawnaire", getPosATL air_pat_pos];
 			_spwnaire setMarkerShape "ELLIPSE";
 			_spwnairepos = getMarkerPos "cyclewpmrk";
-			_spwnairedir = [_spwnairepos, air_pat_pos] call BIS_fnc_dirTo;
+			_spwnairedir = _spwnairepos getDir air_pat_pos;
 			"spawnaire" setMarkerSize [1, 1];
 			"spawnaire" setMarkerShape "ICON";
 			"spawnaire" setMarkerType "Empty";
@@ -122,7 +122,7 @@ Air_Dest_fnc = {
 			"spawnaire" setMarkerText "SpawnAirEst";
 			"spawnaire" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -300)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -300)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdire = getMarkerPos "spawnaire";
-			_spwnairenewdir = [_spwnairdire, air_pat_pos] call BIS_fnc_dirTo;
+			_spwnairenewdir = _spwnairdire getDir air_pat_pos;
 			"spawnaire" setMarkerDir _spwnairenewdir;//point marker direction towards aomkr
 
 			air_pat_east setPosATL getMarkerPos "spawnaire";
@@ -136,7 +136,7 @@ Air_Dest_fnc = {
 			"spawnairw" setMarkerText "Retreat";
 			"spawnairw" setMarkerPos [(getMarkerPos "aomkr" select 0) + (_AirWP_span * sin (_spwnairedir -60)), (getMarkerPos "aomkr" select 1) + (_AirWP_span * cos (_spwnairedir -60)), 0];//East Air spawn point distance is _AirWP_span meters from AO marker
 			_spwnairdirw = getMarkerPos "spawnairw";
-			_spwnairwnewdir = [_spwnairdirw, air_pat_pos] call BIS_fnc_dirTo;
+			_spwnairwnewdir = _spwnairdirw getDir air_pat_pos;
 			"spawnairw" setMarkerDir _spwnairwnewdir;//point marker direction towards aomkr
 
 			air_pat_west setPosATL getMarkerPos "spawnairw";

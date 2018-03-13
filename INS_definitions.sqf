@@ -53,11 +53,13 @@ AIdamMod = EOS_DAMAGE_MULTIPLIER*0.01;
 
 //boolean
 IamHC = false;
-INS_MHQ_enabled = false;
+JIG_MHQ_enabled = false;
+INS_MHQ_exists = false;
 INS_mod_missing = false;
 INS_SEH_check = true;
 if (isNil "timesup") then {timesup = false};
-if (INS_p_rev isEqualTo 5 or {INS_p_rev isEqualTo 7}) then {INS_MHQ_enabled = true};
+if (INS_p_rev isEqualTo 5 || {INS_p_rev isEqualTo 7}) then {JIG_MHQ_enabled = true};
+if ((INS_p_rev isEqualTo 1 || INS_p_rev isEqualTo 7) || {INS_p_rev isEqualTo 3 || INS_p_rev isEqualTo 5}) then {INS_MHQ_exists = true};
 INS_ACE_para = if (isClass(configFile >> "cfgPatches" >> "ace_parachute")) then {TRUE}else{FALSE};
 INS_ACE_core = if (isClass(configFile >> "CfgMods" >> "cba") && isClass(configFile >> "CfgMods" >> "ace")) then {TRUE}else{FALSE};
 if ((isClass(configFile >> "CfgPatches" >> "task_force_radio")) || {(isClass (configFile >> "CfgPatches" >> "acre_main"))}) then {INS_SEH_check = false};

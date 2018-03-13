@@ -20,7 +20,7 @@ _dis = 3500;
 _speed = 200;
 _setheight = getTerrainHeightASL [(_loc select 0) + _dis * sin _dir, (_loc select 1) + _dis * cos _dir];
 _ranPos = [(_loc select 0) + _dis * sin _dir, (_loc select 1) + _dis * cos _dir, _setheight + 260];
-_dirTo = [_ranPos, _lockobj] call BIS_fnc_dirTo;
+_dirTo = _ranPos getDir _lockobj;
 
 _veh = [_ranPos, _dirTo, INS_CAS, WEST] call bis_fnc_spawnvehicle;
 sleep jig_tvt_globalsleep;

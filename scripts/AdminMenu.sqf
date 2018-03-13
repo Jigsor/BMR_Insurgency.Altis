@@ -59,7 +59,7 @@ private _tips ="
 	<br/>
 	<br/>10. Select one of the progression saving options in lobby when using Headless Client incase HC crashes or gets kicked so it may rejoin and continue where it left off.
 	<br/>
-	<br/>11. Manually kicking Headless Client will effectivley reset/reinforce uncaptured zones as if no enemy had been killed in these zones. If using 2 headless clients then both should be kicked. As a side affect the current objective may complete or its defences deleted because all enemy AI get deleted when a headless client disconnects and leaves AI behind.
+	<br/>11. Manually kicking Headless Client will effectivley reset/reinforce uncaptured zones as if no enemy had been killed in these zones. If using 2 headless clients then both should be kicked. As a side affect the current objective may complete or its defences deleted because all enemy AI get deleted when a headless client disconnects and leaves AI behind. To use this feature 'save mission progression and restore if any is saved' lobby option must be selected at game start or else when headless client reconnects it will spawn AI in green zones.
 	<br/>
 	<br/>12. When not using headless client and using auto progression saving, the server does not begin saving progression untill one task has been completed.
 ";

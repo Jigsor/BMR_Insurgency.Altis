@@ -119,8 +119,8 @@ JIG_placeSandbag_fnc = {
 	if (!isNull MedicSandBag) then {deleteVehicle MedicSandBag};
 	MedicSandBag = createVehicle ["Land_BagFence_Round_F",[(getposATL _p select 0) + (sin(getdir _p) * _dist), (getposATL _p select 1) + (cos(getdir _p) * _dist)], [], 0, "CAN_COLLIDE"];
 
+	MedicSandBag setDir (getDir _p) - 180;
 	MedicSandBag setposATL [(getposATL _p select 0) + (sin(getdir _p) * _dist), (getposATL _p select 1) + (cos(getdir _p) * _dist), (getposATL _p select 2) + _zvector + _zfactor];
-	MedicSandBag setDir getDir (_this select 1) - 180;
 
 	if ((getPosATL MedicSandBag select 2) > (getPosATL _p select 2)) then {
 		MedicSandBag setPos [(getPosATL MedicSandBag select 0), (getPosATL MedicSandBag select 1), (getPosATL _p select 2)];
@@ -512,7 +512,7 @@ Op4_spawn_pos = {
 	_players = playableUnits;
 	_movelogic = if (INS_p_rev > 5) then {false}else{true};
 
-	//titleCut["", "BLACK OUT", 2];// causes black screen bug?
+	//titleCut["", "BLACK OUT", 2];// causes black screen hang bug?
 
 	_players = _players - [_op4Player];// exclude player calling the script
 	if (count _players > 0) then {
@@ -526,10 +526,10 @@ Op4_spawn_pos = {
 	};
 
 	if (count _players > 0) then {
-		_random_w_player = _players select (floor (random (count _players)));
+		_random_w_player = selectRandom _players;
 		_players = _players - ["_random_w_player"];
 		while {!isNil "_random_w_player" && {_random_w_player distance _basePos < 500}} do {
-			_random_w_player = _players select (floor (random (count _players)));
+			_random_w_player = selectRandom _players;
 			_players = _players - ["_random_w_player"];
 		};
 	};// exclude players to close to blufor base
@@ -552,7 +552,7 @@ Op4_spawn_pos = {
 			sleep 0.2;
 		};
 		if (count _spawnPos > 0) exitWith {
-			if (_movelogic) then {BTC_r_base_spawn setPos _spawnPos;};
+			if (_movelogic) then {BTC_r_base_spawn setPos _spawnPos};
 			"Respawn_East" setMarkerPos _spawnPos;
 			_op4Player setPos _spawnPos;
 			titleCut["", "BLACK IN",1];
@@ -562,12 +562,14 @@ Op4_spawn_pos = {
 	};
 
 	if (_posnotfound) then {
-		if (INS_MHQ_enabled && {!isNil "Opfor_MHQ"}) then {
+		if (INS_MHQ_exists && {!isNil "Opfor_MHQ"}) then {
 			// Move to Op4 MHQ
-			if (_movelogic) then {BTC_r_base_spawn setPos getMarkerPos "Opfor_MHQ"};
-			"Respawn_East" setMarkerPos getMarkerPos "Opfor_MHQ";
-			_dir = random 359;
-			_op4Player setPos [(getMarkerPos "Opfor_MHQ" select 0)-10*sin(_dir),(getMarkerPos "Opfor_MHQ" select 1)-10*cos(_dir)];
+			if !(getMarkerColor "Opfor_MHQ" isEqualTo "") then {
+				if (_movelogic) then {BTC_r_base_spawn setPos getMarkerPos "Opfor_MHQ"};
+				"Respawn_East" setMarkerPos getMarkerPos "Opfor_MHQ";
+				_dir = random 359;
+				_op4Player setPos [(getMarkerPos "Opfor_MHQ" select 0)-10*sin(_dir),(getMarkerPos "Opfor_MHQ" select 1)-10*cos(_dir)];
+			};
 			titleCut["", "BLACK IN",1];
 		}else{
 			// Move Op4 Base to center
@@ -584,7 +586,7 @@ Op4_spawn_pos = {
 				_spawnPos = _randPos isFlatEmpty [5,384,0.9,2,0,false,ObjNull];
 				sleep 0.2;
 			};
-			if (_movelogic) then {BTC_r_base_spawn setPos _spawnPos;};
+			if (_movelogic) then {BTC_r_base_spawn setPos _spawnPos};
 			"Respawn_East" setMarkerPos _spawnPos;
 			_op4Player setPos _spawnPos;
 			titleCut["", "BLACK IN",1];
@@ -680,7 +682,7 @@ JIG_map_click = {
 			"VehDrop" setMarkerTypeLocal "mil_dot";
 			"VehDrop" setMarkerColorLocal "Color3_FD_F";
 			"VehDrop" setMarkerTextLocal "Vehicle Reward Location";
-			if (!isNull _nearestRoad) then {"VehDrop" setMarkerDirLocal ([_pos, _nearestRoad] call BIS_fnc_dirTo)};
+			if (!isNull _nearestRoad) then {"VehDrop" setMarkerDirLocal (_pos getDir _nearestRoad)};
 
 			GetClick = false;
 		}] call BIS_fnc_addStackedEventHandler;
@@ -796,7 +798,7 @@ INS_aiHalo = {
 		sleep 1;
 	};
 
-	deleteVehicle (_target getVariable "frontpack");
+	//deleteVehicle (_target getVariable "frontpack");
 	_target setVariable ["frontpack",nil];
 
 	0=[_target,_loadout] spawn ATM_Setloadout;
@@ -839,7 +841,7 @@ INS_MHQ_mkr = {
 	}else{
 		_mkrName = format ["%1", _mhq];
 	};
-	if ((_op4 isEqualTo TRUE) && {(_mkrName isEqualTo "Opfor_MHQ")}) then {
+	if (_op4 && {_mkrName isEqualTo "Opfor_MHQ"}) then {
 		_color = "ColorRed";
 	}else{
 		_color = "ColorGreen";
@@ -887,7 +889,7 @@ GAS_inSmoke = {
 	5 fadeSound 0.1;
 
 	//While were in smoke
-	while { alive player && not captive player && [] call GAS_smokeNear } do {
+	while { alive player && not captive player && call GAS_smokeNear } do {
 		private _sound = selectRandom Choke_Sounds;
 		playsound3d [_sound, player, false, getPosasl player, 10,1,30];
 		player setDamage (damage player + 0.14);
@@ -895,7 +897,7 @@ GAS_inSmoke = {
     	sleep 2.8123;
 	};
 
-	[] call GAS_smokeClear;
+	call GAS_smokeClear;
 };
 GAS_smokeClear = {
 	// Clear effects. code by Larrow

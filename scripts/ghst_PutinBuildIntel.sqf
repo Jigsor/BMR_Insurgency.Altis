@@ -16,7 +16,7 @@ activated_cache = [];
 _uncaped_eos_mkrs = all_eos_mkrs;
 _hide_intel = Intel_Loc_Alpha;
 
-if (DebugEnabled > 0) then {titletext ["Creating Intel","plain down"]};
+if (DebugEnabled > 0) then {titleText ["Creating Intel","PLAIN DOWN"]};
 
 "activated_cache" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 waitUntil {sleep 1; count ghst_Build_objs > 0};
@@ -60,7 +60,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 		_intel allowDamage false;
 		_intel setVariable["persistent",true];
 		_veh_name = getText (configFile >> "cfgVehicles" >> (_objtype) >> "displayName");
-		_VarName = ("ghst_obj" + _strNum);
+		_VarName = ("intel" + _strNum);
 		_intel setVehicleVarName _VarName;
 		missionNamespace setVariable [_VarName,_intel];
 		publicVariable _VarName;
@@ -171,10 +171,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 				_mark1 setmarkersize _msize;
 				_mark1 setmarkercolor _mcolor;//"ColorBlack";
 				_mark1 setmarkerAlpha _hide_intel;//hide intel location markers
-					if (_markunitspos) then {
-					_mark1 setmarkertext format ["Intel obj%1", _x];
-					};
-
+				if (_markunitspos) then {_mark1 setmarkertext format ["Intel obj%1", _x]};
 				if (_hide_intel isEqualTo 1) then {_imks pushBack [_x,_mark1]};
 			};
 			sleep 0.1;
@@ -182,12 +179,11 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 
 		if (_debug) then {diag_log "Objects put in buildings"};
 
-		if (!isNull _intel) then
-		{
+		if (!isNull _intel) then {
 			_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_curr_mkr];
 
-			//attaches addaction to intel object
-			[[_intel,current_cache_pos],"fnc_mp_intel",WEST] spawn BIS_fnc_MP;
+			//attach addaction to intel object
+			[_intel,current_cache_pos] remoteExec ['fnc_mp_intel',WEST];
 
 			if (ObjNull in intel_Build_objs) then {{intel_Build_objs = intel_Build_objs - [objNull]} foreach intel_Build_objs;};
 			intel_Build_objs pushBack _intel;
@@ -195,7 +191,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 		};
 	};
 
-	if (DebugEnabled > 0) then {titletext ["Spawning Intel Complete","plain down"]};
+	if (DebugEnabled > 0) then {titleText ["Spawning Intel Complete","PLAIN DOWN"]};
 
 	if (_hide_intel isEqualTo 1) then {
 		[_imks] spawn {

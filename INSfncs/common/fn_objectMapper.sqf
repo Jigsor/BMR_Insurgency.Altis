@@ -20,7 +20,7 @@ private _multiplyMatrixFunc = {
 	_result
 };
 
-for "_i" from 0 to ((count _data) - 1) do {
+for "_i" from 0 to (count _data) - 1 step 1 do {
 	private ["_objInfo","_type","_relPos","_azimuth"];
 	_objInfo = _data select _i;
 	_obj = _objInfo select 0;

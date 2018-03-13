@@ -53,7 +53,7 @@ _pos = clickpos;
 sleep 1;
 openMap false;
 
-_dir = [_spawnmark, _pos] call BIS_fnc_dirTo;
+_dir = _spawnmark getDir _pos;
 
 _smoke1 = createVehicle ["SmokeShellBlue", _pos, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;

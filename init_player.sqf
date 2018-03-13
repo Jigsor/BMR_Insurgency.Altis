@@ -289,7 +289,7 @@ if (DebugEnabled > 0) then {
 				loadout_handler = [player] execVM "scripts\DefLoadoutOp4.sqf";
 				waitUntil { scriptDone loadout_handler };
 				loadout = getUnitLoadout player;
-				if (INS_MHQ_enabled) then {
+				if (JIG_MHQ_enabled) then {
 					private ["_op4","_mhqObj","_mhqPos"];
 					_op4 = true;
 					_mhqObj = objNull;
@@ -310,7 +310,7 @@ if (DebugEnabled > 0) then {
 			[] spawn {
 				sleep 15;
 				loadout = getUnitLoadout player;
-				if (INS_MHQ_enabled) then {
+				if (JIG_MHQ_enabled) then {
 					private ["_op4","_mhqPos","_mhqObj1","_mhqObj2","_mhqObj3"];
 					_op4 = false;
 					_mhqObj1 = objNull;
@@ -341,7 +341,7 @@ if (DebugEnabled > 0) then {
 				loadout_handler = [player] execVM "scripts\DefLoadoutOp4.sqf";
 				waitUntil { scriptDone loadout_handler };
 				loadout = getUnitLoadout player;
-				if (INS_MHQ_enabled) then {
+				if (JIG_MHQ_enabled) then {
 					private ["_op4","_mhqObj","_mhqPos"];
 					_op4 = true;
 					_mhqObj = objNull;
@@ -353,7 +353,7 @@ if (DebugEnabled > 0) then {
 		};
 		If (side player == west) then {
 			[] spawn {loadout = getUnitLoadout player};
-			if (INS_MHQ_enabled) then {
+			if (JIG_MHQ_enabled) then {
 				private ["_op4","_mhqPos","_mhqObj1","_mhqObj2","_mhqObj3"];
 				_op4 = false;
 				_mhqObj1 = objNull;
@@ -471,7 +471,7 @@ if (DebugEnabled > 0) then {
 	};
 
 	// INS MHQ respawn actions and markers
-	if (INS_MHQ_enabled) then {
+	if (JIG_MHQ_enabled) then {
 		[] spawn {
 			waitUntil{!isNull player};
 

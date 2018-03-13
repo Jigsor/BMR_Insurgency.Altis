@@ -44,8 +44,7 @@ _patrole = [_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 if (_ins_debug) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
 // Spawn mines
-for "_i" from 1 to _random_mine_cnt do
-{
+for "_i" from 1 to _random_mine_cnt step 1 do {
 	private _newpos = _newZone findEmptyPosition [0, _minefielrad, _type];
 	private _mine = createMine [_type, _newpos, [], _minefielrad];
 	sleep jig_tvt_globalsleep;
@@ -53,7 +52,8 @@ for "_i" from 1 to _random_mine_cnt do
 	_mine setVariable["persistent",true];
 };
 
-{INS_Op4_side revealMine _x;} foreach _alltskmines;
+{RESISTANCE revealMine _x;} foreach _alltskmines;
+{EAST revealMine _x;} foreach _alltskmines;
 if (_ins_debug) then {{INS_Blu_side revealMine _x;} foreach _alltskmines;};
 
 // create west task
@@ -91,7 +91,7 @@ while {_checkmines} do
 		if (captiveNum _x isEqualTo 1) then	{
 			_deadWmen pushBack _x;
 		};
-		if ((side _x == INS_Op4_side) || (side _x == CIVILIAN)) then {
+		if (side _x in [RESISTANCE,EAST,CIVILIAN]) then {
 			_manArray = _manArray - [_x];
 		};
 	} foreach _manArray;

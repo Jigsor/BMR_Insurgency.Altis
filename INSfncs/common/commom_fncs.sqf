@@ -99,19 +99,19 @@ mhq_actions_fnc = {
 
 	switch (true) do {
 		case (_var isEqualTo "MHQ_1"): {
-			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
 			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 		};
 		case (_var isEqualTo "MHQ_2"): {
-			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
 			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 		};
 		case (_var isEqualTo "MHQ_3"): {
-			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
 			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 		};
 		case (_var isEqualTo "Opfor_MHQ"): {
-			_veh addAction [("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
+			_veh addAction[("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
 			//_veh addAction[("<t color='#12F905'>") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side"];
 		};
 		case (_var isEqualTo ""): {};
@@ -126,7 +126,7 @@ JIG_load_VA_profile_MHQ1 = {
 		private ["_name_index","_VA_Loadouts_Count"];
 		_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
 		_name_index = 0;
-		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 do	{
+		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 step 1 do {
 			[_i,_name_index] spawn {
 				private ["_name_index","_loadout_name"];
 				_name_index = _this select 1;
@@ -144,7 +144,7 @@ JIG_load_VA_profile_MHQ2 = {
 		private ["_name_index","_VA_Loadouts_Count"];
 		_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
 		_name_index = 0;
-		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 do	{
+		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 step 1 do {
 			[_i,_name_index] spawn {
 				private ["_name_index","_loadout_name"];
 				_name_index = _this select 1;
@@ -162,7 +162,7 @@ JIG_load_VA_profile_MHQ3 = {
 		private ["_name_index","_VA_Loadouts_Count"];
 		_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
 		_name_index = 0;
-		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 do {
+		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 step 1 do {
 			[_i,_name_index] spawn {
 				private ["_name_index","_loadout_name"];
 				_name_index = _this select 1;
@@ -405,6 +405,14 @@ INS_toggle_Zeus = {
 				if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc};
 			} forEach crew (_this select 1);
 		}];
+		_curator addEventHandler ['CuratorGroupPlaced',{
+			params ["", "_group"];
+			if (!(side leader _group isEqualTo INS_Op4_side) && {side leader _group in [RESISTANCE,EAST]}) then {
+				_grp = createGroup INS_Op4_side;
+				_units = units _group;
+				{[_x] joinSilent _grp;} forEach _units;
+			};
+		}];
 	};
 
 	_curator setVariable ["Addons",3,true];
@@ -441,7 +449,7 @@ Terminal_acction_MPfnc = {
 				(localize "STR_BMR_Tsk_topic_global_Retrieve_Intel"),
 				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
 				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
-				"_this distance Land_DataTerminal_Obj < 2",
+				"_this distance Land_DataTerminal_Obj < 2 && side _this in [WEST,EAST,RESISTANCE]",
 				"true",
 				{[Land_DataTerminal_Obj, 3] call BIS_fnc_DataTerminalAnimate},
 				{hintSilent "Recieving..."},
@@ -574,7 +582,7 @@ Drop_SmokeFlare_fnc = {
 	_lPos = [(getPosWorld _logic) select 0, (getPosWorld _logic) select 1, ((getPosWorld _logic) select 2) + _height];
 
 	if (_objTyp == 0) then {
-		for "_i" from 0 to (_objCount -1) do {
+		for "_i" from 0 to (_objCount -1) step 1 do {
 			_dir = floor random 360;
 			_dir2 = floor random 360;
 			_offset = [round((_lPos select 0)-_range*sin(_dir)), round((_lPos select 1)-_range*cos(_dir2)), 50];
@@ -585,7 +593,7 @@ Drop_SmokeFlare_fnc = {
 	};
 
 	if (_objTyp == 1) then {
-		for "_i" from 0 to (_objCount -1) do {
+		for "_i" from 0 to (_objCount -1) step 1 do {
 			_dir = floor random 360;
 			_offset = [round((_lPos select 0)-_range*sin(_dir)), round((_lPos select 1)-_range*cos(_dir)), _height];
 			_flare = (format ["F_40mm%1","_"+_col]) createVehicle _offset; sleep 0.01;
@@ -707,7 +715,7 @@ JWC_CAStrack = {
 	deleteMarker _marker;
 };
 Manual_ProgressionSave = {
-	//Force zone marker progression saving on HC and Server
+	// Force zone marker progression saving on HC and Server
 	if !(isServer || IamHC) exitWith {};
 	private _uncapturedMkrs = all_eos_mkrs;
 	{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x];};} foreach _uncapturedMkrs;
