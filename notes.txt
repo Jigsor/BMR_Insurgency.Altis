@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-3/12/2018
+3/13/2018
 BMR_Insurgency_v1.48_beta
 Added: Dust Storm script. If left on by admin, it will turn off when no players on server or rain kicks in using one of the weather scripts.
 Added: Admin briefing section with text buttons for Zeus assign and unassign with public or private notice, Global Brighter Nights toggle, Filp Vehicle, High/low speed Dust Storms on-off toggle, local Vehicle Reward and manual mission progression save.
@@ -201,7 +201,6 @@ Change: Removed ability to place/reposition/hide intel with BTC logistics action
 Change: Only affects ACE_3 moded machines: Disabled ACE Cook Off on Ammo Cache since cache has its own cook off effects and server can issue reward before destroyer wanders off to far to measure. Nearest alive/concious player detection for reward issue increased from 100 to 200 meters from cache./Needs testing feedback.
 Change: Op4 MHQ/weapon crate deployment now maintains relative direction and placement spacing as set in editor and is marked with Arsenal marker when deployed.
 Change: AI recruitment and Heli Extract is denied if player is not in a group lead position registered by group manager.
-Change: Experimenting with alternative method to add actions to intel for JIP players to resolve issue of JIP players sometimes cannot pickup intel.
 Change: Vehicle abandonment timers increased before respawn for vehicles originating from base.
 Fixed: Enemy AI faction combinations of East mixed with Independent are now grouped with the major faction's side, meaning both factions always trigger zone occupation for AI spawned by EOS.
 Fixed: Hold timer discrepancy between players affecting Capture N Hold objective. Everyone's now sees same time on countdown timer.
