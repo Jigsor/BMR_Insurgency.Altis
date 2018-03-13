@@ -1,4 +1,4 @@
-private ["_veh","_getTurrets","_vehConfig","_vehTurrets","_slots","_i"];
+private ["_veh","_getTurrets","_vehConfig","_vehTurrets"];
 _weapons = [];
 _veh = [_this,0,objnull,[objnull,""]] call bis_fnc_param;
 
