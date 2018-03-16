@@ -11,16 +11,16 @@ https://github.com/Jigsor/BMR_Insurgency.Altis
 https://github.com/Jigsor/BMR-Insurgency
 
 Official Stable builds:
-BMR_Insurgency_v1_47.Stratis
+BMR_Insurgency_v1_48.Stratis
 Required mods: None
 
-BMR_Insurgency_v1_47.Malden
+BMR_Insurgency_v1_48.Malden
 Required mods: None
 
-BMR_Insurgency_v1_47.Altis
+BMR_Insurgency_v1_48.Altis
 Required mods: None
 
-BMR_Insurgency_v1_47.Tanoa
+BMR_Insurgency_v1_48.Tanoa
 Required mods: None
 
 BMR_Insurgency_v1_47_RHS.Malden
@@ -163,7 +163,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-3/13/2018
+3/15/2018
 BMR_Insurgency_v1.48_beta
 Added: Dust Storm script. If left on by admin, it will turn off when no players on server or rain kicks in using one of the weather scripts.
 Added: Admin briefing section with text buttons for Zeus assign and unassign with public or private notice, Global Brighter Nights toggle, Filp Vehicle, High/low speed Dust Storms on-off toggle, local Vehicle Reward and manual mission progression save.
@@ -224,7 +224,6 @@ Fixed: Accumulation of empty groups when headless client present.
 Fixed: Arsenal actions on respawned MHQs missing for JIP players.
 Fixed: Error- Unsupported language English in stringtable.
 Fixed: Script error on player providing revive after the end of revive when injured was to far away.
-Fixed: Work around for arma bug on some machines chat disappears after respawn.
 Fixed: Not all visible zone markers were accessible to caches, intel or accounted for ending trigger in Mogadishu.
 Fixed: Unexpected behavior occured in BTK punishment when player switched to side "Enemy".
 Fixed: After using HuntIR, any other existing display event handlers were deleted.

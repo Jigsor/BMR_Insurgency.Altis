@@ -106,7 +106,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/>Blufor -- Can choose to respawn at BASE, MHQ_1, MHQ_2, or MHQ_3 if no one revives you. You may also choose teleport to MHQs or Halo from Flag Pole at base.
 	<br/>
-	<br/>Opfor -- Choose Base to respawn in vicinity of Blufor players who have activated zones. If no zones are activated you will spawn in center of map or Choose Opfor_MHQ to spawn on your MHQ. If MHQ system enabled, teleport to MHQ from base flagpole is available.
+	<br/>Opfor -- Choose Base to respawn in vicinity of Blufor players who have activated zones. If no zones are activated you will spawn at MHQ if MHQ system is enabled else center of map or Choose Opfor_MHQ to spawn on your MHQ. If MHQ system enabled, teleport to MHQ from base flagpole is available.
 	<br/>
 	<br/>While waiting for a revive you can spectate and control camera with usual movement controls.
 	<br/>
@@ -126,7 +126,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/>Transfer to MHQ_1, MHQ_2, and MHQ_3. This will teleport you to an emty seat inside of these vehicles where as transferring to MHQs from respawn menu will put you outside of the vehicles.
 	<br/>
-	<br/>HALO- set drop height to desired height and/or assign a key to cut away ropes incase you chuts gets hung on an object. You can skip this step and close the dialoge box. In this case the default drop height is 500, no key is assigned to cut away ropes and chute will auto open at 150 meters.
+	<br/>HALO -- set drop height to desired height and/or assign a key to cut away ropes incase you chuts gets hung on an object. You can skip this step and close the dialoge box. In this case the default drop height is 500, no key is assigned to cut away ropes and chute will auto open at 150 meters.
 	<br/>
 	<br/>Click on map the location you wish to HALO. Do not open or click any other user interface at this step. It will result in HALO at undesired location.
 	<br/>
@@ -134,8 +134,14 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/>If windy, head into wind with forward key untill touchdown to increase survivability.
 	<br/>
+	<br/><font size='20'>Win - Loose</font>
+	<br/>
+	<br/>Blufor -- To Win you must complete at least on side objective then capture all zones. After all zones are captured one more side objective must be completed.
+	<br/>
+	<br/>Opfor -- You cannot win the mission and keep in mind this is asymmetrical warfare. However, you can win some side obectives and make it very difficult for Blufor to complete other side objectives and main objective.
+	<br/>
 	<br/><font size='20'>SERVER ADMINS</font>
 	<br/>
 	<br/>Gain access to Breifing ADMINISTRATOR TOOLS panel by logging in as Admin. The panel may take a minute to appear. Once the panel appears in breifing section it will remain if loged out untill you rejoin the game. This way multiple Admins may have access to the tools.
 "]];
-player createDiaryRecord ["Diary", ["Briefing","Gather Intel on Ammo Cache location by picking up suitcases. Destroy Ammo Caches with satchel or demo charges. Clear all red zones of enemy forces. Complete random objectives. Get Some!"]];
+player createDiaryRecord ["Diary", ["Briefing","Gather Intel on Ammo Cache location by picking up suitcases. Destroy Ammo Caches with satchel or demo charges and Earn a vehicle reward of your choice. Clear all red zones of enemy forces. Complete random objectives. Get Some!"]];

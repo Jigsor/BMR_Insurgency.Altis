@@ -668,15 +668,16 @@ JIG_map_click = {
 
 		["Reward_mapclick","onMapSingleClick", {
 
+			private ["_nearestRoad","_roads","_marker"];
 			if (isOnRoad _pos) then {
-				private _nearestRoad = objNull;
-				private _roads = _pos nearRoads 15;
+				_nearestRoad = objNull;
+				_roads = _pos nearRoads 15;
 				if (count _roads > 0) then {
 					_nearestRoad = ([_roads,[],{_pos distance _x},"ASCEND"] call BIS_fnc_sortBy) select 0;
 				};
 			};
 
-			private _marker=createMarkerLocal ["VehDrop", _pos];
+			_marker=createMarkerLocal ["VehDrop", _pos];
 			"VehDrop" setMarkerShapeLocal "ICON";
 			"VehDrop" setMarkerSizeLocal [1, 1];
 			"VehDrop" setMarkerTypeLocal "mil_dot";
