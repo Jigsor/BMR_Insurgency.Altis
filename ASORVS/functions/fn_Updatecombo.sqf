@@ -26,7 +26,7 @@ if(ASORVS_FirstLoad) then {
 	};
 };
 lbSort [_control, "ASC"];
-for "_i" from 0 to ((lbSize _control) - 1) do {
+for "_i" from 0 to ((lbSize _control) - 1) step 1 do {
 	if((_control lbData _i) in _currentItem) then {
 		_control lbSetCurSel _i;
 	};

@@ -21,7 +21,7 @@ if (surfaceiswater _pos) then {_pool=[_faction,1] call eos_fnc_getunitpool;}else
 
 _grp=createGroup _side;
 
-for "_x" from 1 to _grpSize do {
+for "_x" from 1 to _grpSize step 1 do {
 	_unitType=selectRandom _pool;
 	_unit = _grp createUnit [_unitType, _pos, [], 6, "FORM"];
 	if !(side _unit isEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};

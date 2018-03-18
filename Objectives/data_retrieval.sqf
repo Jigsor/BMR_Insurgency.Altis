@@ -27,7 +27,7 @@ _nearMkrs = [_uncaped_eos_mkrs,[],{objective_pos_logic distance (getMarkerPos _x
 if (count _nearMkrs > 10) then {
 	private ["_g","_m"];
 	_g = 0;
-	for "_i" from 0 to 9 do {
+	for "_i" from 0 to 9 step 1 do {
 		_m = _nearMkrs select _g;
 		_nearZones pushBack _m;
 		_g = _g + 1;

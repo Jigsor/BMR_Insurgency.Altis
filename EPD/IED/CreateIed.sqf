@@ -5,7 +5,7 @@ _iedType = _this select 3;
 _side = _this select 4;
 
 if !(_side isEqualType []) then { _side = [_side];};
-for "_i" from 0 to (count _side) -1 do{
+for "_i" from 0 to (count _side) -1 step 1 do{
 	_side set [_i, toUpper (_side select _i)];
 };
 

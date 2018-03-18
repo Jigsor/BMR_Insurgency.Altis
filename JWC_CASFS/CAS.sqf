@@ -50,13 +50,13 @@ _grp setCombatMode "BLUE";
 
 doCounterMeasure = {
 	_plane = _this select 0;
-	for "_i" from 1 to 4 do	{
+	for "_i" from 1 to 4 step 1 do	{
 		_bool = _plane fireAtTarget [_plane,"CMFlareLauncher"];
 		sleep 0.3;
 	};
 	sleep 3;
 	_plane = _this select 0;
-	for "_i" from 1 to 4 do	{
+	for "_i" from 1 to 4 step 1 do	{
 		_bool = _plane fireAtTarget [_plane,"CMFlareLauncher"];
 		sleep 0.3;
 	};
@@ -155,7 +155,7 @@ if ((alive _buzz) && (_casType isEqualTo "CBU")) then {
 	_pos = getPos _cbu;
 	_effect = "SmallSecondary" createvehicle _pos;
 	deleteVehicle _cbu;
-	for "_i" from 1 to 35 do {
+	for "_i" from 1 to 35 step 1 do {
 		_explo = "G_40mm_HEDP" createvehicle _pos;
 		_explo setVelocity [-35 + (random 70),-35 + (random 70),-50];
 		sleep 0.025;
@@ -223,7 +223,7 @@ if ((alive _buzz) && (_casType isEqualTo "COMBO")) then {
 	_pos = getPos _cbu;
 	_effect = "SmallSecondary" createvehicle _pos;
 	deleteVehicle _cbu;
-	for "_i" from 1 to 35 do {
+	for "_i" from 1 to 35 step 1 do {
 		_explo = "G_40mm_HEDP" createvehicle _pos;
 		_explo setVelocity [-35 + (random 70),-35 + (random 70),-50];
 		sleep 0.025;

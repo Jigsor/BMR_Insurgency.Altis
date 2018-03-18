@@ -543,7 +543,7 @@ spawn_Op4_grp = {
 	private ["_grp","_unit_type","_unit"];
 	_grp = createGroup INS_Op4_side;
 
-	for "_i" from 0 to (_grpSize - 2) do {
+	for "_i" from 0 to (_grpSize - 2) step 1 do {
 		_unit_type = selectRandom INS_men_list;
 		_unit = _grp createUnit [_unit_type, _newZone, [], 0, "NONE"];
 		sleep 0.4;
@@ -582,7 +582,7 @@ spawn_Op4_StatDef = {
 	_assets pushBack _favored2;
 
 	if (_grpSize > 2) then {
-		for "_i" from 0 to _grpSize do {
+		for "_i" from 0 to _grpSize step 1 do {
 			_randType = selectRandom INS_Op4_stat_weps;
 			_assets pushBack _randType;
 		};
@@ -610,7 +610,7 @@ spawn_Op4_StatDef = {
 
 	_statGrp = createGroup INS_Op4_side;
 
-	for "_i" from 1 to _grpSize do {
+	for "_i" from 1 to _grpSize step 1 do {
 		_unitType = selectRandom INS_men_list;
 		_statGrp createUnit [_unitType, _newZone, [], 0, "NONE"];
 	};
@@ -669,7 +669,7 @@ INS_Tsk_GrpMkrs = {
 	params ["_grp","_wpMkrArray","_mkr","_wpMkr","_cid","_newMkr"];
 	_wpMkrArray = [];
 
-	for "_i" from 1 to (count (waypoints _grp)) -1 do {
+	for "_i" from 1 to (count (waypoints _grp)) -1 step 1 do {
 		_mkr = format["%1 WP%2", objective_pos_logic, _i];
 		_wpMkr = createMarker [_mkr, getWPPos [_grp, _i]];
 		_wpMkr setMarkerText _mkr;
@@ -697,7 +697,7 @@ Inf_taskPatrol_mod = {
 	_grp setBehaviour "SAFE";
 
 	private _prevPos = _pos;
-	for "_i" from 0 to (2 + (floor (random 3))) do {
+	for "_i" from 0 to (2 + (floor (random 3))) step 1 do {
 		private _newPos = [_prevPos, 50, _maxDist, 1, 0, 60 * (pi / 180), 0, _blacklist] call BIS_fnc_findSafePos;
 		_prevPos = _newPos;
 		private _wp = _grp addWaypoint [_newPos, 0];
@@ -720,7 +720,7 @@ Veh_taskPatrol_mod = {
 	_pos = _this select 1;
 	_maxDist = _this select 2;
 
-	for "_i" from 0 to (2 + (floor (random 3))) do {
+	for "_i" from 0 to (2 + (floor (random 3))) step 1 do {
 		_newPos = [_pos, 50, _maxDist, 1, 0, 60 * (pi / 180), 0, []] call BIS_fnc_findSafePos;
 		_wp = _grp addWaypoint [_newPos, 0];
 		_wp setWaypointType "MOVE";
@@ -763,7 +763,7 @@ GAS_smoke_AIdamage = {
 	_odd = 1;
 
 	// loop time based on approximate life time of smoke grenade (21 seconds)
-	for '_i' from 1 to 10 do {
+	for '_i' from 1 to 10 step 1 do {
 		_aiArray = _currPos nearEntities ["CAManBase",15];
 		{if ((isPlayer _x) || (headgear _x in INS_gasMaskH) || (goggles _x in INS_gasMaskG)) then {_aiArray = _aiArray - [_x];};} count _aiArray;
 		{
@@ -834,7 +834,7 @@ INSciviKilled_fnc = {
 
 		[_m, _killer] spawn {
 			params ["_m","_killer"];
-			for "_i" from 1 to 12 do {//show civ killer marker for approx. 12 seconds
+			for "_i" from 1 to 12 step 1 do {//show civ killer marker for approx. 12 seconds
 				uiSleep 1;
 				if (!alive _killer) exitWith {};
 				_m setMarkerPos getPosWorld _killer;

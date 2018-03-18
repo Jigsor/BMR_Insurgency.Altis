@@ -198,7 +198,7 @@ if (DebugEnabled > 0) then {
 		}];
 
 		smokeNearSEHID = [ "smokeNear", "onEachFrame", {
-			if (!(player getVariable ["inSmoke",false]) && { [] call GAS_smokeNear }) then {
+			if (!(player getVariable ["inSmoke",false]) && {call GAS_smokeNear}) then {
 				_inSmokeThread = [] spawn GAS_inSmoke;
 			};
 		}] call BIS_fnc_addStackedEventHandler;

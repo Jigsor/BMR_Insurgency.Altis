@@ -422,7 +422,7 @@ SHK_Taskmaster_updateTask = {
 		Out:
 	*/
 	private ["_task","_name","_state","_handle","_marker"];
-	for "_i" from 0 to (count SHK_Taskmaster_TasksLocal - 1) do {
+	for "_i" from 0 to (count SHK_Taskmaster_TasksLocal - 1) step 1 do {
 		_task =+ SHK_Taskmaster_TasksLocal select _i;
 		_name = _task select 0;
 		if (_name == (_this select 0)) then {

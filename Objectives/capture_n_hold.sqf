@@ -160,7 +160,7 @@ private _rwave = [_newZone,_ins_debug,_defcnt] spawn {
 			null=[_sfCount,0,215,"red",50,_smokePos] spawn Drop_SmokeFlare_fnc;
 
 			//reinforcement/wave group movement
-			for "_i" from 0 to (count curvePosArr) -1 do {
+			for "_i" from 0 to (count curvePosArr) -1 step 1 do {
 				private _newPosx = (curvePosArr select 0);
 
 				private _wp = _rgrp1 addWaypoint [_newPosx, 0];

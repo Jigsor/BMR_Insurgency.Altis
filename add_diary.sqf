@@ -118,7 +118,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/>For immunity wear A3 Heli Crew, Pilot, CRTG Combat Stealth or Viper Green Hex helmets.
 	<br/>
-	<br/>Moded support for gas masks include masks from from Hidden Identity Pack v2, Identity Pack v3, NATO SF and Russian Spetsnaz Weapons, FM-12 strapless from AVON FM12 Respirator Pack, OPTRE_UNSC_CH252_Helmet_Vacuum_DES and OPTRE_UNSC_ODST_Helmet_CBRN from Operation TREBUCHET.
+	<br/>Moded support for gas masks include masks from Hidden Identity Pack v2, Identity Pack v3, NATO SF and Russian Spetsnaz Weapons, FM-12 strapless from AVON FM12 Respirator Pack, OPTRE_UNSC_CH252_Helmet_Vacuum_DES and OPTRE_UNSC_ODST_Helmet_CBRN from Operation TREBUCHET.
 	<br/>
 	<br/>Adim can disable gas grenades from lobby parameter.
 	<br/>
@@ -126,7 +126,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/>Transfer to MHQ_1, MHQ_2, and MHQ_3. This will teleport you to an emty seat inside of these vehicles where as transferring to MHQs from respawn menu will put you outside of the vehicles.
 	<br/>
-	<br/>HALO -- set drop height to desired height and/or assign a key to cut away ropes incase you chuts gets hung on an object. You can skip this step and close the dialoge box. In this case the default drop height is 500, no key is assigned to cut away ropes and chute will auto open at 150 meters.
+	<br/>HALO -- set drop height to desired height and/or assign a key to cut away ropes incase you chute gets hung on an object. You can skip this step and close the dialoge box. In this case the default drop height is 500, no key is assigned to cut away ropes and chute will auto open at 150 meters.
 	<br/>
 	<br/>Click on map the location you wish to HALO. Do not open or click any other user interface at this step. It will result in HALO at undesired location.
 	<br/>

@@ -15,7 +15,7 @@ _CfgVehicleClass = configFile >> "CfgVehicleClass";
 //Find player's subfaction
 _subfaction = [getText(_CfgVehicles >> _classname >> "vehicleClass")];
 
-for "_i" from 1 to ((count _CfgVehicles) - 1) do {
+for "_i" from 1 to ((count _CfgVehicles) - 1) step 1 do {
 	_Vehicle = _CfgVehicles select _i;
 	if ((isClass _Vehicle) && ((getnumber(_Vehicle >> "scope")) == 2) && !((configName _Vehicle) isKindOf "Building") && !((configName _Vehicle) isKindOf "Thing")) then 
 	{

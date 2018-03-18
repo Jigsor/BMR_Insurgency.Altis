@@ -54,7 +54,7 @@ while {count _wps < _cnt} do {
 
 // Create waypoints
 private ["_cur","_wp"];
-for "_i" from 1 to (_cnt - 1) do {
+for "_i" from 1 to (_cnt - 1) step 1 do {
     _cur = (_wps select _i);
 
     _wp = _grp addWaypoint [_cur, 0];

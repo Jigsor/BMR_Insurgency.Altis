@@ -17,7 +17,7 @@ if (!isServer) exitWith {};
 	private _debug = DebugEnabled;//Show markers
 	private _roads = [worldsize/2, worldsize/2] nearRoads worldsize;
 	IEDtypes = ["IEDLandBig_F","IEDLandSmall_F","IEDUrbanBig_F","IEDUrbanSmall_F"];
-	IEDblast = ["Bo_Mk82","Rocket_03_HE_F","M_Mo_82mm_AT_LG","Bo_GBU12_LGB","Bo_GBU12_LGB_MI10","HelicopterExploSmall"];
+	IEDblast = ["Bo_Mk82","Rocket_03_HE_F","M_Mo_82mm_AT_LG","Bo_GBU12_LGB","Bo_GBU12_LGB_MI10","HelicopterExploSmall"];//"HelicopterExploBig"
 
 	if (_debug isEqualTo 1) then {
 		private _txt = format["attempting to create %1 IEDs...", _IEDs];
@@ -76,7 +76,7 @@ if (!isServer) exitWith {};
 
 	private _trigs = [];
 	private _Active_IED_count = round (_IEDs -((_decoyChance/100) *_IEDs));
-	for "_i" from 1 to _Active_IED_count do {
+	for "_i" from 1 to _Active_IED_count step 1 do {
 		private ["_rIEDpos","_actCond","_onActiv","_IEDtrig"];
 		_rIEDpos = selectRandom _iedPosList;
 		_iedPosList = _iedPosList - [_rIEDpos];

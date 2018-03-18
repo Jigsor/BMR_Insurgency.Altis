@@ -51,7 +51,7 @@ while {true} do
 		player groupchat format ["Dead men=%1 Groups=%2 Animals=%3", count alldeadmen, count allGroups, _animals];
 		player groupchat format ["%1 %2 @ %3", (name player), side player, position player];
 
-		for "_i" from 1 to _numDeadMarkers do {
+		for "_i" from 1 to _numDeadMarkers step 1 do {
 			_deadmarkname = format ["DeadMarker%1", _i];
 			if !(getMarkerType _deadmarkname isEqualTo "") then {
 				deleteMarkerLocal _deadmarkname;

@@ -26,7 +26,7 @@ if (_emptySeats > 0) then {
 	if (_grpSize > _emptySeats) then {_grpSize = _emptySeats};
 	if (_debug) then {hint format ["Seats Filled : %1",_grpSize]};
 
-	for "_x" from 1 to _grpSize do {
+	for "_x" from 1 to _grpSize step 1 do {
 		_unit=selectRandom _cargoPool;
 		_unit=_unit createUnit [GETPOS _veh, _grp];
 	};

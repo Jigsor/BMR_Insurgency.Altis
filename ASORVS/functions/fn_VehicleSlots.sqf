@@ -11,7 +11,7 @@ _getTurrets = {
 	_turrets = (_this select 0) >> "turrets";
 	if (isclass _turrets) then {
 		if (count _turrets > 0) then {
-			for "_t" from 0 to (count _turrets - 1) do {
+			for "_t" from 0 to (count _turrets - 1) step 1 do {
 				_turret = _turrets select _t;
 				if (isclass _turret) then {
 					_noGunner = (getNumber (_turrets >> "gunnerNotSpawned")) == 1;

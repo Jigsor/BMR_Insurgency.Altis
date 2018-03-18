@@ -111,7 +111,7 @@ if ((_this select 0) isEqualType "") then {
 			case 1: {
 				_d = 10; _l = true;
 				while {_l} do {
-					for "_i" from 0 to 350 do {
+					for "_i" from 0 to 350 step 1 do {
 						_p = [_pos,_i,_d] call _getpos;
 						if (!surfaceIsWater [_p select 0,_p select 1]) exitwith {_l = false};
 					};

@@ -433,7 +433,7 @@ air_debug_mkrs = {
 
 	_patrolWPmkrs = {
 		_wpMkrList = [];
-		for "_i" from 1 to (count (wayPoints _airhunter)) -1 do {
+		for "_i" from 1 to (count (wayPoints _airhunter)) -1 step 1 do {
 			_currWP = format["%1 WP%2", _airhunter, _i];
 			_WPmkr = createMarker [_currWP, getWPPos [_airhunter, _i]];
 			_WPmkr setMarkerText _currWP;

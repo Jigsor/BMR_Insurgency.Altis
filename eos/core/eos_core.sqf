@@ -69,7 +69,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	if !(getmarkercolor _mkr isEqualTo VictoryColor) then {_mkr setmarkerAlpha _mAH; RedHot = RedHot +1;};
 
 	// SPAWN HOUSE PATROLS
-	for "_counter" from 1 to _aGrps do {
+	for "_counter" from 1 to _aGrps step 1 do {
 		if (isnil "_aGrp") then {_aGrp=[]};
 		if (_cache) then {
 			_cacheGrp=format ["HP%1",_counter];
@@ -92,7 +92,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	};
 
 	// SPAWN PATROLS
-	for "_counter" from 1 to _bGrps do {
+	for "_counter" from 1 to _bGrps step 1 do {
 		if (isnil "_bGrp") then {_bGrp=[]};
 		if (_cache) then {
 			_cacheGrp=format ["PA%1",_counter];
@@ -113,7 +113,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	};
 
 	//SPAWN LIGHT VEHICLES
-	for "_counter" from 1 to _cGrps do {
+	for "_counter" from 1 to _cGrps step 1 do {
 		if (isnil "_cGrp") then {_cGrp=[]};
 
 		_newpos=[_mkr,50] call eos_fnc_findSafePos;
@@ -132,7 +132,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	};
 
 	//SPAWN ARMOURED VEHICLES
-	for "_counter" from 1 to _dGrps do {
+	for "_counter" from 1 to _dGrps step 1 do {
 		if (isnil "_dGrp") then {_dGrp=[]};
 
 		_newpos=[_mkr,50] call eos_fnc_findSafePos;
@@ -149,7 +149,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	};
 
 	//SPAWN STATIC PLACEMENTS
-	for "_counter" from 1 to _eGrps do {
+	for "_counter" from 1 to _eGrps step 1 do {
 		if (surfaceiswater _mPos) exitwith {};
 		if (isnil "_eGrp") then {_eGrp=[]};
 
@@ -163,7 +163,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	};
 
 	//SPAWN CHOPPER
-	for "_counter" from 1 to _fGrps do {
+	for "_counter" from 1 to _fGrps step 1 do {
 		if (isnil "_fGrp") then {_fGrp=[]};
 		if ((_fSize select 0) > 0) then {_vehType=4}else{_vehType=3};
 		_newpos = [(markerpos _mkr), 1500, random 360] call BIS_fnc_relPos;

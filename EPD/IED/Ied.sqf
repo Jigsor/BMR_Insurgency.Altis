@@ -28,7 +28,7 @@ _handleCounter = 0;
 _handles = [];
 
 safeRoads = [];
-for "_i" from 0 to (count safeZones) -1 do{
+for "_i" from 0 to (count safeZones) -1 step 1 do{
 	_found = false;
 	_name = safeZones select _i;
 	_origin = [0,0,0];
@@ -93,7 +93,7 @@ while{_paramCounter < count _paramArray} do {
 			_arrToLoop = locals;
 		};
 
-		for "_i" from 0 to (count _arrToLoop) -1 do{
+		for "_i" from 0 to (count _arrToLoop) -1 step 1 do{
 			_place = _arrToLoop select _i;
 			_origin = _place select 1;
 			_distance = _place select 2;

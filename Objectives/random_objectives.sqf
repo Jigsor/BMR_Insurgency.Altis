@@ -52,7 +52,7 @@ if ((_ins_debug) and (_newZone isEqualTo [])) exitWith {
 };
 
 // select random objective from list
-_objsel = objective_list select (floor(random (count objective_list)));
+_objsel = selectRandom objective_list;
 
 // uncomment the following lines one at a time to test individual missions
 //_objsel = objective_list select 0;// test "comms_tower"

@@ -35,28 +35,25 @@ Required mods: @CBA_A3;@Operation_TREBUCHET
 BMR_Insurgency_v1_47_RHS.Tanoa
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_47_ACE.Tanoa
-Required mods: @CBA_A3;@ACE3
-
-BMR_Insurgency_v1_47.Takistan
+BMR_Insurgency_v1_48.Takistan
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
 BMR_Insurgency_v1_47_RHS.Takistan
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_47.Sara
+BMR_Insurgency_v1_48.Sara
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
-BMR_Insurgency_v1_47.Zargabad
+BMR_Insurgency_v1_48.Zargabad
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
-BMR_Insurgency_v1_47.Bornholm
+BMR_Insurgency_v1_48.Bornholm
 Required mods: @Bornholm
 
-BMR_Insurgency_v1_47.Kunduz
+BMR_Insurgency_v1_48.Kunduz
 Required mods: @Kunduz_Afghanistan or @prkz
 
-BMR_Insurgency_v1_47.DYA
+BMR_Insurgency_v1_48.DYA
 Required mods: @CUP_Terrains_Core;@Diyala_Map
 
 BMR_Insurgency_v1_47.pja310
@@ -86,13 +83,13 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Napf_Island_A3
 BMR_Insurgency_v1_47.napfwinter
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Napf_Island_A3
 
-BMR_Insurgency_v1_47.Mog
+BMR_Insurgency_v1_48.Mog
 Required mods: @CUP_Terrains_Core;@Mogadishu;@MBG Buildings African Generic (Arma2 Legacy)
 
 BMR_Insurgency_v1_47_RHS.Mog
 Required mods: @CUP_Terrains_Core;@Mogadishu;@MBG Buildings African Generic (Arma2 Legacy);@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_47.clafghan
+BMR_Insurgency_v1_48.clafghan
 Required mods: @CUP_Terrains_Core;@CLA_CLAFGHAN
 
 BMR_Insurgency_v1_47.Kapaulio
@@ -107,13 +104,13 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Dingor_Island_v3.82
 BMR_Insurgency_v1_47_OPTRE.lingor3
 Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.82;@Operation_TREBUCHET
 
-BMR_Insurgency_v1_47_IFA3.Staszow
+BMR_Insurgency_v1_48_IFA3.Staszow
 Required mods: @CUP_Terrains_Core;@IFA3_AIO_LITE
 
-BMR_Insurgency_v1_47.lythium
+BMR_Insurgency_v1_48.lythium
 Required mods: @Jbad;@LYTHIUM
 
-BMR_Insurgency_v1_47_FFAA.lythium
+BMR_Insurgency_v1_48_FFAA.lythium
 Required mods: @Jbad;@LYTHIUM;@FFAA_MOD
 
 Optional additional supported mod combinations:
@@ -163,12 +160,11 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-3/15/2018
-BMR_Insurgency_v1.48_beta
-Added: Dust Storm script. If left on by admin, it will turn off when no players on server or rain kicks in using one of the weather scripts.
+3/16/2018
+BMR_Insurgency_v1.48
+Added: Dust Storm script. If left on by admin, it will auto terminate when no players on server or if Random or Real Weather is enabled and it starts to rain.
 Added: Admin briefing section with text buttons for Zeus assign and unassign with public or private notice, Global Brighter Nights toggle, Filp Vehicle, High/low speed Dust Storms on-off toggle, local Vehicle Reward and manual mission progression save.
     Admin must login and wait up to 1 minute before panel appears. Panel will remain available until admin goes back to lobby even after logout. (Useful for multiple admins).
-Added: Dust Storm will auto terminate if enabled when Random or Real Weather is enabled and it starts to rain.
 Added: Reassigning damage event handlers to AI on locality changed when unassigning Zeus from yourself.
 Added: Non owner work around for entering driver and turrets in DLC vehicles.(Currently only affects English A3 versioned owners).
 Added: Temporary fix for broken door actions Kunduz.(can be removed if terrain gets updated and fixed)+(Non owner DLC bypass for vehicles not used with Kunduz because inGameUISetEventHandler is not stackable).
@@ -182,9 +178,10 @@ Added: 2 headless Clients supported out of the box by default instead of 1.
 Added: HQ side chat message who revived who.
 Added: Lobby option for full Arsenal or custom white listed Arsenal. Customizations by class names can be edited in INSfncs\common\fn_BluforVA.sqf and fn_InsurgentVA.sqf. If Whitelisted Arsenal is used then VA Quick Profile and save/load presets will not be available.
 Added: Chance clause (1 of 3) suicide bomber spawns on ground if near building not found.
-Added: Support for new NH90 heli from FFAA as MHQ_3.
+Added: Support for new NH90 heli from FFAA mod as MHQ_3.
 Added: Workaround for rare occurrence that players may not be able to see chat messages after respawn.
 Added: Units created by Zeus from Independent or East factions will trigger zone occupation by setting their side to the Major Army/Faction's side.
+Change: Opfor MHQ switched from medical truck to narmed Quilin. Bluefor MHQ_1 switched to unarmed Prowler. Ownership of Apex DLC is not required to drive Quilin/Prowler for englished version game. This vehicle can be changed to any type.
 Change: Increased delay loop for suicide bomber and now bomber can no longer spawn in same building as target.
 Change: VA quick profile loadout action list on MHQs extended from 15 to 20 seconds.
 Change: Shortening enemy group spawn delay on Capture N Hold objective depending on defender count size and server fps for higher intensity.
@@ -230,8 +227,8 @@ Fixed: After using HuntIR, any other existing display event handlers were delete
 Fixed: Cut Rope on ATM Halo drop works repeatably and chute will auto open if drop height is altered.
 Fixed: Freezing occured when recruited AI HALO.
 Fixed: Ai Damage multiplier was applied unnecessarily when no modification (Default) option was selected in lobby.
-Fixed: Opfor players could green activated grid zones when no Insurgents present.
-Fixed: Errors relating to Opfor respawn position and changed behavior of "BASE" respawn menu choice. Now it will put player next to MHQ if no blufor players are available to spawn near instead of map center. Previously this only occurred if BTC revive was disabled but MHQ system was enabled.
+Fixed: Opfor players could green activated grid zones when Insurgents not present in zones.
+Fixed: Errors relating to Opfor player respawn position and changed behavior of "BASE" respawn menu choice. Now it will put player next to MHQ if no blufor players are available to spawn near or clear space not available instead of map center. Previously this only occurred if BTC revive was disabled but MHQ system was enabled.
 
 Changes below were hot fixed in current v1.47 dropbox link.
 10/16/2017
@@ -289,7 +286,6 @@ Fixed: Vehicle Reward was not issued to nearest blufor player to ammo cache when
 Fixed: Repair pad triggers were modifying player loadouts.
 Fixed: Missing player classes from EOD specialists. (A3 recon and OPTRE types).
 Fixed: Lobby parameter "AI accuracy on non EOS units" did not properly apply desired value.
-Change: Experimenting with alternative method to add actions to intel for JIP players to resolve issue of JIP players sometimes cannot pickup intel.
 Change: Lobby parameter "Environment effects (ambient life + sound)" supports disabling ambient life/animals seperately or including ambient sound.
 Change: Some remote execution from old BIS_fnc_MP to newer remoteExec. Improved JIP loading.
 Change: Moved blufor base to AAC Air field (Altis version).

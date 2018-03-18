@@ -7,7 +7,7 @@ Array - center position
 */
 params [["_objs",[ObjNull],[[]]], ["_anchorPos",[0,0,0],[[]]]];
 private _return = [];
-for "_i" from 0 to ((count _objs) - 1) do {
+for "_i" from 0 to ((count _objs) - 1) step 1 do {
 	private ["_obj","_objPos","_dX","_dY","_z","_dir"];
 	_obj = _objs select _i;
 	//_objPos = getPosWorld _obj;

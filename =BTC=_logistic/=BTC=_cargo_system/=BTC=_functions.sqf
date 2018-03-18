@@ -156,13 +156,13 @@ BTC_get_cc = {
 	_obj = _this select 0;
 	_type = typeOf _obj;
 	_cc	= 0;_cond = false;
-	for "_i" from 0 to (count BTC_def_cc - 1) do {
+	for "_i" from 0 to (count BTC_def_cc - 1) step 1 do {
 		if ((BTC_def_cc select _i) isEqualType "" && !_cond) then {
 			if (!_cond && _type isEqualTo (BTC_def_cc select _i)) then {_cc = (BTC_def_cc select (_i + 1));_cond = true;};
 		};
 	};
 	if (!_cond) then {
-		for "_i" from 0 to (count BTC_main_cc - 1) do {
+		for "_i" from 0 to (count BTC_main_cc - 1) step 1 do {
 			if ((BTC_main_cc select _i) isEqualType "") then {
 				if (!_cond && _type isKindOf (BTC_main_cc select _i)) then {_cc = (BTC_main_cc select (_i + 1));_cond = true;};
 			};
