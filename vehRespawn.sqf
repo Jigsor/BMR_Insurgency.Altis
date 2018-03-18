@@ -36,7 +36,7 @@ if (isServer) then {
 		if ((alive _veh) && {canMove _veh} && {{alive _x} count crew _veh isEqualTo 0}) then {
 			_abandoned = true;
 
-			for "_i" from 0 to _abandonDelay do {
+			for "_i" from 0 to _abandonDelay step 1 do {
 				if (({alive _x} count (crew _veh) > 0) || (!alive _veh) || (!canMove _veh)) exitWith {_abandoned = false;};
 				sleep 1;
 			};
@@ -53,13 +53,14 @@ if (isServer) then {
 					publicVariable _vehName;
 				};
 				_veh call _vehInit;
+				_veh setdamage 0;
 			};
 		};
 
 		if ((!alive _veh) || (!canMove _veh)) then {
 			_dead = true;
 
-			for "_i" from 0 to _deadDelay do {
+			for "_i" from 0 to _deadDelay step 1 do {
 				if (({alive _x} count (crew _veh) > 0) || (canMove _veh)) exitWith {_dead = false;};
 				uiSleep 1;
 			};
@@ -76,6 +77,7 @@ if (isServer) then {
 					publicVariable _vehName;
 				};
 				_veh call _vehInit;
+				_veh setdamage 0;
 			};
 		};
 	};

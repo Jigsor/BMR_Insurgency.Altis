@@ -23,7 +23,7 @@ Required mods: None
 BMR_Insurgency_v1_48.Tanoa
 Required mods: None
 
-BMR_Insurgency_v1_47_RHS.Malden
+BMR_Insurgency_v1_48_RHS.Malden
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_47_RHS.Altis
@@ -56,44 +56,44 @@ Required mods: @Kunduz_Afghanistan or @prkz
 BMR_Insurgency_v1_48.DYA
 Required mods: @CUP_Terrains_Core;@Diyala_Map
 
-BMR_Insurgency_v1_47.pja310
+BMR_Insurgency_v1_48.pja310
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_Al_Rayak
 
-BMR_Insurgency_v1_47.pja305
+BMR_Insurgency_v1_48.pja305
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_N'ziwasogo
 
 BMR_Insurgency_v1_47_RHS.pja305
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_N'ziwasogo;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_47.Fata
+BMR_Insurgency_v1_48.Fata
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@fata_a3
 
-BMR_Insurgency_v1_47.fallujah
+BMR_Insurgency_v1_48.fallujah
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@fallujah1_2
 
-BMR_Insurgency_v1_47_CUP.fallujah
+BMR_Insurgency_v1_48_CUP.fallujah
 Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@fallujah1_2;@cup_units;@cup_weapons;@cup_vehicles
 
 BMR_Insurgency_v1_47.xcam_taunus
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@X-Cam-Taunus
 
-BMR_Insurgency_v1_47.Napf
+BMR_Insurgency_v1_48.Napf
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Napf_Island_A3
 
-BMR_Insurgency_v1_47.napfwinter
+BMR_Insurgency_v1_48.napfwinter
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Napf_Island_A3
 
 BMR_Insurgency_v1_48.Mog
 Required mods: @CUP_Terrains_Core;@Mogadishu;@MBG Buildings African Generic (Arma2 Legacy)
 
-BMR_Insurgency_v1_47_RHS.Mog
+BMR_Insurgency_v1_48_RHS.Mog
 Required mods: @CUP_Terrains_Core;@Mogadishu;@MBG Buildings African Generic (Arma2 Legacy);@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_48.clafghan
 Required mods: @CUP_Terrains_Core;@CLA_CLAFGHAN
 
-BMR_Insurgency_v1_47.Kapaulio
-Required mods: @CUP_Terrains_Core;@Saint_Kapaulio_v1_04
+BMR_Insurgency_v1_48.Kapaulio
+Required mods: @CUP_Terrains_Core;@Saint_Kapaulio_v1_09
 
 BMR_Insurgency_v1_47.lingor3
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Dingor_Island_v3.82

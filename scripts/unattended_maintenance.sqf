@@ -2,7 +2,10 @@
 
 if (!isServer) exitWith {};
 waitUntil {time > 1};
-sleep 128;
+//sleep 128;
+sleep 20;
+{_x setDamage 0} forEach (allMissionObjects "I_Heli_Transport_02_F"), (allMissionObjects "I_Heli_light_03_dynamicLoadout_F");// Worl around for new bug since A3 1.78 - these helis incur damage at mission start and after recreated... wtf
+sleep 108;
 
 private _deacDelay = ((DeAct_Gzone_delay * 60) + 120);
 private _czPosArrys = [];
