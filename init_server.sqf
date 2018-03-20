@@ -32,18 +32,13 @@ if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {
 ["Initialize", [true]] call BIS_fnc_dynamicGroups;
 
 // PublicVariable EventHandlers //
-if (isNil "ghst_Build_objs") then {ghst_Build_objs = []};
-if (isNil "intel_Build_objs") then {intel_Build_objs = []};
-if (isNil "activated_cache_pos") then {activated_cache_pos = []};
-if (isNil "paddscore") then {paddscore = 0};
-
 "BTC_to_server" addPublicVariableEventHandler BTC_m_fnc_only_server;
 "ghst_Build_objs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "activated_cache_pos" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
-"paddscore" addPublicVariableEventHandler {_data = _this select 1; (_data select 0) addScore (_data select 1);};
-"PVEH_netSay3D" addPublicVariableEventHandler {private _array = _this select 1; (_array select 0) say3D (_array select 1)};
 "side_mission_mkrs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "objective_list" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
+"paddscore" addPublicVariableEventHandler {_data = _this select 1; (_data select 0) addScore (_data select 1);};
+"PVEH_netSay3D" addPublicVariableEventHandler {private _array = _this select 1; (_array select 0) say3D (_array select 1)};
 if (INS_GasGrenadeMod isEqualTo 1) then {"ToxicGasLoc" addPublicVariableEventHandler {(_this select 1) spawn GAS_smoke_AIdamage}};
 
 // Mission EventHandlers //

@@ -26,19 +26,19 @@ Required mods: None
 BMR_Insurgency_v1_48_RHS.Malden
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_47_RHS.Altis
+BMR_Insurgency_v1_48_RHS.Altis
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_47_OPTRE.Altis
 Required mods: @CBA_A3;@Operation_TREBUCHET
 
-BMR_Insurgency_v1_47_RHS.Tanoa
+BMR_Insurgency_v1_48_RHS.Tanoa
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_48.Takistan
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
-BMR_Insurgency_v1_47_RHS.Takistan
+BMR_Insurgency_v1_48_RHS.Takistan
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_48.Sara
@@ -62,7 +62,7 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_Al_Rayak
 BMR_Insurgency_v1_48.pja305
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_N'ziwasogo
 
-BMR_Insurgency_v1_47_RHS.pja305
+BMR_Insurgency_v1_48_RHS.pja305
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_N'ziwasogo;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
 BMR_Insurgency_v1_48.Fata
@@ -74,7 +74,7 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@fallujah1_2
 BMR_Insurgency_v1_48_CUP.fallujah
 Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@fallujah1_2;@cup_units;@cup_weapons;@cup_vehicles
 
-BMR_Insurgency_v1_47.xcam_taunus
+BMR_Insurgency_v1_48.xcam_taunus
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@X-Cam-Taunus
 
 BMR_Insurgency_v1_48.Napf
@@ -160,7 +160,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-3/16/2018
+3/19/2018
 BMR_Insurgency_v1.48
 Added: Dust Storm script. If left on by admin, it will auto terminate when no players on server or if Random or Real Weather is enabled and it starts to rain.
 Added: Admin briefing section with text buttons for Zeus assign and unassign with public or private notice, Global Brighter Nights toggle, Filp Vehicle, High/low speed Dust Storms on-off toggle, local Vehicle Reward and manual mission progression save.
@@ -199,6 +199,7 @@ Change: Only affects ACE_3 moded machines: Disabled ACE Cook Off on Ammo Cache s
 Change: Op4 MHQ/weapon crate deployment now maintains relative direction and placement spacing as set in editor and is marked with Arsenal marker when deployed.
 Change: AI recruitment and Heli Extract is denied if player is not in a group lead position registered by group manager.
 Change: Vehicle abandonment timers increased before respawn for vehicles originating from base.
+Fixed: Sniper's bullet cam will no longer activate if planting explosives or throwing grenades and chemlights etc.
 Fixed: Enemy AI faction combinations of East mixed with Independent are now grouped with the major faction's side, meaning both factions always trigger zone occupation for AI spawned by EOS.
 Fixed: Hold timer discrepancy between players affecting Capture N Hold objective. Everyone's now sees same time on countdown timer.
 Fixed: AI recruits are deleted when player disconnects if player's former group leader is not inherited by another player or if group abandoned with no lead player.

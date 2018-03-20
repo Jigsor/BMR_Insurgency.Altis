@@ -60,7 +60,7 @@ INS_intro = {
 	enableRadio true;
 	if (INS_mod_missing) then {[] spawn INS_missing_mods};
 	if (JIG_DustStorm) then {[] spawn JIG_Dust_Storm};
-	if (INS_full_loadout isEqualTo 0) then {player sideChat "Reload Magazine to Save Kit"};
+	if (INS_full_loadout isEqualTo 0) then {player sideChat localize "STR_BMR_Reload_toSave_Kit"};
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
@@ -598,19 +598,20 @@ INS_bullet_cam = {
 	// add bullet cam
 	//http://killzonekid.com/arma-scripting-tutorials-a-simple-bullet-cam/
 	player addEventHandler ["FiredMan", {
-		_null = _this spawn {
-			_missile = _this select 6;
-			_cam = "camera" camCreate (position player);
-			_cam cameraEffect ["External", "BACK"];
-			waitUntil {
-				if (isNull _missile) exitWith {true};
-				_cam camSetTarget _missile;
-				_cam camSetRelPos [0,-3,0];
-				_cam camCommit 0;
+		if !((_this select 1) in ["Throw","Put"]) then {
+			0 = (_this select 6) spawn {
+				_cam = "camera" camCreate (position player);
+				_cam cameraEffect ["External", "BACK"];
+				waitUntil {
+					if (isNull _this) exitWith {true};
+					_cam camSetTarget _this;
+					_cam camSetRelPos [0,-3,0];
+					_cam camCommit 0;
+				};
+				sleep 0.4;
+				_cam cameraEffect ["Terminate", "BACK"];
+				camDestroy _cam;
 			};
-			sleep 0.4;
-			_cam cameraEffect ["Terminate", "BACK"];
-			camDestroy _cam;
 		};
 	}];
 	(_this select 1) removeAction (_this select 2);

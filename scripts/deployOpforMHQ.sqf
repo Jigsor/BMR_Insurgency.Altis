@@ -29,6 +29,9 @@ waitUntil {animationState _caller != "AinvPknlMstpSnonWnonDnon_medicUp0"};
 _dir = round(direction _caller);
 [_newPos,_dir,_data] call BMRINS_fnc_objectMapper;
 
+/*
+//Create Arsenal marker at crates' deployment position
+//Disabled for now because it does not always hide the marker from blufor. Don't know why..
 waitUntil {sleep 0.2; !(_curWepsPos isEqualTo getPosWorld INS_weps_Cbox)};
 if !(getMarkerColor "OpforWeapons" isEqualTo "") then {deleteMarker "OpforWeapons"};
 private _mark = (localize "STR_A3_Arsenal");
@@ -39,3 +42,4 @@ _op4MHQ setMarkerColor "ColorRed";
 _op4MHQ setMarkerText _mark;
 _op4MHQ setMarkerSize [0.5, 0.5];
 [[_op4MHQ],west] remoteExec ["Hide_Mkr_fnc", [0,-2] select isDedicated, "OP4weps_JIP_ID"];
+*/

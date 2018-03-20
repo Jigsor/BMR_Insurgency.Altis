@@ -600,6 +600,14 @@
 <Russian>Неправильные боеприпасы для HuntIR</Russian>
 <Spanish>Munición incorrecto para HuntIR</Spanish>
 </Key>
+<Key ID="STR_BMR_Reload_toSave_Kit">
+<Original>Reload Magazine to Save Loadout</Original>
+<English>Reload Magazine to Save Loadout</English>
+<German>Waffe aufladen wird Inventar sparen</German>
+<French>Rechargement d'arme pour sauver l'insecte</French>
+<Russian>Перезарядка оружия позволит сохранить инвентарь</Russian>
+<Spanish>Recargar la Cargador para guardar el inventario</Spanish>
+</Key>
 <Key ID="STR_BMR_missing_map">
 <Original>Missing map item!</Original>
 <English>Missing map item!</English>
@@ -1239,6 +1247,14 @@
 <French>Définir l'heure de début:</French>
 <Russian>Установить время начала:</Russian>
 <Spanish>Establezca la hora de inicio</Spanish>
+</Key>
+<Key ID="STR_BMR_veh_menu_tip">
+<Original>Click Upper Left Vehicle Icon to Open Complete Vehicle List or Exit to Postpone</Original>
+<English>Click Upper Left Vehicle Icon to Open Complete Vehicle List or Exit to Postpone</English>
+<German>Klicken Sie auf das obere linke Fahrzeugsymbol, um die vollständige Fahrzeugliste zu öffnen</German>
+<French>Cliquez sur l'icône du véhicule supérieur gauche pour ouvrir la liste complète des véhicules ou quitter pour Remettre à plus tard</French>
+<Russian>Нажмите на верхний левый значок автомобиля, чтобы открыть полный список автомобилей.</Russian>
+<Spanish>Haga clic en el icono del vehículo en la esquina superior izquierda de la pantalla para abrir la lista completa de vehículos o salir para posponer.</Spanish>
 </Key>
 </Container>
 </Project>

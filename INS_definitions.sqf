@@ -256,6 +256,10 @@ if (isServer) then {
 		};
 	}; publicVariable "Airfield_opt";
 
+	paddscore = 0;
+	intel_Build_objs = [];
+	ghst_Build_objs = [];
+	activated_cache_pos = [];
 	//INSreqGameVer = productVersion;publicVariable "INSreqGameVer";
 	ToxicGasLoc = [];publicVariable "ToxicGasLoc";
 	all_intel_mkrs = [];publicVariable "all_intel_mkrs";

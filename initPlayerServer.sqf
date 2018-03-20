@@ -9,6 +9,10 @@ _hcEntities = entities "HeadlessClient_F";
 //[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 //[_text] remoteExec ["JIG_MPsideChatEast_fnc", [0,-2] select isDedicated];
 
+if (_player in _hcEntities) then {
+	waitUntil {!isNil "all_eos_mkrs"};
+	[all_eos_mkrs] remoteExec ["BMRINS_fnc_HC_allEOSmkrs",_player];
+};
 if !(_player in _hcEntities) then {
 
 	waitUntil {!isNil "INS_play_op4"};
@@ -50,8 +54,4 @@ if !(_player in _hcEntities) then {
 			[] remoteExec ["Terminal_acction_MPfnc", _player, false];
 		};
 	};
-
-} else {
-	waitUntil {!isNil "all_eos_mkrs"};
-	[all_eos_mkrs] remoteExec ["BMRINS_fnc_HC_allEOSmkrs",_player];
 };

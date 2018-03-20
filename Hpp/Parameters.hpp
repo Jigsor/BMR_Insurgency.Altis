@@ -129,7 +129,7 @@ class Params
 	title = "		Enemy Infantry Probability";
 	values[]={25,50,75,100};
 	texts[]={"25 % chance","50 % chance","75 % chance","100 % chance"};
-	default = 75;
+	default = 50;
 	};
 	class MecArmPb//14
 	{
@@ -150,7 +150,7 @@ class Params
 	title = "		Maximum Simultaneous Activated Zone Limit";
 	values[]={10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,150,300,1000};
 	texts[]={"10","15","20","25","30","35","40","45","50","55","60","65","70","75","80","85","90","95","100","150","300","1000"};
-	default = 30;
+	default = 35;
 	};
 	class DeAct_Gzone_delay//17
 	{
