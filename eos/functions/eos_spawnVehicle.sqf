@@ -36,7 +36,7 @@ _grp = createGroup _side;
 	};
 }foreach _vehPositions;
 
-if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc} forEach [_vehicle], _vehCrew;
+if (INS_op_faction isEqualTo 16) then {[_vehicle] call Trade_Biofoam_fnc};
 
 _return=[_vehicle,_vehCrew,_grp];
 

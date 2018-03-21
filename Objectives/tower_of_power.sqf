@@ -37,7 +37,7 @@ sleep jig_tvt_globalsleep;
 
 if (_roadNear) then {_tower setDir _roadDir - 90;};
 _tower setVectorUp [0,0,1];
-_tower addeventhandler ["handledamage",{_this call JIG_tower_damage}];
+_tower addeventhandler ["HandleDamage",{_this call JIG_tower_damage}];
 _VarName = "PowerTower1";
 _tower setVehicleVarName _VarName;
 _tower Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];

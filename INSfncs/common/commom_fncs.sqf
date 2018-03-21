@@ -188,17 +188,6 @@ fnc_mp_intel = {
 	params ["_intelobj","_cachepos"];
 	if (!isNull _intelobj) then {
 		_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", "call JIG_intel_found", _cachepos, 6];
-		intel_objArray pushBack _intelobj;
-	};
-	if (ObjNull in intel_objArray) then {{intel_objArray = intel_objArray - [objNull]} foreach intel_objArray;};
-	publicVariable "intel_objArray";
-	true
-};
-fnc_jip_mp_intel = {
-	// JIP Intel addaction. by Jigsor
-	params ["_intelobj","_cachepos"];
-	if (!isNull _intelobj) then {
-		_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", "call JIG_intel_found", _cachepos, 6];
 	};
 	true
 };

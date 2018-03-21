@@ -12,13 +12,13 @@ _skillset = server getvariable (_this select 1);
 	//if (EOS_KILLCOUNTER) then {_unit addEventHandler ["killed", "null=[] execVM 'eos\functions\EOS_KillCounter.sqf'"]};
 
 	//Jig adding
-	if (side _unit == east) then {
+	if (side _unit isEqualTo east) then {
 		_unit unlinkitem (hmd _unit);
 		if ((_this select 2) in eosFacNVG) then {
 			_unit linkItem "NVGoggles_OPFOR";
 		};
 	}else{
-		if (side _unit == resistance) then {
+		if (side _unit isEqualTo resistance) then {
 			_unit unlinkitem (hmd _unit);
 			if ((_this select 2) in eosFacNVG) then {
 				_unit linkItem "NVGoggles_INDEP";
@@ -28,7 +28,7 @@ _skillset = server getvariable (_this select 1);
 	_unit addPrimaryWeaponItem "acc_flashlight";
 	_unit enableGunLights "forceOn";//"AUTO"
 	_unit addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-	if (Fatigue_ability isEqualTo 0) then {_unit enableStamina false;};
+	if (Fatigue_ability isEqualTo 0) then {_unit enableStamina false};
 	if (INS_op_faction isEqualTo 16) then {[_unit] call Trade_Biofoam_fnc};
 
 } forEach (units _grp);

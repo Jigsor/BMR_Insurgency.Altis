@@ -12,10 +12,10 @@ if ((count BTC_lift_pilot) > 0) then {
 };
 if !(_cond) exitWith {hint "No lift";};
 if (BTC_def_hud == 1) then {
-	BTC_arrow_up   = "=BTC=_Logistic\=BTC=_Lift\img\arrow_up_ca.paa";
-	BTC_arrow_down = "=BTC=_Logistic\=BTC=_Lift\img\arrow_down_ca.paa";
-	BTC_complete   = "=BTC=_Logistic\=BTC=_Lift\img\objective_complete_ca.paa";
-	BTC_incomplete = "=BTC=_Logistic\=BTC=_Lift\img\objective_incomplete_ca.paa";
+	BTC_arrow_up   = "=BTC=_Logistic\=BTC=_lift\Img\arrow_up_ca.paa";
+	BTC_arrow_down = "=BTC=_Logistic\=BTC=_lift\Img\arrow_down_ca.paa";
+	BTC_complete   = "=BTC=_Logistic\=BTC=_lift\Img\objective_complete_ca.paa";
+	BTC_incomplete = "=BTC=_Logistic\=BTC=_lift\Img\objective_incomplete_ca.paa";
 };
 BTC_cargo = ObjNull;
 //Functions

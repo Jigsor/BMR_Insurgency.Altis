@@ -36,8 +36,9 @@ private _cache_loop = [] spawn
 				if (!isNull _x) then {deleteVehicle _x; sleep 0.1};
 			} count intel_Build_objs;
 			intel_Build_objs = intel_Build_objs - intel_Build_objs;// empty array
-			publicVariableServer "intel_Build_objs"; sleep 1;
+			sleep 1;			
 		};
+		publicVariableServer "intel_Build_objs"; sleep 3;
 
 		{_x setMarkerAlpha 0; sleep 0.01} count all_intel_mkrs;
 		{deleteMarker _x; sleep 0.1} count all_intel_mkrs;
@@ -63,7 +64,7 @@ private _cache_loop = [] spawn
 		_ammocache = createVehicle [_objtype , position air_pat_pos, [], 0, "NONE"];
 		sleep jig_tvt_globalsleep;
 
-		_ammocache addeventhandler ["handledamage",{_this call JIG_ammmoCache_damage}];
+		_ammocache addeventhandler ["HandleDamage",{_this call JIG_ammmoCache_damage}];
 
 		_ammocache setVariable["persistent",true];
 		_ammocache setVariable ["BTC_cannot_lift",1,true];

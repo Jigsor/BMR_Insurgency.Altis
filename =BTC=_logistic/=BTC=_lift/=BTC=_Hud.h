@@ -13,15 +13,15 @@ class BTC_Hud
 			type = 0;
 			idc = 1001;
 			style = 48;
-			x = (SafeZoneW+2*SafeZoneX) - 0.3;//safezonex + 0.1;//0.9//- 0.1
-			y = (SafeZoneH+2*SafeZoneY) - 0.15;//safezoney + 0.1;//0.85
+			x = (SafeZoneW+2*SafeZoneX) - 0.3;
+			y = (SafeZoneH+2*SafeZoneY) - 0.15;
 			w = 0.3;
 			h = 0.4;
 			font = "PuristaMedium";
 			sizeEx = 0.03;
 			colorBackground[] = {0, 0, 0, 0};
 			colorText[] = {1, 1, 1, 1};
-			text = "=BTC=_Logistic\=BTC=_Lift\img\igui_radar_air_ca.paa";
+			text = "=BTC=_logistic\=BTC=_lift\Img\igui_radar_air_ca.paa";
 		};
 		class Img_Obj {
 			type = 0;
@@ -35,7 +35,7 @@ class BTC_Hud
 			sizeEx = 0.04;
 			colorBackground[] = {0, 0, 0, 0};
 			colorText[] = {1, 1, 1, 1};
-			text = "=BTC=_Logistic\=BTC=_Lift\img\=BTC=_Obj.paa";
+			text = "=BTC=_logistic\=BTC=_lift\Img\=BTC=_Obj.paa";
 		};
 		class Pic_Obj {
 			type = 0;

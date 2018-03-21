@@ -46,7 +46,7 @@ if !(_player in _hcEntities) then {
 			_update = true;
 		};
 	};
-	{_intel = _x; [_intel,current_cache_pos] remoteExec ["fnc_jip_mp_intel",_player];} forEach intel_Build_objs;
+	{_intel = _x; [_intel,current_cache_pos] remoteExec ["fnc_mp_intel",_player];} forEach intel_Build_objs;
 	if (_update) then {publicVariableServer "intel_Build_objs";};
 
 	if (!isNil {missionNamespace getVariable "Land_DataTerminal_Obj"}) then {

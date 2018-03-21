@@ -29,7 +29,7 @@ _tower = createVehicle [_type, _newZone, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 
 _tower setVectorUp [0,0,1];
-_tower addeventhandler ["handledamage",{_this call JIG_tower_damage}];
+_tower addeventhandler ["HandleDamage",{_this call JIG_tower_damage}];
 _VarName = "RadioTower1";
 _tower setVehicleVarName _VarName;
 _tower Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];

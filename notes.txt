@@ -29,7 +29,7 @@ Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 BMR_Insurgency_v1_48_RHS.Altis
 Required mods: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF
 
-BMR_Insurgency_v1_47_OPTRE.Altis
+BMR_Insurgency_v1_48_OPTRE.Altis
 Required mods: @CBA_A3;@Operation_TREBUCHET
 
 BMR_Insurgency_v1_48_RHS.Tanoa
@@ -95,13 +95,13 @@ Required mods: @CUP_Terrains_Core;@CLA_CLAFGHAN
 BMR_Insurgency_v1_48.Kapaulio
 Required mods: @CUP_Terrains_Core;@Saint_Kapaulio_v1_09
 
-BMR_Insurgency_v1_47.lingor3
+BMR_Insurgency_v1_48.lingor3
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Dingor_Island_v3.82
 
-BMR_Insurgency_v1_47.dingor
+BMR_Insurgency_v1_48.dingor
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Dingor_Island_v3.82
 
-BMR_Insurgency_v1_47_OPTRE.lingor3
+BMR_Insurgency_v1_48_OPTRE.lingor3
 Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@Lingor_Island_v3.82;@Operation_TREBUCHET
 
 BMR_Insurgency_v1_48_IFA3.Staszow
@@ -160,7 +160,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	To Change brigthness if Brighter Nights is enabled then this command may be required after changing time.
 			Toggle Brighter Nights in new Brefing Admin Panel (requires admin login for access).
 
-3/19/2018
+3/21/2018
 BMR_Insurgency_v1.48
 Added: Dust Storm script. If left on by admin, it will auto terminate when no players on server or if Random or Real Weather is enabled and it starts to rain.
 Added: Admin briefing section with text buttons for Zeus assign and unassign with public or private notice, Global Brighter Nights toggle, Filp Vehicle, High/low speed Dust Storms on-off toggle, local Vehicle Reward and manual mission progression save.
@@ -196,7 +196,7 @@ Change: Only heli MHQ_3 has Load Cargo action applied instead of all helis for u
 Change: Added StructureBlacklist, a few more zone markers and relocated some zone markers to reflect Mogadishu terrain update of Dec. 2017.
 Change: Removed ability to place/reposition/hide intel with BTC logistics actions.
 Change: Only affects ACE_3 moded machines: Disabled ACE Cook Off on Ammo Cache since cache has its own cook off effects and server can issue reward before destroyer wanders off to far to measure. Nearest alive/concious player detection for reward issue increased from 100 to 200 meters from cache./Needs testing feedback.
-Change: Op4 MHQ/weapon crate deployment now maintains relative direction and placement spacing as set in editor and is marked with Arsenal marker when deployed.
+Change: Op4 MHQ/weapon crate deployment now maintains relative direction and placement spacing as set in editor.
 Change: AI recruitment and Heli Extract is denied if player is not in a group lead position registered by group manager.
 Change: Vehicle abandonment timers increased before respawn for vehicles originating from base.
 Fixed: Sniper's bullet cam will no longer activate if planting explosives or throwing grenades and chemlights etc.

@@ -129,7 +129,7 @@ class Params
 	title = "		Enemy Infantry Probability";
 	values[]={25,50,75,100};
 	texts[]={"25 % chance","50 % chance","75 % chance","100 % chance"};
-	default = 50;
+	default = 75;
 	};
 	class MecArmPb//14
 	{

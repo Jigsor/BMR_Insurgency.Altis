@@ -263,7 +263,6 @@ if (isServer) then {
 	//INSreqGameVer = productVersion;publicVariable "INSreqGameVer";
 	ToxicGasLoc = [];publicVariable "ToxicGasLoc";
 	all_intel_mkrs = [];publicVariable "all_intel_mkrs";
-	intel_objArray = [];publicVariable "intel_objArray";
 	PVEH_NetSay3D = [objNull,0];publicVariable "PVEH_NetSay3D";
 	BTC_to_server = [];publicVariable "BTC_to_server";
 	BTC_tk_PVEH = [];publicVariable "BTC_tk_PVEH";
