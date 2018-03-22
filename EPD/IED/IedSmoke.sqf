@@ -3,7 +3,7 @@ _loc = _this select 0;
 _aslLoc = [_loc select 0, _loc select 1, getTerrainHeightASL [_loc select 0, _loc select 1]];
 _numPlumes = 20 + floor random 10;
 
-for "_i" from 0 to _numPlumes -1 do{
+for "_i" from 0 to _numPlumes -1 step 1 do{
 	_r = floor random 3;
 	switch(_r) do
 	{

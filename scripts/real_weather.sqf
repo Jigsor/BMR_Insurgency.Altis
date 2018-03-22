@@ -2,7 +2,7 @@
 Author: code34 nicolas_boiteux@yahoo.fr
 Copyright (C) 2013 Nicolas BOITEUX
 
-Real weather for MP GAMES v 1.3 
+Real weather for MP GAMES v 1.3
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -52,26 +52,19 @@ _startingdate = [2013, 09, 25, INS_p_time, 00];
 // Mission starting weather "CLEAR|CLOUDY|RAIN";
 _startingweather = "CLEAR";
 
-/////////////////////////////////////////////////////////////////
+/////////////////////
 // Do not edit below
-/////////////////////////////////////////////////////////////////
+/////////////////////
 
 if(_mintime > _maxtime) exitwith {hint format["Real weather: Max time: %1 can no be higher than Min time: %2", _maxtime, _mintime];};
 _timeforecast = _mintime;
 
 setdate _startingdate;
 switch(toUpper(_startingweather)) do {
-	case "CLEAR": {
-		wcweather = [0, 0, 0, [random 3, random 3, true], date];
-	};
-	case "CLOUDY": {
-		wcweather = [0, 0, 0.6, [random 3, random 3, true], date];
-	};
-	case "RAIN": {
-		wcweather = [0.7, 0, 0.7, [random 3, random 3, true], date];
-	};
-	default {
-		// clear
+	case "CLEAR": {wcweather = [0, 0, 0, [random 3, random 3, true], date]};
+	case "CLOUDY": {wcweather = [0, 0, 0.6, [random 3, random 3, true], date]};
+	case "RAIN": {wcweather = [0.7, 0, 0.7, [random 3, random 3, true], date]};
+	default {// clear
 		wcweather = [0, 0, 0, [random 3, random 3, true], date];
 		diag_log "Real weather: wrong starting weather";
 	};
@@ -82,7 +75,7 @@ if (local player) then {
 
 	//Jig adding Brighter Nights by Ralian
 	[] spawn {
-		waitUntil {!isNil "INS_Brighter_Nights"};		
+		waitUntil {!isNil "INS_Brighter_Nights"};
 		if (daytime > 21.00 || daytime < 3.50) then {
 			[3] call INS_Brighter_Nights;
 		}else{
@@ -117,7 +110,7 @@ if (local player) then {
 // SERVER SIDE SCRIPT
 if (!isServer) exitWith{};
 
-if(!_realtime) then { setTimeMultiplier _timeratio; };
+if(!_realtime) then {setTimeMultiplier _timeratio};
 
 // apply weather
 skipTime -24;
@@ -168,6 +161,9 @@ while {true} do {
 	};
 	_lastrain = _rain;
 
+	private _DSactive = missionNameSpace getVariable ["JDSactive", false];
+	if (_rain > 0 && {_DSactive}) then {call JIG_DustIsOn; sleep 3;};
+
 	wcweather = [_rain, _fog, _overcast, _wind, date];
 	60 setRain (wcweather select 0);
 	60 setfog (wcweather select 1);
@@ -179,9 +175,9 @@ while {true} do {
 
 	//Jig adding Brighter Nights by Ralian
 	if (daytime > 21.00 || daytime < 3.50) then {
-		[3] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated, false];
+		[3] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated];
 	}else{
-		[1] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated, false];
+		[1] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated];
 	};
 
 	sleep _timeforecast;

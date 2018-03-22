@@ -1,10 +1,9 @@
 //data_retrieval.sqf by Jigsor
 
 sleep 2;
-private ["_startPos","_type","_list","_nearZones","_buildingNear","_rnum","_uncaped_eos_mkrs","_ins_debug","_nearMkrs","_objmkr","_device","_veh_name","_VarName","_grp","_stat_grp","_tskW","_tskE","_tasktopicW","_tasktopicE","_taskdescW","_taskdescE","_sideWin","_rand","_nearBuildings","_selbuild","_nearBuildings","_posArray","_r","_n","_position","_pos","_clearPos","_buildObj","_bldgPos","_buildDir","_staticGuns","_minClearZ","_b_pos","_c","_alt"];
+params ["_startPos","_type"];
+private ["_list","_nearZones","_buildingNear","_rnum","_uncaped_eos_mkrs","_ins_debug","_nearMkrs","_objmkr","_device","_veh_name","_VarName","_grp","_stat_grp","_tskW","_tskE","_tasktopicW","_tasktopicE","_taskdescW","_taskdescE","_sideWin","_rand","_nearBuildings","_selbuild","_nearBuildings","_posArray","_r","_n","_position","_pos","_clearPos","_buildObj","_bldgPos","_buildDir","_minClearZ","_b_pos","_c","_alt"];
 
-_startPos = _this select 0;
-_type = _this select 1;
 _list = 1;
 _nearZones = [];
 _lift = true;
@@ -28,7 +27,7 @@ _nearMkrs = [_uncaped_eos_mkrs,[],{objective_pos_logic distance (getMarkerPos _x
 if (count _nearMkrs > 10) then {
 	private ["_g","_m"];
 	_g = 0;
-	for "_i" from 0 to 9 do {
+	for "_i" from 0 to 9 step 1 do {
 		_m = _nearMkrs select _g;
 		_nearZones pushBack _m;
 		_g = _g + 1;
@@ -196,12 +195,11 @@ if (_sideWin isEqualTo 1) then {
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
 
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];
-{deleteVehicle _x; sleep 0.1} forEach (server getVariable "INS_ObjectiveStatics");
-if (!isNull _device) then {deleteVehicle _device;};
+if (!isNull _device) then {deleteVehicle _device};
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x} forEach _staticGuns;
 deleteMarker "ObjectiveMkr";
 
 // Initialize new objective

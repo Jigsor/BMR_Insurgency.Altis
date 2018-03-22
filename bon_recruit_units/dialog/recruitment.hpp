@@ -63,7 +63,7 @@ class RecruitUnitsDialog {
 			canDrag = 0;
 			xcolumn1 = "0.1f";
 			xcolumn2 = "0.25f";
-			xcolumn3 = "0.85f";		
+			xcolumn3 = "0.85f";
 		};
 		class RecruitButton: HW_RscGUIShortcutButton {
 			x = 0.325; y = 0.825;

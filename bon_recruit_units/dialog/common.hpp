@@ -2,7 +2,7 @@
 	READ!!! -- Moser 07/20/2014
 	Much of this GUI code was extracted and adapted by Sa-Matra.
 	The code was further modified by Moser for use in this script with permission.
-	Using this code without Sa-Matra's direct permission is forbidden.	
+	Using this code without Sa-Matra's direct permission is forbidden.
 */
 
 // Control types
@@ -69,7 +69,7 @@
 #define Color_Text_Default Color_Main_Foreground1
 
 #define LB_TEXTURES 0x10
-#define LB_MULTI 0x20 
+#define LB_MULTI 0x20
 
 #define SL_DIR 0x400
 #define SL_VERT 0
@@ -125,8 +125,7 @@ class BON_RscPicture {
 	w = 0.2; h = 0.2;
 };
 
-class BON_ScrollBar
-{
+class BON_ScrollBar {
 	color[] = {1,1,1,0.6};
 	colorActive[] = {1,1,1,1};
 	colorDisabled[] = {1,1,1,0.3};
@@ -144,8 +143,7 @@ class BON_ScrollBar
 	autoScrollRewind = 0;
 };
 
-class BON_RscListBox 
-{
+class BON_RscListBox {
 	style = 0 + 0x10;
 	idc = -1;
 	type = 5;
@@ -154,7 +152,7 @@ class BON_RscListBox
 	font = "PuristaMedium";
 	colorSelect[] = {0.023529, 0, 0.0313725, 1};
 	colorText[] = {0.95, 0.95, 0.95, 1};
-colorBackground[] = {0,0.161,0,1};
+	colorBackground[] = {0,0.161,0,1};
 	colorSelect2[] = {0.023529, 0, 0.0313725, 1};
 	colorSelectBackground[] = {0.58, 0.1147, 0.1108, 1};
 	colorSelectBackground2[] = {0.58, 0.1147, 0.1108, 1};
@@ -174,9 +172,8 @@ colorBackground[] = {0,0.161,0,1};
 	autoScrollSpeed = -1;
 	autoScrollDelay = 5;
 	autoScrollRewind = 0;
-	
-	class ListScrollBar: BON_ScrollBar
-	{
+
+	class ListScrollBar: BON_ScrollBar {
 		color[] = {1, 1, 1, 0.6};
 		autoScrollEnabled = 1;
 	};
@@ -198,21 +195,19 @@ class HW_RscShortcutButton {
 	colorbackground2[] = {1, 1, 1, 0.4};
 	periodFocus = 1.2;
 	periodOver = 0.8;
-	
+
 	class HitZone {
 		left = 0.004;
 		top = 0.029;
 		right = 0.004;
 		bottom = 0.029;
 	};
-	
 	class ShortcutPos {
 		left = 0.004;
 		top = 0.026;
 		w = 0.0392157;
 		h = 0.0522876;
 	};
-	
 	class TextPos {
 		left = 0.05;
 		top = 0.034;
@@ -236,14 +231,13 @@ class HW_RscShortcutButton {
 	soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1};
 	soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1};
 	action = "";
-	
+
 	class Attributes {
 		font = "PuristaMedium";
 		color = "#E5E5E5";
 		align = "left";
 		shadow = "true";
 	};
-	
 	class AttributesImage {
 		font = "PuristaMedium";
 		color = "#E5E5E5";
@@ -262,22 +256,20 @@ class HW_RscGUIShortcutButton : HW_RscShortcutButton {
 	colorFocused[] = {0,0,0,1};
 	color2[] = {0,0,0,1};
 	colorText[] = {1,1,1,1};
-	colorDisabled[] = {1,1,1,0.25};		
-	
+	colorDisabled[] = {1,1,1,0.25};
+
 	class HitZone {
 		left = 0.002;
 		top = 0.003;
 		right = 0.002;
 		bottom = 0.016;
 	};
-	
 	class ShortcutPos {
 		left = -0.006;
 		top = -0.007;
 		w = 0.0392157;
 		h = 0.0522876;
 	};
-	
 	class TextPos {
 		left = 0.002;
 		top = 0.0;
@@ -290,7 +282,7 @@ class HW_RscGUIShortcutButton : HW_RscShortcutButton {
 	animTextureOver = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\over_ca.paa";
 	animTextureFocused = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\focus_ca.paa";
 	animTexturePressed = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\down_ca.paa";
-	
+
 	class Attributes {
 		font = "PuristaMedium";
 		color = "#E5E5E5";

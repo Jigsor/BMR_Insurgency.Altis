@@ -4,13 +4,13 @@
 
 private ["_spawnmark","_type","_max_num","_delay","_dir","_smoke1","_chute1","_ugv1","_wGrp","_ugv_num","_score","_points","_deficit","_exit","_groundPos","_grpExists"];
 
-_spawnmark = _this select 0;// spawn point where ugv spawns and deletes
+_spawnmark = _this select 0;// ugv spawn point
 _type = _this select 1;// type of ugv to spawn i.e. "B_UGV_01_rcws_F"
-_max_num = _this select 2;//max number of ugvs allowed per player
+_max_num = _this select 2;// max number of ugvs allowed per player
 _delay = (_this select 3) * 60;// time before ugv support can be called again
 _grpExists = false;
 _score = getPlayerScores player select 5;
-_points = 25;
+_points = 25;// points required for each additional UGV after _max_num is reached
 _exit = false;
 
 //Jig adding block below. If _max_num is reached then if _points earned since last call attemp then 1 ugv request allowed.
@@ -53,7 +53,7 @@ _pos = clickpos;
 sleep 1;
 openMap false;
 
-_dir = [_spawnmark, _pos] call BIS_fnc_dirTo;
+_dir = _spawnmark getDir _pos;
 
 _smoke1 = createVehicle ["SmokeShellBlue", _pos, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
@@ -111,7 +111,7 @@ if (alive _ugv1) then {// jig adding/change - ugv is recreated on landing becaus
 		player connectTerminalToUav _ugv1;
 
 		_wGrp setBehaviour "COMBAT";
-		_wGrp setSpeedMode "Normal";
+		_wGrp setSpeedMode "NORMAL";
 		_wGrp setCombatMode "RED";
 
 		_ugv1 sidechat localize "STR_BMR_ugv_movingTo_smoke";
@@ -138,5 +138,3 @@ sleep _delay;
 _ugv_num = player getVariable "ghst_ugvsup";
 _ugv_num = _ugv_num - 1;
 player setVariable ["ghst_ugvsup", _ugv_num];
-
-if (true) exitwith {};

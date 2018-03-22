@@ -1,10 +1,9 @@
 //mortar_squad.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_range","_run","_roadNear","_signPos","_roads","_roadSegment","_roadDir","_mortar_type","_objmkr","_sign","_grp","_handle","_unit_type","_damage","_offset_pos1","_static1","_offset_pos2","_static2","_offset_pos3","_static3","_StaticArray1","_all_mortars","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_manArray"];
+params ["_newZone","_type"];
+private ["_rnum","_range","_run","_roadNear","_signPos","_roads","_roadSegment","_roadDir","_mortar_type","_objmkr","_sign","_grp","_handle","_unit_type","_offset_pos1","_static1","_offset_pos2","_static2","_offset_pos3","_static3","_StaticArray1","_all_mortars","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_manArray"];
 
-_newZone = _this select 0;
-_type = _this select 1;
 _rnum = str(round (random 999));
 _range = 600;
 _run = true;
@@ -24,7 +23,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerText "Mortar Squad";
 
 // Spawn Objective center object
-_sign = createVehicle [_type, _newZone, [], 0, "None"];//Vanilla
+_sign = createVehicle [_type, _newZone, [], 0, "NONE"];//Vanilla
 sleep jig_tvt_globalsleep;
 
 while {isOnRoad _signPos} do {
@@ -40,7 +39,7 @@ if (count _roads > 0) then {
 	_roadDir = direction _roadSegment;
 };
 
-if (_roadNear) then {_sign setDir _roadDir - 90;};
+if (_roadNear) then {_sign setDir _roadDir - 90};
 _sign setVectorUp [0,0,1];
 
 // Spawn Objective enemy defences
@@ -64,8 +63,7 @@ sleep 1;
 
 {
 	_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-	if !(AIdamMod isEqualTo 100) then
-	{
+	if !(AIdamMod isEqualTo 1) then {
 		_x removeAllEventHandlers "HandleDamage";
 		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 	};
@@ -80,9 +78,9 @@ if (isNil "_offset_pos2" || _offset_pos2 distance _newZone > 125) then {_offset_
 _offset_pos3 = [getMarkerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
 if (isNil "_offset_pos3" || _offset_pos3 distance _newZone > 125) then {_offset_pos3 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
 
-_static1 = createVehicle [_mortar_type, _offset_pos1, [], 0, "None"]; sleep jig_tvt_globalsleep;
-_static2 = createVehicle [_mortar_type, _offset_pos2, [], 0, "None"]; sleep jig_tvt_globalsleep;
-_static3 = createVehicle [_mortar_type, _offset_pos3, [], 0, "None"]; sleep jig_tvt_globalsleep;
+_static1 = createVehicle [_mortar_type, _offset_pos1, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
+_static2 = createVehicle [_mortar_type, _offset_pos2, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
+_static3 = createVehicle [_mortar_type, _offset_pos3, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
 
 _static1 setDir 0;
 _static2 setDir 120;
@@ -126,7 +124,7 @@ while {_run} do {
 	if ({alive _x} count units mortar_grp > 0) then	{
 		{_x setVehicleAmmo 1;} count _all_mortars;
 
-		_manArray = (getposatl objective_pos_logic) nearentities [["CAManBase"],_range];
+		_manArray = (getposatl objective_pos_logic) nearentities ["CAManBase",_range];
 
 		{
 			if (!(side _x == INS_Blu_side)) then {
@@ -145,7 +143,7 @@ while {_run} do {
 				_x commandArtilleryFire [_pos, _type, floor (random 5)];
 			} forEach (units mortar_grp);
 		};
-		sleep 20;
+		sleep 22;
 	}else{
 		_run = false;
 	};
@@ -163,11 +161,9 @@ sleep 90;
 
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units mortar_grp);
 {deleteGroup _x} forEach [_grp, mortar_grp];
-
-if (!isNull _sign) then {deleteVehicle _sign; sleep 0.1;};
-{if (!isNull _x) then {deleteVehicle _x; sleep 0.1}} foreach _all_mortars;
-{if (typeof _x in INS_Op4_stat_weps) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 40]);
-
+if (!isNull _sign) then {deleteVehicle _sign};
+{deleteVehicle _x} forEach (_all_mortars select {!isNull _x});
+{deleteVehicle _x} forEach ((NearestObjects [objective_pos_logic, [], 40]) select {typeof _x in INS_Op4_stat_weps});
 deleteMarker "ObjectiveMkr";
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};

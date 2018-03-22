@@ -218,8 +218,8 @@ class ASORVS_CountTextBoxBG : ASORVS_RscText
 	colorBackground[] = {1,1,1,1};
 	colorText[] = {0,1,0,1};
 	colorDisabled[] = {1,1,1,1};
-	 colorBackgroundDisabled[] = { 1, 1, 1, 1 };   // background color for disabled state
-  	colorBackgroundActive[] = { 1, 1, 1, 1 };   // background color for active state
+	 colorBackgroundDisabled[] = { 1, 1, 1, 1 }; // background color for disabled state
+  	colorBackgroundActive[] = { 1, 1, 1, 1 }; // background color for active state
 	color[] = {1,1,0,1};
 	colorBorder[] = {0,0,1,1}; // grey
 	colorFrame[] = {1,0,0,1};
@@ -241,11 +241,11 @@ class ASORVS_CountTextBox : ASORVS_RscEdit
 	colorBackground[] = {1,1,1,1};
 	colorText[] = {0,0,0,1};
 	colorDisabled[] = {1,1,1,1};
-		colorBorder[] = {0,0,0,1};
-			colorFrame[] = {0,0,0,1};
-	  colorShadow[] = {0.5,0.5,0.5,1}; // darkgrey
-	 colorBackgroundDisabled[] = { 1, 1, 1, 1 };   // background color for disabled state
-  	colorBackgroundActive[] = { 1, 1, 1, 1 };   // background color for active state
+	colorBorder[] = {0,0,0,1};
+	colorFrame[] = {0,0,0,1};
+	colorShadow[] = {0.5,0.5,0.5,1}; // darkgrey
+	colorBackgroundDisabled[] = { 1, 1, 1, 1 }; // background color for disabled state
+  	colorBackgroundActive[] = { 1, 1, 1, 1 }; // background color for active state
 	color[] = {1,1,1,1};
 	style = ST_FRAME + ST_CENTER;
 	autocomplete = false;
@@ -279,19 +279,19 @@ class ASORVS_Main_Dialog {
 			h = 0.5;
 			x= safezoneX +safezoneW - 0.5;
 			y= safezoneY + safezoneH - (2*ITEM_HEIGHT) - 0.5;
-				type = 0;
-				style = 48;
-				text = "";
-						colorText[] = {1,1,1,1};
-				colorBackground[] = {0, 0, 0, 0.3};
-				font = "TahomaB";
-					sizeEx = 0;
-					lineSpacing = 0;
-					fixedWidth = 0;
-					shadow = 0;
+			type = 0;
+			style = 48;
+			text = "";
+			colorText[] = {1,1,1,1};
+			colorBackground[] = {0, 0, 0, 0.3};
+			font = "TahomaB";
+			sizeEx = 0;
+			lineSpacing = 0;
+			fixedWidth = 0;
+			shadow = 0;
 		};
 		HEADING(preset, 419000, TOP + (ITEM_HEIGHT*0), "Preset");
-		HEADING(primaryWeapon, 420000, TOP + CATEGORY_SPACING + ITEM_HEIGHT + ITEM_SPACING, "" );
+		HEADING(primaryWeapon, 420000, TOP + CATEGORY_SPACING + ITEM_HEIGHT + ITEM_SPACING, "");
 		class vehicleCombo : ASORVS_FullCombo
 		{
 			idc= 420001;
@@ -347,7 +347,7 @@ class ASORVS_Main_Dialog {
 
 		class spawnVehicleButton : ASORVS_PlusButton {
 			idc = 26010;
-			textureNoShortcut =  "" ;
+			textureNoShortcut =  "";
 			text = "<t size='2' align='center'>ISSUE VEHICLE</t>";
 			onButtonClick = "[] spawn ASORVS_fnc_SpawnVehicle; player setVariable ['cancelCreate', false]; closeDialog 0;";
 			w = 0.5;
@@ -384,7 +384,7 @@ class ASORVS_Main_Dialog {
 			type = 1;
 			style = 48;
 			text="";
-				font = "PuristaMedium";
+			font = "PuristaMedium";
 			onMouseButtonDown = "_this spawn ASORVS_fnc_RotateCloneStart";
 			onMouseButtonUp = "_this spawn ASORVS_fnc_RotateCloneStop";
 			onMouseZChanged = "_this spawn ASORVS_fnc_Zoom";
@@ -412,8 +412,6 @@ class ASORVS_Main_Dialog {
 			y=safezoneY + ITEM_HEIGHT*2;
 			x=safezoneX + TOTAL_WIDTH;
 		};
-
-
 	};
 };
 
@@ -481,7 +479,7 @@ class ASORVS_SaveDialog {
 			y = TOP + (ITEM_HEIGHT*4) + (CATEGORY_SPACING*2) + 1;
 			w = (TOTAL_WIDTH / 3) - ((DIALOG_MARGIN/2)*2) - DIALOG_MARGIN;
 			h = ITEM_HEIGHT;
-			onButtonClick = "createDialog ""ASORVS_ConfirmDeleteDialog"";";
+			onButtonClick = "createDialog 'ASORVS_ConfirmDeleteDialog';";
 		};
 		class SaveButton : ASORVS_RscButtonMenu {
 			idc = 421003;
@@ -525,7 +523,7 @@ class ASORVS_ConfirmDeleteDialog {
 			y = TOP + (ITEM_HEIGHT*4) + (CATEGORY_SPACING*2);
 			w = (TOTAL_WIDTH / 2) - ((DIALOG_MARGIN/2)*2) - DIALOG_MARGIN;
 			h = ITEM_HEIGHT;
-			onButtonClick = "(findDisplay 421999) closeDisplay 0";			
+			onButtonClick = "(findDisplay 421999) closeDisplay 0";
 		};
 		class DeleteButton : ASORVS_RscButtonMenu {
 			idd = 422003;

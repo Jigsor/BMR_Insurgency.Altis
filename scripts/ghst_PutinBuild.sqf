@@ -36,8 +36,9 @@ private _cache_loop = [] spawn
 				if (!isNull _x) then {deleteVehicle _x; sleep 0.1};
 			} count intel_Build_objs;
 			intel_Build_objs = intel_Build_objs - intel_Build_objs;// empty array
-			publicVariableServer "intel_Build_objs"; sleep 1;
+			sleep 1;			
 		};
+		publicVariableServer "intel_Build_objs"; sleep 3;
 
 		{_x setMarkerAlpha 0; sleep 0.01} count all_intel_mkrs;
 		{deleteMarker _x; sleep 0.1} count all_intel_mkrs;
@@ -50,31 +51,32 @@ private _cache_loop = [] spawn
 		publicVariableServer "cache_destroyed";
 		sleep 3;
 
-		if (_ins_debug) then {titletext ["Creating Ammo Cache","plain down"];};
+		if (_ins_debug) then {titleText ["Creating Ammo Cache","PLAIN DOWN"]};
 
 		private ["_all_cache_pos","_ammocache","_rnum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_new_city","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_haveguards","_minguards","_maxguards","_sideguards","_jigcoor","_jigxcoor","_jigycoor","_cache_coor","_menlist","_nearBuildings","_loop","_p","_n","_i","_markname","_mark1","_nul","_egrp","_trig1stat","_trig1act","_trg1","_mkr_position","_activated_cache","_alive_cache","_curr_mkr","_buildObj"];
 
-		{if (getMarkerColor _x == "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} count _uncaped_eos_mkrs;
+		{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} count _uncaped_eos_mkrs;
 		_curr_mkr = selectRandom _uncaped_eos_mkrs;
 		_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_curr_mkr];
 		_mkr_position = getMarkerpos _curr_mkr;
 		_rnum = str(round (random 999));
 
-		_ammocache = createVehicle [_objtype , position air_pat_pos, [], 0, "None"];
+		_ammocache = createVehicle [_objtype , position air_pat_pos, [], 0, "NONE"];
 		sleep jig_tvt_globalsleep;
 
-		_ammocache addeventhandler ["handledamage",{_this call JIG_ammmoCache_damage}];
+		_ammocache addeventhandler ["HandleDamage",{_this call JIG_ammmoCache_damage}];
 
 		_ammocache setVariable["persistent",true];
 		_ammocache setVariable ["BTC_cannot_lift",1,true];
 		_ammocache setVariable ["BTC_cannot_drag",1,true];
 		_ammocache setVariable ["BTC_cannot_load",1,true];
 		_ammocache setVariable ["BTC_cannot_place",1,true];
+		if (INS_ACE_core) then {_ammocache setVariable ["ace_cookoff_enable", false, true]};
 
 		[_ammocache] call remove_charge_fnc;
 
 		_veh_name = getText (configFile >> "cfgVehicles" >> (_objtype) >> "displayName");
-		_VarName = ("ghst_obj" + _rnum);
+		_VarName = ("ammo_cache" + _rnum);
 		_ammocache setVehicleVarName _VarName;
 
 		missionNamespace setVariable [_VarName,_ammocache];
@@ -239,7 +241,7 @@ private _cache_loop = [] spawn
 			};
 
 			deleteMarker "cachemkr";
-			[localize "STR_BMR_Cache_Destroyed", "JIG_MPhint_fnc"] call BIS_fnc_mp;
+			(localize "STR_BMR_Cache_Destroyed") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 			cache_destroyed = true;
 			publicVariable "cache_destroyed";
 			sleep 3;
@@ -247,7 +249,7 @@ private _cache_loop = [] spawn
 		else
 		{
 			if (!isNil "cachemkr") then {deleteMarker "cachemkr";};
-			[localize "STR_BMR_Cache_Destroyed", "JIG_MPhint_fnc"] call BIS_fnc_mp;
+			(localize "STR_BMR_Cache_Destroyed") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 			cache_destroyed = true;
 			publicVariable "cache_destroyed";
 			sleep 3;

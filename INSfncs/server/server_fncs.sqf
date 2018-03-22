@@ -2,13 +2,13 @@ remove_carcass_fnc = {
 	// Deletes dead bodies and destroyed vehicles. Code by BIS
 	params ["_unit"];
 	sleep 2;
-	if (not (_unit isKindOf "Man")) then {
+	if !(_unit isKindOf "Man") then {
 		{_x setPos position _unit} forEach crew _unit;
 		sleep 120;
 		deleteVehicle _unit;
 	};
 	if (_unit isKindOf "Man") then {
-		if(not ((vehicle _unit) isKindOf "Man")) then {_unit setPos (position vehicle _unit)};
+		if !((vehicle _unit) isKindOf "Man") then {_unit setPos (position vehicle _unit)};
 		sleep 135;
 		hideBody _unit;
 		_unit removeAllEventHandlers "killed";
@@ -30,7 +30,6 @@ BTC_AIunit_init = {
 	_unit setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 	_unit setSkill ["aimingShake", 0.6];
 	_unit setSkill ["aimingSpeed", 0.5];
-	_unit setSkill ["endurance", 0.6];
 	_unit setSkill ["spotDistance", 0.6];
 	_unit setSkill ["spotTime", 0.5];
 	_unit setSkill ["courage", 0.5];
@@ -48,7 +47,6 @@ BTC_AI_init = {
 		_x setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 		_x setSkill ["aimingShake", 0.6];
 		_x setSkill ["aimingSpeed", 0.5];
-		_x setSkill ["endurance", 0.6];
 		_x setSkill ["spotTime", 0.5];
 		_x setSkill ["courage", 0.5];
 		_x setSkill ["spotDistance", 0.6];
@@ -62,50 +60,50 @@ BTC_AI_init = {
 paint_heli_fnc = {
 	//Paints blufor helis (typically Mowhawk and Hellcat) a different color matching terrain as to not mistake them for Opfor helis by Jigsor.
 	params ["_veh"];
-	private ["_color","_darkGrey","_sandColor","_green1","_green2"];
-	_darkGrey = [
+	private _darkGrey = [
 		[0,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"],
 		[1,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"],
 		[2,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"]
 	];
-	_sandColor = [
+	private _sandColor = [
 		[0,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"],
 		[1,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"],
 		[2,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"]
 	];
-	_green1 = [
+	private _green1 = [
 		[0,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"],
 		[1,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"],
 		[2,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"]
 	];
-	_green2 = [
+	private _green2 = [
 		[0,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"],
 		[1,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"],
 		[2,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"]
 	];
+	private "_color";
 	switch (true) do {
-		case (toLower (worldName) isEqualTo "altis"): {_color = _darkGrey;};
-		case (toLower (worldName) isEqualTo "tanoa"): {_color = _green2;};
-		case (toLower (worldName) isEqualTo "malden"): {_color = _darkGrey;};
-		case (toLower (worldName) isEqualTo "stratis"): {_color = _darkGrey;};
-		case (toLower (worldName) isEqualTo "takistan"): {_color = _sandColor;};
-		case (toLower (worldName) isEqualTo "fallujah"): {_color = _sandColor;};
-		case (toLower (worldName) isEqualTo "lingor3"): {_color = _green1;};
-		case (toLower (worldName) isEqualTo "dingor"): {_color = _sandColor;};
-		case (toLower (worldName) isEqualTo "pja305"): {_color = _green1;};
-		case (toLower (worldName) isEqualTo "sara"): {_color = _darkGrey;};
-		case (toLower (worldName) isEqualTo "zargabad"): {_color = _sandColor;};
-		case (toLower (worldName) isEqualTo "kunduz"): {_color = _sandColor;};
-		case (toLower (worldName) isEqualTo "pja310"): {_color = _sandColor;};
-		case (toLower (worldName) isEqualTo "xcam_taunus"): {_color = _green1;};
-		case (toLower (worldName) isEqualTo "mog"): {_color = _sandColor;};
-		case (toLower (worldName) isEqualTo "dya"): {_color = _sandColor;};
-		case (toLower (worldName) isEqualTo "fata"): {_color = _sandColor;};
-		case (toLower (worldName) isEqualTo "bornholm"): {_color = _green1;};
-		case (toLower (worldName) isEqualTo "clafghan"): {_color = _sandColor;};
-		case ((toLower (worldName) isEqualTo "napfwinter") || (toLower (worldName) isEqualTo "napf")): {_color = _darkGrey;};
-		case (toLower (worldName) isEqualTo "kapaulio"): {_color = _green1;};
-		case (toLower (worldName) isEqualTo "lythium"): {_color = _sandColor;};
+		case (toLower (worldName) isEqualTo "altis"): {_color = _darkGrey};
+		case (toLower (worldName) isEqualTo "tanoa"): {_color = _green2};
+		case (toLower (worldName) isEqualTo "malden"): {_color = _darkGrey};
+		case (toLower (worldName) isEqualTo "stratis"): {_color = _darkGrey};
+		case (toLower (worldName) isEqualTo "takistan"): {_color = _sandColor};
+		case (toLower (worldName) isEqualTo "fallujah"): {_color = _sandColor};
+		case (toLower (worldName) isEqualTo "lingor3"): {_color = _green1};
+		case (toLower (worldName) isEqualTo "dingor"): {_color = _sandColor};
+		case (toLower (worldName) isEqualTo "pja305"): {_color = _green1};
+		case (toLower (worldName) isEqualTo "sara"): {_color = _darkGrey};
+		case (toLower (worldName) isEqualTo "zargabad"): {_color = _sandColor};
+		case (toLower (worldName) isEqualTo "kunduz"): {_color = _sandColor};
+		case (toLower (worldName) isEqualTo "pja310"): {_color = _sandColor};
+		case (toLower (worldName) isEqualTo "xcam_taunus"): {_color = _green1};
+		case (toLower (worldName) isEqualTo "mog"): {_color = _sandColor};
+		case (toLower (worldName) isEqualTo "dya"): {_color = _sandColor};
+		case (toLower (worldName) isEqualTo "fata"): {_color = _sandColor};
+		case (toLower (worldName) isEqualTo "bornholm"): {_color = _green1};
+		case (toLower (worldName) isEqualTo "clafghan"): {_color = _sandColor};
+		case ((toLower (worldName) isEqualTo "napfwinter") || (toLower (worldName) isEqualTo "napf")): {_color = _darkGrey};
+		case (toLower (worldName) isEqualTo "kapaulio"): {_color = _green1};
+		case (toLower (worldName) isEqualTo "lythium"): {_color = _sandColor};
 		default {_color = [];};
 	};
 	if !(_color isEqualTo []) then {
@@ -188,13 +186,13 @@ fnc_ghst_rand_position = {
 	//_pos = [[1,1,2],[300,500,60]] call fnc_ghst_rand_position;
 	//_pos = ["marker",[]] call fnc_ghst_rand_position;
 	*/
-	private ["_dir","_position_mark","_radx","_rady","_pos","_xpos","_ypos","_loop"];
+	private ["_dir","_position_mark","_radx","_rady","_pos","_xpos","_ypos"];
 
 	_pos_mark = _this select 0;//position or marker
 	_radarray = _this select 1;//array of x,y radius and direction
 	_wateronly = if (count _this > 2) then {_this select 2;} else {false;};//get position in water only
 
-	if (typeName _pos_mark == typeName []) then {
+	if (_pos_mark isEqualType []) then {
 		_position_mark = _pos_mark;//position array
 		_radx = _radarray select 0;//radius A if position is Not a marker
 		_rady = _radarray select 1;//radius B if position is Not a marker
@@ -210,7 +208,7 @@ fnc_ghst_rand_position = {
 		_rady = (getMarkerSize _pos_mark) select 1;//radius b if position is a marker
 		_dir = (markerDir _pos_mark) * -1;//Marker Direction
 	};
-	_loop = true;
+	private _loop = true;
 	while {_loop} do {
 		_rx = (random (_radx * 2)) - _radx;
 		_ry = (random (_rady * 2)) - _rady;
@@ -233,18 +231,19 @@ JIG_issue_reward = {
 		_pScore = 20;
 		_p addrating 2000;
 		_p addScore _pScore;
-		paddscore = [_p, _pscore]; publicVariable "paddscore";
 		[West,"HQ"] sideChat "+20 points";
 		rewardp = getPlayerUID _p;
 		publicVariable "rewardp";
 		_destroyerName = name _p;
 		_text = format [localize "STR_BMR_who_destroyed_ammocache",_destroyerName];
-		[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
+		[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 	}else{
 		_pScore = -10;
 		_p addScore _pScore;
-		paddscore = [_p, _pscore]; publicVariable "paddscore";
 		[East,"HQ"] sideChat "-10 points";
+		_penalty = -1500;
+		_tally = (rating _p) + _penalty;
+		_p addRating _tally;
 	};
 };
 JIG_ammmoCache_damage = {
@@ -284,23 +283,20 @@ JIG_ammmoCache_damage = {
 			};
 			"Bo_Air_LGB" createVehicle _pos;
         };
-		if (!isNull _source) then {
+		if (!isNull _source && {isPlayer _source}) then {
 			[_source] spawn JIG_issue_reward;
 		}else{
 			//Reward compatibility fix for ACE explosives
 			private _rpos = getPosATL _cache;
 			[_rpos] spawn {
 				params ["_pos"];
-				private _uArr = _pos nearEntities ["CAManBase",100];
-				{
-					private _u = _x;
-					if ((!isPlayer _u) || {(side _u == INS_Op4_side)}) then {
-						_uArr = _uArr - [_u];
-					};
-				} forEach _uArr;
+				private _uArr = [];
+				{_uArr pushBack _x} forEach (_pos nearEntities ["CAManBase",200] select {((captiveNum _x isEqualTo 0) || (lifeState _x isEqualTo "HEALTHY") || (lifeState _x isEqualTo "INJURED")) && ((side _x isEqualTo west) && (isPlayer _x))});
 				if !(_uArr isEqualTo []) then {
 					private _source = _uArr select 0;
 					[_source] call JIG_issue_reward;
+					private _text = format ["%1-%2", localize "STR_BMR_veh_awarded", name _source];
+					_txt remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 				};
 			};
 		};
@@ -325,14 +321,14 @@ JIG_tower_damage = {
 		if (!isNull _source) then {
 			_destroyerName = name _source;
 			_text = format [localize "STR_BMR_who_destroyed_tower",_destroyerName];
-			[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
+			[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 		};
     };
     _out
 };
 miss_object_pos_fnc = {
 	// Objective position. by Jigsor
-	params ["_cooX","_cooY","_dis","_wheX","_wheY","_ObjRandomPos","_empty","_goodPos","_newPos","_mkr"];
+	params ["_cooX","_cooY","_dis","_wheX","_wheY","_ObjRandomPos","_empty","_goodPos","_mkrType","_newPos","_mkr"];
 
 	_dis = 150;
 	_wheX = random (_dis*2)-_dis;
@@ -340,6 +336,7 @@ miss_object_pos_fnc = {
 	_ObjRandomPos = [_cooX+_wheX,_cooY+_wheY,0];
 	_empty = [];
 	_goodPos = [];
+	_mkrType = if (DebugEnabled isEqualTo 1) then {"mil_dot"}else{"EMPTY"};
 	_newPos = _ObjRandomPos isFlatEmpty [25,384,0.4,2,0,false,ObjNull];
 
 	while {(count _newPos) < 1} do {
@@ -348,20 +345,20 @@ miss_object_pos_fnc = {
 		_wheX = random (_dis*2)-_dis;
 		_wheY = random (_dis*2)-_dis;
 		_ObjRandomPos = [_cooX+_wheX,_cooY+_wheY,0];
-		if (_dis > 550) exitWith {_goodPos = [];};
+		if (_dis > 550) exitWith {_goodPos = []};
 		sleep 0.5;
 	};
 
 	if (!(_newPos isEqualTo [])) then {
-		if !(getMarkerType "tempObjMkr" isEqualTo "") then {deleteMarkerLocal "tempObjMkr";};
+		if !(getMarkerType "tempObjMkr" isEqualTo "") then {deleteMarkerLocal "tempObjMkr"};
 		_mkr = createMarkerLocal ["tempObjMkr", _newPos];
 		_mkr setMarkerShapeLocal "ELLIPSE";
 		"tempObjMkr" setMarkerSizeLocal [1, 1];
 		"tempObjMkr" setMarkerShapeLocal "ICON";
-		"tempObjMkr" setMarkerTypeLocal "mil_dot";//"EMPTY"
+		"tempObjMkr" setMarkerTypeLocal _mkrType;
 	};
-	if (_newPos isEqualTo []) exitWith {_empty;};
-	_newPos;
+	if (_newPos isEqualTo []) exitWith {_empty};
+	_newPos
 };
 opfor_NVG = {
 	// Add NVG to all existing enemy AI units by Jigsor.
@@ -383,8 +380,8 @@ opfor_NVG = {
 };
 editorAI_GasMask = {
 	// Add Gas Masks to all existing AI units by Jigsor.
-	private _ai = allUnits;
-	{if (isPlayer _x) then {_ai =_ai - [_x];};} count _ai;
+	private _ai = [];
+	{_ai pushBack _x} forEach (allUnits select {(!isPlayer _x) && (_x isKindOf "Man")});
 	{
 		removeHeadgear _x;
 		if (side _x isEqualTo resistance) then {_x addHeadgear "H_CrewHelmetHeli_I";};
@@ -403,44 +400,27 @@ JIPmkr_updateClient_fnc = {
 	} forEach _coloredMarkers;
 	true
 };
-curr_EOSmkr_states_fnc = {
-	private ["_colorArr","_coloredEOSmkrs","_color"];
-	_colorArr = [];
-	_coloredEOSmkrs=server getVariable "EOSmarkers";
-	{
-		_color = getMarkercolor _x;
-		_colorArr pushBack _color;
-	} forEach _coloredEOSmkrs;
-	server setVariable ["EOSmkrStates",_colorArr,true];
-	true
-};
 find_bombee_fnc = {
 	// Find suicide bomber player target. by Jigsor
-	private ["_missionPlayers","_btarget","_bombeeSpeeding"];
-	_btarget = ObjNull;
-	_missionPlayers = playableUnits;
+	private _potentialTargets = [];
+	private _btarget = ObjNull;
 
-	{
-		_bombeeSpeeding = (vectorMagnitudeSqr velocity _x > 8);
-		_pos = (getPosATL _x);
-		if ((_bombeeSpeeding) || (_pos select 2 > 3)) then {_missionPlayers = _missionPlayers - [_x];};
-	} count _missionPlayers;// exclude players in moving vehicles, exclude above ground players such as players in aircraft or in high structures
+	// exclude east players, players in moving vehicles, exclude above ground players such as players in aircraft or in high structures
+	{_potentialTargets pushBack _x} forEach (playableUnits select {(vectorMagnitudeSqr velocity _x < 9) && ((getPosATL _x) select 2 < 3.1) && (side _x isEqualTo west)});
 
-	{if (side _x isEqualTo east) then {_missionPlayers = _missionPlayers - [_x];};} count _missionPlayers;// exclude east players
-
-	if (count _missionPlayers > 0) then	{
-		_btarget = selectRandom _missionPlayers;
+	if (count _potentialTargets > 0) then	{
+		_btarget = selectRandom _potentialTargets;
 	};
 	_btarget
 };
 find_civ_bomber_fnc = {
 	// Look for a suitable draftee by SupahG33K. Slightly modified by Jigsor.
-	private ["_foundCiv","_civs","_closestEntity","_text","_draftee"];
+	private ["_foundCiv","_civs","_closestEntity","_draftee"];
 	_draftee = ObjNull;
 	if (isNull random_w_player4) exitWith {_draftee};
 	_foundCiv = false;
 	_civs = (position random_w_player4) nearEntities ["CAManBase",300];
-	if (count _civs != 0) then {_civs deleteAt 0;};
+	if (count _civs != 0) then {_civs deleteAt 0};
 
 	//Filter _civs array for CIVILIANS, take the closest one found
 	{
@@ -449,8 +429,7 @@ find_civ_bomber_fnc = {
 			if ((side _closestEntity == CIVILIAN) && {(!isPlayer _closestEntity)}) then {
 				_draftee = _closestEntity;
 				_foundCiv = true;
-				//diag_log text format ["SupahG33K - Civilian Jihadi Draftee found object: %1", _draftee];
-				//_text = format ["SupahG33K - Civilian Jihadi Draftee found object: %1 class: %2", _draftee, typeOf _draftee]; [_text,"JIG_MPhint_fnc"] call BIS_fnc_mp;
+				//diag_log text format ["SupahG33K - Civilian Jihadi Draftee found object: %1 class: %2", _draftee, typeOf _draftee];
 			}else{
 				_civs deleteAt 0;
 			};
@@ -467,8 +446,7 @@ killed_ss_bmbr_fnc = {
 
 	if (!isNull _killer) then {// no deadman switch if bomb detonates
 		//SupahG33K - random deadMan-switch detonation. Small explosion when bomber killed (not full power)
-		_detChance = floor(random 100);
-		if((_detChance < 33) || (_pRating < 10000)) then {
+		if((floor random 100 < 33) || (_pRating < 10000)) then {
 			_bmbr spawn {
 				_miniexplosive = selectRandom suicide_bmbr_deadman;
 				_explosive = _miniexplosive createVehicle (position _this);
@@ -486,7 +464,7 @@ killed_ss_bmbr_fnc = {
 	_pScore = 1;
 	_killer addrating 1000;
 	_killer addScore _pScore;
-	paddscore = [_killer, _pscore]; publicVariable "paddscore";
+	paddscore = [_killer, _pscore]; publicVariableServer "paddscore";
 	true
 };
 bmbrBuildPos = {
@@ -513,7 +491,7 @@ bmbrBuildPos = {
 		};
 		_c = _c + 1;
 	};
-	if (!_found) then {
+	if ((!_found) || {[_posX, _posY] distance2D _position < 20}) then {
 		//if (_debug) then {diag_log "FAILED TO PLACE Bomber in Building";};
 		_position = [0,0,0];
 	};
@@ -543,7 +521,7 @@ bmbr_spawnpos_fnc = {
 		_newPos = _startPos isFlatEmpty [10,384,0.7,2,0,false,ObjNull];
 		_c = _c + 1;
 		if (DebugEnabled > 0) then {hintSilent "finding suitable pos for sstBomber";};
-		if (_c > 5) exitWith {_goodPos = [];};
+		if (_c > 5) exitWith {_goodPos = []};
 		sleep 0.2;
 	};
 
@@ -561,23 +539,24 @@ bmbr_spawnpos_fnc = {
 };
 spawn_Op4_grp = {
 	// Creates infantry group. by Jigsor
-	params ["_newZone","_grpSize","_grp","_unit_type","_unit","_damage"];
+	params ["_newZone","_grpSize"];
+	private ["_grp","_unit_type","_unit"];
 	_grp = createGroup INS_Op4_side;
 
-	for "_i" from 0 to (_grpSize - 2) do {
+	for "_i" from 0 to (_grpSize - 2) step 1 do {
 		_unit_type = selectRandom INS_men_list;
 		_unit = _grp createUnit [_unit_type, _newZone, [], 0, "NONE"];
-		sleep 0.5;
+		sleep 0.4;
 	};
 	_grp createUnit [INS_Op4_medic, _newZone, [], 0, "NONE"];
-	sleep 0.5;
+	sleep 0.4;
 
 	(group _unit) setVariable ["zbe_cacheDisabled",false];
 	if (BTC_p_skill isEqualTo 1) then {[_grp] call BTC_AI_init};
 
 	{
 		_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-		if !(AIdamMod isEqualTo 100) then {
+		if !(AIdamMod isEqualTo 1) then {
 			_x removeAllEventHandlers "HandleDamage";
 			_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 		};
@@ -589,7 +568,7 @@ spawn_Op4_grp = {
 spawn_Op4_StatDef = {
 	// Static Gunner group creation and placements. by Jigsor
 	params ["_newZone","_grpSize","_radius"];
-	private ["_allGuns1","_interval","_assets","_randType","_circle","_startPos","_finalPos","_type","_static","_statGrp","_unitType","_allGuns2","_list1","_list2","_ranSel"];
+	private ["_allGuns1","_interval","_assets","_randType","_circle","_startPos","_finalPos","_type","_static","_statGrp","_unitType","_allGuns2"];
 
 	_assets = [];
 	_allGuns1 = [];
@@ -603,7 +582,7 @@ spawn_Op4_StatDef = {
 	_assets pushBack _favored2;
 
 	if (_grpSize > 2) then {
-		for "_i" from 0 to _grpSize do {
+		for "_i" from 0 to _grpSize step 1 do {
 			_randType = selectRandom INS_Op4_stat_weps;
 			_assets pushBack _randType;
 		};
@@ -616,7 +595,7 @@ spawn_Op4_StatDef = {
 
 		if (isOnRoad _startPos) then {
 			_finalPos = _startPos findEmptyPosition [2, 30, _type];
-			if (_finalPos isEqualTo []) then {_finalPos = _startPos;};
+			if (_finalPos isEqualTo []) then {_finalPos = _startPos};
 		}else{
 			_finalPos = _startPos;
 		};
@@ -624,23 +603,23 @@ spawn_Op4_StatDef = {
 		_static = createVehicle [_type, _finalPos, [], 0, "NONE"];
 		_static allowDamage false;
 		_static modelToWorld _finalPos;
-		_static setDir ([_newZone, _finalPos] call BIS_fnc_dirTo);
+		_static setDir (_newZone getDir _finalPos);
 		_allGuns1 pushBack _static;
 		_allGuns2 pushBack _static;
 	};
 
 	_statGrp = createGroup INS_Op4_side;
 
-	for "_i" from 1 to _grpSize do {
+	for "_i" from 1 to _grpSize step 1 do {
 		_unitType = selectRandom INS_men_list;
 		_statGrp createUnit [_unitType, _newZone, [], 0, "NONE"];
 	};
 
-	if (BTC_p_skill isEqualTo 1) then {[_statGrp] call BTC_AI_init;};
+	if (BTC_p_skill isEqualTo 1) then {[_statGrp] call BTC_AI_init};
 
 	{
 		_x addeventhandler ["killed", "[(_this select 0)] spawn remove_carcass_fnc"];
-		if !(AIdamMod isEqualTo 100) then {
+		if !(AIdamMod isEqualTo 1) then {
 			_x removeAllEventHandlers "HandleDamage";
 			_x addEventHandler ["HandleDamage", {_damage = (_this select 2)*AIdamMod;_damage}];
 		};
@@ -662,6 +641,7 @@ spawn_Op4_StatDef = {
 
 	// Roof top placement
 	if (_grpSize > 2) then {
+		private ["_list1","_ranSel"];
 		_list1 = [];
 		_ranSel = selectRandom _allGuns1;
 		_list1 pushBack _ranSel;
@@ -676,7 +656,7 @@ spawn_Op4_StatDef = {
 				]) exitWith {_fail = true;};
 			};
 			if (_sPos isEqualTo [0,0,0] || _fail) exitWith {if (DebugEnabled isEqualTo 1) then {diag_log format["RoofTop Static UnitArray: %1 Static Center %2", _array1, _sPos];};};
-			if (DebugEnabled isEqualTo 1) then {diag_log "Attempting rooftop static placement";};
+			if (DebugEnabled isEqualTo 1) then {diag_log "Attempting rooftop static placement"};
 
 			sleep 2;
 			nul = [_sPos, _array1, 110, 2, [0,33], true, false] execVM "scripts\SHK_buildingpos.sqf";
@@ -689,7 +669,7 @@ INS_Tsk_GrpMkrs = {
 	params ["_grp","_wpMkrArray","_mkr","_wpMkr","_cid","_newMkr"];
 	_wpMkrArray = [];
 
-	for "_i" from 1 to (count (waypoints _grp)) -1 do {
+	for "_i" from 1 to (count (waypoints _grp)) -1 step 1 do {
 		_mkr = format["%1 WP%2", objective_pos_logic, _i];
 		_wpMkr = createMarker [_mkr, getWPPos [_grp, _i]];
 		_wpMkr setMarkerText _mkr;
@@ -710,19 +690,43 @@ INS_Tsk_GrpMkrs = {
 	deleteMarker _newMkr;
 	{deleteMarker _x;} forEach _wpMkrArray;
 };
+Inf_taskPatrol_mod = {
+	//Optimized version of BIS_fnc_taskPatrol used for infantry by Jigsor.
+	params [["_grp",grpNull],["_pos",[]],["_maxDist",0],["_blacklist",[]]];
+
+	_grp setBehaviour "SAFE";
+
+	private _prevPos = _pos;
+	for "_i" from 0 to (2 + (floor (random 3))) step 1 do {
+		private _newPos = [_prevPos, 50, _maxDist, 1, 0, 60 * (pi / 180), 0, _blacklist] call BIS_fnc_findSafePos;
+		_prevPos = _newPos;
+		private _wp = _grp addWaypoint [_newPos, 0];
+		_wp setWaypointType "MOVE";
+		_wp setWaypointCompletionRadius 20;
+		if (_i == 0) then {//Set the group's speed and formation at the first waypoint.
+			_wp setWaypointSpeed "LIMITED";
+			_wp setWaypointFormation "STAG COLUMN";
+		};
+	};
+
+	private _wp = _grp addWaypoint [_pos, 0];
+	_wp setWaypointType "CYCLE";
+	_wp setWaypointCompletionRadius 20;
+	true
+};
 Veh_taskPatrol_mod = {
 	// BIS_fnc_taskPatrol modified by Demonized to fix some vehicle bugs not moving when speed or behaviour was not defined for each wp.
 	_grp = _this select 0;
 	_pos = _this select 1;
 	_maxDist = _this select 2;
 
-	for "_i" from 0 to (2 + (floor (random 3))) do {
+	for "_i" from 0 to (2 + (floor (random 3))) step 1 do {
 		_newPos = [_pos, 50, _maxDist, 1, 0, 60 * (pi / 180), 0, []] call BIS_fnc_findSafePos;
 		_wp = _grp addWaypoint [_newPos, 0];
 		_wp setWaypointType "MOVE";
 		_wp setWaypointSpeed "LIMITED";
 		_wp setWaypointBehaviour "SAFE";
-		_wp setWaypointFormation "COLUMN";//"STAG COLUMN"
+		_wp setWaypointFormation "COLUMN";
 		_wp setWaypointCompletionRadius 20;
 	};
 
@@ -759,8 +763,8 @@ GAS_smoke_AIdamage = {
 	_odd = 1;
 
 	// loop time based on approximate life time of smoke grenade (21 seconds)
-	for '_i' from 1 to 10 do {
-		_aiArray = _currPos nearEntities [["CAManBase"],15];
+	for '_i' from 1 to 10 step 1 do {
+		_aiArray = _currPos nearEntities ["CAManBase",15];
 		{if ((isPlayer _x) || (headgear _x in INS_gasMaskH) || (goggles _x in INS_gasMaskG)) then {_aiArray = _aiArray - [_x];};} count _aiArray;
 		{
 			if (_aiArray isEqualTo []) exitWith {};
@@ -777,4 +781,66 @@ GAS_smoke_AIdamage = {
 		uiSleep 2.1;
 	};
 	ToxicGasLoc = [];
+};
+JIG_DustIsOn = {
+	// If Dust Storm active then deactivate
+	private _active = missionNameSpace getVariable ["JDSactive", false];
+	if (_active) then {
+		missionNameSpace setVariable ["JDSactive", false];
+		setWind [0,0,true];
+		JIG_DustStorm = false;
+		PublicVariable "JIG_DustStorm";
+	}else{
+		false
+	};
+};
+JIG_ActivateDust = {
+	// Activate Dust Storm
+	params [["_vel", 12, [0]]];
+	missionNameSpace setVariable ["JDSactive", true];
+	private _dir = selectRandom [
+		[0,_vel,true],	//North
+		[0,-_vel,true],	//South
+		[_vel,0,true],	//East
+		[-_vel,0,true],	//West
+		[-_vel,_vel,true],	//North West
+		[_vel,_vel,true],	//North East
+		[-_vel,-_vel,true],	//South West
+		[_vel,-_vel,true]	//South East
+	];
+	setWind _dir;
+	JIG_DustStorm = true;
+	publicVariable "JIG_DustStorm";
+	sleep 3;
+	[] remoteExec ["JIG_Dust_Storm", [0,-2] select isDedicated];
+};
+INSciviKilled_fnc = {
+	params [["_unit",objNull],["_killer",objNull]];
+	if (!(vehicleVarName _unit isEqualTo "sstBomber") && {!isNull _killer} && {isPlayer _killer}) then {
+		private _killerName = if (name _killer == "Error: No unit") then {"Unidentified"}else{name _killer};
+		private _killed = name _unit;
+		private _penalty = -3500;
+		private _tally = (rating _killer) + _penalty;
+		private _txt = format ["%1 Killed Civilian %2", _killerName, _killed];
+		_killer addRating _tally;
+		[_txt] remoteExec ["JIG_MPSystemChat_fnc", [0,-2] select isDedicated];
+		//_killer remoteExec ["JIG_Boo", _killer];//too cheesy?
+
+		private _mTxt = format ["%1", _killerName];
+		private _m = createMarker [_mTxt, getPosWorld _killer];
+		_m setMarkerType "hd_warning";
+		_m setMarkerColor "ColorRed";
+		_m setMarkerText _mTxt;
+
+		[_m, _killer] spawn {
+			params ["_m","_killer"];
+			for "_i" from 1 to 12 step 1 do {//show civ killer marker for approx. 12 seconds
+				uiSleep 1;
+				if (!alive _killer) exitWith {};
+				_m setMarkerPos getPosWorld _killer;
+			};
+			deleteMarker _m;
+		};
+	};
+	_unit spawn remove_carcass_fnc;
 };

@@ -105,7 +105,7 @@ class FSM
                                         priority = 0.000000;
                                         to="begin";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"typeName allUnits == ""ARRAY"" && typeName playableUnits == ""ARRAY"""/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"allUnits isEqualType [] && playableUnits isEqualType []"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/

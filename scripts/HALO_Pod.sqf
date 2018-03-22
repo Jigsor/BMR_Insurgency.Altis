@@ -25,7 +25,7 @@ _DirOfShip			= 0;	// direction ship faces WIP.
 
 if (_arr isEqualTo 0) then {_units pushBack player;};
 if ((_arr isEqualTo 1) || (_arr isEqualTo 2)) then {
-	if (leader group player != player) exitWith {player sideChat localize "STR_BMR_recruit_restrict_halo"};
+	if (leader group player != player) exitWith {player sideChat localize "STR_BMR_group_leaders_only"};
 	if (count units group player < 2) exitWith {};
 	if (count bon_recruit_queue > 0) then { waitUntil {sleep 1; count bon_recruit_queue < 1}; };
 	_grp = group player;

@@ -1,7 +1,7 @@
 private ["_caller", "_pos", "_units", "_helper", "_dist"];
 _caller = _this select 0;
 
-if (isPlayer _caller) then {playSound3D [(btc_qr_call_medic call BIS_fnc_selectRandom),_unit];};
+if (isPlayer _caller) then {playSound3D [(selectRandom btc_qr_call_medic),_unit];};
 
 _side = _caller getVariable ["btc_qr_side",west];
 _pos = position _caller;

@@ -1,7 +1,7 @@
 Author = "Jigsor =BMR=";
 loadScreen = "images\bmrflag.paa";
 onLoadName = "BMR Insurgency Altis";
-onLoadMission = bmr-squad.com;
+onLoadMission = "bmr-squad.com";
 onLoadMissionTime = false;
 overviewText = "Find and destroy all ammo caches";
 overviewPicture = "images\bmrflag.paa";
@@ -10,7 +10,7 @@ class Header
 {
     gameType = Coop;
     minPlayers = 1;
-    maxPlayers = 31;
+    maxPlayers = 32;
 };
 
 enableDebugConsole		= 1;// 0 = Default behavior, available only in editor, 1 = Available in SP and for hosts / logged in admins, 2 = Available for everyone
@@ -35,8 +35,8 @@ forceRotorLibSimulation	= 0;// Default value: 0 = options based; 1 = force enabl
 #include "JWC_CASFS\casDefine.hpp"
 #include "JWC_CASFS\casMenu.hpp"
 #include "taw_vd\dialog.hpp"
-#include "INSui\DLG\DH_Defines.hpp"
-#include "INSui\DLG\DH_Dialogs.hpp"
+#include "INSui\Jig_Defines.hpp"
+#include "INSui\Jig_Dialogs.hpp"
 #include "bon_recruit_units\dialog\common.hpp"
 #include "bon_recruit_units\dialog\recruitment.hpp"
 #include "ASORVS\menu.hpp"
@@ -45,16 +45,10 @@ forceRotorLibSimulation	= 0;// Default value: 0 = options based; 1 = force enabl
 
 class CfgFunctions
 {
-class DH {
-tag = "DH";
-class Functions	{
-file = "INSui\Functions";
-class keyPresses {};
-};
-};
-#include "Hpp\CfgFunctions.hpp"
-#include "taw_vd\CfgFunctions.hpp"
-#include "ASORVS\cfgfunctions.hpp"
+	#include "Hpp\CfgFunctions.hpp"
+	#include "INSui\INSuiFunctions.hpp"
+	#include "taw_vd\CfgFunctions.hpp"
+	#include "ASORVS\cfgfunctions.hpp"
 };
 
 class Extended_InitPost_EventHandlers {
@@ -92,6 +86,12 @@ class CfgDebriefing
 	{
 		title = "Team Killed Much?";
 		description = "You have been kicked for team killing for the remainder of mission duration.";
+		picture = "";
+	};
+	class END4
+	{
+		title = "Missing Mods";
+		description = "This machine is missing required mod(s). Check mod installations and try again.";
 		picture = "";
 	};
 };
@@ -133,7 +133,7 @@ class RscTitles {
 		movingEnable = 0;
 		enableSimulation = 1;
 		enableDisplay = 1;
-		duration = 99999999;
+		duration = 1e+011;
 		fadein = 0;
 		fadeout = 0;
 		class controls {
@@ -149,10 +149,10 @@ class RscTitles {
 				colorText[] = {1,1,1,1};
 				colorBackground[] = {0, 0, 0, 0};
 				font = "TahomaB";
-					sizeEx = 0;
-					lineSpacing = 0;
-					fixedWidth = 0;
-					shadow = 0;
+				sizeEx = 0;
+				lineSpacing = 0;
+				fixedWidth = 0;
+				shadow = 0;
 			};
 			class RscHcamCam: RscPicture {
 				idc = 0;
@@ -166,25 +166,24 @@ class RscTitles {
 				colorText[] = {1,1,1,1};
 				colorBackground[] = {0, 0, 0, 0.3};
 				font = "TahomaB";
-					sizeEx = 0;
-					lineSpacing = 0;
-					fixedWidth = 0;
-					shadow = 0;
+				sizeEx = 0;
+				lineSpacing = 0;
+				fixedWidth = 0;
+				shadow = 0;
 			};
-			class HcamText
-			{
+			class HcamText {
 				idc = 1;
-				type  = 0;          // static
-				style = 0x01;       // center
+				type  = 0;
+				style = 0x01;
 				x = 0.80 * safezoneW + safezoneX;
 				y = 0.81 * safezoneH + safezoneY;
 				w = 0.18 * safezoneW;
 				h = 0.02 * safezoneH;
-				colorText[]       = {0,0,0,0.75};
-				colorBackground[] = {1, 1, 1, 0.2}; // no background
+				colorText[] = {0,0,0,0.75};
+				colorBackground[] = {1, 1, 1, 0.2};
 				font = "TahomaB";
-					sizeEx = 0.02;
-					text="";
+				sizeEx = 0.02;
+				text="";
 			};
 			class RscHcamFront: RscPicture {
 				idc = 3;
@@ -198,14 +197,13 @@ class RscTitles {
 				colorText[] = {1,1,1,1};
 				colorBackground[] = {0, 0, 0, 0};
 				font = "TahomaB";
-					sizeEx = 0;
-					lineSpacing = 0;
-					fixedWidth = 0;
-					shadow = 0;
+				sizeEx = 0;
+				lineSpacing = 0;
+				fixedWidth = 0;
+				shadow = 0;
 			};
-
 		};
 	};
-	#include "=BTC=_Logistic\=BTC=_Lift\=BTC=_Hud.h"
+	#include "=BTC=_logistic\=BTC=_lift\=BTC=_Hud.h"
 	#include "INSui\UI\defines.hpp"
 };

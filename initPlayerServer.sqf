@@ -1,14 +1,18 @@
-private["_player","_didJIP","_update","_intel","_text","_hcEntities"];
+private["_player","_didJIP","_update","_intel","_hcEntities"];
 
 _player = _this select 0;
 _didJIP =  _this select 1;
 _update = false;
 _hcEntities = entities "HeadlessClient_F";
 
-//_text = format["%1 joined the game!",name _player];
-//[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_MP;
-//[[_text],"JIG_MPsideChatEast_fnc"] call BIS_fnc_MP;
+//private _text = format["%1 joined the game!",name _player];
+//[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
+//[_text] remoteExec ["JIG_MPsideChatEast_fnc", [0,-2] select isDedicated];
 
+if (_player in _hcEntities) then {
+	waitUntil {!isNil "all_eos_mkrs"};
+	[all_eos_mkrs] remoteExec ["BMRINS_fnc_HC_allEOSmkrs",_player];
+};
 if !(_player in _hcEntities) then {
 
 	waitUntil {!isNil "INS_play_op4"};
@@ -42,7 +46,7 @@ if !(_player in _hcEntities) then {
 			_update = true;
 		};
 	};
-	{_intel = _x; [_intel,current_cache_pos] remoteExec ["fnc_jip_mp_intel",_player];} forEach intel_Build_objs;
+	{_intel = _x; [_intel,current_cache_pos] remoteExec ["fnc_mp_intel",_player];} forEach intel_Build_objs;
 	if (_update) then {publicVariableServer "intel_Build_objs";};
 
 	if (!isNil {missionNamespace getVariable "Land_DataTerminal_Obj"}) then {
@@ -50,12 +54,4 @@ if !(_player in _hcEntities) then {
 			[] remoteExec ["Terminal_acction_MPfnc", _player, false];
 		};
 	};
-/*
-} else {
-	if (_didJIP) then {
-		waitUntil {!isNil {server getVariable "EOSmkrStates"}};
-		waitUntil {!isNil "disableEOSmkrs_fnc"};
-		[[],"disableEOSmkrs_fnc",_player] call BIS_fnc_MP;
-	};
-*/
 };

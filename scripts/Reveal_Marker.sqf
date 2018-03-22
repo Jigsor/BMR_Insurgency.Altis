@@ -5,24 +5,19 @@
 
 if (!hasInterface) exitWith {};
 
-private ["_target","_caller","_range","_time","_mN","_mA","_uA","_pPos","_getColor","_getType"];
-
-_range = _this select 3 select 0;
-_time =  _this select 3 select 1;
-_mN = 0;
-_mA = [];
-_pPos = getPosVisual player;
-_uA = allUnits;
+private _range = _this select 3 select 0;
+private _time =  _this select 3 select 1;
+private _pPos = getPosVisual player;
+private _uA = allUnits;
 
 (_this select 1) removeAction (_this select 2);
 
-_getColor = {[(((side _this) call bis_fnc_sideID) call bis_fnc_sideType),true] call bis_fnc_sidecolor;};
+private _getColor = {[(((side _this) call bis_fnc_sideID) call bis_fnc_sideType),true] call bis_fnc_sidecolor;};
 
-_getType = {
-	private ["_t","_v","_s"];
-	_t = "mil_triangle";
-	_v = vehicle _this;
-	_s = (side _this) call BIS_fnc_sideID;
+private _getType = {
+	private _t = "mil_triangle";
+	private _v = vehicle _this;
+	private _s = (side _this) call BIS_fnc_sideID;
 
 	if (_v != _this && !(_v isKindOf "ParachuteBase")) then {
 		switch (_s) do {
@@ -43,17 +38,17 @@ _getType = {
 				//if(getNumber(configFile >> "CfgVehicles" >> typeOf _v >> "isUav")==1) then {_t="n_uav"};
 			};
 			case 3: {
-				if(_v isKindOf "LandVehicle") then {_t="c_car";}else{_t="c_unknown";};
+				_t = if(_v isKindOf "LandVehicle") then {"c_car"}else{"c_unknown"};
 			};
-			default {_t="mil_triangle";};
+			default {_t="mil_triangle"};
 		};
 	}else{
 		switch (_s) do {
-			case 0: {_t="o_inf";};
-			case 1: {_t="b_inf";};
-			case 2: {_t="n_inf";};
-			case 3: {_t="c_unknown";};
-			default {_t="n_unknown";};
+			case 0: {_t="o_inf"};
+			case 1: {_t="b_inf"};
+			case 2: {_t="n_inf"};
+			case 3: {_t="c_unknown"};
+			default {_t="n_unknown"};
 		};
 	};
 	_t
@@ -62,16 +57,17 @@ _getType = {
 {if ((_x distance2D _pPos) > _range) then {_uA =_uA - [_x];};} forEach _uA;
 openMap true;
 
+private _mN = 0;
+private _mA = [];
 for '_i' from 0 to (_time * 2) step 1 do {
 	{
-		private ["_t","_c","_n","_m"];
-		_t = _x call _getType;
-		_c = _x call _getColor;
+		private _t = _x call _getType;
+		private _c = _x call _getColor;
 		_pos = getPosASL _x;
 		_mN = _mN + 1;
-		_n = format["Rev%1", _mN];
+		private _n = format["Rev%1", _mN];
 
-		_m = createMarkerLocal [_n, _pos];
+		private _m = createMarkerLocal [_n, _pos];
 		_m setMarkerColorLocal _c;
 		_m setMarkerDirLocal getDir _x;
 		_m setMarkerTypeLocal _t;
@@ -84,4 +80,4 @@ for '_i' from 0 to (_time * 2) step 1 do {
 	{deleteMarkerLocal _x;} count _mA;
 };
 
-if (DebugEnabled isEqualTo 1) then {player addAction["Reveal All Units","scripts\Reveal_Marker.sqf", [600,15], 1, false, true, "", "true"];};
+if (DebugEnabled isEqualTo 1) then {player addAction["Reveal All Units","scripts\Reveal_Marker.sqf", [600,15], 1, false, true, "", "true"]};

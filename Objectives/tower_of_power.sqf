@@ -1,10 +1,9 @@
 //Objectives\tower_of_power.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_objmkr","_roads","_roadNear","_roadSegment","_roadDir","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_towerPos","_staticGuns"];
+params ["_newZone","_type"];
+private ["_rnum","_objmkr","_roads","_roadNear","_roadSegment","_roadDir","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_towerPos"];
 
-_newZone = _this select 0;
-_type = _this select 1;
 _roadNear = false;
 _rnum = str(round (random 999));
 _towerPos = _newZone;
@@ -33,15 +32,15 @@ if (count _roads > 0) then {
 };
 
 // Spawn Objective Object
-_tower = createVehicle [_type, _towerPos, [], 0, "None"];
+_tower = createVehicle [_type, _towerPos, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 
 if (_roadNear) then {_tower setDir _roadDir - 90;};
 _tower setVectorUp [0,0,1];
-_tower addeventhandler ["handledamage",{_this call JIG_tower_damage}];
+_tower addeventhandler ["HandleDamage",{_this call JIG_tower_damage}];
 _VarName = "PowerTower1";
 _tower setVehicleVarName _VarName;
-_tower Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+_tower Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 
 // Spawn Objective enemy deffences
 _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
@@ -76,14 +75,13 @@ if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] cal
 waitUntil {sleep 2; !alive _tower};
 
 [] spawn {
-	private ["_lights","_lamps","_txtstr"];
-	_lights = INS_lights;
+	private _lights = INS_lights;
 
 	nul = [objective_pos_logic,"HighVoltage"] call mp_Say3D_fnc;
-	[[], "hv_tower_effect"] call BIS_fnc_mp;
+	[] remoteExec ['HV_tower_effect', [0,-2] select isDedicated];
+	(localize "STR_BMR_PowerTower_success") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 
-	[localize "STR_BMR_PowerTower_success", "JIG_MPhint_fnc"] call BIS_fnc_mp;
-
+	private "_lamps";
 	for [{_i=0},{_i < (count _lights)},{_i=_i+1}] do {
 		_lamps = getPosATL objective_pos_logic nearObjects [_lights select _i, 1000];
 		sleep 0.01;
@@ -103,11 +101,9 @@ sleep 90;
 
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];
-
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
-{if (typeof _x in objective_ruins) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 30]);
-
+{deleteVehicle _x} forEach ((NearestObjects [objective_pos_logic, [], 30]) select {typeOf _x in objective_ruins});
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x} forEach _staticGuns;
 deleteMarker "ObjectiveMkr";
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};

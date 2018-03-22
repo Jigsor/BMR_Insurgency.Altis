@@ -14,13 +14,10 @@
  *
  ******************************************************************************/
 
-private "_l";
-
-//// Add action to all helis, check every 5 seconds
+//// Add action to MHQ_3, check every 5 seconds
 while {true} do {
-	_l = position player nearObjects ["Helicopter", 30];
-	if (count _l > 0) then {
-		{[_x,player] execVM "BTK\Cargo Drop\InitAction.sqf";} forEach _l;
+	if (MHQ_3 in ( position player nearObjects ["Helicopter", 30])) then {
+		[MHQ_3,player] execVM "BTK\Cargo Drop\InitAction.sqf";
 	};
 	sleep 5.11;
 };

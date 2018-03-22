@@ -94,7 +94,7 @@ class FSM
       name = "Fog";
       init = "private [""_time"",""_zeit"",""_x"",""_height"",""_radius"",""_size"",""_msize"",""_xsize"",""_randomdir"",""_CC"",""_Center"",""_xdistanz"",""_mdistanz"",""_dichte"",""_transparency"",""_col1"",""_col2"",""_col3"",""_Pos"",""_lifetime"",""_mlifetime"",""_xlifetime"",""_spawn"",""_wind"",""_windstrength"",""_right"",""_forward"",""_up"",""_forward2"",""_right2"",""_dirPeroid"",""_dirIntensity"",""_mtime"",""_xtime""];" \n
        "_time = time + _zeit;" \n
-       "if (typename _Center == typename """") then {_Pos = getMarkerpos _Center} else {_Pos = getPos _Center};" \n
+       "if (_Center isEqualType """") then {_Pos = getMarkerpos _Center} else {_Pos = getPos _Center};" \n
        "if (_wind) then {_right = (wind select 0) * _windstrength;_forward = (wind select 1) * _windstrength} else {_right = _right2;_forward = _forward2};" \n
        "if ((daytime > _mtime) && (daytime < _xtime)) then {" \n
        "for [{_x=1},{_x<=_dichte},{_x=_x+1}] do {" \n
@@ -116,7 +116,7 @@ class FSM
           priority = 0.000000;
           to="dummy";
           precondition = "";
-          condition="!(typename _Center == typename """")";
+          condition="!(_Center isEqualType """")";
           action="";
         };
         class if_marker
@@ -124,7 +124,7 @@ class FSM
           priority = 0.000000;
           to="dummy_1";
           precondition = "";
-          condition="typename _Center == typename """"";
+          condition="_Center isEqualType """"";
           action="";
         };
       };

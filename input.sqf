@@ -3,7 +3,6 @@
 #define HCAM_CTRL_TITLE (uiNamespace getVariable "hcam_ctrl_title")
 #define HCAM_CTRL_BACK (uiNamespace getVariable "hcam_ctrl_back")
 #define HCAM_CTRL_FRONT (uiNamespace getVariable "hcam_ctrl_front")
-//#define T_HCAM_KEY parseNumber ( preprocessFile (hcam_configpath + "HCAM_KEY") )// original
 #define T_HCAM_KEY 55
 
 private ["_key","_shift","_ctrl","_alt","_units"];
@@ -14,29 +13,23 @@ _ctrl = _this select 2;
 _alt = _this select 3;
 
 if (hcam_units == "group") then {
-  _units = units (group player);
+	_units = units (group player);
 } else {
-  _units = hcam_units;
+	_units = hcam_units;
 };
 
-// Not the key we want? End the script! T_HCAM_KEY
-//if ( _key != 55 ) exitWith {};
-if ( _key != T_HCAM_KEY ) exitWith {};
+if (_key != T_HCAM_KEY) exitWith {};
+if !((goggles player) in hcam_goggles) exitWith {};
 
-// Player not wearing suitable Glasses? End the script!
-if !( (goggles player) in hcam_goggles ) exitWith {};
-
-// ALT+KEY pressed - Turn Camera off
-if ( !_shift && !_ctrl && _alt ) then {
+if (!_shift && !_ctrl && _alt) then {
 	if (hcam_active) then {
-		hcam_cam cameraEffect ["TERMINATE", "BACK"];
+		hcam_cam cameraEffect ["Terminate", "BACK"];
 		camDestroy hcam_cam;
 		hcam_cam = nil;
 	};
 };
 
-// SHIFT+KEY pressed - Toggle size
-if ( _shift && !_ctrl && !_alt ) then {
+if (_shift && !_ctrl && !_alt) then {
 	if (hcam_active) then {
 		if (hcam_zoom == 1) then {
 			HCAM_CTRL_BACK ctrlSetPosition [0.85*safezoneW+safezoneX, 0.725*safezoneH+safezoneY,0.15*safezoneW,0.11*safezoneH];
@@ -66,23 +59,14 @@ if ( _shift && !_ctrl && !_alt ) then {
 	};
 };
 
-// KEY pressed - Switch to next groupmember
-if ( !_shift && !_ctrl && !_alt ) then {
-
-	// Is HCam already active? If not, create it.
+if (!_shift && !_ctrl && !_alt) then {
 	if (!hcam_active) then {
 		nul = [] execVM (hcam_basepath + "scripts\helmetcam.sqf");
-	} else {;
-		// Continue only if player isnt alone in group
-		if ( count _units > 1 ) then {
-
-			// Select next groupmember (or go back to the first one)
+	} else {
+		if (count _units > 1) then {
 			hcam_id = hcam_id + 1;
-			if ( hcam_id >= count _units ) then {
-				hcam_id = 0;
-			};
-
-			hcam_cam cameraEffect ["TERMINATE", "BACK"];
+			if (hcam_id >= count _units) then {hcam_id = 0};
+			hcam_cam cameraEffect ["Terminate", "BACK"];
 		};
 	};
 };

@@ -18,7 +18,7 @@ if (objective_list isEqualTo []) then {
 	publicVariableServer "objective_list"; sleep 3;
 };
 
-_mission_mkr = side_mission_mkrs select floor (random (count side_mission_mkrs));
+_mission_mkr = selectRandom side_mission_mkrs;
 _mkrPos = getMarkerPos _mission_mkr;
 _xcoor = (getMarkerPos _mission_mkr select 0);
 _ycoor = (getMarkerPos _mission_mkr select 1);
@@ -30,7 +30,7 @@ if (_ins_debug) then {diag_log text format ["Mission Pos : %1", _mkrPos];};
 		side_mission_mkrs = side_mission_mkrs - [_x];
 	};
 } foreach side_mission_mkrs;
-publicVariable "side_mission_mkrs";
+publicVariableServer "side_mission_mkrs";
 sleep 2;
 
 _newZone = _newZone + [_xcoor,_ycoor] call miss_object_pos_fnc;
@@ -52,8 +52,7 @@ if ((_ins_debug) and (_newZone isEqualTo [])) exitWith {
 };
 
 // select random objective from list
-if (objective_list isEqualTo []) exitWith {finish = true; publicvariable "finish";};
-_objsel = objective_list select (floor(random (count objective_list)));
+_objsel = selectRandom objective_list;
 
 // uncomment the following lines one at a time to test individual missions
 //_objsel = objective_list select 0;// test "comms_tower"
@@ -125,5 +124,3 @@ switch (_objsel) do
 };
 
 //missionNamespace setVariable ["CurrentSideMission", _objsel, true];
-
-if (true) exitWith {};

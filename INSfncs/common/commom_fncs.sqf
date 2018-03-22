@@ -1,11 +1,13 @@
 //commom_fncs.sqf by Jigsor
 
 // Global hint
-JIG_MPhint_fnc = {if (!isDedicated && hasInterface) then { hintSilent _this };};
-JIG_MPsideChatWest_fnc = { [West,"HQ"] SideChat (_this select 0); };
-JIG_MPsideChatEast_fnc = { [East,"HQ"] SideChat (_this select 0); };
+JIG_MPhint_fnc = {if (hasInterface) then { hintSilent _this };};
+JIG_MPsideChatWest_fnc = {[West,"HQ"] SideChat (_this select 0)};
+JIG_MPsideChatEast_fnc = {[East,"HQ"] SideChat (_this select 0)};
+JIG_MPSystemChat_fnc = { systemChat (_this select 0)};
+JIG_Boo = {playSound "boo"};
 JIG_MPTitleText_fnc = {
-	if (!isDedicated && hasInterface) then {
+	if (hasInterface) then {
 		params ["_text"];
 		copyToClipboard str(_text);
 		sleep 3;
@@ -14,15 +16,21 @@ JIG_MPTitleText_fnc = {
 	};
 };
 INS_missing_mods = {
-	if (!isDedicated && hasInterface) then {
-		player sideChat "BMR Insurgency warning. This machine is missing mods and will not trigger spawning of enemy AI. Check mod installations.";
+	if (hasInterface) then {
+		if (isServer) then {
+			player sideChat "BMR Insurgency warning. This machine is missing mods and will not spawn enemy AI. Check mod installations.";
+		}else{
+			player sideChat "BMR Insurgency warning. This machine is missing mods you may not see and enemies or their equipment. Check mod installations.";
+			// Uncomment next line to kick players missing mods required by the mission.
+			//("BMR_Layer_end4" call BIS_fnc_rscLayer) cutText [ "This machine is missing required mod(s). Check mod installations and try again.", "BLACK OUT", 1, true ]; sleep 10; endMission "END4";
+		};
 	}else{
-		diag_log "BMR Insurgency warning. This machine is missing mods and will not spawn enemy AI. Check mod installations.";
+		diag_log "!!!BMR Insurgency warning!!! This machine is missing mods and will not spawn enemy AI. Check mod installations.";
 	};
 };
 Hide_Mkr_fnc = {
 	params ["_mkrarray","_hidden_side"];
-	if (isDedicated || !hasInterface) exitWith {};
+	if (!hasInterface) exitWith {};
 	if (side player == _hidden_side) then {
 		{
 			_x setMarkerAlphaLocal 0;
@@ -48,23 +56,17 @@ JIPmkr_updateServer_fnc = {
 	}forEach _JIPmkr;
 	true
 };
-disableEOSmkrs_fnc = {
-	waitUntil {!isNil "EOS_Spawn"}; sleep 1;
-	private _arr = server getVariable "EOSmkrStates";
-	{
-		if (getMarkerColor _x == "ColorGreen") then {
-			_x setMarkerColorLocal "colorblack";
-			_x setmarkerAlpha 0;
-		};
-	} forEach _arr;
-	true
-};
 anti_collision = {
 	// fixes wheels stuck in ground/vehicles exploding when entering bug by Jigsor.
 	params ["_obj"];
 	_obj setVectorUP (surfaceNormal [(getPosATL _obj) select 0,(getPosATL _obj) select 1]);
 	_obj setPos [(getPosATL _obj) select 0,(getPosATL _obj) select 1,((getPos _obj) select 2) + 0.3];
 	true
+};
+BMR_resetDamage = {
+	params ["_veh"];
+	sleep 2;
+	if (!isNull _veh && {damage _veh > 0}) then {_veh setdamage 0};
 };
 Playable_Op4_disabled = {
 	if (!isServer && hasInterface) then {
@@ -97,20 +99,20 @@ mhq_actions_fnc = {
 
 	switch (true) do {
 		case (_var isEqualTo "MHQ_1"): {
-			_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true"];
-			_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
+			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 		};
 		case (_var isEqualTo "MHQ_2"): {
-			_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true"];
-			_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
+			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 		};
 		case (_var isEqualTo "MHQ_3"): {
-			_veh addAction [("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true"];
-			_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
+			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
 		};
 		case (_var isEqualTo "Opfor_MHQ"): {
-			_veh addAction [("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
-			//_veh addAction[("<t color=""#12F905"">") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side"];
+			_veh addAction[("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
+			//_veh addAction[("<t color='#12F905'>") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side"];
 		};
 		case (_var isEqualTo ""): {};
 	};
@@ -124,13 +126,13 @@ JIG_load_VA_profile_MHQ1 = {
 		private ["_name_index","_VA_Loadouts_Count"];
 		_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
 		_name_index = 0;
-		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 do	{
+		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 step 1 do {
 			[_i,_name_index] spawn {
 				private ["_name_index","_loadout_name"];
 				_name_index = _this select 1;
 				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
-				_id = MHQ_1 addAction [("<t color=""#00ffe9"">") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
-				sleep 15;
+				_id = MHQ_1 addAction [("<t color='#00ffe9'>") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
+				sleep 20;
 				MHQ_1 removeAction _id;
 			};
 			_name_index = _name_index + 2;
@@ -142,13 +144,13 @@ JIG_load_VA_profile_MHQ2 = {
 		private ["_name_index","_VA_Loadouts_Count"];
 		_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
 		_name_index = 0;
-		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 do	{
+		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 step 1 do {
 			[_i,_name_index] spawn {
 				private ["_name_index","_loadout_name"];
 				_name_index = _this select 1;
 				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
-				_id = MHQ_2 addAction [("<t color=""#00ffe9"">") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
-				sleep 15;
+				_id = MHQ_2 addAction [("<t color='#00ffe9'>") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
+				sleep 20;
 				MHQ_2 removeAction _id;
 			};
 			_name_index = _name_index + 2;
@@ -160,13 +162,13 @@ JIG_load_VA_profile_MHQ3 = {
 		private ["_name_index","_VA_Loadouts_Count"];
 		_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
 		_name_index = 0;
-		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 do {
+		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 step 1 do {
 			[_i,_name_index] spawn {
 				private ["_name_index","_loadout_name"];
 				_name_index = _this select 1;
 				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
-				_id = MHQ_3 addAction [("<t color=""#00ffe9"">") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
-				sleep 15;
+				_id = MHQ_3 addAction [("<t color='#00ffe9'>") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
+				sleep 20;
 				MHQ_3 removeAction _id;
 			};
 			_name_index = _name_index + 2;
@@ -176,31 +178,16 @@ JIG_load_VA_profile_MHQ3 = {
 mp_Say3D_fnc = {
 	// code by Twirly
 	params ["_obj","_snd"];
-
 	PVEH_netSay3D = [_obj,_snd];
 	publicVariable "PVEH_netSay3D";
-
-	if (!isDedicated && hasInterface) then {_obj say3D _snd};
+	if (hasInterface) then {_obj say3D _snd};
 	true
 };
 fnc_mp_intel = {
 	// Intel addaction. by Jigsor
 	params ["_intelobj","_cachepos"];
-
 	if (!isNull _intelobj) then {
-		_intelobj addAction ["<t color='#ffff00'>Grab Intel</t>", "call JIG_intel_found", _cachepos, 6, true, true, "",""];
-		intel_objArray pushBack _intelobj;
-	};
-	if (ObjNull in intel_objArray) then {{intel_objArray = intel_objArray - [objNull]} foreach intel_objArray;};
-	publicVariable "intel_objArray";
-	true
-};
-fnc_jip_mp_intel = {
-	// JIP Intel addaction. by Jigsor
-	params ["_intelobj","_cachepos"];
-
-	if (!isNull _intelobj) then {
-		_intelobj addAction ["<t color='#ffff00'>Grab Intel</t>", "call JIG_intel_found", _cachepos, 6, true, true, "",""];
+		_intelobj addAction [("<t color='#ffff00'>") + (localize "STR_BMR_GrabIntel") + "</t>", "call JIG_intel_found", _cachepos, 6];
 	};
 	true
 };
@@ -226,7 +213,7 @@ INS_end_mssg = {
 	};
 	true
 };
-hv_tower_effect = {
+HV_tower_effect = {
 	if (!isDedicated && hasInterface) then {
 		private ["_emitter","_source","_lightningpos"];
 		_emitter = objective_pos_logic;
@@ -275,7 +262,7 @@ JIG_base_protection = {
 
 				_intrude_pos = (getPosATL _unit);
 				_dis2 = (_intrude_pos distance _trigPos);
-				if (_dis2 <= _dis1) then {(vehicle _unit) call BIS_fnc_neutralizeUnit;};
+				if (_dis2 <= _dis1) then {(vehicle _unit) call BIS_fnc_neutralizeUnit};
 			};
 			if (local player && _unit == player) then {
 				private ["_intrude_pos","_trigPos","_dis1","_dis2"];
@@ -291,7 +278,7 @@ JIG_base_protection = {
 
 				_intrude_pos = (getPosATL _unit);
 				_dis2 = (_intrude_pos distance _trigPos);
-				if (_dis2 <= _dis1) then {(vehicle _unit) call BIS_fnc_neutralizeUnit;};
+				if (_dis2 <= _dis1) then {(vehicle _unit) call BIS_fnc_neutralizeUnit};
 			}else{
 				sleep 0.899;
 				(vehicle _unit) call BIS_fnc_neutralizeUnit;
@@ -301,36 +288,35 @@ JIG_base_protection = {
 	true
 };
 fnc_mp_push = {
-	if (!isDedicated && hasInterface) then {
+	if (hasInterface) then {
 		params ["_veh"];
-		_veh addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
+		_veh addAction [("<t color='#FF9900'>") + (localize "STR_BMR_Push") + "</t>", {call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
 	};
 	true
 };
 Push_Acc = {
 	params ["_veh"];
-	[[_veh],"fnc_mp_push"] call BIS_fnc_MP;
+	[_veh] remoteExec ["fnc_mp_push", [0,-2] select isDedicated];
 	true
 };
 Push_Vehicle = {
 	/* Boat push script - v0.1
 	Pushes the boat in the direction the player is looking
 	Created by BearBison */
-
 	private ["_veh","_unit","_isWater"];
 	_veh = _this select 0;
 	_unit = _this select 1;
 	_isWater = surfaceIsWater position _unit;
-	if (_unit in _veh) exitWith {titleText[localize "STR_BMR_push_restrict2","PLAIN DOWN",1];};
-	if (_isWater) exitWith {titleText[localize "STR_BMR_push_restrict1","PLAIN DOWN",1];};
+	if (_unit in _veh) exitWith {titleText[localize "STR_BMR_push_restrict2","PLAIN DOWN",1]};
+	if (_isWater) exitWith {titleText[localize "STR_BMR_push_restrict1","PLAIN DOWN",1]};
 	_veh setOwner (owner _unit);
 	_unit playMove "AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown";
-	if (currentWeapon _unit == "") then {sleep 1;} else {sleep 2;};
+	if (currentWeapon _unit isEqualTo "") then {sleep 1} else {sleep 2};
 	_veh setVelocity [(sin(direction _unit))*3, (cos(direction _unit))*3, 0];
 	true
 };
 INS_fog_effect = {
-	if (!isDedicated && hasInterface) then {null=["ObjectiveMkr",100,11,10,3,7,-0.3,0.1,0.5,1,1,1,13,12,15,true,2,2.1,0.1,4,6,0,3.5,17.5] execFSM "scripts\Fog.fsm";};
+	if (!isDedicated && hasInterface) then {null=["ObjectiveMkr",100,11,10,3,7,-0.3,0.1,0.5,1,1,1,13,12,15,true,2,2.1,0.1,4,6,0,3.5,17.5] execFSM "scripts\Fog.fsm"};
 };
 mhq_obj_fnc = {
 	// returns MHQ vehicleVarname object
@@ -338,19 +324,17 @@ mhq_obj_fnc = {
 	_var = _this select 0;
 	_obj = objNull;
 	switch (true) do {
-		case (_var isEqualTo "MHQ_1") : {_obj = MHQ_1; if (vehicleVarname MHQ_1 isEqualTo "") then {MHQ_1 setVehicleVarname "MHQ_1"; MHQ_1 = _obj;};};
-		case (_var isEqualTo "MHQ_2") : {_obj = MHQ_2; if (vehicleVarname MHQ_2 isEqualTo "") then {MHQ_2 setVehicleVarname "MHQ_2"; MHQ_2 = _obj;};};
-		case (_var isEqualTo "MHQ_3") : {_obj = MHQ_3; if (vehicleVarname MHQ_3 isEqualTo "") then {MHQ_3 setVehicleVarname "MHQ_3"; MHQ_3 = _obj;};};
-		case (_var isEqualTo "Opfor_MHQ") : {_obj = Opfor_MHQ; if (vehicleVarname Opfor_MHQ isEqualTo "") then {Opfor_MHQ setVehicleVarname "Opfor_MHQ"; Opfor_MHQ = _obj;};};
+		case (_var isEqualTo "MHQ_1") : {_obj = MHQ_1; if (vehicleVarname MHQ_1 isEqualTo "") then {MHQ_1 setVehicleVarname "MHQ_1"; MHQ_1 = _obj}};
+		case (_var isEqualTo "MHQ_2") : {_obj = MHQ_2; if (vehicleVarname MHQ_2 isEqualTo "") then {MHQ_2 setVehicleVarname "MHQ_2"; MHQ_2 = _obj}};
+		case (_var isEqualTo "MHQ_3") : {_obj = MHQ_3; if (vehicleVarname MHQ_3 isEqualTo "") then {MHQ_3 setVehicleVarname "MHQ_3"; MHQ_3 = _obj}};
+		case (_var isEqualTo "Opfor_MHQ") : {_obj = Opfor_MHQ; if (vehicleVarname Opfor_MHQ isEqualTo "") then {Opfor_MHQ setVehicleVarname "Opfor_MHQ"; Opfor_MHQ = _obj}};
 		case (_var isEqualTo "") : {};
 		default {};
 	};
 	_obj
 };
 INS_Zeus_MP = {
-	// Admin can toggle Zeus on or off in Debug Console with following command
-	// [player,true] spawn INS_Zeus_MP;
-	// ZEUS interface key (Left Ctrl + y)
+	// Admin can toggle Zeus on or off in breifing admin panel.
 	private ["_unit", "_announce"];
 	_unit = [_this,0,objNull] call bis_fnc_param;
 	_announce = [_this,1,false] call bis_fnc_param;
@@ -369,13 +353,18 @@ INS_toggle_Zeus = {
 		unassignCurator _curator;
 		deleteVehicle _curator;
 
+		_text = format [localize "STR_BMR_curator_removed", name _unit];
 		if (_announce) then {
-			_text = format [localize "STR_BMR_curator_removed", name _unit];
-			[_text,"JIG_MPhint_fnc"] call BIS_fnc_mp;
+			_text remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
+		} else {
+			(localize "STR_BMR_curator_removed") remoteExec ['JIG_MPhint_fnc', _unit];
 		};
+		diag_log _text;
 	};
 
 	if (!(_unit in playableUnits)) exitWith {};
+
+	(localize "STR_BMR_loading") remoteExec ["JIG_MPhint_fnc", _unit];
 
 	_curatorCreate = true;
 	{
@@ -392,12 +381,26 @@ INS_toggle_Zeus = {
 			{
 				[_x] call BTC_AIunit_init;
 				_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-				if !(AIdamMod isEqualTo 100) then {
-					_x removeAllEventHandlers "HandleDamage";
-					_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
+				if !(AIdamMod isEqualTo 1) then {
+					_x removeAllEventHandlers 'HandleDamage';
+					_x addEventHandler ['HandleDamage',{_damage = (_this select 2)*AIdamMod;_damage}];
+					_x addEventHandler ['Local',{
+						if (_this select 1) then {
+							(_this select 0) removeAllEventHandlers 'HandleDamage';
+							(_this select 0) addEventHandler ['HandleDamage',{_damage = (_this select 2)*AIdamMod;_damage}];
+						};
+					}];
 				};
 				if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc};
 			} forEach crew (_this select 1);
+		}];
+		_curator addEventHandler ['CuratorGroupPlaced',{
+			params ["", "_group"];
+			if (!(side leader _group isEqualTo INS_Op4_side) && {side leader _group in [RESISTANCE,EAST]}) then {
+				_grp = createGroup INS_Op4_side;
+				_units = units _group;
+				{[_x] joinSilent _grp;} forEach _units;
+			};
 		}];
 	};
 
@@ -405,7 +408,7 @@ INS_toggle_Zeus = {
 	_cfgPatches = configfile >> "cfgpatches";
 	for "_i" from 0 to (count _cfgPatches - 1) do {
 		_class = _cfgPatches select _i;
-		if (isclass _class) then {_addons pushBack (configname _class);};
+		if (isclass _class) then {_addons pushBack (configname _class)};
 	};
 
 	_addons call bis_fnc_activateaddons;
@@ -413,14 +416,18 @@ INS_toggle_Zeus = {
 	[_curator,_addons,{true},""] call BIS_fnc_manageCuratorAddons;
 	_curator addCuratorAddons _addons;
 	_curator addCuratorEditableObjects [allUnits,true];
+	//if (!isNil "BTC_cargo_repo") then {_curator removeCuratorEditableObjects [[BTC_cargo_repo],true]};
 	_unit assignCurator _curator;
 
-	if (DebugEnabled isEqualTo 1) then {diag_log curatorAddons _curator;};
+	if (DebugEnabled isEqualTo 1) then {diag_log curatorAddons _curator};
 
+	_text = format[localize "STR_BMR_is_curator",name _unit];
 	if (_announce) then {
-		_text = format[localize "STR_BMR_is_curator",name _unit];
-		[_text,"JIG_MPhint_fnc"] call BIS_fnc_mp;
+		_text remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
+	} else {
+		(localize "STR_BMR_initialize_done") remoteExec ['JIG_MPhint_fnc', _unit];
 	};
+	diag_log _text;
 };
 Terminal_acction_MPfnc = {
 	if (hasInterface) then {
@@ -428,13 +435,13 @@ Terminal_acction_MPfnc = {
 			TerminalAcctionID =
 			[
 				Land_DataTerminal_Obj,
-				"DownLoad Data",
+				(localize "STR_BMR_Tsk_topic_global_Retrieve_Intel"),
 				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
 				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
-				"_this distance Land_DataTerminal_Obj < 2",
+				"_this distance Land_DataTerminal_Obj < 2 && side _this in [WEST,EAST,RESISTANCE]",
 				"true",
 				{[Land_DataTerminal_Obj, 3] call BIS_fnc_DataTerminalAnimate},
-				{hintSilent "Dont stop"},
+				{hintSilent "Recieving..."},
 				{
 					private _side = (side player) call bis_fnc_sideID;
 					missionNamespace setVariable ["datadownloadedby",_side,true];
@@ -468,7 +475,7 @@ INS_Brighter_Nights = {
 		]
 	] spawn {
 		params ["_name", "_priority", "_effect", "_handle"];
-		if (DebugEnabled isEqualTo 1) then {diag_log format ["Brighter Night Effect Array: %1", _effect];};
+		if (DebugEnabled isEqualTo 1) then {diag_log format ["Brighter Night Effect Array: %1", _effect]};
 		while {
 			_handle = ppEffectCreate [_name, _priority];
 			_handle < 0
@@ -519,11 +526,11 @@ Drop_SmokeFlare_fnc = {
 		_col = "";
 	}else{
 		switch (true) do {
-			case (_col isEqualTo "red") : {_cA = [1.0,0,0];};
-			case (_col isEqualTo "green") : {_cA = [0,1.0,0];};
-			case (_col isEqualTo "yellow") : {_cA = [1.0,1.0,0];};
-			case (_col isEqualTo "white") : {_cA = [1.0,1.0,1.0];};
-			default {_cA = [1.0,1.0,1.0];};
+			case (_col isEqualTo "red") : {_cA = [1.0,0,0]};
+			case (_col isEqualTo "green") : {_cA = [0,1.0,0]};
+			case (_col isEqualTo "yellow") : {_cA = [1.0,1.0,0]};
+			case (_col isEqualTo "white") : {_cA = [1.0,1.0,1.0]};
+			default {_cA = [1.0,1.0,1.0]};
 		};
 	};
 
@@ -534,7 +541,7 @@ Drop_SmokeFlare_fnc = {
 		if (_range > 500) then {_range = 500};
 	};
 
-	if ((count _this) -1 < 5) then {_mapClick = true;}else{_pos = _this select 5;};
+	if ((count _this) -1 < 5) then {_mapClick = true}else{_pos = _this select 5};
 
 	if (_mapClick) then {
 		if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint localize "STR_BMR_missing_map"};
@@ -552,7 +559,7 @@ Drop_SmokeFlare_fnc = {
 		waituntil {mapclick or !(visiblemap)};
 		["Flare_mapclick", "onMapSingleClick"] call BIS_fnc_removeStackedEventHandler;
 
-		if (!visibleMap) exitwith {hint "Standby";};
+		if (!visibleMap) exitwith {hint "Standby"};
 
 		_pos = clickpos;
 		sleep 1;
@@ -564,7 +571,7 @@ Drop_SmokeFlare_fnc = {
 	_lPos = [(getPosWorld _logic) select 0, (getPosWorld _logic) select 1, ((getPosWorld _logic) select 2) + _height];
 
 	if (_objTyp == 0) then {
-		for "_i" from 0 to (_objCount -1) do {
+		for "_i" from 0 to (_objCount -1) step 1 do {
 			_dir = floor random 360;
 			_dir2 = floor random 360;
 			_offset = [round((_lPos select 0)-_range*sin(_dir)), round((_lPos select 1)-_range*cos(_dir2)), 50];
@@ -575,7 +582,7 @@ Drop_SmokeFlare_fnc = {
 	};
 
 	if (_objTyp == 1) then {
-		for "_i" from 0 to (_objCount -1) do {
+		for "_i" from 0 to (_objCount -1) step 1 do {
 			_dir = floor random 360;
 			_offset = [round((_lPos select 0)-_range*sin(_dir)), round((_lPos select 1)-_range*cos(_dir)), _height];
 			_flare = (format ["F_40mm%1","_"+_col]) createVehicle _offset; sleep 0.01;
@@ -619,10 +626,96 @@ Trade_Biofoam_fnc = {
 	} forEach _objItems;
 	true
 };
+JIG_Dust_Storm_Server = {
+	// Admin Menu Dust Storm Toggle
+	if !(call JIG_DustIsOn) then {
+		[] spawn JIG_ActivateDust;
+	};
+};
+JIG_Dust_Storm = {
+	// Client Side Dust Storm
+	if (!hasInterface) exitWith {};
+	waituntil {!isNull player};
+	if (JIG_DustStorm) then {call JIG_dsHaze};// Haze color correction
+	[] spawn {// Dust
+		private ["_color","_alpha","_d"];
+		while {JIG_DustStorm} do {
+			_pos = position player;
+			_color = [1,0.894,0.631];
+			_alpha = 0.02 + random 0.02;
+			_d = "#particlesource" createVehicleLocal _pos;
+			_d setParticleParams [["\A3\data_f\ParticleEffects\Universal\universal.p3d", 16, 12, 8], "", "Billboard", 1, 6, [0, 0, -5], [(wind select 0), (wind select 1), -1], 1, 1.275, 1, 0.01, [20], [_color + [0], _color + [_alpha], _color + [0]], [1000], 1, 0.1, "", "", _pos];
+			_d setParticleRandom [3, [-30, -30, 0], [0, 0, 0], 1, 0, [0, 0, 0, 0.01], 0, 0, 0, 1];
+			_d setParticleCircle [30, [0, 0, 0]];
+			_d setDropInterval 0.01;
+			uiSleep 1 + random 2;
+			deleteVehicle _d;
+		};
+	};
+	[] spawn {// Branches/TumbleWeeds
+		private ["_b","_ran"];
+		while {JIG_DustStorm} do {
+			_ran = ceil random 5;
+			playsound format ["wind%1",_ran];
+			_b  = "#particlesource" createVehicleLocal (getpos player);
+			if !(isNull objectParent player) then {_b attachto [vehicle player];} else {_b attachto [player];};
+			_b setParticleRandom [0, [10, 10, 7], [(wind select 0), (wind select 1), 5], 2, 0.1, [0, 0, 0, 0.5], 1, 1];
+			_b setParticleCircle [100, [0, 0, 0]];
+			_b setParticleParams [["\A3\data_f\ParticleEffects\Hit_Leaves\Sticks_Green", 1, 1, 1], "", "SpaceObject", 3, 7, [0,0,0], [(wind select 0), (wind select 1),10], 5, 0.000001, 0.0, 0.04, [0.5 + random 3], [[0.68,0.68,0.68,1]], [1.5,1], 1, 1, "", "", vehicle player, 0, true, 1, [[0,0,0,0]]];
+			_b setDropInterval 0.6;
+			sleep 5 + random 10;
+			deleteVehicle _b;
+		};
+	};
+	[] spawn {// Leaves
+		private "_l";
+		while {JIG_DustStorm} do {
+			_l  = "#particlesource" createVehicleLocal (getpos player);
+			if !(isNull objectParent player) then {_l attachto [vehicle player];} else {_l attachto [player];};
+			_l setParticleRandom [0, [10, 10, 7], [(wind select 0), (wind select 1), 5], 2, 0.1, [0, 0, 0, 0.5], 1, 1];
+			_l setParticleCircle [100, [0, 0, 0]];
+			_l setParticleParams [["\A3\data_f\cl_leaf3", 1, 0, 1], "", "SpaceObject", 3, 7, [0,0,0], [(wind select 0), (wind select 1), 6], 2, 0.00003, 0.0, 0.00001, [0.5 + random 3], [[0.1,0.1,0.1,1]], [1.5,1], 1, 1, "", "", vehicle player, 0, true, 1, [[0,0,0,0]]];
+			_l setDropInterval 0.2;
+			uiSleep 0.2 + random 0.5;
+			deleteVehicle _l;
+		};
+		call JIG_dsClear;// Clear color correction
+	};
+};
+JIG_IED_FX = {
+	if (!hasInterface) exitWith {};
+	params ["_trig"];
+	addCamShake [5, 5, 20];
+	[player, 1] call BIS_fnc_dirtEffect;
+	playSound3d['A3\Missions_F_EPA\data\sounds\combat_deafness.wss', _trig, false, getPosASL _trig, 15, 1, 50];
+};
+JWC_CAStrack = {
+	// Code by JW Custom
+	params [["_plane",objNull]];
+	_markerName = format ["track%1",random 99999];
+	_marker = createMarker[_markerName, [0,0,0]];
+	_markerName setMarkerType "c_plane";
+	_markerName setMarkerColor "colorBLUFOR";
+	while {!isNull _plane} do {
+	  _markerName setMarkerDir (getDir _plane);
+	  _markerName setMarkerPos (getPosWorld _plane);
+	  uiSleep 0.1;
+	};
+	deleteMarker _marker;
+};
+Manual_ProgressionSave = {
+	// Force zone marker progression saving on HC and Server
+	if !(isServer || IamHC) exitWith {};
+	private _uncapturedMkrs = all_eos_mkrs;
+	{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x];};} foreach _uncapturedMkrs;
+	profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
+	//saveProfileNamespace;//<-unnecessary
+	diag_log "***Manual Progression Save Complete";
+};
 switchMoveEverywhere = compileFinal " _this select 0 switchMove (_this select 1); ";
 INS_BluFor_Siren = compileFinal " if (isServer) then {
 	[INS_BF_Siren,""siren""] call mp_Say3D_fnc;
-	[[""Enemy Presence Detected at Base!""],""JIG_MPsideChatWest_fnc""] call BIS_fnc_mp;
+	[""Enemy Presence Detected at Base!""] remoteExec [""JIG_MPsideChatWest_fnc"", [0,-2] select isDedicated];
 	[INS_BF_Siren2,""siren""] call mp_Say3D_fnc;
 	alarm1On = false;
 }; ";

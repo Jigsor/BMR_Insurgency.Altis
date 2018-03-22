@@ -30,18 +30,18 @@ _vehtype = typeOf _veh;
 _vehName = vehicleVarName _veh;
 
 if (isServer) then {
-	sleep (random 1);
+	uiSleep (random 1);
 	While {True} Do {
-		sleep 1;
+		uiSleep 1;
 		if ((alive _veh) && {canMove _veh} && {{alive _x} count crew _veh isEqualTo 0}) then {
 			_abandoned = true;
 
-			for "_i" from 0 to _abandonDelay do {
+			for "_i" from 0 to _abandonDelay step 1 do {
 				if (({alive _x} count (crew _veh) > 0) || (!alive _veh) || (!canMove _veh)) exitWith {_abandoned = false;};
 				sleep 1;
 			};
 
-			if ((_abandoned) && {_veh distance _vehPos > 10}) then {
+			if (_abandoned && {_veh distance2D _vehPos > 10}) then {
 				deleteVehicle _veh;
 				sleep 1;
 
@@ -53,15 +53,16 @@ if (isServer) then {
 					publicVariable _vehName;
 				};
 				_veh call _vehInit;
+				_veh setdamage 0;
 			};
 		};
 
 		if ((!alive _veh) || (!canMove _veh)) then {
 			_dead = true;
 
-			for "_i" from 0 to _deadDelay do {
+			for "_i" from 0 to _deadDelay step 1 do {
 				if (({alive _x} count (crew _veh) > 0) || (canMove _veh)) exitWith {_dead = false;};
-				sleep 1;
+				uiSleep 1;
 			};
 
 			if (_dead) then {
@@ -76,6 +77,7 @@ if (isServer) then {
 					publicVariable _vehName;
 				};
 				_veh call _vehInit;
+				_veh setdamage 0;
 			};
 		};
 	};

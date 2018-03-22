@@ -1,5 +1,3 @@
-private ["_velocityZ"];
-
 if (waitCAS) exitWith {titleText ["CAS already enroute, cancel current CAS or wait for bomb drop before next request!","PLAIN DOWN"]};
 
 waitCAS = true;
@@ -10,7 +8,7 @@ _num = _this select 3;
 _casType = _this select 4;
 _loc = getMarkerPos (_this select 5);
 _id = _this select 6;
-_soundarray = ["Shell1","Shell2","Shell3","Shell4"];
+_rndsound = selectRandom ["Shell1","Shell2","Shell3","Shell4"];
 
 _lockobj = createAgent ["Logic", [(_loc select 0), (_loc select 1), 0], [] , 0 , "CAN_COLLIDE"];
 _lockobj setPos _loc;
@@ -22,7 +20,7 @@ _dis = 3500;
 _speed = 200;
 _setheight = getTerrainHeightASL [(_loc select 0) + _dis * sin _dir, (_loc select 1) + _dis * cos _dir];
 _ranPos = [(_loc select 0) + _dis * sin _dir, (_loc select 1) + _dis * cos _dir, _setheight + 260];
-_dirTo = [_ranPos, _lockobj] call BIS_fnc_dirTo;
+_dirTo = _ranPos getDir _lockobj;
 
 _veh = [_ranPos, _dirTo, INS_CAS, WEST] call bis_fnc_spawnvehicle;
 sleep jig_tvt_globalsleep;
@@ -33,7 +31,7 @@ _grp = _veh select 2;
 _vel = velocity _buzz;
 _buzz setVelocity [(_vel select 0)+(sin _dirTo*_speed),(_vel select 1)+ (cos _dirTo*_speed),(_vel select 2)];
 
-[_buzz] execVM "JWC_CASFS\track.sqf";
+[_buzz] remoteExec ["JWC_CAStrack", 2];//Moved handling to server. Jig
 
 _buzz allowDamage false;
 
@@ -52,13 +50,13 @@ _grp setCombatMode "BLUE";
 
 doCounterMeasure = {
 	_plane = _this select 0;
-	for "_i" from 1 to 4 do	{
+	for "_i" from 1 to 4 step 1 do	{
 		_bool = _plane fireAtTarget [_plane,"CMFlareLauncher"];
 		sleep 0.3;
 	};
 	sleep 3;
 	_plane = _this select 0;
-	for "_i" from 1 to 4 do	{
+	for "_i" from 1 to 4 step 1 do	{
 		_bool = _plane fireAtTarget [_plane,"CMFlareLauncher"];
 		sleep 0.3;
 	};
@@ -100,7 +98,8 @@ if (usedCAS < usedCAS) then {
 
 [_buzz] spawn doCounterMeasure;
 
-if ((alive _buzz) && (_casType == "JDAM")) then {
+private "_velocityZ";
+if ((alive _buzz) && (_casType isEqualTo "JDAM")) then {
 	_drop = createAgent ["Logic", [getPos _buzz select 0, getPos _buzz select 1, 0], [] , 0 , "CAN_COLLIDE"];
 	_soundpos = getposATL _drop;
 	_height = 225 + _lock;
@@ -123,12 +122,11 @@ if ((alive _buzz) && (_casType == "JDAM")) then {
 	_bVelX = ((_loc select 0)-(getPos _bomb select 0))/_bDrop;
 	_bVelY = ((_loc select 1)-(getPos _bomb select 1))/_bDrop;
 	_bomb setVelocity [_bVelX,_bVelY,(velocity _bomb select 2) - _velocityZ];
-	_rndsound = selectRandom _soundarray;
 	_lockobj say _rndsound;
 	deleteVehicle _drop;
 };
 
-if ((alive _buzz) && (_casType == "CBU")) then {
+if ((alive _buzz) && (_casType isEqualTo "CBU")) then {
 	_drop = createAgent ["Logic", [getPos _buzz select 0, getPos _buzz select 1, 0], [] , 0 , "CAN_COLLIDE"];
 	_soundpos = getposATL _drop;
 	_height = 225 + _lock;
@@ -152,13 +150,12 @@ if ((alive _buzz) && (_casType == "CBU")) then {
 	_bVelX = ((_loc select 0)-(getPos _cbu select 0))/_bDrop;
 	_bVelY = ((_loc select 1)-(getPos _cbu select 1))/_bDrop;
 	_cbu setVelocity [_bVelX,_bVelY,(velocity _cbu select 2) - _velocityZ];
-	_rndsound = selectRandom _soundarray;
 	_lockobj say _rndsound;
 	waitUntil{getPos _cbu select 2 <= 40};
 	_pos = getPos _cbu;
 	_effect = "SmallSecondary" createvehicle _pos;
 	deleteVehicle _cbu;
-	for "_i" from 1 to 35 do {
+	for "_i" from 1 to 35 step 1 do {
 		_explo = "G_40mm_HEDP" createvehicle _pos;
 		_explo setVelocity [-35 + (random 70),-35 + (random 70),-50];
 		sleep 0.025;
@@ -166,7 +163,7 @@ if ((alive _buzz) && (_casType == "CBU")) then {
 	deleteVehicle _drop;
 };
 
-if ((alive _buzz) && (_casType == "COMBO")) then {
+if ((alive _buzz) && (_casType isEqualTo "COMBO")) then {
 	_drop = createAgent ["Logic", [getPos _buzz select 0, getPos _buzz select 1, 0], [] , 0 , "CAN_COLLIDE"];
 	_soundpos = getposATL _drop;
 	_height = 225 + _lock;
@@ -189,7 +186,6 @@ if ((alive _buzz) && (_casType == "COMBO")) then {
 	_bVelX = ((_loc select 0)-(getPos _bomb select 0))/_bDrop;
 	_bVelY = ((_loc select 1)-(getPos _bomb select 1))/_bDrop;
 	_bomb setVelocity [_bVelX,_bVelY,(velocity _bomb select 2) - _velocityZ];
-	_rndsound = selectRandom _soundarray;
 	_lockobj say _rndsound;
 	deleteVehicle _drop;
 	while {true} do {
@@ -221,25 +217,23 @@ if ((alive _buzz) && (_casType == "COMBO")) then {
 	_bVelX = ((_loc select 0)-(getPos _cbu select 0))/_bDrop;
 	_bVelY = ((_loc select 1)-(getPos _cbu select 1))/_bDrop;
 	_cbu setVelocity [_bVelX,_bVelY,(velocity _cbu select 2) - _velocityZ];
-	_rndsound = selectRandom _soundarray;
 	_lockobj say _rndsound;
 	deleteVehicle _drop;
 	waitUntil{getPos _cbu select 2 <= 40};
 	_pos = getPos _cbu;
 	_effect = "SmallSecondary" createvehicle _pos;
 	deleteVehicle _cbu;
-	for "_i" from 1 to 35 do
-	{
+	for "_i" from 1 to 35 step 1 do {
 		_explo = "G_40mm_HEDP" createvehicle _pos;
 		_explo setVelocity [-35 + (random 70),-35 + (random 70),-50];
 		sleep 0.025;
 	};
 };
 
-if (_casType == "COMBO") then {
-  (leader _grp) sideChat localize "STR_JWC_CAS_multi_confirm";
+if (_casType isEqualTo "COMBO") then {
+	(leader _grp) sideChat localize "STR_JWC_CAS_multi_confirm";
 }else{
-  (leader _grp) sideChat localize "STR_JWC_CAS_single_confirm";
+	(leader _grp) sideChat localize "STR_JWC_CAS_single_confirm";
 };
 
 deleteVehicle _lockobj;

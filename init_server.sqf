@@ -1,7 +1,7 @@
-// init_server.sqf by Jigsor //	
+// init_server.sqf by Jigsor //
 
 // Server Functions //
-call compile preprocessFileLineNumbers "INSfncs\server_fncs.sqf";
+call compile preprocessFileLineNumbers "INSfncs\server\server_fncs.sqf";
 
 // Weather //
 if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {
@@ -14,7 +14,6 @@ if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {
 		0 setFog 0;
 		skipTime 24;
 		sleep 1;
-		//setWind [1,1,false];
 		simulWeatherSync;
 		if (JIPweather isEqualTo 0) then {sleep 15; overCastValue = [0] call BIS_fnc_paramWeather; 0 setFog 0;};
 	};
@@ -33,19 +32,26 @@ if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {
 ["Initialize", [true]] call BIS_fnc_dynamicGroups;
 
 // PublicVariable EventHandlers //
-if (isNil "ghst_Build_objs") then {ghst_Build_objs = [];};
-if (isNil "intel_Build_objs") then {intel_Build_objs = [];};
-if (isNil "activated_cache_pos") then {activated_cache_pos = [];};
-if (isNil "paddscore") then {paddscore = 0;};
-
 "BTC_to_server" addPublicVariableEventHandler BTC_m_fnc_only_server;
 "ghst_Build_objs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "activated_cache_pos" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
-"paddscore" addPublicVariableEventHandler {_data = _this select 1; (_data select 0) addScore (_data select 1);};
-"PVEH_netSay3D" addPublicVariableEventHandler {private _array = _this select 1; (_array select 0) say3D (_array select 1);};
 "side_mission_mkrs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 "objective_list" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
-if (INS_GasGrenadeMod isEqualTo 1) then {"ToxicGasLoc" addPublicVariableEventHandler {(_this select 1) spawn GAS_smoke_AIdamage};};
+"paddscore" addPublicVariableEventHandler {_data = _this select 1; (_data select 0) addScore (_data select 1);};
+"PVEH_netSay3D" addPublicVariableEventHandler {private _array = _this select 1; (_array select 0) say3D (_array select 1)};
+if (INS_GasGrenadeMod isEqualTo 1) then {"ToxicGasLoc" addPublicVariableEventHandler {(_this select 1) spawn GAS_smoke_AIdamage}};
+
+// Mission EventHandlers //
+addMissionEventHandler ["HandleDisconnect", {
+	_unit = (_this select 0);
+	if !(isPlayer leader (group _unit)) then {
+		{deleteVehicle _x} forEach (units (group _unit) select {(_x isKindOf "Man")});
+	};
+	if (typeOf _unit isEqualTo "HeadlessClient_F") then {
+		{deleteVehicle _x} forEach (allUnits select {!(side _x isEqualTo west) && !(side _x isEqualTo civilian) && (_x isKindOf "Man")});
+	};
+	deleteVehicle _unit;
+}];
 
 // Editor object settings //
 [] spawn {
@@ -53,31 +59,32 @@ if (INS_GasGrenadeMod isEqualTo 1) then {"ToxicGasLoc" addPublicVariableEventHan
 
 	if (!isNil "MHQ_1") then {
 		MHQ_1 setVariable ["persistent",true];
-		if (INS_MHQ_enabled) then {
+		if (JIG_MHQ_enabled) then {
 			MHQ_1 addEventhandler ["Respawn","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [MHQ_1, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_1"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName]; INS_MHQ_killed = "MHQ_1"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			_nul = [MHQ_1, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_1"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; INS_MHQ_killed = "MHQ_1"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 	if (!isNil "MHQ_2") then {
 		MHQ_2 setVariable["persistent",true];
-		if (INS_MHQ_enabled) then {
+		if (JIG_MHQ_enabled) then {
 			MHQ_2 addEventhandler ["Respawn","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [MHQ_2, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_2"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName]; INS_MHQ_killed = "MHQ_2"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			_nul = [MHQ_2, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_2"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; INS_MHQ_killed = "MHQ_2"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 	if (!isNil "MHQ_3") then {
 		MHQ_3 setVariable ["persistent",true];
 		[MHQ_3] call paint_heli_fnc;
-		if (INS_MHQ_enabled) then {
+		[MHQ_3] spawn BMR_resetDamage;
+		if (JIG_MHQ_enabled) then {
 			MHQ_3 addEventhandler ["killed","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [MHQ_3, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_3"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName]; [_this] call paint_heli_fnc; [_this] call anti_collision; INS_MHQ_killed = "MHQ_3"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			_nul = [MHQ_3, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_3"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call paint_heli_fnc; [_this] call anti_collision; [_this] spawn BMR_resetDamage; INS_MHQ_killed = "MHQ_3"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 	if (!isNil "Opfor_MHQ") then {
 		Opfor_MHQ setVariable["persistent",true];
-		if (INS_MHQ_enabled) then {
+		if (JIG_MHQ_enabled) then {
 			Opfor_MHQ addEventhandler ["Respawn","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [Opfor_MHQ, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "Opfor_MHQ"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName]; INS_MHQ_killed = "Opfor_MHQ"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			_nul = [Opfor_MHQ, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "Opfor_MHQ"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; INS_MHQ_killed = "Opfor_MHQ"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 };
@@ -99,30 +106,28 @@ Delivery_Box hideObjectGlobal true;
 [180] execVM "scripts\SingleThreadCrateRefill.sqf";
 
 // Param enabled scripts/settings //
-if (INS_GasGrenadeMod isEqualTo 1) then {[] spawn editorAI_GasMask;};
-if (Fatigue_ability < 1) then {{[_x] spawn INS_full_stamina;} forEach playableUnits;};
-if (EnableEnemyAir > 0) then {0 = [] execVM "scripts\AirPatrolEast.sqf";};
+if (INS_GasGrenadeMod isEqualTo 1) then {[] spawn editorAI_GasMask};
+if (Fatigue_ability < 1) then {{[_x] spawn INS_full_stamina;} forEach playableUnits};
+if (EnableEnemyAir > 0) then {execVM "scripts\AirPatrolEast.sqf"};
 if (DebugEnabled isEqualTo 1) then {
-	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 30; nul = [] execVM "scripts\INS_SuicideBomber.sqf";};};
+	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 30; nul = [] execVM "scripts\INS_SuicideBomber.sqf"}};
 }else{
-	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 600; nul = [] execVM "scripts\INS_SuicideBomber.sqf";};};
+	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 600; nul = [] execVM "scripts\INS_SuicideBomber.sqf"}};
 };
 
 // Clean up Maintenance //
-[
+[	//(0 means don't delete)
 	2*60, // seconds to delete dead bodies
 	5*60, // seconds to delete dead vehicles
-	0, // (0 means don't delete)
+	0, // immobile vehicles
 	2*60, // seconds to delete dropped weapons
-	0, // (0 means don't delete)// interferes with minefield task if set above 0
+	0, // planted explosives - interferes with minefield task if set above 0
 	6*60, // seconds to delete dropped smokes/chemlights
 	1*60, // seconds to delete craters
 	5*60 // seconds to delete canopies,ejection seats
 ] execVM 'scripts\repetitive_cleanup.sqf';
 
-{_x setVariable ["persistent",true];} forEach [Jig_m_obj,Delivery_Box];
-{_x setVariable ["persistent",true];} forEach INS_Blu4_wepCrates;
-{_x setVariable ["persistent",true];} forEach INS_Op4_wepCrates;
+{_x setVariable ["persistent",true]} forEach [Jig_m_obj,Delivery_Box], INS_Blu4_wepCrates, INS_Op4_wepCrates;
 
 execVM "scripts\remove_boobyTraps.sqf";
 execVM "scripts\unattended_maintenance.sqf";
@@ -136,7 +141,7 @@ if (Airfield_opt) then
 			{ _x hideObjectGlobal true } foreach (nearestTerrainObjects [[21020.1,7311.07,0],["TREE","SMALL TREE","BUSH"],175]);
 		};
 	};
-	{_x animateSource ["Door_7_sound_source", 1];} ForEach nearestObjects [(getMarkerPos "Airfield"), ["Land_Ss_hangar","Land_Ss_hangard","WarfareBAirport"], 500];
+	{_x animateSource ["Door_7_sound_source", 1]} ForEach nearestObjects [(getMarkerPos "Airfield"), ["Land_Ss_hangar","Land_Ss_hangard","WarfareBAirport"], 500];
 
 	//Default empty Bluefor Fixed Wing
 	private ["_mod","_class","_dirfw1","_fw1","_type"];
@@ -254,39 +259,27 @@ if (Airfield_opt) then
 	};
 };
 
-addMissionEventHandler ["HandleDisconnect", {
-    _unit = _this select 0;
-    deleteVehicle _unit;
-}];
+//Save Op4 Weapon Crates Orientation
+private _anchorPos = getPosATL INS_E_tent;
+private _op4CrateComposition = [INS_Op4_wepCrates,_anchorPos] call BMRINS_fnc_objPositionsGrabber;
+missionNamespace setVariable ["op4CratesOrientation", _op4CrateComposition, true];
 
 // Tasks //
 [] spawn {
-/*
-// Persistence Check/Set Marker Color
-	if (!isNil {profileNamespace getVariable "BMR_INS_progress"}) then {
-		waitUntil {! isNil "VictoryColor"};
-		private _uncapedMarkers = profileNamespace getVariable "BMR_INS_progress";
-		{
-			if !(_x in all_eos_mkrs) then {
-				_x setMarkerColor VictoryColor;
-			};
-		} foreach _uncapedMarkers;
-	};
-*/
 	waitUntil {! isNil "SHK_Taskmaster_Tasks"};
 
 	if (DebugEnabled isEqualTo 1) then {
 		sleep 2;
 		tasks_handler = [] execVM "Objectives\random_objectives.sqf";
 		waitUntil { scriptDone tasks_handler };
-		if (EnemyAmmoCache isEqualTo 1) then {execVM "scripts\ghst_PutinBuild.sqf";};
+		if (EnemyAmmoCache isEqualTo 1) then {execVM "scripts\ghst_PutinBuild.sqf"};
 		sleep 30;
 		execVM "Objectives\tasks_complete.sqf";
 	}else{
 		sleep 45;
 		tasks_handler = [] execVM "Objectives\random_objectives.sqf";
 		waitUntil { scriptDone tasks_handler };
-		if (EnemyAmmoCache isEqualTo 1) then {execVM "scripts\ghst_PutinBuild.sqf";};
+		if (EnemyAmmoCache isEqualTo 1) then {execVM "scripts\ghst_PutinBuild.sqf"};
 		sleep 75;
 		execVM "Objectives\tasks_complete.sqf";
 	};

@@ -4,9 +4,8 @@
 	Description:
 	Updates the view distance dependant on whether the player is on foot, a car or an aircraft.
 */
-private["_dist"];
-switch (true) do
-{
+private "_dist";
+switch (true) do {
 	case ((vehicle player) isKindOf "Man"): {
 		setViewDistance tawvd_foot;
 		_dist = tawvd_foot;

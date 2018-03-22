@@ -8,7 +8,7 @@
 
 if(not local player) exitWith{};
 if (leader group player != player) exitWith {
-	player sideChat localize "STR_BMR_recruit_restrict_halo";
+	player sideChat localize "STR_BMR_group_leaders_only";
 };
 
 if (count units group player < 2) exitWith {};

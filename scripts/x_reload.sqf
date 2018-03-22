@@ -82,5 +82,3 @@ while {fuel _object < 0.99} do {
 if (_type in INS_add_Chaff) then {_object addweapon "CMFlareLauncher"; _object addmagazine "120Rnd_CMFlare_Chaff_Magazine";};
 sleep x_reload_time_factor;
 _object vehicleChat format ["%1 is ready...", _type];
-
-if (true) exitWith {};

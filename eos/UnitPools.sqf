@@ -5,7 +5,7 @@ _tempArray=[];
 
 switch (_faction) do {
 	case 0: {// EAST CSAT FACTION
-	_InfPool=	["O_SoldierU_SL_F","O_Soldier_GL_F","O_soldierU_repair_F","O_soldierU_medic_F","O_sniper_F","O_Soldier_A_F","O_Soldier_AA_F","O_Soldier_AAA_F","O_Soldier_AAR_F","O_Soldier_AAT_F","O_Soldier_AR_F","O_Soldier_AT_F","O_soldier_exp_F","O_Soldier_F","O_engineer_F","O_engineer_U_F","O_medic_F","O_recon_exp_F","O_recon_F","O_recon_JTAC_F","O_recon_LAT_F","O_recon_M_F","O_recon_medic_F","O_recon_TL_F","O_HeavyGunner_F"];	
+	_InfPool=	["O_SoldierU_SL_F","O_Soldier_GL_F","O_soldierU_repair_F","O_soldierU_medic_F","O_sniper_F","O_Soldier_A_F","O_Soldier_AA_F","O_Soldier_AAA_F","O_Soldier_AAR_F","O_Soldier_AAT_F","O_Soldier_AR_F","O_Soldier_AT_F","O_soldier_exp_F","O_Soldier_F","O_engineer_F","O_engineer_U_F","O_medic_F","O_recon_exp_F","O_recon_F","O_recon_JTAC_F","O_recon_LAT_F","O_recon_M_F","O_recon_medic_F","O_recon_TL_F","O_HeavyGunner_F"];
 	_ArmPool=	["O_APC_Tracked_02_AA_F","O_APC_Tracked_02_cannon_F","O_APC_Wheeled_02_rcws_F","O_MBT_02_arty_F","O_MBT_02_cannon_F"];
 	_MotPool=	["O_Truck_02_covered_F","O_MRAP_02_gmg_F","O_MRAP_02_hmg_F","O_G_Offroad_01_armed_F"];
 	_ACHPool=	["O_Heli_Attack_02_black_F","O_Heli_Attack_02_F"];
@@ -124,7 +124,7 @@ switch (_faction) do {
 	case 9: {// RHS Serbian Armed Forces (RESISTANCE)
 	_InfPool=	["rhssaf_army_m10_digital_asst_mgun","rhssaf_army_m10_digital_spec_aa","rhssaf_army_m10_digital_spec_at","rhssaf_army_m10_digital_crew","rhssaf_army_m10_digital_exp","rhssaf_army_m10_digital_ft_lead","rhssaf_army_m10_digital_gl","rhssaf_army_m10_digital_mgun_m84","rhssaf_army_m10_digital_sniper_m76","rhssaf_army_m10_digital_asst_spec_aa","rhssaf_army_m10_digital_asst_spec_at","rhssaf_army_m10_digital_officer","rhssaf_army_m10_digital_repair","rhssaf_army_m10_digital_rifleman_ammo","rhssaf_army_m10_digital_rifleman_at","rhssaf_army_m10_digital_rifleman_m21","rhssaf_army_m10_digital_rifleman_m70","rhssaf_army_m10_digital_spotter","rhssaf_army_m10_digital_sq_lead","rhssaf_army_m10_para_asst_mgun","rhssaf_army_m10_para_spec_aa","rhssaf_army_m10_para_spec_at","rhssaf_army_m10_para_crew","rhssaf_army_m10_para_ft_lead","rhssaf_army_m10_para_gl_ag36","rhssaf_army_m10_para_gl_m320","rhssaf_army_m10_para_mgun_m84","rhssaf_army_m10_para_mgun_minimi","rhssaf_army_m10_para_sniper_m76","rhssaf_army_m10_para_asst_spec_aa","rhssaf_army_m10_para_asst_spec_at","rhssaf_army_m10_para_repair","rhssaf_army_m10_para_rifleman_ammo","rhssaf_army_m10_para_rifleman_at","rhssaf_army_m10_para_rifleman_hk416","rhssaf_army_m10_para_rifleman_g36","rhssaf_army_m10_para_sniper_m82a1","rhssaf_army_m10_para_spotter","rhssaf_army_m10_para_sq_lead"];//"rhssaf_army_m10_para_officer",
 	_ArmPool=	["rhssaf_army_t72s","rhsgref_cdf_t72ba_tv","rhsgref_cdf_bmd1","rhsgref_cdf_bmd1","rhsgref_cdf_bmd1p","rhsgref_cdf_bmd1pk","rhsgref_cdf_bmd2","rhsgref_cdf_bmd2k","rhsgref_cdf_bmp1","rhsgref_cdf_bmp1d","rhsgref_cdf_bmp1k","rhsgref_cdf_bmp1p","rhsgref_cdf_bmp2e","rhsgref_cdf_bmp2","rhsgref_cdf_bmp2d","rhsgref_cdf_gaz66_zu23"];
-	_MotPool=	["rhssaf_m1025_olive_m2","rhsgref_cdf_btr60","rhsgref_cdf_btr70","rhsgref_BRDM2","rhsgref_BRDM2_HQ","rhsgref_BRDM2_ATGM","rhsgref_c_a2port_armor","rhsgref_cdf_reg_uaz_ags","rhsgref_cdf_reg_uaz_dshkm","rhsgref_cdf_reg_uaz_spg9"]; 
+	_MotPool=	["rhssaf_m1025_olive_m2","rhsgref_cdf_btr60","rhsgref_cdf_btr70","rhsgref_BRDM2","rhsgref_BRDM2_HQ","rhsgref_BRDM2_ATGM","rhsgref_c_a2port_armor","rhsgref_cdf_reg_uaz_ags","rhsgref_cdf_reg_uaz_dshkm","rhsgref_cdf_reg_uaz_spg9"];
 	_ACHPool=	["rhsgref_cdf_reg_Mi17Sh"];
 	_CHPool=	["rhssaf_airforce_ht48"];
 	_uavPool=	["O_UAV_01_F","O_UAV_02_CAS_F","O_UGV_01_rcws_F"];
@@ -332,7 +332,7 @@ switch (_faction) do {
 
 ////////////////////////////////////////////////////////////////////////////////////////
 if (_type isEqualTo 0) then {
-	for "_i" from 0 to 5 do{
+	for "_i" from 0 to 5 step 1 do{
 	_unit=selectRandom _InfPool;
 	_tempArray pushBack _unit;};
 };
@@ -347,7 +347,7 @@ if (_type isEqualTo 2) then {
 	_temparray pushBack _crew;
 };
 
-// CREATE ATTACK CHOPPER & CREW	
+// CREATE ATTACK CHOPPER & CREW
 if (_type isEqualTo 3) then {
 	_tempUnit=selectRandom _ACHPool;
 	_temparray pushBack _tempUnit;
@@ -390,7 +390,7 @@ if (_type isEqualTo 8) then {
 
 // CREATE CARGO
 if (_type isEqualTo 9) then {
-	for "_i" from 0 to 5 do{
+	for "_i" from 0 to 5 step 1 do{
 		_unit=selectRandom _InfPool;
 		_temparray pushBack _unit;
 	};
@@ -398,7 +398,7 @@ if (_type isEqualTo 9) then {
 
 // CREATE DIVER CARGO
 if (_type isEqualTo 10) then {
-	for "_i" from 0 to 5 do{
+	for "_i" from 0 to 5 step 1 do{
 		_unit=selectRandom _diverPool;
 		_temparray pushBack _unit;
 	};

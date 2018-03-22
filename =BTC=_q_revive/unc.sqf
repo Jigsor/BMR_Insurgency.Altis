@@ -59,7 +59,7 @@ while {_timer && {Alive _unit} && {damage _unit > 0.25}} do
 		//AI
 		if ((!isPlayer leader _group) && {isNull (_unit getVariable ["btc_qr_helper",objNull])}) then {[_unit] call btc_qr_fnc_call_for_help};
 	};
-	if (btc_qr_unc_scream && {!isPlayer _unit} && {_call > 15}) then {_call = 0;playSound3D [(btc_qr_call_medic call BIS_fnc_selectRandom),_unit];} else {_call = _call + 1;};
+	if (btc_qr_unc_scream && {!isPlayer _unit} && {_call > 15}) then {_call = 0;playSound3D [(selectRandom btc_qr_call_medic),_unit];} else {_call = _call + 1;};
 	sleep 1;
 };
 

@@ -1,10 +1,9 @@
 //eliminate_leader.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_mPos","_objmkr","_bunker","_VarName","_grp","_handle","_obj_leader","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_staticGuns"];
+params ["_newZone","_type"];
+private ["_rnum","_mPos","_objmkr","_bunker","_VarName","_grp","_handle","_obj_leader","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE"];
 
-_newZone = _this select 0;
-_type = _this select 1;
 _rnum = str(round (random 999));
 _mPos = _newZone;
 
@@ -25,7 +24,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Eliminate Leader";
 
-_bunker = createVehicle [_type, _newZone, [], 0, "None"];
+_bunker = createVehicle [_type, _newZone, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 
 _bunker setDir (random 359);
@@ -38,7 +37,7 @@ _stat_grp = [_newZone,4,10] call spawn_Op4_StatDef;
 _obj_leader = leader _grp;
 _VarName = "ObjLeader";
 _obj_leader setVehicleVarName _VarName;
-_obj_leader Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+_obj_leader Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 
@@ -71,11 +70,9 @@ sleep 90;
 
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
-
-if (!isNull _bunker) then {deleteVehicle _bunker; sleep 0.1;};
-
+if (!isNull _bunker) then {deleteVehicle _bunker};
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x} forEach _staticGuns;
 deleteMarker "ObjectiveMkr";
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};

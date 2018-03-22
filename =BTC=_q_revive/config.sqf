@@ -16,7 +16,7 @@ btc_qr_cam_dist = 20;
 
 //Markers names where you want to spawn
 if (!isDedicated && hasInterface) then {// Jig adding change option for side MHQs
-	if (INS_MHQ_enabled) then {
+	if (JIG_MHQ_enabled) then {
 		if (playerSide isEqualTo WEST) then {
 			btc_qr_def_spawn = ["MHQ_1","MHQ_2","MHQ_3"];
 		};

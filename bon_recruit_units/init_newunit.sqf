@@ -10,15 +10,13 @@ if(isServer) then{
 if (Fatigue_ability isEqualTo 0) then {[_unit] call INS_full_stamina};
 if (INS_op_faction isEqualTo 16) then {[_unit] call Trade_Biofoam_fnc};
 
-if (INS_GasGrenadeMod isEqualTo 1) then {
+if (INS_GasGrenadeMod isEqualTo 1 && !(INS_op_faction isEqualTo 17)) then {
 	removeHeadgear _unit;
 	if (INS_op_faction isEqualTo 16) then {
-  	_unit addHeadgear "OPTRE_UNSC_CH252_Helmet_Vacuum_DES";
-  }else{
-	if !(INS_op_faction isEqualTo 17) then {
+		_unit addHeadgear "OPTRE_UNSC_CH252_Helmet_Vacuum_DES";
+	}else{
 		_unit addHeadgear "H_CrewHelmetHeli_B";
 	};
-  };
 };
 
 _unit addAction ["<t color='#1d78ed'>Dismiss</t>",BON_RECRUIT_PATH+"dismiss.sqf",[],-10,false,true,""];

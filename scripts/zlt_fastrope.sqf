@@ -6,16 +6,14 @@
 #define STR_FAST_ROPE "Fast Rope"
 #define STR_CUT_ROPES "Cut Ropes"
 
-if (isdedicated) exitwith {};
-if (IamHC) exitwith {};
-
-waituntil {player == player};
+if (!hasInterface) exitwith {};
+waituntil {!isNull player && player == player};
 
 zlt_rope_ropes = [];
 zlt_mutexAction = false;
 
-zlt_rope_helis = ["O_Heli_Light_02_unarmed_F","O_Heli_Light_02_F","B_Heli_Transport_01_F","RHS_UH60M","RHS_UH60M_d","CAF_CH146_F_D","CAF_CH146_SF","ST1_UH_80_MED_FG","B_Heli_Transport_01_camo_F","O_Heli_Attack_02_F","O_Heli_Attack_02_black_F","I_Heli_Transport_02_F","B_Heli_Light_01_F","B_Heli_Light_01_dynamicLoadout_F","B_Heli_Transport_03_F","B_Heli_Transport_03_unarmed_F","I_Heli_light_03_F","I_Heli_light_03_unarmed_F","I_Heli_light_03_dynamicLoadout_F"];
-zlt_rope_helidata = 
+zlt_rope_helis = ["O_Heli_Light_02_unarmed_F","O_Heli_Light_02_F","B_Heli_Transport_01_F","RHS_UH60M","RHS_UH60M_d","RHS_UH60M_MEV","CAF_CH146_SF","ST1_UH_80_MED_FG","B_Heli_Transport_01_camo_F","O_Heli_Attack_02_F","O_Heli_Attack_02_black_F","I_Heli_Transport_02_F","B_Heli_Light_01_F","B_Heli_Light_01_dynamicLoadout_F","B_Heli_Transport_03_F","B_Heli_Transport_03_unarmed_F","I_Heli_light_03_F","I_Heli_light_03_unarmed_F","I_Heli_light_03_dynamicLoadout_F"];
+zlt_rope_helidata =
 [
 	[
 		["O_Heli_Light_02_unarmed_F","O_Heli_Light_02_F"],
@@ -23,7 +21,7 @@ zlt_rope_helidata =
 		[-1.45,1.35,-1.95]
 	],
 	[
-		["B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F","RHS_UH60M", "RHS_UH60M_d","CAF_CH146_F_D","CAF_CH146_SF","ST1_UH_80_MED_FG"],
+		["B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F","RHS_UH60M", "RHS_UH60M_d","RHS_UH60M_MEV","CAF_CH146_SF","ST1_UH_80_MED_FG"],
 		[-1.11,2.5,-1.7],
 		[1.11,2.5,-1.7]
 	],
@@ -107,8 +105,8 @@ zlt_fnc_fastropeaiunits = {
 	_grunits = _this select 1;
 
 	doStop (driver _heli );
-	(driver _heli) setBehaviour "Careless";
-	(driver _heli) setCombatMode "Blue";
+	(driver _heli) setBehaviour "CARELESS";
+	(driver _heli) setCombatMode "BLUE";
 
 	_heli spawn zlt_fnc_tossropes;
 
@@ -125,8 +123,8 @@ zlt_fnc_fastropeaiunits = {
 		waituntil {sleep 0.5; { (getpos _x select 2) < 1 } count _units == count _units; };
 		sleep 10;
 		(driver _heli) doFollow (leader group (driver _heli ));
-		(driver _heli) setBehaviour "Aware";
-		(driver _heli) setCombatMode "White";
+		(driver _heli) setBehaviour "AWARE";
+		(driver _heli) setCombatMode "WHITE";
 		_heli call zlt_fnc_cutropes;
 	};
 };
@@ -145,9 +143,9 @@ zlt_fnc_fastropeUnit = {
 	_unit = _this;
 	_veh = vehicle _unit;
 	_ropes = (_veh getVariable ["zlt_ropes", []]);
-	if (count _ropes == 0) exitWith {};
-	_ropeSel = _ropes call BIS_fnc_selectRandom;
-	_unit action ["Eject",_veh];
+	if (_ropes isEqualTo []) exitWith {};
+	_ropeSel = selectRandom _ropes;
+	_unit action ["getOut",_veh];
 	sleep 0.5;
 	_unit leaveVehicle _veh;
 	moveOut _unit;
@@ -180,12 +178,11 @@ zlt_fnc_createropes = {
 	zlt_mutexAction = false;
 };
 
-player addAction["<t color='#ffff00'>"+STR_TOSS_ROPES+"</t>", zlt_fnc_createropes, [], -1, false, false, '','[] call zlt_fnc_ropes_cond'];
-player addAction["<t color='#ff0000'>"+STR_CUT_ROPES+"</t>", zlt_fnc_removeropes, [], -1, false, false, '','not zlt_mutexAction and count ((vehicle player) getvariable ["zlt_ropes", []]) != 0'];
-player addAction["<t color='#00ff00'>"+STR_FAST_ROPE+"</t>", zlt_fnc_fastrope, [], 15, false, false, '','not zlt_mutexAction and count ((vehicle player) getvariable ["zlt_ropes", []]) != 0 and player != driver vehicle player'];
-
-player addEventHandler ["Respawn", {
+zlt_fastrope_acts = {
 	player addAction["<t color='#ffff00'>"+STR_TOSS_ROPES+"</t>", zlt_fnc_createropes, [], -1, false, false, '','[] call zlt_fnc_ropes_cond'];
 	player addAction["<t color='#ff0000'>"+STR_CUT_ROPES+"</t>", zlt_fnc_removeropes, [], -1, false, false, '','not zlt_mutexAction and count ((vehicle player) getvariable ["zlt_ropes", []]) != 0'];
 	player addAction["<t color='#00ff00'>"+STR_FAST_ROPE+"</t>", zlt_fnc_fastrope, [], 15, false, false, '','not zlt_mutexAction and count ((vehicle player) getvariable ["zlt_ropes", []]) != 0 and player != driver vehicle player'];
-}];
+};
+call zlt_fastrope_acts;
+
+player addEventHandler ["Respawn", {call zlt_fastrope_acts;}];
