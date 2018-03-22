@@ -83,7 +83,7 @@ if isserver then {
 
 	private ["_opos","_rad","_bpos"];
 	_opos = _this select 0;
-	if (typename _opos == typename objNull) then {_opos = getpos _opos};
+	if (_opos isEqualType objNull) then {_opos = getpos _opos};
 	_men = _this select 1;
 	_rad = if (count _this > 2) then { _this select 2 } else { 20 };
 

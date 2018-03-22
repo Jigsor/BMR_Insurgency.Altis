@@ -94,11 +94,14 @@ MAD_spawnCar = {
 		//Driver
 		_civtype = selectRandom INS_civlist;
 		_driver = _sqname createUnit [_civtype,_spawnpos, [], 0, "FORM"];
+		_driver addeventhandler ["killed", {_this spawn INSciviKilled_fnc}];
 		_driver moveindriver _spawncar;
 		_driver setbehaviour "SAFE";
 		_spawncar setvariable ["MAD_car_driver", _driver];
 		(group _driver) setVariable ["zbe_cacheDisabled",true];
 
+		[_spawncar] call BMRINS_fnc_civVehTextureGlobal;
+		//[_spawncar] call BMRINS_fnc_setPlate;
 		[leader _sqname] call MAD_carWaypoint;
 	};
 };

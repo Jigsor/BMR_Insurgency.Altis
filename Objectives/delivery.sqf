@@ -1,22 +1,20 @@
 //Objectives\delivery.sqf mission by Jigsor
 
 sleep 2;
-private ["_newZone","_smoke","_smkArr","_type","_rnum","_objmkr","_AA","_VarName","_grp","_vehgrp","_AAveh","_stat_grp","_inf_patrol","_AA_mob_patrol","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_droppoint","_dropedcargo","_veh","_text","_deliverydone","_MHQ3DelReady","_sphere","_cargoPos","_staticGuns"];
+params ["_newZone"];
+private ["_smkArr","_type","_rnum","_objmkr","_AA","_VarName","_grp","_vehgrp","_AAveh","_stat_grp","_inf_patrol","_AA_mob_patrol","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_droppoint","_dropedcargo","_veh","_deliverydone","_MHQ3DelReady","_sphere","_cargoPos"];
 
-_newZone = _this select 0;
-_rnum = str(round (random 999));
+_smkArr = [];
 _deliverydone = 0;
-deliveryfail = 0;
 _MHQ3DelReady = false;
+_cargoPos = getPos Del_box_Pos;
+_rnum = str(round (random 999));
+deliveryfail = 0;
+Task_Transport = [];
 Demo_Loaded = false;
 Demo_Unloaded = false;
-Demo_Near = false;
-Demo_End = false;
-Task_Transport = [];
-_smkArr = [];
-_cargoPos = getPos Del_box_Pos;
 
-if ((INS_op_faction > 3) || (INS_op_faction isEqualTo 0)) then {
+if (INS_op_faction > 3 || INS_op_faction isEqualTo 0) then {
 	_type = selectRandom INS_Op4_Veh_AA;
 }else{
 	_type = _this select 1;
@@ -38,7 +36,7 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "Demo_Unloaded" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 
 if (isNil "MHQ_3" || !Alive MHQ_3) then {// Create Helicopter MHQ_3 if it doesn't exist. Added to support Revive System(s) lacking MHQ's.
-	sleep 8;// wait for possible vehRespawn script
+	sleep 15;// wait for possible vehRespawn script
 	if (isNil "MHQ_3" || !Alive MHQ_3) then	{
 		if (!Alive MHQ_3) then {deleteVehicle MHQ_3; sleep 0.1;};
 
@@ -57,7 +55,7 @@ if (isNil "MHQ_3" || !Alive MHQ_3) then {// Create Helicopter MHQ_3 if it doesn'
 		_heli addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 		[_heli] call paint_heli_fnc;
 		_heli setVehicleVarName _HeliName; MHQ_3 = _heli;
-		_heli Call Compile Format ["%1=_This ; PublicVariable ""%1""",_HeliName];
+		_heli Call Compile Format ["%1=_this; publicVariable '%1'",_HeliName];
 		sleep 3;
 		_actualPos = (getPosATL MHQ_3);
 		_cargoPos = [_actualPos, 5, 14, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;
@@ -71,12 +69,12 @@ if (isNil "MHQ_3" || !Alive MHQ_3) then {// Create Helicopter MHQ_3 if it doesn'
 	//// Wait until loaded
 	waitUntil {sleep 1; (Delivery_Box getVariable "BTK_CargoDrop_ObjectLoaded") && {(MHQ_3 getVariable "BTK_CargoDrop_TransporterLoaded")}};
 	Demo_Loaded = true;
-	publicVariable "Demo_Loaded";
+	publicVariableServer "Demo_Loaded";
 
 	//// Wait until UNloaded
 	waitUntil {sleep 0.5; !(Delivery_Box getVariable "BTK_CargoDrop_ObjectLoaded") && !(MHQ_3 getVariable "BTK_CargoDrop_TransporterLoaded")};
 	Demo_Unloaded = true;
-	publicVariable "Demo_Unloaded";
+	publicVariableServer "Demo_Unloaded";
 };
 
 Delivery_Box setPos _cargoPos;
@@ -95,7 +93,7 @@ Demo_Arrow setPos [(getPos Demo_Arrow select 0),(getPos Demo_Arrow select 1),6];
 private ["_newPos","_tmarker"];
 _newPos = (getposATL MHQ_3);
 
-if !(getMarkerColor "Task_Transport" isEqualTo "") then {deleteMarker "Task_Transport";};
+if !(getMarkerColor "Task_Transport" isEqualTo "") then {deleteMarker "Task_Transport"};
 _tmarker = createMarker ["Task_Transport", _newPos];
 "Task_Transport" setMarkerShape "ICON";
 "Task_Transport" setMarkerSize [2, 2];
@@ -122,9 +120,11 @@ _taskdescE = localize "STR_BMR_Tsk_descE_lnds";
 
 waitUntil {sleep 1; Demo_Loaded};
 
-deleteVehicle Demo_Arrow; sleep 0.1;
-deleteVehicle _sphere; sleep 0.1;
-MHQ_3 setDamage 0; sleep 0.3;
+deleteVehicle Demo_Arrow;
+deleteVehicle _sphere;
+MHQ_3 setDamage 0;
+if (local MHQ_3 && {fuel MHQ_3 < 0.3}) then {MHQ_3 setfuel 0.3};
+sleep 0.3;
 
 [] spawn {
 	while {Demo_Loaded} do {
@@ -139,11 +139,11 @@ MHQ_3 setDamage 0; sleep 0.3;
 waitUntil {sleep 0.3; (isPlayer (driver MHQ_3)) && {(isEngineOn MHQ_3) && (!isnull (driver MHQ_3))}};
 
 _MHQ3DelReady = true;
-[localize "STR_BMR_delivery_ready", "JIG_MPhint_fnc"] call BIS_fnc_mp;
+(localize "STR_BMR_delivery_ready") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 sleep 2;
 
-_text = format [localize "STR_BMR_delivery_ready"];
-[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
+private _text = format [localize "STR_BMR_delivery_ready"];
+[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 sleep 3;
 
 // Spawn Objective Object
@@ -158,7 +158,7 @@ _AAveh addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 
 _VarName = "DeliveryDefence";
 _AAveh setVehicleVarName _VarName;
-_AAveh Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+_AAveh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 
 // Spawn Objective enemy defences
 _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
@@ -175,7 +175,7 @@ if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] cal
 
 _veh = MHQ_3;
 [_veh] spawn {
-	params ["_veh","_text","_loop"];
+	params ["_veh","_loop"];
 
 	for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 	{
@@ -183,16 +183,16 @@ _veh = MHQ_3;
 			_loop = 1;
 		};
 		sleep 0.5;
-		if ((isnull (driver _veh)) || (!alive _veh) || (!alive (driver _veh)) && {(Demo_Loaded)}) then {
-			[localize "STR_BMR_delivery_destroyed_aborted", "JIG_MPhint_fnc"] call BIS_fnc_mp;
+		if ((isnull (driver _veh)) || (!alive _veh) || (!alive (driver _veh)) && {Demo_Loaded}) then {
+			(localize "STR_BMR_delivery_destroyed_aborted") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 			sleep 3;
 
-			_text = format [localize "STR_BMR_delivery_destroyed_aborted"];
-			[[_text],"JIG_MPsideChatWest_fnc"] call BIS_fnc_mp;
-			[[_text],"JIG_MPsideChatEast_fnc"] call BIS_fnc_mp;
+			private _text = format [localize "STR_BMR_delivery_destroyed_aborted"];
+			[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
+			[_text] remoteExec ["JIG_MPsideChatEast_fnc", [0,-2] select isDedicated];
 
 			deliveryfail = 1;
-			publicVariable "deliveryfail";
+			publicVariableServer "deliveryfail";
 
 			_loop = 1;
 		};
@@ -243,7 +243,7 @@ if (Demo_Unloaded) then {
 };
 
 // Win - Loose
-waitUntil {sleep 1; ((deliveryfail isEqualTo 1) || (_deliverydone isEqualTo 1))};
+waitUntil {sleep 1; (deliveryfail isEqualTo 1 || _deliverydone isEqualTo 1)};
 
 if (_deliverydone isEqualTo 1) then {
 	[_tskW, "succeeded"] call SHK_Taskmaster_upd;
@@ -254,25 +254,22 @@ if (deliveryfail isEqualTo 1) then {
 	[_tskW, "failed"] call SHK_Taskmaster_upd;
 };
 
-Demo_Loaded = false; publicVariable "Demo_Loaded"; sleep 3;
+Demo_Loaded = false; publicVariableServer "Demo_Loaded"; sleep 3;
 
 // clean up
 "ObjectiveMkr" setMarkerAlpha 0;
 "Task_Transport" setMarkerAlpha 0;
 
-if (!isNull Demo_Arrow) then {deleteVehicle Demo_Arrow;}; sleep 0.1;
-if (!isNull _sphere) then {deleteVehicle _sphere;};
+{if (!isNull _x) then {deleteVehicle _x}} forEach [Demo_Arrow, _sphere];
 sleep 90;
 
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp),(units _vehgrp);
 {deleteGroup _x} forEach [_grp, _stat_grp, _vehgrp];
-
-if (!isNull _AAveh) then {deleteVehicle _AAveh;};
-
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
-{if (typeOf _x in objective_ruins) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 30]);
-if (ObjNull in _smkArr) then {{_smkArr = _smkArr - [objNull]} forEach _smkArr;}; {deleteVehicle _x;} count _smkArr;
+if (!isNull _AAveh) then {deleteVehicle _AAveh};
+{deleteVehicle _x} forEach ((NearestObjects [objective_pos_logic, [], 30]) select {typeOf _x in objective_ruins});
+{deleteVehicle _x} forEach (_smkArr select {!isNull _x});
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x} forEach _staticGuns;
 
 Delivery_Box hideObjectGlobal true;
 deleteMarker "ObjectiveMkr";

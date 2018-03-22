@@ -59,11 +59,9 @@ if (_LVgroupProbability > floor random 100) then {
 	if (_LVgroupSize==5) then {_LVgroupArray=[16,20]};
 }else{_LVehGroups=0;_LVgroupArray=[0,0];};
 
-if (_AVgroupProbability > floor random 100) then {
-}else{_AVehGroups=0;};
+if !(_AVgroupProbability > floor random 100) then {_AVehGroups=0;};
 
-if (_SVgroupProbability > floor random 100) then {
-}else{_SVehGroups=0;};
+if !(_SVgroupProbability > floor random 100) then {_SVehGroups=0;};
 
 if (_CHgroupProbability > floor random 100) then {
 	if (_CHgroupSize==0) then {_CHgroupArray=[0,0]};

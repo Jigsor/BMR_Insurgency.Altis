@@ -14,11 +14,10 @@ EXAMPLE CALL - EOS
 
 EOS_Civ_Spawn = compile preprocessfilelinenumbers "eos_civ\core\eos_civ_launch.sqf";
 null=[] execVM "eos_civ\core\spawn_civ_fnc.sqf";
-//onplayerConnected {[] execVM "eos_civ\functions\EOS_Civ_Markers.sqf";};
 if (isServer) then {["updateCivEOSmkrs","onplayerConnected", {[] execVM "eos_civ\functions\EOS_Civ_Markers.sqf";}] call BIS_fnc_addStackedEventHandler;};
 
-CivVictoryColor="colorGreen";	// Colour of marker after completion
-CivhostileColor="colorRed";	// Default colour when enemies active
+CivVictoryColor="ColorGreen";	// Colour of marker after completion
+CivhostileColor="ColorRed";	// Default colour when enemies active
 EOS_CIV_KILLCOUNTER=false;	// Counts killed units
 
 //create civilian zone trigger for each maker in all_civ_eos_mkrs

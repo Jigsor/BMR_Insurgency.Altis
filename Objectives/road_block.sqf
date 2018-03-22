@@ -1,10 +1,9 @@
 //road_block.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_insdebug","_roads","_sample","_rest","_rad","_allGrps","_allUnits","_run","_rbActive","_roadsSorted","_nearestRoad","_roadConnectedTo","_connectedRoad","_bgPos","_roadDir","_rbmkr","_bargate","_VarName","_bunker1","_bunker2","_unit_type","_unit1","_unit2","_damage","_rbWP","_objmkr","_grp","_handle","_maxtype","_vehPos","_Lveh","_LvehGrp","_handle1","_onActiv","_onDeAct","_bgTrig","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_stat_grp","_staticGuns"];
+params ["_newZone"];
+private ["_type","_rnum","_insdebug","_roads","_sample","_rest","_rad","_allGrps","_allUnits","_run","_rbActive","_roadsSorted","_nearestRoad","_roadConnectedTo","_connectedRoad","_bgPos","_roadDir","_rbmkr","_bargate","_VarName","_bunker1","_bunker2","_unit_type","_unit1","_unit2","_damage","_rbWP","_objmkr","_grp","_handle","_maxtype","_vehPos","_Lveh","_LvehGrp","_handle1","_onActiv","_onDeAct","_bgTrig","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_stat_grp"];
 
-_newZone = _this select 0;
-//_type = _this select 1;
 _rnum = str(round (random 999));
 _rest = 2;
 _rad = 200;
@@ -47,7 +46,7 @@ waitUntil {sleep 1; !_run};
 _nearestRoad = _roads select 0;
 _bgPos = getPos _nearestRoad;
 _connectedRoad = _roadConnectedTo select 0;
-_roadDir = [_nearestRoad, _connectedRoad] call BIS_fnc_DirTo;
+_roadDir = _nearestRoad getDir _connectedRoad;
 _bgPos = getPos _nearestRoad;
 
 //create objective marker
@@ -69,7 +68,7 @@ _bargate = createVehicle ["Land_BarGate_F", _bgPos, [], 0, "NONE"]; sleep jig_tv
 
 _VarName = "RoadBlockEast";
 _bargate setVehicleVarName _VarName;
-_bargate Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName]; sleep 0.1;
+_bargate Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; sleep 0.1;
 
 waitUntil {sleep 1; alive RoadBlockEast};
 _bargate allowDamage false;
@@ -83,10 +82,10 @@ RoadBlockEast setPos [getpos RoadBlockEast select 0,getpos RoadBlockEast select 
 
 [] spawn {RoadBlockEast animate ["Door_1_rot", 1];};
 
-_bunker1 = createVehicle ["Land_BagBunker_Small_F", _bargate modelToWorld [7.5,-2,-4], [], 0, "CAN COLLIDE"]; sleep jig_tvt_globalsleep;
+_bunker1 = createVehicle ["Land_BagBunker_Small_F", _bargate modelToWorld [7.5,-2,-4], [], 0, "CAN_COLLIDE"]; sleep jig_tvt_globalsleep;
 _bunker1 setdir (_roadDir -240);
 
-_bunker2 = createVehicle ["Land_BagBunker_Small_F", _bargate modelToWorld [-8.5,-2,-4], [], 0, "CAN COLLIDE"]; sleep jig_tvt_globalsleep;
+_bunker2 = createVehicle ["Land_BagBunker_Small_F", _bargate modelToWorld [-8.5,-2,-4], [], 0, "CAN_COLLIDE"]; sleep jig_tvt_globalsleep;
 _bunker2 setdir (_roadDir -110);
 
 {_x setPos [getpos _x select 0,getpos _x select 1,0];} forEach [_bunker1,_bunker2];
@@ -109,8 +108,8 @@ _unit_type = selectRandom INS_men_list;
 _unit2 = infGrp2 createUnit [_unit_type, _bunker2 modelToWorld [0,-4,-1], [], 0, "NONE"]; sleep jig_tvt_globalsleep;
 
 {
-_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-if !(AIdamMod isEqualTo 100) then {
+	_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
+	if !(AIdamMod isEqualTo 1) then {
 		_x removeAllEventHandlers "HandleDamage";
 		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 	};
@@ -230,11 +229,10 @@ deleteVehicle _bgTrig;
 "ObjectiveMkr" setMarkerAlpha 0;
 sleep 90;
 
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
-{deleteVehicle _x; sleep 0.1} forEach _allUnits;
-{deleteVehicle _x; sleep 0.1} forEach [_bargate,_bunker1,_bunker2,_Lveh];
+{deleteVehicle _x} forEach [_bargate,_bunker1,_bunker2,_Lveh];
 {deleteGroup _x} forEach _allGrps;
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x} forEach _staticGuns, _allUnits;
 {deleteMarker _x} forEach ["ObjectiveMkr","ins_sm_roadblock"];
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};

@@ -13,6 +13,6 @@ class CfgSounds
 //Jig's Sounds
 	class introfx {name="introfx";sound[]={"Sound\introfx.ogg", db-10, 1.0};titles[] = {};};
 	class siren {name="siren";sound[]={"Sound\siren.ogg", db+18, 1.0,900};titles[] = {};};	
-	class HighVoltage {name="HighVoltage";sound[]={"Sound\HighVoltage.ogg", db+16, 1.0,900};titles[] = {};};
-	class boo {name="boo";sound[]={"Sound\boo.ogg", db+2, 1.0};titles[] = {};};
+	class HighVoltage {name="HighVoltage";sound[]={"Sound\HighVoltage.ogg", db+19, 1.0,900};titles[] = {};};
+	class boo {name="boo";sound[]={"Sound\boo.ogg", db+3, 1.0};titles[] = {};};
 };

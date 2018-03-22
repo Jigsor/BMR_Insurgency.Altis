@@ -144,8 +144,7 @@ class ATM_AD_RscButtonMenu : ATM_AD_RscShortcutButton {
 	};
 };
 
-class ATM_AD_RscXSliderH 
-{
+class ATM_AD_RscXSliderH {
 	style = 1024;
 	type = 43;
 	shadow = 2;
@@ -153,23 +152,16 @@ class ATM_AD_RscXSliderH
 	y = 0;
 	h = 0.029412;
 	w = 0.400000;
-	color[] = {
-		1, 1, 1, 0.7
-	};
-	colorActive[] = {
-		1, 1, 1, 1
-	};
-	colorDisabled[] = {
-		1, 1, 1, 0.500000
-	};
+	color[] = {1, 1, 1, 0.7};
+	colorActive[] = {1, 1, 1, 1};
+	colorDisabled[] = {1, 1, 1, 0.500000};
 	arrowEmpty = "\A3\ui_f\data\gui\cfg\slider\arrowEmpty_ca.paa";
 	arrowFull = "\A3\ui_f\data\gui\cfg\slider\arrowFull_ca.paa";
 	border = "\A3\ui_f\data\gui\cfg\slider\border_ca.paa";
 	thumb = "\A3\ui_f\data\gui\cfg\slider\thumb_ca.paa";
 };
 
-class ATM_AD_activeText
-{
+class ATM_AD_activeText {
 	idc = -1;
 	type = 11;
 	style = 0;
@@ -189,54 +181,48 @@ class ATM_AD_activeText
 	text = "";
 };
 
-class ATM_AD_Keys
-	{
-		idc = -1;
-		type = 4;
-		style = 0x00;
+class ATM_AD_Keys {
+	idc = -1;
+	type = 4;
+	style = 0x00;
+	colorSelect[] = {1, 1, 1, 1};
+	colorText[] = {1, 1, 1, 1};
+	colorBackground[] = {0.2, 0.2, 0.2, 1};
+	colorSelectBackground[] = {0, 0, 0, 1};
+	colorScrollbar[] = {0.8, 0.8, 0.8, 1};
+	arrowEmpty = "\A3\ui_f\data\GUI\RscCommon\rsccombo\arrow_combo_ca.paa";
+	arrowFull = "\A3\ui_f\data\GUI\RscCommon\rsccombo\arrow_combo_active_ca.paa";
+	rowHeight = 0.06;
+	wholeHeight = 0.45;
+	color[] = {0, 0, 0, 0.6};
+	colorActive[] = {0, 0, 0, 1};
+	colorDisabled[] = {0, 0, 0, 0.3};
+	font = "PuristaMedium";
+	sizeEx = 0.025;
+	soundSelect[] = {"\A3\ui_f\data\sound\RscCombo\soundSelect", 0.09, 1};
+	soundExpand[] = {"\A3\ui_f\data\sound\RscCombo\soundExpand", 0.09, 1};
+	soundCollapse[] = {"\A3\ui_f\data\sound\RscCombo\soundCollapse", 0.09, 1};
+	maxHistoryDelay = 1.0;
 
-		colorSelect[] = {1, 1, 1, 1};
-		colorText[] = {1, 1, 1, 1};
-		colorBackground[] = {0.2, 0.2, 0.2, 1};
-		colorSelectBackground[] = {0, 0, 0, 1};
-		colorScrollbar[] = {0.8, 0.8, 0.8, 1};
-		arrowEmpty = "\A3\ui_f\data\GUI\RscCommon\rsccombo\arrow_combo_ca.paa";
-		arrowFull = "\A3\ui_f\data\GUI\RscCommon\rsccombo\arrow_combo_active_ca.paa";
-		rowHeight = 0.06;
-		wholeHeight = 0.45;
-		color[] = {0, 0, 0, 0.6};
-		colorActive[] = {0, 0, 0, 1};
-		colorDisabled[] = {0, 0, 0, 0.3};
-		font = "PuristaMedium";
-		sizeEx = 0.025;
-		soundSelect[] = {"\A3\ui_f\data\sound\RscCombo\soundSelect", 0.09, 1};
-		soundExpand[] = {"\A3\ui_f\data\sound\RscCombo\soundExpand", 0.09, 1};
-		soundCollapse[] = {"\A3\ui_f\data\sound\RscCombo\soundCollapse", 0.09, 1};
-		maxHistoryDelay = 1.0;
-
-		class ComboScrollBar
-		{
-			color[] = {1, 1, 1, 0.6};
-			colorActive[] = {1, 1, 1, 1};
-			colorDisabled[] = {1, 1, 1, 0.3};
-			thumb = "\A3\ui_f\data\gui\cfg\scrollbar\thumb_ca.paa";
-			arrowEmpty = "\A3\ui_f\data\gui\cfg\scrollbar\arrowEmpty_ca.paa";
-			arrowFull = "\A3\ui_f\data\gui\cfg\scrollbar\arrowFull_ca.paa";
-			border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
-		};
+	class ComboScrollBar {
+		color[] = {1, 1, 1, 0.6};
+		colorActive[] = {1, 1, 1, 1};
+		colorDisabled[] = {1, 1, 1, 0.3};
+		thumb = "\A3\ui_f\data\gui\cfg\scrollbar\thumb_ca.paa";
+		arrowEmpty = "\A3\ui_f\data\gui\cfg\scrollbar\arrowEmpty_ca.paa";
+		arrowFull = "\A3\ui_f\data\gui\cfg\scrollbar\arrowFull_ca.paa";
+		border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
 	};
+};
 
-class ATM_AD_ALTITUDE_SELECT 
-{
+class ATM_AD_ALTITUDE_SELECT {
 	idd = 2900;
 	name= "Altitudeselect";
 	movingEnable = true;
 	enableSimulation = true;
 
-	class controlsBackground
-	{
-		class ATM_RscTitleBackground : ATM_AD_RscText
-		{
+	class controlsBackground {
+		class ATM_RscTitleBackground : ATM_AD_RscText {
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.7])"};
 			idc = -1;
 			x = 0.3;
@@ -244,8 +230,7 @@ class ATM_AD_ALTITUDE_SELECT
 			w = 0.52;
 			h = (1 / 25);
 		};
-		class MainBackground : ATM_AD_RscText
-		{
+		class MainBackground : ATM_AD_RscText {
 			colorBackground[] = {0, 0, 0, 0.7};
 			idc = -1;
 			x = 0.3;
@@ -253,25 +238,22 @@ class ATM_AD_ALTITUDE_SELECT
 			w = 0.52;
 			h = 0.4 - (12 / 67);
 		};
-		class Altitude : ATM_AD_RscText
-		{
+		class Altitude : ATM_AD_RscText {
 			idc = -1;
 			text = "$STR_ATM_Alt";
 			x = 0.32; y = 0.258;
 			w = 0.275; h = 0.04;
 		};
-		class Keys : ATM_AD_RscText
-		{
+		class Keys : ATM_AD_RscText {
 			idc = -1;
 			text = "$STR_ATM_Keys";
 			x = 0.32; y = 0.358;
 			w = 0.275; h = 0.04;
 		};
 	};
-	class controls 
-	{
-		class atmTitle : ATM_AD_RscTitle
-		{
+
+	class controls {
+		class atmTitle : ATM_AD_RscTitle {
 			colorBackground[] = {0, 0, 0, 0};
 			idc = -1;
 			text = "$STR_ATM_Main";
@@ -280,8 +262,7 @@ class ATM_AD_ALTITUDE_SELECT
 			w = 0.8;
 			h = (1 / 25);
 		};
-		class Alt_slider : ATM_AD_RscXSliderH 
-		{
+		class Alt_slider : ATM_AD_RscXSliderH {
 			idc = 2901;
 			text = "";
 			onSliderPosChanged = "[_this select 1] call fnc_alt_onsliderchange";
@@ -291,22 +272,19 @@ class ATM_AD_ALTITUDE_SELECT
 			w = "9 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
-		class ALT_value : ATM_AD_RscText
-		{
+		class ALT_value : ATM_AD_RscText {
 			idc = 2902;
-			text = "";			
+			text = "";
 			x = 0.70; y = 0.258;
 			w = 0.275; h = 0.04;
 		};
-		class KEY_value : ATM_AD_RscText
-		{
+		class KEY_value : ATM_AD_RscText {
 			idc = 2904;
 			text = "";
 			x = 0.70; y = 0.258;
 			w = 0.275; h = 0.04;
 		};
-		class ATM_AD_SelectKeys : ATM_AD_Keys
-		{
+		class ATM_AD_SelectKeys : ATM_AD_Keys {
 			idc = 2903;
 			rowHeight = 0.03;
 			wholeHeight = 6.5 * 0.03;
@@ -316,8 +294,7 @@ class ATM_AD_ALTITUDE_SELECT
 			h = 0.018 * safezoneH;
 			onLBSelChanged = "[] call pkChangeKey;";
 		};
-		class ATM_AD_ButtonClose : ATM_AD_RscButtonMenu
-		{
+		class ATM_AD_ButtonClose : ATM_AD_RscButtonMenu {
 			idc = -1;
 			//shortcuts[] = {0x00050000 + 2};
 			text = "$STR_ATM_Close";

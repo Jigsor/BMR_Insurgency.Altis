@@ -18,11 +18,10 @@ if (surfaceiswater _pos) then {_pool=[_faction,1] call eos_fnc_getcivunitpool;}e
 
 _grp=createGroup _side;
 
-for "_x" from 1 to _grpSize do {
+for "_x" from 1 to _grpSize step 1 do {
 	_unitType=selectRandom _pool;
 	_unit = _grp createUnit [_unitType, _pos, [], 6, "FORM"];
 	(group _unit) setVariable ["zbe_cacheDisabled",true];
-	//sleep 0.3;
 };
 
 _grp

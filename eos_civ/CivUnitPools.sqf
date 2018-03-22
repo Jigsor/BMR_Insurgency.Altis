@@ -19,7 +19,7 @@ _tempArray=[];
 
 ////////////////////////////////////////////////////////////////////////////////////////
 if (_type isEqualTo 0) then {
-	for "_i" from 0 to 5 do{
+	for "_i" from 0 to 5 step 1 do{
 		_unit=selectRandom _InfPool;
 		_tempArray pushBack _unit;
 	};
@@ -35,7 +35,7 @@ if (_type isEqualTo 2) then {
 	_temparray pushBack _crew;
 };
 
-// CREATE ATTACK CHOPPER & CREW	
+// CREATE ATTACK CHOPPER & CREW
 if (_type isEqualTo 3) then {
 	_tempUnit=selectRandom _ACHPool;
 	_temparray pushBack _tempUnit;
@@ -78,7 +78,7 @@ if (_type isEqualTo 8) then {
 
 // CREATE CARGO
 if (_type isEqualTo 9) then {
-	for "_i" from 0 to 5 do{
+	for "_i" from 0 to 5 step 1 do{
 		_unit=selectRandom _InfPool;
 		_temparray pushBack _unit;
 	};
@@ -86,7 +86,7 @@ if (_type isEqualTo 9) then {
 
 // CREATE DIVER CARGO
 if (_type isEqualTo 10) then {
-	for "_i" from 0 to 5 do{
+	for "_i" from 0 to 5 step 1 do{
 		_unit=selectRandom _diverPool;
 		_temparray pushBack _unit;
 	};

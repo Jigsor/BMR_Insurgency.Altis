@@ -1,8 +1,7 @@
 /*
- extraction_init.sqf v1.22 by Jigsor
+ extraction_init.sqf v1.25 by Jigsor
  null = [] execVM "JIG_EX\extraction_init.sqf";
  runs in init.sqf
- This is still WIP
 */
 
 // Editable Global Variable Parameters ////////////////////////////////////////////////////////////////////////////////
@@ -30,18 +29,17 @@ waitUntil {isDedicated || !isNull player};
 [] call compile preProcessFile "JIG_EX\extraction_fncs.sqf";
 
 //JIP Hosted server
-if ((!isServer) and (isNil JIG_EX_Caller)) exitWith {};//exit if not caller or Server working on hosted Server
-if ((!isServer) and (isNil JIG_EX_Caller)) then {breakOut "exit";};// exit client on Dedi
-if ((!isDedicated) and (isNil JIG_EX_Caller)) then {waitUntil {sleep 10; !isNil JIG_EX_Caller};};// Player/Caller wait until caller's slot has player
+if ((!isServer) && (isNil JIG_EX_Caller)) exitWith {};//exit if not caller or Server working on hosted Server
+if ((!isServer) && (isNil JIG_EX_Caller)) then {breakOut "exit";};// exit client on Dedi
+if ((!isDedicated) && (isNil JIG_EX_Caller)) then {waitUntil {sleep 10; !isNil JIG_EX_Caller};};// Player/Caller wait until caller's slot has player
 
 //JIP Dedicated Server
 if (isDedicated) then {waitUntil {!isNil JIG_EX_Caller};};
 // Editing the following line required./////////////////////////////////////////////////////////////////////////////////
 JIG_EX_Caller = CAS1;// Name of playable unit in editor who can call in Extraction Via scroll action, ie; s1, TeamLeader or TL1. This edit is required at the very least to run script pack.
 
-private "_all_players";
-_all_players = playableUnits;
-if ((isServer) and (not (JIG_EX_Caller in _all_players))) then {waitUntil {sleep 10; (JIG_EX_Caller in _all_players)};};// Server wait until caller's slot has player
+private _all_players = playableUnits;
+if ((isServer) && (! (JIG_EX_Caller in _all_players))) then {waitUntil {sleep 10; (JIG_EX_Caller in _all_players)};};// Server wait until caller's slot has player
 
 ext_caller_group = grpNull;
 evac_toggle = false;
@@ -75,8 +73,7 @@ if (!isDedicated) then {
 	EvacHeliW1 = ObjNull;
 	resetEvac = true;
 	publicVariable "resetEvac";
-	private "_ex_caller";
-	_ex_caller = JIG_EX_Caller;
+	private _ex_caller = JIG_EX_Caller;
 	_ex_caller addEventHandler ["killed", {_nul = _this execVM "JIG_EX\respawnAddActionHE.sqf";}];
 };// addaction on player killed/ reset Evac for JIP JIG_EX_Caller
 
@@ -94,12 +91,11 @@ while {true} do {
 		if (!isDedicated) then {
 			if (!(isNull player)) then {
 				sleep 5;// wait for server eventhandlers to initialize
-				if ((local player) and (JIG_EX_Caller == player)) then {
-					private "_ex_caller";
+				if (JIG_EX_Caller == player) then {
 					jig_ex_actid_show = 9999;
-					_ex_caller = JIG_EX_Caller;
+					private _ex_caller = JIG_EX_Caller;
 					_ex_caller removeaction jig_ex_actid_show;
-					jig_ex_actid_show = _ex_caller addAction [("<t color=""#12F905"">") + (localize "STR_BMR_heli_extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];
+					jig_ex_actid_show = _ex_caller addAction [("<t color='#12F905'>") + (localize "STR_BMR_heli_extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"];
 				};
 			};
 		};
@@ -110,19 +106,9 @@ while {true} do {
 	// Hosted server/Player
 	if (!isDedicated) then {
 		if (!(isNull player)) then {
-			if ((local player) and (JIG_EX_Caller == player)) then {
+			if (JIG_EX_Caller == player) then {
 				player removeaction jig_ex_cancelid_show;
 			};
 		};
 	};
 };
-
-/*
-// Chopper DisplayName/ClassName
-// A3:	MH-9 Hummingbird "B_Heli_Light_01_F", PO-30 Orca "O_Heli_Light_02_F", PO-30 Orca [Black] "O_Heli_Light_02_unarmed_F", UH-80 Ghost Hawk "B_Heli_Transport_01_F", UH-80 Ghost Hawk [Camo] "B_Heli_Transport_01_camo_F", CH-49 Mohawk "I_Heli_Transport_02_F", WY-55 Hellcat "I_Heli_light_03_F", WY-55 Hellcat [Green] "I_Heli_light_03_unarmed_F"
-// Moded HAFM helis @hafm_helis: UH60M "UH60M", UH60M_MEV "UH60M_MEV", CH47F "CH_47F".
-// Moded Blufor Wildcat @NATO_HELCAT: AW159 Armed Camo "AW159_Armed_Camo", AW-159 Transport Camo "AW159_Transport_Camo", AW-159 Transport Black "AW159_Transport_Black", AW159 Transport Grey "AW159_Transport_Grey"
-// Moded Boeing/SOAR MH-47E: "kyo_MH47E_base", "kyo_MH47E_HC", "kyo_MH47E_Ramp" Co-pilot is Gunner01. Left Gunner is Gunner02. Right Gunner is Gunner03. Loadmaster is Gunner04. Backcrew is Gunner05. //"kyo_MH47E_base" not supported
-// Moded Blufor Mmohawk @KDK_Mohawk;"CH49_Mohawk_FG"
-// Moded @RHSUSF3 Chinnoks ,"RHS_CH_47F_10","RHS_CH_47F_light" (JIG_EX_gunners = true not tested).
-*/

@@ -7,10 +7,9 @@
 	objects[] = {};
 	controls[] = {respawn,call_for_help,text_time};
 
-	onLoad = "uiNamespace setVariable [""btc_qr_dlg"", _this select 0];";
+	onLoad = "uiNamespace setVariable ['btc_qr_dlg', _this select 0];";
 
-	class Background 
-	{
+	class Background {
 		colorBackground[] = {0, 0, 0, 0};
 		type = 0;
 		colorText[] = {1, 1, 1, 1};
@@ -24,8 +23,7 @@
 		h = "SafeZoneH + 0.05";
 		text = "=BTC=_q_revive\data\unc.paa";
 	};
-	class respawn 
-	{
+	class respawn {
 		onMouseButtonClick = "player call btc_qr_fnc_resp;";
 		idc = -1;
 		type = 1;
@@ -42,7 +40,7 @@
 		soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1};
 		soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1};
 		soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1};
-		
+
 		x = 0.5 * safezoneW + safezoneX;
 		y = 0.1 * safezoneH + safezoneY;
 		w = 0.18 * safezoneW;
@@ -55,18 +53,16 @@
 		offsetPressedX = 0.002;
 		offsetPressedY = 0.002;
 		borderSize = 0;
-		text = "Respawn";
-		action = "";			
+		text = "$STR_BMR_UI_Respawn";
+		action = "";
 	};
-	class call_for_help : respawn
-	{
+	class call_for_help : respawn {
 		idc = 171;
 		x = 0.3 * safezoneW + safezoneX;
 		onMouseButtonClick = "[player] call btc_qr_fnc_call_for_help";
-		text = "Call for help";
+		text = "$STR_BMR_UI_CallForHelp";
 	};
-	class text_time 
-	{
+	class text_time {
 		idc = 172;
 		x = 0.45 * safezoneW + safezoneX;
 		y = 0.8 * safezoneH + safezoneY;
@@ -81,7 +77,7 @@
 		text = "";
 		colorText[] = {1, 1, 1, 1};
 		colorBackground[] = {0, 0, 0, 0};
-		linespacing = 1;			
+		linespacing = 1;
 	};
 };
 class btc_qr_dlg_resp
@@ -93,10 +89,9 @@ class btc_qr_dlg_resp
 	objects[] = {};
 	controls[] = {confirm,spawn_list};
 
-	onLoad = "uiNamespace setVariable [""btc_qr_dlg_resp"", _this select 0];";
+	onLoad = "uiNamespace setVariable ['btc_qr_dlg_resp', _this select 0];";
 
-	class confirm 
-	{
+	class confirm {
 		onMouseButtonClick = "btc_qr_spawn_selected = true;";
 		idc = -1;
 		type = 1;
@@ -113,7 +108,7 @@ class btc_qr_dlg_resp
 		soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1};
 		soundClick[] = {"\A3\ui_f\data\sound\RscButton\soundClick",0.09,1};
 		soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1};
-		
+
 		x = 0.55 * safezoneW + safezoneX;
 		y = 0.09 * safezoneH + safezoneY;
 		w = 0.18 * safezoneW;
@@ -126,11 +121,10 @@ class btc_qr_dlg_resp
 		offsetPressedX = 0.002;
 		offsetPressedY = 0.002;
 		borderSize = 0;
-		text = "Confirm";
-		action = "";			
+		text = "$STR_BMR_UI_Confirm";
+		action = "";
 	};
-	class spawn_list
-	{
+	class spawn_list {
 		style = 16;
 		type = 4;
 		idc = 181;
@@ -153,8 +147,7 @@ class btc_qr_dlg_resp
 		colorDisabled[] = {1,1,1,0.25};
 		font = "PuristaMedium";
 		sizeEx = "(			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.85)";
-		class ComboScrollBar
-		{
+		class ComboScrollBar {
 			color[] = {1,1,1,0.6};
 			colorActive[] = {1,1,1,1};
 			colorDisabled[] = {1,1,1,0.3};

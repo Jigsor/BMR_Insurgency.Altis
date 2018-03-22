@@ -6,7 +6,7 @@ waitUntil {alive _p};
 if ((INS_op_faction isEqualTo 1) || (INS_op_faction isEqualTo 4) || (INS_op_faction isEqualTo 5)) exitWith
 {
 	removeAllAssignedItems _p;
-	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","NVGoggles_OPFOR"];
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles_OPFOR"];
 };
 
 removeAllWeapons _p;
@@ -54,7 +54,7 @@ if ((INS_op_faction isEqualTo 2) || (INS_op_faction isEqualTo 3)) then {
 	_p addprimaryweaponitem "optic_Hamr";
 	_p addprimaryweaponitem "acc_flashlight";//"optic_Arco","optic_MRCO"
 
-	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","NVGoggles_INDEP"];
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles_INDEP"];
 };
 
 switch (INS_op_faction) do {
@@ -95,7 +95,7 @@ case 6: {
 	[_p,"hgun_ACPC2_F",2] call BIS_fnc_AddWeapon;//"hgun_ACPC2_F" compatible mags = "9Rnd_45ACP_Mag"
 	_p addprimaryweaponitem "rhs_acc_1p29";
 
-	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","NVGoggles"];//"NVGoggles_OPFOR"
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"];//"NVGoggles_OPFOR"
 };
 case 7: {
 // RHS - DES Armed Forces of the Russian Federation (@RHSAFRF)
@@ -133,7 +133,7 @@ case 7: {
 	[_p,"hgun_ACPC2_F",2] call BIS_fnc_AddWeapon;//"hgun_ACPC2_F" compatible mags = "9Rnd_45ACP_Mag"
 	_p addprimaryweaponitem "rhs_acc_1p29";
 
-	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","NVGoggles"];//"NVGoggles_OPFOR"
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"];//"NVGoggles_OPFOR"
 };
 case 8: {
 // RHS - GREF (@RHSAFRF;@RHSUSAF;@RHSGREF)
@@ -172,7 +172,7 @@ case 8: {
 	_p addprimaryweaponitem "rhs_acc_dtk";
 	_p addprimaryweaponitem "rhs_acc_pkas";
 
-	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","NVGoggles"];//"NVGoggles_INDEP"
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"];//"NVGoggles_INDEP"
 };
 case 9: {
 // RHS - SAF (@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF)
@@ -205,7 +205,7 @@ case 9: {
 	[_p,"rhs_weap_pp2000_folded",4] call BIS_fnc_AddWeapon;
 	_p addSecondaryWeaponItem "rhs_acc_rpg7v_zeroing_100";
 
-	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS","NVGoggles"];
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS","G_Tactical_Clear","NVGoggles"];
 
 	_p setFace "WhiteHead_22_l";
 	_p setSpeaker "Male05GRE";

@@ -43,7 +43,7 @@ Example of creating multiple positions:
 				_m%1 = createMarker[""mySpot%1"",[_p select 0,_p select 1]];
 				_m%1 setMarkerShape ""ICON"";
 				_m%1 setMarkerType ""DOT"";
-				_m%1 setmarkercolor ""colorred"";
+				_m%1 setmarkercolor ""ColorRed"";
 				",_i];
 			};
 	};
@@ -54,18 +54,18 @@ _getpos = {
 	_origo = _this select 0;
 	_dir = _this select 1;
 	_dist = _this select 2;
-	if (typename _dir == typename []) then {
+	if (_dir isEqualType []) then {
 		if ((_dir select 0) > (_dir select 1)) then { _dir set [1,((_dir select 1) + 360)] };
 		_dir = ((_dir select 0) + random((_dir select 1)-(_dir select 0)))
 	};
-	if (typename _dist == typename []) then {
+	if (_dist isEqualType []) then {
 		_dist = ((_dist select 0) + random((_dist select 1)-(_dist select 0)));
 	};
 	[((_origo select 0) + (_dist * sin _dir)),((_origo select 1) + (_dist * cos _dir)),0];
 };
 
 private "_water";
-if (typename (_this select 0) == typename "") then {
+if ((_this select 0) isEqualType "") then {
 	private ["_pos","_area","_cp","_cx","_cy","_as","_rx","_ry","_ad","_cd","_sd","_xo","_yo","_loop"];
 	_area = _this select 0;
 	if (count _this > 1) then {_water = _this select 1} else {_water = false};
@@ -112,7 +112,7 @@ if (typename (_this select 0) == typename "") then {
 			case 1: {
 				_d = 10; _l = true;
 				while {_l} do {
-					for "_i" from 0 to 350 do {
+					for "_i" from 0 to 350 step 1 do {
 						_p = [_pos,_i,_d] call _getpos;
 						if (!surfaceIsWater [_p select 0,_p select 1]) exitwith {_l = false};
 					};
@@ -137,7 +137,7 @@ if (typename (_this select 0) == typename "") then {
 				};
 			};
 			case 4: {
-				if (typename _dir == typename []) then {
+				if (_dir isEqualType []) then {
 					_d = _dir select 0;
 					_dir = _dir select 0;
 				}else{
@@ -152,7 +152,7 @@ if (typename (_this select 0) == typename "") then {
 				_pos = _p;
 			};
 			case 5: {
-				if (typename _dir == typename []) then {
+				if (_dir isEqualType []) then {
 					_d = _dir select 1;
 					_dir = _dir select 1;
 				}else{

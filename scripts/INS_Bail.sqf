@@ -10,9 +10,9 @@ hint "";
 //(vehicle player) getHitPointDamage "hitEngine";
 //_allVehHitPoints = (configfile >> "CfgVehicles" >> _veh >> "HitPoints") call BIS_fnc_getCfgSubClasses;
 
-if ((driver _veh == player) && {(getDammage _veh < 0.7) && ((isEngineOn _veh) || ((vehicle player) getHitPointDamage "hitEngine" < 0.7))}) exitWith {hint localize "STR_BMR_Bail_restrictOnDamage"};
+if ((driver _veh == player) && {(getDammage _veh < 0.68) && ((isEngineOn _veh) || ((vehicle player) getHitPointDamage "hitEngine" < 0.68))}) exitWith {hint localize "STR_BMR_Bail_restrictOnDamage"};
 
-if (soundVolume isEqualTo 0.5) then {1 fadeSound 1;};
+if (soundVolume isEqualTo 0.4) then {1 fadeSound 1};
 
 moveOut _target;
 

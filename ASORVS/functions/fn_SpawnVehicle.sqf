@@ -12,7 +12,8 @@ objNull spawn {
 	_veh setDir ASORVS_VehicleSpawnDir;
 	[_veh] call anti_collision;
 	_veh setVehicleLock "UNLOCKED";
-	if(getNumber(configFile >> "CfgVehicles" >> typeOf _veh >> "isUav")==1) then {createVehicleCrew _veh;};
+	if(getNumber(configFile >> "CfgVehicles" >> typeOf _veh >> "isUav")==1) then {createVehicleCrew _veh};
 	if ((typeOf _veh) in INS_add_Chaff) then {_veh addweapon "CMFlareLauncher"; _veh addmagazine "120Rnd_CMFlare_Chaff_Magazine";};
-	if (_veh isKindOf "Ship") then {_veh addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];};
+	if (_veh isKindOf "Ship") then {[_veh] call Push_Acc};
+	if (typeOf _veh isEqualTo "I_Heli_Transport_02_F") then {[_veh] spawn BMR_resetDamage};//workaround for weird new bug. Mohawk damages itself a moment after creation.
 };

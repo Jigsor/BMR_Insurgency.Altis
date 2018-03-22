@@ -1,10 +1,9 @@
 //Objectives\comms_tower.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_objmkr","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_staticGuns"];
+params ["_newZone","_type"];
+private ["_rnum","_objmkr","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE"];
 
-_newZone = _this select 0;
-_type = _this select 1;
 _rnum = str(round (random 999));
 _towerPos = _newZone;
 
@@ -26,14 +25,14 @@ _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerText "Radio Tower";
 
 // Spawn Objective Object
-_tower = createVehicle [_type, _newZone, [], 0, "None"];
+_tower = createVehicle [_type, _newZone, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 
 _tower setVectorUp [0,0,1];
-_tower addeventhandler ["handledamage",{_this call JIG_tower_damage}];
+_tower addeventhandler ["HandleDamage",{_this call JIG_tower_damage}];
 _VarName = "RadioTower1";
 _tower setVehicleVarName _VarName;
-_tower Call Compile Format ["%1=_This ; PublicVariable ""%1""",_VarName];
+_tower Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 
 // Spawn Objective enemy deffences
 _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
@@ -69,11 +68,9 @@ sleep 90;
 
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
-
-{if (typeof _x in objective_ruins) then {deleteVehicle _x; sleep 0.1}} forEach (NearestObjects [objective_pos_logic, [], 30]);
-
+{deleteVehicle _x} forEach ((NearestObjects [objective_pos_logic, [], 30]) select {typeOf _x in objective_ruins});
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x} forEach _staticGuns;
 deleteMarker "ObjectiveMkr";
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};

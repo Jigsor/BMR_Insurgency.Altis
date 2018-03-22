@@ -40,7 +40,7 @@ if (_activated) then {
 		_Scale = _this select 5;
 		_SSize = _this select 6;
 		_Isize = _this select 7;
-		_where = if (count _units >= 1) then {_units call BIS_fnc_selectRandom} else {_source};
+		_where = if (count _units >= 1) then {selectRandom _units} else {_source};
 
 		_saI = (Round (random _Isize)/3.5);
 
@@ -86,7 +86,7 @@ if (_activated) then {
 	AmB_nosound = false;
 	_center = createCenter sideLogic;
 	_group = createGroup _center;
-	_logic = _group createUnit ["LOGIC",(getPos _source) , [], 0, ""];
+	_logic = _group createUnit ["LOGIC",(getPos _source) , [], 0, "NONE"];
 	_Scale = _source getVariable "Scale";
 	_Ssize = _Scale/(_Scale*.1)/_Scale^.5*10;
 	_intensity = _source getVariable "Intensity";

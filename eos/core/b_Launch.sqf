@@ -1,7 +1,6 @@
 HCPresent = if (isNil "Any_HC_present") then {False} else {True};
 
-if (!isServer && hasInterface) exitWith{};
-if (HCPresent && isServer) exitWith{};
+if ((!isServer && hasInterface) || (HCPresent && isServer)) exitWith{};
 
 private ["_CHgroupArray","_LVgroupArray","_PAgroupArray","_CHGroups","_AVehGroups","_LVehGroups","_PApatrols"];
 
@@ -41,7 +40,7 @@ if (_CHgroupSize==4) then {_CHgroupArray=[12,16]};
 if (_CHgroupSize==5) then {_CHgroupArray=[16,20]};
 {
 	_eosMarkers=server getvariable "EOSmarkers";
-	if (isnil "_eosMarkers") then {_eosMarkers=[];};
+	if (isnil "_eosMarkers") then {_eosMarkers=[]};
 		_eosMarkers set [count _eosMarkers,_x];
 		server setvariable ["EOSmarkers",_eosMarkers,true];
 		null = [_x,[_PApatrols,_PAgroupArray],[_LVehGroups,_LVgroupArray],[_AVehGroups],[_CHGroups,_CHgroupArray],_settings,_basSettings] execVM "eos\core\b_core.sqf";

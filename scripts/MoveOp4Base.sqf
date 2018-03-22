@@ -1,39 +1,36 @@
 // MoveOp4Base.sqf by Jigsor
 // Relocate Op4 Base/"Respawn_East" marker position.
-private ["_op4_player","_mL","_aP","_bs","_rwp","_pP","_cooX","_cooY","_dis","_wheX","_wheY","_Op4rP","_pnf","_c","_sP","_centerPos","_bp","_dir"];
+private ["_op4Player","_mL","_aP","_bs","_rwp","_pP","_cooX","_cooY","_dis","_wheX","_wheY","_Op4rP","_pnf","_c","_sP","_centerPos","_bp","_dir"];
 
-_op4_player = _this select 0;
+_op4Player = _this select 0;
 _pnf = false;
 _rwp = nil;
 _bp = getMarkerPos "Respawn_West";
-_aP = playableUnits - entities INS_op4_players;// exclude east players
-_mL = if (INS_p_rev > 5) then {false;}else{true;};
+_aP = playableUnits - entities INS_op4_Players;// exclude east players
+_mL = if (INS_p_rev > 5) then {false}else{true};
 
-waitUntil {!isNull _op4_player};
+waitUntil {sleep 1; !isNull _op4Player};
 
-if (count _aP > 0) then
-{
+if (count _aP > 0) then {
 	{
-		_bs = speed _x;
+		_bs = (vectorMagnitudeSqr velocity _x > 8);
 		_pos = (getPos _x);
-		if (_bs > 8 || _pos select 2 > 4) then {_aP = _aP - [_x];};
+		if (_bs || _pos select 2 > 4) then {_aP = _aP - [_x];};
 	} foreach _aP;// exclude players in moving vehicles, above ground, in aircraft or in high structures
 }else{
 	_pnf = true;
 };
 
-if (count _aP > 0) then
-{	
-	_rwp = _aP select (floor (random (count _aP)));
+if (count _aP > 0) then {
+	_rwp = selectRandom _aP;
 	_aP = _aP - ["_rwp"];
 	while {!isNil "_rwp" && {_rwp distance _bp < 600}} do {
-		_rwp = _aP select (floor (random (count _aP)));
+		_rwp = selectRandom _ap;
 		_aP = _aP - ["_rwp"];
 	};
 };// exclude players to close to blufor base
 
-if (!isNil "_rwp") then
-{
+if (!isNil "_rwp") then {
 	// Move Op4 Base within 250 to 500 meters of blufor player
 	_pP = getPos _rwp;
 	_cooX = _pP select 0;
@@ -52,22 +49,21 @@ if (!isNil "_rwp") then
 		if (_c > 5) exitWith {_pnf = true;};
 		sleep 0.2;
 	};
-	if (count _sP > 0) exitWith {if (_mL) then {BTC_r_base_spawn setPos _sP;}; "Respawn_East" setMarkerPos _sP;};
+	if (count _sP > 0) exitWith {if (_mL) then {BTC_r_base_spawn setPos _sP}; "Respawn_East" setMarkerPos _sP;};
 }else{
 	_pnf = true;
 };
 
-if (_pnf) then
-{
-	if ((INS_MHQ_enabled) && {(!isNil "Opfor_MHQ")}) then {
+if (_pnf) then {
+	if (INS_MHQ_exists && {!isNil "Opfor_MHQ"}) then {
 		// Move to Op4 MHQ
-		if (_mL) then {BTC_r_base_spawn setPos getMarkerPos "Opfor_MHQ";};
-		"Respawn_East" setMarkerPos getMarkerPos "Opfor_MHQ";
-		_dir = random 359;
-		player setPos [(getMarkerPos "Opfor_MHQ" select 0)-10*sin(_dir),(getMarkerPos "Opfor_MHQ" select 1)-10*cos(_dir)];
-	}
-	else
-	{
+		if !(getMarkerColor "Opfor_MHQ" isEqualTo "") then {
+			if (_mL) then {BTC_r_base_spawn setPos getMarkerPos "Opfor_MHQ"};
+			"Respawn_East" setMarkerPos getMarkerPos "Opfor_MHQ";
+			_dir = round(random 360);
+			player setPos [(getMarkerPos "Opfor_MHQ" select 0)-10*sin(_dir),(getMarkerPos "Opfor_MHQ" select 1)-10*cos(_dir)];
+		};
+	}else{
 		// Move Op4 Base to center
 		_centerPos = getPosATL center;
 		_cooX = _centerPos select 0;
@@ -85,7 +81,7 @@ if (_pnf) then
 			_sP = _Op4rP isFlatEmpty [5,384,0.9,2,0,false,ObjNull];
 			sleep 0.2;
 		};
-		if (_mL) then {BTC_r_base_spawn setPos _sP;};
+		if (_mL) then {BTC_r_base_spawn setPos _sP};
 		"Respawn_East" setMarkerPos _sP;
 	};
 };

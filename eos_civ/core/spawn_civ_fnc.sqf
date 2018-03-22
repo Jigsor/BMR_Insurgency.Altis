@@ -12,16 +12,15 @@ eos_fnc_getcivunitpool= compile preprocessfilelinenumbers "eos_civ\CivUnitPools.
 call compile preprocessfilelinenumbers "eos_civ\Civ_AI_Skill.sqf";
 
 EOS_Civ_Deactivate = {
-	private ["_mkr"];
-		_mkr=(_this select 0);
+	private _mkr=(_this select 0);
 	{
-		_x setmarkercolor "colorblack";
+		_x setmarkercolor "ColorBlack";
 		_x setmarkerAlpha 0;
 	}foreach _mkr;
 };
 
 EOS_civ_debug = {
-private ["_note"];
+private "_note";
 _mkr=(_this select 0);
 _n=(_this select 1);
 _note=(_this select 2);
@@ -31,7 +30,7 @@ _mkrID=format ["%3:%1,%2",_mkr,_n,_note];
 deletemarker _mkrID;
 _debugMkr = createMarker[_mkrID,_pos];
 _mkrID setMarkerType "Mil_dot";
-_mkrID setMarkercolor "colorBlue";
+_mkrID setMarkercolor "ColorBlue";
 _mkrID setMarkerText _mkrID;
 _mkrID setMarkerAlpha 0.5;
 };

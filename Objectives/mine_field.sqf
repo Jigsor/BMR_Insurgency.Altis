@@ -1,10 +1,9 @@
 //Objectives\mine_field.sqf by Jigsor
 
 sleep 2;
-private ["_newZone","_type","_rnum","_alltskmines","_objmkr","_grp","_stat_grp","_patrole","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_deadWmen","_knownmines","_nearestMines","_manArray","_checkmines","_minefielrad","_sandbags1","_ins_debug","_random_mine_cnt","_mfieldmkr","_staticGuns"];
+params ["_newZone","_type"];
+private ["_rnum","_alltskmines","_objmkr","_grp","_stat_grp","_patrole","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_deadWmen","_knownmines","_nearestMines","_manArray","_checkmines","_minefielrad","_sandbags1","_ins_debug","_random_mine_cnt","_mfieldmkr"];
 
-_newZone = _this select 0;
-_type = _this select 1;
 _rnum = str(round (random 999));
 _alltskmines = [];
 _deadWmen = [];
@@ -33,7 +32,7 @@ _mfieldmkr = createMarker ["MineField", _newZone];
 "MineField" setMarkerSize [65, 65];
 
 // Spawn Objective Objects
-_sandbags1 = createVehicle ["Land_BagFence_Round_F", _newZone, [], 0, "None"];
+_sandbags1 = createVehicle ["Land_BagFence_Round_F", _newZone, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
 _sandbags1 setVariable["persistent",true];
 
@@ -45,17 +44,16 @@ _patrole = [_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 if (_ins_debug) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
 // Spawn mines
-for "_i" from 1 to _random_mine_cnt do
-{
-	private ["_newpos","_mine"];
-	_newpos = _newZone findEmptyPosition [0, _minefielrad, _type];
-	_mine = createMine [_type, _newpos, [], _minefielrad];
+for "_i" from 1 to _random_mine_cnt step 1 do {
+	private _newpos = _newZone findEmptyPosition [0, _minefielrad, _type];
+	private _mine = createMine [_type, _newpos, [], _minefielrad];
 	sleep jig_tvt_globalsleep;
 	_alltskmines pushBack _mine;
 	_mine setVariable["persistent",true];
 };
 
-{INS_Op4_side revealMine _x;} foreach _alltskmines;
+{RESISTANCE revealMine _x;} foreach _alltskmines;
+{EAST revealMine _x;} foreach _alltskmines;
 if (_ins_debug) then {{INS_Blu_side revealMine _x;} foreach _alltskmines;};
 
 // create west task
@@ -87,13 +85,13 @@ while {_checkmines} do
 		};
 	} foreach _nearestMines;
 
-	_manArray = (position objective_pos_logic) nearentities [["CAManBase"],_minefielrad];
+	_manArray = (position objective_pos_logic) nearentities ["CAManBase",_minefielrad];
 
 	{
 		if (captiveNum _x isEqualTo 1) then	{
 			_deadWmen pushBack _x;
 		};
-		if ((side _x == INS_Op4_side) || (side _x == CIVILIAN)) then {
+		if (side _x in [RESISTANCE,EAST,CIVILIAN]) then {
 			_manArray = _manArray - [_x];
 		};
 	} foreach _manArray;
@@ -117,14 +115,12 @@ while {_checkmines} do
 "MineField" setMarkerAlpha 0;
 sleep 90;
 
-if (!isNull _sandbags1) then {deleteVehicle _sandbags1;};
-_staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
-{deleteVehicle _x; sleep 0.1} forEach _staticGuns;
+if (!isNull _sandbags1) then {deleteVehicle _sandbags1};
 {deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
 {deleteGroup _x} forEach [_grp, _stat_grp];
-{deleteVehicle _x; sleep 0.1} forEach _alltskmines;
-
-deleteMarker "ObjectiveMkr";
-deleteMarker "MineField";
+{deleteVehicle _x} forEach _alltskmines;
+private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+{deleteVehicle _x} forEach _staticGuns;
+{deleteMarker _x} forEach ["ObjectiveMkr","MineField"];
 
 if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};

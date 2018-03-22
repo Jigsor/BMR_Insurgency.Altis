@@ -32,7 +32,7 @@ lbSort [(_ui displayCtrl _idc), "ASC"];
 
 btc_qr_cam_t setpos (getMarkerPos (lbData [_idc, lbCurSel _idc]));
 btc_qr_cam = "camera" camCreate (getMarkerPos (lbData [_idc, lbCurSel _idc]));
-btc_qr_cam cameraEffect ["internal", "BACK"];
+btc_qr_cam cameraEffect ["Internal", "BACK"];
 btc_qr_cam camSetPos (btc_qr_cam_t modelToWorld [btc_qr_cam_dist,btc_qr_cam_dist,(abs btc_qr_cam_dist)]);
 btc_qr_cam camSetTarget btc_qr_cam_t;
 btc_qr_cam camCommit 0;
@@ -52,7 +52,7 @@ player allowdamage true;
 player enableSimulation true;
 closeDialog 0;
 
-player cameraEffect ["terminate","back"];
+player cameraEffect ["Terminate", "BACK"];
 camDestroy btc_qr_cam;
 
 {deleteVehicle _x} foreach [btc_qr_cam_t,_dummy];
