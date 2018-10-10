@@ -157,7 +157,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	for "_counter" from 1 to _fGrps do {
 	if (isnil "_fGrp") then {_fGrp=[]};
 	if ((_fSize select 0) > 0) then {_vehType=4}else{_vehType=3};
-	_newpos = [(markerpos _mkr), 1500, random 360] call BIS_fnc_relPos;
+	_newpos = (markerpos _mkr) getPos [1500, random 360];
 	_fGroup=[_newpos,_side,_faction,_vehType,"FLY"]call EOS_fnc_spawcivnvehicle;
 	_fGrp set [count _fGrp,_fGroup];
 

@@ -20,47 +20,47 @@
  ******************************************************************************/
  
 //// Small
-if (
-(_Transporter isKindOf "AH6_Base_EP1") ||
-(_Transporter isKindOf "Su25_base") ||
-(_Transporter isKindOf "F35_base") ||
-(_Transporter isKindOf "AV8B2") ||
-(_Transporter isKindOf "A10") ||
-(_Transporter isKindOf "AH1_Base") ||
-(_Transporter isKindOf "AH64_base_EP1") ||
-(_Transporter isKindOf "Kamov_Base") ||
-(_Transporter isKindOf "An2_Base_EP1") ||
-(_Transporter isKindOf "L39_base") ||
-(_Transporter isKindOf "An2_Base_EP1") ||
-(_Transporter isKindOf "AW159_Lynx_BAF") ||
-(_Transporter isKindOf "MQ9PredatorB")
-) then { _SelectedTransporterTypeS = true; };
+if (_TransporterType in [
+	"AH6_Base_EP1",
+	"Su25_base",
+	"F35_base",
+	"AV8B2",
+	"A10",
+	"AH1_Base",
+	"AH64_base_EP1",
+	"Kamov_Base",
+	"An2_Base_EP1",
+	"L39_base",
+	"An2_Base_EP1",
+	"AW159_Lynx_BAF",
+	"MQ9PredatorB"
+]) then {_SelectedTransporterTypeS = true;};
 
 //// Medium
-if (
-(_Transporter isKindOf "UH1_Base") ||
-(_Transporter isKindOf "UH60_Base") ||
-(_Transporter isKindOf "UH60M_base_EP1") ||
-(_Transporter isKindOf "BAF_Merlin_HC3_D") ||
-(_Transporter isKindOf "Mi24_Base") ||
-(_Transporter isKindOf "UH1H_base")
-) then { _SelectedTransporterTypeM = true; };
+if (_TransporterType in [
+	"UH1_Base",
+	"UH60_Base",
+	"UH60M_base_EP1",
+	"BAF_Merlin_HC3_D",
+	"Mi24_Base",
+	"UH1H_base"
+]) then {_SelectedTransporterTypeM = true;};
 
 //// Large
-if (
-(_Transporter isKindOf "CH47_base_EP1") ||
-(_Transporter isKindOf "Mi17_base") ||
-(_Transporter isKindOf "Mi171Sh_Base_EP1") ||
-(_Transporter isKindOf "MV22")
-) then { _SelectedTransporterTypeL = true; };
+if (_TransporterType in [
+	"CH47_base_EP1",
+	"Mi17_base",
+	"Mi171Sh_Base_EP1",
+	"MV22"
+]) then {_SelectedTransporterTypeL = true;};
 
 //// XTRA Large
-if (
-(_Transporter isKindOf "C130J_base") ||
-(_Transporter isKindOf "I_Heli_Transport_02_F") ||
-(_Transporter isKindOf "rhsusf_CH53E_USMC_D") ||
-(_Transporter isKindOf "rhsusf_CH53E_USMC_W") ||
-(_Transporter isKindOf "CUP_B_Merlin_HC3A_Armed_GB") ||
-(_Transporter isKindOf "OPTRE_Pelican_armed_black") ||
-(_Transporter isKindOf "ffaa_nh90_nfh_transport")
-) then { _SelectedTransporterTypeXL = true; };
+if (_TransporterType in [
+	"C130J_base",
+	"I_Heli_Transport_02_F",
+	"rhsusf_CH53E_USMC_D",
+	"rhsusf_CH53E_USMC_W",
+	"CUP_B_Merlin_HC3A_Armed_GB",
+	"OPTRE_Pelican_unarmed",
+	"ffaa_nh90_nfh_transport"
+]) then {_SelectedTransporterTypeXL = true;};

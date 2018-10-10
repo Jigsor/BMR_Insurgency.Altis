@@ -5,14 +5,13 @@
 if (!isServer) exitWith {};
 waitUntil {time > 11};
 
-private ["_t","_all_c_params","_crates","_crate","_c_params","_items","_BPs","_mags","_weps","_c"];
-
-_t = _this select 0;
-_all_c_params = [];
-_crates = INS_Op4_wepCrates + INS_Blu4_wepCrates - [INS_E_tent];
+params [["_t", 180, [0]]];
+private _crates = INS_Op4_wepCrates + INS_Blu4_wepCrates - [INS_E_tent];
+private _all_c_params = [];
 
 {if ((isNull _x) || (!alive _x)) then {_crates =_crates - [_x];};} forEach _crates;
 
+private ["_crate","_items","_BPs","_mags","_weps","_c_params"];
 {
 	_crate = _x;
 	_items = ItemCargo _crate;
@@ -24,15 +23,16 @@ _crates = INS_Op4_wepCrates + INS_Blu4_wepCrates - [INS_E_tent];
 	_all_c_params pushBack _c_params;
 } forEach _crates;
 
+private "_c";
 while {true} do {
 	{
 		_c = _x;
 		if (alive (_c select 0)) then {
-			if (count (_c select 1) != 0) then {
+			if !((_c select 1) isEqualTo []) then {
 				clearItemCargoGlobal (_c select 0);
 				{(_c select 0) addItemCargoGlobal [_x, 1];} count (_c select 1);
 			};
-			if (count (_c select 2) != 0) then {
+			if !((_c select 2) isEqualTo []) then {
 				clearBackpackCargoGlobal (_c select 0);
 				{(_c select 0) addBackpackCargoGlobal [_x, 1];} count (_c select 2);
 			};

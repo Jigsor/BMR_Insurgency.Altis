@@ -16,7 +16,6 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 	<br/>vehRespawn.sqf, and ICE_HUD by Iceman77
 	<br/>repetitive_cleanup.sqf v1.7, player_markers.sqf v2.6,
 	<br/>JW Custom Close Air Support v0.1b.by JW Custom
-	<br/>Display Heading Script v3 by GeneralCarver.
 	<br/>Halo =ATM= Airdrop v6.0 by pokertour.
 	<br/>Traffic by MAD T.
 	<br/>Randomly generated roadside IED's by brians200
@@ -58,7 +57,7 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 	<br/>Thanks to BIS for such a great platform.
 	<br/>Thanks to BIS Community and BIS Community Forums
 	<br/>AJAX and Onion Gamers for hosting, testing and feedback.
-	<br/>All the Black Mamba Rangers
+	<br/>All the Black Mamba Rangers.
 	<br/>Thanks to all the Forum members who provided feedback.
 	<br/>Mr.Ripley for extensive long run testing, analyzing
 	<br/>	and feedback especially in Headless Client addition.
@@ -70,7 +69,7 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 player createDiaryRecord ["Diary", ["Credits","
 	<br/>Mission Author - Jigsor =BMR=
 	<br/>
-	<br/>OPTRE Port by Costno
+	<br/>OPTRE Port by Costno.
 	<br/>Many original functions and scripts by Jigsor =BMR=.
 	<br/>Several functions and scripts by BTC Giallustio and Ghost
 	<br/>were modified by Jigsor =BMR=.
@@ -80,11 +79,16 @@ player createDiaryRecord ["Diary", ["Credits","
 player createDiaryRecord ["Diary", ["INFO","
 	<br/><font size='20'>SETTINGS</font>
 	<br/>
-	<br/>Press Y key for Graphic Settings, Digital Heading, FPS/Stamina/Health HUD and Ambient Wild Life toggle.
+	<br/>Press Y key for View Distance Settings, Digital Heading, Status Hud, Ear Plugs and Ambient Wild Life toggle.
+	<br/>Statis Hud Icon Legend:
+	<br/><br/><img image='\A3\Weapons_F\Data\UI\gear_item_compass_ca.paa' widwidth='32' height='32'/>--  Local Player/Vehicle General Compass Heading
+	<br/><br/>  <img image='images\fps.paa' widwidth='16' height='16'/>   --  Frames per Second
+	<br/><br/>  <img image='images\health.paa' widwidth='16' height='16'/>   --  Health
+	<br/><br/>  <img image='images\fatigue.paa' widwidth='16' height='16'/>   --  Stamina
 	<br/>
 	<br/>Join, Create, or Leave Squads/Groups with U key menu. Only squad leaders can recuit AI if option enabled by admin.
 	<br/>
-	<br/>Supported PIP live feeds from the helmet-cameras of their fellow group members. Requires Tactical Glasses and helmet with camera. * - Activates camera / switches to next group member. Alt+* - Deactivates camera. Shift+* - Toggles size of the display.
+	<br/>Supported PIP live feeds from the helmet-cameras of their fellow group members. Requires Tactical Glasses and helmet with camera. * Key activates camera and switches to next group member. Alt+* key combo deactivates camera. Shift+* key combo toggles size of the display.
 	<br/>
 	<br/>Press F3 or Assigned User Action 3 to reverse planes when stoped.
 	<br/>
@@ -102,7 +106,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/><font size='20'>RESPAWN</font>
 	<br/>
-	<br/> The following Repawn, MHQ, and Teleport options can vary depending lobby parameter -Revive system- settings.
+	<br/> The following Respawn, MHQ, and Teleport options can vary depending lobby parameter -Revive system- settings.
 	<br/>
 	<br/>Blufor -- Can choose to respawn at BASE, MHQ_1, MHQ_2, or MHQ_3 if no one revives you. You may also choose teleport to MHQs or Halo from Flag Pole at base.
 	<br/>
@@ -110,7 +114,11 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/>While waiting for a revive you can spectate and control camera with usual movement controls.
 	<br/>
-	<br/>To have a fully restored loadout/kit after respawn or revive, use scroll action Save Respawn Loadout at main ammo box.
+	<br/>To have a fully restored loadout/kit after respawn or revive, use scroll action Save Respawn Loadout at main ammo box. If this action is not available then server admin has opted for reload magazine to save kit for progressive depleation.
+	<br/>	
+	<br/><font size='20'>MEDICAL</font>
+	<br/>
+	<br/>With BTC's Revive and Quick Revive sytems you need a First Aid Kit (F.A.K.) to revive a player. If you are medic then you need at least one F.A.K. and a medkit for unlimited revives and heals. Only medics can heal themselves or others to %100. Any other player type can heal themselves or someone else to 75% with a F.A.K. Admin can set mission to allow only medics to revive. With other medical systems such as ACE_3 its up to server admin to customize medical details.
 	<br/>
 	<br/><font size='20'>GAS GRENADES</font>
 	<br/>
@@ -118,7 +126,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/>For immunity wear A3 Heli Crew, Pilot, CRTG Combat Stealth or Viper Green Hex helmets.
 	<br/>
-	<br/>Moded support for gas masks include masks from Hidden Identity Pack v2, Identity Pack v3, NATO SF and Russian Spetsnaz Weapons, FM-12 strapless from AVON FM12 Respirator Pack, OPTRE_UNSC_CH252_Helmet_Vacuum_DES and OPTRE_UNSC_ODST_Helmet_CBRN from Operation TREBUCHET.
+	<br/>Moded support for gas masks include masks from Hidden Identity Pack v2, Identity Pack v3, FFAA, NATO SF and Russian Spetsnaz Weapons, FM-12 strapless from AVON FM12 Respirator Pack, OPTRE_UNSC_CH252_Helmet_Vacuum_DES and OPTRE_UNSC_ODST_Helmet_CBRN from Operation TREBUCHET.
 	<br/>
 	<br/>Adim can disable gas grenades from lobby parameter.
 	<br/>
@@ -136,7 +144,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/><font size='20'>Win - Loose</font>
 	<br/>
-	<br/>Blufor -- To Win you must complete at least on side objective then capture all zones. After all zones are captured one more side objective must be completed.
+	<br/>Blufor -- To Win you must complete at least one side objective then capture all zones. After all zones are captured one more side objective must be completed.
 	<br/>
 	<br/>Opfor -- You cannot win the mission and keep in mind this is asymmetrical warfare. However, you can win some side obectives and make it very difficult for Blufor to complete other side objectives and main objective.
 	<br/>

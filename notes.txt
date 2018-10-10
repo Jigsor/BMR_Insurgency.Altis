@@ -162,6 +162,79 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	2. Perhaps objective delivery cargo has been misplaced.
 			Delivery_Box setpos getpos player.
 
+10/8/2018
+BMR_Insurgency_v1_49 beta - (still labeled as v1.48 on our servers)
+Know problems:
+1. Recruited AI die when no other players in group. Possible work around - recruite One AI, dissmiss him then recuit more.
+2. Heli Extraction does not fly away after drop off in Dedicated enviroment but is not really a problem because it gets deleted shortly afterwards.
+3. Progress restoration does not occur at mission start if there are headless client(s) when resotation is enabled. Work around. Let headless clients join mission after mission start.
+
+Added: Tanks DLC content/support
+Added: Global Message of who killed pilot on Pilot Rescue mission when killer is a player.
+Added: EOS and side mission generated AI never run out of magazines.
+Added: Instant deletion of useless deployed sleeping bags and respawn tents.
+Added: Admin Menu option to clear saved progression combined with end mission.
+Added: Admin Menu option and functionality to cancel current side mission ->Thanks to Rory!
+Added: Admin Menu option to force Random Mission Generator in case it stops working on its own.
+Added: Method to activate Auxiliary addons for detection in zeus/make mod requirements etc. Place content in marker "AuxiliaryContent" located next to server logic. Vehicles and units in this marker will delete at mission start.
+Added: Initialization of Ace Arsenal.
+Added: Light Snow Storm. Toggle On/Off in Admin panel. (Will auto terminate if rain commences by one of the weather scripts.)
+Added: Dynamic addon activation support for CGR CAT1A2 and MR142 vehicles added in RHS patch 0.4.6
+Added: More DLC vehicles to DLC restriction Bypass.
+Added: Set trait "explosiveSpecialist" to playable unit types listed in Array INS_W_PlayerEOD in INS_definitions.sqf.
+Added: Friendly map icon to extraction heli.
+Added: 3D icon (Range 30 meters) for fallen players when ACE_3 activated and no BTC revive systems loaded.
+Added: Loging of HC JIP and progress restoration details.
+Added: Few more blacklisted structures with building positions but no enterances for intel/ammo cache spawning to Malden,Mogadishu and Napf/Napf Winter.
+Added: "I_Plane_Fighter_04_F" to Vanilla Airpatrole.
+Added: CUP Satchel to ammo wich can destroy objective Towers and Ammo Caches.
+Added: Data Terminal will face player upon terminal opening and corresponding animation added.
+Added: Data Terminal to zeus editable objects.
+Added: Distance limitation of actions added to MHQs and main ammo boxes.
+Added: More options for Lobby option "Playable Opfor". Options now include "Enabled with no Limits", "Enabled if 5 or more blufor players present", "Enabled if 7 or more blufor players present", "Enabled if 9 or more blufor players present", "Enabled if 11 or more blufor players present", "Disabled". This results in End mission for Opfor players if not enough blufor players at mission start and is also polled by server approx every 7 minutes.
+Change: Removed "Land_BagFence_Long_F" from BTC logistics liftable objects.
+Change: Many functions now compiled with preprocessFileLineNumbers instead of preprocessFile so errors can be loged.
+Change: Enabled support for custom licence plates.
+Change: Random objective is skiped and loged if suitable nearby clear position cannot be found due to poor marker placement in editor.
+Change: Improved performance and handling of 3rd person view in vehicles only option.
+Change: Improved performance and handling of Pilot Restriction code.
+Change: Progression saving and loading lobby option default set to disabled.
+Change: Updated support of OPTRE to v0.19.
+Change: Updated support of RHS to v0.4.8.
+Change: Digital Heading replaced with display control for efficiency. No longer blinks and now works with all turrets and screen center. Customize color in Main Menu/options/game/colors/menu/background.
+Change: Many optimizations applied to existing code.
+Change: Default lobby option for respawn loadout changed to Reload Magazine to Save Kit.
+Change: Auxiliary AI caching (zbe) is disabled by default and variable must be set on group to use this caching sytem.
+Change: DriverLess versioned vehicles are now filtered out of Vehicle Reward list.
+Change: Earplug volume reduced from 40% to 30%.
+Change: All lights on Extraction Helicopter are now disabled.
+Change: Improved chance reward vehicle will not collide with other objects when created.
+Change: Manual save and clear progression can survive cold Server restart. Progression restoration is currently ineffective when headless client is present at start. Workaround - headlessclient(s) need to Join after mission start.
+Change: All progression saving is performed on Server and no longer on HC in parallel.
+Change: HC can be kicked and will resume properly even if progress saving is not enabled. Note all uncaptured markers/triggers will be rejuvenated/reinforced with AI.
+Fixed: Clearing saved progression would restore save on mission restart when many players in lobby and HC present at mission start.
+Fixed: Abandoned vehicles respawned to fast.
+Fixed: Mission ending did not occurr with updated taskmaster script.
+Fixed: Some briefing spelling errors.
+Fixed: Rewarded vehicles did not have dedicated destroyed cleanup provisioned.
+Fixed: Group extration did not globally kick callers group members out of group beyond 500 meters away from pickup marker. It kicked far members from callers group on callers machine only.
+Fixed: Putdown a carried injured player animation was not global.
+Fixed: Dynamic loadout and sensor preinit functions runaway loop.
+Fixed: Very old bug - Occasional missing actions on intel for JIP players.
+Fixed: Pilot rescue could get recruited as suicide bomber.
+Fixed: Freezing durring AI HALO again.
+Fixed: Brighter Nights would activate even if disabled when Random or Real Weather options were eanabled.
+Fixed: Fallen bush and tree cleanup by base markers silently failed.
+Fixed: Cancel Evac Action action did not appear on first Evac call.
+Fixed: Zeus created enemy units of groups containing one unit were not nessesarily aligned with side INS_Op4_side.
+Fixed: Side mission objectives would not start if slotting took to long at mission start.
+Fixed: Praetorian on USS_Freedom would freeze when trying to fire by remote controll.
+Fixed: Race condition/MHQs not recognized by player when many players in lobby at mission start.
+Fixed: Race condition/BTC punishment script error at mission start.
+Fixed: Script Error in Helmet Cam when in vehicle and when camera feeding AI/group member no longer exists.
+Fixed: Vehicle Reward action remained after rewarded vehicle spawned until it was clicked again.
+Fixed: Ambient combat sounds were to overbearing.
+
 3/22/2018
 BMR_Insurgency_v1.48
 Added: Dust Storm script. If left on by admin, it will auto terminate when no players on server or if Random or Real Weather is enabled and it starts to rain.
@@ -214,7 +287,7 @@ Fixed: Hijacked vehicles would delete while occupied by players.
 Fixed: Task update notifications did not wait until player was alive.
 Fixed: Several legitimate "unknown enum value" errors starting with A3 patch 1.78.
 Fixed: Drag, Carry and Load into vehicle for downed players. Finally :)
-Fixed: Foot patrols spawned in grids by eos would eventually stop patrolling and wonder off to grid [0,0,0].
+Fixed: Foot patrols spawned in grids by eos would eventually stop patrolling and wander off to grid [0,0,0].
 Fixed: Copilot could take control of aircraft if pilot restriction was enabled and his class type was not whitelisted.
 Fixed: Possible long standing eos script error spam and fps loss on server occurred when headless client present.
 Fixed: Moved CAS aircraft traking marker handling to server in case player disconnects before completion and leaves marker behind.
@@ -292,7 +365,7 @@ Fixed: Lobby parameter "AI accuracy on non EOS units" did not properly apply des
 Change: Lobby parameter "Environment effects (ambient life + sound)" supports disabling ambient life/animals seperately or including ambient sound.
 Change: Some remote execution from old BIS_fnc_MP to newer remoteExec. Improved JIP loading.
 Change: Moved blufor base to AAC Air field (Altis version).
-Change: Reverted to getPosATL and position script command from getWorldPos in repetitive_cleanup.sqf and MAD_traffic.sqf (was necessary in high altitude terrains ex. Lythium)
+Change: Reverted to getPosATL and position script command from getPosWorld in repetitive_cleanup.sqf and MAD_traffic.sqf (was necessary in high altitude terrains ex. Lythium)
 Change: Crews no longer dissembark in Supply and Armed Convoy objectives when vehicle has broken tracks/wheels.
 Change: Minor optimizations when using floor and round random commands.
 Change: Marksman, Spotter and Sniper Bullet Cam now uses "FiredMan" eventhandler instead of "Fired" to allow bullet cam in turrents and vehicles in addition to hand held weapons.

@@ -2,7 +2,7 @@
 
 sleep 2;
 params ["_newZone","_type"];
-private ["_rnum","_range","_run","_roadNear","_signPos","_roads","_roadSegment","_roadDir","_mortar_type","_objmkr","_sign","_grp","_handle","_unit_type","_offset_pos1","_static1","_offset_pos2","_static2","_offset_pos3","_static3","_StaticArray1","_all_mortars","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_manArray"];
+private ["_rnum","_range","_run","_roadNear","_signPos","_roads","_roadSegment","_roadDir","_mortar_type","_objmkr","_sign","_grp","_handle","_unit_type","_offset_pos1","_static1","_offset_pos2","_static2","_offset_pos3","_static3","_StaticArray1","_all_mortars","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_manArray","_killmortar"];
 
 _rnum = str(round (random 999));
 _range = 600;
@@ -11,6 +11,7 @@ _roadNear = false;
 _signPos = _newZone;
 _mortar_type = "O_G_Mortar_01_F";
 _shell_types = ["8Rnd_82mm_Mo_shells","8Rnd_82mm_Mo_Smoke_white","8Rnd_82mm_Mo_shells"];// 1 in 3 chance for smoke shell
+_killmortar = true;
 
 objective_pos_logic setPos _newZone;
 
@@ -89,7 +90,7 @@ _static3 setDir 240;
 _all_mortars = [_static1,_static2,_static3];
 
 {_x setVariable["persistent",true]} foreach _all_mortars;
- 
+
 (units mortar_grp select 0) assignAsGunner _static1; sleep jig_tvt_globalsleep;
 (units mortar_grp select 1) assignAsGunner _static2; sleep jig_tvt_globalsleep;
 (units mortar_grp select 2) assignAsGunner _static3; sleep jig_tvt_globalsleep;
@@ -118,7 +119,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_dms";
 _taskdescE = localize "STR_BMR_Tsk_topicE_dms";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 while {_run} do {
 	if ({alive _x} count units mortar_grp > 0) then	{
@@ -143,27 +144,42 @@ while {_run} do {
 				_x commandArtilleryFire [_pos, _type, floor (random 5)];
 			} forEach (units mortar_grp);
 		};
+
+		if (SideMissionCancel) exitWith {_run = false;};
+
 		sleep 22;
 	}else{
 		_run = false;
 	};
 };
 
-// Only one outcome supported.
-waitUntil {sleep 1; !_run};
+while {_killmortar} do
+{
+	if (SideMissionCancel) exitWith {
+		[_tskW, "canceled"] call SHK_Taskmaster_upd;
+		[_tskE, "canceled"] call SHK_Taskmaster_upd;
+		_killmortar = false;
+	};
 
-[_tskW, "succeeded"] call SHK_Taskmaster_upd;
-[_tskE, "failed"] call SHK_Taskmaster_upd;
+	if (!_run) exitWith {
+		[_tskW, "succeeded"] call SHK_Taskmaster_upd;
+		[_tskE, "failed"] call SHK_Taskmaster_upd;
+		_killmortar = false;
+	};
+
+	sleep 3;
+};
 
 // clean up
 "ObjectiveMkr" setMarkerAlpha 0;
-sleep 90;
+if (SideMissionCancel) then {sleep 5} else {sleep 90};
+{deleteVehicle _x; sleep 0.1} forEach units _grp;
+{deleteVehicle _x; sleep 0.1} forEach units mortar_grp;
 
-{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units mortar_grp);
 {deleteGroup _x} forEach [_grp, mortar_grp];
 if (!isNull _sign) then {deleteVehicle _sign};
 {deleteVehicle _x} forEach (_all_mortars select {!isNull _x});
 {deleteVehicle _x} forEach ((NearestObjects [objective_pos_logic, [], 40]) select {typeof _x in INS_Op4_stat_weps});
 deleteMarker "ObjectiveMkr";
 
-if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};
+if (true) exitWith {sleep 20; execVM "Objectives\random_objectives.sqf";};

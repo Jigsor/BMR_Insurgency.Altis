@@ -11,6 +11,11 @@ _skillset = server getvariable (_this select 1);
 	if !(AIdamMod isEqualTo 1) then {_unit removeAllEventHandlers "HandleDamage";_unit addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];};
 	//if (EOS_KILLCOUNTER) then {_unit addEventHandler ["killed", "null=[] execVM 'eos\functions\EOS_KillCounter.sqf'"]};
 
+	_unit addEventHandler ["Reloaded", {//Jig adding
+		params ["_unit", "_weapon", "_muzzle", "_newmag", ["_oldmag", ["","","",""]]];
+		if (_oldmag select 2 isEqualType "") then {_unit addMagazine (_newmag select 0)} else {_unit addMagazine (_oldmag select 0)};
+	}];
+
 	//Jig adding
 	if (side _unit isEqualTo east) then {
 		_unit unlinkitem (hmd _unit);

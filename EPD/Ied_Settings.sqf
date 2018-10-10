@@ -80,7 +80,7 @@ iedArray = [
 	["IED14", 1,2, "WEST"],
 	["IED15", 1,1, "WEST"],
 	["IED16", 2,1, "WEST"]
-	];
+];
 	
 //Place the mapLocations, predefinedLocations, and markerNames of places you don't want any IEDs spawning
 //safeZones = ["SafeZone"];

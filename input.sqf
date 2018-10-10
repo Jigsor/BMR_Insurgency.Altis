@@ -5,21 +5,17 @@
 #define HCAM_CTRL_FRONT (uiNamespace getVariable "hcam_ctrl_front")
 #define T_HCAM_KEY 55
 
-private ["_key","_shift","_ctrl","_alt","_units"];
+params ["","_key","_shift","_ctrl","_alt"];
 
-_key = _this select 0;
-_shift = _this select 1;
-_ctrl = _this select 2;
-_alt = _this select 3;
+if ((_key != T_HCAM_KEY) || {!((goggles player) in hcam_goggles)}) exitWith {};
 
-if (hcam_units == "group") then {
+private "_units";
+
+if (hcam_units isEqualTo "group") then {
 	_units = units (group player);
 } else {
 	_units = hcam_units;
 };
-
-if (_key != T_HCAM_KEY) exitWith {};
-if !((goggles player) in hcam_goggles) exitWith {};
 
 if (!_shift && !_ctrl && _alt) then {
 	if (hcam_active) then {

@@ -2,11 +2,12 @@
 
 sleep 2;
 params ["_newZone","_objType"];
-private ["_VehPool","_rnum","_range","_randVeh","_objmkr","_cone","_VarName","_grp","_handle","_type","_obj_leader","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_type","_vehicle1","_newPos","_veh1","_vehicle2","_veh2","_vehicle3","_veh3","_vehicle4","_veh4","_handle1","_allVeh"];
+private ["_VehPool","_rnum","_range","_randVeh","_objmkr","_cone","_VarName","_grp","_handle","_type","_obj_leader","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_type","_vehicle1","_newPos","_veh1","_vehicle2","_veh2","_vehicle3","_veh3","_vehicle4","_veh4","_handle1","_allVeh","_killvics"];
 
 _VehPool = + INS_Op4_Veh_Tracked;
 _rnum = str(round (random 999));
 _range = 500;
+_killvics = true;
 
 _randVeh = {
 	private _veh = selectRandom _VehPool;
@@ -98,24 +99,36 @@ _taskdescE = localize "STR_BMR_Tsk_descE_dac";
 waitUntil {{alive _x} count units aconvoy_grp > 0};
 sleep 0.1;
 
-if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
-// Only one outcome supported.
-waitUntil {sleep 1; {alive _x} count units aconvoy_grp < 1};
+while {_killvics} do
+{
+	if ({alive _x} count units aconvoy_grp < 1) exitWith {
+		[_tskW, "succeeded"] call SHK_Taskmaster_upd;
+		[_tskE, "failed"] call SHK_Taskmaster_upd;
+		_killvics = false;
+	};
 
-[_tskW, "succeeded"] call SHK_Taskmaster_upd;
-[_tskE, "failed"] call SHK_Taskmaster_upd;
+	if (SideMissionCancel isEqualTo true) exitWith {
+		[_tskW, "canceled"] call SHK_Taskmaster_upd;
+		[_tskE, "canceled"] call SHK_Taskmaster_upd;
+		_killvics = false;
+	};
+
+	sleep 5;
+};
 
 // clean up
 "ObjectiveMkr" setMarkerAlpha 0;
-sleep 90;
-
-{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
+if (SideMissionCancel) then {sleep 5} else {sleep 60};
+{deleteVehicle _x; sleep 0.1} forEach units _grp;
+{deleteVehicle _x; sleep 0.1} forEach units _stat_grp;
+{deleteVehicle _x; sleep 0.1} forEach units  aconvoy_grp;
 {deleteGroup _x} forEach [_grp, _stat_grp, aconvoy_grp];
 if (!isNull _cone) then {deleteVehicle _cone};
 {deleteVehicle _x} foreach (_allVeh select {!isNull _x});
-private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+private _staticGuns = objective_pos_logic getVariable ["INS_ObjectiveStatics",[]];
 {deleteVehicle _x} forEach _staticGuns;
 deleteMarker "ObjectiveMkr";
 
-if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};
+if (true) exitWith {sleep 20; execVM "Objectives\random_objectives.sqf";};

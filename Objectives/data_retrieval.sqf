@@ -2,7 +2,7 @@
 
 sleep 2;
 params ["_startPos","_type"];
-private ["_list","_nearZones","_buildingNear","_rnum","_uncaped_eos_mkrs","_ins_debug","_nearMkrs","_objmkr","_device","_veh_name","_VarName","_grp","_stat_grp","_tskW","_tskE","_tasktopicW","_tasktopicE","_taskdescW","_taskdescE","_sideWin","_rand","_nearBuildings","_selbuild","_nearBuildings","_posArray","_r","_n","_position","_pos","_clearPos","_buildObj","_bldgPos","_buildDir","_minClearZ","_b_pos","_c","_alt"];
+private ["_list","_nearZones","_buildingNear","_rnum","_uncaped_eos_mkrs","_ins_debug","_nearMkrs","_objmkr","_device","_veh_name","_VarName","_grp","_stat_grp","_tskW","_tskE","_tasktopicW","_tasktopicE","_taskdescW","_taskdescE","_sideWin","_rand","_nearBuildings","_selbuild","_nearBuildings","_posArray","_r","_n","_position","_pos","_clearPos","_buildObj","_bldgPos","_buildDir","_minClearZ","_b_pos","_c","_alt","_getdata"];
 
 _list = 1;
 _nearZones = [];
@@ -15,12 +15,13 @@ _minClearZ = 2;
 _rnum = str(round (random 999));
 _uncaped_eos_mkrs = all_eos_mkrs;
 _ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
+_getdata = true;
 
 // Find nearest occupied grid zones
 objective_pos_logic setPos _startPos;
 
 {if (getMarkerColor _x == "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} count _uncaped_eos_mkrs;
-if ((count _uncaped_eos_mkrs) isEqualTo 0) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};//skip objective
+if (_uncaped_eos_mkrs isEqualTo []) exitWith {sleep 10; execVM "Objectives\random_objectives.sqf";};//skip objective
 
 _nearMkrs = [_uncaped_eos_mkrs,[],{objective_pos_logic distance (getMarkerPos _x)},"ASCEND"] call BIS_fnc_sortBy;
 
@@ -157,6 +158,8 @@ _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 
 _stat_grp = [_clearPos,4,5] call spawn_Op4_StatDef;
 
+if (_ins_debug) then {[_grp] spawn INS_Tsk_GrpMkrs};
+
 //add hold action
 waitUntil {sleep 1; alive _device};
 [] remoteExec ["Terminal_acction_MPfnc", ([0, -2] select isDedicated), true];
@@ -174,33 +177,44 @@ _tasktopicE = localize "STR_BMR_Tsk_topic_global_Retrieve_Intel";
 _taskdescE = localize "STR_BMR_Tsk_desc_global_Retrieve_Intel";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_bldgPos] call SHK_Taskmaster_add;
 
-// Win/Loose
-waitUntil {sleep 6; ((missionNamespace getVariable "datadownloadedby") < 3)};
+while {_getdata} do
+{
+	if ((missionNamespace getVariable "datadownloadedby") < 3) exitWith {
+		_sideWin = missionNamespace getVariable "datadownloadedby";
+		[_device] spawn {params ["_obj"]; [_obj, 0] call BIS_fnc_DataTerminalAnimate;};
+		//west success / east fail
+		if (_sideWin isEqualTo 1) then {
+			[_tskW, "succeeded"] call SHK_Taskmaster_upd;
+			[_tskE, "failed"] call SHK_Taskmaster_upd;
+		} else {
+		//east success / west fail
+			[_tskE, "succeeded"] call SHK_Taskmaster_upd;
+			[_tskW, "failed"] call SHK_Taskmaster_upd;
+		};
+		_getdata = false;
+	};
 
-_sideWin = missionNamespace getVariable "datadownloadedby";
+	if (SideMissionCancel) exitWith {
+		[_tskW, "canceled"] call SHK_Taskmaster_upd;
+		[_tskE, "canceled"] call SHK_Taskmaster_upd;
+		_getdata = false;
+	};
 
-[_device] spawn {params ["_obj"]; [_obj, 0] call BIS_fnc_DataTerminalAnimate;};
-
-//west success / east fail
-if (_sideWin isEqualTo 1) then {
-	[_tskW, "succeeded"] call SHK_Taskmaster_upd;
-	[_tskE, "failed"] call SHK_Taskmaster_upd;
-} else {
-//east success / west fail
-	[_tskE, "succeeded"] call SHK_Taskmaster_upd;
-	[_tskW, "failed"] call SHK_Taskmaster_upd;
+	sleep 6;
 };
 
 // Clean up
 "ObjectiveMkr" setMarkerAlpha 0;
-sleep 90;
+if (SideMissionCancel) then {sleep 5} else {sleep 60};
 
-{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
+{deleteVehicle _x; sleep 0.1} forEach units _grp;
+{deleteVehicle _x; sleep 0.1} forEach units _stat_grp;
+sleep 1;
 {deleteGroup _x} forEach [_grp, _stat_grp];
 if (!isNull _device) then {deleteVehicle _device};
-private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+private _staticGuns = objective_pos_logic getVariable ["INS_ObjectiveStatics",[]];
 {deleteVehicle _x} forEach _staticGuns;
 deleteMarker "ObjectiveMkr";
 
 // Initialize new objective
-if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};
+if (true) exitWith {sleep 20; execVM "Objectives\random_objectives.sqf";};

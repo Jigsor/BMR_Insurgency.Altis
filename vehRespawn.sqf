@@ -62,12 +62,12 @@ if (isServer) then {
 
 			for "_i" from 0 to _deadDelay step 1 do {
 				if (({alive _x} count (crew _veh) > 0) || (canMove _veh)) exitWith {_dead = false;};
-				uiSleep 1;
+				sleep 1;
 			};
 
 			if (_dead) then {
 				deleteVehicle _veh;
-				sleep 1;
+				uiSleep 1;
 
 				_veh = createVehicle [_vehtype, _vehPos, [], 0, "CAN_COLLIDE"];
 				_veh setDir _dir;

@@ -57,7 +57,7 @@ if ((INS_op_faction isEqualTo 2) || (INS_op_faction isEqualTo 3)) then {
 	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles_INDEP"];
 };
 
-switch (INS_op_faction) do {
+switch (INS_op_faction) do {//begin switch
 
 case 6: {
 // RHS - Armed Forces of the Russian Federation (@RHSAFRF)
@@ -494,7 +494,6 @@ case 17: {
 
 	[_p,"LIB_DT",1] call BIS_fnc_AddWeapon;
 	[_p,"LIB_M1A1_Bazooka",1] call BIS_fnc_AddWeapon;
-	[_p,"OPTRE_M6C",1] call BIS_fnc_AddWeapon;
 	_P addWeapon "LIB_M1908";
 	_P addWeapon "LIB_Binocular_GER";
 
@@ -504,7 +503,8 @@ case 17: {
 	_p setSpeaker "Male03Ger";
 };
 default {};
-};
+
+};//end switch
 
 /*
 British Voices ["Male01ENGB","Male02ENGB","Male03ENGB","Male04ENGB"]

@@ -136,7 +136,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 		if (isnil "_dGrp") then {_dGrp=[]};
 
 		_newpos=[_mkr,50] call eos_fnc_findSafePos;
-		if (surfaceiswater _newpos) then {_vehType=8}else{_vehType=2};
+		_vehType=if (surfaceiswater _newpos) then {8}else{2};
 
 		_dGroup=[_newpos,_side,_faction,_vehType]call EOS_fnc_spawnvehicle;
 		//diag_log format ["SpawnedVehicle: %1 Vehicle Crew: %2 Vehicle Group: %3", _dGroup select 0, _dGroup select 1, _dGroup select 2];//Jig
@@ -165,8 +165,8 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 	//SPAWN CHOPPER
 	for "_counter" from 1 to _fGrps step 1 do {
 		if (isnil "_fGrp") then {_fGrp=[]};
-		if ((_fSize select 0) > 0) then {_vehType=4}else{_vehType=3};
-		_newpos = [(markerpos _mkr), 1500, random 360] call BIS_fnc_relPos;
+		_vehType=if ((_fSize select 0) > 0) then {4}else{3};
+		_newpos = (markerpos _mkr) getPos [1500, random 360];
 		_fGroup=[_newpos,_side,_faction,_vehType,"FLY"]call EOS_fnc_spawnvehicle;
 		_fGrp set [count _fGrp,_fGroup];
 

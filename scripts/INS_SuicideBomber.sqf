@@ -32,7 +32,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 	{
 		private "_rSleep";
 		if (_ins_debug) then {
-			_rSleep = [10,20] call BIS_fnc_randomInt;
+			_rSleep = [20,40] call BIS_fnc_randomInt;
 			sleep _rSleep;
 		} else {
 			_rSleep = [900,2400] call BIS_fnc_randomInt;//15-40 minute random loop delay
@@ -169,9 +169,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 				waitUntil {sleep 1; (_unit distance getPosATL (_nearUnits select 0) > 300) || (_unit distance getPosATL (_nearUnits select 0) < 17)};
 
 				//Target out of range, remove bomber
-				if (_unit distance getPosATL (_nearUnits select 0) > 300)
-				exitWith
-				{
+				if (_unit distance getPosATL (_nearUnits select 0) > 300) exitWith {
 					_runCode = 0;
 					_unit setPos [0,0,0];
 					_unit removeAllEventHandlers "killed";
@@ -193,8 +191,8 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 					//Shout and explode
 					[_unit,_explosive] spawn {
 						params ["_u","_exp"];
-						//_u setmimic "combat";
-						nul = [_u,"shout"] call mp_Say3D_fnc;
+						//_u setmimic "combat";//[_u,'combat'] remoteExec ['setmimic',_btarget];
+						null = [_u,"shout"] call mp_Say3D_fnc;
 						//_u setRandomLip true;
 						uiSleep 2.1;
 						_exp setDamage 1;

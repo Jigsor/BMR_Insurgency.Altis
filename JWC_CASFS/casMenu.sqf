@@ -1,7 +1,4 @@
-_owner  = _this select 0;
-_caller = _this select 1;
-_id     = _this select 2;
-_argArr = _this select 3;
+params ["_owner","_caller","_id","_argArr"];
 
 maxDisReq   = _argArr select 0;
 _lockToOwner = _argArr select 1;
@@ -73,7 +70,7 @@ while {dialog && alive _caller && alive _owner} do
 		nearTargetList = [];
 		nearestVeh = objNull;
 
-		if ((player distance _pos) <= maxDisReq) then {
+		if ((player distance2D _pos) <= maxDisReq) then {
 			_button ctrlEnable true;
 			hintSilent "";
 			titleText["","PLAIN DOWN"];

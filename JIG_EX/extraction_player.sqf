@@ -1,5 +1,5 @@
 /*
- extraction_player.sqf v1.25 by Jigsor
+ extraction_player.sqf v1.26 by Jigsor
  handles map click pickup/dropoff points and group inventory.
  jig_ex_actid_show = _ex_caller addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>", "JIG_EX\extraction_player.sqf", JIG_EX_Caller removeAction jig_ex_actid_show, 1, false, true, "","player ==_target"];
  runs from JIG_EX\extraction_init.sqf and JIG_EX\respawnAddActionHE.sqf
@@ -49,19 +49,19 @@ sleep 0.1;
 
 hintSilent "";
 ex_group_ready = false;
-GetClick = true;
+mapClicked = true;
 openMap true;
 waitUntil {visibleMap};
 ctrlActivate ((findDisplay 12) displayCtrl 107);// map texture toggle
-[] spawn {["Click on Map for Extraction Point or escape to cancel",0,.1,3,.005,.1] call bis_fnc_dynamictext;};
+0 spawn {["Click on Map for Extraction Point or escape to cancel",0,.1,3,.005,.1] call bis_fnc_dynamictext};
 
 ["Ext_pu_mapclick","onMapSingleClick", {
 	"extractmkr" setMarkerAlpha 1;
 	"extractmkr" setMarkerPos _pos;
-	GetClick = false;
+	mapClicked = false;
 }] call BIS_fnc_addStackedEventHandler;
 
-waituntil {!GetClick or !(visiblemap)};
+waituntil {!mapClicked or !(visiblemap)};
 ["Ext_pu_mapclick", "onMapSingleClick"] call BIS_fnc_removeStackedEventHandler;
 
 if (!visibleMap) exitwith {hintSilent localize "STR_BMR_heli_extraction_standby"; ctrlActivate ((findDisplay 12) displayCtrl 107); openMap false; player addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>","JIG_EX\extraction_player.sqf",JIG_EX_Caller removeAction jig_ex_actid_show,1, false, true,"","player ==_target"]};
@@ -77,17 +77,17 @@ openMap false;
 
 sleep 0.9;
 
-GetClick = true;
+mapClicked = true;
 openMap true;
-[] spawn {["Click on Map for Drop Point or escape to cancel",0,.1,3,.005,.1] call bis_fnc_dynamictext;};
+0 spawn {["Click on Map for Drop Point or escape to cancel",0,.1,3,.005,.1] call bis_fnc_dynamictext;};
 
 ["Ext_do_mapclick","onMapSingleClick", {
 	"dropmkr" setMarkerAlpha 1;
 	"dropmkr" setMarkerPos _pos;
-	GetClick = false;
+	mapClicked = false;
 }] call BIS_fnc_addStackedEventHandler;
 
-waituntil {!GetClick or !(visiblemap)};
+waituntil {!mapClicked or !(visiblemap)};
 ["Ext_do_mapclick", "onMapSingleClick"] call BIS_fnc_removeStackedEventHandler;
 
 if (!visibleMap) exitwith {hintSilent localize "STR_BMR_heli_extraction_standby"; ctrlActivate ((findDisplay 12) displayCtrl 107); openMap false; player addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>", "JIG_EX\extraction_player.sqf", JIG_EX_Caller removeAction jig_ex_actid_show, 1, false, true, "", "player ==_target"]};
@@ -104,8 +104,8 @@ openMap false;
 
 if (getMarkerPos "extractmkr" distance getMarkerPos "dropmkr" < 500) exitWith {hint "Extraction and Drop Position is less then 500 meters apart. Try again."; player addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>", "JIG_EX\extraction_player.sqf", JIG_EX_Caller removeAction jig_ex_actid_show, 1, false, true, "", "player ==_target"]};
 
-[] spawn Ex_LZ_smoke_fnc;
-if (JIG_EX_AmbRadio) then {	[] spawn { call AmbExRadio_fnc }; };
+0 spawn Ex_LZ_smoke_fnc;
+if (JIG_EX_AmbRadio) then {0 = 0 spawn AmbExRadio_fnc};
 
 jig_ex_cancelid_show = 9998;
 ext_caller_group = group player;
@@ -127,14 +127,14 @@ if (count _outof_range_members > 0) then {
 	} forEach (units ext_caller_group);
 	{
 		_orP = _x;
-		[[_orP], grpNull] remoteExec ["join", _orP];
+		[[_orP], grpNull] remoteExec ["join", 0];
 	} forEach _outof_range_members;
 	sleep 3;
 };
 
 {if (!isPlayer _x) then {_recruitsArry pushBack _x;};} forEach (units ext_caller_group);
 if (count _recruitsArry > 0) then {
-	[] spawn {
+	0 spawn {
 		titleText ["Load recruits into chopper first. Do not use disembark orders after landing.", "PLAIN DOWN", 0.5];
 		sleep 7; titleText ["", "PLAIN DOWN", 0.1];
 	};
@@ -145,6 +145,6 @@ publicVariable "ext_caller_group";
 sleep 3;
 ex_group_ready = true;
 publicVariable "ex_group_ready";
-sleep 1;
+sleep 12;
 
-if (ex_group_ready) then {sleep 6; jig_ex_cancelid_show = _caller addAction [("<t color='#ED2744'>") + (localize "STR_BMR_heli_extraction_cancel") + "</t>", {(_this select 0)removeAction(_this select 2); call Cancel_Evac_fnc}, nil, -9, false];};
+jig_ex_cancelid_show = _caller addAction [("<t color='#ED2744'>") + (localize "STR_BMR_heli_extraction_cancel") + "</t>", {(_this select 0)removeAction(_this select 2); call Cancel_Evac_fnc}, nil, -9, false];

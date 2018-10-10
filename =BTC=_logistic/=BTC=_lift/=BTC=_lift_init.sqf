@@ -70,7 +70,7 @@ BTC_detach_cargo = {
 		_vel = velocity (vehicle player);
 		BTC_cargo_lifted setVelocity _vel;
 		if (vectorMagnitudeSqr velocity BTC_cargo_lifted <= 0.5 && !(isTouchingGround BTC_cargo_lifted)) exitWith {
-			[] spawn {
+			0 spawn {
 				BTC_cargo_lifted setOwner (owner driver(vehicle player));
 				BTC_cargo_lifted setVelocity [0,0,-2];
 				BTC_cargo_lifted = ObjNull;
@@ -142,7 +142,7 @@ BTC_l_camera = {
 		hint "Activating camera...";
 		BTC_l_pip_cond = true;
 		BTC_l_feed_target = "Land_HelipadEmpty_F" createVehicle (position player);
-		[] spawn {while {BTC_l_pip_cond} do {BTC_l_feed_target setpos [getPos (vehicle player) select 0,(getPos (vehicle player) select 1) + 1,0];sleep 0.1;};deleteVehicle BTC_l_feed_target;};
+		0 spawn {while {BTC_l_pip_cond} do {BTC_l_feed_target setpos [getPos (vehicle player) select 0,(getPos (vehicle player) select 1) + 1,0];sleep 0.1;};deleteVehicle BTC_l_feed_target;};
 		[player, player, player] call BIS_fnc_liveFeed;
 		waitUntil {!(isNil "BIS_liveFeed")};
 		hintSilent "";
@@ -164,15 +164,15 @@ BTC_lift_acts = {
 	player addAction [("<t color='#00ffe9'>" + (localize "STR_BTC_Lift") + "</t>"),BTC_dir_action, [[],BTC_attach_cargo], 9, true, false, "", "[] call BTC_lift_check"];
 	player addAction [("<t color='#00ffe9'>" + (localize "STR_BTC_Release") + "</t>"),BTC_dir_action, [[],BTC_detach_cargo], -9, true, false, "", "BTC_lifted isEqualTo 1"];
 };
-[] spawn {
+0 spawn {
 	call BTC_lift_acts;
 	player addEventHandler ["Respawn", {
-		[] spawn {
+		0 spawn {
 			waitUntil {sleep 2; alive player};
 			BTC_l_pip_cond = false;
 			BTC_cargo    = ObjNull;
 			BTC_Hud_Cond = false;
-			if (BTC_lifted isEqualTo 1) then {[] spawn Jig_DeadLifter};
+			if (BTC_lifted isEqualTo 1) then {0 spawn Jig_DeadLifter};
 			BTC_lifted   = 0;
 			call BTC_lift_acts;
 		};

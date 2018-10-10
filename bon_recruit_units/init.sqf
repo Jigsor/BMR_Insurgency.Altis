@@ -7,7 +7,7 @@ bon_dynamic_list = true;// Select false if you want to use a a static unit list.
 
 if(isServer) then{
 	"bon_recruit_newunit" addPublicVariableEventHandler {
-		_newunit = _this select 1;
+		params ["","_newunit"];
 		[_newunit] execFSM (BON_RECRUIT_PATH+"unit_lifecycle.fsm");
 	};
 };

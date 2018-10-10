@@ -5,11 +5,17 @@ if (!isserver) exitwith {};
 waitUntil{!(isNil "BIS_fnc_init")};
 waitUntil {time > 60};
 
-private ["_newZone","_mission_mkr","_mkrPos","_xcoor","_ycoor","_type","_objsel","_curtasks","_ins_debug"];
+if (missionNameSpace getVariable ["INStasksForced", false]) exitWith {};//Forcing Random Mission In Progress
+
+if (SideMissionCancel) then {
+	SideMissionCancel = false;
+	publicVariableServer "SideMissionCancel"; sleep 3;
+};
+
+private ["_newZone","_mission_mkr","_mkrPos","_xcoor","_ycoor","_type","_objsel"];
 
 _newZone = [];
 _mission_mkr = [];
-_ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
 
 if (objective_list isEqualTo []) then {
 	side_mission_mkrs = side_mission_mkrs_copy;
@@ -23,14 +29,14 @@ _mkrPos = getMarkerPos _mission_mkr;
 _xcoor = (getMarkerPos _mission_mkr select 0);
 _ycoor = (getMarkerPos _mission_mkr select 1);
 
-if (_ins_debug) then {diag_log text format ["Mission Pos : %1", _mkrPos];};
+if (DebugEnabled isEqualTo 1) then {diag_log text format ["Mission Marker Pos : %1", _mkrPos];};
 
 {
-	if (_mkrPos distance (getmarkerpos _x) == 0) then {
+	if (_mkrPos distance2D (getmarkerpos _x) == 0) then {
 		side_mission_mkrs = side_mission_mkrs - [_x];
 	};
 } foreach side_mission_mkrs;
-publicVariableServer "side_mission_mkrs";
+publicVariable "side_mission_mkrs";
 sleep 2;
 
 _newZone = _newZone + [_xcoor,_ycoor] call miss_object_pos_fnc;
@@ -43,12 +49,6 @@ if (_newZone isEqualTo []) then {
 		if (_c > 6) exitWith {};
 		sleep 4;
 	};
-};
-
-if ((_ins_debug) and (_newZone isEqualTo [])) exitWith {
-	diag_log "";
-	diag_log "Objective position invalid";
-	diag_log "";
 };
 
 // select random objective from list
@@ -71,56 +71,51 @@ objective_list = objective_list - [_objsel];
 publicVariable "objective_list";
 sleep 3;
 
+if (_newZone isEqualTo []) exitWith {
+	diag_log "";
+	diag_log "!!!Objective position invalid!!! Skiping to next objective.";
+	diag_log "";
+	sleep 10; execVM "Objectives\random_objectives.sqf";
+};
+
 switch (_objsel) do
 {
-	case "comms_tower":
-	{
-	_type = objective_objs select 0; [_newZone,_type] execVM "Objectives\comms_tower.sqf";
+	case "comms_tower": {
+		_type = objective_objs select 0; [_newZone,_type] execVM "Objectives\comms_tower.sqf";
 	};
-	case "kill_leader":
-	{
-	_type = objective_objs select 1; [_newZone,_type] execVM "Objectives\eliminate_leader.sqf";
+	case "kill_leader": {
+		_type = objective_objs select 1; [_newZone,_type] execVM "Objectives\eliminate_leader.sqf";
 	};
-	case "rescue_pilot":
-	{
-	_type = objective_objs select 2; [_newZone,_type] execVM "Objectives\pilot_rescue.sqf";
+	case "rescue_pilot": {
+		_type = objective_objs select 2; [_newZone,_type] execVM "Objectives\pilot_rescue.sqf";
 	};
-	case "cut_power":
-	{
-	_type = objective_objs select 3; [_newZone,_type] execVM "Objectives\tower_of_power.sqf";
+	case "cut_power": {
+		_type = objective_objs select 3; [_newZone,_type] execVM "Objectives\tower_of_power.sqf";
 	};
-	case "mine_field":
-	{
-	_type = objective_objs select 4; [_newZone,_type] execVM "Objectives\mine_field.sqf";
+	case "mine_field": {
+		_type = objective_objs select 4; [_newZone,_type] execVM "Objectives\mine_field.sqf";
 	};
-	case "deliver_supplies":
-	{
-	_type = objective_objs select 5; [_newZone,_type] execVM "Objectives\delivery.sqf";
+	case "deliver_supplies": {
+		_type = objective_objs select 5; [_newZone,_type] execVM "Objectives\delivery.sqf";
 	};
-	case "destroy_convoy":
-	{
-	_type = objective_objs select 6; [_newZone,_type] execVM "Objectives\sup_convoy.sqf";
+	case "destroy_convoy": {
+		_type = objective_objs select 6; [_newZone,_type] execVM "Objectives\sup_convoy.sqf";
 	};
-	case "destroy_armed_convoy":
-	{
-	_type = objective_objs select 7; [_newZone,_type] execVM "Objectives\armed_convoy.sqf";
+	case "destroy_armed_convoy": {
+		_type = objective_objs select 7; [_newZone,_type] execVM "Objectives\armed_convoy.sqf";
 	};
-	case "destroy_mortar_squad":
-	{
-	_type = objective_objs select 8; [_newZone,_type] execVM "Objectives\mortar_squad.sqf";
+	case "destroy_mortar_squad": {
+		_type = objective_objs select 8; [_newZone,_type] execVM "Objectives\mortar_squad.sqf";
 	};
-	case "c_n_h":
-	{
-	_type = objective_objs select 9; [_newZone,_type] execVM "Objectives\capture_n_hold.sqf";
+	case "c_n_h": {
+		_type = objective_objs select 9; [_newZone,_type] execVM "Objectives\capture_n_hold.sqf";
 	};
-	case "destroy_roadblock":
-	{
-	_type = objective_objs select 10; [_newZone,_type] execVM "Objectives\road_block.sqf";
-	};	
-	case "retrieve_data":
-	{
-	_type = objective_objs select 11; [_newZone,_type] execVM "Objectives\data_retrieval.sqf";
+	case "destroy_roadblock": {
+		_type = objective_objs select 10; [_newZone,_type] execVM "Objectives\road_block.sqf";
+	};
+	case "retrieve_data": {
+		_type = objective_objs select 11; [_newZone,_type] execVM "Objectives\data_retrieval.sqf";
 	};
 };
 
-//missionNamespace setVariable ["CurrentSideMission", _objsel, true];
+missionNameSpace setVariable ["INStasksForced", false];

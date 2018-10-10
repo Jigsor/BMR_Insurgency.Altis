@@ -1,6 +1,6 @@
 remove_carcass_fnc = {
 	// Deletes dead bodies and destroyed vehicles. Code by BIS
-	params ["_unit"];
+	params ['_unit'];
 	sleep 2;
 	if !(_unit isKindOf "Man") then {
 		{_x setPos position _unit} forEach crew _unit;
@@ -10,8 +10,8 @@ remove_carcass_fnc = {
 	if (_unit isKindOf "Man") then {
 		if !((vehicle _unit) isKindOf "Man") then {_unit setPos (position vehicle _unit)};
 		sleep 135;
-		hideBody _unit;
 		_unit removeAllEventHandlers "killed";
+		hideBody _unit;
 	};
 };
 BTC_m_fnc_only_server = {
@@ -155,26 +155,26 @@ fnc_ghst_build_positions = {
 	//building positions function for one building
 	//_build_positions = _building call fnc_ghst_find_positions;
 	*/
-	private ["_i","_p","_b","_e","_type"];
-	_i = 0;
-	_b = [];
-	_build_positions = [];
-	_pIsEmpty = false;
-	_type = typeof _this;
+	private _i = 0;
+	private _b = [];
+	private _build_positions = [];
+	private _pIsEmpty = false;
+	private _type = typeof _this;
+	private ["_e","_p"];
 
 	while { ! _pIsEmpty } do {
 
 		_e = _this buildingExit _i;
 		_p = _this buildingPos _i;
 
-		if (( str _p != "[0,0,0]" ) && !(_type in StructureBlackList) && !(_type find "_Pier" != -1) && !(_e isEqualTo _p)) then {
+		if (( str _p != "[0,0,0]" ) && {!(_type in StructureBlackList)} && {!(_type find "_Pier" != -1)} && {!(_e isEqualTo _p)}) then {
 			_b pushback _p;
 		}else{
 			_pIsEmpty = true;
 		};
 		_i = _i + 1;
 	};
-	if ((count _b > 0) and !(isNil "_b")) then {
+	if (!(isNil "_b") and {!(_b isEqualTo [])}) then {
 		_build_positions = _build_positions + _b;
 	};
 
@@ -258,6 +258,7 @@ JIG_ammmoCache_damage = {
 	(_ammo == "demoCharge_remote_ammo") ||
 	(_ammo == "satchelCharge_remote_ammo_scripted") ||
 	(_ammo == "demoCharge_remote_ammo_scripted") ||
+	(_ammo == "CUP_PipeBomb_Ammo") ||
 	(_ammo == "LIB_Ladung_Small_ammo") ||
 	(_ammo == "LIB_Ladung_Big_ammo") ||
 	(_ammo == "LIB_US_TNT_4pound_ammo")) then {
@@ -311,7 +312,7 @@ JIG_tower_damage = {
     _ammo = _this select 4;
     _out = 0;
 
-	if ((_ammo == "satchelCharge_remote_ammo") || (_ammo == "demoCharge_remote_ammo") || (_ammo == "satchelCharge_remote_ammo_scripted") || (_ammo == "demoCharge_remote_ammo_scripted") || (_ammo == "LIB_Ladung_Small_ammo") || (_ammo == "LIB_Ladung_Big_ammo") || (_ammo == "LIB_US_TNT_4pound_ammo")) then {
+	if ((_ammo == "satchelCharge_remote_ammo") || (_ammo == "demoCharge_remote_ammo") || (_ammo == "satchelCharge_remote_ammo_scripted") || (_ammo == "demoCharge_remote_ammo_scripted") || (_ammo == "CUP_PipeBomb_Ammo") || (_ammo == "LIB_Ladung_Small_ammo") || (_ammo == "LIB_Ladung_Big_ammo") || (_ammo == "LIB_US_TNT_4pound_ammo")) then {
         _tower spawn {
             sleep 0.1;
             _this setDamage 1;
@@ -408,7 +409,7 @@ find_bombee_fnc = {
 	// exclude east players, players in moving vehicles, exclude above ground players such as players in aircraft or in high structures
 	{_potentialTargets pushBack _x} forEach (playableUnits select {(vectorMagnitudeSqr velocity _x < 9) && ((getPosATL _x) select 2 < 3.1) && (side _x isEqualTo west)});
 
-	if (count _potentialTargets > 0) then	{
+	if !(_potentialTargets isEqualTo []) then	{
 		_btarget = selectRandom _potentialTargets;
 	};
 	_btarget
@@ -426,7 +427,7 @@ find_civ_bomber_fnc = {
 	{
 		if (count _civs != 0) then {
 			_closestEntity = _civs select 0;
-			if ((side _closestEntity == CIVILIAN) && {(!isPlayer _closestEntity)}) then {
+			if ((side _closestEntity isEqualTo CIVILIAN) && {!isPlayer _closestEntity} && {!captive _closestEntity}) then {
 				_draftee = _closestEntity;
 				_foundCiv = true;
 				//diag_log text format ["SupahG33K - Civilian Jihadi Draftee found object: %1 class: %2", _draftee, typeOf _draftee];
@@ -475,7 +476,7 @@ bmbrBuildPos = {
 	while {!_found && _c < 20} do {
 		_houses = [_posX, _posY] nearObjects ["HouseBase", 150];
 		//if (_debug) then {diag_log text format["Bomber building position placement %1 : %2", _c, _houses];};
-		if (!isNil "_houses" && {(count _houses > 0)}) then {
+		if (!isNil "_houses" && {!(_houses isEqualTo [])}) then {
 			_n = count _houses;
 			_i = floor(random _n);
 			_build = (_houses select _i);
@@ -546,10 +547,8 @@ spawn_Op4_grp = {
 	for "_i" from 0 to (_grpSize - 2) step 1 do {
 		_unit_type = selectRandom INS_men_list;
 		_unit = _grp createUnit [_unit_type, _newZone, [], 0, "NONE"];
-		sleep 0.4;
 	};
 	_grp createUnit [INS_Op4_medic, _newZone, [], 0, "NONE"];
-	sleep 0.4;
 
 	(group _unit) setVariable ["zbe_cacheDisabled",false];
 	if (BTC_p_skill isEqualTo 1) then {[_grp] call BTC_AI_init};
@@ -560,6 +559,10 @@ spawn_Op4_grp = {
 			_x removeAllEventHandlers "HandleDamage";
 			_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 		};
+		_x addEventHandler ["Reloaded", {
+			params ["_unit", "_weapon", "_muzzle", "_newmag", ["_oldmag", ["","","",""]]];
+			if (_oldmag select 2 isEqualType "") then {_unit addMagazine (_newmag select 0)} else {_unit addMagazine (_oldmag select 0)};
+		}];
 		if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc};
 	} forEach (units _grp);
 
@@ -659,7 +662,7 @@ spawn_Op4_StatDef = {
 			if (DebugEnabled isEqualTo 1) then {diag_log "Attempting rooftop static placement"};
 
 			sleep 2;
-			nul = [_sPos, _array1, 110, 2, [0,33], true, false] execVM "scripts\SHK_buildingpos.sqf";
+			null = [_sPos, _array1, 110, 2, [0,33], true, false] execVM "scripts\SHK_buildingpos.sqf";
 		};
 	};
 
@@ -783,22 +786,22 @@ GAS_smoke_AIdamage = {
 	ToxicGasLoc = [];
 };
 JIG_DustIsOn = {
+	if (missionNameSpace getVariable ["JSSactive", false]) then {call JIG_SnowIsOn};
 	// If Dust Storm active then deactivate
 	private _active = missionNameSpace getVariable ["JDSactive", false];
 	if (_active) then {
 		missionNameSpace setVariable ["JDSactive", false];
 		setWind [0,0,true];
 		JIG_DustStorm = false;
-		PublicVariable "JIG_DustStorm";
+		publicVariable "JIG_DustStorm";
+		true
 	}else{
 		false
 	};
 };
-JIG_ActivateDust = {
-	// Activate Dust Storm
-	params [["_vel", 12, [0]]];
-	missionNameSpace setVariable ["JDSactive", true];
-	private _dir = selectRandom [
+JIG_RandomWindDir = {
+	params [["_vel", 1, [0]]];
+		private _dir = selectRandom [
 		[0,_vel,true],	//North
 		[0,-_vel,true],	//South
 		[_vel,0,true],	//East
@@ -809,10 +812,43 @@ JIG_ActivateDust = {
 		[_vel,-_vel,true]	//South East
 	];
 	setWind _dir;
+};
+JIG_ActivateDust = {
+	// Activate Dust Storm
+	params [["_vel", 12, [0]]];
+	missionNameSpace setVariable ["JDSactive", true];
+	[_vel] call JIG_RandomWindDir;
 	JIG_DustStorm = true;
 	publicVariable "JIG_DustStorm";
 	sleep 3;
 	[] remoteExec ["JIG_Dust_Storm", [0,-2] select isDedicated];
+};
+JIG_SnowIsOn = {
+	if (missionNameSpace getVariable ["JDSactive", false]) then {call JIG_DustIsOn};
+	// If Snow Storm active then deactivate
+	private _active = missionNameSpace getVariable ["JSSactive", false];
+	if (_active) then {
+		missionNameSpace setVariable ["JSSactive", false];
+		setWind [0,0,true];
+		JIG_SnowStorm = false;
+		publicVariable "JIG_SnowStorm";
+		[] remoteExec ['INS_ClearSnowOverCast'];
+		true
+	}else{
+		false
+	};
+};
+JIG_ActivateSnow = {
+	// Activate Snow Storm
+	params [["_vel", 2, [0]]];
+	missionNameSpace setVariable ["JSSactive", true];
+	[_vel] call JIG_RandomWindDir;
+	JIG_SnowStorm = true;
+	publicVariable "JIG_SnowStorm";
+	sleep 3;
+	[] remoteExec ['INS_SnowOverCast'];
+	sleep 3;
+	[] remoteExec ["JIG_Snow_Storm", [0,-2] select isDedicated];
 };
 INSciviKilled_fnc = {
 	params [["_unit",objNull],["_killer",objNull]];
@@ -834,7 +870,7 @@ INSciviKilled_fnc = {
 
 		[_m, _killer] spawn {
 			params ["_m","_killer"];
-			for "_i" from 1 to 12 step 1 do {//show civ killer marker for approx. 12 seconds
+			for "_i" from 1 to 14 step 1 do {//show civ killer marker for approx. 14 seconds
 				uiSleep 1;
 				if (!alive _killer) exitWith {};
 				_m setMarkerPos getPosWorld _killer;
@@ -843,4 +879,13 @@ INSciviKilled_fnc = {
 		};
 	};
 	_unit spawn remove_carcass_fnc;
+};
+killedByInfo_fnc = {
+	params ["_poorSoul","_killer"];
+	if (!isNull _killer) then {
+		private _killerName = if (name _killer == "Error: No unit") then {"Unidentified"}else{name _killer};
+		private _killedName = name _poorSoul;
+		private _txt = format ["%1 Killed by %2",_killedName, _killerName];
+		_txt remoteExec ['JIG_MPTitleText_fnc', [0,-2] select isDedicated];
+	};
 };

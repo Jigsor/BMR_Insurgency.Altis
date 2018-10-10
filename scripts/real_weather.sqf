@@ -74,9 +74,9 @@ switch(toUpper(_startingweather)) do {
 if (local player) then {
 
 	//Jig adding Brighter Nights by Ralian
-	[] spawn {
+	0 spawn {
 		waitUntil {!isNil "INS_Brighter_Nights"};
-		if (daytime > 21.00 || daytime < 3.50) then {
+		if ((daytime > 21.00 || daytime < 3.50) && {Brighter_Nights isEqualTo 1}) then {
 			[3] call INS_Brighter_Nights;
 		}else{
 			[1] call INS_Brighter_Nights;
@@ -161,8 +161,10 @@ while {true} do {
 	};
 	_lastrain = _rain;
 
-	private _DSactive = missionNameSpace getVariable ["JDSactive", false];
-	if (_rain > 0 && {_DSactive}) then {call JIG_DustIsOn; sleep 3;};
+	if (_rain > 0) then {
+		if (missionNameSpace getVariable ["JDSactive", false]) then {call JIG_DustIsOn; sleep 3;};
+		if (missionNameSpace getVariable ["JSSactive", false]) then {call JIG_SnowIsOn; sleep 3;};
+	};
 
 	wcweather = [_rain, _fog, _overcast, _wind, date];
 	60 setRain (wcweather select 0);
@@ -174,7 +176,7 @@ while {true} do {
 	};
 
 	//Jig adding Brighter Nights by Ralian
-	if (daytime > 21.00 || daytime < 3.50) then {
+	if ((daytime > 21.00 || daytime < 3.50) && {Brighter_Nights isEqualTo 1}) then {
 		[3] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated];
 	}else{
 		[1] remoteExec ["INS_Brighter_Nights", [0,-2] select isDedicated];

@@ -59,10 +59,10 @@ BTC_tow_acts = {
 	player addAction [("<t color='#ED2744'>" + (localize "STR_BTC_Tow") + "</t>"), BTC_dir_action, [[],BTC_t_attach_cargo], 9, true, false, "", "[] call BTC_tow_check"];
 	player addAction [("<t color='#ED2744'>" + (localize "STR_BTC_Release") + "</t>"), BTC_dir_action, [[],BTC_t_detach_cargo], -9, true, false, "", "BTC_attached isEqualTo 1"];
 };
-[] spawn {
+0 spawn {
 	call BTC_tow_acts;
 	player addEventHandler ["Respawn", {
-		[] spawn {
+		0 spawn {
 			waitUntil {sleep 1; alive player};
 			call BTC_tow_acts;
 		};

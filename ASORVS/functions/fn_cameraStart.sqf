@@ -54,7 +54,7 @@ for[{_bgX = 0}, {_bgX < _bgCountX}, {_bgX = _bgX + 1}] do {
 	};
 };
 ASORVS_ClonePos = [ASORVS_Position select 0, ASORVS_Position select 1, _seaHeight+5 + _heightInAir];
-[] spawn ASORVS_fnc_ResetClone;
+0 spawn ASORVS_fnc_ResetClone;
 //ASORVS_Clone enableSimulation false;
 _pos = ASORVS_Position;
 
@@ -75,7 +75,7 @@ sleep 0.1;
 ASORVS_Camera = "camera" camCreate _cameraPos;
 ASORVS_Camera cameraEffect ["Internal", "BACK"];
 ASORVS_Camera camPrepareTarget ASORVS_CameraTarget;
-//ASORVS_Camera camPrepareRelPos [0,  -_distancey, 0 ];
+//ASORVS_Camera camPrepareRelPos [0, -_distancey, 0];
 ASORVS_Camera camPrepareFOV _fov;
 showCinemaBorder false;
 ASORVS_Camera setPosATL _cameraPos;
@@ -92,7 +92,7 @@ ASORVS_CurrentY = ((_cameraPos select 2) - ASORVS_CameraMinY) / (ASORVS_CameraMa
 ASORVS_Light = "#lightpoint" createVehicleLocal _cameraPos;
 ASORVS_Light setPosATL _cameraPos;
 _brightness = 1;
-if(worldName in ASORVS_brightMaps) then {_brightness = 0.3;};
+if(worldName in ASORVS_brightMaps) then {_brightness = 0.3};
 
 ASORVS_Light setLightBrightness _brightness;
 ASORVS_Light setLightAmbient[1,1,1];
@@ -109,7 +109,7 @@ _camera camPrepareFov 5;
 _camera camcommitprepared 0;
 ASORVS_RenderTarget = _camera;
 ASORVS_RenderTarget cameraeffect ["External","BACK","rt12"];
- ASORVS_Camera cameraEffect ["Internal", "BACK"];
+ASORVS_Camera cameraEffect ["Internal", "BACK"];
 waitUntil {!isNull (findDisplay ASORVS_Main_Display)};
 _pipcontrol = ASORVS_getControl(ASORVS_Main_Display,434603);
 _pipcontrol ctrlSetText  "#(argb,256,256,1)r2t(rt12,1.0)";

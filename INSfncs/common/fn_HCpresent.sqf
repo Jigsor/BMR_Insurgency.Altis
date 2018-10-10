@@ -1,4 +1,5 @@
-if  (!isServer && !hasInterface) then {
+if (!isServer && !hasInterface) then {
+	server setVariable ["EOSmarkers", [], true];
 	IamHC = true;
 	Any_HC_present = true; publicVariable "Any_HC_present";
 	if (name player == "HC_1") then {HC_1Present = true; publicVariable "HC_1Present"};

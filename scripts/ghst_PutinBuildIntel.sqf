@@ -2,19 +2,17 @@
  [activated_cache_pos] execVM "scripts\ghst_PutinBuildIntel.sqf";
  V2.5.2 - By Ghost - coord snippet is from DiRaven
  fills a random building around a position with all objects listed. Best to keep radius small so not many buidlings need to be calculated.
- Modified by Jigsor. Last Edit 4/25/2016.//Adapted to spawn intel. Modified mostly beginning and ending. The core is by Ghost. Places Intel and creates intel location markers.
+ Modified by Jigsor. Last Edit 10/6/2018.//Adapted to spawn intel. Modified mostly beginning and ending. The core is by Ghost. Places Intel and creates intel location markers.
 */
 
 if (!isServer) exitWith{};
 if (EnemyAmmoCache isEqualTo 0) exitWith{};
 
-private ["_cache_loop","_uncaped_eos_mkrs","_hide_intel","_current_cache","_uncaped_mkr_count","_total_intelObjs"];
-
 current_cache_pos = _this select 0; publicVariable "current_cache_pos";
-_all_cache_pos = [];
+private _all_cache_pos = [];
 activated_cache = [];
-_uncaped_eos_mkrs = all_eos_mkrs;
-_hide_intel = Intel_Loc_Alpha;
+private _uncaped_eos_mkrs = all_eos_mkrs;
+private _hide_intel = Intel_Loc_Alpha;
 
 if (DebugEnabled > 0) then {titleText ["Creating Intel","PLAIN DOWN"]};
 
@@ -30,57 +28,51 @@ sleep 2;
 if ([activated_cache] in _all_cache_pos) exitWith {};
 
 if !([activated_cache] in _all_cache_pos) then {_all_cache_pos pushBack activated_cache};
-_current_cache = activated_cache select 0;
+private _current_cache = activated_cache select 0;
 
 {if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} foreach _uncaped_eos_mkrs;
-_uncaped_mkr_count = (count _uncaped_eos_mkrs);
-_total_intelObjs = (round(_uncaped_mkr_count/Intel_Count));//total max suitcases per ammo cache
+private _uncaped_mkr_count = (count _uncaped_eos_mkrs);
+private _total_intelObjs = (round(_uncaped_mkr_count/Intel_Count));//total max suitcases per ammo cache
 
-_cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_total_intelObjs] spawn
+private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_total_intelObjs] spawn
 {
 	params ["_uncaped_eos_mkrs","_hide_intel","_current_cache","_uncaped_mkr_count","_total_intelObjs"];
-	private ["_nearBuildings","_all_cache_pos","_intel","_strNum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_intel_coor_selection","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_jigxcoor","_jigycoor","_intel_coor","_loop","_p","_n","_i","_markname","_mark1","_unit1","_mkr_position","_current_cache"];
+	private ["_nearBuildings","_intel","_strNum","_displayName","_VarName","_mkrPos","_radarray","_unitarray","_markunits","_mcolor","_msize","_markunitspos","_jigxcoor","_jigycoor","_loop","_p","_n","_i","_markname","_mkr","_current_cache"];
 
 	private _iobj = 0;
 	private _intel_types = ["Land_Suitcase_F","Land_Laptop_unfolded_F","Land_PortableLongRangeRadio_F","Land_SurvivalRadio_F"];
 	private _objtype = _intel_types select 0;
+	private _createPos = position air_pat_pos;
 	private _imks = [];
+	private _displayName = getText (configFile >> "cfgVehicles" >> (_objtype) >> "displayName");
 	#define _debug false//set true for diag_log
 
 	while {((_iobj < _total_intelObjs) && (_iobj < _uncaped_mkr_count)) && alive _current_cache} do
 	{
 		_curr_mkr = selectRandom _uncaped_eos_mkrs;
 		if (_debug) then {diag_log format ["Current Marker %1", _curr_mkr]};
-		_mkr_position = getMarkerpos _curr_mkr;
 		_strNum = str(_iobj);
 
-		_intel = createVehicle [_objtype , position air_pat_pos, [], 0, "CAN_COLLIDE"];
+		_intel = createVehicle [_objtype, _createPos, [], 0, "CAN_COLLIDE"];
 		sleep jig_tvt_globalsleep;
 
 		_intel allowDamage false;
 		_intel setVariable["persistent",true];
-		_veh_name = getText (configFile >> "cfgVehicles" >> (_objtype) >> "displayName");
 		_VarName = ("intel" + _strNum);
 		_intel setVehicleVarName _VarName;
 		missionNamespace setVariable [_VarName,_intel];
 		publicVariable _VarName;
 		sleep 0.3;
 
-		_params_PutinBuild = [[_mkr_position],[50,50,0],[_intel],[true,"ColorBlack",[3,3],true]];
-
-		_position_mark = _params_PutinBuild select 0;//position
-		_intel_coor_selection = _position_mark select (count _position_mark)-1;
-		_radarray = _params_PutinBuild select 1;//radius array around position and Direction [30,30,0]
-		_unitarray = _params_PutinBuild select 2;//object to be placed in building
-		_markunitsarray = _params_PutinBuild select 3;
-			_markunits = _markunitsarray select 0;
-			_mcolor = _markunitsarray select 1;
-			_msize = _markunitsarray select 2;// marker size 3
-			_markunitspos = _markunitsarray select 3;
-
-		_intel_coor = _intel_coor_selection;
-		_jigxcoor = _intel_coor select 0;
-		_jigycoor = _intel_coor select 1;
+		_mkrPos = getMarkerpos _curr_mkr;//position
+		_radarray = [50,50,0];//radius array around position and Direction [30,30,0]
+		_unitarray = [_intel];//object to be placed in building
+		_markunits = true;
+		_mcolor = "ColorBlack";
+		_msize = [3,3];// marker size 3
+		_markunitspos = true;
+		_jigxcoor = _mkrPos select 0;
+		_jigycoor = _mkrPos select 1;
 
 		//get all buildings around position of set radius
 		private "_rad";
@@ -90,7 +82,7 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 		_nearBuildings = [_jigxcoor,_jigycoor] nearObjects ["HouseBase", _rad];
 		if (_nearBuildings isEqualTo []) then {_nearBuildings = [] + [(nearestBuilding [_jigxcoor,_jigycoor])]};//Jig adding
 
-		if (_debug) then {diag_log format ["Number of Buildings: %1, Number of units in array: %2, Radius Array: %3, Radius for buildings: %4, Position for Buildings: %5", count _nearBuildings, count _unitarray, _radarray, _rad, _position_mark]};
+		if (_debug) then {diag_log format ["Number of Buildings: %1, Number of units in array: %2, Radius Array: %3, Radius for buildings: %4, Position for Buildings: %5", count _nearBuildings, count _unitarray, _radarray, _rad, _mkrPos]};
 
 		//Put specified objects in Buildings
 		{
@@ -133,17 +125,16 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 			//Jig adding redundancy for invalid or troublesome building positions.
 			private ["_safepos","_dis","_b_pos"];
 			if (isNil "_position") then {
-				//"house_c_4_ep1","a_mosque_big_wall_ep1","House_C_11_EP1"
-				if (typeof (nearestBuilding _intel_coor) == "Land_Pier_small_F") then {
+				if (typeof (nearestBuilding _mkrPos) == "Land_Pier_small_F") then {
 					_dis = 100;
-					_safepos = [_intel_coor, 30, _dis, 1, 0, 0.8, 0] call BIS_fnc_findSafePos;
+					_safepos = [_mkrPos, 30, _dis, 1, 0, 0.8, 0] call BIS_fnc_findSafePos;
 				};
 				if !(isNil "_safepos") then {
 					_b_pos = _safepos;
 				}else{
-					_b_pos = [_intel_coor,_radarray] call fnc_ghst_rand_position;
+					_b_pos = [_mkrPos,_radarray] call fnc_ghst_rand_position;
 					if (isNil "_b_pos") then {
-						_b_pos = _intel_coor findEmptyPosition[ 0 , 20 , typeof _x];
+						_b_pos = _mkrPos findEmptyPosition[ 0 , 20 , typeof _x];
 					};
 				};
 				_position = _b_pos;
@@ -166,13 +157,13 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 			if (_markunits) then {
 				_pos = [_position,[_msize select 0,_msize select 1,(random 360)]] call fnc_ghst_rand_position;
 				_markname = str(_pos);
-				_mark1 = createMarker [_markname, _pos];
-				_mark1 setMarkerShape "Ellipse";
-				_mark1 setmarkersize _msize;
-				_mark1 setmarkercolor _mcolor;//"ColorBlack";
-				_mark1 setmarkerAlpha _hide_intel;//hide intel location markers
-				if (_markunitspos) then {_mark1 setmarkertext format ["Intel obj%1", _x]};
-				if (_hide_intel isEqualTo 1) then {_imks pushBack [_x,_mark1]};
+				_mkr = createMarker [_markname, _pos];
+				_mkr setMarkerShape "Ellipse";
+				_mkr setmarkersize _msize;
+				_mkr setmarkercolor _mcolor;//"ColorBlack";
+				_mkr setmarkerAlpha _hide_intel;//hide intel location markers
+				if (_markunitspos) then {_mkr setmarkertext format ["Intel obj%1", _x]};
+				if (_hide_intel isEqualTo 1) then {_imks pushBack [_x,_mkr]};
 			};
 			sleep 0.1;
 		} foreach _unitarray;
@@ -194,11 +185,11 @@ _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_
 	if (DebugEnabled > 0) then {titleText ["Spawning Intel Complete","PLAIN DOWN"]};
 
 	if (_hide_intel isEqualTo 1) then {
-		[_imks] spawn {
-			params ["_arr"];
-			while {count _arr > 0} do {
+		_nul = [_imks] spawn {
+			params ['_arr'];
+			while {!(_arr isEqualTo [])} do {
 				{
-					private ["_o","_m"];
+					private ['_o','_m'];
 					_o = (_x select 0);
 					_m = (_x select 1);
 					if (!alive _o) then {

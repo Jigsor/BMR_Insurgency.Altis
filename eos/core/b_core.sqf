@@ -79,7 +79,7 @@ if (_pause > 0 and !_initialLaunch) then {
 // SPAWN PATROLS
 _aGroup=[];
 for "_counter" from 1 to _PApatrols do {
-	_pos = [_mPos, _Placement, random 360] call BIS_fnc_relPos;
+	_pos = _mPos getPos [_Placement, random 360];
 	_grp=[_pos,_PAgroupSize,_faction,_side] call eos_fnc_spawngroup;
 	_aGroup set [count _aGroup,_grp];
 	if (_debug) then {PLAYER SIDECHAT (format ["Spawned Patrol: %1",_counter]);0= [_mkr,_counter,"patrol",getpos (leader _grp)] call EOS_debug};
@@ -88,7 +88,7 @@ for "_counter" from 1 to _PApatrols do {
 //SPAWN LIGHT VEHICLES
 _bGrp=[];
 for "_counter" from 1 to _LVehGroups do {
-	_newpos = [_mPos, (_Placement +200), random 360] call BIS_fnc_relPos;
+	_newpos = _mPos getPos [(_Placement +200), random 360];
 	if (surfaceiswater _newpos) then {_vehType=8;_cargoType=10;}else{_vehType=7;_cargoType=9;};
 	_bGroup=[_newpos,_side,_faction,_vehType]call EOS_fnc_spawnvehicle;
 
@@ -102,7 +102,7 @@ for "_counter" from 1 to _LVehGroups do {
 //SPAWN ARMOURED VEHICLES
 _cGrp=[];
 for "_counter" from 1 to _AVehGroups do {
-	_newpos = [_mPos, _Placement, random 360] call BIS_fnc_relPos;
+	_newpos = _mPos getPos [_Placement, random 360];
 	if (surfaceiswater _newpos) then {_vehType=8;}else{_vehType=2;};
 	_cGroup=[_newpos,_side,_faction,_vehType]call EOS_fnc_spawnvehicle;
 	0=[(_cGroup select 2),"ARMskill"] call eos_fnc_grouphandlers;
@@ -114,7 +114,7 @@ for "_counter" from 1 to _AVehGroups do {
 _fGrp=[];
 for "_counter" from 1 to _CHGroups do {
 	if ((_fSize select 0) > 0) then {_vehType=4}else{_vehType=3};
-	_newpos = [(markerpos _mkr), 1500, random 360] call BIS_fnc_relPos;
+	_newpos = (markerpos _mkr) getPos [1500, random 360];
 	_fGroup=[_newpos,_side,_faction,_vehType,"fly"]call EOS_fnc_spawnvehicle;
 	_CHside=_side;
 	_fGrp set [count _fGrp,_fGroup];
@@ -151,7 +151,7 @@ for "_counter" from 1 to _CHGroups do {
 }foreach _cGrp;
 
 {
-	_pos = [_mPos, (_mkrX + 50), random 360] call BIS_fnc_relPos;
+	_pos = _mPos getPos [(_mkrX + 50), random 360];
 	_getToMarker = (_x select 2) addWaypoint [_pos, 0];
 	_getToMarker setWaypointType "UNLOAD";
 	_getToMarker setWaypointSpeed "NORMAL";

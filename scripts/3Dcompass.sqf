@@ -9,7 +9,7 @@ waitUntil {sleep 2; (cameraView isEqualTo "GUNNER") || (isNull objectParent play
 if (isNull objectParent player) exitWith {};
 INSheliVehP = vehicle player;
 
-3DcompassSEHID = [ "INS3Dcomp", "onEachFrame", {
+INS3Dcomp = addMissionEventHandler ["EachFrame", {
 
 	{
 		_center = positionCameraToWorld [0,0,3];//need something better to handle moving vehicle
@@ -26,11 +26,11 @@ INSheliVehP = vehicle player;
 	if ((INSheliVehP != vehicle player) || (cameraView != "GUNNER")) then {
 		if (cameraView != "GUNNER" && INSheliVehP == vehicle player) then { execVM "scripts\3Dcompass.sqf"; };
 		if (INSheliVehP != vehicle player && alive INSheliVehP) then {
-			[] spawn {
+			0 spawn {
 				_3dcact = (vehicle INSheliVehP) addAction["Gunner 3D Compass", {execVM "scripts\3Dcompass.sqf";(_this select 0)removeAction(_this select 2);}, [], -1.1, false, true, "holdBreath", "_target==(vehicle _this)"];
 			};
 		};
-		["INS3Dcomp", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+		removeMissionEventHandler ["EachFrame", _thisEventHandler];
 	};
 
-}] call BIS_fnc_addStackedEventHandler;
+}];

@@ -58,7 +58,8 @@ _allVehicleClasses = (configFile >> "CfgVehicles") call BIS_fnc_getCfgSubClasses
 		_type = getNumber(_cfg >> "type");
 		_side = getNumber(_cfg >> "side");
 		_isbackpack = getNumber(_cfg >> "isbackpack");
-		if((_scope >= 2) && (_picture != "") && (_displayName != "")) then {
+		_hasDriver = getNumber(_cfg >> "hasDriver");
+		if((_scope >= 2) && {_picture != ""} && {_displayName != ""} && {_hasDriver > 0}) then {
 			switch(true) do {
 				case (_isbackpack==1) : {
 					_capacity = getNumber (_cfg >> "maximumLoad");

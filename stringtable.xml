@@ -215,6 +215,14 @@
 <Russian>Сохранить прогрессию</Russian>
 <Spanish>Guardar progresión</Spanish>
 </Key>
+<Key ID="STR_BMR_ClearProgression">
+<Original>Clear Progression</Original>
+<English>Clear Progression</English>
+<German>Klare Progression</German>
+<French>Effacer la progression</French>
+<Russian>Очистить прогрессию</Russian>
+<Spanish>Progresión clara</Spanish>
+</Key>
 <Key ID="STR_BMR_loading">
 <Original>Loading...</Original>
 <English>Loading...</English>
@@ -583,6 +591,30 @@
 <French>Bascule Véhicule</French>
 <Russian>Перевернуть транспорт</Russian>
 <Spanish>Vehículo tirón</Spanish>
+</Key>
+<Key ID="STR_BMR_Side_Canx">
+<Original>Cancel Current Side Mission</Original>
+<English>Cancel Current Side Mission</English>
+<German>Aktuelle Nebenmission abbrechen</German>
+<French>Annuler la mission en cours</French>
+<Russian>Отменить текущую миссию</Russian>
+<Spanish>Cancelar la misión lateral actual</Spanish>
+</Key>
+<Key ID="STR_BMR_Side_Request">
+<Original>Request Random Side Mission</Original>
+<English>Request Random Side Mission</English>
+<German>Request Random Side Mission</German>
+<French>Demander une mission aléatoire</French>
+<Russian>Запросить случайную миссию</Russian>
+<Spanish>Solicitar una misión lateral aleatoria</Spanish>
+</Key>
+<Key ID="STR_BMR_Side_Request_InProgress">
+<Original>Forcing Random Mission In Progress</Original>
+<English>Forcing Random Mission In Progress</English>
+<German>Erzwingen zufälliger Mission in Progress</German>
+<French>Forcer la mission aléatoire en cours</French>
+<Russian>Формирование случайной миссии продолжается</Russian>
+<Spanish>Forzar una misión aleatoria en progreso</Spanish>
 </Key>
 <Key ID="STR_BMR_HuntIR_tip1">
 <Original>Shoot a white flare grenade toward your recon area</Original>
@@ -1231,6 +1263,22 @@
 <French>Pousser</French>
 <Russian>От себя</Russian>
 <Spanish>Empujar</Spanish>
+</Key>
+<Key ID="STR_BMR_UseMineDetector">
+<Original>Use MineDetector</Original>
+<English>Use MineDetector</English>
+<German>Verwenden Sie Bomben Detektor</German>
+<French>Utiliser le détecteur de mines</French>
+<Russian>использование мина индикатор</Russian>
+<Spanish>Usar detector de minas</Spanish>
+</Key>
+<Key ID="STR_BMR_StopMineDetector">
+<Original>Stop MineDetector</Original>
+<English>Stop MineDetector</English>
+<German>Stoppen Sie die Bombenerkennung</German>
+<French>Arrêter le détecteur de mines</French>
+<Russian>Остановить мина индикатор</Russian>
+<Spanish>Detener el detector de minas</Spanish>
 </Key>
 <Key ID="STR_BMR_NoOneNear">
 <Original>No one is nearby</Original>

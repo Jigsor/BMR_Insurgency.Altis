@@ -7,6 +7,12 @@ private ["_HPpatrols","_HPgroupProbability","_CHgroupArray","_LVgroupArray","_HP
 RedHot = 0; //activated zones count
 
 _JIPmkr=(_this select 0);
+
+{
+	if (getmarkerColor _x isEqualTo "ColorGreen") then {_JIPmkr =_JIPmkr - [_x];};
+} forEach _JIPmkr;
+if (_JIPmkr isEqualTo []) exitWith {};
+
 _HouseInfantry=(_this select 1);
 _HPpatrols=_HouseInfantry select 0;
 _HPgroupSize=_HouseInfantry select 1;
@@ -80,7 +86,7 @@ if (_CHgroupProbability > floor random 100) then {
 {
 	_eosMarkers=server getvariable "EOSmarkers";
 	if (isnil "_eosMarkers") then {_eosMarkers=[];};
-		_eosMarkers pushBack _x;
-		server setvariable ["EOSmarkers",_eosMarkers,true];
-		null = [_x,[_HPpatrols,_HPgroupArray],[_PApatrols,_PAgroupArray],[_LVehGroups,_LVgroupArray],[_AVehGroups,_SVehGroups,_CHGroups,_CHgroupArray],_settings] execVM "eos\core\eos_core.sqf";
+	_eosMarkers pushBack _x;
+	server setvariable ["EOSmarkers",_eosMarkers,true];
+	null = [_x,[_HPpatrols,_HPgroupArray],[_PApatrols,_PAgroupArray],[_LVehGroups,_LVgroupArray],[_AVehGroups,_SVehGroups,_CHGroups,_CHgroupArray],_settings] execVM "eos\core\eos_core.sqf";
 }foreach _JIPmkr;

@@ -2,6 +2,8 @@
 //call from vehicle respawn module expression field
 //if (isServer) then {  params [["_newVeh",objNull],["_oldVeh",objNull]];  0 = [_newVeh, pylonArrayName] call BMRINS_fnc_replacePylons;  };
 params [["_veh",objNull],["_pylons",[]]];
+if (!isServer) exitWith {};
+if (_veh isEqualType "" && time > 5) exitWith {};
 if (_veh isEqualType "") exitWith {0 = [_veh, _pylons] spawn BMRINS_fnc_replacePylons;};
 private _pylonPaths = (configProperties [configFile >> "CfgVehicles" >> typeOf _veh >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"]) apply {getArray (_x >> "turret")};
 private _nonPylonWeapons = [];

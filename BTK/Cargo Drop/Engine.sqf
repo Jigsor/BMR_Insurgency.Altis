@@ -178,7 +178,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeS)) exitWith {
 	_ObjectsInRange = nearestObjects [_Transporter, _ObjectsS, 15];
 
 	// If no objects, exit with
-	if (count _ObjectsInRange < 1) exitWith {
+	if (_ObjectsInRange isEqualTo []) exitWith {
 		// BTK_Hint - Nothing to load in range
 		call _BTK_Hint_outOf_Range;
 	};
@@ -330,7 +330,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeM)) exitWith {
 	_ObjectsInRange = nearestObjects [_Transporter, _ObjectsM, 15];
 
 	// If no objects, exit with
-	if (count _ObjectsInRange < 1) exitWith {
+	if (_ObjectsInRange isEqualTo []) exitWith {
 		// BTK_Hint - Nothing to load in range
 		call _BTK_Hint_outOf_Range;
 	};
@@ -472,7 +472,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeL)) exitWith {
 	_ObjectsInRange = nearestObjects [_Transporter, _ObjectsL, 15];
 
 	// If no objects, exit with
-	if (count _ObjectsInRange < 1) exitWith {
+	if (_ObjectsInRange isEqualTo []) exitWith {
 		// BTK_Hint - Nothing to load in range
 		call _BTK_Hint_outOf_Range;
 	};
@@ -618,7 +618,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 	_ObjectsInRange = nearestObjects [_Transporter, _ObjectsXL, 20];
 
 	// If no objects, exit with
-	if (count _ObjectsInRange < 1) exitWith {
+	if (_ObjectsInRange isEqualTo []) exitWith {
 		// BTK_Hint - Nothing to load in range
 		call _BTK_Hint_outOf_Range;
 	};
@@ -673,7 +673,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 			_Object attachTo [_Transporter,[0,-0.2,2.09]];
 		};
 		// Fix for Pelican
-		if (_Transporter isKindOf "OPTRE_Pelican_armed_black") then {
+		if (_Transporter isKindOf "OPTRE_Pelican_unarmed") then {
 			_Object attachTo [_Transporter,[0,-4,0.04]];//[0,-4,0.14]
 		};
 		// NH90 NFH

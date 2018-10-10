@@ -4,9 +4,9 @@ _unit = _this;
 _marker = "";
 _side = _unit getVariable ["btc_qr_side",""];;
 switch (_side) do {
-	case (west) : {_marker = "respawn_west";};
-	case (east) : {_marker = "respawn_east";};
-	case (resistance) : {_marker = "respawn_guerrila";};
+	case (west) : {_marker = "Respawn_West";};
+	case (east) : {_marker = "Respawn_East";};
+	case (resistance) : {_marker = "Respawn_Guerrila";};
 	case (civilian) : {_marker = "respawn_civilian";};
 };
 _unit setPos (getMarkerPos _marker);

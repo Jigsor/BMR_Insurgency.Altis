@@ -2,7 +2,7 @@
 
 sleep 2;
 params ["_newZone","_type"];
-private ["_rnum","_alltskmines","_objmkr","_grp","_stat_grp","_patrole","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_deadWmen","_knownmines","_nearestMines","_manArray","_checkmines","_minefielrad","_sandbags1","_ins_debug","_random_mine_cnt","_mfieldmkr"];
+private ["_rnum","_alltskmines","_objmkr","_grp","_stat_grp","_patrole","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_deadWmen","_knownmines","_nearestMines","_manArray","_checkmines","_minefielrad","_sandbag","_ins_debug","_random_mine_cnt","_mfieldmkr"];
 
 _rnum = str(round (random 999));
 _alltskmines = [];
@@ -10,7 +10,6 @@ _deadWmen = [];
 _checkmines = true;
 _minefielrad = 65;
 _ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
-
 _random_mine_cnt = [5,15] call BIS_fnc_randomInt;
 
 // Positional info
@@ -32,9 +31,9 @@ _mfieldmkr = createMarker ["MineField", _newZone];
 "MineField" setMarkerSize [65, 65];
 
 // Spawn Objective Objects
-_sandbags1 = createVehicle ["Land_BagFence_Round_F", _newZone, [], 0, "NONE"];
+_sandbag = createVehicle ["Land_BagFence_Round_F", _newZone, [], 0, "NONE"];
 sleep jig_tvt_globalsleep;
-_sandbags1 setVariable["persistent",true];
+_sandbag setVariable["persistent",true];
 
 // Spawn Objective enemy defences
 _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
@@ -70,7 +69,7 @@ _taskdescE = localize "STR_BMR_Tsk_descE_cmf";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
 sleep 8;
-if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 while {_checkmines} do
 {
@@ -88,11 +87,12 @@ while {_checkmines} do
 	_manArray = (position objective_pos_logic) nearentities ["CAManBase",_minefielrad];
 
 	{
-		if (captiveNum _x isEqualTo 1) then	{
-			_deadWmen pushBack _x;
-		};
-		if (side _x in [RESISTANCE,EAST,CIVILIAN]) then {
+		if ((side group _x) in [RESISTANCE,EAST,CIVILIAN]) then {
 			_manArray = _manArray - [_x];
+		} else {
+			if (captiveNum _x isEqualTo 1 || {lifeState _x isEqualTo "INCAPACITATED"} || {_x getVariable ["ACE_isUnconscious", false]}) then {
+				_deadWmen pushBack _x;
+			};
 		};
 	} foreach _manArray;
 
@@ -107,20 +107,29 @@ while {_checkmines} do
 		[_tskE, "failed"] call SHK_Taskmaster_upd;
 		_checkmines = false;
 	};
+
+	if (SideMissionCancel) exitWith {
+		[_tskW, "canceled"] call SHK_Taskmaster_upd;
+		[_tskE, "canceled"] call SHK_Taskmaster_upd;
+		_checkmines = false;
+	};
+
 	sleep 5;
 };
 
 // clean up
 "ObjectiveMkr" setMarkerAlpha 0;
 "MineField" setMarkerAlpha 0;
-sleep 90;
+if (SideMissionCancel) then {sleep 5} else {sleep 90};
 
-if (!isNull _sandbags1) then {deleteVehicle _sandbags1};
-{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
+if (!isNull _sandbag) then {deleteVehicle _sandbag};
+{deleteVehicle _x; sleep 0.1} forEach units _grp;
+{deleteVehicle _x; sleep 0.1} forEach units _stat_grp;
+sleep 2;
 {deleteGroup _x} forEach [_grp, _stat_grp];
 {deleteVehicle _x} forEach _alltskmines;
-private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+private _staticGuns = objective_pos_logic getVariable ["INS_ObjectiveStatics",[]];
 {deleteVehicle _x} forEach _staticGuns;
 {deleteMarker _x} forEach ["ObjectiveMkr","MineField"];
 
-if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};
+if (true) exitWith {sleep 20; execVM "Objectives\random_objectives.sqf";};

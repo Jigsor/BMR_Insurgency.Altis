@@ -2,7 +2,7 @@
 
 class Jig_Y_Menu {
 	idd = 29876;
-	movingEnable = false;	
+	movingEnable = false;
 	enableSimulation = true;
 	onLoad = "uiNamespace setVariable ['Jig_Y_Menu', _this select 0]";
 	onUnLoad = "";
@@ -27,7 +27,7 @@ class Jig_Y_Menu {
 			h = 0.045674 * safezoneH;
 		};
 		class Toggle_Heading: Jig_RscButton {
-			action = "closeDialog 0; execVM 'scripts\heading.sqf'";
+			action = "closeDialog 0; 0 spawn Jig_fnc_DigiHeading";
 			idc = -1;
 			text = "$STR_BMR_UI_toggle_heading";
 			x = 0.425056 * safezoneW + safezoneX;

@@ -13,11 +13,13 @@ MAD_maxCarDistance = _this select 2; //max distance until cars despawn
 if (isNil "WBpos") then {WBpos = getPosATL trig_alarm1init;};
 //Jig adding exclusion distance
 ExcDis = 600;
-if ((toLower (worldName) isEqualTo "napfwinter") || (toLower (worldName) isEqualTo "napf") || (toLower (worldName) isEqualTo "xcam_taunus")) then {ExcDis = 750;};
+_hasLargeAirfields = ["clafghan","napf","napfwinter","kapaulio","xcam_taunus"];
+_worldName = toLower (worldName);
+if (_worldname in _hasLargeAirfields) then {ExcDis = 750};
 //Jig adding map size
 MTnlRad = getnumber (configfile >> "CfgWorlds" >> worldName >> "mapSize");
-if ((isNil "MTnlRad") || (MTnlRad isEqualTo 0)) then {MTnlRad = 30000;};
-if (toLower (worldName) isEqualTo "stratis") then {MTnlRad = 6700;};
+if ((isNil "MTnlRad") || {MTnlRad isEqualTo 0}) then {MTnlRad = 30000};
+if (toLower (worldName) isEqualTo "stratis") then {MTnlRad = 6700};
 
 MAD_carsArray = [];
 
@@ -45,7 +47,7 @@ MAD_getSpawnRoads = {
 
 if (!isDedicated and isMultiplayer) then
 {
-	[] spawn {
+	0 spawn {
 		while {true} do	{
 			_roads = (position player) call MAD_getSpawnRoads;
 			_var = player getVariable ["MAD_roadsNear", false];
@@ -101,7 +103,7 @@ MAD_spawnCar = {
 		(group _driver) setVariable ["zbe_cacheDisabled",true];
 
 		[_spawncar] call BMRINS_fnc_civVehTextureGlobal;
-		//[_spawncar] call BMRINS_fnc_setPlate;
+		[_spawncar] call BMRINS_fnc_setPlate;
 		[leader _sqname] call MAD_carWaypoint;
 	};
 };

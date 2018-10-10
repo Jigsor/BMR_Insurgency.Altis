@@ -26,4 +26,4 @@ hcam_ui_init = {
 };
 
 waitUntil {!isNull (findDisplay 46)};
-(findDisplay 46) displayAddEventHandler ["KeyDown"," nul=[_this select 1,_this select 2,_this select 3,_this select 4] execVM (hcam_basepath+'input.sqf'); "];
+(findDisplay 46) displayAddEventHandler ["KeyDown"," null=_this execVM (hcam_basepath+'input.sqf'); "];

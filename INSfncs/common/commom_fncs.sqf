@@ -69,16 +69,16 @@ BMR_resetDamage = {
 	if (!isNull _veh && {damage _veh > 0}) then {_veh setdamage 0};
 };
 Playable_Op4_disabled = {
-	if (!isServer && hasInterface) then {
-		player enableSimulationGlobal false;
-		("BMR_Layer_end2" call BIS_fnc_rscLayer) cutText [ "Opfor player slots are currently disabled. Please rejoin and choose a Blufor slot.", "BLACK OUT", 1, true ];
-		sleep 10;
-		endMission "END2";
-	};
+	if (!hasInterface) exitWith {};
+	_playAsOp4 = ["INS_play_op4", 5] call BIS_fnc_getParamValue;
+	_txt = if (_playAsOp4 isEqualTo 99) then {"Opfor player slots are currently disabled. Please rejoin and choose a Blufor slot."} else {format ["%1 Blufor players are required to play as Opfor. Please rejoin and choose a Blufor slot.", _playAsOp4]};
+	("BMR_Layer_end2" call BIS_fnc_rscLayer) cutText [ _txt, "BLACK OUT", 1, true ];
+	if (isServer) then {"END2" remoteExec ["endMission", -2]};
+	sleep 10;
+	endMission "END2";
 };
 Kicked_for_TKing = {
 	if (!isServer && hasInterface) then {
-		player enableSimulationGlobal false;
 		("BMR_Layer_end3" call BIS_fnc_rscLayer) cutText [ "You have been kicked for team killing for mission duration!", "BLACK OUT", 1, true ];
 		sleep 10;
 		endMission "END3";
@@ -99,20 +99,35 @@ mhq_actions_fnc = {
 
 	switch (true) do {
 		case (_var isEqualTo "MHQ_1"): {
-			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
-			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type in [0,3]) then {
+				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true", 12];
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
+			};
+			if (INS_VA_type in [1,2]) then {
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
+			};
 		};
 		case (_var isEqualTo "MHQ_2"): {
-			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
-			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type in [0,3]) then {
+				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true", 12];
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
+			};
+			if (INS_VA_type in [1,2]) then {
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
+			};
 		};
 		case (_var isEqualTo "MHQ_3"): {
-			if (INS_VA_type isEqualTo 0 || INS_VA_type isEqualTo 3) then {_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true"]; _veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST"]};
-			if (INS_VA_type isEqualTo 1 || INS_VA_type isEqualTo 2) then {_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST"]};
+			if (INS_VA_type in [0,3]) then {
+				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true", 12];
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
+			};
+			if (INS_VA_type in [1,2]) then {
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
+			};
 		};
 		case (_var isEqualTo "Opfor_MHQ"): {
-			_veh addAction[("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side"];
-			//_veh addAction[("<t color='#12F905'>") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side"];
+			_veh addAction[("<t color='#12F905'>") + ("Deploy MHQ") + "</t>","scripts\deployOpforMHQ.sqf",nil,1, false, true, "", "side _this != INS_Blu_side", 12];
+			//_veh addAction[("<t color='#12F905'>") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1,false,true,"","side _this != INS_Blu_side",12];
 		};
 		case (_var isEqualTo ""): {};
 	};
@@ -192,11 +207,12 @@ fnc_mp_intel = {
 	true
 };
 INS_end_mssg = {
-	if (!isDedicated && hasInterface) then {
-		[] spawn {
+	if (hasInterface) then {
+		0 spawn {
 			private ["_video","_play"];
 			0 fadeMusic 1;
 			playMusic ["LeadTrack01a_F_EXP",16];
+			if (isNull objectParent player) then {player playMove "AmovPercMstpSnonWnonDnon_exerciseKata";};
 			if (daytime > 21.00 || daytime < 3.50) then {
 				0=[15,1,160,"red",10,(position player)] spawn Drop_SmokeFlare_fnc;
 			};
@@ -214,27 +230,22 @@ INS_end_mssg = {
 	true
 };
 HV_tower_effect = {
-	if (!isDedicated && hasInterface) then {
-		private ["_emitter","_source","_lightningpos"];
-		_emitter = objective_pos_logic;
-		_lightningpos = [position objective_pos_logic select 0,position objective_pos_logic select 1,10];
+	if (hasInterface) then {
+		private _emitter = objective_pos_logic;
+		private _lightningpos = [position objective_pos_logic select 0,position objective_pos_logic select 1,10];
+		private _source = "#particlesource" createVehiclelocal (getPos objective_pos_logic);
 
-		_source = "#particlesource" createVehiclelocal (getPos objective_pos_logic);
 		_source setParticleCircle [0,[0,0,0]];
 		_source setParticleRandom [0,[0.25,0.25,0], [0.175,0.175,0],0,0.25,[0,0,0,0.1],0,0];
-
 		_source setParticleParams [["\A3\data_f\blesk1",1,0,1],"","SpaceObject",1,0.4,_lightningpos,[0,0,3],0,10,7.9,0.075,[1.2, 2, 4],[[0.1,0.1,0.1,1],[0.25,0.25,0.25,0.5],[0.5,0.5,0.5,0]],[0.08,0,0,0,0,0,5],0.5,0,"","",_emitter];
 		_source setDropInterval 0.1;
 
-		_i = 0;
-		while {_i < 3} do {
+		for "_i" from 0 to 7 step 1 do {
 			drop ["\A3\data_f\blesk1","","SpaceObject",1,0.1,_lightningpos,[0,0,3],0,10,7.9,0.075,[1.2,2,4],[[0.1,0.1,0.1,1],[0.25,0.25,0.25,0.5],[0.5,0.5,0.5,0]],[0.08,0,0,0,0,0,5],0.5,0,"","",""];
-			_i = _i + 1;
-			sleep 0.1;
+			uiSleep 0.1;
 		};
 		deleteVehicle _source;
 	};
-	true
 };
 JIG_base_protection = {
 	// Intrinsic destruction of Opfor and Independant units entering protection triggers trig_alarm1init, trig_alarm2init and triggers trig_alarm3init and trig_alarm4init if applicable by Jigsor.
@@ -316,7 +327,7 @@ Push_Vehicle = {
 	true
 };
 INS_fog_effect = {
-	if (!isDedicated && hasInterface) then {null=["ObjectiveMkr",100,11,10,3,7,-0.3,0.1,0.5,1,1,1,13,12,15,true,2,2.1,0.1,4,6,0,3.5,17.5] execFSM "scripts\Fog.fsm"};
+	if (hasInterface) then {null=["ObjectiveMkr",100,11,10,3,7,-0.3,0.1,0.5,1,1,1,13,12,15,true,2,2.1,0.1,4,6,0,3.5,17.5] execFSM "scripts\Fog.fsm"};
 };
 mhq_obj_fnc = {
 	// returns MHQ vehicleVarname object
@@ -375,9 +386,10 @@ INS_toggle_Zeus = {
 	} forEach allCurators;
 
 	if (_curatorCreate) then {
-		_curator = (createGroup sideLogic) createUnit ["modulecurator_f",[0,0,0],[],0,"NONE"];
+		_curator = (createGroup sideLogic) createUnit ["modulecurator_f",[0,0,0],[],0,"CAN_COLLIDE"];
 		{_curator setCuratorCoef [_x,0];} forEach ["place","edit","delete","destroy","group","synchronize"];
 		_curator addEventHandler ['CuratorObjectPlaced',{
+			params ["_curator","_entity"];
 			{
 				[_x] call BTC_AIunit_init;
 				_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
@@ -392,8 +404,15 @@ INS_toggle_Zeus = {
 					}];
 				};
 				if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc};
-			} forEach crew (_this select 1);
+			} forEach crew _entity;
+			if ((_entity isKindOf "CAManBase") && {count units group _entity < 2}) then {
+				if (!(side _entity isEqualTo INS_Op4_side) && {side _entity in [RESISTANCE,EAST]}) then {
+					_grp = createGroup INS_Op4_side;
+					[_entity] joinSilent _grp;
+				};
+			};
 		}];
+
 		_curator addEventHandler ['CuratorGroupPlaced',{
 			params ["", "_group"];
 			if (!(side leader _group isEqualTo INS_Op4_side) && {side leader _group in [RESISTANCE,EAST]}) then {
@@ -416,7 +435,8 @@ INS_toggle_Zeus = {
 	[_curator,_addons,{true},""] call BIS_fnc_manageCuratorAddons;
 	_curator addCuratorAddons _addons;
 	_curator addCuratorEditableObjects [allUnits,true];
-	//if (!isNil "BTC_cargo_repo") then {_curator removeCuratorEditableObjects [[BTC_cargo_repo],true]};
+	//if (!isNil {missionNamespace getVariable "BTC_cargo_repo"} && {!isNull BTC_cargo_repo}) then {_curator removeCuratorEditableObjects [[BTC_cargo_repo],true]};
+	if (!isNil {missionNamespace getVariable "Land_DataTerminal_Obj"} && {!isNull Land_DataTerminal_Obj}) then {_curator addCuratorEditableObjects [[Land_DataTerminal_Obj],true]};
 	_unit assignCurator _curator;
 
 	if (DebugEnabled isEqualTo 1) then {diag_log curatorAddons _curator};
@@ -431,6 +451,7 @@ INS_toggle_Zeus = {
 };
 Terminal_acction_MPfnc = {
 	if (hasInterface) then {
+		waitUntil {sleep 1; !isNull player};
 		if (isNil "TerminalAcctionID" && (!isNull Land_DataTerminal_Obj)) then {
 			TerminalAcctionID =
 			[
@@ -440,15 +461,16 @@ Terminal_acction_MPfnc = {
 				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
 				"_this distance Land_DataTerminal_Obj < 2 && side _this in [WEST,EAST,RESISTANCE]",
 				"true",
-				{[Land_DataTerminal_Obj, 3] call BIS_fnc_DataTerminalAnimate},
+				{[player, "Acts_TerminalOpen"] remoteExec ["switchMoveEverywhere", 0]; Land_DataTerminal_Obj setdir getdir player; [Land_DataTerminal_Obj, 3] call BIS_fnc_DataTerminalAnimate},
 				{hintSilent "Recieving..."},
 				{
 					private _side = (side player) call bis_fnc_sideID;
 					missionNamespace setVariable ["datadownloadedby",_side,true];
 					hintSilent "Intel Received";
 					[Land_DataTerminal_Obj,TerminalAcctionID] call BIS_fnc_holdActionRemove;
+					[player, "AmovPknlMstpSrasWrflDnon"] remoteExec ["switchMoveEverywhere", 0];
 				},
-				{hintSilent "Retrieval aborted"; [Land_DataTerminal_Obj, 0] call BIS_fnc_DataTerminalAnimate},
+				{hintSilent "Retrieval aborted"; [player, "AmovPknlMstpSrasWrflDnon"] remoteExec ["switchMoveEverywhere", 0]; [Land_DataTerminal_Obj, 0] call BIS_fnc_DataTerminalAnimate},
 				["Your side wins"],
 				6,
 				0,
@@ -461,6 +483,7 @@ Terminal_acction_MPfnc = {
 };
 INS_Brighter_Nights = {
 	// Thanks to Ralian for code
+	if (!hasInterface) exitWith {};
 	params [["_intensity", 1, [0]]];
 	[
 		"ColorCorrections",
@@ -628,8 +651,9 @@ Trade_Biofoam_fnc = {
 };
 JIG_Dust_Storm_Server = {
 	// Admin Menu Dust Storm Toggle
+	params [["_vel", 12, [0]]];
 	if !(call JIG_DustIsOn) then {
-		[] spawn JIG_ActivateDust;
+		[_vel] spawn JIG_ActivateDust;
 	};
 };
 JIG_Dust_Storm = {
@@ -637,7 +661,7 @@ JIG_Dust_Storm = {
 	if (!hasInterface) exitWith {};
 	waituntil {!isNull player};
 	if (JIG_DustStorm) then {call JIG_dsHaze};// Haze color correction
-	[] spawn {// Dust
+	0 spawn {// Dust
 		private ["_color","_alpha","_d"];
 		while {JIG_DustStorm} do {
 			_pos = position player;
@@ -652,7 +676,7 @@ JIG_Dust_Storm = {
 			deleteVehicle _d;
 		};
 	};
-	[] spawn {// Branches/TumbleWeeds
+	0 spawn {// Branches/TumbleWeeds
 		private ["_b","_ran"];
 		while {JIG_DustStorm} do {
 			_ran = ceil random 5;
@@ -667,7 +691,7 @@ JIG_Dust_Storm = {
 			deleteVehicle _b;
 		};
 	};
-	[] spawn {// Leaves
+	0 spawn {// Leaves
 		private "_l";
 		while {JIG_DustStorm} do {
 			_l  = "#particlesource" createVehicleLocal (getpos player);
@@ -682,6 +706,91 @@ JIG_Dust_Storm = {
 		call JIG_dsClear;// Clear color correction
 	};
 };
+JIG_Snow_Server = {
+	// Admin Menu Snow Toggle
+	params [["_vel", 2, [0]]];
+	if !(call JIG_SnowIsOn) then {
+		[_vel] spawn JIG_ActivateSnow;
+	};
+};
+JIG_Snow_Storm = {
+	// Client Side Snow Storm
+	if (!hasInterface) exitWith {};
+	waituntil {!isNull player};
+	hintSilent "Snow Storm On";
+	enableEnvironment [false, false];
+
+	0 spawn {// Snow Dust
+		private ["_color","_alpha","_sd"];
+		while {JIG_SnowStorm} do {
+			if (floor random 6 isEqualTo 0) then {
+				_ran = ceil random 5;
+				playsound format ["wind%1",_ran];
+			};
+			_pos = position player;
+			_color = [0.9, 1.0, 0.9];
+			_alpha = 0.02 + random 0.02;
+			_sd = "#particlesource" createVehicleLocal _pos;
+			_sd setParticleParams [["\A3\data_f\ParticleEffects\Universal\universal.p3d", 16, 12, 8], "", "Billboard", 1, 2, [0,0,-6], [(wind select 0),(wind select 1),-1], 1, 1.275, 1, 0.01, [11], [_color + [_alpha], _color + [0], _color + [_alpha]], [1000], 1, 0, "", "", _pos, 0, false, 0.5];
+			_sd setParticleRandom [3, [30, 30, 0], [0, 0, 0], 1, 0, [0, 0, 0, 0.01], 0, 0, 0, 1];
+			_sd setParticleCircle [0.1, [0, 0, 0]];
+			_sd setDropInterval 0.2;
+			uiSleep 1 + random 2;
+			deleteVehicle _sd;
+		};
+	};
+
+	0 spawn {// Snow Flakes
+		private _toDelete = [];
+		private "_s";
+		while {JIG_SnowStorm} do {
+			_s = "#particlesource" createVehicleLocal (getPosATL player);
+			_s setParticleParams [["\A3\data_f\ParticleEffects\Universal\Universal", 16, 12, 8, 1], "", "Billboard", 1, 4, [0,0,0], [0,0,0], 1, 0.000001, 0, 1.4, [0.05,0.05], [[0.8,0.7,0.7,0.8]], [0,1], 0.2, 1.2, "", "", vehicle player, 0, false, 0];
+			_s setParticleRandom [0, [10, 10, 7], [0, 0, 0], 0, 0.01, [0, 0, 0, 0.1], 0, 0];
+			_s setParticleCircle [0.0, [0, 0, 0]];
+			_s setDropInterval 0.02;
+			_toDelete pushBack _s;
+			uiSleep 0.6 + random 0.6;
+			if (count _toDelete > 19) then {
+				for "_i" from 0 to 10 step 1 do {
+					deleteVehicle (_toDelete select 0);
+					_toDelete deleteAt 0;
+				};
+			};
+		};
+		{deleteVehicle _x} count _toDelete;
+		hintSilent "Snow Storm Off";
+	};
+};
+INS_SnowOverCast = {
+	private "_overcast";
+	if (!(JIPweather in [2,3]) && {overcast < 0.75}) then {
+		_overcast = if ((JIPweather/100) > 0.74) then {(JIPweather/100)} else {0.65};
+	} else {
+		_overcast = if (overcast < 0.65) then {0.65} else {overcast};
+	};
+	skipTime -24;
+	86400 setOvercast _overcast;
+	86400 setFog 0.29;
+	skipTime 24;
+	sleep 1;
+	simulweatherSync;
+};
+INS_ClearSnowOverCast = {
+	private "_overcast";
+	if (!(JIPweather in [2,3]) && {overcast < 0.75}) then {
+		_overcast = if ((JIPweather/100) > 0.74) then {0.65} else {(JIPweather/100)};
+	} else {
+		_overcast = if (overcast < 0.5) then {overcast} else {0.5};
+	};
+	skipTime -24;
+	86400 setOvercast _overcast;
+	86400 setFog 0;
+	skipTime 24;
+	sleep 1;
+	simulweatherSync;
+	0 spawn {sleep 5; if (overcast < 51) then {enableEnvironment [false, true]}};
+};
 JIG_IED_FX = {
 	if (!hasInterface) exitWith {};
 	params ["_trig"];
@@ -690,12 +799,14 @@ JIG_IED_FX = {
 	playSound3d['A3\Missions_F_EPA\data\sounds\combat_deafness.wss', _trig, false, getPosASL _trig, 15, 1, 50];
 };
 JWC_CAStrack = {
-	// Code by JW Custom
+	// Code by JW Custom modified by Jig
 	params [["_plane",objNull]];
+	if (isNull _plane) exitWith {};
+	_c = [([_plane, true] call BIS_fnc_objectSide), true] call BIS_fnc_sideColor;
 	_markerName = format ["track%1",random 99999];
 	_marker = createMarker[_markerName, [0,0,0]];
 	_markerName setMarkerType "c_plane";
-	_markerName setMarkerColor "colorBLUFOR";
+	_markerName setMarkerColor _c;
 	while {!isNull _plane} do {
 	  _markerName setMarkerDir (getDir _plane);
 	  _markerName setMarkerPos (getPosWorld _plane);
@@ -704,13 +815,28 @@ JWC_CAStrack = {
 	deleteMarker _marker;
 };
 Manual_ProgressionSave = {
-	// Force zone marker progression saving on HC and Server
-	if !(isServer || IamHC) exitWith {};
+	// Force zone marker progression saving on Server
+	if (!isServer) exitWith {};
 	private _uncapturedMkrs = all_eos_mkrs;
 	{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x];};} foreach _uncapturedMkrs;
 	profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
-	//saveProfileNamespace;//<-unnecessary
+	saveProfileNamespace;//<-necessary to survive Server executable restart
 	diag_log "***Manual Progression Save Complete";
+};
+Manual_ProgressionClearnEnd = {
+	// Clear progression saving on HC and Server then end the mission if saving was enabled
+	if (!isServer) exitWith {};
+	if !((["INS_persistence", 0] call BIS_fnc_getParamValue) isEqualTo 0) then {
+		profileNamespace setVariable ["BMR_INS_progress", []];
+		saveProfileNamespace;//<-necessary to survive Server executable restart
+		[["END1",true,true], "BIS_fnc_endMission",true,true,true] spawn BIS_fnc_MP;
+	};
+};
+KilledVehRewardMP = {
+	params [["_veh",objNull]];
+	if (!isNull _veh) then {
+		_veh addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
+	};
 };
 switchMoveEverywhere = compileFinal " _this select 0 switchMove (_this select 1); ";
 INS_BluFor_Siren = compileFinal " if (isServer) then {

@@ -6,21 +6,20 @@
  Uses ATM's reliable getloadout and setloadout functions.
 */
 
-if(not local player) exitWith{};
 if (leader group player != player) exitWith {
 	player sideChat localize "STR_BMR_group_leaders_only";
 };
 
 if (count units group player < 2) exitWith {};
 
-private ["_aiArr","_mkr","_mkr_pos"];
+private ["_aiArr","_mkr_pos"];
 _aiArr = [];
 
 mapclick = false;
 openMap true;
 
 waitUntil {visibleMap};
-[] spawn {[localize "STR_BMR_ai_halo_mapclick",0,.1,3,.005,.1] call bis_fnc_dynamictext;};
+0 spawn {[localize "STR_BMR_ai_halo_mapclick",0,.1,3,.005,.1] call bis_fnc_dynamictext;};
 
 ["AIdrop_mapclick","onMapSingleClick", {
 	clickpos = _pos;

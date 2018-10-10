@@ -2,10 +2,11 @@
 
 sleep 2;
 params ["_newZone","_type"];
-private ["_rnum","_mPos","_objmkr","_bunker","_VarName","_grp","_handle","_obj_leader","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE"];
+private ["_rnum","_mPos","_objmkr","_bunker","_VarName","_grp","_handle","_obj_leader","_stat_grp","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_elimleader"];
 
 _rnum = str(round (random 999));
 _mPos = _newZone;
+_elimleader = true;
 
 // Positional info
 while {isOnRoad _mPos} do {
@@ -58,21 +59,36 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_eil";
 _taskdescE = localize "STR_BMR_Tsk_topicE_eil";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
-waitUntil {sleep 3; !alive _obj_leader};
-[_tskW, "succeeded"] call SHK_Taskmaster_upd;
-[_tskE, "failed"] call SHK_Taskmaster_upd;
+while {_elimleader} do
+{
+	if (!alive _obj_leader) exitWith {
+		[_tskW, "succeeded"] call SHK_Taskmaster_upd;
+		[_tskE, "failed"] call SHK_Taskmaster_upd;
+		_elimleader = false;
+	};
+
+	if (SideMissionCancel) exitWith {
+		[_tskW, "canceled"] call SHK_Taskmaster_upd;
+		[_tskE, "canceled"] call SHK_Taskmaster_upd;
+		_elimleader = false;
+	};
+
+	sleep 3;
+};
 
 // clean up
 "ObjectiveMkr" setMarkerAlpha 0;
-sleep 90;
+if (SideMissionCancel) then {sleep 5} else {sleep 60};
 
-{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
+{deleteVehicle _x; sleep 0.1} forEach units _grp;
+{deleteVehicle _x; sleep 0.1} forEach units _stat_grp;
+
 {deleteGroup _x} forEach [_grp, _stat_grp];
 if (!isNull _bunker) then {deleteVehicle _bunker};
-private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+private _staticGuns = objective_pos_logic getVariable ["INS_ObjectiveStatics",[]];
 {deleteVehicle _x} forEach _staticGuns;
 deleteMarker "ObjectiveMkr";
 
-if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};
+if (true) exitWith {sleep 20; execVM "Objectives\random_objectives.sqf";};

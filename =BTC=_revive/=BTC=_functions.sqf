@@ -17,7 +17,7 @@ BTC_assign_actions = {
 			"[] call BTC_check_action_first_aid",
 			"true",
 			{player playMove "AinvPknlMstpSlayWrflDnon_medic"},
-			{hintSilent ""},
+			{}, //{hintSilent ""},
 			{
 				private _revived = call BTC_first_aid;
 				if (!isNull _revived) then {
@@ -40,6 +40,7 @@ BTC_assign_actions = {
 	player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Drag") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_drag], 8, true, true, "", "[] call BTC_check_action_drag"];
 	player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Pull_out_injured") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_pull_out], 8, true, true, "", "[] call BTC_pull_out_check"];
 	player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Carry") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_carry], 8, true, true, "", "[] call BTC_check_action_drag"];
+	//player addAction [("<t color='#ED2744'>") + "Extinguish Fire" + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],JIG_Extinguish], 8, true, true, "", "[] call JIG_check_action_fire"];
 };
 /*
 BTC_r_debug = {
@@ -72,7 +73,7 @@ BTC_fnc_PVEH = {
 				{
 					_pos  = _this select 0;
 					_unit = _this select 1;
-					while {(!(isNull _unit) && (format ["%1", _unit getVariable "BTC_need_revive"] == "1"))} do	{
+					while {(!(isNull _unit) && (format ["%1", _unit getVariable "BTC_need_revive"] == "1"))} do {
 						format ["FA_%1", _pos] setMarkerPosLocal getpos _unit;
 						sleep 1;
 					};
@@ -122,9 +123,12 @@ BTC_fnc_PVEH = {
 		case (_type isEqualTo 6) :
 		{
 			_spawn = [(_array select 1)] spawn {
-				(_this select 0) switchMove "AinjPfalMstpSnonWrflDnon_carried_down";
+				params ["_injured"];
+				[_injured, "AinjPfalMstpSnonWrflDnon_carried_down"] remoteExec ["switchMoveEverywhere", 0];
 				sleep 3;
-				if (format ["%1",(_this select 0) getVariable "BTC_need_revive"] == "1") then {(_this select 0) switchMove "ainjppnemstpsnonwrfldnon";};
+				if (format ["%1", _injured getVariable "BTC_need_revive"] == "1") then {
+					[_injured, "ainjppnemstpsnonwrfldnon"] remoteExec ["switchMoveEverywhere", 0];
+				};
 			};
 		};
 		case (_type isEqualTo 7) :
@@ -496,6 +500,7 @@ BTC_check_action_first_aid = {
 BTC_check_action_drag = {
 	_cond = false;
 	_men = (position (vehicle player)) nearEntities [["CAManBase", "Man"], 2];
+	//_men = (ASLToAGL getPosASL (vehicle player)) nearEntities [["CAManBase", "Man"], 2];
 	if (count _men > 1) then {
 		if (BTC_pvp isEqualTo 1 && {(_men select 1) getVariable "BTC_revive_side" == str (BTC_side)}) then {
 			if (format ["%1", (_men select 1) getVariable "BTC_need_revive"] == "1" && !BTC_dragging && format ["%1", (_men select 1) getVariable "BTC_dragged"] != "1") then {_cond = true;};
@@ -529,9 +534,9 @@ BTC_move_to_mobile = {
 	_var = _this select 0;
 	_side = "";
 	switch (true) do {
-		case (BTC_side == west) : {_side = "BTC_mobile_west";};
-		case (BTC_side == east) : {_side = "BTC_mobile_east";};
-		case (str(BTC_side) == "guer") : {_side = "BTC_mobile_guer";};
+		case (BTC_side isEqualTo WEST) : {_side = "BTC_mobile_west";};
+		case (BTC_side isEqualTo EAST) : {_side = "BTC_mobile_east";};
+		case (str(BTC_side) isEqualTo "GUER") : {_side = "BTC_mobile_guer";};
 		case (str(BTC_side) == "civ") : {_side = "BTC_mobile_civ";};
 	};
 	_mobile = objNull;
@@ -553,9 +558,9 @@ BTC_mobile_marker = {
 	_var = _this select 0;
 	_side = "";
 	switch (true) do {
-		case (BTC_side == west) : {_side = "BTC_mobile_west";};
-		case (BTC_side == east) : {_side = "BTC_mobile_east";};
-		case (str(BTC_side) == "guer") : {_side = "BTC_mobile_guer";};
+		case (BTC_side isEqualTo WEST) : {_side = "BTC_mobile_west";};
+		case (BTC_side isEqualTo EAST) : {_side = "BTC_mobile_east";};
+		case (str(BTC_side) isEqualTo "GUER") : {_side = "BTC_mobile_guer";};
 		case (str(BTC_side) == "civ") : {_side = "BTC_mobile_civ";};
 	};
 	while {true} do	{
@@ -590,7 +595,7 @@ BTC_mobile_check = {
 	switch (true) do {
 		case (BTC_side isEqualTo WEST) : {_side = "BTC_mobile_west";};
 		case (BTC_side isEqualTo EAST) : {_side = "BTC_mobile_east";};
-		case (str(BTC_side) == "guer") : {_side = "BTC_mobile_guer";};
+		case (str(BTC_side) isEqualTo "GUER") : {_side = "BTC_mobile_guer";};
 		case (str(BTC_side) == "civ") : {_side = "BTC_mobile_civ";};
 	};
 	_cond = false;
@@ -640,7 +645,7 @@ BTC_out_of_lifes = {
 				titleText ["You have no more lifes", "BLACK FADED"];
 				sleep 1;
 			};
-		} else {[] spawn BTC_r_spectator;};
+		} else {0 spawn BTC_r_spectator;};
 	};
 };
 BTC_3d_markers = {
@@ -657,7 +662,7 @@ BTC_3d_markers_pvp = {
 	_3d = addMissionEventHandler ["Draw3D",
 	{
 		{
-			if (((_x distance player) < BTC_3d_distance) && (_x getVariable "BTC_revive_side" == str (BTC_side)) && (format ["%1", _x getVariable "BTC_need_revive"] == "1")) then {
+			if (((_x distance player) < BTC_3d_distance) && {_x getVariable "BTC_revive_side" == str (BTC_side)} && {format ["%1", _x getVariable "BTC_need_revive"] == "1"}) then {
 				drawIcon3D["a3\ui_f\data\map\MapControl\hospital_ca.paa",BTC_3d_icon_color,_x,BTC_3d_icon_size,BTC_3d_icon_size,0,format["%1 (%2m)", name _x, ceil (player distance _x)],0,0.02];
 			};
 		} foreach playableUnits;
@@ -669,9 +674,9 @@ BTC_r_get_list = {
 	_list_name = [BTC_r_base_spawn];
 	_side = "";_array = [];
 	switch (true) do {
-		case (BTC_side == west) : {_side = "BTC_mobile_west";_array = BTC_vehs_mobile_west_str;};
-		case (BTC_side == east) : {_side = "BTC_mobile_east";_array = BTC_vehs_mobile_east_str;};
-		case (str(BTC_side) == "guer") : {_side = "BTC_mobile_guer";_array = BTC_vehs_mobile_guer_str;};
+		case (BTC_side isEqualTo WEST) : {_side = "BTC_mobile_west";_array = BTC_vehs_mobile_west_str;};
+		case (BTC_side isEqualTo EAST) : {_side = "BTC_mobile_east";_array = BTC_vehs_mobile_east_str;};
+		case (str(BTC_side) isEqualTo "GUER") : {_side = "BTC_mobile_guer";_array = BTC_vehs_mobile_guer_str;};
 		case (str(BTC_side) == "civ") : {_side = "BTC_mobile_civ";_array = BTC_vehs_mobile_civ_str;};
 	};
 	{
@@ -706,9 +711,9 @@ BTC_r_load = {
 	_list_units = _list select 1;
 	_n = 0;_side = "";_array = [];
 	switch (true) do {
-		case (BTC_side == west) : {_side = "BTC_mobile_west";_array = BTC_vehs_mobile_west_str;};
-		case (BTC_side == east) : {_side = "BTC_mobile_east";_array = BTC_vehs_mobile_east_str;};
-		case (str(BTC_side) == "guer") : {_side = "BTC_mobile_guer";_array = BTC_vehs_mobile_guer_str;};
+		case (BTC_side isEqualTo WEST) : {_side = "BTC_mobile_west";_array = BTC_vehs_mobile_west_str;};
+		case (BTC_side isEqualTo EAST) : {_side = "BTC_mobile_east";_array = BTC_vehs_mobile_east_str;};
+		case (str(BTC_side) isEqualTo "GUER") : {_side = "BTC_mobile_guer";_array = BTC_vehs_mobile_guer_str;};
 		case (str(BTC_side) == "civ") : {_side = "BTC_mobile_civ";_array = BTC_vehs_mobile_civ_str;};
 	};
 	if (!isNull BTC_r_mobile_selected) then {if ((_list_name find (BTC_r_mobile_selected getVariable _side)) == -1 && (_list_name find (name BTC_r_mobile_selected)) == -1) then {BTC_r_mobile_selected = _list_units select 0;};};
@@ -719,7 +724,7 @@ BTC_r_load = {
 			if (!isNull BTC_r_mobile_selected) then {if ((BTC_r_mobile_selected getVariable _side) == _x || name BTC_r_mobile_selected == _x) then {lbSetCurSel [119,_lb];};};
 			if (isNull BTC_r_mobile_selected) then {lbSetCurSel [119,_lb];_n = _list_name find _x;BTC_r_mobile_selected = _list_units select _n;};
 		} foreach _list_name;BTC_r_list = _list_name;
-	} else {};
+	};
 	true
 };
 BTC_r_create_dialog_mobile = {
@@ -804,9 +809,9 @@ BTC_r_change_target = {
 	_target = objNull;_side = "";_array = [];
 	if (_var == "BASE") then {_target = BTC_r_base_spawn};
 	switch (true) do {
-		case (BTC_side == west) : {_side = "BTC_mobile_west";_array = BTC_vehs_mobile_west_str;};
-		case (BTC_side == east) : {_side = "BTC_mobile_east";_array = BTC_vehs_mobile_east_str;};
-		case (str(BTC_side) == "guer") : {_side = "BTC_mobile_guer";_array = BTC_vehs_mobile_guer_str;};
+		case (BTC_side isEqualTo WEST) : {_side = "BTC_mobile_west";_array = BTC_vehs_mobile_west_str;};
+		case (BTC_side isEqualTo EAST) : {_side = "BTC_mobile_east";_array = BTC_vehs_mobile_east_str;};
+		case (str(BTC_side) isEqualTo "GUER") : {_side = "BTC_mobile_guer";_array = BTC_vehs_mobile_guer_str;};
 		case (str(BTC_side) == "civ") : {_side = "BTC_mobile_civ";_array = BTC_vehs_mobile_civ_str;};
 	};
 	{
@@ -924,5 +929,18 @@ BTC_r_spectator = {
 		BTC_r_s_camera camCommit 0;
 		if (BTC_r_camera_nvg) then {camusenvg true;} else {camusenvg false;};
 		//sleep 0.5;
+	};
+};
+JIG_check_action_fire = {
+	_cond = false;
+	_fire = nearestObjects [player, ["test_EmptyObjectForFireBig"], 5];
+	if !(_fire isEqualTo []) then {_cond = true};
+	_cond
+};
+JIG_Extinguish = {
+	player playMove "AinvPknlMstpSlayWrflDnon_medic";
+	_fire = nearestObjects [player, ["test_EmptyObjectForFireBig"], 5];
+	if !(_fire isEqualTo []) then {
+		deleteVehicle (_fire select 0);	
 	};
 };

@@ -40,7 +40,7 @@ if (count _airCenter > 0) then
 	if ((EnableEnemyAir isEqualTo 1) || (EnableEnemyAir isEqualTo 3) ||	(EnableEnemyAir isEqualTo 4) ||	(EnableEnemyAir isEqualTo 6)) then
 	{
 		private _aire1 = [_ins_debug] spawn {
-			params ["_debug","_delay","_loop"];
+			params ['_debug','_delay'];
 			if (isNil "INS_Op4_helis") then {INS_Op4_helis = ["O_Heli_Attack_02_black_F"]};
 			if (INS_Op4_helis isEqualTo []) exitWith {};
 			_delay = AirRespawnDelay;
@@ -49,10 +49,10 @@ if (count _airCenter > 0) then
 			"airhunterE1" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 			"random_w_player2" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 
-			for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
+			while {true} do
 			{
 				if ((isNull airhunterE1) || (not(alive airhunterE1))) then {
-					private ["_speed","_apeDir","_randAlts","_height","_randomTypes","_type","_vehicle","_veh","_vehgrp","_vel","_VarHunterName","_wp0","_spawnDir","_poscreate","_vehCrew"];
+					private ['_speed','_apeDir','_height','_randomTypes','_type','_vehicle','_veh','_vehgrp','_vel','_VarHunterName','_wp0','_spawnDir','_poscreate','_vehCrew'];
 
 					sleep _delay;
 					//call AirEast_move_logic_fnc;
@@ -70,11 +70,10 @@ if (count _airCenter > 0) then
 					_speed = 65;
 					_apeDir = getDir air_pat_east;
 					_spawnDir = (getPosATL air_pat_east) getDir (getPosATL air_pat_pos);
-					_randAlts = [70,80,90];
-					_height = selectRandom _randAlts;
+					_height = selectRandom [70,80,90];
 					_type = selectRandom INS_Op4_helis;
 
-					_vehicle = [getPosATL air_pat_east, _apeDir, _type, EAST] call bis_fnc_spawnvehicle;
+					_vehicle = [getPosATL air_pat_east, _apeDir, _type, INS_Op4_side] call bis_fnc_spawnvehicle;
 					sleep jig_tvt_globalsleep;
 					_veh = _vehicle select 0;
 
@@ -138,7 +137,7 @@ if (count _airCenter > 0) then
 	if ((EnableEnemyAir isEqualTo 2) || (EnableEnemyAir isEqualTo 3) || (EnableEnemyAir isEqualTo 5) || (EnableEnemyAir isEqualTo 6)) then
 	{
 		private _aire2 = [_ins_debug] spawn {
-			params ["_debug","_delay","_loop"];
+			params ['_debug','_delay'];
 			if (isNil "INS_Op4_fixedWing") then {INS_Op4_fixedWing = ["I_Plane_Fighter_03_AA_F","I_Plane_Fighter_03_CAS_F","O_Plane_CAS_02_F"]};
 			if (INS_Op4_fixedWing isEqualTo []) exitWith {};
 			_delay = AirRespawnDelay;
@@ -147,10 +146,10 @@ if (count _airCenter > 0) then
 			"airhunterE2" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 			"random_w_player3" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 
-			for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
+			while {true} do
 			{
 				if ((isNull airhunterE2) || (not(alive airhunterE2))) then {
-					private ["_speed","_apeDir","_randAlts","_height","_randomTypes","_type","_vehicle","_veh","_vehgrp","_vel","_VarHunterName","_wp0","_spawnDir","_poscreate"];
+					private ['_speed','_apeDir','_height','_randomTypes','_type','_vehicle','_veh','_vehgrp','_vel','_VarHunterName','_wp0','_spawnDir','_poscreate'];
 
 					sleep _delay;
 					//call AirEast_move_logic_fnc;
@@ -168,11 +167,10 @@ if (count _airCenter > 0) then
 					_speed = 180;
 					_apeDir = getDir air_pat_east;
 					_spawnDir = (getPosATL air_pat_east) getDir (getPosATL air_pat_pos);
-					_randAlts = [275,375,475,575];
-					_height = selectRandom _randAlts;
+					_height = selectRandom [275,375,475,575];
 					_type = selectRandom INS_Op4_fixedWing;
 
-					_vehicle = [getPosATL air_pat_east, _apeDir, _type, EAST] call bis_fnc_spawnvehicle;
+					_vehicle = [getPosATL air_pat_east, _apeDir, _type, INS_Op4_side] call bis_fnc_spawnvehicle;
 					sleep jig_tvt_globalsleep;
 					_veh = _vehicle select 0;
 

@@ -35,7 +35,7 @@ USAGE:
 if (isDedicated) exitWith {}; // is server
 if (!isNil{aero_player_markers_pos}) exitWith {}; // already running
 
-private ["_marker","_markerText","_temp","_unit","_vehicle","_markerNumber","_show","_injured","_text","_num","_getNextMarker","_getMarkerColor","_showAllSides","_showPlayers","_showAIs","_l"];
+private ["_marker","_markerText","_unit","_vehicle","_markerNumber","_show","_injured","_text","_num","_getNextMarker","_getMarkerColor","_showAllSides","_showPlayers","_showAIs","_l"];
 
 _showAllSides=false;
 _showPlayers=false;
@@ -90,7 +90,7 @@ while {true} do {
 		true;
 	};
 
-	_markerNumber = 0; 
+	_markerNumber = 0;
 
 	// show players or player's vehicles
 	{
@@ -103,31 +103,27 @@ while {true} do {
 				(_showAIs && {!isPlayer _unit} && {0=={ {_x==_unit} count crew _x>0} count allUnitsUav}) ||
 				(_showPlayers && {isPlayer _unit})
 			) && {
-				_showAllSides || side _unit==side player
+				_showAllSides || side _unit isEqualTo side player
 			}
-		) then {	
+		) then {
 			if((crew vehicle _unit) select 0 == _unit) then {
 				_show = true;
-			};		
+			};
 			if(!alive _unit || damage _unit > 0.9) then {
 				_injured = true;
-			};	  
+			};
 			if(!isNil {_unit getVariable "hide"}) then {
 				_show = false;
-			};  
-			if(_unit getVariable ["BTC_need_revive",-1] == 1) then {
+			};
+			if(_unit getVariable ["BTC_need_revive",-1] == 1 || {lifeState _unit isEqualTo "INCAPACITATED"} || {_unit getVariable ["ACE_isUnconscious", false]}) then {
 				_injured = true;
 				_show = false;
 			};
-			/*
-			if(_unit getVariable ["NORRN_unconscious",false]) then {
-				_injured = true;
-			};*/
 		};
 
 		if(_show) then {
 			_vehicle = vehicle _unit;
-			_pos = getPosATL _vehicle;
+			_pos = getPosWorld _vehicle;
 			_color = _unit call _getMarkerColor;
 
 			_markerText = _pos call _getNextMarker;
@@ -152,16 +148,16 @@ while {true} do {
 					_text = format["%1 %2", name driver _vehicle, _text];
 				};
 
-				if((aero_player_markers_pos distance getPosATL _vehicle) < 50) then {
-					aero_player_markers_pos = getPosATL _vehicle;
+				if((aero_player_markers_pos distance2D getPosWorld _vehicle) < 50) then {
+					aero_player_markers_pos = getPosWorld _vehicle;
 					_num = 0;
 					{
 						if(alive _x && isPlayer _x && _x != driver _vehicle) then {
 							_text = format["%1%2 %3", _text, if(_num>0)then{","}else{""}, name _x];
 							_num = _num + 1;
 						};
-					} forEach crew _vehicle; 
-				} else { 
+					} forEach crew _vehicle;
+				} else {
 					_num = {alive _x && isPlayer _x && _x != driver _vehicle} count crew _vehicle;
 					if (_num>0) then {
 						if (isNull driver _vehicle) then {
@@ -186,15 +182,15 @@ while {true} do {
 			_unit=(uavControl _x) select 0;
 			if(
 				(
-					(_showAIs && {!isPlayer _unit}) || 
+					(_showAIs && {!isPlayer _unit}) ||
 					(_showPlayers && {isPlayer _unit})
 				) && {
 					_showAllSides || side _unit==side player
 				}
 			) then {
 				_color = _x call _getMarkerColor;
-				_pos = getPosATL _x;
-				
+				_pos = getPosWorld _x;
+
 				_marker = _pos call _getNextMarker;
 				_marker setMarkerColorLocal _color;
 				_marker setMarkerDirLocal getDir _x;

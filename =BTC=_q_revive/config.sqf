@@ -15,7 +15,7 @@ btc_qr_multiple_spawn = true; //If true a dialog will appear after respawn and y
 btc_qr_cam_dist = 20;
 
 //Markers names where you want to spawn
-if (!isDedicated && hasInterface) then {// Jig adding change option for side MHQs
+if (hasInterface) then {// Jig adding change option for side MHQs
 	if (JIG_MHQ_enabled) then {
 		if (playerSide isEqualTo WEST) then {
 			btc_qr_def_spawn = ["MHQ_1","MHQ_2","MHQ_3"];
@@ -26,8 +26,10 @@ if (!isDedicated && hasInterface) then {// Jig adding change option for side MHQ
 	};
 };
 
-
 BTC_respawn_marker = format ["respawn_%1",playerSide];
+if (BTC_respawn_marker == "respawn_guer") then {BTC_respawn_marker = "Respawn_Guerrila"};
+if (BTC_respawn_marker == "respawn_civ") then {BTC_respawn_marker = "respawn_civilian"};
+
 btc_qr_def_spawn pushBack BTC_respawn_marker;
 BTC_r_base_spawn = "Land_ClutterCutter_small_F" createVehicleLocal getMarkerPos BTC_respawn_marker;
 

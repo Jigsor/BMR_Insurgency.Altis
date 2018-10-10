@@ -3,7 +3,7 @@
 // Mines can be detected by anyone with IED detector.
 
 if (!isServer) exitWith {};
-[] spawn {
+0 spawn {
 
 	// Editable
 	private _IEDs = 70;			//Total IED objects including decoys
@@ -81,7 +81,7 @@ if (!isServer) exitWith {};
 		_rIEDpos = selectRandom _iedPosList;
 		_iedPosList = _iedPosList - [_rIEDpos];
 
-		_actCond = "this && {vehicle _x in thisList} count playableUnits > 0 && {mineActive _x} count (getPosATL thisTrigger nearObjects ['TimeBombCore', 2]) > 0";
+		_actCond = "this && {vehicle _x in thisList} count playableUnits > 0 && {{mineActive _x} count (getPosATL thisTrigger nearObjects ['TimeBombCore', 2]) > 0}";
 		_onActiv = "
 			selectRandom IEDblast createVehicle getPosATL thisTrigger;
 			{
@@ -92,7 +92,7 @@ if (!isServer) exitWith {};
 		";
 		_onDeActiv = "deleteVehicle thisTrigger";
 		_IEDtrig = createTrigger ["EmptyDetector", _rIEDpos];
-		_IEDtrig setTriggerArea [2, 2, 0, FALSE];
+		_IEDtrig setTriggerArea [2, 2, 0, false, 6];
 		_IEDtrig setTriggerActivation ["WEST", "PRESENT", true];
 		_IEDtrig setTriggerTimeout [0.5, 0.5, 0.5, true];
 		_IEDtrig setTriggerStatements [_actCond, _onActiv, _onDeActiv];
