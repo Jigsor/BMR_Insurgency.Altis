@@ -23,9 +23,11 @@ _display setVariable ["jig_headingDisplay", _heading];
 private _ctrlWidth = 0.06;
 private _ctrlHeight = _ctrlWidth / 2 * (getResolution#4);
 private _x = (safeZoneX + (safeZoneWAbs / 2)) - (_ctrlWidth / 2);
+//private _x = 0.952 - ((safeZoneX + (safeZoneWAbs / 2)) - (_ctrlWidth / 2));
 private _y = safezoneY;
 
 _heading ctrlSetPosition [_x, _y, _ctrlWidth, _ctrlHeight];
+//_heading ctrlSetPixelPrecision 0;
 _heading ctrlCommit 0;
 
 private _ctrl = _display ctrlCreate ["RscMapControl", -1];
@@ -37,5 +39,5 @@ _ctrl ctrlAddEventHandler ["Draw", {
 	params ["_ctrl"];
 	private _heading = ctrlParent _ctrl getVariable "jig_headingDisplay";
 	_heading ctrlSetStructuredText parseText format ["<t size='%1'>%2</t>", 2 * 0.32 / (getResolution#5), round(player getdir positionCameraToWorld [0,0,100])];
-	_heading ctrlSetTextColor [(profileNamespace getVariable ["GUI_BCG_RGB_R", 0.660757]), (profileNamespace getVariable ["GUI_BCG_RGB_G", 0.462629]), (profileNamespace getVariable ["GUI_BCG_RGB_B", 0.179101]), 0.78];
+	_heading ctrlSetTextColor [(profileNamespace getVariable ["GUI_BCG_RGB_R", 0.98]), (profileNamespace getVariable ["GUI_BCG_RGB_G", 0.06]), (profileNamespace getVariable ["GUI_BCG_RGB_B", 0.06]), 0.65];
 }];

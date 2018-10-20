@@ -44,12 +44,12 @@ _availableBackpacks = [
 	"B_LIB_US_RocketBag_Empty",
 	"B_LIB_US_Type5",
 	"B_LIB_US_TypeA3",
-	
+
 	"LIB_Backpack_us",
 	"LIB_Backpack_US_BAR",
 	"LIB_Backpack_US_Baz",
 	"LIB_Backpack_US_Mine",
-	
+
 	"fow_b_uk_bergenpack",
 	"fow_b_uk_p37",
 	"fow_b_uk_p37_blanco",
@@ -74,7 +74,7 @@ _availableBackpacks = [
 	"fow_b_usa_m1919_support",
 	"fow_b_usa_m1919_weapon",
 	"fow_b_usmc_m1928",
-	"fow_b_usmc_m1928_02"	
+	"fow_b_usmc_m1928_02"
 ];
 
 _availableItems = [
@@ -87,8 +87,28 @@ _availableItems = [
 	"ItemRadio",
 	"ItemCompass",
 	"ItemGPS",
-	"ItemWatch",	
-//Uniforms
+	"ItemWatch",
+	//NVGs
+	"LIB_Headwrap",
+	"LIB_Headwrap_gloves",
+	"LIB_Mohawk",
+	"LIB_GER_Gloves2",
+	"LIB_GER_Gloves3",
+	"LIB_GER_Gloves4",
+	"LIB_GER_Gloves5",//<-US Airborne
+	"LIB_GER_Headset",
+	"fow_i_nvg_US_A4Wool_Beige",
+	"fow_i_nvg_US_A4Wool_Blue",
+	"fow_i_nvg_US_A4Wool_Green",
+	"fow_i_nvg_US_scr",
+	//Facewear
+	"G_LIB_Dust_Goggles",
+	"fow_g_gloves4",
+	"G_LIB_Headwrap",
+	"G_LIB_Scarf2_B",
+	"G_LIB_Scarf2_G",
+
+	//Uniforms
 	"U_LIB_US_AB_Uniform_M42",
 	"U_LIB_US_AB_Uniform_M42_506",
 	"U_LIB_US_AB_Uniform_M42_corporal",
@@ -138,11 +158,11 @@ _availableItems = [
 	"U_LIB_US_Snipe_w",
 	"U_LIB_US_Tank_Crew",
 	"U_LIB_US_Tank_Crew2",
-	
+
 	"fow_u_aus_m37_01_private",
 	"fow_u_aus_m37_02_private",
 	"fow_u_aus_m37_03_private",
-	
+
 	"fow_u_uk_bd40_01_corporal",
 	"fow_u_uk_bd40_01_lance_corporal",
 	"fow_u_uk_bd40_01_lieutenant",
@@ -235,7 +255,7 @@ _availableItems = [
 	"fow_u_usmc_p42_01_camo02_2_private",
 	"fow_u_usmc_p42_01_camo02_3_private",
 
-//"Headgear / Masks"
+	//Headgear / Masks
 	"H_LIB_US_AB_Helmet",
 	"H_LIB_US_AB_Helmet_2",
 	"H_LIB_US_AB_Helmet_3",
@@ -291,7 +311,7 @@ _availableItems = [
 	"H_LIB_US_Rangers_Helmet_ns",
 	"H_LIB_US_Rangers_Helmet_os",
 	"H_LIB_US_Rangers_Helmet_Second_lieutenant",
-	
+
 	"fow_h_uk_beret_commando",
 	"fow_h_uk_beret_commando_kieffer",
 	"fow_h_uk_beret_commando_nor",
@@ -365,8 +385,8 @@ _availableItems = [
 	"fow_h_usmc_m1",
 	"fow_h_usmc_m1_camo_01",
 	"fow_h_usmc_m1_camo_02",
-	
-//"Vests"
+
+	//Vests
 	"V_LIB_US_AB_Vest_45",
 	"V_LIB_US_AB_Vest_Asst_MG",
 	"V_LIB_US_AB_Vest_Bar",
@@ -400,7 +420,7 @@ _availableItems = [
 	"V_LIB_US_Vest_Thompson",
 	"V_LIB_US_Vest_Thompson_nco",
 	"V_LIB_US_Vest_Thompson_nco_Radio",
-	
+
 	"fow_v_uk_bren",
 	"fow_v_uk_bren_green",
 	"fow_v_uk_officer",
@@ -444,8 +464,8 @@ _availableItems = [
 	"fow_v_usmc_garand",
 	"fow_v_usmc_thompson",
 	"fow_v_usmc_thompson_nco",
-	
-//Weapon Accessories
+
+	//Weapon Accessories
 	"LIB_ACC_K98_Bayo",
 	"LIB_ACC_GW_SB_Empty",
 	"fow_w_acc_fg42_bayo",
@@ -546,6 +566,9 @@ _availableMagazines = [
 ];
 
 _availableWeapons = [
+	"LIB_Binocular_GER",
+	"LIB_Binocular_SU",
+
 	"LIB_FLARE_PISTOL",
 	"LIB_M1896",
 	"LIB_Faustpatrone",
@@ -571,6 +594,9 @@ _availableWeapons = [
 	"LIB_RPzB",
 	"LIB_RPzB_w",
 	"LIB_WaltherPPK",
+
+	"fow_i_dienstglas",
+
 	"fow_w_fg42",
 	"fow_w_g43",
 	"fow_w_k98",
@@ -592,6 +618,9 @@ _availableWeapons = [
 	"fow_w_pzfaust_30",
 	"fow_w_pzfaust_30_klein",
 	"fow_w_pzfaust_60"
+	"fow_w_webley",
+	"fow_w_welrod_mkii",
+	"fow_w_piat"
 ];
 
 [_availableBackpacks,_availableItems,_availableMagazines,_availableWeapons]

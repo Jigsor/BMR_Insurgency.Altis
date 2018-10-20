@@ -16,7 +16,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 	_vehgrp = grpNull;
 	EvacHeliW1 = ObjNull;
 	ex_group_ready = false;
-	_has_gunner_pos = ["B_CTRG_Heli_Transport_01_tropic_F","B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F","kyo_MH47E_base","RHS_CH_47F_10","RHS_CH_47F_light"];
+	_has_gunner_pos = ["B_Heli_Transport_01_F","B_CTRG_Heli_Transport_01_tropic_F","B_CTRG_Heli_Transport_01_sand_F","B_Heli_Transport_01_camo_F","kyo_MH47E_base","RHS_CH_47F_10","RHS_CH_47F_light"];
 	_without_gunner_pos = ["I_Heli_Transport_02_F","CH49_Mohawk_FG","B_Heli_Light_01_F"];
 	_helcat_types = ["AW159_Transport_Camo"];
 	_chinook_types = ["kyo_MH47E_Ramp","kyo_MH47E_HC","RHS_CH_47F_10","RHS_CH_47F_light"];// ("kyo_MH47E_base" unsupported)
