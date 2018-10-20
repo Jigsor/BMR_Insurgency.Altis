@@ -162,7 +162,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	2. Perhaps objective delivery cargo has been misplaced.
 			Delivery_Box setpos getpos player.
 
-10/8/2018
+10/19/2018
 BMR_Insurgency_v1_49 beta - (still labeled as v1.48 on our servers)
 Know problems:
 1. Recruited AI die when no other players in group. Possible work around - recruite One AI, dissmiss him then recuit more.
