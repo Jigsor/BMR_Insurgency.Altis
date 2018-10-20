@@ -1,7 +1,6 @@
 /*
  Persistence Check/Set zone marker color and remove corresponding triggers.
  By Jigsor
- HC can only JIP/reconnect and resume properly if it was present at mission start.
  Reccomened to use -loadMissionToMemory startup parameter on server.
 */
 
