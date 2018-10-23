@@ -44,7 +44,6 @@ _availableBackpacks = [
 	"B_LIB_US_RocketBag_Empty",
 	"B_LIB_US_Type5",
 	"B_LIB_US_TypeA3",
-
 	"LIB_Backpack_us",
 	"LIB_Backpack_US_BAR",
 	"LIB_Backpack_US_Baz",
@@ -103,10 +102,15 @@ _availableItems = [
 	"fow_i_nvg_US_scr",
 	//Facewear
 	"G_LIB_Dust_Goggles",
-	"fow_g_gloves4",
 	"G_LIB_Headwrap",
 	"G_LIB_Scarf2_B",
 	"G_LIB_Scarf2_G",
+	"fow_g_gloves1",
+	"fow_g_gloves3",
+	"fow_g_gloves4",
+	"fow_g_gloves5",
+	"fow_g_gloves6",
+	"fow_g_glasses4",
 
 	//Uniforms
 	"U_LIB_US_AB_Uniform_M42",
@@ -162,7 +166,6 @@ _availableItems = [
 	"fow_u_aus_m37_01_private",
 	"fow_u_aus_m37_02_private",
 	"fow_u_aus_m37_03_private",
-
 	"fow_u_uk_bd40_01_corporal",
 	"fow_u_uk_bd40_01_lance_corporal",
 	"fow_u_uk_bd40_01_lieutenant",
@@ -568,7 +571,6 @@ _availableMagazines = [
 _availableWeapons = [
 	"LIB_Binocular_GER",
 	"LIB_Binocular_SU",
-
 	"LIB_FLARE_PISTOL",
 	"LIB_M1896",
 	"LIB_Faustpatrone",
@@ -596,7 +598,6 @@ _availableWeapons = [
 	"LIB_WaltherPPK",
 
 	"fow_i_dienstglas",
-
 	"fow_w_fg42",
 	"fow_w_g43",
 	"fow_w_k98",
@@ -617,7 +618,7 @@ _availableWeapons = [
 	"fow_w_pzfaust_100",
 	"fow_w_pzfaust_30",
 	"fow_w_pzfaust_30_klein",
-	"fow_w_pzfaust_60"
+	"fow_w_pzfaust_60",
 	"fow_w_webley",
 	"fow_w_welrod_mkii",
 	"fow_w_piat"

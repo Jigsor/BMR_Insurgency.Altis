@@ -71,12 +71,6 @@ _availableBackpacks = [
 	"B_LIB_SOV_RA_RucksackMines",
 	"B_LIB_SOV_RA_RucksackMines2",
 	"B_LIB_SOV_RA_Shinel",
-
-	"GerBag_gr",
-	"GerBag_K98",
-	"GerBag_MG",
-	"GerBag_sap",
-	"GerBag_sap2",
 	"LIB_BM37_Bag",
 	"LIB_BM37_Bar",
 	"LIB_GrWr34_Bag",
@@ -87,6 +81,11 @@ _availableBackpacks = [
 	"LIB_Maxim_Bar",
 	"LIB_MG42_Bag",
 	"LIB_Tripod_Bag",
+	"GerBag_gr",
+	"GerBag_K98",
+	"GerBag_MG",
+	"GerBag_sap",
+	"GerBag_sap2",
 	"RadioBag",
 	"RusBag_DP",
 	"RusBag_gr",
@@ -138,10 +137,15 @@ _availableItems = [
 	"fow_i_nvg_GER_grenadebag",
 	//Facewear
 	"G_LIB_Dust_Goggles",
-	"fow_g_gloves4",
 	"G_LIB_Headwrap",
 	"G_LIB_Scarf2_B",
 	"G_LIB_Scarf2_G",
+	"fow_g_gloves1",
+	"fow_g_gloves3",
+	"fow_g_gloves4",
+	"fow_g_gloves5",
+	"fow_g_gloves6",
+	"fow_g_glasses4",
 
 	//Uniforms
 	"U_B_Wetsuit",//Vanilla
@@ -270,7 +274,6 @@ _availableItems = [
 	"U_LIB_SOV_Tank_private_field",
 	"U_LIB_SOV_Tank_ryadovoi",
 	"U_LIB_SOV_Tank_sergeant",
-
 	"U_LIB_WP_Soldier_camo_1",
 	"U_LIB_WP_Soldier_camo_2",
 	"U_LIB_WP_Soldier_camo_3",
@@ -405,7 +408,6 @@ _availableItems = [
 	"H_LIB_SOV_TankHelmet",
 	"H_LIB_SOV_Ushanka",
 	"H_LIB_SOV_Ushanka2",
-
 	"H_LIB_WP_Cap",
 	"H_LIB_WP_Helmet",
 	"H_LIB_WP_Helmet_camo",
@@ -493,7 +495,6 @@ _availableItems = [
 	"V_LIB_SOV_RAZV_OfficerVest",
 	"V_LIB_SOV_RAZV_PPShBelt",
 	"V_LIB_SOV_RAZV_SVTBelt",
-
 	"V_LIB_WP_G43Vest",
 	"V_LIB_WP_Kar98Vest",
 	"V_LIB_WP_MGVest",
@@ -541,6 +542,8 @@ _availableItems = [
 ];
 
 _availableMagazines = [
+	"SmokeShellYellow",               //Poison Gas Grenade
+
 	"LIB_US_M18",
 	"LIB_US_M18_Red",
 	"LIB_US_M18_Green",
@@ -650,6 +653,7 @@ _availableMagazines = [
 	"LIB_1rnd_82mmHE_BM37",
 	"LIB_1rnd_60mmHE_M2",
 	"LIB_M3_MINE_mag",
+
 	"fow_1Rnd_pzfaust_100",
 	"fow_10nd_792x57",
 	"fow_20Rnd_792x57",
