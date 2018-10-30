@@ -51,11 +51,7 @@ while {true} do {
 	} forEach _czPosArrys;
 
 	// Delete empty groups.
-	{
-		if ((count units _x) == 0 && {local _x}) then {
-			deleteGroup _x;
-		};
-	} forEach allGroups;
+	{deleteGroup _x} forEach (allGroups select {local _x && {(count units _x) isEqualTo 0}});
 
 	private _justPlayers = allPlayers - entities "HeadlessClient_F";
 

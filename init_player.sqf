@@ -199,10 +199,10 @@ if (DebugEnabled > 0) then {
 		player removealleventhandlers "Reloaded";
 		player addEventHandler ["Reloaded", {_null = call INS_Depleated_Loadout}];
 		player addEventHandler ["Killed", {(_this select 0) removealleventhandlers "Reloaded"; _this spawn killedInfo_fnc}];
-		player addEventHandler ["Respawn", {(_this select 0) spawn INS_RestoreLoadout; (_this select 0) addEventHandler ["Reloaded", {_null = call INS_Depleated_Loadout}]; 0 spawn JIG_p_actions_resp; (_this select 0) spawn INS_UI_pref}];
+		player addEventHandler ["Respawn", {params ["_unit","_corpse"]; _unit spawn INS_RestoreLoadout; _unit addEventHandler ["Reloaded", {_null = call INS_Depleated_Loadout}]; 0 spawn JIG_p_actions_resp; _unit spawn INS_UI_pref; if (INS_p_rev in [6,7]) then {deletevehicle _corpse}}];
 	}else{
 		player addEventHandler ["Killed", {_this spawn killedInfo_fnc}];
-		player addEventHandler ["Respawn", {0 spawn JIG_p_actions_resp; (_this select 0) spawn INS_RestoreLoadout; (_this select 0) spawn INS_UI_pref}];
+		player addEventHandler ["Respawn", {params ["_unit","_corpse"]; 0 spawn JIG_p_actions_resp; _unit spawn INS_RestoreLoadout; _unit spawn INS_UI_pref; if (INS_p_rev in [6,7]) then {deletevehicle _corpse}}];
 	};
 
 	if (!isServer) then {"PVEH_netSay3D" addPublicVariableEventHandler {private _array = _this select 1; (_array select 0) say3D (_array select 1)}};

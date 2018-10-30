@@ -205,7 +205,7 @@ BTC_drag = {
 		_array = nearestObjects [player, ["Air","LandVehicle"], 5];
 		_array_veh = [];
 		{if (_x emptyPositions "cargo" != 0) then {_array_veh pushBack _x;};} foreach _array;
-		if (count _array_veh isEqualTo 0) then {_veh_selected = objNull};
+		if (_array_veh isEqualTo []) then {_veh_selected = objNull};
 		if (count _array_veh > 0 && _veh_selected != _array_veh select 0) then {
 			_veh_selected    = _array_veh select 0;
 			_name_veh        = getText (configFile >> "cfgVehicles" >> typeof _veh_selected >> "displayName");
@@ -213,7 +213,7 @@ BTC_drag = {
 			_action_id = player addAction [_text_action,"=BTC=_revive\=BTC=_addAction.sqf",[[_injured,_veh_selected],BTC_load_in], 7, true, true];
 			_act  = 1;
 		};
-		if (count _array_veh isEqualTo 0 && _act isEqualTo 1) then {player removeAction _action_id;_act = 0};
+		if (_array_veh isEqualTo [] && _act isEqualTo 1) then {player removeAction _action_id;_act = 0};
 		sleep 0.1;
 	};
 	if (_act isEqualTo 1) then {player removeAction _action_id};
@@ -244,7 +244,7 @@ BTC_carry = {
 		_array = nearestObjects [player, ["Air","LandVehicle"], 5];
 		_array_veh = [];
 		{if (_x emptyPositions "cargo" != 0) then {_array_veh = _array_veh + [_x];};} foreach _array;
-		if (count _array_veh isEqualTo 0) then {_veh_selected = objNull;};
+		if (_array_veh isEqualTo []) then {_veh_selected = objNull;};
 		if (count _array_veh > 0 && _veh_selected != _array_veh select 0) then {
 			_veh_selected    = _array_veh select 0;
 			_name_veh        = getText (configFile >> "cfgVehicles" >> typeof _veh_selected >> "displayName");
@@ -252,7 +252,7 @@ BTC_carry = {
 			_action_id = player addAction [_text_action,"=BTC=_revive\=BTC=_addAction.sqf",[[_injured,_veh_selected],BTC_load_in], 7, true, true];
 			_act  = 1;
 		};
-		if (count _array_veh isEqualTo 0 && _act isEqualTo 1) then {player removeAction _action_id;_act = 0;};
+		if (_array_veh isEqualTo [] && _act isEqualTo 1) then {player removeAction _action_id;_act = 0;};
 		sleep 0.1;
 	};
 	if (_act isEqualTo 1) then {player removeAction _action_id};
@@ -276,7 +276,7 @@ BTC_load_in = {
 BTC_pull_out = {
 	_array = nearestObjects [player, ["Air","LandVehicle"], 5];
 	_array_injured = [];
-	if (count _array != 0) then {
+	if !(_array isEqualTo []) then {
 		{
 			if (format ["%1",_x getVariable "BTC_need_revive"] == "1") then {_array_injured = _array_injured + [_x];};
 		} foreach crew (_array select 0);
@@ -286,7 +286,7 @@ BTC_pull_out = {
 BTC_pull_out_check = {
 	_cond = false;
 	_array = nearestObjects [player, ["Air","LandVehicle"], 5];
-	if (count _array != 0) then {
+	if !(_array isEqualTo []) then {
 		{
 			if (format ["%1",_x getVariable "BTC_need_revive"] == "1") then {_cond = true;};
 		} foreach crew (_array select 0);
@@ -417,7 +417,7 @@ BTC_check_healer = {
 	} foreach _veh;
 	if (count _men > 0) then {
 		{if (Alive _x && format ["%1",_x getVariable "BTC_need_revive"] != "1" && ([_x,player] call BTC_can_revive) && isPlayer _x && side _x == BTC_side) then {_healers pushBack _x;};} foreach _men;
-		if (count _healers > 0) then {
+		if !(_healers isEqualTo []) then {
 			{
 				if (_x distance _pos < _dist) then {_healer = _x;_dist = _x distance _pos;};
 			} foreach _healers;
@@ -499,8 +499,7 @@ BTC_check_action_first_aid = {
 };
 BTC_check_action_drag = {
 	_cond = false;
-	_men = (position (vehicle player)) nearEntities [["CAManBase", "Man"], 2];
-	//_men = (ASLToAGL getPosASL (vehicle player)) nearEntities [["CAManBase", "Man"], 2];
+	_men = (ASLToAGL getPosASL player) nearEntities [["CAManBase", "Man"], 2];
 	if (count _men > 1) then {
 		if (BTC_pvp isEqualTo 1 && {(_men select 1) getVariable "BTC_revive_side" == str (BTC_side)}) then {
 			if (format ["%1", (_men select 1) getVariable "BTC_need_revive"] == "1" && !BTC_dragging && format ["%1", (_men select 1) getVariable "BTC_dragged"] != "1") then {_cond = true;};

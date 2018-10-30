@@ -477,6 +477,13 @@ _availableItems = [
 ];
 
 _availableMagazines = [
+	"SmokeShellGreen",
+	"SmokeShellBlue",
+	"SmokeShellOrange",
+	"SmokeShellPurple",
+	"SmokeShellRed",
+	"SmokeShell",
+
 	"LIB_US_M18",
 	"LIB_US_M18_Red",
 	"LIB_US_M18_Green",

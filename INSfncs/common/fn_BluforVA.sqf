@@ -543,6 +543,12 @@ _availableItems = [
 
 _availableMagazines = [
 	"SmokeShellYellow",               //Poison Gas Grenade
+	"SmokeShellGreen",
+	"SmokeShellBlue",
+	"SmokeShellOrange",
+	"SmokeShellPurple",
+	"SmokeShellRed",
+	"SmokeShell",
 
 	"LIB_US_M18",
 	"LIB_US_M18_Red",

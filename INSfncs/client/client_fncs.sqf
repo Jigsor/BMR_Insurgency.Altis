@@ -929,6 +929,15 @@ GAS_smokeClear = {
 	20 fadeSound 1;
 };
 INS_EarPlugs = {
+	if (INS_ACE_core && {ace_hearing_EnableCombatDeafness}) exitWith {
+		if (!([player] call ace_hearing_fnc_hasEarPlugsIn) && {'ACE_EarPlugs' in items player}) then {
+			[player] call ace_hearing_fnc_putInEarPlugs;
+		} else {
+			if ([player] call ace_hearing_fnc_hasEarPlugsIn) then {
+				[player] call ace_hearing_fnc_removeEarPlugs;
+			};
+		};
+	};
 	if (soundVolume isEqualTo 1) then {
 		1 fadeSound 0.3; hintSilent localize "STR_BMR_ON";
 	}else{

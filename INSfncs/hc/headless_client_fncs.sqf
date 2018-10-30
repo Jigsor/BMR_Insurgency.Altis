@@ -15,9 +15,5 @@ remove_carcass_fnc = {
 	};
 };
 HC_deleteEmptyGrps = {
-	{
-		if ((count units _x) == 0 && {local _x}) then {
-			deleteGroup _x;
-		};
-	} forEach allGroups;
+	{deleteGroup _x} forEach (allGroups select {local _x && {(count units _x) isEqualTo 0}});
 };

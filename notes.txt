@@ -162,7 +162,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	2. Perhaps objective delivery cargo has been misplaced.
 			Delivery_Box setpos getpos player.
 
-10/21/2018
+10/28/2018
 BMR_Insurgency_v1_49 beta - (still labeled as v1.48 on our servers)
 Know problems:
 1. Recruited AI die when no other players in group. Possible work around - recruite One AI, dissmiss him then recuit more.
@@ -185,13 +185,15 @@ Added: Set trait "explosiveSpecialist" to playable unit types listed in Array IN
 Added: Friendly map icon to extraction heli.
 Added: 3D icon (Range 30 meters) for fallen players when ACE_3 activated and no BTC revive systems loaded.
 Added: Loging of HC JIP and progress restoration details.
-Added: Few more blacklisted structures with building positions but no enterances for intel/ammo cache spawning to Malden,Mogadishu and Napf/Napf Winter.
+Added: Few more blacklisted structures with building positions but no enterances for intel/ammo cache spawning to Malden, Mogadishu and Napf/Napf Winter.
 Added: "I_Plane_Fighter_04_F" to Vanilla Airpatrole.
 Added: CUP Satchel to ammo wich can destroy objective Towers and Ammo Caches.
 Added: Data Terminal will face player upon terminal opening and corresponding animation added.
 Added: Data Terminal to zeus editable objects.
 Added: Distance limitation of actions added to MHQs and main ammo boxes.
 Added: More options for Lobby option "Playable Opfor". Options now include "Enabled with no Limits", "Enabled if 5 or more blufor players present", "Enabled if 7 or more blufor players present", "Enabled if 9 or more blufor players present", "Enabled if 11 or more blufor players present", "Disabled". This results in End mission for Opfor players if not enough blufor players at mission start and is also polled by server approx every 7 minutes.
+Added: Ear Plugs button in Y menu now supports ACE_3 earplugs in addition to vanilla.
+Added: Player corpse removal when scripted revive systems are disabled through lobby and using for ex. ACE_3 mod for revive. 
 Change: Removed "Land_BagFence_Long_F" from BTC logistics liftable objects.
 Change: Many functions now compiled with preprocessFileLineNumbers instead of preprocessFile so errors can be loged.
 Change: Enabled support for custom licence plates.
@@ -201,7 +203,7 @@ Change: Improved performance and handling of Pilot Restriction code.
 Change: Progression saving and loading lobby option default set to disabled.
 Change: Updated support of OPTRE to v0.19.
 Change: Updated support of RHS to v0.4.8.
-Change: Digital Heading replaced with display control for efficiency. No longer blinks and now works with all turrets and screen center. Customize color in Main Menu/options/game/colors/menu/background.
+Change: Digital Heading replaced with display control for efficiency and cleaner look. No longer blinks and now works with all turrets and screen center. Customize color in Main Menu/options/game/colors/menu/background if you wish.
 Change: Many optimizations applied to existing code.
 Change: Default lobby option for respawn loadout changed to Reload Magazine to Save Kit.
 Change: Auxiliary AI caching (zbe) is disabled by default and variable must be set on group to use this caching sytem.
@@ -234,6 +236,7 @@ Fixed: Race condition/BTC punishment script error at mission start.
 Fixed: Script Error in Helmet Cam when in vehicle and when camera feeding AI/group member no longer exists.
 Fixed: Vehicle Reward action remained after rewarded vehicle spawned until it was clicked again.
 Fixed: Ambient combat sounds were to overbearing.
+Fixed: Drag carry was not available while in structures.
 
 3/22/2018
 BMR_Insurgency_v1.48
