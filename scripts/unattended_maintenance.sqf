@@ -81,7 +81,7 @@ while {true} do {
 						if (count (allMissionObjects _x) > 0) then {
 							{deleteVehicle _x} count (allMissionObjects _x);
 						};
-					} forEach ["Land_Sleeping_bag_F","Land_Sleeping_bag_blue_F","Land_Sleeping_bag_brown_F","Respawn_Sleeping_bag_F","Respawn_Sleeping_bag_brown_F","Respawn_Sleeping_bag_blue_F","B_Patrol_Respawn_tent_F","Respawn_TentDome_F","Respawn_TentA_F","CraterLong","CraterLong_small","Ruins","OPTRE_HEV","OPTRE_HEV_Door","Plane_Fighter_01_Canopy_F","Plane_Fighter_02_Canopy_F","Plane_Fighter_03_Canopy_F","Plane_Fighter_04_Canopy_F","Plane_CAS_01_Canopy_F","Plane_CAS_02_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F","I_Ejection_Seat_Plane_Fighter_04_F","O_Ejection_Seat_Plane_Fighter_02_F","rhs_k36d5_seat","rhs_mi28_wing_right","rhs_mi28_wing_left","rhs_a10_acesII_seat","rhs_vs1_seat","CUP_B_Ejection_Seat_A10_USA"];
+					} forEach ["Land_Sleeping_bag_F","Land_Sleeping_bag_blue_F","Land_Sleeping_bag_brown_F","Respawn_Sleeping_bag_F","Respawn_Sleeping_bag_brown_F","Respawn_Sleeping_bag_blue_F","B_Patrol_Respawn_tent_F","Respawn_TentDome_F","Respawn_TentA_F","CraterLong","CraterLong_small","Ruins","OPTRE_HEV","OPTRE_HEV_Door","Plane_Fighter_01_Canopy_F","Plane_Fighter_02_Canopy_F","Plane_Fighter_03_Canopy_F","Plane_Fighter_04_Canopy_F","Plane_CAS_01_Canopy_F","Plane_CAS_02_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F","I_Ejection_Seat_Plane_Fighter_04_F","O_Ejection_Seat_Plane_Fighter_02_F","O_Ejection_Seat_Plane_CAS_02_F","I_Ejection_Seat_Plane_Fighter_03_F","rhs_k36d5_seat","rhs_mi28_wing_right","rhs_mi28_wing_left","rhs_a10_acesII_seat","rhs_vs1_seat","CUP_B_Ejection_Seat_A10_USA"];
 					sleep 2;
 
 					// Delete abandoned sandbags placed by medics.

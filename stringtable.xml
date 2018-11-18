@@ -24,28 +24,28 @@
 <Spanish>Cerrar Diálogo</Spanish>
 </Key>
 <Key ID="STR_BMR_UI_view_settings">
-<Original>Clients Settings</Original>
-<English>Clients Settings</English>
-<German>Spieler Einstellungen</German>
+<Original>View Settings</Original>
+<English>View Settings</English>
+<German>Bildschirmeinstellungen</German>
 <French>Paramètres d'affichage</French>
-<Russian>Настройки клиента</Russian>
-<Spanish>Configuración de Clientes</Spanish>
+<Russian>Настройки просмотра</Russian>
+<Spanish>Ajustes de Monitor</Spanish>
 </Key>
 <Key ID="STR_BMR_UI_toggle_heading">
 <Original>Toggle Heading</Original>
 <English>Toggle Heading</English>
-<German>Schalte Richtungsanzeige ein</German>
-<French>Rubrique Basculer</French>
+<German>Fahrtrichtungsanzeiger</German>
+<French>Direction</French>
 <Russian>направление</Russian>
-<Spanish>Palanca Título</Spanish>
+<Spanish>Dirección</Spanish>
 </Key>
 <Key ID="STR_BMR_UI_status_hud">
-<Original>Status Hud</Original>
-<English>Status Hud</English>
-<German>Status HUD</German>
-<French>Statut Hud</French>
-<Russian>Статус HUD</Russian>
-<Spanish>Estado Hud</Spanish>
+<Original>Status HUD</Original>
+<English>Status HUD</English>
+<German>Status</German>
+<French>Statut</French>
+<Russian>Статус</Russian>
+<Spanish>Estado</Spanish>
 </Key>
 <Key ID="STR_BMR_UI_earPlugs">
 <Original>Ear Plugs</Original>
@@ -53,7 +53,7 @@
 <German>Ohrstöpsel</German>
 <French>Des bouchons d'oreilles</French>
 <Russian>беруши</Russian>
-<Spanish>Tapones para los oídos</Spanish>
+<Spanish>Tapones de Oídos</Spanish>
 </Key>
 <Key ID="STR_BMR_UI_ambientLife">
 <Original>Ambient Life</Original>
@@ -62,6 +62,14 @@
 <French>Vie Ambiante</French>
 <Russian>Окружающая жизнь</Russian>
 <Spanish>Vida Ambiental</Spanish>
+</Key>
+<Key ID="STR_BMR_UI_subtitles">
+<Original>Subtitle Chatter</Original>
+<English>Subtitle Chatter</English>
+<German>Untertitel Chatter</German>
+<French>Sous-titre Bavarder</French>
+<Russian>Подзаголовок</Russian>
+<Spanish>Subtítulos de Charla</Spanish>
 </Key>
 <Key ID="STR_BMR_UI_Confirm">
 <Original>Confirm</Original>
@@ -85,7 +93,7 @@
 <German>Höhe</German>
 <French>L'altitude</French>
 <Russian>Высота:</Russian>
-<Spanish>Altitude</Spanish>
+<Spanish>Altitud</Spanish>
 </Key>
 <Key ID="STR_ATM_Keys">
 <Original>Select Key:</Original>
@@ -197,7 +205,7 @@
 <German>Staubsturm einkommend</German>
 <French>Tempête de poussière arrivant</French>
 <Russian>Пыльный шторм</Russian>
-<Spanish>Tormenta de polvo al llegar</Spanish>
+<Spanish>Tormenta de Arena al Llegar</Spanish>
 </Key>
 <Key ID="STR_BMR_DustStorm_Off">
 <Original>Dust Storm Cleared</Original>
@@ -205,7 +213,7 @@
 <German>Staubsturm gelöscht</German>
 <French>Tempête de poussière sortante</French>
 <Russian>песчаная буря прекратилась</Russian>
-<Spanish>Tormenta de polvo saliente</Spanish>
+<Spanish>Tormenta de Arena Saliente</Spanish>
 </Key>
 <Key ID="STR_BMR_SaveProgression">
 <Original>Save Progression</Original>
@@ -235,9 +243,9 @@
 <Original>Initialization Complete</Original>
 <English>Initialization Complete</English>
 <German>Initialisierung komplett</German>
-<French>Initialisation totale</French>
+<French>L'initialisation est Terminée</French>
 <Russian>Инициализация завершена</Russian>
-<Spanish>La inicialización completa</Spanish>
+<Spanish>La Inicialización Esta Completa</Spanish>
 </Key>
 <Key ID="STR_BMR_intro_tip1">
 <Original>Press U key for Group Manager</Original>
@@ -250,7 +258,7 @@
 <Key ID="STR_BMR_intro_tip2">
 <Original>Press Y key for Graphic Settings, Digital Heading and HUD</Original>
 <English>Press Y key for Graphic Settings, Digital Heading and HUD</English>
-<German>Drücke Taste Z für Grafikeinstellungen, Richtungsanzeige und Statusanzeige </German>
+<German>Drücke Taste Z für Grafikeinstellungen, Richtungsanzeige und Statusanzeige</German>
 <French>Appuyez sur la touche Y pour les paramètres graphiques, Heading numérique et HUD</French>
 <Russian>Нажмите клавишу ы для настройки графики, цифрового заголовка и HUD</Russian>
 <Spanish>Pulse la tecla Y para Ajustes Gráficos, Rubro Digital y HUD</Spanish>
@@ -331,7 +339,7 @@
 <Original>Place Sandbag</Original>
 <English>Place Sandbag</English>
 <German>Platziere Sandsäcke</German>
-<French>lieu Barrière</French>
+<French>Barrière Lieu</French>
 <Russian>Разместить мешки с песком</Russian>
 <Spanish>Coloque la bolsa de arena</Spanish>
 </Key>
@@ -357,7 +365,7 @@
 <German>Kugel Kamera an</German>
 <French>Caméra Bullet Sur</French>
 <Russian>Камера пули вкл.</Russian>
-<Spanish>encender Cámara de la bala</Spanish>
+<Spanish>Encender Cámara de la Bala</Spanish>
 </Key>
 <Key ID="STR_BMR_bullet_cam_off">
 <Original>Bullet Camera Off</Original>
@@ -365,7 +373,7 @@
 <German>Kugel Kamera aus</German>
 <French>Caméra Bullet éteindre</French>
 <Russian>Камера пули откл.</Russian>
-<Spanish>Cámara de la bala apagado</Spanish>
+<Spanish>Cámara de la Bala Apagado</Spanish>
 </Key>
 <Key ID="STR_BMR_ON">
 <Original>On</Original>
@@ -582,7 +590,7 @@
 <German>Repariere Wrack</German>
 <French>réparation épave</French>
 <Russian>Починить повреждения</Russian>
-<Spanish>pecio Reparación</Spanish>
+<Spanish>Reparar Daños</Spanish>
 </Key>
 <Key ID="STR_BMR_flip_veh">
 <Original>Flip Vehicle</Original>
@@ -652,9 +660,9 @@
 <Original>Click on Map for Vehicle Drop Point</Original>
 <English>Click on Map for Vehicle Drop Point</English>
 <German>Klicke auf die Karte für Fahrzeug Absetzbereich</German>
-<French>Cliquez sur la carte pour Drop Point véhicule</French>
+<French>Cliquez sur la carte pour marquer de point de livraison véhicule</French>
 <Russian>Нажмите на карте для точки сброса техники</Russian>
-<Spanish>Haga clic en el mapa para Vehículos Drop Point</Spanish>
+<Spanish>Haga clic en el mapa para Punto de Entrega el Vehículo</Spanish>
 </Key>
 <Key ID="STR_BMR_ai_halo_mapclick">
 <Original>Click on Map for AI HALO location</Original>
@@ -670,7 +678,7 @@
 <German>Klicke auf die Karte für UGV Landezone oder drücke Esc zum abrechen</German>
 <French>Clic gauche sur la carte où vous souhaitez l' UGV à la terre ou appuyez sur Echap pour annuler</French>
 <Russian>Нажмите на карте там, где вы хотите сбросить UGV или нажмите Escape для отмены</Russian>
-<Spanish>Haga clic en el mapa donde desea que el UGV a la tierra o pulse Esc para cancel</Spanish>
+<Spanish>Haga clic en el mapa donde desea que el UGV va aterrizar o pulse Esc para cancelar</Spanish>
 </Key>
 <Key ID="STR_BMR_postpone_reward">
 <Original>You've postponed vehicle creation</Original>
@@ -700,9 +708,9 @@
 <Original>Destroy High Voltage Tower</Original>
 <English>Destroy High Voltage Tower</English>
 <German>Zerstöre Hochspannungsturm</German>
-<French>Détruisez Tour High Voltage</French>
+<French>Détruisez Tour Tension Haute</French>
 <Russian>Уничтожить высоковольтную башню</Russian>
-<Spanish>Destruye Torre de alto voltaje</Spanish>
+<Spanish>Destruye Torre de Alto Voltaje</Spanish>
 </Key>
 <Key ID="STR_BMR_Tsk_descW_dhvt">
 <Original>Cut area power to give you tactical advantage by destroying the high voltage tower with satchel or charge</Original>
@@ -718,7 +726,7 @@
 <German>Beschütze den Hochspannungsturm</German>
 <French>Protéger Tour High Voltage</French>
 <Russian>Защитите высоковольтную башню</Russian>
-<Spanish>Proteja Torre de alto voltaje</Spanish>
+<Spanish>Proteja Torre de Alto Voltaje</Spanish>
 </Key>
 <Key ID="STR_BMR_Tsk_descE_dhvt">
 <Original>Protect high voltage tower to keep the lights on in the area</Original>
@@ -764,9 +772,9 @@
 <Original>Defend and Hold Outpost</Original>
 <English>Defend and Hold Outpost</English>
 <German>Verteidige und Halte den Aussenposten</German>
-<French>Défendre et tenir Outpost</French>
+<French>Défendre et Tenir Outpost</French>
 <Russian>Защитите и удерживайте заставу</Russian>
-<Spanish>Defender y mantener Outpost</Spanish>
+<Spanish>Defender y Mantener Outpost</Spanish>
 </Key>
 <Key ID="STR_BMR_outpost_caped">
 <Original>Outpost Captured. Enemy reinforcements are in route</Original>
@@ -780,17 +788,17 @@
 <Original>Destroy Mortar Squad</Original>
 <English>Destroy Mortar Squad</English>
 <German>Zerstöre Granatwerfer</German>
-<French>Détruisez Mortier Squad</French>
+<French>Détruisez Mortier Équipe</French>
 <Russian>Уничтожьте Минометный Отряд</Russian>
-<Spanish>Destruye Mortero Squad</Spanish>
+<Spanish>Destruye Mortero Equipo</Spanish>
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_dms">
 <Original>Defend Mortar Squad</Original>
 <English>Defend Mortar Squad</English>
 <German>Verteidige Granatwerfer</German>
-<French>Défendre Mortier Squad</French>
+<French>Défendre Mortier Équipe</French>
 <Russian>Защитите Минометный Отряд</Russian>
-<Spanish>Defiende Mortero Squad</Spanish>
+<Spanish>Defiende Mortero Equipo</Spanish>
 </Key>
 <Key ID="STR_BMR_Tsk_topicW_eil">
 <Original>Eliminate Insurgent Leader</Original>
@@ -804,7 +812,7 @@
 <Original>Defend Insurgent Leader</Original>
 <English>Defend Insurgent Leader</English>
 <German>Verteidige Rebellenführer</German>
-<French>Défendre chef des insurgés</French>
+<French>Défendre Chef des Insurgés</French>
 <Russian>Защитите Лидера Повстанцев</Russian>
 <Spanish>Defiende Insurgente Líder</Spanish>
 </Key>
@@ -828,9 +836,9 @@
 <Original>Defend mine field</Original>
 <English>Defend mine field</English>
 <German>Verteidige Minenfeld</German>
-<French>Défendre champ de mines</French>
+<French>Défendre Champ de Mines</French>
 <Russian>Защитите минное поле</Russian>
-<Spanish>Defiende campo de minas</Spanish>
+<Spanish>Defiende Campo de Minas</Spanish>
 </Key>
 <Key ID="STR_BMR_Tsk_descE_cmf">
 <Original>Eliminate any West unit in mine field</Original>
@@ -878,7 +886,7 @@
 <German>Zerstöre Fahrzeugkolonne</German>
 <French>Détruisez convoi armé</French>
 <Russian>Уничтожьте Вооруженный Конвой</Russian>
-<Spanish>Destruye convoy armado</Spanish>
+<Spanish>Destruye Convoy Armado</Spanish>
 </Key>
 <Key ID="STR_BMR_Tsk_descW_dac">
 <Original>Destroy armed vehicle convoy of 4 and all crew members</Original>
@@ -894,7 +902,7 @@
 <German>Verteidige Fahrzeugkolonne</German>
 <French>Défendre convoi armé</French>
 <Russian>Защитите Вооруженный Конвой</Russian>
-<Spanish>Defiende convoy armado</Spanish>
+<Spanish>Defiende Convoy Armado</Spanish>
 </Key>
 <Key ID="STR_BMR_Tsk_descE_dac">
 <Original>Defend armed vehicle convoy of 4 and all crew members</Original>
@@ -1006,7 +1014,7 @@
 <German>Beseitigen Sie alle Straßensperre Abwehrkräfte</German>
 <French>Éliminer toutes les défenses de barrages routiers</French>
 <Russian>Уничтожьте контрольная точка</Russian>
-<Spanish>Eliminar todas las defensas barricada</Spanish>
+<Spanish>Eliminar todas las defensas de la barricada</Spanish>
 </Key>
 <Key ID="STR_BMR_Tsk_topicE_hrb">
 <Original>Defend Roadblock</Original>

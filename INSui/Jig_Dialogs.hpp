@@ -12,10 +12,10 @@ class Jig_Y_Menu {
 		class Bg: Jig_RscPicture {
 			idc = -1;
 			text = "#(argb,8,8,3)color(0,0,0,0.7)";
-			x = 0.42125 * safezoneW + safezoneX;
+			x = 0.421335 * safezoneW + safezoneX;
 			y = 0.385174 * safezoneH + safezoneY;
-			w = 0.1575 * safezoneW;
-			h = 0.266059 * safezoneH;
+			w = 0.158139 * safezoneW;
+			h = 0.314017 * safezoneH;
 		};
 		class Client_Settings: Jig_RscButton {
 			action = "closeDialog 0; call TAWVD_fnc_openTAWVD";
@@ -59,6 +59,15 @@ class Jig_Y_Menu {
 			text = "$STR_BMR_UI_ambientLife";
 			x = 0.425056 * safezoneW + safezoneX;
 			y = 0.589899 * safezoneH + safezoneY;
+			w = 0.15 * safezoneW;
+			h = 0.045674 * safezoneH;
+		};
+		class SubTitles_Toggle: Jig_RscButton {
+			action = "closeDialog 0; if (showsubtitles true) then {showSubtitles false; hintSilent localize 'STR_BMR_OFF'} else {showsubtitles true; hintSilent localize 'STR_BMR_ON'}";
+			idc = -1;
+			text = "$STR_BMR_UI_subtitles";
+			x = 0.425056 * safezoneW + safezoneX;
+			y = 0.63667 * safezoneH + safezoneY;
 			w = 0.15 * safezoneW;
 			h = 0.045674 * safezoneH;
 		};

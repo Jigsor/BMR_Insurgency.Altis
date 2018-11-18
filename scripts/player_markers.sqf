@@ -61,7 +61,6 @@ if(count _this==0) then {
 } forEach _this;
 
 aero_player_markers_pos = [0,0];
-//onMapSingleClick "aero_player_markers_pos=_pos;";
 
 ["PlayerMarkers_mapclick","onMapSingleClick", {
 	aero_player_markers_pos=_pos;
@@ -144,7 +143,7 @@ while {true} do {
 
  			if(_vehicle != _unit && !(_vehicle isKindOf "ParachuteBase")) then {
 				_text = format["[%1]", getText(configFile>>"CfgVehicles">>typeOf _vehicle>>"DisplayName")];
-				if(!isNull driver _vehicle) then {
+				if(!isNull driver _vehicle && {alive driver _vehicle}) then {
 					_text = format["%1 %2", name driver _vehicle, _text];
 				};
 
@@ -169,8 +168,8 @@ while {true} do {
 						};
 					};
 				};
-			} else {
-				_text = name _x;
+			} else {				
+				_text = ["Unidentified", name _x] select (alive _x); //if dead "Unidentified" is selected
 			};
 			_markerText setMarkerTextLocal _text;
 		};

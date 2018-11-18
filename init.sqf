@@ -38,6 +38,7 @@ if (isMultiplayer) then {
 					diag_log format ["HEADLESSCLIENT FPS: %1 TIME: %2 IDCLIENT: %3 TOTAL ENEMY GROUPS: %4 TOTAL UNITS: %5", diag_fps, time, owner player, count _AllEnemyGroups, count allUnits];
 				};
 				//Delete empty groups every 5 minutes.
+				_c = _c + 1;
 				if (_c isEqualTo 5) then {
 					call HC_deleteEmptyGrps;
 					_c = 0;

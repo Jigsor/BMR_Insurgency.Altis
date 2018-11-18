@@ -54,7 +54,7 @@ BMR_Insurgency_v1_48.Kunduz
 Required mods: @Kunduz_Afghanistan or @prkz
 
 BMR_Insurgency_v1_48.DYA
-Required mods: @CUP_Terrains_Core;@Diyala_Map
+Required mods: @CUP_Terrains_Core;@Diyala_Map;@PLP_Containers
 
 BMR_Insurgency_v1_48.pja310
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps;@G.O.S_Al_Rayak
@@ -162,10 +162,10 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	2. Perhaps objective delivery cargo has been misplaced.
 			Delivery_Box setpos getpos player.
 
-10/28/2018
+11/15/2018
 BMR_Insurgency_v1_49 beta - (still labeled as v1.48 on our servers)
 Know problems:
-1. Recruited AI die when no other players in group. Possible work around - recruite One AI, dissmiss him then recuit more.
+1. Recruited AI die when no other players in group. Possible work around - recruit One AI, dissmiss him then recruit more.
 2. Heli Extraction does not fly away after drop off in Dedicated enviroment but is not really a problem because it gets deleted shortly afterwards.
 3. Progress restoration does not occur at mission start if there are headless client(s) when resotation is enabled. Work around. Let headless clients join mission after mission start.
 
@@ -193,7 +193,8 @@ Added: Data Terminal to zeus editable objects.
 Added: Distance limitation of actions added to MHQs and main ammo boxes.
 Added: More options for Lobby option "Playable Opfor". Options now include "Enabled with no Limits", "Enabled if 5 or more blufor players present", "Enabled if 7 or more blufor players present", "Enabled if 9 or more blufor players present", "Enabled if 11 or more blufor players present", "Disabled". This results in End mission for Opfor players if not enough blufor players at mission start and is also polled by server approx every 7 minutes.
 Added: Ear Plugs button in Y menu now supports ACE_3 earplugs in addition to vanilla.
-Added: Player corpse removal when scripted revive systems are disabled through lobby and using for ex. ACE_3 mod for revive. 
+Added: Player corpse removal when scripted revive systems are disabled through lobby and using for ex. ACE_3 mod for revive.
+Added: Button "Subtitle Chatter" to Y menu. Enables/disables showing of subtitles in a chat. Only scripted/engine chatter is affected, player manual chat is unaffected.
 Change: Removed "Land_BagFence_Long_F" from BTC logistics liftable objects.
 Change: Many functions now compiled with preprocessFileLineNumbers instead of preprocessFile so errors can be loged.
 Change: Enabled support for custom licence plates.
@@ -211,12 +212,14 @@ Change: DriverLess versioned vehicles are now filtered out of Vehicle Reward lis
 Change: Earplug volume reduced from 40% to 30%.
 Change: All lights on Extraction Helicopter are now disabled.
 Change: Improved chance reward vehicle will not collide with other objects when created.
+Change: Improved chance old Arma bug "Error: No unit" will not occur.
+Change: Improved some exsiting language translations.
 Change: Manual save and clear progression can survive cold Server restart. Progression restoration is currently ineffective when headless client is present at start. Workaround - headlessclient(s) need to Join after mission start.
 Change: All progression saving is performed on Server and no longer on HC in parallel.
 Change: HC can be kicked and will resume properly even if progress saving is not enabled. Note all uncaptured markers/triggers will be rejuvenated/reinforced with AI.
 Fixed: Clearing saved progression would restore save on mission restart when many players in lobby and HC present at mission start.
 Fixed: Abandoned vehicles respawned to fast.
-Fixed: Mission ending did not occurr with updated taskmaster script.
+Fixed: Mission ending did not occurr with updated taskmaster script in v1.48.
 Fixed: Some briefing spelling errors.
 Fixed: Rewarded vehicles did not have dedicated destroyed cleanup provisioned.
 Fixed: Group extration did not globally kick callers group members out of group beyond 500 meters away from pickup marker. It kicked far members from callers group on callers machine only.
@@ -228,15 +231,20 @@ Fixed: Freezing durring AI HALO again.
 Fixed: Brighter Nights would activate even if disabled when Random or Real Weather options were eanabled.
 Fixed: Fallen bush and tree cleanup by base markers silently failed.
 Fixed: Cancel Evac Action action did not appear on first Evac call.
-Fixed: Zeus created enemy units of groups containing one unit were not nessesarily aligned with side INS_Op4_side.
+Fixed: Zeus created enemy units of groups containing one unit were not nessesarily aligned/sided with side INS_Op4_side.
 Fixed: Side mission objectives would not start if slotting took to long at mission start.
-Fixed: Praetorian on USS_Freedom would freeze when trying to fire by remote controll.
+Fixed: Praetorian on USS_Freedom would freeze when trying to fire by remote control.
 Fixed: Race condition/MHQs not recognized by player when many players in lobby at mission start.
 Fixed: Race condition/BTC punishment script error at mission start.
 Fixed: Script Error in Helmet Cam when in vehicle and when camera feeding AI/group member no longer exists.
 Fixed: Vehicle Reward action remained after rewarded vehicle spawned until it was clicked again.
 Fixed: Ambient combat sounds were to overbearing.
 Fixed: Drag carry was not available while in structures.
+Fixed: Headless clients would stop spawning AI when local group limiter was reached.
+Fixed: Useless double action "Place Sandbag" would appear on medics if sand bag was placed then you respawned and removed the sand bag.
+Fixed: Whitelisted Arsenal interface could reenable load/save preset buttons by right clicking screen.
+Fixed: MHQs' markers could be seen by opposing players when Mobile MHQs were enabled with exception of BTC Revive's MHQ system.
+Fixed: Op4 players sometimes would unexpedely teleport once to random area sometime after start/join mission.//needs feedback
 
 3/22/2018
 BMR_Insurgency_v1.48

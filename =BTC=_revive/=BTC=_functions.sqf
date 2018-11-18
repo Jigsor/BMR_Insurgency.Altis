@@ -421,7 +421,7 @@ BTC_check_healer = {
 			{
 				if (_x distance _pos < _dist) then {_healer = _x;_dist = _x distance _pos;};
 			} foreach _healers;
-			if !(isNull _healer) then {_msg = format ["%1 could heal you! He is %2 m away!", name _healer,round(_healer distance _pos)];};
+			if (!(isNull _healer) && {alive _healer}) then {_msg = format ["%1 could heal you! He is %2 m away!", name _healer,round(_healer distance _pos)];};
 		};
 	};
 	_msg

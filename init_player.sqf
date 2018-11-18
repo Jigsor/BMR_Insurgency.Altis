@@ -25,7 +25,7 @@ if (DebugEnabled > 0) then {
 				setTerrainGrid 50;
 				ctrlActivate ((findDisplay 12) displayCtrl 107);
 				["Teleport_mapclick","onMapSingleClick", {
-					vehicle player setPos [_pos select 0,_pos select 1,0];
+					vehicle player setPos [_pos # 0,_pos # 1,0];
 				}] call BIS_fnc_addStackedEventHandler;
 				while {true} do {
 					{systemChat str _x} forEach diag_activeSQFScripts;
@@ -65,9 +65,6 @@ if (DebugEnabled > 0) then {
 		0=[] execVM "scripts\minedetector.sqf";
 	};
 
-	//Ace Arsenal Init
-	if (INS_ACE_core) then {[INS_Wep_box, true] call ace_arsenal_fnc_initBox};
-
 	// Fatigue and Stamina
 	setStaminaScheme "FastDrain";
 	if (Fatigue_ability isEqualTo 0) then {//Disable Fatigue/Stamina
@@ -97,8 +94,11 @@ if (DebugEnabled > 0) then {
 	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Dock</t>","call JIG_transfer_fnc", ["Dock"], 3.6];
 	if (!isNil "USSfreedom") then {
 		private _carrierPos = USSfreedom getRelPos [181, 349];
-		INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>USS Freedom</t>", "call JIG_transfer_fnc", [[(_carrierPos select 0),(_carrierPos select 1),19.2468]], 3.5];
+		INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>USS Freedom</t>", "call JIG_transfer_fnc", [[(_carrierPos # 0),(_carrierPos # 1),19.2468]], 3.5];
 	};
+
+	// Ace Arsenal Init
+	if (INS_ACE_core) then {[INS_Wep_box, true] call ace_arsenal_fnc_initBox};
 
 	// Virtual Arsenal
 	if (INS_VA_type in [0,3]) then {
@@ -205,7 +205,7 @@ if (DebugEnabled > 0) then {
 		player addEventHandler ["Respawn", {params ["_unit","_corpse"]; 0 spawn JIG_p_actions_resp; _unit spawn INS_RestoreLoadout; _unit spawn INS_UI_pref; if (INS_p_rev in [6,7]) then {deletevehicle _corpse}}];
 	};
 
-	if (!isServer) then {"PVEH_netSay3D" addPublicVariableEventHandler {private _array = _this select 1; (_array select 0) say3D (_array select 1)}};
+	if (!isServer) then {"PVEH_netSay3D" addPublicVariableEventHandler {private _array = _this # 1; (_array # 0) say3D (_array # 1)}};
 
 	if (INS_GasGrenadeMod isEqualTo 1) then {
 		player addEventHandler ["Fired", {
@@ -290,8 +290,8 @@ if (DebugEnabled > 0) then {
 		[missionNamespace, "arsenalOpened", {
 			disableSerialization;
 			params ["_display"];
-			_display displayAddEventHandler ["KeyDown", "_this select 3"];
-			{(_display displayCtrl _x) ctrlShow false} forEach [44151, 44150, 44146, 44147, 44148, 44149, 44346];
+			_display displayAddEventHandler ["KeyDown", "_this # 3"];
+			{(_display displayCtrl _x) ctrlEnable false; (_display displayCtrl _x) ctrlShow false} forEach [44151, 44150, 44146, 44147, 44148, 44149, 44346];
 		}] call BIS_fnc_addScriptedEventHandler;
 	};
 
@@ -358,7 +358,7 @@ if (DebugEnabled > 0) then {
 				if (!isNil "MHQ_1") then {removeAllActions MHQ_1};
 				if (!isNil "MHQ_2") then {removeAllActions MHQ_2};
 				if (!isNil "MHQ_3") then {removeAllActions MHQ_3};
-				player addEventHandler ["GetInMan",{if ((_this select 2) isKindOf "Plane") then {_this select 0 action ["getOut", (_this select 2)]}}];
+				player addEventHandler ["GetInMan",{if ((_this # 2) isKindOf "Plane") then {_this # 0 action ["getOut", (_this # 2)]}}];
 			};
 		};
 		If (side player == west) then {
@@ -515,16 +515,14 @@ if (DebugEnabled > 0) then {
 				}
 				else
 				{
-					if (local player) then {
-						sleep 5;
-						private ["_mhqPos","_mhqAcc","_mhqObj"];
-						_mhqAcc = [INS_MHQ_killed,_op4] call mhq_actions2_fnc;
-						_mhqObj = objNull;
-						_mhqObj = [INS_MHQ_killed] call mhq_obj_fnc;
-						_mhqPos = getPosASL _mhqObj;
-						_nul = [_mhqObj,_op4,_mhqPos] spawn INS_MHQ_mkr;
-						INS_MHQ_killed = "";
-					};
+					sleep 5;
+					private ["_mhqPos","_mhqAcc","_mhqObj"];
+					_mhqAcc = [INS_MHQ_killed,_op4] call mhq_actions2_fnc;
+					_mhqObj = objNull;
+					_mhqObj = [INS_MHQ_killed] call mhq_obj_fnc;
+					_mhqPos = getPosASL _mhqObj;
+					_nul = [_mhqObj,_op4,_mhqPos] spawn INS_MHQ_mkr;
+					INS_MHQ_killed = "";
 				};
 			};
 		};

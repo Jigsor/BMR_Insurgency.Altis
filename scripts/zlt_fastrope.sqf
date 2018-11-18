@@ -12,7 +12,7 @@ waituntil {!isNull player && player == player};
 zlt_rope_ropes = [];
 zlt_mutexAction = false;
 
-zlt_rope_helis = ["O_Heli_Light_02_unarmed_F","O_Heli_Light_02_F","B_Heli_Transport_01_F","RHS_UH60M","RHS_UH60M_d","RHS_UH60M_MEV","CAF_CH146_SF","ST1_UH_80_MED_FG","B_Heli_Transport_01_camo_F","O_Heli_Attack_02_F","O_Heli_Attack_02_black_F","I_Heli_Transport_02_F","B_Heli_Light_01_F","B_Heli_Light_01_dynamicLoadout_F","B_Heli_Transport_03_F","B_Heli_Transport_03_unarmed_F","I_Heli_light_03_F","I_Heli_light_03_unarmed_F","I_Heli_light_03_dynamicLoadout_F"];
+zlt_rope_helis = ["O_Heli_Light_02_unarmed_F","O_Heli_Light_02_F","B_Heli_Transport_01_F","B_CTRG_Heli_Transport_01_tropic_F","B_CTRG_Heli_Transport_01_sand_F","RHS_UH60M","RHS_UH60M_d","RHS_UH60M_MEV","CAF_CH146_SF","ST1_UH_80_MED_FG","B_Heli_Transport_01_camo_F","O_Heli_Attack_02_F","O_Heli_Attack_02_black_F","I_Heli_Transport_02_F","B_Heli_Light_01_F","B_Heli_Light_01_dynamicLoadout_F","B_Heli_Transport_03_F","B_Heli_Transport_03_unarmed_F","I_Heli_light_03_F","I_Heli_light_03_unarmed_F","I_Heli_light_03_dynamicLoadout_F"];
 zlt_rope_helidata =
 [
 	[
@@ -57,7 +57,7 @@ zlt_fnc_tossropes = {
 	_heli = _this;
 	_ropes = [];
 	_oropes = _heli getvariable ["zlt_ropes",[]];
-	if (count _oropes != 0 ) exitwith {};
+	if !(_oropes isEqualTo []) exitwith {};
 	_i = 0;
 	{
 		if ((typeof _heli) in (_x select 0)) exitwith {
@@ -84,7 +84,7 @@ zlt_fnc_tossropes = {
 	_heli spawn {
 		private ["_heli","_ropes"];
 		_heli = _this;
-		while {alive _heli and count (_heli getvariable ["zlt_ropes", []]) != 0 and abs (speed _heli) < MAX_SPEED_ROPES_AVAIL } do {
+		while {alive _heli && count (_heli getvariable ["zlt_ropes", []]) != 0 && abs (speed _heli) < MAX_SPEED_ROPES_AVAIL } do {
 			sleep 0.3;
 		};
 		_ropes = (_heli getvariable ["zlt_ropes", []]);
@@ -94,15 +94,13 @@ zlt_fnc_tossropes = {
 };
 zlt_fnc_ropes_cond = {
 	_veh = vehicle player;
-	_flag = (_veh != player) and {(not zlt_mutexAction)} and {player == driver vehicle player} and {count (_veh getvariable ["zlt_ropes", []]) isEqualTo 0} and { (typeof _veh) in zlt_rope_helis } and {alive player and alive _veh and (abs (speed _veh) < MAX_SPEED_ROPES_AVAIL ) };//only pilots can toss ropes
-	//_flag = (_veh != player) and {(not zlt_mutexAction)} and {count (_veh getvariable ["zlt_ropes", []]) isEqualTo 0} and { (typeof _veh) in zlt_rope_helis } and {alive player and alive _veh and (abs (speed _veh) < MAX_SPEED_ROPES_AVAIL ) };//any crew or passenger can toss ropes
+	_flag = (_veh != player) && {!zlt_mutexAction} && {player == driver vehicle player} && {(_veh getvariable ["zlt_ropes", []]) isEqualTo []} && { (typeof _veh) in zlt_rope_helis } && {alive player && alive _veh && (abs (speed _veh) < MAX_SPEED_ROPES_AVAIL ) };//only pilots can toss ropes
+	//_flag = (_veh != player) && {!zlt_mutexAction)} && {(_veh getvariable ["zlt_ropes", []]) isEqualTo []} && { (typeof _veh) in zlt_rope_helis } && {alive player && alive _veh && (abs (speed _veh) < MAX_SPEED_ROPES_AVAIL ) };//any crew or passenger can toss ropes
 	_flag;
 };
 zlt_fnc_fastropeaiunits = {
-	private ["_heli","_grunits"];
 	diag_log ["zlt_fnc_fastropeaiunits", _this];
-	_heli = _this select 0;
-	_grunits = _this select 1;
+	params ["_heli","_grunits"];
 
 	doStop (driver _heli );
 	(driver _heli) setBehaviour "CARELESS";
@@ -111,10 +109,8 @@ zlt_fnc_fastropeaiunits = {
 	_heli spawn zlt_fnc_tossropes;
 
 	[_heli, _grunits] spawn {
-		private ["_units","_heli"];
+		params ["_heli","_units"];
 		sleep random 0.5;
-		_units = _this select 1;
-		_heli = (_this select 0);
 		_units = _units - [player];
 		_units = _units - [driver _heli];
 		{if (!alive _x or isplayer _x or vehicle _x != _heli) then {_units = _units - [_x];}; } foreach _units;
@@ -180,8 +176,8 @@ zlt_fnc_createropes = {
 
 zlt_fastrope_acts = {
 	player addAction["<t color='#ffff00'>"+STR_TOSS_ROPES+"</t>", zlt_fnc_createropes, [], -1, false, false, '','[] call zlt_fnc_ropes_cond'];
-	player addAction["<t color='#ff0000'>"+STR_CUT_ROPES+"</t>", zlt_fnc_removeropes, [], -1, false, false, '','not zlt_mutexAction and count ((vehicle player) getvariable ["zlt_ropes", []]) != 0'];
-	player addAction["<t color='#00ff00'>"+STR_FAST_ROPE+"</t>", zlt_fnc_fastrope, [], 15, false, false, '','not zlt_mutexAction and count ((vehicle player) getvariable ["zlt_ropes", []]) != 0 and player != driver vehicle player'];
+	player addAction["<t color='#ff0000'>"+STR_CUT_ROPES+"</t>", zlt_fnc_removeropes, [], -1, false, false, '','!zlt_mutexAction && count ((vehicle player) getvariable ["zlt_ropes", []]) != 0'];
+	player addAction["<t color='#00ff00'>"+STR_FAST_ROPE+"</t>", zlt_fnc_fastrope, [], 15, false, false, '','!zlt_mutexAction && count ((vehicle player) getvariable ["zlt_ropes", []]) != 0 && player != driver vehicle player'];
 };
 call zlt_fastrope_acts;
 

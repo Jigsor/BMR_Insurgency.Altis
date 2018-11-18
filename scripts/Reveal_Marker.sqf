@@ -10,7 +10,7 @@ private _time =  _this select 3 select 1;
 private _pPos = getPosVisual player;
 private _uA = allUnits;
 
-(_this select 1) removeAction (_this select 2);
+(_this # 1) removeAction (_this # 2);
 
 private _getColor = {[(((side _this) call bis_fnc_sideID) call bis_fnc_sideType),true] call bis_fnc_sidecolor;};
 

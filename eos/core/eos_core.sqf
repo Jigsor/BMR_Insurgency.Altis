@@ -6,18 +6,18 @@ private ["_newpos","_cargoType","_vehType","_dGrp","_mkrAgl","_side","_bGroup","
 
 _cacheDelay = DeAct_Gzone_delay; //Cache: Delay caching by X minutes parameter
 _cc = 0;
-_mkr=(_this select 0);_mPos=markerpos(_this select 0);
-_mkrX=getMarkerSize _mkr select 0;
-_mkrY=getMarkerSize _mkr select 1;
+_mkr=(_this # 0);_mPos=markerpos(_this # 0);
+_mkrX=getMarkerSize _mkr # 0;
+_mkrY=getMarkerSize _mkr # 1;
 _mkrAgl=markerDir _mkr;
-_a=(_this select 1);_aGrps=_a select 0;_aSize=_a select 1;_aMin=_aSize select 0;
-_b=(_this select 2);_bGrps=_b select 0;_bSize=_b select 1;_bMin=_bSize select 0;
-_c=(_this select 3);_cGrps=_c select 0;_cSize=_c select 1;
-_d=(_this select 4);_dGrps=_d select 0;_eGrps=_d select 1;_fGrps=_d select 2;_fSize=_d select 3;
-_settings=(_this select 5);_faction=_settings select 0;_mA=_settings select 1;_distance=_settings select 2;_side=_settings select 3;
-_heightLimit=if (count _settings > 4) then {_settings select 4} else {false};
-_debug=if (count _settings > 5) then {_settings select 5} else {false};
-_cache= if (count _this > 6) then {_this select 6} else {false};
+_a=(_this # 1);_aGrps=_a # 0;_aSize=_a # 1;_aMin=_aSize # 0;
+_b=(_this # 2);_bGrps=_b # 0;_bSize=_b # 1;_bMin=_bSize # 0;
+_c=(_this # 3);_cGrps=_c # 0;_cSize=_c # 1;
+_d=(_this # 4);_dGrps=_d # 0;_eGrps=_d # 1;_fGrps=_d # 2;_fSize=_d # 3;
+_settings=(_this # 5);_faction=_settings # 0;_mA=_settings # 1;_distance=_settings # 2;_side=_settings # 3;
+_heightLimit=if (count _settings > 4) then {_settings # 4} else {false};
+_debug=if (count _settings > 5) then {_settings # 5} else {false};
+_cache= if (count _this > 6) then {_this # 6} else {false};
 
 _mz=Max_Act_Gzones;
 if (RedHot > 0) then {RedHot = RedHot -1};
@@ -75,7 +75,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 			_cacheGrp=format ["HP%1",_counter];
 			_units=_eosActivated getvariable _cacheGrp;
 			_aSize=[_units,_units];
-			_aMin=_aSize select 0;
+			_aMin=_aSize # 0;
 			if (_debug)then{player sidechat format ["ID:%1,restore - %2",_cacheGrp,_units];};
 		};
 		if (_aMin > 0) then {
@@ -98,7 +98,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 			_cacheGrp=format ["PA%1",_counter];
 			_units=_eosActivated getvariable _cacheGrp;
 			_bSize=[_units,_units];
-			_bMin=_bSize select 0;
+			_bMin=_bSize # 0;
 			if (_debug)then{player sidechat format ["ID:%1,restore - %2",_cacheGrp,_units]};
 		};
 		if (_bMin > 0) then {
@@ -121,14 +121,14 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 
 		_cGroup=[_newpos,_side,_faction,_vehType]call EOS_fnc_spawnvehicle;
 		if ((_cSize select 0) > 0) then{
-			0=[(_cGroup select 0),_cSize,(_cGroup select 2),_faction,_cargoType] call eos_fnc_setcargo;
+			0=[(_cGroup # 0),_cSize,(_cGroup # 2),_faction,_cargoType] call eos_fnc_setcargo;
 		};
 
-		0=[(_cGroup select 2),"LIGskill",_faction] call eos_fnc_grouphandlers;
-		0 = [(_cGroup select 2),_mkr] call EOS_fnc_taskpatrol;
+		0=[(_cGroup # 2),"LIGskill",_faction] call eos_fnc_grouphandlers;
+		0 = [(_cGroup # 2),_mkr] call EOS_fnc_taskpatrol;
 		_cGrp set [count _cGrp,_cGroup];
 
-		if (_debug) then {player sidechat format ["Light Vehicle:%1 - r%2",_counter,_cGrps];0= [_mkr,_counter,"Light Veh",(getpos leader (_cGroup select 2))] call EOS_debug};
+		if (_debug) then {player sidechat format ["Light Vehicle:%1 - r%2",_counter,_cGrps];0= [_mkr,_counter,"Light Veh",(getpos leader (_cGroup # 2))] call EOS_debug};
 	};
 
 	//SPAWN ARMOURED VEHICLES
@@ -139,13 +139,13 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 		_vehType=if (surfaceiswater _newpos) then {8}else{2};
 
 		_dGroup=[_newpos,_side,_faction,_vehType]call EOS_fnc_spawnvehicle;
-		//diag_log format ["SpawnedVehicle: %1 Vehicle Crew: %2 Vehicle Group: %3", _dGroup select 0, _dGroup select 1, _dGroup select 2];//Jig
+		//diag_log format ["SpawnedVehicle: %1 Vehicle Crew: %2 Vehicle Group: %3", _dGroup # 0, _dGroup # 1, _dGroup # 2];//Jig
 
-		0=[(_dGroup select 2),"ARMskill",_faction] call eos_fnc_grouphandlers;
-		0 = [(_dGroup select 2),_mkr] call EOS_fnc_taskpatrol;
+		0=[(_dGroup # 2),"ARMskill",_faction] call eos_fnc_grouphandlers;
+		0 = [(_dGroup # 2),_mkr] call EOS_fnc_taskpatrol;
 		_dGrp set [count _dGrp,_dGroup];
 
-		if (_debug) then {player sidechat format ["Armoured:%1 - r%2",_counter,_dGrps];0= [_mkr,_counter,"Armour",(getpos leader (_dGroup select 2))] call EOS_debug};
+		if (_debug) then {player sidechat format ["Armoured:%1 - r%2",_counter,_dGrps];0= [_mkr,_counter,"Armour",(getpos leader (_dGroup # 2))] call EOS_debug};
 	};
 
 	//SPAWN STATIC PLACEMENTS
@@ -156,10 +156,10 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 		_newpos=[_mkr,50] call eos_fnc_findSafePos;
 		_eGroup=[_newpos,_side,_faction,5]call EOS_fnc_spawnvehicle;
 
-		0=[(_eGroup select 2),"STAskill",_faction] call eos_fnc_grouphandlers;
+		0=[(_eGroup # 2),"STAskill",_faction] call eos_fnc_grouphandlers;
 		_eGrp set [count _eGrp,_eGroup];
 
-		if (_debug) then {player sidechat format ["Static:%1",_counter];0= [_mkr,_counter,"Static",(getpos leader (_eGroup select 2))] call EOS_debug};
+		if (_debug) then {player sidechat format ["Static:%1",_counter];0= [_mkr,_counter,"Static",(getpos leader (_eGroup # 2))] call EOS_debug};
 	};
 
 	//SPAWN CHOPPER
@@ -172,19 +172,19 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 
 		if ((_fSize select 0) > 0) then {
 			_cargoGrp = createGroup _side;
-			0=[(_fGroup select 0),_fSize,_cargoGrp,_faction,9] call eos_fnc_setcargo;
+			0=[(_fGroup # 0),_fSize,_cargoGrp,_faction,9] call eos_fnc_setcargo;
 			0=[_cargoGrp,"INFskill",_faction] call eos_fnc_grouphandlers;
 			_fGroup set [count _fGroup,_cargoGrp];
 			null = [_mkr,_fGroup,_counter] execvm "eos\functions\TransportUnload_fnc.sqf";
 		}else{
-			_wp1 = (_fGroup select 2) addWaypoint [(markerpos _mkr), 0];
+			_wp1 = (_fGroup # 2) addWaypoint [(markerpos _mkr), 0];
 			_wp1 setWaypointSpeed "FULL";
 			_wp1 setWaypointType "SAD";
 		};
 
-		0=[(_fGroup select 2),"AIRskill",_faction] call eos_fnc_grouphandlers;
+		0=[(_fGroup # 2),"AIRskill",_faction] call eos_fnc_grouphandlers;
 
-		if (_debug) then {player sidechat format ["Chopper:%1",_counter];0= [_mkr,_counter,"Chopper",(getpos leader (_fGroup select 2))] call EOS_debug};
+		if (_debug) then {player sidechat format ["Chopper:%1",_counter];0= [_mkr,_counter,"Chopper",(getpos leader (_fGroup # 2))] call EOS_debug};
 	};
 
 	//SPAWN ALT TRIGGERS

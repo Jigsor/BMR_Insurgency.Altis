@@ -63,7 +63,7 @@ while {!isNil {hcam_cam} && {!isNull hcam_cam}} do {
 		if (hcam_id >= count _units) then {hcam_id = 0};
 		hcam_target = _units select hcam_id;
 
-		if (name hcam_target != _old) then {
+		if (alive hcam_target && {name hcam_target != _old}) then {
 			_neck attachTo [hcam_target,[0,0,0],"neck"];
 			_pilot attachTo [hcam_target,[0,0,0],"pilot"];
 			_old = name hcam_target;

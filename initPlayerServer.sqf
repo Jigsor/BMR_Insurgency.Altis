@@ -1,10 +1,6 @@
-params ["_player","_didJIP","_hcEntities"];
+params ["_player","_didJIP"];
 
-_hcEntities = entities "HeadlessClient_F";
-
-//private _text = format["%1 joined the game!", name _player];
-//[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
-//[_text] remoteExec ["JIG_MPsideChatEast_fnc", [0,-2] select isDedicated];
+private _hcEntities = entities "HeadlessClient_F";
 
 if (_player in _hcEntities) then {
 	waitUntil {!isNil "all_eos_mkrs"};
@@ -44,8 +40,8 @@ if !(_player in _hcEntities) then {
 		_uid = getPlayerUID _player;
 		waitUntil {!isNil "Kicked_for_TKing"};
 		if (_uid in Kick_For_Duration) exitWith {
-			_pname = name _player;
 			if (!isNull _player) then {
+				_pname = if (alive player) then {name _player} else {"UnIdentified Name"};
 				_player enableSimulationGlobal false;
 				[] remoteExec ["Kicked_for_TKing",_player];
 				diag_log format ["Forced mission ending applied to PlayerName: %1 SteamID: %2 Player tried to rejoin after exceeding team kill warning limit set by BTC_tk_last_warning.", _pname, _uid];

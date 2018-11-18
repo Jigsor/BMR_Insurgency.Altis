@@ -139,8 +139,10 @@ BTC_l_drag = {
 			_act  = 1;
 		};
 		if (count _array isEqualTo 0 && _act isEqualTo 1) then {player removeAction _load;_act = 0;};*/
-		sleep 0.1;
+		hintSilent "Press 'C' if you can't move.";
+		sleep 0.2;
 	};
+	hintSilent "";
 	player playMoveNow "AmovPknlMstpSrasWrflDnon";BTC_l_dragging = false;
 	player removeAction _release;//player removeAction _load;
 	(findDisplay 46) displayRemoveEventHandler ["KeyDown",BTC_display_EH_l];

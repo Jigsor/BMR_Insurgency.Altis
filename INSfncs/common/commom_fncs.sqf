@@ -2,9 +2,9 @@
 
 // Global hint
 JIG_MPhint_fnc = {if (hasInterface) then { hintSilent _this };};
-JIG_MPsideChatWest_fnc = {[West,"HQ"] SideChat (_this select 0)};
-JIG_MPsideChatEast_fnc = {[East,"HQ"] SideChat (_this select 0)};
-JIG_MPSystemChat_fnc = { systemChat (_this select 0)};
+JIG_MPsideChatWest_fnc = {[West,"HQ"] SideChat (_this # 0)};
+JIG_MPsideChatEast_fnc = {[East,"HQ"] SideChat (_this # 0)};
+JIG_MPSystemChat_fnc = { systemChat (_this # 0)};
 JIG_Boo = {playSound "boo"};
 JIG_MPTitleText_fnc = {
 	if (hasInterface) then {
@@ -59,8 +59,8 @@ JIPmkr_updateServer_fnc = {
 anti_collision = {
 	// fixes wheels stuck in ground/vehicles exploding when entering bug by Jigsor.
 	params ["_obj"];
-	_obj setVectorUP (surfaceNormal [(getPosATL _obj) select 0,(getPosATL _obj) select 1]);
-	_obj setPos [(getPosATL _obj) select 0,(getPosATL _obj) select 1,((getPos _obj) select 2) + 0.3];
+	_obj setVectorUP (surfaceNormal [(getPosATL _obj) # 0,(getPosATL _obj) # 1]);
+	_obj setPos [(getPosATL _obj) # 0,(getPosATL _obj) # 1,((getPos _obj) # 2) + 0.3];
 	true
 };
 BMR_resetDamage = {
@@ -100,7 +100,7 @@ mhq_actions_fnc = {
 	switch (true) do {
 		case (_var isEqualTo "MHQ_1"): {
 			if (INS_VA_type in [0,3]) then {
-				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true", 12];
+				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true", 12];
 				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
 			};
 			if (INS_VA_type in [1,2]) then {
@@ -109,7 +109,7 @@ mhq_actions_fnc = {
 		};
 		case (_var isEqualTo "MHQ_2"): {
 			if (INS_VA_type in [0,3]) then {
-				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true", 12];
+				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true", 12];
 				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
 			};
 			if (INS_VA_type in [1,2]) then {
@@ -118,7 +118,7 @@ mhq_actions_fnc = {
 		};
 		case (_var isEqualTo "MHQ_3"): {
 			if (INS_VA_type in [0,3]) then {
-				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this select 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true", 12];
+				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true", 12];
 				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
 			};
 			if (INS_VA_type in [1,2]) then {
@@ -133,7 +133,7 @@ mhq_actions_fnc = {
 	};
 };
 Op4_restore_loadout = {
-	_caller = _this select 1;
+	_caller = _this # 1;
 	[_caller] execVM "scripts\DefLoadoutOp4.sqf";
 };
 JIG_load_VA_profile_MHQ1 = {
@@ -232,7 +232,7 @@ INS_end_mssg = {
 HV_tower_effect = {
 	if (hasInterface) then {
 		private _emitter = objective_pos_logic;
-		private _lightningpos = [position objective_pos_logic select 0,position objective_pos_logic select 1,10];
+		private _lightningpos = [position objective_pos_logic # 0,position objective_pos_logic # 1,10];
 		private _source = "#particlesource" createVehiclelocal (getPos objective_pos_logic);
 
 		_source setParticleCircle [0,[0,0,0]];
@@ -314,10 +314,8 @@ Push_Vehicle = {
 	/* Boat push script - v0.1
 	Pushes the boat in the direction the player is looking
 	Created by BearBison */
-	private ["_veh","_unit","_isWater"];
-	_veh = _this select 0;
-	_unit = _this select 1;
-	_isWater = surfaceIsWater position _unit;
+	params ["_veh","_unit"];
+	private _isWater = surfaceIsWater position _unit;
 	if (_unit in _veh) exitWith {titleText[localize "STR_BMR_push_restrict2","PLAIN DOWN",1]};
 	if (_isWater) exitWith {titleText[localize "STR_BMR_push_restrict1","PLAIN DOWN",1]};
 	_veh setOwner (owner _unit);
@@ -564,7 +562,7 @@ Drop_SmokeFlare_fnc = {
 		if (_range > 500) then {_range = 500};
 	};
 
-	if ((count _this) -1 < 5) then {_mapClick = true}else{_pos = _this select 5};
+	if ((count _this) -1 < 5) then {_mapClick = true}else{_pos = _this # 5};
 
 	if (_mapClick) then {
 		if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint localize "STR_BMR_missing_map"};
@@ -668,7 +666,7 @@ JIG_Dust_Storm = {
 			_color = [1,0.894,0.631];
 			_alpha = 0.02 + random 0.02;
 			_d = "#particlesource" createVehicleLocal _pos;
-			_d setParticleParams [["\A3\data_f\ParticleEffects\Universal\universal.p3d", 16, 12, 8], "", "Billboard", 1, 6, [0, 0, -5], [(wind select 0), (wind select 1), -1], 1, 1.275, 1, 0.01, [20], [_color + [0], _color + [_alpha], _color + [0]], [1000], 1, 0.1, "", "", _pos];
+			_d setParticleParams [["\A3\data_f\ParticleEffects\Universal\universal.p3d", 16, 12, 8], "", "Billboard", 1, 6, [0, 0, -5], [(wind # 0), (wind # 1), -1], 1, 1.275, 1, 0.01, [20], [_color + [0], _color + [_alpha], _color + [0]], [1000], 1, 0.1, "", "", _pos];
 			_d setParticleRandom [3, [-30, -30, 0], [0, 0, 0], 1, 0, [0, 0, 0, 0.01], 0, 0, 0, 1];
 			_d setParticleCircle [30, [0, 0, 0]];
 			_d setDropInterval 0.01;
@@ -683,9 +681,9 @@ JIG_Dust_Storm = {
 			playsound format ["wind%1",_ran];
 			_b  = "#particlesource" createVehicleLocal (getpos player);
 			if !(isNull objectParent player) then {_b attachto [vehicle player];} else {_b attachto [player];};
-			_b setParticleRandom [0, [10, 10, 7], [(wind select 0), (wind select 1), 5], 2, 0.1, [0, 0, 0, 0.5], 1, 1];
+			_b setParticleRandom [0, [10, 10, 7], [(wind # 0), (wind # 1), 5], 2, 0.1, [0, 0, 0, 0.5], 1, 1];
 			_b setParticleCircle [100, [0, 0, 0]];
-			_b setParticleParams [["\A3\data_f\ParticleEffects\Hit_Leaves\Sticks_Green", 1, 1, 1], "", "SpaceObject", 3, 7, [0,0,0], [(wind select 0), (wind select 1),10], 5, 0.000001, 0.0, 0.04, [0.5 + random 3], [[0.68,0.68,0.68,1]], [1.5,1], 1, 1, "", "", vehicle player, 0, true, 1, [[0,0,0,0]]];
+			_b setParticleParams [["\A3\data_f\ParticleEffects\Hit_Leaves\Sticks_Green", 1, 1, 1], "", "SpaceObject", 3, 7, [0,0,0], [(wind # 0), (wind # 1),10], 5, 0.000001, 0.0, 0.04, [0.5 + random 3], [[0.68,0.68,0.68,1]], [1.5,1], 1, 1, "", "", vehicle player, 0, true, 1, [[0,0,0,0]]];
 			_b setDropInterval 0.6;
 			sleep 5 + random 10;
 			deleteVehicle _b;
@@ -696,9 +694,9 @@ JIG_Dust_Storm = {
 		while {JIG_DustStorm} do {
 			_l  = "#particlesource" createVehicleLocal (getpos player);
 			if !(isNull objectParent player) then {_l attachto [vehicle player];} else {_l attachto [player];};
-			_l setParticleRandom [0, [10, 10, 7], [(wind select 0), (wind select 1), 5], 2, 0.1, [0, 0, 0, 0.5], 1, 1];
+			_l setParticleRandom [0, [10, 10, 7], [(wind # 0), (wind # 1), 5], 2, 0.1, [0, 0, 0, 0.5], 1, 1];
 			_l setParticleCircle [100, [0, 0, 0]];
-			_l setParticleParams [["\A3\data_f\cl_leaf3", 1, 0, 1], "", "SpaceObject", 3, 7, [0,0,0], [(wind select 0), (wind select 1), 6], 2, 0.00003, 0.0, 0.00001, [0.5 + random 3], [[0.1,0.1,0.1,1]], [1.5,1], 1, 1, "", "", vehicle player, 0, true, 1, [[0,0,0,0]]];
+			_l setParticleParams [["\A3\data_f\cl_leaf3", 1, 0, 1], "", "SpaceObject", 3, 7, [0,0,0], [(wind # 0), (wind # 1), 6], 2, 0.00003, 0.0, 0.00001, [0.5 + random 3], [[0.1,0.1,0.1,1]], [1.5,1], 1, 1, "", "", vehicle player, 0, true, 1, [[0,0,0,0]]];
 			_l setDropInterval 0.2;
 			uiSleep 0.2 + random 0.5;
 			deleteVehicle _l;
@@ -731,7 +729,7 @@ JIG_Snow_Storm = {
 			_color = [0.9, 1.0, 0.9];
 			_alpha = 0.02 + random 0.02;
 			_sd = "#particlesource" createVehicleLocal _pos;
-			_sd setParticleParams [["\A3\data_f\ParticleEffects\Universal\universal.p3d", 16, 12, 8], "", "Billboard", 1, 2, [0,0,-6], [(wind select 0),(wind select 1),-1], 1, 1.275, 1, 0.01, [11], [_color + [_alpha], _color + [0], _color + [_alpha]], [1000], 1, 0, "", "", _pos, 0, false, 0.5];
+			_sd setParticleParams [["\A3\data_f\ParticleEffects\Universal\universal.p3d", 16, 12, 8], "", "Billboard", 1, 2, [0,0,-6], [(wind # 0),(wind # 1),-1], 1, 1.275, 1, 0.01, [11], [_color + [_alpha], _color + [0], _color + [_alpha]], [1000], 1, 0, "", "", _pos, 0, false, 0.5];
 			_sd setParticleRandom [3, [30, 30, 0], [0, 0, 0], 1, 0, [0, 0, 0, 0.01], 0, 0, 0, 1];
 			_sd setParticleCircle [0.1, [0, 0, 0]];
 			_sd setDropInterval 0.2;
