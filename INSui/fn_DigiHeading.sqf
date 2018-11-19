@@ -10,11 +10,11 @@ if (!isNull _display) exitWith {
 
 waitUntil {sleep 1.1; (!isNull player && {(player getVariable ["BTC_need_revive",0] == 0) && !(lifeState player isEqualTo "INCAPACITATED") && !(player getVariable ["ACE_isUnconscious", false])})};
 
-private _r = profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843];
-private _g = profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019];
-private _b = profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862];
-private _a = profilenamespace getvariable ['GUI_BCG_RGB_A',0.7];
-private _JIG_DHcolor = if (_r isEqualTo 0.3843 && {_g isEqualTo 0.7019 && _b isEqualTo 0.8862}) then {
+private _r = profilenamespace getvariable ['GUI_BCG_RGB_R',0.13];
+private _g = profilenamespace getvariable ['GUI_BCG_RGB_G',0.54];
+private _b = profilenamespace getvariable ['GUI_BCG_RGB_B',0.21];
+private _a = profilenamespace getvariable ['GUI_BCG_RGB_A',0.7];//0.8
+private _JIG_DHcolor = if (_r isEqualTo 0.13 && {_g isEqualTo 0.54 && _b isEqualTo 0.21}) then {
 	//default color-red
 	[0.98, 0.06, 0.06, 0.65];
 } else {
