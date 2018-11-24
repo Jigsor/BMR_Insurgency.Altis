@@ -45,7 +45,7 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 	<br/>	by BTC Giallustio
 	<br/>fnc_ghst_build_positions and fnc_ghst_rand_position by Ghost
 	<br/>X_fnc_returnVehicleTurrets by Joris-Jan van 't Land
-	<br/>find_west_target_fnc based on example by Mattar_Tharkari in
+	<br/>find_west_target_fnc inspired/based on example by Mattar_Tharkari in
 	<br/>	BIS Community Forums
 	<br/>rej_fnc_bezier by Rejenorst
 	<br/>Boat push - v0.1  by BearBison
@@ -70,6 +70,7 @@ player createDiaryRecord ["Diary", ["Credits","
 	<br/>Mission Author - Jigsor =BMR=
 	<br/>
 	<br/>OPTRE Port by Costno.
+	<br/>WW2 Insurgency Green conversion by LT.DANG.
 	<br/>Many original functions and scripts by Jigsor =BMR=.
 	<br/>Several functions and scripts by BTC Giallustio and Ghost
 	<br/>were modified by Jigsor =BMR=.
@@ -94,7 +95,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/><font size='20'>SUPPORT</font>
 	<br/>
-	<br/>JTAC and Team leader CAS1 can call for Close Air Support. UAV Operators can call for air dropped UGV and launch parachute camera by firing a white flare from 203 grenade launcher. Engineer can build a FARP to repair, rearm and flip vehicles if he has a Bobcat or Repair Truck close by. Medics can build a small sandbag wall to provide cover. Team Leader CAS1 can call for squad heli evac. Sniper, Marksmen and Spotter classes can enable/disable bullet cam.
+	<br/>JTAC and Team leaders/Squad leaders can call for Close Air Support. UAV Operators can call for air dropped UGV and launch parachute camera by firing a white flare from 203 grenade launcher. Engineer can build a FARP to repair, rearm and flip vehicles if he has a Bobcat or Repair Truck close by. All players can use the actions on the FARP. Medics can build a small sandbag wall to provide cover. Sniper, Marksmen and Spotter classes can enable/disable bullet cam. CAS Operator/Team Leader (leader slot of the biggest group in lobby) can call for squad heli evac. The heli will not leave until all group members are aboard.
 	<br/>
 	<br/><font size='20'>VEHICLES</font>
 	<br/>
@@ -110,7 +111,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/>Blufor -- Can choose to respawn at BASE, MHQ_1, MHQ_2, or MHQ_3 if no one revives you. You may also choose teleport to MHQs or Halo from Flag Pole at base.
 	<br/>
-	<br/>Opfor -- Choose Base to respawn in vicinity of Blufor players who have activated zones. If no zones are activated you will spawn at MHQ if MHQ system is enabled else center of map or Choose Opfor_MHQ to spawn on your MHQ. If MHQ system enabled, teleport to MHQ from base flagpole is available.
+	<br/>Opfor -- Choose Base to respawn in vicinity of Blufor players If no Blufor are available to spawn near you will spawn at MHQ if MHQ system is enabled or Choose Opfor_MHQ to spawn on your MHQ. If MHQ system enabled, teleport to MHQ from base flagpole is available. There is a lift chopper available where your MHQ respawns.
 	<br/>
 	<br/>While waiting for a revive you can spectate and control camera with usual movement controls.
 	<br/>

@@ -1,6 +1,6 @@
 private ["_faction","_tempArray","_InfPool","_MotPool","_ACHPool","_CHPool","_uavPool","_stPool","_shipPool","_diverPool","_crewPool","_heliCrew","_ArmPool"];
-_faction=(_this select 0);
-_type=(_this select 1);
+_faction=(_this # 0);
+_type=(_this # 1);
 _tempArray=[];
 
 switch (_faction) do {

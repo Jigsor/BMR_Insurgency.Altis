@@ -28,7 +28,7 @@ _dst = 250;
 if (_this isEqualType grpNull) then { _grp = _this };
 if (_this isEqualType objNull) then { _grp = group _this };
 if (_this isEqualType [])then {
-	_grp = _this select 0;
+	_grp = _this # 0;
 	if (_grp isEqualType objNull) then {_grp = group _grp};
 	//if (count _this > 1) then {_marker = _this select 1};//original..wtf?
 	if (count _this > 1) then {private _mkr = _this select 1};//Jig

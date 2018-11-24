@@ -23,7 +23,7 @@ _indexof = {
 	private["_array", "_value", "_keycolumn", "_result", "_i"];
 	_array = _this select 0;
 	_value = _this select 1;
-	_keycolumn = [_this, 2, 1, [0]] call BIS_fnc_Param;
+	_keycolumn = _this param [2, 1, [0]];
 	_result = -1;
 	for[{_i = 0}, {(_i < (count _array)) && (_result == -1)}, {_i = _i + 1}] do {
 		if((_array select _i select _keycolumn) == _value) then{
@@ -102,7 +102,6 @@ _allVehicleClasses = (configFile >> "CfgVehicles") call BIS_fnc_getCfgSubClasses
 ASORVS_DB = [_cars, _tanks, _autonomous, _planes, _ships, _helicopters];
 
 /*
-
 diag_log "--------------------------------Cars" ;
 { diag_log format["%1",_x];
 } foreach _cars;
@@ -118,39 +117,8 @@ diag_log "--------------------------------Tanks" ;
 diag_log "--------------------------------Autonomous" ;
 { diag_log format["%1",_x];
 } foreach _autonomous;
-
 diag_log "--------------------------------Other Vehicles" ;
 { diag_log format["%1",_x];
 } foreach _othervehicles;
-diag_log "--------------------------------SUPPRESSORS" ;
-{ diag_log format["%1",_x];
-} foreach (ASORVS_DB select 6);
-diag_log "--------------------------------SCOPES" ;
-{ diag_log format["%1",_x];
-} foreach (ASORVS_DB select 7);
-diag_log "--------------------------------RAILS" ;
-{ diag_log format["%1",_x];
-} foreach (ASORVS_DB select 8);
-diag_log "--------------------------------HEADGEAR" ;
-{ diag_log format["%1",_x];
-} foreach (ASORVS_DB select 9);
-diag_log "--------------------------------UNIFORMS" ;
-{ diag_log format["%1",_x];
-} foreach (ASORVS_DB select 10);
-diag_log "--------------------------------VESTS" ;
-{ diag_log format["%1",_x];
-} foreach (ASORVS_DB select 11);
-diag_log "--------------------------------MAGAZINES" ;
-{ diag_log format["%1",_x];
-} foreach (ASORVS_DB select 12);
-diag_log "--------------------------------GRENADES" ;
-{ diag_log format["%1",_x];
-} foreach (ASORVS_DB select 13);
-diag_log "--------------------------------EXPLOSIVES" ;
-{ diag_log format["%1",_x];
-} foreach (ASORVS_DB select 14);
-diag_log "--------------------------------BACKPACKS" ;
-{ diag_log format["%1",_x];
-} foreach (ASORVS_DB select 15);
 */
 ASORDOLL_FinishedLoading = false;

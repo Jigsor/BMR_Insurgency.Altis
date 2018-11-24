@@ -5,13 +5,13 @@ if ((!isServer && hasInterface) || (HCPresent && isServer)) exitWith{};
 // SINGLE INFANTRY GROUP
 private ["_grp","_unit","_pool","_pos","_faction"];
 
-_pos=(_this select 0);
-_grpSize=(_this select 1);
-_faction=(_this select 2);
-_side=(_this select 3);
+_pos=(_this # 0);
+_grpSize=(_this # 1);
+_faction=(_this # 2);
+_side=(_this # 3);
 
-_grpMin=_grpSize select 0;
-_grpMax=_grpSize select 1;
+_grpMin=_grpSize # 0;
+_grpMax=_grpSize # 1;
 _d=_grpMax-_grpMin;
 _r=floor(random _d);
 //if (_r isEqualTo 0) then {_r=ceil(random _d);};//Aprox 12 to 22 percent increase to current lobby parameter probability?

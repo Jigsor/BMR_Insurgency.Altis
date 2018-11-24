@@ -6,42 +6,42 @@ private ["_HPpatrols","_HPgroupProbability","_CHgroupArray","_LVgroupArray","_HP
 
 RedHot = 0; //activated zones count
 
-_JIPmkr=(_this select 0);
+_JIPmkr=(_this # 0);
 
 {
 	if (getmarkerColor _x isEqualTo "ColorGreen") then {_JIPmkr =_JIPmkr - [_x];};
 } forEach _JIPmkr;
 if (_JIPmkr isEqualTo []) exitWith {};
 
-_HouseInfantry=(_this select 1);
-_HPpatrols=_HouseInfantry select 0;
-_HPgroupSize=_HouseInfantry select 1;
-_HPgroupProbability=if (count _HouseInfantry > 2) then {_HouseInfantry select 2} else {100};
+_HouseInfantry=(_this # 1);
+_HPpatrols=_HouseInfantry # 0;
+_HPgroupSize=_HouseInfantry # 1;
+_HPgroupProbability=if (count _HouseInfantry > 2) then {_HouseInfantry # 2} else {100};
 
-_infantry=(_this select 2);
-_PApatrols=_infantry select 0;
-_PAgroupSize=_infantry select 1;
-_PAgroupProbability=if (count _infantry > 2) then {_infantry select 2} else {100};
+_infantry=(_this # 2);
+_PApatrols=_infantry # 0;
+_PAgroupSize=_infantry # 1;
+_PAgroupProbability=if (count _infantry > 2) then {_infantry # 2} else {100};
 
-_LVeh=(_this select 3);
-_LVehGroups=_LVeh select 0;
-_LVgroupSize=_LVeh select 1;
-_LVgroupProbability=if (count _LVeh > 2) then {_LVeh select 2} else {100};
+_LVeh=(_this # 3);
+_LVehGroups=_LVeh # 0;
+_LVgroupSize=_LVeh # 1;
+_LVgroupProbability=if (count _LVeh > 2) then {_LVeh # 2} else {100};
 
-_AVgrp=(_this select 4);
-_AVehGroups=_AVgrp select 0;
-_AVgroupProbability=if (count _AVgrp > 1) then {_AVgrp select 1} else {100};
+_AVgrp=(_this # 4);
+_AVehGroups=_AVgrp # 0;
+_AVgroupProbability=if (count _AVgrp > 1) then {_AVgrp # 1} else {100};
 
-_SVgrp=(_this select 5);
-_SVehGroups=_SVgrp select 0;
-_SVgroupProbability=if (count _SVgrp > 1) then {_SVgrp select 1} else {100};
+_SVgrp=(_this # 5);
+_SVehGroups=_SVgrp # 0;
+_SVgroupProbability=if (count _SVgrp > 1) then {_SVgrp # 1} else {100};
 
-_CHGrp=(_this select 6);
-_CHGroups=_CHGrp select 0;
-_CHgroupSize=_CHGrp select 1;
-_CHgroupProbability=if (count _CHGrp > 2) then {_CHGrp select 2} else {100};
+_CHGrp=(_this # 6);
+_CHGroups=_CHGrp # 0;
+_CHgroupSize=_CHGrp # 1;
+_CHgroupProbability=if (count _CHGrp > 2) then {_CHGrp # 2} else {100};
 
-_settings=(_this select 7);
+_settings=(_this # 7);
 
 if (_HPgroupProbability > floor random 100) then {
 	if (_HPgroupSize==0) then {_HPgroupArray=[1,1]};

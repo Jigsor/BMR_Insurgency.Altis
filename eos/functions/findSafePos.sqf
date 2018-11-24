@@ -1,5 +1,5 @@
-_mrk=(_this select 0);
-_radveh	=(_this select 1);
+_mrk=(_this # 0);
+_radveh	=(_this # 1);
 
 _pos = [_mkr,true] call SHK_pos;
 

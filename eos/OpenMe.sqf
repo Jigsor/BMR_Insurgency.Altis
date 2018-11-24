@@ -16,10 +16,9 @@ EXAMPLE CALL - BASTION
  null=[["M1","M2","M3"],[PATROL GROUPS,SIZE OF GROUPS],[LIGHT VEHICLES,SIZE OF CARGO],[ARMOURED VEHICLES],[HELICOPTERS,SIZE OF HELICOPTER CARGO],[FACTION,MARKERTYPE,SIDE,HEIGHTLIMIT,DEBUG],[INITIAL PAUSE, NUMBER OF WAVES, DELAY BETWEEN WAVES, INTEGRATE EOS, SHOW HINTS]] call Bastion_Spawn;
 */
 
-private ["_side","_fac1","_fac2"];
-_side = _this select 0;
-_fac1 = _this select 1;//major
-_fac2 = _this select 2;//minor
+private _side = _this # 0;
+private _fac1 = _this # 1;//major
+private _fac2 = _this # 2;//minor
 
 EOS_Spawn = compile preprocessfilelinenumbers "eos\core\eos_launch.sqf";
 Bastion_Spawn=compile preprocessfilelinenumbers "eos\core\b_launch.sqf";
@@ -425,6 +424,9 @@ null=[["m801"],[2,2,InfPb],[0,0],[0,0],[0],[0],[0,0],[_fac1,0,AI_SpawnDis,_side,
 null=[["m802"],[2,1,InfPb],[2,1,InfPb],[0,0],[0],[0],[0,0],[_fac1,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
 null=[["m869"],[0,0],[2,2,InfPb],[0,0],[0],[0],[0,0],[_fac2,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
 null=[["m870"],[0,0],[2,2,InfPb],[0,0],[0],[0],[0,0],[_fac1,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
+null=[["m871"],[2,1,InfPb],[2,1,InfPb],[0,0],[0],[0],[0,0],[_fac1,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
+null=[["m872"],[2,1,InfPb],[2,1,InfPb],[0,0],[0],[0],[0,0],[_fac1,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
+null=[["m874"],[2,1,InfPb],[2,1,InfPb],[0,0],[0],[0],[0,0],[_fac2,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
 //Paired Infantry markers
 null=[["m14","m15"],[2,1,InfPb],[0,0],[0,0],[0],[0],[0,0],[_fac1,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
 null=[["m16","m17"],[1,1,InfPb],[2,1,InfPb],[0,0],[0],[0],[0,0],[_fac1,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
@@ -686,6 +688,7 @@ null=[["m851"],[0,0],[0,0],[0,0],[2,MecArmPb],[0],[0,0],[_fac1,0,AI_SpawnDis,_si
 null=[["m852"],[0,0],[0,0],[0,0],[2,MecArmPb],[0],[0,0],[_fac1,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
 null=[["m853"],[0,0],[0,0],[0,0],[2,MecArmPb],[0],[0,0],[_fac1,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
 null=[["m854"],[0,0],[0,0],[0,0],[2,MecArmPb],[0],[0,0],[_fac1,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
+null=[["m873"],[1,0,InfPb],[0,0],[0,0],[2,MecArmPb],[0],[0,0],[_fac1,0,AI_SpawnDis,_side,true]] call EOS_Spawn;
 // Patrol boats invisible markers
 null=[["m855"],[0,0],[0,0],[1,3],[0],[0],[0,0],[_fac1,1,AI_SpawnDis,_side,true]] call EOS_Spawn;
 null=[["m856"],[0,0],[0,0],[1,3],[0],[0],[0,0],[_fac1,1,AI_SpawnDis,_side,true]] call EOS_Spawn;

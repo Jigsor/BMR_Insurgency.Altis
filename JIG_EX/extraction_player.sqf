@@ -7,9 +7,9 @@
 
 private ["_target","_caller","_action","_recruitsArry","_pPos","_tempmkr1","_tempmkr2","_actual_ext_pos","_actual_drop_pos","_leaderPos","_outof_range_members","_orAI","_orP"];
 
-_target = _this select 0;  // Object that had the Action (also _target in the addAction command)
-_caller = _this select 1;  // Unit that used the Action (also _this in the addAction command)
-_action = _this select 2;  // ID of the Action
+_target = _this # 0;  // Object that had the Action (also _target in the addAction command)
+_caller = _this # 1;  // Unit that used the Action (also _this in the addAction command)
+_action = _this # 2;  // ID of the Action
 _recruitsArry = [];
 
 _target removeAction _action;
@@ -18,6 +18,7 @@ if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith
 if (_caller != (leader group _caller) || !("bis_dg_reg" in (allvariables group player))) exitWith {
 	hint localize "STR_BMR_group_leaders_only";
 	player sideChat localize "STR_BMR_group_leaders_only";
+	titleText ["You must create a new group!", "PLAIN DOWN", 0.3];
 	player addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>", "JIG_EX\extraction_player.sqf", JIG_EX_Caller removeAction jig_ex_actid_show, 1, false, true, "", "player ==_target"];
 };
 
@@ -118,7 +119,7 @@ _leaderPos = position player;
 	};
 } forEach (units ext_caller_group);
 
-if (count _outof_range_members > 0) then {
+if !(_outof_range_members isEqualTo []) then {
 	{
 		_orAI = _x;
 		if (!isPlayer _orAI && _orAI in _outof_range_members) then {
@@ -133,7 +134,7 @@ if (count _outof_range_members > 0) then {
 };
 
 {if (!isPlayer _x) then {_recruitsArry pushBack _x;};} forEach (units ext_caller_group);
-if (count _recruitsArry > 0) then {
+if !(_recruitsArry isEqualTo []) then {
 	0 spawn {
 		titleText ["Load recruits into chopper first. Do not use disembark orders after landing.", "PLAIN DOWN", 0.5];
 		sleep 7; titleText ["", "PLAIN DOWN", 0.1];
@@ -147,4 +148,4 @@ ex_group_ready = true;
 publicVariable "ex_group_ready";
 sleep 12;
 
-jig_ex_cancelid_show = _caller addAction [("<t color='#ED2744'>") + (localize "STR_BMR_heli_extraction_cancel") + "</t>", {(_this select 0)removeAction(_this select 2); call Cancel_Evac_fnc}, nil, -9, false];
+jig_ex_cancelid_show = _caller addAction [("<t color='#ED2744'>") + (localize "STR_BMR_heli_extraction_cancel") + "</t>", {(_this # 0)removeAction(_this # 2); call Cancel_Evac_fnc}, nil, -9, false];

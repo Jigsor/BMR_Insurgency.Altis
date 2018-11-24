@@ -261,6 +261,14 @@ private _anchorPos = getPosATL INS_E_tent;
 private _op4CrateComposition = [INS_Op4_wepCrates,_anchorPos] call BMRINS_fnc_objPositionsGrabber;
 missionNamespace setVariable ["op4CratesOrientation", _op4CrateComposition, true];
 
+//Work Around for inaccessible UAVS for players present at mission start (nonJIP)
+if (isDedicated) then {
+	0 spawn {
+		waitUntil {time > 1};
+		{{deletevehicle _x} count (allMissionObjects _x)} forEach INS_W_Serv_UAVs;//let them respawn
+	};
+};
+
 // Tasks //
 0 spawn {
 	waitUntil {!isNil "SHK_Taskmaster_Tasks" && time > 0};

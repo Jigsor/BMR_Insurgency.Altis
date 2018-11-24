@@ -1,6 +1,6 @@
-_target = _this select 0;
-_caller = _this select 1;
-_id = _this select 2;
+_target = _this # 0;
+_caller = _this # 1;
+_id = _this # 2;
 _ltcolor = (_this select 3) select 0;
 
 _caller removeAction _id;

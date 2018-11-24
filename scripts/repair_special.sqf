@@ -1,12 +1,15 @@
 /*
  Jigsor modified etent.sqf from A2 GITS Evolution by Eggbeast
- Special action for engineers to erect a farp. Engineer must have Repair truck or Bobcat with him.
- Adding array for support trucks in INS_definitions.sqf INS_W_PlayerEng
- jig_m_obj farp is placed in editor and moved to new farp location when built
+ Engineers  can deployed farp by scroll action. Engineer must have supported repair vehicle near.
+ Supported engineer player types in INS_definitions.sqf INS_W_PlayerEng.
+ Supported repair vehicle types in INS_W_repairTruck.
+ jig_m_obj farp is placed in editor and moved to new farp location when deployed/redeployed.
  The farp will fully repair, refuel, rearm and flip all salvageable vehicles.
+ Vehicle must be decrewed/empty for Maintenance action on on repair box to work.
+ Anyone can perform Maintenance action.
 */
 
-_player = _this select 1;
+_player = _this # 1;
 
 hint "";
 if (vehicle _player != player) exitWith {hint localize "STR_BMR_Farp_restrict"};
@@ -52,10 +55,13 @@ WaitUntil {animationState player != "AinvPknlMstpSnonWnonDnon_medicUp0"};
 epad = "Land_HelipadSquare_F" createVehicle (position player);
 
 _pos = position epad;
-_pos2 = [_pos select 0,(_pos select 1) - 18,_pos select 2];
+_pos2 = [_pos # 0,(_pos # 1) - 18,_pos # 2];
+
+if (!isNull attachedTo jig_m_obj) then {detach jig_m_obj; jig_m_obj setVelocity [0,0,0];};
+
 jig_m_obj setPos (position epad);
 jig_m_obj setVectorUp [0,0,1];
-_pos3 = [(_pos2 select 0)+3,(_pos2 select 1)+3,_pos2 select 2];
+_pos3 = [(_pos2 # 0)+3,(_pos2 # 1)+3,_pos2 # 2];
 
 _type = typeOf INS_sup_Nbox;
 ebox = _type createVehicle _pos3;// supply box

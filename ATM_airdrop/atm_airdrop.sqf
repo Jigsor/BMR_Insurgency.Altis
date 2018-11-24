@@ -65,9 +65,9 @@ IrOn = _target addAction["<t color='#FF00CC'>Strobe IR On</t>", "ATM_airdrop\atm
 _loadout=[_target] call ATM_Getloadout;
 
 _posJump = getMarkerPos "mkr_halo";
-_x = _posJump select 0;
-_y = _posJump select 1;
-_z = _posJump select 2;
+_x = _posJump # 0;
+_y = _posJump # 1;
+_z = _posJump # 2;
 _target setPos [_x,_y,_z+Altitude];
 
 openMap false;
@@ -90,9 +90,9 @@ Cut_Rope = (FindDisplay 46) displayAddEventHandler ["KeyDown","_this call dokeyD
 
 while {(getPos _target select 2) > 2} do {
 	if !(isTouchingGround _target and isNull objectParent player) then {
-		playSound "Vent";
+		if(floor random 3 isEqualTo 0) then {playSound "Vent"};
 		sleep (1 + random 0.3);
-		playSound "Vent2";
+		if(floor random 3 isEqualTo 0) then {playSound "Vent2"};
 	};
 	if !(INS_ACE_para) then {//Jig adding
 		if (getPos _target select 2 < 160) then {
@@ -100,7 +100,7 @@ while {(getPos _target select 2) > 2} do {
 		};
 	};
 	if(!alive _target) then {
-		_target setPos [getPos _target select 0, getPos _target select 1, 0];
+		_target setPos [getPos _target # 0, getPos _target # 1, 0];
 		0=[_target,_loadout] call ATM_Setloadout;
 	};
 };

@@ -61,7 +61,7 @@ disableSerialization;
 	SHOWSHRUNK_MULTICOMBO_IF(FIRSTIDC, SHOWCONDITION, COMBOCOUNT) \
 	if(SHOWCONDITION) then { ENDSHRUNK_CATEGORY };
 
-private ["_y", "_showPrimaryWeapon", "_showPrimaryAddons", "_showLauncher", "_showLauncherAddons", "_showHandgun", "_showHandgunAddons", "_showExtraAttachments", "_showExtraAmmo", "_showGrenades"];
+private "_y";
 
 _lineCount = 1;
 _categoryCount = 0;

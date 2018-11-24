@@ -40,7 +40,6 @@ BTC_assign_actions = {
 	player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Drag") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_drag], 8, true, true, "", "[] call BTC_check_action_drag"];
 	player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Pull_out_injured") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_pull_out], 8, true, true, "", "[] call BTC_pull_out_check"];
 	player addAction [("<t color='#ED2744'>") + (localize "STR_BTC_Carry") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_carry], 8, true, true, "", "[] call BTC_check_action_drag"];
-	//player addAction [("<t color='#ED2744'>") + "Extinguish Fire" + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],JIG_Extinguish], 8, true, true, "", "[] call JIG_check_action_fire"];
 };
 /*
 BTC_r_debug = {
@@ -510,14 +509,14 @@ BTC_check_action_drag = {
 	_cond
 };
 BTC_is_class_can_revive = {
-	_unit    = _this select 0;
+	_unit    = _this # 0;
 	_cond = false;
 	{if (_unit isKindOf _x) then {_cond = true};} foreach BTC_who_can_revive;
 	_cond
 };
 BTC_can_revive = {
-	_unit    = _this select 0;
-	_injured = _this select 1;
+	_unit    = _this # 0;
+	_injured = _this # 1;
 	_array_item_unit    = items _unit;
 	_array_item_injured = items _injured;
 	_cond = false;
@@ -875,18 +874,18 @@ BTC_r_s_change_view = {
 BTC_r_s_keydown = {
 	private ["_key","_dir","_view","_value"];
 	if (count _this > 1) then {
-		_key = _this select 1;
-		_alt = _this select 4;
+		_key = _this # 1;
+		_alt = _this # 4;
 		_view = BTC_r_s_cam_view;
 		_value = if (_alt) then {10} else {1};
 		//player globalchat format ["%1 - %2",_key,_this];
 		switch (true) do {
-			case (_key isEqualTo 30 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view select 0) - _value,(_view select 1),(_view select 2)];};//A
-			case (_key isEqualTo 32 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view select 0) + _value,(_view select 1),(_view select 2)];};//D
-			case (_key isEqualTo 31 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view select 0),(_view select 1) - _value,(_view select 2)];};
-			case (_key isEqualTo 17 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view select 0),(_view select 1) + _value,(_view select 2)];};
-			case (_key isEqualTo 44 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view select 0),(_view select 1),(_view select 2) - _value];};
-			case (_key isEqualTo 16 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view select 0),(_view select 1),(_view select 2) + _value];};
+			case (_key isEqualTo 30 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view # 0) - _value,(_view # 1),(_view # 2)];};//A
+			case (_key isEqualTo 32 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view # 0) + _value,(_view # 1),(_view # 2)];};//D
+			case (_key isEqualTo 31 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view # 0),(_view # 1) - _value,(_view # 2)];};
+			case (_key isEqualTo 17 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view # 0),(_view # 1) + _value,(_view # 2)];};
+			case (_key isEqualTo 44 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view # 0),(_view # 1),(_view # 2) - _value];};
+			case (_key isEqualTo 16 && (lbText [121,lbCurSel 121] == "Free")) : {BTC_r_s_cam_view = [(_view # 0),(_view # 1),(_view # 2) + _value];};
 			case (_key isEqualTo 49) : {if (BTC_r_camera_nvg) then {BTC_r_camera_nvg = false;} else {BTC_r_camera_nvg = true;};};
 		};
 	};
@@ -928,18 +927,5 @@ BTC_r_spectator = {
 		BTC_r_s_camera camCommit 0;
 		if (BTC_r_camera_nvg) then {camusenvg true;} else {camusenvg false;};
 		//sleep 0.5;
-	};
-};
-JIG_check_action_fire = {
-	_cond = false;
-	_fire = nearestObjects [player, ["test_EmptyObjectForFireBig"], 5];
-	if !(_fire isEqualTo []) then {_cond = true};
-	_cond
-};
-JIG_Extinguish = {
-	player playMove "AinvPknlMstpSlayWrflDnon_medic";
-	_fire = nearestObjects [player, ["test_EmptyObjectForFireBig"], 5];
-	if !(_fire isEqualTo []) then {
-		deleteVehicle (_fire select 0);	
 	};
 };

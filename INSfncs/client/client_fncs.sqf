@@ -803,12 +803,13 @@ INS_aiHalo = {
 };
 mhq_actions2_fnc = {
 	// Add action for VA and quick VA profile to respawned MHQs by Jigsor.
-	params ["_var","_op4"];
+	params ["_var"];
+	private _op4 = missionNamespace getVariable ["INS_usesOP4mhq", true];
 	switch (_var) do {
 		case "MHQ_1" : {
 			if (!_op4) then {
 				if (INS_VA_type in [0,3]) then {
-					MHQ_1 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this # 1)]];
+					MHQ_1 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ1", [(_this # 1)],1,true,true,"","true",12];
 					MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
 				};
 				if (INS_VA_type in [1,2]) then {
@@ -819,7 +820,7 @@ mhq_actions2_fnc = {
 		case "MHQ_2" : {
 			if (!_op4) then {
 				if (INS_VA_type in [0,3]) then {
-					MHQ_2 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ2", [(_this # 1)]];
+					MHQ_2 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ2", [(_this # 1)],1,true,true,"","true",12];
 					MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
 				};
 				if (INS_VA_type in [1,2]) then {
@@ -830,7 +831,7 @@ mhq_actions2_fnc = {
 		case "MHQ_3" : {
 			if (!_op4) then {
 				if (INS_VA_type in [0,3]) then {
-					MHQ_3 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ3", [(_this # 1)]];
+					MHQ_3 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>", "call JIG_load_VA_profile_MHQ3", [(_this # 1)],1,true,true,"","true",12];
 					MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
 				};
 				if (INS_VA_type in [1,2]) then {
@@ -849,9 +850,10 @@ mhq_actions2_fnc = {
 };
 INS_MHQ_mkr = {
 	// Tracking MHQ marker by Jigsor.
-	params [["_mhq",ObjNull,[ObjNull]], ["_op4",false], ["_mhqPos",[0,0,0],[[]]]];
+	params [["_mhq",ObjNull,[ObjNull]], ["_mhqPos",[0,0,0],[[]]]];
 	if (isNull _mhq) exitWith {};
 
+	private _op4 = missionNamespace getVariable ["INS_usesOP4mhq", true];
 	private _exit = false;
 	private ["_mkrName","_color"];
 
@@ -882,6 +884,20 @@ INS_MHQ_mkr = {
 		UIsleep 1;
 	};
 	if (!alive _mhq) exitWith {deleteMarkerLocal _mkrName; hintSilent format ["%1 has been destroyed!", _mkrName]};
+};
+INS_MHQ_client = {
+	_INS_MHQ_killed = INS_MHQ_killed;
+	_INS_MHQ_killed spawn {
+		private ["_qued_MHQ_killed","_mhqPos","_mhqAcc","_mhqObj"];
+		_qued_MHQ_killed = _this;
+		sleep 6;
+		_mhqAcc = [_qued_MHQ_killed] call mhq_actions2_fnc;
+		_mhqObj = objNull;
+		_mhqObj = [_qued_MHQ_killed] call mhq_obj_fnc;
+		_mhqPos = getPosASL _mhqObj;
+		_nul = [_mhqObj,_mhqPos] spawn INS_MHQ_mkr;
+	};
+	true
 };
 GAS_smokeNear = {
 	//Are we near a smoke shell. Are we not wearing a gas mask. code by Larrow modified by Jigsor

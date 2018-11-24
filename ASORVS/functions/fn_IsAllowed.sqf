@@ -1,7 +1,7 @@
 private["_class", "_RTBlacklist", "_RTWhitelist", "_result", "_useFullLists"];
-_class = [_this, 0, "", [""]] call BIS_fnc_Param;
-if(_class == "") exitWith {false;};
-_useFullLists = [_this, 1, false, [true]] call BIS_fnc_Param;
+_class = _this param [0, "", [""]];
+if(_class isEqualTo "") exitWith {false;};
+_useFullLists = _this param [1, false, [true]];
 //if runtime black/whitelists haven't been defined, then must be preinit so use normal black/whitelist.
 _RTBlacklist = if(isNil 'ASORVS_RuntimeBlacklist') then { [] } else { ASORVS_RuntimeBlacklist };
 _RTWhitelist = if(isNil 'ASORVS_RuntimeWhitelist') then { [] } else { ASORVS_RuntimeWhitelist };

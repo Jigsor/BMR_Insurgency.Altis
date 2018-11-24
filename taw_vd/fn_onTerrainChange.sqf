@@ -4,8 +4,7 @@
 	Description:
 	Updates the players terraingrid when called.
 */
-private["_type"];
-_type = [_this,0,"",[""]] call BIS_fnc_param;
+private _type = _this param [0,"",[""]];
 if(_type isEqualTo "") exitWith {};
 
 switch (_type) do {

@@ -164,7 +164,7 @@ if (DebugEnabled > 0) then {
 				if (_allowed in StackedEHkeysWhiteList) then {
 					_data deleteAt count _data -1;
 				}else{
-					_itemId = [_x, 0, "", [""]] call BIS_fnc_param;
+					_itemId = _x param [0, "", [""]];
 					[_itemId,_event] call bis_fnc_removeStackedEventHandler;
 				};
 			} foreach _data;
@@ -175,7 +175,7 @@ if (DebugEnabled > 0) then {
 		sleep 5;
 		waitUntil {!isNull (findDisplay 46)};
 		(findDisplay 46) displayAddEventHandler ["KeyDown", "_this call Jig_fnc_keyHandler"];
-		(findDisplay 46) displayAddEventHandler ["KeyDown", {if ((_this select 1) in ((actionKeys 'User3') + [0x3d])) then {call INS_planeReverse_key_F3;};}];
+		(findDisplay 46) displayAddEventHandler ["KeyDown", {if ((_this # 1) in ((actionKeys 'User3') + [0x3d])) then {call INS_planeReverse_key_F3;};}];
 		if (limitPOV isEqualTo 1 && {(difficultyOption "thirdPersonView") isEqualTo 1}) then {
 			player switchCamera "INTERNAL";
 			JIG_3rdPersonVeh = (findDisplay 46) displayAddEventHandler["KeyDown", {
@@ -198,7 +198,7 @@ if (DebugEnabled > 0) then {
 	if (INS_full_loadout isEqualTo 0) then {
 		player removealleventhandlers "Reloaded";
 		player addEventHandler ["Reloaded", {_null = call INS_Depleated_Loadout}];
-		player addEventHandler ["Killed", {(_this select 0) removealleventhandlers "Reloaded"; _this spawn killedInfo_fnc}];
+		player addEventHandler ["Killed", {(_this # 0) removealleventhandlers "Reloaded"; _this spawn killedInfo_fnc}];
 		player addEventHandler ["Respawn", {params ["_unit","_corpse"]; _unit spawn INS_RestoreLoadout; _unit addEventHandler ["Reloaded", {_null = call INS_Depleated_Loadout}]; 0 spawn JIG_p_actions_resp; _unit spawn INS_UI_pref; if (INS_p_rev in [6,7]) then {deletevehicle _corpse}}];
 	}else{
 		player addEventHandler ["Killed", {_this spawn killedInfo_fnc}];
@@ -209,8 +209,8 @@ if (DebugEnabled > 0) then {
 
 	if (INS_GasGrenadeMod isEqualTo 1) then {
 		player addEventHandler ["Fired", {
-			if ((_this select 4) in INS_Gas_Grenades) then {
-				(_this select 6) spawn {
+			if ((_this # 4) in INS_Gas_Grenades) then {
+				(_this # 6) spawn {
 					waitUntil {vectorMagnitudeSqr velocity _this <= 0.5};
 					private _grenadePos = getPos _this;
 					sleep 0.2;
@@ -228,11 +228,11 @@ if (DebugEnabled > 0) then {
 	};
 
 	if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
-		player addEventHandler ["Killed",{_this spawn {sleep 3; deletevehicle (_this select 0)}}];
+		player addEventHandler ["Killed",{_this spawn {sleep 3; deletevehicle (_this # 0)}}];
 		player addEventHandler ["Respawn", {
-			[(_this select 0)] spawn {
+			[(_this # 0)] spawn {
 				waitUntil {sleep 1; alive (_this select 0)};
-				if (captive (_this select 0)) then {(_this select 0) setCaptive false};
+				if (captive (_this # 0)) then {(_this # 0) setCaptive false};
 			};
 		}];
 	}else{
@@ -270,13 +270,13 @@ if (DebugEnabled > 0) then {
 	// Broken door on buildings fix for Terrains like Kunduz until terrain updated. inGameUISetEventHandler is not stackable and will over ride DLC Vehicle Restriction Bypass if enabled
 	/*
 	inGameUISetEventHandler ["action","
-		if (_this select 4 == 'Close Door') then {
+		if (_this # 4 == 'Close Door') then {
 			_intersects = [cursorTarget, 'VIEW'] intersect [ASLToATL eyepos player, (screentoworld [0.5,0.5])];
 			{_intersects pushBack _x} forEach  ([cursorTarget, 'GEOM'] intersect [ASLToATL eyepos player, (screentoworld [0.5,0.5])]);
 			_select_door = format ['%1_rot', (_intersects select 0) select 0];
 			cursorObject animate [_select_door, 0];true
 		};
-		if (_this select 4 == 'Open Door') then {
+		if (_this # 4 == 'Open Door') then {
 			_intersects = [cursorTarget, 'VIEW'] intersect [ASLToATL eyepos player, (screentoworld [0.5,0.5])];
 			{_intersects pushBack _x} forEach  ([cursorTarget, 'GEOM'] intersect [ASLToATL eyepos player, (screentoworld [0.5,0.5])]);
 			_select_door = format ['%1_rot', (_intersects select 0) select 0];
@@ -348,11 +348,11 @@ if (DebugEnabled > 0) then {
 				waitUntil { scriptDone loadout_handler };
 				loadout = getUnitLoadout player;
 				if (JIG_MHQ_enabled) then {
-					private ["_op4","_mhqObj","_mhqPos"];
-					_op4 = true;
+					private ["_mhqObj","_mhqPos"];
+					missionNamespace setVariable ["INS_usesOP4mhq", true];
 					_mhqObj = objNull;
 					_mhqObj = ["Opfor_MHQ"] call mhq_obj_fnc;
-					_mhqPos = getPos Opfor_MHQ; _nul = [_mhqObj,_op4,_mhqPos] spawn INS_MHQ_mkr;
+					_mhqPos = getPos Opfor_MHQ; _nul = [_mhqObj,_mhqPos] spawn INS_MHQ_mkr;
 					INS_Op4_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to Opfor_MHQ</t>", "call JIG_transfer_fnc", ["Opfor_MHQ"], 1];
 				};
 				if (!isNil "MHQ_1") then {removeAllActions MHQ_1};
@@ -370,16 +370,16 @@ if (DebugEnabled > 0) then {
 				loadout = getUnitLoadout player;
 				if (JIG_MHQ_enabled) then {
 					private ["_op4","_mhqPos","_mhqObj1","_mhqObj2","_mhqObj3"];
-					_op4 = false;
+					missionNamespace setVariable ["INS_usesOP4mhq", false];
 					_mhqObj1 = objNull;
 					_mhqObj2 = objNull;
 					_mhqObj3 = objNull;
 					_mhqObj1 = ["MHQ_1"] call mhq_obj_fnc;
-					_mhqPos = getPos MHQ_1; _nul = [_mhqObj1,_op4,_mhqPos] spawn INS_MHQ_mkr;
+					_mhqPos = getPos MHQ_1; _nul = [_mhqObj1,_mhqPos] spawn INS_MHQ_mkr;
 					_mhqObj2 = ["MHQ_2"] call mhq_obj_fnc;
-					_mhqPos = getPos MHQ_2; _nul = [_mhqObj2,_op4,_mhqPos] spawn INS_MHQ_mkr;
+					_mhqPos = getPos MHQ_2; _nul = [_mhqObj2,_mhqPos] spawn INS_MHQ_mkr;
 					_mhqObj3 = ["MHQ_3"] call mhq_obj_fnc;
-					_mhqPos = getPos MHQ_3; _nul = [_mhqObj3,_op4,_mhqPos] spawn INS_MHQ_mkr;
+					_mhqPos = getPos MHQ_3; _nul = [_mhqObj3,_mhqPos] spawn INS_MHQ_mkr;
 					INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_1</t>", "call JIG_transfer_fnc", ["MHQ_1"], 4.2];
 					INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_2</t>", "call JIG_transfer_fnc", ["MHQ_2"], 4.1];
 					INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_3</t>", "call JIG_transfer_fnc", ["MHQ_3"], 4];
@@ -401,10 +401,10 @@ if (DebugEnabled > 0) then {
 				loadout = getUnitLoadout player;
 				if (JIG_MHQ_enabled) then {
 					private ["_op4","_mhqObj","_mhqPos"];
-					_op4 = true;
+					missionNamespace setVariable ["INS_usesOP4mhq", true];
 					_mhqObj = objNull;
 					_mhqObj = ["Opfor_MHQ"] call mhq_obj_fnc;
-					_mhqPos = getPos Opfor_MHQ; _nul = [_mhqObj,_op4,_mhqPos] spawn INS_MHQ_mkr;
+					_mhqPos = getPos Opfor_MHQ; _nul = [_mhqObj,_mhqPos] spawn INS_MHQ_mkr;
 					INS_Op4_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to Opfor_MHQ</t>", "call JIG_transfer_fnc", ["Opfor_MHQ"], 1];
 				};
 			};
@@ -413,16 +413,16 @@ if (DebugEnabled > 0) then {
 			0 spawn {loadout = getUnitLoadout player};
 			if (JIG_MHQ_enabled) then {
 				private ["_op4","_mhqPos","_mhqObj1","_mhqObj2","_mhqObj3"];
-				_op4 = false;
+				missionNamespace setVariable ["INS_usesOP4mhq", false];
 				_mhqObj1 = objNull;
 				_mhqObj2 = objNull;
 				_mhqObj3 = objNull;
 				_mhqObj1 = ["MHQ_1"] call mhq_obj_fnc;
-				_mhqPos = getPos MHQ_1; _nul = [_mhqObj1,_op4,_mhqPos] spawn INS_MHQ_mkr;
+				_mhqPos = getPos MHQ_1; _nul = [_mhqObj1,_mhqPos] spawn INS_MHQ_mkr;
 				_mhqObj2 = ["MHQ_2"] call mhq_obj_fnc;
-				_mhqPos = getPos MHQ_2; _nul = [_mhqObj2,_op4,_mhqPos] spawn INS_MHQ_mkr;
+				_mhqPos = getPos MHQ_2; _nul = [_mhqObj2,_mhqPos] spawn INS_MHQ_mkr;
 				_mhqObj3 = ["MHQ_3"] call mhq_obj_fnc;
-				_mhqPos = getPos MHQ_3; _nul = [_mhqObj3,_op4,_mhqPos] spawn INS_MHQ_mkr;
+				_mhqPos = getPos MHQ_3; _nul = [_mhqObj3,_mhqPos] spawn INS_MHQ_mkr;
 				INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_1</t>", "call JIG_transfer_fnc", ["MHQ_1"], 4.2];
 				INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_2</t>", "call JIG_transfer_fnc", ["MHQ_2"], 4.1];
 				INS_flag addAction["<t size='1.5' shadow='2' color='#ED2744'>Transfer to MHQ_3</t>", "call JIG_transfer_fnc", ["MHQ_3"], 4];
@@ -506,23 +506,28 @@ if (DebugEnabled > 0) then {
 			waitUntil{!isNull player};
 
 			private _op4 = if (side player == east) then {TRUE}else{FALSE};
+			missionNamespace setVariable ["INS_usesOP4mhq", _op4];
 
-			"INS_MHQ_killed" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
-
-			while {true} do	{
-				if (INS_MHQ_killed isEqualTo "") then {
-					sleep 5;
-				}
-				else
-				{
-					sleep 5;
-					private ["_mhqPos","_mhqAcc","_mhqObj"];
-					_mhqAcc = [INS_MHQ_killed,_op4] call mhq_actions2_fnc;
-					_mhqObj = objNull;
-					_mhqObj = [INS_MHQ_killed] call mhq_obj_fnc;
-					_mhqPos = getPosASL _mhqObj;
-					_nul = [_mhqObj,_op4,_mhqPos] spawn INS_MHQ_mkr;
-					INS_MHQ_killed = "";
+			if (!isServer) then {
+				"INS_MHQ_killed" addPublicVariableEventHandler {
+					call compile format ["%1",_this select 1];
+					call INS_MHQ_client;
+				};
+			} else {
+				"INS_MHQ_killed" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
+				while {true} do	{
+					if (INS_MHQ_killed isEqualTo "") then {
+						sleep 5;
+					} else {
+						sleep 5;
+						private ["_mhqPos","_mhqAcc","_mhqObj"];
+						_mhqAcc = [INS_MHQ_killed] call mhq_actions2_fnc;
+						_mhqObj = objNull;
+						_mhqObj = [INS_MHQ_killed] call mhq_obj_fnc;
+						_mhqPos = getPosASL _mhqObj;
+						_nul = [_mhqObj,_mhqPos] spawn INS_MHQ_mkr;
+						INS_MHQ_killed = "";
+					};
 				};
 			};
 		};

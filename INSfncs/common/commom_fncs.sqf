@@ -100,7 +100,7 @@ mhq_actions_fnc = {
 	switch (true) do {
 		case (_var isEqualTo "MHQ_1"): {
 			if (INS_VA_type in [0,3]) then {
-				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ1], 1, true, true, "", "true", 12];
+				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ1],1,true,true,"","true",12];
 				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
 			};
 			if (INS_VA_type in [1,2]) then {
@@ -109,7 +109,7 @@ mhq_actions_fnc = {
 		};
 		case (_var isEqualTo "MHQ_2"): {
 			if (INS_VA_type in [0,3]) then {
-				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ2], 1, true, true, "", "true", 12];
+				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ2],1,true,true,"","true",12];
 				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
 			};
 			if (INS_VA_type in [1,2]) then {
@@ -118,7 +118,7 @@ mhq_actions_fnc = {
 		};
 		case (_var isEqualTo "MHQ_3"): {
 			if (INS_VA_type in [0,3]) then {
-				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ3], 1, true, true, "", "true", 12];
+				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ3],1,true,true,"","true",12];
 				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
 			};
 			if (INS_VA_type in [1,2]) then {
@@ -330,7 +330,7 @@ INS_fog_effect = {
 mhq_obj_fnc = {
 	// returns MHQ vehicleVarname object
 	private ["_var","_obj"];
-	_var = _this select 0;
+	_var = _this # 0;
 	_obj = objNull;
 	switch (true) do {
 		case (_var isEqualTo "MHQ_1") : {_obj = MHQ_1; if (vehicleVarname MHQ_1 isEqualTo "") then {MHQ_1 setVehicleVarname "MHQ_1"; MHQ_1 = _obj}};
@@ -344,19 +344,20 @@ mhq_obj_fnc = {
 };
 INS_Zeus_MP = {
 	// Admin can toggle Zeus on or off in breifing admin panel.
-	private ["_unit", "_announce"];
-	_unit = [_this,0,objNull] call bis_fnc_param;
-	_announce = [_this,1,false] call bis_fnc_param;
+	private _unit = _this param [0,objNull,[objNull]];
+	private _announce = _this param [1,false,[true]];
+	if(isNull _unit) exitWith {};
 	[[_unit,_announce],"INS_toggle_Zeus",false] spawn BIS_fnc_MP;
 };
 INS_toggle_Zeus = {
 	if (IamHC) exitWith {};
-	private ["_unit","_announce","_addons","_curator","_curatorCreate","_text"];
 
-	_unit = [_this,0,objNull] call bis_fnc_param;
-	_announce = [_this,1,false] call bis_fnc_param;
-	_addons = [""];
+	private _unit = _this param [0,objNull,[objNull]];
+	private _announce = _this param [1,false,[true]];
+	if(isNull _unit) exitWith {};
+	private _addons = [""];
 
+	private ["_curator","_curatorCreate","_text"];
 	if (!isNull (getAssignedCuratorLogic _unit)) exitWith {
 		_curator = getAssignedCuratorLogic _unit;
 		unassignCurator _curator;
@@ -833,7 +834,7 @@ Manual_ProgressionClearnEnd = {
 KilledVehRewardMP = {
 	params [["_veh",objNull]];
 	if (!isNull _veh) then {
-		_veh addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
+		_veh addeventhandler ["killed","[(_this # 0)] spawn remove_carcass_fnc"];
 	};
 };
 switchMoveEverywhere = compileFinal " _this select 0 switchMove (_this select 1); ";
