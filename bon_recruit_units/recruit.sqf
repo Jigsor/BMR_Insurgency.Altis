@@ -27,7 +27,7 @@ if(_queuecount > 0) then {
 };
 bon_recruit_queue pushBack _queuepos;
 
-[] call _update_queue;
+call _update_queue;
 
 WaitUntil{_queuepos == bon_recruit_queue select 0};
 sleep (1.5 * (_queuepos min 1));
@@ -42,4 +42,4 @@ _unit setRank "PRIVATE";
 hint parseText format["Your <t size='1.0' font='PuristaMedium' color='#008aff'>%1</t> %2 has arrived.",_typename,name _unit];
 bon_recruit_queue = bon_recruit_queue - [_queuepos];
 
-[] call _update_queue;
+call _update_queue;

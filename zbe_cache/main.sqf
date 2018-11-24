@@ -17,30 +17,26 @@ call compileFinal preprocessFileLineNumbers "zbe_cache\zbe_functions.sqf";
 
 if (zbe_minFrameRate == -1) then {if (isDedicated) then {zbe_minFrameRate = 16} else {zbe_minFrameRate = 31};};
 
-zbe_mapsize = [] call bis_fnc_mapSize;
-zbe_mapside = zbe_mapsize / 2;
+zbe_mapside = worldSize / 2;
 zbe_centerPOS = [zbe_mapside, zbe_mapside, 0];
 
-[] spawn {
+0 spawn {
 	while {true} do {
 		sleep 15;
 		zbe_players = (switchableUnits + playableUnits);
 		{
-			_disable = _x getVariable "zbe_cacheDisabled";
-			_disable = if (isNil "_disable") then {
-				false;
-			} else {
-				_disable;
-			};
+			//_disable = _x getVariable ["zbe_cacheDisabled", false];
+			_disable = _x getVariable ["zbe_cacheDisabled", true];
+
 			if (!_disable && !(_x in zbe_cachedGroups)) then {
-				zbe_cachedGroups = zbe_cachedGroups + [_x];
+				zbe_cachedGroups pushback _x;
 				[zbe_aiCacheDist, _x, zbe_minFrameRate, zbe_debug] execFSM "zbe_cache\zbe_aiCaching.fsm";
 			};
 		} forEach allGroups;
 	};
 };
 // Vehicle Caching Beta (for client FPS)
-[] spawn {
+0 spawn {
 	private ["_assetscar", "_assetsair", "_assetsboat"];
 	zbe_cached_cars = [];
 	zbe_cached_air = [];
@@ -49,22 +45,22 @@ zbe_centerPOS = [zbe_mapside, zbe_mapside, 0];
 		_assetscar = zbe_centerPOS nearEntities ["LandVehicle", zbe_mapside];
 		{
 			if !(_x in zbe_cached_cars) then {
-				zbe_cached_cars = zbe_cached_cars + [_x];
-					[_x, zbe_vehicleCacheDistCar] execFSM "zbe_cache\zbe_vehicleCaching.fsm";
+				zbe_cached_cars pushBack _x;
+				[_x, zbe_vehicleCacheDistCar] execFSM "zbe_cache\zbe_vehicleCaching.fsm";
 			};
 		} forEach _assetscar;
 		_assetsair = zbe_centerPOS nearEntities ["Air", zbe_mapside];
 		{
 			if !(_x in zbe_cached_air) then {
-				zbe_cached_air = zbe_cached_air + [_x];
-				    [_x, zbe_vehicleCacheDistAir] execFSM "zbe_cache\zbe_vehicleCaching.fsm";
+				zbe_cached_air pushBack _x;
+				[_x, zbe_vehicleCacheDistAir] execFSM "zbe_cache\zbe_vehicleCaching.fsm";
 			};
 		} forEach _assetsair;
 		_assetsboat = zbe_centerPOS nearEntities ["Ship", zbe_mapside];
 		{
 			if !(_x in zbe_cached_boat) then {
-				zbe_cached_boat = zbe_cached_boat + [_x];
-					[_x, zbe_vehicleCacheDistBoat] execFSM "zbe_cache\zbe_vehicleCaching.fsm";
+				zbe_cached_boat pushBack _x;
+				[_x, zbe_vehicleCacheDistBoat] execFSM "zbe_cache\zbe_vehicleCaching.fsm";
 			};
 		} forEach _assetsboat;
 
@@ -88,7 +84,7 @@ zbe_centerPOS = [zbe_mapside, zbe_mapside, 0];
 	};
 };
 
-[] spawn {
+0 spawn {
 	if (zbe_debug) then {
 		while {true} do {
 			uiSleep 15;

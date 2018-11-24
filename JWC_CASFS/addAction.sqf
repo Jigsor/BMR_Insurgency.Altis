@@ -1,7 +1,4 @@
-_object = _this select 0;
-_maxDist = _this select 1;
-_lock = _this select 2;
-_num = _this select 3;
+params ["_object","_maxDist","_lock","_num"];
 
 _str = format[("<t color='#FF9000'>") + (localize "STR_JWC_CAS_field_system") + "</t>"];
 

@@ -10,8 +10,7 @@ BTC_tk_blackscreen_punishment = 1;
 //BTC_tk_last_warning = 3;//variable moved to INS_definitions.sqf
 
 BTC_fnc_tk_PVEH = {
-	//0 - first aid - create // [0,east,pos]
-	//1 - first aid - delete
+	if (!isJIP && {time < 1}) exitWith {};	
 	_array = _this select 1;
 	_name  = _array select 0;
 	_punisher = _array select 1;
@@ -85,7 +84,8 @@ BTC_Teamkill = {
 	};
 };
 if (hasInterface) then {
-	[] spawn {
+	0 spawn {
+		if (!isJIP && {isNil "BTC_tk_PVEH"}) then {BTC_tk_PVEH = []};
 		waitUntil {!isNull player && player == player};
 		player addEventHandler ["Killed", BTC_EH_killed];
 		"BTC_tk_PVEH" addPublicVariableEventHandler BTC_fnc_tk_PVEH;

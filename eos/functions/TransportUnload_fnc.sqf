@@ -1,12 +1,12 @@
-private ["_pad","_getToMarker","_cargoGrp","_vehicle"];
-_mkr=(_this select 0);
-_veh=(_this select 1);
-_counter=(_this select 2);
+private ["_pad","_cargoGrp","_vehicle"];
+_mkr=(_this # 0);
+_veh=(_this # 1);
+_counter=(_this # 2);
 
 _debug=false;
-_vehicle = _veh select 0;
-_grp = _veh select 2;
-_cargoGrp= _veh select 3;
+_vehicle = _veh # 0;
+_grp = _veh # 2;
+_cargoGrp= _veh # 3;
 _pos = [_mkr,false] call SHK_pos;
 _pad = createVehicle ["Land_HelipadEmpty_F", _pos, [], 0, "NONE"];
 if (_debug) then {0= [_mkr,_counter,"Unload Pad",(getpos _pad)] call EOS_debug};

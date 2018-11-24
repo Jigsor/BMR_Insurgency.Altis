@@ -5,5 +5,6 @@ class Jig
 	{
 		file = "INSui";
 		class keyHandler {};
+		class DigiHeading {};
 	};
 };

@@ -4,7 +4,7 @@ _orthogonalDist = 5;
 _road = _roads select(floor random(_roadCount));
 _dir = 0;
 if(count (roadsConnectedTo _road) > 0) then {
-	_dir = [_road, (roadsConnectedTo _road) select 0] call BIS_fnc_DirTo;
+	_dir = _road getDir ((roadsConnectedTo _road) select 0);
 };
 _position = getpos _road;
 _opositionX = _position select 0;

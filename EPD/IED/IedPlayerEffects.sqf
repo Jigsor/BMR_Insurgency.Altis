@@ -8,7 +8,7 @@ if(alive player) then {
 		playSound3d["A3\Missions_F_EPA\data\sounds\combat_deafness.wss", player, false, getpos player, _volume];
 	};
 	if(_distance < 40) then {
-		[] spawn {
+		0 spawn {
 			private ["_blur"];
 			_blur = ppEffectCreate ["DynamicBlur", 474];
 			_blur ppEffectEnable true;

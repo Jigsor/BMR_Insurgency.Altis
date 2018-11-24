@@ -20,7 +20,7 @@ for "_counter" from 0 to 10 do {
 	if (count _newPos > 0) exitWith {};
 	sleep 0.1;
 };
-if (_newPos isEqualTo []) exitWith {hint "STR_BMR_NoSpace_forMHQ"};
+if (_newPos isEqualTo []) exitWith {hint localize "STR_BMR_NoSpace_forMHQ"};
 
 _caller playMove "AinvPknlMstpSnonWnonDnon_medicUp0";
 sleep 3;
@@ -31,7 +31,7 @@ _dir = round(direction _caller);
 
 /*
 //Create Arsenal marker at crates' deployment position
-//Disabled for now because it does not always hide the marker from blufor. Don't know why..
+//Disabled for now because it does not always hide the marker from blufor. Not sure why..
 waitUntil {sleep 0.2; !(_curWepsPos isEqualTo getPosWorld INS_weps_Cbox)};
 if !(getMarkerColor "OpforWeapons" isEqualTo "") then {deleteMarker "OpforWeapons"};
 private _mark = (localize "STR_A3_Arsenal");

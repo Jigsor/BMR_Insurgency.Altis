@@ -1,6 +1,4 @@
-if (!isServer && isNull player) then {isJIP=true;} else {isJIP=false; if (didJIP) then {isJIP=true;};};
-HC_1Present = false;
-HC_2Present = false;
+if (!isServer && {isNull player}) then {isJIP=true;} else {isJIP=false; if (didJIP) then {isJIP=true;};};
 
 // Set friendly/enemy sides
 _EastHQ = createCenter EAST;
@@ -20,19 +18,17 @@ if (isMultiplayer) then {
 	if (!hasInterface && !isDedicated) then {
 		call BMRINS_fnc_HCpresent;
 		call compile preProcessFileLineNumbers "INSfncs\hc\headless_client_fncs.sqf";
-		diag_log format ["HEADLESSCLIENT: %1 Connected HEADLESSCLIENT ID: %2", name player, owner player];
 
-		[] spawn {
-			if (!isJIP) then {waitUntil {time > 3}};
-			waitUntil {!isNil "all_eos_mkrs"};
-			if (INS_mod_missing) then {[] spawn INS_missing_mods};
-			if (INS_persistence isEqualTo 0 || INS_persistence isEqualTo 2) then {profileNamespace setVariable ["BMR_INS_progress", []]};
+		0 = 0 spawn {
+			if (isJIP) then {waitUntil {!isNull player}} else {waitUntil {time > 3}};
+			diag_log format ["***HEADLESSCLIENT: %1 Connected HEADLESSCLIENT ID: %2", name player, owner player];
+			if (INS_mod_missing) then {0 spawn INS_missing_mods};
 
-			private _enableLogs = true;// set false to disable logging on headless client(s) .rpt Frames per second, Headless client ID, Total group count, Total unit count.
+			private _enableLogs = true;// set false to disable logging on headless client(s) .rpt Frames per second, Headless client ID, Total enemy groups, Total units.
 			private "_AllEnemyGroups";
-			private _uncapturedMkrs = all_eos_mkrs;
-			private _c = if (INS_persistence isEqualTo 1 || INS_persistence isEqualTo 2) then {0} else {7};
-			private _s = if (INS_persistence isEqualTo 1 || INS_persistence isEqualTo 2) then {true}else{false};
+			private _c = 0;
+
+			0 spawn {waitUntil {time > 0}; enableEnvironment [false, false]};
 
 			while {true} do {
 				sleep 60.123;
@@ -41,14 +37,12 @@ if (isMultiplayer) then {
 					{_AllEnemyGroups pushBack _x} forEach (allGroups select {side _x isEqualTo INS_Op4_side});
 					diag_log format ["HEADLESSCLIENT FPS: %1 TIME: %2 IDCLIENT: %3 TOTAL ENEMY GROUPS: %4 TOTAL UNITS: %5", diag_fps, time, owner player, count _AllEnemyGroups, count allUnits];
 				};
-				//Save progression approximately every 5 minutes if lobby option permits.
-				if (_s && {_c isEqualTo 6}) then {
-					{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1};} foreach _uncapturedMkrs;
-					profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
+				//Delete empty groups every 5 minutes.
+				_c = _c + 1;
+				if (_c isEqualTo 5) then {
+					call HC_deleteEmptyGrps;
 					_c = 0;
 				};
-				if !(_c isEqualTo 7) then {_c = _c + 1};
-				if (_c isEqualTo 5) then {[] spawn HC_deleteEmptyGrps};
 			};
 		};
 	};
@@ -60,19 +54,19 @@ if (isMultiplayer) then {
 };
 
 // Common Functions
-call compile preprocessFile "INS_definitions.sqf";
-Remedy_SEHs_fnc = call compile preprocessFile "INSfncs\common\Remedy_SEHs_fnc.sqf";
+call compile preProcessFileLineNumbers "INS_definitions.sqf";
+Remedy_SEHs_fnc = call compileFinal preprocessFileLineNumbers "INSfncs\common\Remedy_SEHs_fnc.sqf";
 call compile preProcessFileLineNumbers "INSfncs\common\commom_fncs.sqf";
-call compile preprocessFile "=BTC=_TK_punishment\=BTC=_tk_init.sqf";
+call compile preProcessFileLineNumbers "=BTC=_TK_punishment\=BTC=_tk_init.sqf";
 if (INS_p_rev < 4) then {
-	call compile preprocessFile "=BTC=_revive\=BTC=_revive_init.sqf";
+	call compile preprocessFileLineNumbers "=BTC=_revive\=BTC=_revive_init.sqf";
 }else{
 	if (INS_p_rev isEqualTo 4 || INS_p_rev isEqualTo 5) then {
 		call compile preprocessFile "=BTC=_q_revive\config.sqf";
 	};
 };
 if (INS_IEDs isEqualTo 1 && !IamHC) then {
-	if !(INS_op_faction isEqualTo 17) then {[] spawn {call compile preprocessFileLineNumbers "EPD\Ied_Init.sqf"}};
+	if !(INS_op_faction isEqualTo 17) then {0 spawn {call compile preprocessFileLineNumbers "EPD\Ied_Init.sqf"}};
 };
 
 // EOS
@@ -106,7 +100,7 @@ switch (INS_op_faction) do {
 
 			// (optional/not required) United States Armed Forces (@RHSUSAF). Vehicles will be available in Vehicle Reward.
 			if (isClass(configFile >> "cfgPatches" >> "rhsusf_main")) then {
-				activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4","RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb","rhsusf_c_markvsoc","rhsusf_c_Caiman","rhsusf_c_RG33L"];
+				activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4","RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb","rhsusf_c_markvsoc","rhsusf_c_Caiman","rhsusf_c_RG33L","rhsusf_c_Cougar","rhsusf_c_himars"];
 			};
 		}else{INS_mod_missing = true;};
 	};
@@ -118,7 +112,7 @@ switch (INS_op_faction) do {
 
 			// (optional/not required) United States Armed Forces (@RHSUSAF). Vehicles will be available in Vehicle Reward.
 			if (isClass(configFile >> "cfgPatches" >> "rhsusf_main")) then {
-				activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4","RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb","rhsusf_c_markvsoc","rhsusf_c_Caiman","rhsusf_c_RG33L"];
+				activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4","RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb","rhsusf_c_markvsoc","rhsusf_c_Caiman","rhsusf_c_RG33L","rhsusf_c_Cougar","rhsusf_c_himars"];
 			};
 		}else{INS_mod_missing = true;};
 	};
@@ -127,7 +121,7 @@ switch (INS_op_faction) do {
 		_requiredAddons = ["rhs_c_troops","rhsusf_main","rhsgref_c_troops"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
 			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex","rhs_c_mig29"];
-			activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4","RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb","rhsusf_c_markvsoc","rhsusf_c_Caiman","rhsusf_c_RG33L"];
+			activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4","RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb","rhsusf_c_markvsoc","rhsusf_c_Caiman","rhsusf_c_RG33L","rhsusf_c_Cougar","rhsusf_c_himars"];
 			activateAddons ["rhsgref_c_troops","rhsgref_c_vehicles_ret","rhs_cti_insurgents","rhsgref_c_air","rhsgref_c_tohport_air"];
 			[RESISTANCE,7,8]execVM "eos\OpenMe.sqf";
 		}else{INS_mod_missing = true;};
@@ -137,7 +131,7 @@ switch (INS_op_faction) do {
 		_requiredAddons = ["rhs_c_troops","rhsusf_main","rhsgref_c_troops","rhssaf_main"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
 			activateAddons ["rhs_c_troops","rhs_c_heavyweapons","rhs_c_btr","rhs_c_bmp","rhs_c_bmp3","rhs_c_cars","rhs_c_trucks","rhs_c_a2port_car","rhs_c_a2port_armor","rhs_c_tanks","rhs_c_t72","rhs_c_sprut","rhs_c_a2port_air","rhs_c_air","RHS_A2_CarsImport","RHS_A2_AirImport","rhs_c_a3retex","rhs_c_mig29"];
-			activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4","RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb","rhsusf_c_markvsoc","rhsusf_c_Caiman","rhsusf_c_RG33L"];
+			activateAddons ["rhsusf_main","rhsusf_c_troops","rhsusf_c_statics","rhsusf_vehicles","rhsusf_c_hmmwv","rhsusf_c_rg33","rhsusf_c_m1117","rhsusf_c_fmtv","rhsusf_c_HEMTT_A4","RHS_US_A2Port_Armor","rhsusf_c_m113","rhsusf_c_m109","rhsusf_c_m1a1","RHS_US_A2_AirImport","rhsusf_c_f22","rhsusf_c_melb","rhsusf_c_markvsoc","rhsusf_c_Caiman","rhsusf_c_RG33L","rhsusf_c_Cougar","rhsusf_c_himars"];
 			activateAddons ["rhsgref_c_troops","rhsgref_c_vehicles_ret","rhs_cti_insurgents","rhsgref_c_air","rhsgref_c_tohport_air"];
 			activateAddons ["rhssaf_main","rhssaf_c_gear","rhssaf_c_troops","rhssaf_c_vehicles"];
 			[RESISTANCE,9,9]execVM "eos\OpenMe.sqf";
@@ -203,9 +197,9 @@ switch (INS_op_faction) do {
 	// IFA3 Desert US Army (@CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_Terrains_LITE;@I44_Terrains@IFA3_LITE;@IFA3_Objects_LITE)
 		_requiredAddons = ["WW2_Assets_c_Characters_Americans_c_US_Rangers"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
-			activateAddons ["WW2_Assets_c_Characters_Americans_c_US_Rangers","WW2_Core_c_EditorPreviews_c","WW2_Assets_c_Characters_Americans_c_US_Army","WW2_Assets_c_Vehicles_StaticWeapons_c_Towing","WW2_Assets_c_Vehicles_WheeledAPC_c_M3_Halftrack","WW2_Assets_c_Vehicles_Extended_HUD_c","WW2_Assets_c_Vehicles_ModelConfig_c","WW2_Core_c_Core_c_Eventhandlers","WW2_Assets_c_Vehicles_Boats_c_LCVP","WW2_Assets_c_Vehicles_TurretsConfig_c","WW2_Assets_s_Megagoth1702_Sounds_Config_CfgVehicles","WW2_Assets_c_Vehicles_Wheeled_c_GMC","WW2_Assets_c_Characters_Americans_c_US_NAC","WW2_Core_c_Core_c_Explosion","WW2_Assets_c_Vehicles_Wheeled_c_Scout_M3","WW2_Assets_c_Vehicles_Wheeled_c_Willys_MB","WW2_Assets_c_Vehicles_Planes_c_P39","WW2_Assets_c_Vehicles_Planes_c_P47","WW2_Assets_c_Characters_Civilians_c_CIV_French","WW2_Assets_c_Vehicles_Tanks_c_M4A3_75","WW2_Assets_c_Vehicles_Wheeled_c_Zis5v","WW2_Assets_c_Characters_Civilians_c_CIV_Civilians"];
+			activateAddons ["WW2_Assets_c_Characters_Americans_c_US_Rangers","WW2_Core_c_EditorPreviews_c","WW2_Assets_c_Characters_Americans_c_US_Army","WW2_Assets_c_Vehicles_StaticWeapons_c_Towing","WW2_Assets_c_Vehicles_WheeledAPC_c_M3_Halftrack","WW2_Assets_c_Vehicles_Extended_HUD_c","WW2_Assets_c_Vehicles_ModelConfig_c","WW2_Core_c_Core_c_Eventhandlers","WW2_Assets_c_Vehicles_Boats_c_LCVP","WW2_Assets_c_Vehicles_TurretsConfig_c","WW2_Assets_s_Megagoth1702_Sounds_Config_CfgVehicles","WW2_Assets_c_Vehicles_Wheeled_c_GMC","WW2_Assets_c_Characters_Americans_c_US_NAC","WW2_Core_c_Core_c_Explosion","WW2_Assets_c_Vehicles_Wheeled_c_Scout_M3","WW2_Assets_c_Vehicles_Wheeled_c_Willys_MB","WW2_Assets_c_Vehicles_Planes_c_P39","WW2_Assets_c_Vehicles_Planes_c_P47","WW2_Assets_c_Characters_Civilians_c_CIV_French","WW2_Assets_c_Vehicles_Tanks_c_M3_Stuart","WW2_Assets_c_Vehicles_Pictures_c","WW2_Assets_c_Vehicles_Icons_c","WW2_Assets_c_Vehicles_Tanks_c_M4_Sherman","WW2_Assets_c_Vehicles_Tanks_c_M4A3_75","WW2_Assets_c_Vehicles_Wheeled_c_Zis5v","WW2_Assets_c_Characters_Civilians_c_CIV_Civilians"];
 			[RESISTANCE,24,24]execVM "eos\OpenMe.sqf";
-		} else {INS_mod_missing = true;};
+		}else{INS_mod_missing = true;};
 	};
 };
 if (isServer && {CiviFoot isEqualTo 1}) then {[]execVM "eos_civ\OpenMeCiv.sqf"};// Civilians
@@ -224,7 +218,7 @@ nul = ["mission"] execVM "hcam_init.sqf";
 // Init Server
 if (isServer) then
 {
-	call compile preprocessFile "init_server.sqf";
+	call compile preProcessFileLineNumbers "init_server.sqf";
 	call compile preprocessFileLineNumbers "INSfncs\server\AirPatrole_Fncs.sqf";
 	rej_fnc_bezier = compile preProcessFileLineNumbers "INSfncs\server\rej_fnc_bezier.sqf";
 
@@ -244,9 +238,9 @@ if (isServer) then
 };
 
 // Init Player
-if (!isDedicated && hasInterface) then
+if (hasInterface) then
 {
-	[] spawn {
+	0 spawn {
 		waitUntil {!isNull player && player == player};
 		#include "add_diary.sqf"
 		if (DebugEnabled isEqualTo 0) then {["BIS_ScreenSetup", false] call BIS_fnc_blackOut};
@@ -268,7 +262,7 @@ if (!isDedicated && hasInterface) then
 			if (isJIP) then {uiSleep 3;};
 		};
 
-		call compile preprocessFile "init_player.sqf";
+		call compile preProcessFileLineNumbers "init_player.sqf";
 		call compile preprocessFile "INSui\UI\HUD.sqf";
 		if (INS_Player_Markers isEqualTo 1) then {0 = [] execVM 'scripts\player_markers.sqf';};
 		execVM "scripts\zlt_fastrope.sqf";

@@ -1,31 +1,12 @@
-/*	
+/*
 	AUTHOR: aeroson
 	NAME: repetitive_cleanup.sqf
 	VERSION: 1.9
 
 	DESCRIPTION:
-	Can delete everything that is not really needed 
+	Can delete everything that is not really needed
 	dead bodies, dropped items, smokes, chemlights, explosives, empty groups
 	Works even on Altis, it eats only items which are/were 100m from all units
-
-	USAGE:
-	in server's init
-	[
-		60, // seconds to delete dead bodies (0 means don't delete) 
-		5*60, // seconds to delete dead vehicles (0 means don't delete)
-		3*60, // seconds to delete immobile vehicles (0 means don't delete)
-		2*60, // seconds to delete dropped weapons (0 means don't delete)
-		10*60, // seconds to deleted planted explosives (0 means don't delete)
-		0, // seconds to delete dropped smokes/chemlights (0 means don't delete)
-		60 // seconds to delete craters (0 means don't delete)
-	] execVM 'repetitive_cleanup.sqf';
-
-	will delete dead bodies after 60 seconds (1 minute)
-	will delete dead vehicles after 5*60 seconds (5 minutes)
-	will delete immobile vehicles after 3*60 seconds (3 minutes)
-	will delete weapons after 2*60 seconds (2 minutes)
-	will delete planted explosives after 10*60 seconds (10 minutes)
-	will not delete any smokes/chemlights since its disabled (set to 0)
 
 	If you want something to withstand the clean up, paste this into it's init:
 	this setVariable["persistent",true];
@@ -36,25 +17,23 @@ if (!isServer) exitWith {}; // isn't server
 #define PUSH(A,B) A pushBack B;
 #define REM(A,B) A=A-[B];
 
-private ["_ttdBodies","_ttdVehiclesDead","_ttdVehiclesImmobile","_ttdWeapons","_ttdPlanted","_ttdSmokes","_ttdCraters","_ttdJetParts","_addToCleanup","_unit","_objectsToCleanup","_timesWhenToCleanup","_removeFromCleanup"];
+                                     // (0 means don't delete)
+private _ttdBodies           = 2*60; // seconds to delete dead bodies
+private _ttdVehiclesDead     = 5*60; // seconds to delete dead vehicles // <- mostly redundant because destroyed vehicles are managed by killed eventhandlers in BMR Insurgency
+private _ttdVehiclesImmobile = 0;    // immobile vehicles // <- not needed
+private _ttdWeapons          = 2*60; // seconds to delete dropped weapons
+private _ttdPlanted          = 0;    // planted explosives - interferes with minefield task if set above 0
+private _ttdSmokes           = 6*60; // seconds to delete dropped smokes/chemlights
+private _ttdCraters          = 1*60; // seconds to delete craters
+private _ttdJetParts         = 5*60; // seconds to delete canopies,ejection seats
 
-_ttdBodies=[_this,0,0,[0]] call BIS_fnc_param;
-_ttdVehiclesDead=[_this,1,0,[0]] call BIS_fnc_param;
-_ttdVehiclesImmobile=[_this,2,0,[0]] call BIS_fnc_param;
-_ttdWeapons=[_this,3,0,[0]] call BIS_fnc_param;
-_ttdPlanted=[_this,4,0,[0]] call BIS_fnc_param;
-_ttdSmokes=[_this,5,0,[0]] call BIS_fnc_param;
-_ttdCraters=[_this,6,0,[0]] call BIS_fnc_param;
-_ttdJetParts=[_this,7,0,[0]] call BIS_fnc_param;
+if ((_ttdBodies + _ttdVehiclesDead + _ttdVehiclesImmobile +_ttdWeapons + _ttdSmokes + _ttdCraters + _ttdJetParts) isEqualTo 0) exitWith {}; // all times are 0, we do not want to run this script at all
 
-if({_x>0}count _this==0) exitWith {}; // all times are 0, we do not want to run this script at all
+private _objectsToCleanup=[];
+private _timesWhenToCleanup=[];
 
-
-_objectsToCleanup=[];
-_timesWhenToCleanup=[];
-
-_addToCleanup = {
-	_object = _this select 0;
+private _addToCleanup = {
+	params ["_object"];
 	if(!(_object getVariable["persistent",false])) then {
 		_newTime = (_this select 1)+time;
 		_index = _objectsToCleanup find _object;
@@ -65,17 +44,17 @@ _addToCleanup = {
 			_currentTime = _timesWhenToCleanup select _index;
 			if(_currentTime>_newTime) then {
 				_timesWhenToCleanup set[_index, _newTime];
-			}; 
+			};
 		};
 	};
 };
 
-_removeFromCleanup = {
-	_object = _this select 0;
+private _removeFromCleanup = {
+	params ["_object"];
 	_index = _objectsToCleanup find _object;
 	if(_index != -1) then {
 		_objectsToCleanup set[_index, 0];
-		_timesWhenToCleanup set[_index, 0]; 
+		_timesWhenToCleanup set[_index, 0];
 	};
 };
 
@@ -110,7 +89,7 @@ while{true} do {
 				} forEach (getPosATL _unit nearObjects [_x, 100]);
 			} forEach ["SmokeShell"];
 		};
-		
+
 		if (_ttdCraters>0) then {
 			{
 				{
@@ -124,17 +103,13 @@ while{true} do {
 				{
 					[_x, _ttdJetParts] call _addToCleanup;
 				} forEach (getPosATL _unit nearObjects [_x, 100]);
-			} forEach ["Plane_Fighter_01_Canopy_F","Plane_CAS_01_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F","rhs_k36d5_seat","ffaa_av8b2_Canopy","rhs_mi28_wing_right","rhs_mi28_wing_left"];
+			} forEach ["Plane_Fighter_01_Canopy_F","Plane_CAS_01_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F","I_Ejection_Seat_Plane_Fighter_04_F","O_Ejection_Seat_Plane_Fighter_02_F","I_Ejection_Seat_Plane_Fighter_03_F","O_Ejection_Seat_Plane_CAS_02_F","rhs_k36d5_seat","ffaa_av8b2_Canopy","rhs_mi28_wing_right","rhs_mi28_wing_left","rhs_a10_acesII_seat","rhs_vs1_seat","CUP_B_Ejection_Seat_A10_USA"];
 		};
 
 	} forEach allUnits;
-	
-	{
-		if ((count units _x)==0) then {
-			deleteGroup _x;
-		};
-	} forEach allGroups;
-	
+
+	{deleteGroup _x} forEach (allGroups select {local _x && {(count units _x) isEqualTo 0}});
+
 	if (_ttdBodies>0) then {
 		{
 			[_x, _ttdBodies] call _addToCleanup;
@@ -145,7 +120,7 @@ while{true} do {
 		{
 			if(_x == vehicle _x) then { // make sure its vehicle
 				[_x, _ttdVehiclesDead] call _addToCleanup;
-			}; 
+			};
 		} forEach (allDead - allDeadMen); // all dead without dead men == mostly dead vehicles
 	};
 

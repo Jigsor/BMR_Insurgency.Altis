@@ -15,7 +15,7 @@ eos_fnc_getunitpool= compile preprocessfilelinenumbers "eos\UnitPools.sqf";
 call compile preprocessfilelinenumbers "eos\AI_Skill.sqf";
 
 EOS_Deactivate = {
-	private _mkr=(_this select 0);
+	private _mkr=(_this # 0);
 	{
 		_x setmarkercolor "ColorBlack";
 		_x setmarkerAlpha 0;
@@ -24,10 +24,10 @@ EOS_Deactivate = {
 
 EOS_debug = {
 private "_note";
-_mkr=(_this select 0);
-_n=(_this select 1);
-_note=(_this select 2);
-_pos=(_this select 3);
+_mkr=(_this # 0);
+_n=(_this # 1);
+_note=(_this # 2);
+_pos=(_this # 3);
 
 _mkrID=format ["%3:%1,%2",_mkr,_n,_note];
 deletemarker _mkrID;

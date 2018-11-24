@@ -12,7 +12,7 @@ hint "";
 
 if ((driver _veh == player) && {(getDammage _veh < 0.68) && ((isEngineOn _veh) || ((vehicle player) getHitPointDamage "hitEngine" < 0.68))}) exitWith {hint localize "STR_BMR_Bail_restrictOnDamage"};
 
-if (soundVolume isEqualTo 0.4) then {1 fadeSound 1};
+if (soundVolume isEqualTo 0.3) then {1 fadeSound 1};
 
 moveOut _target;
 

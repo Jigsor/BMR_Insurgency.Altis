@@ -10,7 +10,6 @@ private _return = [];
 for "_i" from 0 to ((count _objs) - 1) step 1 do {
 	private ["_obj","_objPos","_dX","_dY","_z","_dir"];
 	_obj = _objs select _i;
-	//_objPos = getPosWorld _obj;
 	_objPos = getPosATL _obj;
 	if (!isNull _obj) then {
 		_objPos = getPosATL _obj;

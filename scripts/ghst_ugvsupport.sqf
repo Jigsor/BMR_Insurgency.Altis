@@ -2,13 +2,12 @@
 //ghst_ugvsupport = [(getmarkerpos "spawnmarker"),"typeofugv",max number of ugvs,delay in mins] execvm "scripts\ghst_ugvsupport.sqf";
 //ghst_ugvsupport = [(getmarkerpos "ugv_support"),"B_UGV_01_rcws_F",2,30] execvm "scripts\ghst_ugvsupport.sqf";
 
-private ["_spawnmark","_type","_max_num","_delay","_dir","_smoke1","_chute1","_ugv1","_wGrp","_ugv_num","_score","_points","_deficit","_exit","_groundPos","_grpExists"];
+private ["_spawnmark","_type","_max_num","_delay","_dir","_smoke1","_chute1","_ugv1","_wGrp","_ugv_num","_score","_points","_deficit","_exit","_groundPos"];
 
 _spawnmark = _this select 0;// ugv spawn point
 _type = _this select 1;// type of ugv to spawn i.e. "B_UGV_01_rcws_F"
 _max_num = _this select 2;// max number of ugvs allowed per player
 _delay = (_this select 3) * 60;// time before ugv support can be called again
-_grpExists = false;
 _score = getPlayerScores player select 5;
 _points = 25;// points required for each additional UGV after _max_num is reached
 _exit = false;
@@ -117,7 +116,6 @@ if (alive _ugv1) then {// jig adding/change - ugv is recreated on landing becaus
 		_ugv1 sidechat localize "STR_BMR_ugv_movingTo_smoke";
 
 		_ugv1 doMove _pos;
-		_grpExists = true;
 	};
 };
 
@@ -132,7 +130,7 @@ sleep 30;
 deletevehicle _ugv1;
 
 sleep 20;
-if (_grpExists) then {deletegroup _wGrp;};
+if (!isNull _wGrp) then {deletegroup _wGrp};
 sleep _delay;
 
 _ugv_num = player getVariable "ghst_ugvsup";

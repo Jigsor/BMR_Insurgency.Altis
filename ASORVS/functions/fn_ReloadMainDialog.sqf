@@ -1,7 +1,7 @@
 #include "macro.sqf"
 
 private["_request","_filter","_control","_info"];
-_selectedPreset = [_this, 0, -1, [1]] call BIS_fnc_Param;
+_selectedPreset = _this param [0, -1, [1]];
 
 waitUntil {!isNull (findDisplay ASORVS_Main_Display)};
 waitUntil {!ASORVS_Loading};

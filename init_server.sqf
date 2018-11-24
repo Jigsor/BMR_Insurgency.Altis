@@ -5,7 +5,7 @@ call compile preprocessFileLineNumbers "INSfncs\server\server_fncs.sqf";
 
 // Weather //
 if ((JIPweather isEqualTo 0) || {(JIPweather >3)}) then {
-	[] spawn {
+	0 = 0 spawn {
 		//Date is advanced + 48 hours of editor settings
 		waitUntil {time > 1};
 		skipTime (((INS_p_time - (daytime) +24) % 24) -24);
@@ -54,7 +54,7 @@ addMissionEventHandler ["HandleDisconnect", {
 }];
 
 // Editor object settings //
-[] spawn {
+0 spawn {
 	waitUntil {!isNil "INS_MHQ_VarName"};
 
 	if (!isNil "MHQ_1") then {
@@ -101,34 +101,31 @@ Delivery_Box hideObjectGlobal true;
 INS_Op4_flag setVectorUp [0,0,1];
 INS_flag setVectorUp [0,0,1];
 INS_flag setFlagTexture "images\bmrflag.paa";// your squad flag here or comment out for default Blufor flag
-Delivery_Box hideObjectGlobal true;
-[] spawn opfor_NVG;
+0 spawn opfor_NVG;
 [180] execVM "scripts\SingleThreadCrateRefill.sqf";
 
+//Add moded units and vehicles in this marker to make addons a requirement, activate the addons and make available for zeus. These items get deleted at mission start.
+if (markerAlpha "AuxiliaryContent" isEqualTo 1) then {
+	"AuxiliaryContent" setMarkerAlpha 0;
+	private _v = vehicles inAreaArray "AuxiliaryContent";
+	private _u = allUnits inAreaArray "AuxiliaryContent";
+	{deleteVehicle _x} count _v;
+	{deleteVehicle _x} count _u;
+};
+
 // Param enabled scripts/settings //
-if (INS_GasGrenadeMod isEqualTo 1) then {[] spawn editorAI_GasMask};
+if (INS_GasGrenadeMod isEqualTo 1) then {0 spawn editorAI_GasMask};
 if (Fatigue_ability < 1) then {{[_x] spawn INS_full_stamina;} forEach playableUnits};
 if (EnableEnemyAir > 0) then {execVM "scripts\AirPatrolEast.sqf"};
 if (DebugEnabled isEqualTo 1) then {
-	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 30; nul = [] execVM "scripts\INS_SuicideBomber.sqf"}};
+	if (SuicideBombers isEqualTo 1) then {0 spawn {sleep 30; execVM "scripts\INS_SuicideBomber.sqf"}};
 }else{
-	if (SuicideBombers isEqualTo 1) then {[] spawn {sleep 600; nul = [] execVM "scripts\INS_SuicideBomber.sqf"}};
+	if (SuicideBombers isEqualTo 1) then {0 spawn {sleep 600; execVM "scripts\INS_SuicideBomber.sqf"}};
 };
 
 // Clean up Maintenance //
-[	//(0 means don't delete)
-	2*60, // seconds to delete dead bodies
-	5*60, // seconds to delete dead vehicles
-	0, // immobile vehicles
-	2*60, // seconds to delete dropped weapons
-	0, // planted explosives - interferes with minefield task if set above 0
-	6*60, // seconds to delete dropped smokes/chemlights
-	1*60, // seconds to delete craters
-	5*60 // seconds to delete canopies,ejection seats
-] execVM 'scripts\repetitive_cleanup.sqf';
-
 {_x setVariable ["persistent",true]} forEach [Jig_m_obj,Delivery_Box], INS_Blu4_wepCrates, INS_Op4_wepCrates;
-
+execVM 'scripts\repetitive_cleanup.sqf';
 execVM "scripts\remove_boobyTraps.sqf";
 execVM "scripts\unattended_maintenance.sqf";
 
@@ -206,8 +203,8 @@ if (Airfield_opt) then
 			};
 		};
 		case 16: {
-			if (isClass(configFile >> "CfgVehicles" >> "OPTRE_UNSC_hornet_black_CAS"))then {
-				_mod = true; _class = "OPTRE_UNSC_hornet_black_CAS";
+			if (isClass(configFile >> "CfgVehicles" >> "OPTRE_UNSC_hornet_CAS"))then {
+				_mod = true; _class = "OPTRE_UNSC_hornet_CAS";
 			};
 		};
 		case 17: {
@@ -238,7 +235,7 @@ if (Airfield_opt) then
 	};
 
 	//UAV service trigger
-	[] spawn {
+	0 spawn {
 		if (!(getMarkerColor "AircraftMaintenance" isEqualTo "") || (markerAlpha "AircraftMaintenance" isEqualTo 1)) then {
 			private ["_mPos","_actCond","_onActiv","_uavServiceTrig"];
 
@@ -251,7 +248,7 @@ if (Airfield_opt) then
 			";
 
 			_uavServiceTrig = createTrigger ["EmptyDetector",_mPos];
-			_uavServiceTrig setTriggerArea [15,15,0,FALSE];
+			_uavServiceTrig setTriggerArea [15,15,0,false,15];
 			_uavServiceTrig setTriggerActivation ["WEST","PRESENT",true];
 			_uavServiceTrig setTriggerTimeout [2, 2, 2, true];
 			_uavServiceTrig setTriggerStatements [_actCond,_onActiv,""];
@@ -264,9 +261,17 @@ private _anchorPos = getPosATL INS_E_tent;
 private _op4CrateComposition = [INS_Op4_wepCrates,_anchorPos] call BMRINS_fnc_objPositionsGrabber;
 missionNamespace setVariable ["op4CratesOrientation", _op4CrateComposition, true];
 
+//Work Around for inaccessible UAVS for players present at mission start (nonJIP)
+if (isDedicated) then {
+	0 spawn {
+		waitUntil {time > 1};
+		{{deletevehicle _x} count (allMissionObjects _x)} forEach INS_W_Serv_UAVs;//let them respawn
+	};
+};
+
 // Tasks //
-[] spawn {
-	waitUntil {! isNil "SHK_Taskmaster_Tasks"};
+0 spawn {
+	waitUntil {!isNil "SHK_Taskmaster_Tasks" && time > 0};
 
 	if (DebugEnabled isEqualTo 1) then {
 		sleep 2;
@@ -276,15 +281,16 @@ missionNamespace setVariable ["op4CratesOrientation", _op4CrateComposition, true
 		sleep 30;
 		execVM "Objectives\tasks_complete.sqf";
 	}else{
-		sleep 45;
+		sleep 30;
 		tasks_handler = [] execVM "Objectives\random_objectives.sqf";
 		waitUntil { scriptDone tasks_handler };
 		if (EnemyAmmoCache isEqualTo 1) then {execVM "scripts\ghst_PutinBuild.sqf"};
-		sleep 75;
+		sleep 60;
 		execVM "Objectives\tasks_complete.sqf";
 	};
 };
 
+// Log mission parameters //
 diag_log "BMR Insurgency Mission Parameters:";
 for [ {_i = 0}, {_i < count(paramsArray)}, {_i = _i + 1} ] do {
 	diag_log format
@@ -294,5 +300,6 @@ for [ {_i = 0}, {_i < count(paramsArray)}, {_i = _i + 1} ] do {
 		(paramsArray select _i)
 	];
 };
+diag_log format ["****Server File Patching Enabled = %1", isFilePatchingEnabled];
 
 //BMR_server_initialized = true;publicVariable "BMR_server_initialized";

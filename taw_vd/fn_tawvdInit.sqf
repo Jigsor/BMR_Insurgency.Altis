@@ -28,13 +28,12 @@ tawvd_object = tawvd_foot;
 tawvd_addon_disable = true;
 };
 
-[] spawn
-{
+0 spawn {
 	waitUntil {!isNull player && player == player};
 	waitUntil{!isNil "BIS_fnc_init"};
 	waitUntil {!(isNull (findDisplay 46))};
 
 	// tawvd_action = player addAction["<t color='#FF0000'>Settings</t>",TAWVD_fnc_openTAWVD,[],-99,false,false,"",''];
 
-	[] spawn TAWVD_fnc_trackViewDistance;
+	0 spawn TAWVD_fnc_trackViewDistance;
 };

@@ -1,6 +1,6 @@
-private ["_veh","_getTurrets","_vehConfig","_vehTurrets", "_slots", "_i"];
+private ["_veh","_getTurrets","_vehConfig","_slots","_i"];
 _slots = [];
-_veh = [_this,0,objnull,[objnull,""]] call bis_fnc_param;
+_veh = _this param [0,objnull,[objnull,""]];
 
 if !(_veh isEqualType "") then {_veh = typeof _veh};
 _driverIsCommander = 0;

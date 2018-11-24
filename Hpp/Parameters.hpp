@@ -114,7 +114,7 @@ class Params
 	"Massi Takistan Army and Takistan Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"Massi Africian Rebel Army and Civilian Rebel supporters - Requirements :: @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"OPTRE Insurrectionists - Requirements :: @CBA_A3;@OPTRE",
-	"IFA3 Desert US Army - Rquirements :: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE"};
+	"IFA3 Desert US Army - Requirements :: @CUP_Terrains_Core;@IFA3_AIO_LITE"};
 	default = 3;
 	};
 	class INS_Dum_Param4//12
@@ -157,7 +157,7 @@ class Params
 	title = "		Grid zone deactivation delay";
 	values[]={0,0.5,1,2,3,4,5,6,8,10,12,14,16,18,20,30};
 	texts[]={"Disabled","30 seconds","1 minute","2 minutes","3 minutes","4 minutes","5 minutes","6 minutes","8 minutes","10 minutes","12 minutes","14 minutes","16 minutes","18 minutes","20 minutes","30 minutes"};
-	default = 2;
+	default = 1;
 	};
 	class EnableEnemyAir//18
 	{
@@ -246,9 +246,9 @@ class Params
 	class INS_play_op4//30
 	{
 	title = "		Playable Opfor";
-	values[]={0,1};
-	texts[]={"Disabled","Enabled"};
-	default = 1;
+	values[]={0,5,7,9,11,99};
+	texts[]={"Enabled with no Limits","Enabled if 5 or more blufor players present","Enabled if 7 or more blufor players present","Enabled if 9 or more blufor players present","Enabled if 11 or more blufor players present","Disabled"};
+	default = 5;
 	};
 	class INS_logistics//31
 	{
@@ -295,7 +295,7 @@ class Params
 	values[]={0,1};
 	texts[]={
 	"No",
-	"Yes (Yellow Hand and GL smoke grenades. A3 Heli Crew Helmets and or Gas Masks from @hiddenidentitypack, @nato_russian_sf_weapons, @AVON FM12 mods"};
+	"Yes (Yellow Hand and GL smoke grenades. A3 Heli Crew Helmets and or Gas Masks from @hiddenidentitypack, @nato_russian_sf_weapons, @AVON FM12, @FFAA mods"};
 	default = 1;
 	};
 	class limitPOV//37
@@ -311,12 +311,12 @@ class Params
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
-	};	
+	};
 	class max_ai_recruits//39
 	{
 	title = "		Recruitable AI units maximum allowed";
 	values[]={1,2,3,4,5,6,7,8,9,10};
-	texts[]={"Recruitable AI disabled","1","2","3","4","5","6","7","8","9"};
+	texts[]={"Recruitable AI Disabled","1","2","3","4","5","6","7","8","9"};
 	default = 10;
 	};
 	class AI_radio_volume//40
@@ -331,7 +331,7 @@ class Params
 	title = "		Enable Save/Restore full loadout on respawn?";
 	values[]={0,1};
 	texts[]={"No, respawn with inventory you had at death (Reload Magazine to Save Kit)","Yes"};
-	default = 1;
+	default = 0;
 	};
 	class INS_VA_type//42
 	{
@@ -352,7 +352,7 @@ class Params
 	title = "		Enable Progression Saving and Restoration?";
 	values[]={0,1,2};
 	texts[]={"No, clear progression if any is saved","Yes, save mission progression and restore if any is saved","Yes, save mission progression and clear progression if any is saved"};
-	default = 2;
+	default = 0;
 	};
 	class INS_Dum_Param8//45
 	{

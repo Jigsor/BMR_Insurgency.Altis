@@ -73,7 +73,7 @@ mb_fnc_UpdateWeather = {
 	_weatherNextWindNS = _weatherNextSettings select 4;
 
 	//Jig adding Brighter Nights by Ralian
-	if (daytime > 21.00 || daytime < 3.50) then {
+	if ((daytime > 21.00 || daytime < 3.50) && {Brighter_Nights isEqualTo 1}) then {
 		[3] call INS_Brighter_Nights;
 	}else{
 		[1] call INS_Brighter_Nights;
@@ -93,7 +93,7 @@ if (isServer) then {
 	rw2_Current_Weather = 7;//Default initial weather - Overcast
 	// Send out Initial Weather Variable
 	publicVariable "rw2_Current_Weather";
-	[] spawn mb_fnc_InitialWeather;
+	0 spawn mb_fnc_InitialWeather;
 	// Start recurring weather loop.
 	while {true} do {
 		// Pick weather template from possible forecasts for next weather update
@@ -105,8 +105,10 @@ if (isServer) then {
 		sleep 1190;
 
 		//Jig adding
-		private _DSactive = missionNameSpace getVariable ["JDSactive", false];
-		if (rw2_Current_Weather < 3 && {_DSactive}) then {call JIG_DustIsOn; sleep 3;};
+		if (rw2_Current_Weather < 3) then {
+			if (missionNameSpace getVariable ["JDSactive", false]) then {call JIG_DustIsOn; sleep 3;};
+			if (missionNameSpace getVariable ["JSSactive", false]) then {call JIG_SnowIsOn; sleep 3;};
+		};
 
 		[] remoteExec ["mb_fnc_UpdateWeather"];
 		rw2_Current_Weather = rw2_Next_Weather;
@@ -115,4 +117,4 @@ if (isServer) then {
 };
 
 // Run Initial Weather Function for all.
-[] spawn mb_fnc_InitialWeather;
+0 spawn mb_fnc_InitialWeather;

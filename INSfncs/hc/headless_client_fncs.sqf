@@ -1,6 +1,6 @@
 remove_carcass_fnc = {
 	// Deletes dead bodies and destroyed vehicles. Code by BIS
-	params ["_unit"];
+	params ['_unit'];
 	sleep 2;
 	if !(_unit isKindOf "Man") then {
 		{_x setPos position _unit} forEach crew _unit;
@@ -10,16 +10,10 @@ remove_carcass_fnc = {
 	if (_unit isKindOf "Man") then {
 		if !((vehicle _unit) isKindOf "Man") then {_unit setPos (position vehicle _unit)};
 		sleep 135;
-		hideBody _unit;
 		_unit removeAllEventHandlers "killed";
+		hideBody _unit;
 	};
 };
 HC_deleteEmptyGrps = {
-	{
-		if ((count (units _x)) == 0) then {
-			deleteGroup _x;
-			_x = grpNull;
-			_x = nil
-		};
-	} forEach allGroups;
+	{_x deleteGroupWhenEmpty true} forEach (allGroups select {local _x && {(count units _x) isEqualTo 0 && !(isGroupDeletedWhenEmpty _x)}});
 };

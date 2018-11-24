@@ -3,6 +3,8 @@
 
 params [["_newVeh",objNull],["_oldVeh",objNull],["_sensors",[]]];
 //diag_log text format ["Detected Sensors: %1", _sensors];
+if (!isServer) exitWith {};
+if (_newVeh isEqualType "" && time > 5) exitWith {};
 if (_newVeh isEqualType "") exitWith {
 	//diag_log text "Preinit Sensor Detection Failed, Trying Postinit";
 	0 = [_newVeh, _oldVeh, _sensors] spawn BMRINS_fnc_reenstateSenors;

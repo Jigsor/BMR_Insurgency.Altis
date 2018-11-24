@@ -1,5 +1,5 @@
 /*
- extraction_init.sqf v1.25 by Jigsor
+ extraction_init.sqf v1.26 by Jigsor
  null = [] execVM "JIG_EX\extraction_init.sqf";
  runs in init.sqf
 */
@@ -23,10 +23,13 @@ JIG_EX_gunners		= 	false;							// Set false to make side gunners position empty
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 jig_ex_actid_show = 9999;
+private _sideColor = [JIG_EX_Side, false] call BIS_fnc_sideColor;
+missionNamespace setVariable ["JIGEXcolor", _sideColor];
 
 waitUntil {isDedicated || !isNull player};
 
-[] call compile preProcessFile "JIG_EX\extraction_fncs.sqf";
+call compile preProcessFileLineNumbers "JIG_EX\extraction_fncs.sqf";
+if (hasInterface && {side player isEqualTo JIG_EX_Side}) then {0 spawn JigEx_heliMkr};
 
 //JIP Hosted server
 if ((!isServer) && (isNil JIG_EX_Caller)) exitWith {};//exit if not caller or Server working on hosted Server
@@ -46,13 +49,12 @@ evac_toggle = false;
 "evac_toggle" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 
 if (isServer) then {
-	[] spawn {
-		private "_loop";
+	0 = 0 spawn {
 		EvacHeliW1 = ObjNull;
 		ext_caller_group = grpNull;
 		resetEvac = false;
 		"resetEvac" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
-		for [{_loop=0}, {_loop<1}, {_loop=_loop}] do {
+		while {true} do {
 			if (resetEvac) then {
 				JIG_EX_Caller = CAS1;
 				publicVariable "JIG_EX_Caller";// JIP reset
@@ -82,6 +84,7 @@ while {true} do {
 	if (evac_toggle) then {
 		// Server
 		if (isServer) then {
+			if (isDedicated) then {sleep 6};
 			null = [] execVM "JIG_EX\extraction_main.sqf";
 			sleep 3;
 			ex_group_ready = false;

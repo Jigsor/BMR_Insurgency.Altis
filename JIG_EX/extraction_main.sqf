@@ -1,13 +1,13 @@
 /*
- extraction_main.sqf v1.25 by Jigsor
+ extraction_main.sqf v1.26 by Jigsor
  null = [] execVM "JIG_EX\extraction_main.sqf";
  runs in JIG_EX\extraction_init.sqf
 */
 
 if (!isServer) exitWith {};
 if (!hasInterface && !isDedicated) exitWith {};
-[] spawn {
-	private ["_recruitsArry","_playerArry","_range","_poscreate","_speed","_SAdir","_spwnairdir","_height","_type","_vehicle","_veh","_vel","_vehgrp","_VarName","_wp0","_evacComplete","_vehgrp_units","_gunners_removed","_has_gunner_pos","_without_gunner_pos","_switch_driver","_animateDoors","_localityChanged"];
+0 spawn {
+	private ["_recruitsArry","_playerArry","_range","_poscreate","_speed","_SAdir","_spwnairdir","_height","_type","_vehicle","_veh","_vel","_vehgrp","_VarName","_wp0","_evacComplete","_vehgrp_units","_gunners_removed","_has_gunner_pos","_without_gunner_pos","_switch_driver","_animateDoors","_changeLocality"];
 
 	evac_toggle = false;publicVariable "evac_toggle";
 	sleep 0.3;
@@ -16,7 +16,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 	_vehgrp = grpNull;
 	EvacHeliW1 = ObjNull;
 	ex_group_ready = false;
-	_has_gunner_pos = ["B_CTRG_Heli_Transport_01_tropic_F","B_Heli_Transport_01_F","B_Heli_Transport_01_camo_F","kyo_MH47E_base","RHS_CH_47F_10","RHS_CH_47F_light"];
+	_has_gunner_pos = ["B_Heli_Transport_01_F","B_CTRG_Heli_Transport_01_tropic_F","B_CTRG_Heli_Transport_01_sand_F","B_Heli_Transport_01_camo_F","kyo_MH47E_base","RHS_CH_47F_10","RHS_CH_47F_light"];
 	_without_gunner_pos = ["I_Heli_Transport_02_F","CH49_Mohawk_FG","B_Heli_Light_01_F"];
 	_helcat_types = ["AW159_Transport_Camo"];
 	_chinook_types = ["kyo_MH47E_Ramp","kyo_MH47E_HC","RHS_CH_47F_10","RHS_CH_47F_light"];// ("kyo_MH47E_base" unsupported)
@@ -32,7 +32,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 	publicVariable "ex_group_ready";
 	call Evac_Spawn_Loc;
 	waitUntil {sleep 0.3; !isNull EvacSpawnPad};
-	[localize "STR_BMR_heli_extraction_inbound", "JIG_EX_MPhint_fnc", ext_caller_group, false, false] call BIS_fnc_mp;// Everything is now ready. Next code block creates chopper and performs Evac/Cleanup.
+	(localize "STR_BMR_heli_extraction_inbound") remoteExec ['JIG_EX_MPhint_fnc', ext_caller_group];// Everything is now ready. Next code block creates chopper and performs Evac/Cleanup.
 	sleep 1;
 
 	if ((isNull EvacHeliW1) || !(alive EvacHeliW1)) then
@@ -73,7 +73,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 		_veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 		_veh setVariable["persistent",true];
 
-		if (!(alive _veh) || !(canMove _veh)) then {[localize "STR_BMR_heli_extraction_down", "JIG_EX_MPhint_fnc", ext_caller_group, false, false] call BIS_fnc_mp;};
+		if (!(alive _veh) || !(canMove _veh)) then {(localize "STR_BMR_heli_extraction_down") remoteExec ['JIG_EX_MPhint_fnc', ext_caller_group];};
 
 		if !(JIG_EX_gunners) then {
 			if (_type in _has_gunner_pos) then {
@@ -101,14 +101,21 @@ if (!hasInterface && !isDedicated) exitWith {};
 				_gunners_removed = true;
 			};
 			if (_type in _helcat_types) then {
-				[EvacHeliW1 turretUnit [0]] join grpNull;// most all seem to use [ 0 ] as copilot
+				[EvacHeliW1 turretUnit [0]] join grpNull;// most all seem to use [0] as copilot
 				deleteVehicle (EvacHeliW1 turretUnit [0]);
 			};
 		};
 
-		[EvacHeliW1] spawn {private _animateDoors = [(_this select 0)] call animate_doors_fnc;};
+		if (isLightOn EvacHeliW1) then {EvacHeliW1 setPilotLight false};
+		if (isCollisionLightOn EvacHeliW1) then {driver EvacHeliW1 action ["CollisionLightOff", EvacHeliW1]};
+		[EvacHeliW1] spawn {private _animateDoors = [(_this select 0)] call animate_doors_fnc};
 
 		// Set Evac helicopter waypoints and move to evacuation LZ.
+		private _wPArray = waypoints _vehgrp;
+		for "_i" from 0 to (count _wPArray -1) do {
+			deleteWaypoint [_vehgrp, _i]
+		};
+
 		_wp0 = _vehgrp addWaypoint [getPosATL EvacLZpad, 1];
 		_wp0 setWaypointType "LOAD";
 		_wp0 setWaypointSpeed "NORMAL";
@@ -153,9 +160,12 @@ if (!hasInterface && !isDedicated) exitWith {};
 
 			[_vehgrp_leader] join (group JIG_EX_Caller);
 
-			if (!isDedicated) then {[(leader group EvacHeliW1)] spawn JigEx_MoveToDrop};
+			if (!isDedicated) then {[(driver EvacHeliW1)] spawn JigEx_MoveToDrop};
 
 			waitUntil {sleep 1; {_x in EvacHeliW1} count _playerArry isEqualTo 0};//wait until all players disembark
+			{
+				[_x, EvacHeliW1] remoteExec ["JigEx_getout_nonGrouped", [0,-2] select isDedicated];
+			} forEach ((crew EvacHeliW1) select {(isplayer _x) && !(_x isEqualTo JIG_EX_Caller)});
 
 			EvacHeliW1 setdamage 0;
 			EvacHeliW1 setfuel 1;
@@ -163,7 +173,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 
 			if (JIG_EX_gunners) then {
 				{unassignVehicle (_x);(_x) action ["getOut", vehicle _x]; sleep 0.5} foreach _recruitsArry;
-				{unassignVehicle (_x);(_x) action ["getOut", vehicle _x]; sleep 0.5} foreach (units ext_caller_group);
+				{unassignVehicle (_x);(_x) action ["getOut", vehicle _x]; sleep 0.5} forEach ((units ext_caller_group) select {(alive _x) && (_x in (crew EvacHeliW1))});
 				{[_x] join (group EvacHeliW1); sleep 0.5;} forEach _vehgrp_units;// Ensures original AI crew joins their own group
 				[_vehgrp_leader] join (group EvacHeliW1);
 				_vehgrp_leader assignAsDriver EvacHeliW1;
@@ -193,7 +203,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 					};
 					if ((_type in _chinook_types) && (_type in _has_gunner_pos)) then {
 						{unassignVehicle (_x);(_x) action ["getOut", vehicle _x]; (_x) setPos [(getPosATL EvacHeliW1 select 0) - 8, (getPosATL EvacHeliW1 select 1) + 8, 0]; sleep 0.5} foreach _recruitsArry;
-						{unassignVehicle (_x);(_x) action ["getOut", vehicle _x]; (_x) setPos [(getPosATL EvacHeliW1 select 0) - 8, (getPosATL EvacHeliW1 select 1) + 8, 0]; sleep 0.5} foreach (units ext_caller_group);// Unassign leader/driver and all crew from player group, reposition.
+						{unassignVehicle (_x);(_x) action ["getOut", vehicle _x]; (_x) setPos [(getPosATL EvacHeliW1 select 0) - 8, (getPosATL EvacHeliW1 select 1) + 8, 0]; sleep 0.5} forEach ((units ext_caller_group) select {(alive _x) && (_x in (crew EvacHeliW1))});// Unassign leader/driver and all crew from player group, reposition.
 						{[_x] join (group EvacHeliW1); sleep 0.5;} forEach _vehgrp_units;
 						[_vehgrp_leader] join (group EvacHeliW1);
 						_vehgrp_leader assignAsDriver EvacHeliW1;
@@ -202,7 +212,8 @@ if (!hasInterface && !isDedicated) exitWith {};
 					};
 					if (_type in _has_gunner_pos) then {
 						{unassignVehicle (_x);(_x) action ["getOut", vehicle _x]; sleep 0.5} foreach _recruitsArry;
-						{unassignVehicle (_x);(_x) action ["getOut", vehicle _x]; sleep 0.5} foreach (units ext_caller_group);
+						{unassignVehicle (_x);(_x) action ["getOut", vehicle _x]; sleep 0.5} forEach ((units ext_caller_group) select {(alive _x) && (_x in (crew EvacHeliW1))});
+
 						{[_x] join (group EvacHeliW1)} forEach _vehgrp_units;
 						if (!isNull _vehgrp_leader) then {
 							[_vehgrp_leader] join (group EvacHeliW1);
@@ -224,24 +235,33 @@ if (!hasInterface && !isDedicated) exitWith {};
 
 			{EvacHeliW1 lock 2} forEach playableunits;
 
+			if !((groupOwner group EvacHeliW1) isEqualTo 2) then {
+				//_changeLocality = group EvacHeliW1 setGroupOwner 2;
+			};
+
 			if !(JIG_EX_damage) then {_veh allowdamage true};//allow damage after drop off needed to complete script in some cases.
 
-			_localityChanged = group EvacHeliW1 setGroupOwner 2;
+			private _wPArray = waypoints (group EvacHeliW1);
+			for "_i" from 0 to (count _wPArray -1) do {
+				deleteWaypoint [(group EvacHeliW1), _i]
+			};
 
 			_vehgrp_leader action ["engineOn", EvacHeliW1];
-			(leader group EvacHeliW1) action ["engineOn", EvacHeliW1];// working without this
 			driver EvacHeliW1 action ["engineOn", EvacHeliW1];
 			sleep 0.1;
 			_animateDoors = [] spawn {[EvacHeliW1] call animate_doors_fnc;};
 			sleep 2;
-			EvacHeliW1 doMove (position EvacLZpad);
-			(leader group EvacHeliW1) doMove (position EvacLZpad);
+			EvacHeliW1 doMove _poscreate;
+			(leader group EvacHeliW1) doMove _poscreate;
 			sleep 2;
 
 			wp2rtp = (group _vehgrp_leader) addWaypoint [(getPos EvacHeliW1), 0];
 			wp2rtp setWaypointType "MOVE";
-			wp2rtp setWaypointPosition [(position EvacLZpad), 1];
+			wp2rtp setWaypointPosition [_poscreate, 1];
+			wp2rtp setWaypointVisible false;
 			(group EvacHeliW1) setCurrentWaypoint wp2rtp;
+			[group EvacHeliW1, currentWaypoint (group EvacHeliW1)] setWaypointVisible false;
+			EvacHeliW1 doMove _poscreate;
 
 			if (alive _veh) then {
 				sleep JIG_EX_Despawn_Time;
@@ -280,6 +300,6 @@ if (!hasInterface && !isDedicated) exitWith {};
 		evac_toggle = true;
 		publicVariable "evac_toggle";
 		sleep 1.2;
-		[localize "STR_BMR_heli_extraction_standby", "JIG_EX_MPhint_fnc", ext_caller_group, false, false] call BIS_fnc_mp;
+		(localize "STR_BMR_heli_extraction_standby") remoteExec ['JIG_EX_MPhint_fnc', ext_caller_group];
 	};
 };

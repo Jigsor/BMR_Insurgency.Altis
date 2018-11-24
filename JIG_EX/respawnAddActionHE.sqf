@@ -1,4 +1,4 @@
-// respawnAddActionHE.sqf v1.25 by Jigsor
+// respawnAddActionHE.sqf v1.26 by Jigsor
 // player addEventHandler ["killed", {_nul = _this execVM "JIG_EX\respawnAddActionHE.sqf";}];
 // runs in JIG_EX\extraction_init.sqf
 

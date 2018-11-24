@@ -4,7 +4,7 @@
 #define HCAM_CTRL_BACK (uiNamespace getVariable "hcam_ctrl_back")
 #define HCAM_CTRL_FRONT (uiNamespace getVariable "hcam_ctrl_front")
 
-if (hcam_active || isDedicated) exitWith {};
+if (hcam_active || !hasInterface) exitWith {};
 
 private _old = "";
 private _neck = "Sign_Sphere10cm_F" createVehicleLocal position player;
@@ -54,15 +54,16 @@ while {!isNil {hcam_cam} && {!isNull hcam_cam}} do {
 		camDestroy hcam_cam;
 		hcam_cam = nil;
 	} else {
-		if (hcam_units == "group") then {
+		if (hcam_units isEqualTo "group") then {
 		  _units = units (group player);
 		} else {
 		  _units = hcam_units;
 		};
 
+		if (hcam_id >= count _units) then {hcam_id = 0};
 		hcam_target = _units select hcam_id;
 
-		if (name hcam_target != _old) then {
+		if (alive hcam_target && {name hcam_target != _old}) then {
 			_neck attachTo [hcam_target,[0,0,0],"neck"];
 			_pilot attachTo [hcam_target,[0,0,0],"pilot"];
 			_old = name hcam_target;
@@ -89,8 +90,10 @@ while {!isNil {hcam_cam} && {!isNull hcam_cam}} do {
 
 			if (hcam_target != _veh) then {
 				_mempoints = getArray (configfile >> "CfgVehicles" >> (typeOf _veh) >> "memoryPointDriverOptics");
-				hcam_cam attachTo [_veh,[0,0,0], _mempoints select 0];
-				_target attachTo [_veh,[0,1,0], _mempoints select 0];
+				if (_mempoints isEqualTypeParams ["",""]) then {
+					hcam_cam attachTo [_veh,[0,0,0], _mempoints select 0];
+					_target attachTo [_veh,[0,1,0], _mempoints select 0];
+				};
 			} else {
 				private _pos1 = hcam_target worldToModel getPos _pilot;
 				private _pos2 = hcam_target worldToModel getPos _neck;

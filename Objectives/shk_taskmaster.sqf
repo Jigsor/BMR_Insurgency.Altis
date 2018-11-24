@@ -328,9 +328,7 @@ SHK_Taskmaster_isCompleted = {
 				} else {
 					_this set [_i,false]
 				};
-	} else {                            // Set unknown tasks names to false to prevent error message
-		_this set [_i, false];          // Usually, passing a wrong task name is an error, but it shouldn't give a script error
-	};                                  // and this will allow to check dynamic tasks
+			};
 		} foreach SHK_Taskmaster_Tasks;
 	} foreach _this;
 
@@ -503,7 +501,7 @@ if (hasInterface) then {
 	Wait for briefing tasks to be created before enabling taskhints. This prevents hints from briefing tasks
 	from being spammed at the start of the mission.
 */
-	[] spawn {
+	0 spawn {
 		waituntil {!isnull player};
 		waituntil {!isnil "SHK_Taskmaster_Tasks"};
 		if DEBUG then {diag_log format ["SHK_Taskmaster> Tasks received first time: %1",SHK_Taskmaster_Tasks]};

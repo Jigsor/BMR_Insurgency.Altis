@@ -2,11 +2,12 @@
 
 sleep 2;
 params ["_newZone","_type"];
-private ["_rnum","_objmkr","_roads","_roadNear","_roadSegment","_roadDir","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_towerPos"];
+private ["_rnum","_objmkr","_roads","_roadNear","_roadSegment","_roadDir","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_towerPos","_killtower"];
 
 _roadNear = false;
 _rnum = str(round (random 999));
 _towerPos = _newZone;
+_killtower = true;
 
 // Positional info
 while {isOnRoad _towerPos} do {
@@ -65,45 +66,53 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_dhvt";
 _taskdescE = localize "STR_BMR_Tsk_descE_dhvt";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_towerPos] call SHK_Taskmaster_add;
 
-if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
 {
 	[_x,true] call BIS_fnc_switchLamp;
 	false;
 } count nearestObjects [objective_pos_logic, INS_lights, 1000];
 
-waitUntil {sleep 2; !alive _tower};
+while {_killtower} do
+{
+	if (!alive _tower) exitWith {
+		private _lights = INS_lights;
+		null = [objective_pos_logic,"HighVoltage"] call mp_Say3D_fnc;
+		[] remoteExec ['HV_tower_effect', [0,-2] select isDedicated];
+		(localize "STR_BMR_PowerTower_success") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 
-[] spawn {
-	private _lights = INS_lights;
-
-	nul = [objective_pos_logic,"HighVoltage"] call mp_Say3D_fnc;
-	[] remoteExec ['HV_tower_effect', [0,-2] select isDedicated];
-	(localize "STR_BMR_PowerTower_success") remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
-
-	private "_lamps";
-	for [{_i=0},{_i < (count _lights)},{_i=_i+1}] do {
-		_lamps = getPosATL objective_pos_logic nearObjects [_lights select _i, 1000];
-		sleep 0.01;
-		{
-			[_x,false] call BIS_fnc_switchLamp;
-			sleep 0.03;
-		} forEach _lamps;
+		private "_lamps";
+		for [{_i=0},{_i < (count _lights)},{_i=_i+1}] do {
+			_lamps = getPosATL objective_pos_logic nearObjects [_lights select _i, 1000];
+			sleep 0.01;
+			{
+				[_x,false] call BIS_fnc_switchLamp;
+				sleep 0.03;
+			} forEach _lamps;
+		};
+		[_tskW, "succeeded"] call SHK_Taskmaster_upd;
+		[_tskE, "failed"] call SHK_Taskmaster_upd;
+		_killtower = false;
 	};
-};
 
-[_tskW, "succeeded"] call SHK_Taskmaster_upd;
-[_tskE, "failed"] call SHK_Taskmaster_upd;
+	if (SideMissionCancel) exitWith {
+		[_tskW, "canceled"] call SHK_Taskmaster_upd;
+		[_tskE, "canceled"] call SHK_Taskmaster_upd;
+		_killtower = false;
+	};
+
+	sleep 3;
+};
 
 // clean up
 "ObjectiveMkr" setMarkerAlpha 0;
-sleep 90;
-
-{deleteVehicle _x; sleep 0.1} forEach (units _grp),(units _stat_grp);
+if (SideMissionCancel) then {sleep 5} else {sleep 90};
+{deleteVehicle _x; sleep 0.1} forEach units _grp;
+{deleteVehicle _x; sleep 0.1} forEach units _stat_grp;
 {deleteGroup _x} forEach [_grp, _stat_grp];
 {deleteVehicle _x} forEach ((NearestObjects [objective_pos_logic, [], 30]) select {typeOf _x in objective_ruins});
-private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+private _staticGuns = objective_pos_logic getVariable ["INS_ObjectiveStatics",[]];
 {deleteVehicle _x} forEach _staticGuns;
 deleteMarker "ObjectiveMkr";
 
-if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};
+if (true) exitWith {sleep 20; execVM "Objectives\random_objectives.sqf";};

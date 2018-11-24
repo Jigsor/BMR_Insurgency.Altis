@@ -1,9 +1,4 @@
-/*
- extraction_fncs.sqf v1.25 by Jigsor
- [] call compile preProcessFile "INSfncs\extraction_fncs.sqf";
- runs in JIG_EX\extraction_init.sqf
- Heli Extraction Position and Evacuation Functions
-*/
+// extraction_fncs.sqf v1.26 by Jigsor
 
 // Global hint
 JIG_EX_MPhint_fnc = {if (hasInterface) then { hint _this };};
@@ -114,32 +109,29 @@ Evac_Spawn_Loc = {
 };
 Ex_LZ_smoke_fnc = {
 	// Pops Smoke and Chemlight at Extraction LZ
-	[localize "STR_BMR_heli_extraction_smoke", "JIG_EX_MPhint_fnc"] call BIS_fnc_mp;
-	private ["_smokeColor","_chemLight","_smoke","_c","_flrObj"];
+	(localize "STR_BMR_heli_extraction_smoke") remoteExec ['JIG_EX_MPhint_fnc', WEST];
+	private ["_smokeColor","_chemLight","_smoke","_flrObj"];
 	_smokeColor = JIG_EX_Smoke_Color;
 	_chemLight = createVehicle ["Chemlight_green", getPosATL EvacLZpad, [], 0, "NONE"];
 	sleep 1;
 	_flrObj = "F_20mm_Red" createvehicle ((EvacHeliW1) ModelToWorld [0,100,200]);
 	_flrObj setVelocity [0,0,-10];
 	sleep 0.1;
-	_c = 0;
-	while {_c < 7} do {
+
+	for "_i" from 0 to 8 step 1 do {
 		_smoke = createVehicle [_smokeColor, [(position EvacLZpad select 0) + 2, (position EvacLZpad select 1) + 2, 55], [], 0, "NONE"];
-		_c = _c + 1;
 		sleep 20;
 	};
 	deleteVehicle _chemLight;
 };
 Drop_LZ_smoke_fnc = {
 	// Pops Smoke and Chemlight at Drop Off LZ
-	private ["_smokeColor","_chemLight","_smoke","_c"];
+	private ["_smokeColor","_chemLight","_smoke"];
 	_smokeColor = JIG_EX_Smoke_Color;
 	_chemLight = createVehicle ["Chemlight_green", getPosATL DropLZpad, [], 0, "NONE"];
 	sleep 1;
-	_c = 0;
-	while {_c < 3} do {
+		for "_i" from 0 to 4 step 1 do {
 		_smoke = createVehicle [_smokeColor, [(position DropLZpad select 0) + 1, (position DropLZpad select 1) + 1, 55], [], 0, "NONE"];
-		_c = _c + 1;
 		sleep 12.5;
 	};
 };
@@ -222,11 +214,9 @@ animate_doors_fnc = {
 	};
 };
 AmbExRadio_fnc = {
-	// Ambient Radio Chatter in/near Vehicles (TPW code)
+	// Ambient Radio Chatter in/near Vehicles (TPW code) modified by Jigsor
 	if (ambRadioChatter isEqualTo 1 || !hasInterface) exitWith {};
-	private _run = true;
-	private _c = 0;
-	while {_run} do	{
+	for "_i" from 0 to 4 step 1 do {
 		if (!(isNull objectParent player) && {!(objectParent player isKindOf "ParachuteBase")} && {!(objectParent player isKindOf "StaticWeapon")}) then {
 			playmusic format ["RadioAmbient%1",floor (random 31)];
 		} else {
@@ -237,8 +227,6 @@ AmbExRadio_fnc = {
 			};
 		};
 		sleep 30;
-		_c = _c + 1;
-		if (_c > 3) exitWith {_run = false};
 	};
 };
 remove_carcass_fncJE = {
@@ -253,8 +241,8 @@ remove_carcass_fncJE = {
 		if !((vehicle _unit) isKindOf "Man") then {_unit setpos (position vehicle _unit)};
 		[_unit] joinSilent grpNull;
 		sleep 35.0;
-		hideBody _unit;
 		_unit removeAllEventHandlers "killed";
+		hideBody _unit;
 	};
 };
 JigEx_RemoteGetoutMan = {
@@ -280,6 +268,7 @@ JigEx_MoveToDrop = {
 	};
 	EvacHeliW1 setdamage 0;
 	EvacHeliW1 setfuel 1;
+	EvacHeliW1 allowdamage JIG_EX_damage;
 	sleep 0.1;
 	[EvacHeliW1] call animate_doors_fnc;
 	sleep 2;
@@ -300,10 +289,33 @@ JigEx_MoveToDrop = {
 			EvacHeliW1 land 'LAND';
 			hint 'LZ In Sight';
 			0 = 0 spawn Drop_LZ_smoke_fnc;
-			[] spawn {
+			0 = 0 spawn {
 				waitUntil {sleep 1; (getPosatl EvacHeliW1 select 2) < 4};
-				[EvacHeliW1] call animate_doors_fnc;
+				if (!isNil 'animate_doors_fnc') then {[EvacHeliW1] call animate_doors_fnc};
 			};
 		EvacHeliW1 engineOn true;"
 	];
+	[group EvacHeliW1, currentWaypoint (group EvacHeliW1)] setWaypointVisible false;
+};
+JigEx_getout_nonGrouped = {if (hasInterface) then {_this select 0 action ["getOut", (_this select 1)]};};
+JigEx_heliMkr = {
+	waitUntil {sleep 1; !(isNull (findDisplay 12))};
+	if (isNil "EvacHeliW1") then {EvacHeliW1 = objNull};
+	findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw", "
+		if (!isNull EvacHeliW1) then {
+			_this select 0 drawIcon [
+				'iconHelicopter',
+				missionNamespace getVariable ['JIGEXcolor',[0,0,1,1]],
+				getPosWorld EvacHeliW1,
+				24,
+				24,
+				getDir EvacHeliW1,
+				localize 'STR_BMR_heli_extraction',
+				1,
+				0.03,
+				'RobotoCondensed',
+				'right'
+			];
+		};
+	"];
 };

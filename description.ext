@@ -79,7 +79,7 @@ class CfgDebriefing
 	class END2
 	{
 		title = "Opfor player disabled";
-		description = "Opfor player slots are currently disabled. Please rejoin and choose a Blufor slot.";
+		description = "Opfor player slots restriction in effect";
 		picture = "";
 	};
 	class END3

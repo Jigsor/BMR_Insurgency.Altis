@@ -2,7 +2,7 @@
  execVM "scripts\ghst_PutinBuild.sqf";
  V2.5.2 - By Ghost - coord snippet is from DiRaven
  fills a random building around a position with all objects listed. best to keep radius small so not many buidlings need to be calculated
- Modified by Jigsor 9/29/2014. Modified mostly beginning and ending. The core is by Ghost. Creates and places Ammo Cache.
+ Modified by Jigsor 9/4/2018. Modified mostly beginning and ending. The core is by Ghost. Creates and places Ammo Cache.
 */
 
 if (!isServer) exitWith{};
@@ -24,14 +24,13 @@ private _cache_loop = [] spawn
 	"intel_Build_objs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 	"all_intel_mkrs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 
-	for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
+	while {true} do
 	{
 		if (_uncaped_eos_mkrs isEqualTo []) exitWith {diag_log text format ["All Ammo Caches destroyed: %1", _all_caches_destroyed]; _all_caches_destroyed = true;};
 		while {!cache_destroyed} do {sleep 10;};
 		sleep 5;
 
-		if (count intel_Build_objs > 0) then
-		{
+		if !(intel_Build_objs isEqualTo []) then {
 			{
 				if (!isNull _x) then {deleteVehicle _x; sleep 0.1};
 			} count intel_Build_objs;
@@ -53,9 +52,10 @@ private _cache_loop = [] spawn
 
 		if (_ins_debug) then {titleText ["Creating Ammo Cache","PLAIN DOWN"]};
 
-		private ["_all_cache_pos","_ammocache","_rnum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_new_city","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_haveguards","_minguards","_maxguards","_sideguards","_jigcoor","_jigxcoor","_jigycoor","_cache_coor","_menlist","_nearBuildings","_loop","_p","_n","_i","_markname","_mark1","_nul","_egrp","_trig1stat","_trig1act","_trg1","_mkr_position","_activated_cache","_alive_cache","_curr_mkr","_buildObj"];
+		private ["_all_cache_pos","_ammocache","_rnum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_new_city","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_haveguards","_minguards","_maxguards","_sideguards","_jigcoor","_jigxcoor","_jigycoor","_cache_coor","_menlist","_nearBuildings","_loop","_p","_n","_i","_markname","_mkr","_nul","_egrp","_trig1stat","_trig1act","_trg1","_mkr_position","_activated_cache","_alive_cache","_curr_mkr","_buildObj"];
 
 		{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} count _uncaped_eos_mkrs;
+		if (_uncaped_eos_mkrs isEqualTo []) exitWith {diag_log "****All Insurgent Marker Zones Captured. Exiting Ammo Cache Creation."};
 		_curr_mkr = selectRandom _uncaped_eos_mkrs;
 		_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_curr_mkr];
 		_mkr_position = getMarkerpos _curr_mkr;
@@ -175,22 +175,22 @@ private _cache_loop = [] spawn
 			if (_markunits) then {
 				_pos = [_position,[_msize select 0,_msize select 1,(random 360)]] call fnc_ghst_rand_position;
 				_markname = str(_pos);
-				_mark1 = createMarker [_markname, _pos];
-				_mark1 setMarkerShape "Ellipse";
-				_mark1 setmarkersize _msize;
-				_mark1 setmarkercolor _mcolor;//"ColorBlack";
-				_mark1 setmarkerAlpha 0;//0 to hide marker
+				_mkr = createMarker [_markname, _pos];
+				_mkr setMarkerShape "Ellipse";
+				_mkr setmarkersize _msize;
+				_mkr setmarkercolor _mcolor;//"ColorBlack";
+				_mkr setmarkerAlpha 0;//0 to hide marker
 					if (_markunitspos) then {
-					_mark1 setmarkertext format ["Ammo Cache:%1", _x];
+					_mkr setmarkertext format ["Ammo Cache:%1", _x];
 					};
 
-				_nul = [_x,_mark1] spawn {
-					params ["_unit","_mark1"];
+				_nul = [_x,_mkr] spawn {
+					params ['_unit','_mkr'];
 
 					while {alive _unit} do {
 						sleep 5;
 					};
-					deletemarker _mark1;
+					deletemarker _mkr;
 				};
 			};
 

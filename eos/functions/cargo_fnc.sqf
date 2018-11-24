@@ -14,8 +14,8 @@ _emptySeats=_veh emptyPositions "cargo";
 if (_debug) then {hint format ["%1",_emptySeats]};
 
 //GET MIN MAX GROUP
-_grpMin=_grpSize select 0;
-_grpMax=_grpSize select 1;
+_grpMin=_grpSize # 0;
+_grpMax=_grpSize # 1;
 _d=_grpMax-_grpMin;
 _r=floor(random _d);
 _grpSize=_r+_grpMin;

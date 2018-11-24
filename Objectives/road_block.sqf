@@ -2,7 +2,7 @@
 
 sleep 2;
 params ["_newZone"];
-private ["_type","_rnum","_insdebug","_roads","_sample","_rest","_rad","_allGrps","_allUnits","_run","_rbActive","_roadsSorted","_nearestRoad","_roadConnectedTo","_connectedRoad","_bgPos","_roadDir","_rbmkr","_bargate","_VarName","_bunker1","_bunker2","_unit_type","_unit1","_unit2","_damage","_rbWP","_objmkr","_grp","_handle","_maxtype","_vehPos","_Lveh","_LvehGrp","_handle1","_onActiv","_onDeAct","_bgTrig","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_stat_grp"];
+private ["_type","_rnum","_insdebug","_roads","_sample","_rest","_rad","_allGrps","_allUnits","_run","_rbActive","_roadsSorted","_nearestRoad","_roadConnectedTo","_connectedRoad","_bgPos","_roadDir","_rbmkr","_bargate","_VarName","_bunker1","_bunker2","_unit_type","_unit1","_unit2","_damage","_rbWP","_objmkr","_grp","_handle","_maxtype","_vehPos","_Lveh","_LvehGrp","_handle1","_onActiv","_onDeAct","_bgTrig","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_stat_grp","_killrb"];
 
 _rnum = str(round (random 999));
 _rest = 2;
@@ -15,6 +15,7 @@ _run = true;
 _rbActive = true;
 _insdebug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
 RoadBlockEast = objNull;
+_killrb = true;
 
 //find roadblock position and orientation
 while {_run} do {
@@ -80,7 +81,7 @@ while {(round (direction _bargate)) != (round _roadDir)} do {
 
 RoadBlockEast setPos [getpos RoadBlockEast select 0,getpos RoadBlockEast select 1,0];
 
-[] spawn {RoadBlockEast animate ["Door_1_rot", 1];};
+0 spawn {RoadBlockEast animate ["Door_1_rot", 1];};
 
 _bunker1 = createVehicle ["Land_BagBunker_Small_F", _bargate modelToWorld [7.5,-2,-4], [], 0, "CAN_COLLIDE"]; sleep jig_tvt_globalsleep;
 _bunker1 setdir (_roadDir -240);
@@ -189,7 +190,7 @@ _onActiv="RoadBlockEast animate [""Door_1_rot"", 0];";
 _onDeAct="RoadBlockEast animate [""Door_1_rot"", 1];";
 
 _bgTrig = createTrigger ["EmptyDetector",_bgPos];
-_bgTrig setTriggerArea [125,125,125,FALSE];
+_bgTrig setTriggerArea [125,125,0,FALSE,125];
 _bgTrig setTriggerActivation ["WEST","PRESENT",true];
 _bgTrig setTriggerTimeout [2, 2, 2, true];
 _bgTrig setTriggerStatements ["this",_onActiv,_onDeAct];
@@ -209,30 +210,44 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_hrb";
 _taskdescE = localize "STR_BMR_Tsk_descE_hrb";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (daytime > 3.00 && daytime < 5.00) then {[] spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
 
-//Win/Loose-Only one outcome supported.
-while {_rbActive} do {
-	if ({alive _x} count _allUnits < 2) exitWith {_rbActive = false;};
+
+while {_killrb} do
+{
+	if ({alive _x} count _allUnits < 2) exitWith {
+		[_tskW, "succeeded"] call SHK_Taskmaster_upd;
+		[_tskE, "failed"] call SHK_Taskmaster_upd;
+		_killrb = false;
+	};
+
+	if (SideMissionCancel) exitWith {
+		[_tskW, "canceled"] call SHK_Taskmaster_upd;
+		[_tskE, "canceled"] call SHK_Taskmaster_upd;
+		_killrb = false;
+		_rbActive = false;
+	};
+
 	sleep 5;
 };
 
-waitUntil {!_rbActive};
-[_tskW, "succeeded"] call SHK_Taskmaster_upd;
-[_tskE, "failed"] call SHK_Taskmaster_upd;
-
 sleep 3;
 deleteVehicle _bgTrig;
-[] spawn {RoadBlockEast animate ["Door_1_rot", 1];};
+0 spawn {RoadBlockEast animate ["Door_1_rot", 1];};
 
 //cleanup
 "ObjectiveMkr" setMarkerAlpha 0;
-sleep 90;
+if (SideMissionCancel) then {sleep 5} else {sleep 90};
+{deleteVehicle _x; sleep 0.1} forEach units _grp;
+{deleteVehicle _x; sleep 0.1} forEach units _bargate;
+{deleteVehicle _x; sleep 0.1} forEach units _unit1;
+{deleteVehicle _x; sleep 0.1} forEach units _unit2;
 
+sleep 2;
 {deleteVehicle _x} forEach [_bargate,_bunker1,_bunker2,_Lveh];
 {deleteGroup _x} forEach _allGrps;
-private _staticGuns = objective_pos_logic getVariable "INS_ObjectiveStatics";
+private _staticGuns = objective_pos_logic getVariable ["INS_ObjectiveStatics",[]];
 {deleteVehicle _x} forEach _staticGuns, _allUnits;
 {deleteMarker _x} forEach ["ObjectiveMkr","ins_sm_roadblock"];
 
-if (true) exitWith {sleep 20; nul = [] execVM "Objectives\random_objectives.sqf";};
+if (true) exitWith {sleep 20; execVM "Objectives\random_objectives.sqf";};

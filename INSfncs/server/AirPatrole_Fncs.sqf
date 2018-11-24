@@ -3,16 +3,16 @@ RandomAirCenterOp4 = {
 	//Find random center position for air patrol
 	private ["_westbase1","_whitelist1","_whitelist2","_whitelist3","_nearestMkr","_AirWP_span","_dis","_dirTo","_startPos","_maxDis","_minDis","_newPos"];
 
-	_westbase1 = [getMarkerPos "Respawn_West" select 0, getMarkerPos "Respawn_West" select 1];
-	_whitelist1 = [getMarkerPos "airWhiteList1" select 0, getMarkerPos "airWhiteList1" select 1];
-	_whitelist2 = [getMarkerPos "airWhiteList2" select 0, getMarkerPos "airWhiteList2" select 1];
-	_whitelist3 = [getMarkerPos "airWhiteList3" select 0, getMarkerPos "airWhiteList3" select 1];
+	_westbase1 = getMarkerPos "Respawn_West";
+	_whitelist1 = getMarkerPos "airWhiteList1";
+	_whitelist2 = getMarkerPos "airWhiteList2";
+	_whitelist3 = getMarkerPos "airWhiteList3";
 	_nearestMkr = ([[_westbase1,_whitelist1,_whitelist2,_whitelist3],[],{center distance2d _x},"ASCEND"] call BIS_fnc_sortBy) select 0;
 	_AirWP_span = 3500;
 
 	_dis = _nearestMkr distance2d center;
 	if (_dis < 4002) then {
-		_dirTo = [_nearestMkr, center] call BIS_fnc_dirTo;
+		_dirTo = _nearestMkr getDir center;
 		_startPos = [(getPosATL center select 0) + (_AirWP_span * sin _dirTo), (getPosATL center select 1) + (_AirWP_span * cos _dirTo), 0];
 	}else{
 		_startPos = getPosATL center;
@@ -208,7 +208,7 @@ find_west_target_fnc = {
 				_vcl setFuel 1;
 
 				_nrstWTgts = [];
-				{_nrstWTgts pushBack _x} forEach ((position _vcl) nearEntities [["Air","CAManBase"], _dis] select {((captiveNum _x isEqualTo 0) || (lifeState _x isEqualTo "HEALTHY") || (lifeState _x isEqualTo "INJURED")) && (side _x isEqualTo west)});
+				{_nrstWTgts pushBack _x} forEach ((position _vcl) nearEntities [["Air","CAManBase"], _dis] select {((captiveNum _x isEqualTo 0) || (lifeState _x isEqualTo "HEALTHY") || (lifeState _x isEqualTo "INJURED") || (_x getVariable ["ACE_isUnconscious", false])) && (side _x isEqualTo west)});
 
 				_cntrPos =  getPos (_nrstWTgts select 0);
 				if (!(_nrstWTgts isEqualTo []) && {(format ["%1", _cntrPos] != "[0,0,0]")}) then {
@@ -300,7 +300,7 @@ find_west_target_fnc = {
 				_vcl setFuel 1;
 
 				_nrstWTgts = [];
-				{_nrstWTgts pushBack _x} forEach ((position _vcl) nearEntities [["Air","CAManBase"], 2000] select {((captiveNum _x isEqualTo 0) || (lifeState _x isEqualTo "HEALTHY") || (lifeState _x isEqualTo "INJURED")) && (side _x isEqualTo west)});
+				{_nrstWTgts pushBack _x} forEach ((position _vcl) nearEntities [["Air","CAManBase"], 2000] select {((captiveNum _x isEqualTo 0) || (lifeState _x isEqualTo "HEALTHY") || (lifeState _x isEqualTo "INJURED") || (_x getVariable ["ACE_isUnconscious", false])) && (side _x isEqualTo west)});
 				//need to test array order of above
 				_cntrPos = getPos (_nrstWTgts select 0);
 

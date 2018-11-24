@@ -2,7 +2,7 @@
 _comboIDC = _this select 0;
 _currentItem = _this select 1;
 _items = call ASORVS_fnc_GetFilteredItems;
-_additionalCheck = [_this, 4, {true}, [{}]] call BIS_fnc_Param;
+_additionalCheck = _this param [4, {true}, [{}]];
 _control = ASORVS_getControl(ASORVS_Main_Display,_comboIDC);
 if(ASORVS_FirstLoad) then {
 	lbClear _control;
