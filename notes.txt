@@ -4,7 +4,7 @@ Official Thread and Change log info:
 http://forums.bistudio.com/showthread.php?181109-BMR-Insurgency
 
 Missions Pack Download:
-https://www.dropbox.com/s/igymq40svvjgh1g/BMR%20Insurgency.zip
+https://www.dropbox.com/s/jfbwfq8wmmhdlkq/BMR%20Insurgency.zip
 
 Contribute, fork or compile latest versions from GitHub:
 https://github.com/Jigsor/BMR_Insurgency.Altis
@@ -173,7 +173,7 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	2. Perhaps objective delivery cargo has been misplaced.
 			Delivery_Box setpos getpos player.
 
-11/24/2018
+11/30/2018
 BMR_Insurgency_v1_49
 Added: Three new missions to pack. These are a new fork (Green versions) where main playable side is Independent and opposing playable side is Blufor. These are primarily geared for WWII so far but is expandable for other mods/factions. Thanks to LT.Dang who did the brunt of the conversion.
 Added: CUP Zargabad version.
