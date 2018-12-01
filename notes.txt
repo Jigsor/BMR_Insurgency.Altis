@@ -47,6 +47,9 @@ Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 BMR_Insurgency_v1_49.Zargabad
 Required mods: @CUP_Terrains_Core;@CUP_Terrains_Maps
 
+BMR_Insurgency_v1_49_CUP.Zargabad
+Required mods: @CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@cup_units;@cup_weapons;@cup_vehicles
+
 BMR_Insurgency_v1_49.Bornholm
 Required mods: @Bornholm
 
@@ -117,10 +120,10 @@ BMR_Insurgency_Green.Staszow
 Required mods: @CBA_A3;@CUP_Terrains_Core;@IFA3_AIO_LITE;@Faces_of_War;@Iron_Front_ArmA_3_Faces_of_War_Compatibility_patch
 
 BMR_Insurgency_Green.Napf
-Required mods: @CBA_A3;@CUP_Terrains_Core;@Napf_Island_A3;@Faces_of_War;@Iron_Front_ArmA_3_Faces_of_War_Compatibility_patch
+Required mods: @CBA_A3;@CUP_Terrains_Core;@Napf_Island_A3;@IFA3_AIO_LITE;@Faces_of_War;@Iron_Front_ArmA_3_Faces_of_War_Compatibility_patch
 
 BMR_Insurgency_Green.napfwinter
-Required mods: @CBA_A3;@CUP_Terrains_Core;@Napf_Island_A3;@Faces_of_War;@Iron_Front_ArmA_3_Faces_of_War_Compatibility_patch
+Required mods: @CBA_A3;@CUP_Terrains_Core;@Napf_Island_A3;@IFA3_AIO_LITE;@Faces_of_War;@Iron_Front_ArmA_3_Faces_of_War_Compatibility_patch
 
 Optional additional supported mod combinations:
 
@@ -170,9 +173,10 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	2. Perhaps objective delivery cargo has been misplaced.
 			Delivery_Box setpos getpos player.
 
-11/23/2018
+11/24/2018
 BMR_Insurgency_v1_49
 Added: Three new missions to pack. These are a new fork (Green versions) where main playable side is Independent and opposing playable side is Blufor. These are primarily geared for WWII so far but is expandable for other mods/factions. Thanks to LT.Dang who did the brunt of the conversion.
+Added: CUP Zargabad version.
 Added: Tanks DLC content/support
 Added: Global Message of who killed pilot on Pilot Rescue mission when killer is a player.
 Added: EOS and side mission generated AI never run out of magazines.

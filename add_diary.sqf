@@ -81,7 +81,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/><font size='20'>SETTINGS</font>
 	<br/>
 	<br/>Press Y key for View Distance Settings, Digital Heading, Status Hud, Ear Plugs, Ambient Wild Life Toggle and Engine Text Chatter Toggle.
-	<br/>Statis Hud Icon Legend:
+	<br/>Status Hud Icon Legend:
 	<br/><br/><img image='\A3\Weapons_F\Data\UI\gear_item_compass_ca.paa' widwidth='32' height='32'/>--  Local Player/Vehicle General Compass Heading
 	<br/><br/>  <img image='images\fps.paa' widwidth='16' height='16'/>   --  Frames per Second
 	<br/><br/>  <img image='images\health.paa' widwidth='16' height='16'/>   --  Health
