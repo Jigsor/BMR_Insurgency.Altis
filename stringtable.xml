@@ -14,6 +14,7 @@
 <Portuguese>Ressurgimento</Portuguese>
 <Korean>재투입</Korean>
 <Japanese>リスポーン</Japanese>
+<Chinesesimp>重生</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_UI_close_dialog">
 <Original>Close Dialog</Original>
@@ -22,6 +23,7 @@
 <French>Fermer Dialog</French>
 <Russian>Закрыть окно</Russian>
 <Spanish>Cerrar Diálogo</Spanish>
+<Chinesesimp>关闭对话框</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_UI_view_settings">
 <Original>View Settings</Original>
@@ -30,6 +32,8 @@
 <French>Paramètres d'affichage</French>
 <Russian>Настройки просмотра</Russian>
 <Spanish>Ajustes de Monitor</Spanish>
+<!-- This translation might have confusion. 此处翻译存疑。 -->
+<Chinesesimp>视距设置</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_UI_toggle_heading">
 <Original>Toggle Heading</Original>
@@ -38,6 +42,8 @@
 <French>Direction</French>
 <Russian>направление</Russian>
 <Spanish>Dirección</Spanish>
+<!-- This translation might have confusion. 此处翻译存疑。 -->
+<Chinesesimp>切换航向</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_UI_status_hud">
 <Original>Status HUD</Original>
@@ -46,6 +52,7 @@
 <French>Statut</French>
 <Russian>Статус</Russian>
 <Spanish>Estado</Spanish>
+<Chinesesimp>状态(HUD)</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_UI_earPlugs">
 <Original>Ear Plugs</Original>
@@ -54,6 +61,7 @@
 <French>Des bouchons d'oreilles</French>
 <Russian>беруши</Russian>
 <Spanish>Tapones de Oídos</Spanish>
+<Chinesesimp>耳塞</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_UI_ambientLife">
 <Original>Ambient Life</Original>
@@ -62,6 +70,7 @@
 <French>Vie Ambiante</French>
 <Russian>Окружающая жизнь</Russian>
 <Spanish>Vida Ambiental</Spanish>
+<Chinesesimp>环境设置</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_UI_subtitles">
 <Original>Subtitle Chatter</Original>
@@ -70,6 +79,8 @@
 <French>Sous-titre Bavarder</French>
 <Russian>Подзаголовок</Russian>
 <Spanish>Subtítulos de Charla</Spanish>
+<!-- This translation might have confusion. 此处翻译存疑。 -->
+<Chinesesimp>字幕聊天</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_UI_Confirm">
 <Original>Confirm</Original>
@@ -78,6 +89,7 @@
 <French>Confirmer</French>
 <Russian>подтвердить</Russian>
 <Spanish>Confirmar</Spanish>
+<Chinesesimp>确认</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_UI_CallForHelp">
 <Original>Call for help</Original>
@@ -86,6 +98,7 @@
 <French>Appeler à l'aide</French>
 <Russian>Звать на помощь</Russian>
 <Spanish>Llamar por ayuda</Spanish>
+<Chinesesimp>呼叫救援</Chinesesimp>
 </Key>
 <Key ID="STR_ATM_Alt">
 <Original>Altitude:</Original>
@@ -94,6 +107,7 @@
 <French>L'altitude</French>
 <Russian>Высота:</Russian>
 <Spanish>Altitud</Spanish>
+<Chinesesimp>高度:</Chinesesimp>
 </Key>
 <Key ID="STR_ATM_Keys">
 <Original>Select Key:</Original>
@@ -102,6 +116,8 @@
 <French>Sélectionner une touche:</French>
 <Russian>Выберите клавишу:</Russian>
 <Spanish>Seleccionar tecla</Spanish>
+<!-- This translation might have confusion. 此处翻译存疑。 -->
+<Chinesesimp>选择按键:</Chinesesimp>
 </Key>
 <Key ID="STR_ATM_Main">
 <Original>Choose your Altitude and Cut Key</Original>
@@ -110,6 +126,8 @@
 <French>Choisissez votre altitude et clé</French>
 <Russian>Выберите высоту и кнопку отрезания</Russian>
 <Spanish>Elija su altitud y tecla cortar</Spanish>
+<!-- This translation might have confusion. 此处翻译存疑。 -->
+<Chinesesimp>选择高度并确认</Chinesesimp>
 </Key>
 <Key ID="STR_ATM_hover">
 <Original>Your select Altitude</Original>
@@ -118,6 +136,8 @@
 <French>Votre altitude choisie</French>
 <Russian>Ваш выбор высоты</Russian>
 <Spanish>Su selecto Altitud</Spanish>
+<!-- This translation might have confusion. 此处翻译存疑。 -->
+<Chinesesimp>选择高度</Chinesesimp>
 </Key>
 <Key ID="STR_ATM_hinton">
 <Original>Select Altitude and Designate LZ for HALO Jump on the map</Original>
@@ -126,6 +146,7 @@
 <French>Sélectionnez votre altitude et position de saut en cliquant du bouton gauche de la souris sur la carte</French>
 <Russian>Выберите высоту и назначте зону посадки для прыжка HALO на карте</Russian>
 <Spanish>Seleccione altitud y zona de aterrizaje designado para HALO Jump en el mapa</Spanish>
+<Chinesesimp>在地图上选择高度并指定着陆点以进行跳伞(HALO)</Chinesesimp>
 </Key>
 <Key ID="STR_ATM_hintjump">
 <Original>PRESS KEY TO CUT-AWAY ROPES</Original>
@@ -134,6 +155,7 @@
 <French>Appuyez sur votre touche sélectionnée pour couper le parachute lignes</French>
 <Russian>Нажмите кнопку для отрезания веревок</Russian>
 <Spanish>Pulse la tecla para cortada CUERDAS</Spanish>
+<Chinesesimp>按下按键以断开绳索</Chinesesimp>
 </Key>
 <Key ID="STR_ATM_hintload">
 <Original>loading loadout...</Original>
@@ -142,6 +164,7 @@
 <French>Matériel de chargement</French>
 <Russian>загрузка снаряжения</Russian>
 <Spanish>inventario de carga</Spanish>
+<Chinesesimp>加载装备...</Chinesesimp>
 </Key>
 <Key ID="STR_ATM_Close">
 <Original>Close</Original>
@@ -150,6 +173,7 @@
 <French>Fermer</French>
 <Russian>Закрыть</Russian>
 <Spanish>Close</Spanish>
+<Chinesesimp>关闭</Chinesesimp>
 </Key>
 <Key ID="STR_JWC_CAS_field_system">
 <Original>Open CAS field system</Original>
@@ -158,6 +182,7 @@
 <French>Ouvert CAS système de champ</French>
 <Russian>Открыть полевую систему CAS</Russian>
 <Spanish>Abierto CAS sistema de campo</Spanish>
+<Chinesesimp>打开近距离空中支援(CAS)系统</Chinesesimp>
 </Key>
 <Key ID="STR_JWC_CAS_inbound">
 <Original>Coordinates received, CAS inbound</Original>
@@ -166,6 +191,7 @@
 <French>Coordonne reçu, entrant CAS</French>
 <Russian>Координаты получены, CAS приближается</Russian>
 <Spanish>Coordina recibido, CAS en ruta</Spanish>
+<Chinesesimp>坐标已收到, 近距离空中支援(CAS)正在进场</Chinesesimp>
 </Key>
 <Key ID="STR_JWC_CAS_aborted">
 <Original>CAS mission aborted</Original>
@@ -174,6 +200,7 @@
 <French>CAS mission avortée</French>
 <Russian>Миссия CAS прервана</Russian>
 <Spanish>Misión CAS abortado</Spanish>
+<Chinesesimp>近距离空中支援(CAS)任务中止</Chinesesimp>
 </Key>
 <Key ID="STR_JWC_CAS_single_confirm">
 <Original>Bomb dropped</Original>
@@ -182,6 +209,7 @@
 <French>Bombe a chuté</French>
 <Russian>бомба упала</Russian>
 <Spanish>Bomba lanzada</Spanish>
+<Chinesesimp>执行轰炸</Chinesesimp>
 </Key>
 <Key ID="STR_JWC_CAS_multi_confirm">
 <Original>Bombs dropped</Original>
@@ -190,6 +218,7 @@
 <French>Bombes larguées</French>
 <Russian>бомбы упали</Russian>
 <Spanish>bombas lanzadas</Spanish>
+<Chinesesimp>确认执行轰炸</Chinesesimp>
 </Key>
 <Key ID="STR_JWC_CAS_rtb">
 <Original>CAS RTB 5 mikes</Original>
@@ -198,6 +227,7 @@
 <French>CAS retour à la base 5 minutes</French>
 <Russian>CAS вернется на базу через 5 минут</Russian>
 <Spanish>Misión CAS abortado</Spanish>
+<Chinesesimp>近距离空中支援(CAS)正在返回基地, 预计5分钟后抵达</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_DustStorm_On">
 <Original>Dust Storm Incoming</Original>
@@ -206,6 +236,8 @@
 <French>Tempête de poussière arrivant</French>
 <Russian>Пыльный шторм</Russian>
 <Spanish>Tormenta de Arena al Llegar</Spanish>
+<!-- This translation might have confusion. 此处翻译存疑。 -->
+<Chinesesimp>沙尘暴来袭</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_DustStorm_Off">
 <Original>Dust Storm Cleared</Original>
@@ -214,6 +246,8 @@
 <French>Tempête de poussière sortante</French>
 <Russian>песчаная буря прекратилась</Russian>
 <Spanish>Tormenta de Arena Saliente</Spanish>
+<!-- This translation might have confusion. 此处翻译存疑。 -->
+<Chinesesimp>沙尘暴已平息</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_SaveProgression">
 <Original>Save Progression</Original>
@@ -222,6 +256,7 @@
 <French>Enregistrer la progression</French>
 <Russian>Сохранить прогрессию</Russian>
 <Spanish>Guardar progresión</Spanish>
+<Chinesesimp>保存进度</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_ClearProgression">
 <Original>Clear Progression</Original>
@@ -230,6 +265,7 @@
 <French>Effacer la progression</French>
 <Russian>Очистить прогрессию</Russian>
 <Spanish>Progresión clara</Spanish>
+<Chinesesimp>清空存档</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_loading">
 <Original>Loading...</Original>
@@ -238,6 +274,7 @@
 <French>Chargement...</French>
 <Russian>Загрузка...</Russian>
 <Spanish>Cargando...</Spanish>
+<Chinesesimp>加载中...</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_initialize_done">
 <Original>Initialization Complete</Original>
@@ -246,6 +283,7 @@
 <French>L'initialisation est Terminée</French>
 <Russian>Инициализация завершена</Russian>
 <Spanish>La Inicialización Esta Completa</Spanish>
+<Original>初始化完成</Original>
 </Key>
 <Key ID="STR_BMR_intro_tip1">
 <Original>Press U key for Group Manager</Original>
@@ -254,6 +292,7 @@
 <French>Appuyez sur la touche U pour le gestionnaire de groupe</French>
 <Russian>Нажмите клавишу у для Диспетчера Групп</Russian>
 <Spanish>Pulse la tecla U para el Administrador de Grupo</Spanish>
+<Chinesesimp>按U键打开小队管理界面</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_intro_tip2">
 <Original>Press Y key for Graphic Settings, Digital Heading and HUD</Original>
@@ -262,6 +301,8 @@
 <French>Appuyez sur la touche Y pour les paramètres graphiques, Heading numérique et HUD</French>
 <Russian>Нажмите клавишу ы для настройки графики, цифрового заголовка и HUD</Russian>
 <Spanish>Pulse la tecla Y para Ajustes Gráficos, Rubro Digital y HUD</Spanish>
+<!-- This translation might have confusion. 此处翻译存疑。 -->
+<Chinesesimp>按Y键打开图形设置、数字标题和HUD显示界面</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_load_VAprofile">
 <Original>Load VA profile</Original>
@@ -270,6 +311,7 @@
 <French>Charge profil Arsenal virtuel</French>
 <Russian>Загрузить профиль ВА</Russian>
 <Spanish>Cargar perfil virtual Arsenal</Spanish>
+<Chinesesimp>加载军火库装备方案</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_open_VA">
 <Original>Open Virtual Arsenal</Original>
@@ -278,6 +320,7 @@
 <French>Ouvrir Arsenal Virtuel</French>
 <Russian>Открыть Виртуальный Арсенал</Russian>
 <Spanish>Abrir Arsenal Virtual</Spanish>
+<Chinesesimp>打开军火库</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_halo_jump">
 <Original>HALO jump</Original>
@@ -286,6 +329,7 @@
 <French>HALO saut</French>
 <Russian>Прыжок HALO</Russian>
 <Spanish>HALO salto</Spanish>
+<Chinesesimp>跳伞(HALO)</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_ai_halo_jump">
 <Original>AI HALO jump</Original>
@@ -294,6 +338,7 @@
 <French>AI HALO saut</French>
 <Russian>Прыжок HALO AI</Russian>
 <Spanish>AI HALO salto</Spanish>
+<Chinesesimp>命令AI跳伞(HALO)</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_save_loadout">
 <Original>Save Respawn Loadout</Original>
@@ -302,6 +347,7 @@
 <French>Sauvegarder les équipement</French>
 <Russian>Сохранить снаряжение</Russian>
 <Spanish>Guardar Inventario</Spanish>
+<Chinesesimp>保存重生装备</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_load_saved_loadout">
 <Original>Load Saved Loadout</Original>
@@ -310,6 +356,7 @@
 <French>Équipez équipements sauvé</French>
 <Russian>Загрузить сохраненное снаряжение</Russian>
 <Spanish>Cargar inventario guardado</Spanish>
+<Chinesesimp>加载已保存的装备</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_restore_default_loadout">
 <Original>Restore Default Loadout</Original>
@@ -318,6 +365,7 @@
 <French>Restaurer les équipement défaut</French>
 <Russian>Восстановить снаряжение по умолчанию</Russian>
 <Spanish>Restaurar defecto inventario</Spanish>
+<Chinesesimp>恢复默认装备</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_recruit_inf">
 <Original>Recruit Infantry</Original>
@@ -326,6 +374,7 @@
 <French>Recruter Infanterie</French>
 <Russian>Нанять пехоту</Russian>
 <Spanish>Reclutar Infantería</Spanish>
+<Chinesesimp>招募步兵</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_cunstruct_farp">
 <Original>Construct FARP</Original>
@@ -334,6 +383,8 @@
 <French>Construire l'avenir réarmement et de ravitaillement point</French>
 <Russian>Постровить точку заправки/перевооружения</Russian>
 <Spanish>Construya FARP</Spanish>
+<!-- This translation might have confusion. 此处翻译存疑。 -->
+<Chinesesimp>建造新的前线弹药与燃油补给点(FARP)</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_place_sandbag">
 <Original>Place Sandbag</Original>
@@ -342,6 +393,7 @@
 <French>Barrière Lieu</French>
 <Russian>Разместить мешки с песком</Russian>
 <Spanish>Coloque la bolsa de arena</Spanish>
+<Chinesesimp>放置沙袋</Chinesesimp>
 </Key>
 <Key ID="STR_BMT_remove_sandbag">
 <Original>Remove Sandbag</Original>
@@ -350,6 +402,7 @@
 <French>Supprimer la barrière</French>
 <Russian>Удалить мешки с песком</Russian>
 <Spanish>Retirar bolsa de arena</Spanish>
+<Chinesesimp>移除沙袋</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_ugv_air_drop">
 <Original>UGV Air Drop</Original>
@@ -358,6 +411,7 @@
 <French>VYNH largage</French>
 <Russian>Выброска Бнт</Russian>
 <Spanish>Descenso del aire VTNT</Spanish>
+<Chinesesimp>无人驾驶地面车辆(UGV)空投</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_bullet_cam_on">
 <Original>Bullet Camera On</Original>
@@ -366,6 +420,7 @@
 <French>Caméra Bullet Sur</French>
 <Russian>Камера пули вкл.</Russian>
 <Spanish>Encender Cámara de la Bala</Spanish>
+<Chinesesimp>打开弹头相机</Chinesesimp>
 </Key>
 <Key ID="STR_BMR_bullet_cam_off">
 <Original>Bullet Camera Off</Original>
