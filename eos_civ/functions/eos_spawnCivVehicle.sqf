@@ -1,30 +1,31 @@
-_position=(_this select 0);
-_side=(_this select 1);
-_faction=(_this select 2);
-_type=(_this select 3);
-_special = if (count _this > 4) then {_this select 4} else {"CAN_COLLIDE"};
+
+
+
+params ["_position","_side","_faction","_type"];
+
+_special = if (count _this > 4) then {_this # 4} else {"CAN_COLLIDE"};
 
 _vehicleType=[_faction,_type] call eos_fnc_getcivunitpool;
-_grp = createGroup _side;
 
-_vehPositions=[(_vehicleType select 0)] call BIS_fnc_vehicleRoles;
-_vehicle = createVehicle [(_vehicleType select 0), _position, [], 0, _special];
+_vehPositions=[(_vehicleType # 0)] call BIS_fnc_vehicleRoles;
+_vehicle = createVehicle [(_vehicleType # 0), _position, [], 0, _special];
 
 _vehCrew=[];
+_grp = createGroup _side;
 
 {
 	_currentPosition=_x;
-	if (_currentPosition select 0 == "driver")then {
-		_unit = _grp createUnit [(_vehicleType select 1), _position, [], 0, "CAN_COLLIDE"];
+	if (_currentPosition # 0 == "driver")then {
+		_unit = _grp createUnit [(_vehicleType # 1), _position, [], 0, "CAN_COLLIDE"];
 		_unit assignAsDriver _vehicle;
 		_unit moveInDriver _vehicle;
-		_vehCrew set [count _vehCrew,_unit];
+		_vehCrew pushBack _unit;
 	};
-	if (_currentPosition select 0 == "turret")then {
-		_unit = _grp createUnit [(_vehicleType select 1), _position, [], 0, "CAN_COLLIDE"];
+	if (_currentPosition # 0 == "turret")then {
+		_unit = _grp createUnit [(_vehicleType # 1), _position, [], 0, "CAN_COLLIDE"];
 		_unit assignAsGunner _vehicle;
-		_unit MoveInTurret [_vehicle,_currentPosition select 1];
-		_vehCrew set [count _vehCrew,_unit];
+		_unit MoveInTurret [_vehicle,_currentPosition # 1];
+		_vehCrew pushBack _unit;
 	};
 } foreach _vehPositions;
 

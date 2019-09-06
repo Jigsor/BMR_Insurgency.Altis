@@ -1,9 +1,9 @@
 //watch projectiles that passed by these and sees if they are explosives and if they are close enough to set off the IED
 
 _isExplosive = false;
-_item = _this select 0;
-_class = _this select 4;
-_position = _this select 5;
+_item = _this # 0;
+_class = _this # 4;
+_position = _this # 5;
 
 {
 	if(_class iskindof _x) then {
@@ -20,8 +20,8 @@ _position = _this select 5;
 if(_isExplosive) then {
 	_updateInterval = .1;
 	_radius = 49;		
-	_ied = _this select 1;
-	_trigger = _this select 2;
+	_ied = _this # 1;
+	_trigger = _this # 2;
 	
 	while {(alive _item) and !(isnull _ied) and !(isnull _trigger)} do {
 		_position = getpos _item;
@@ -38,8 +38,8 @@ if(_isExplosive) then {
 		_r = random 100;
 		if(EPD_IED_debug) then {hint format["random = %1\nmax to explode = %2\n%3",_r,_chance,_class];};
 		if(_r < _chance) then {
-			_iedNumber = _this select 6;
-			_iedSize = _this select 3;
+			_iedNumber = _this # 6;
+			_iedSize = _this # 3;
 			if(EPD_IED_debug) then { player sidechat format ["%1 triggered IED",_class]; };
 			if(!(isnull _ied)) then {
 				_ied removeAllEventHandlers "HitPart";

@@ -1,10 +1,7 @@
 /* original work from: Tankbuster */
 /* adapted from:  Dynamic IED script by - Mantis -*/
 /* Rewritten by Brian Sweeney - [EPD] Brian*/
-_unit = _this select 0;
-_b = _this select 1;
-_pd = _this select 2;
-_iedNumber = _this select 3;
+params ["_unit","_b","_pd","_iedNumber"];
 if(not isNull _b) then {
 	_itemRequirement = "";
 	for "_i" from 0 to (count itemsRequiredToDisarm) -1 step 1 do{

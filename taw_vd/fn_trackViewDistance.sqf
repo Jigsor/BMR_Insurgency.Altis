@@ -10,6 +10,6 @@ while {true} do {
 	if(!alive player) then {
 		waitUntil {sleep 1; alive player};
 	};
-	[] call TAWVD_fnc_updateViewDistance;
+	call TAWVD_fnc_updateViewDistance;
 	waitUntil {sleep 0.5; _recorded != vehicle player || !alive player};
 };

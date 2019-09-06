@@ -1,7 +1,7 @@
 //Objectives\delivery.sqf mission by Jigsor
 
 //Bypass objective if Opposing Army/Mod Initialization == IFA3. This objective currently only works with helicopter.
-if (INS_op_faction isEqualTo 17) exitWith {sleep 10; execVM "Objectives\random_objectives.sqf";};
+if (INS_op_faction in [21]) exitWith {sleep 10; execVM "Objectives\random_objectives.sqf";};
 
 sleep 2;
 params ["_newZone"];
@@ -12,10 +12,10 @@ Demo_Loaded = false;
 Demo_Unloaded = false;
 
 private "_type";
-if (INS_op_faction > 3 || INS_op_faction isEqualTo 0) then {
-	_type = selectRandom INS_Op4_Veh_AA;
+if (isNil "INS_Op4_Veh_AA" || {INS_Op4_Veh_AA isEqualTo []}) then {
+	_type = _this # 1;
 }else{
-	_type = _this select 1;
+	_type = selectRandom INS_Op4_Veh_AA;
 };
 
 // Positional info
@@ -81,13 +81,13 @@ Delivery_Box hideObjectGlobal false;
 
 private _sphere = createVehicle ["Sign_Sphere100cm_F", getPosATL Delivery_Box, [], 0, "CAN_COLLIDE"];
 sleep jig_tvt_globalsleep;
-_sphere setPos [(getPos _sphere select 0),(getPos _sphere select 1),5];
+_sphere setPos [getPos _sphere # 0, getPos _sphere # 1, 5];
 
 waitUntil {sleep 1; alive MHQ_3};
 
 Demo_Arrow = createVehicle ["Sign_Arrow_Large_Yellow_F", getPosATL MHQ_3, [], 0, "CAN_COLLIDE"];
 sleep jig_tvt_globalsleep;
-Demo_Arrow setPos [(getPos Demo_Arrow select 0),(getPos Demo_Arrow select 1),6];
+Demo_Arrow setPos [getPos Demo_Arrow # 0, getPos Demo_Arrow # 1, 6];
 
 private ["_newPos","_tmarker"];
 _newPos = (getposATL MHQ_3);
@@ -181,7 +181,7 @@ while {_makedelivery} do
 
 		if (DebugEnabled isEqualTo 1) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
-		if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+		if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[] remoteExec ['INS_fog_effect', [0,-2] select isDedicated]};};
 	};
 
 	if (SideMissionCancel) exitWith {Demo_Loaded = true; publicVariableServer "Demo_Loaded";};
@@ -225,10 +225,10 @@ _smkArr = [];
 while {Demo_Loaded} do {
 
 	sleep 35;
-	_smoke1 = createVehicle ["SmokeShellRed", getMarkerPos "ObjectiveMkr", [], 0, "CAN_COLLIDE"];
-	_smoke1 setPos [(getPos _smoke1 select 0),(getPos _smoke1 select 1),50];
-	_smoke2 = createVehicle ["SmokeShellRed", getMarkerPos "ObjectiveMkr", [], 0, "CAN_COLLIDE"];
-	_smoke2 setPos [(getPos _smoke2 select 0),(getPos _smoke2 select 1),100];
+	_smoke1 = createVehicle ["SmokeShellRed", markerPos "ObjectiveMkr", [], 0, "CAN_COLLIDE"];
+	_smoke1 setPos [getPos _smoke1 # 0, getPos _smoke1 # 1, 50];
+	_smoke2 = createVehicle ["SmokeShellRed", markerPos "ObjectiveMkr", [], 0, "CAN_COLLIDE"];
+	_smoke2 setPos [getPos _smoke2 # 0, getPos _smoke2 # 1, 100];
 	sleep jig_tvt_globalsleep;
 
 	_smkArr pushBack _smoke1;
@@ -242,8 +242,8 @@ if (Demo_Unloaded) then {
 	waitUntil {sleep 2; ((getPosatl Delivery_Box select 2) < 2 || deliveryfail isEqualTo 1 || SideMissionCancel)};
 
 	if (!SideMissionCancel) then {
-		private _droppoint = [getMarkerPos "ObjectiveMkr" select 0, getMarkerPos "ObjectiveMkr" select 1];
-		private _dropedcargo = [getPosatl Delivery_Box select 0, getPosatl Delivery_Box select 1];
+		private _droppoint = [markerPos "ObjectiveMkr" # 0, markerPos "ObjectiveMkr" # 1];
+		private _dropedcargo = [getPosatl Delivery_Box # 0, getPosatl Delivery_Box # 1];
 		private "_text";
 
 		if ((_droppoint distance _dropedcargo < 750) && (deliveryfail isEqualTo 0) && {(alive _veh) && (alive (driver _veh))}) then	{

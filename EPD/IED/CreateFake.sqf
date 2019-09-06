@@ -1,6 +1,4 @@
-_fakeNumber = _this select 0;
-_junkPosition = _this select 1;
-_junkType = _this select 2;
+params ["_fakeNumber","_junkPosition","_junkType"];
 
 _junk = _junkType createVehicle _junkPosition;
 _junk setdir(random 360);

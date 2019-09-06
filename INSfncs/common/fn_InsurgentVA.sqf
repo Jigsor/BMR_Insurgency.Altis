@@ -3,7 +3,7 @@
 // becarefull not to make opfor/resistance players to op.
 if (!hasInterface) exitWith {};
 
-if (INS_op_faction in [17]) exitWith
+if (INS_op_faction in [21]) exitWith
 { // IFA3/FOW contents only
 _availableBackpacks = [
 	"B_Parachute",       //Vanilla, Not required for HALO or Bail
@@ -645,7 +645,20 @@ _availableBackpacks = [
 	"B_FieldPack_ghex_OTMedic_F",
 	"B_FieldPack_cbr_LAT",
 	"B_FieldPack_blk",
-	"B_TacticalPack_ocamo"
+	"B_TacticalPack_ocamo",
+
+	//Contact
+	"B_AssaultPack_rgr",
+	//"B_Carryall_wdl_F",
+	"B_FieldPack_green_F",
+	"B_FieldPack_taiga_F",
+	"B_AssaultPack_wdl_F",
+	"B_AssaultPack_eaf_F",
+	"B_RadioBag_01_digi_F",
+	"B_RadioBag_01_eaf_F",
+	"B_RadioBag_01_ghex_F",
+	"B_RadioBag_01_hex_F",
+	"B_RadioBag_01_oucamo_F"
 ];
 
 _availableItems = [
@@ -654,9 +667,6 @@ _availableItems = [
 	"FirstAidKit",                 //Required for BTC Revives
 	"Medikit",                     //Opfor Players are Medics by Class
 	"ToolKit",                     //Opfor Players are Engineers by Trait
-	//"H_HelmetO_ViperSP_ghex_F",  //Is Gas Mask
-	//"H_CrewHelmetHeli_O",        //Is Gas Mask
-	//"H_CrewHelmetHeli_I",        //Is Gas Mask
 	"MineDetector",
 	"ItemCompass",
 	"ItemGPS",
@@ -728,6 +738,18 @@ _availableItems = [
 	"U_I_C_Soldier_Para_4_F",
 	"U_I_C_Soldier_Para_1_F",
 	"U_I_C_Soldier_Camo_F",
+	"U_I_E_Uniform_01_F",
+	"U_I_E_Uniform_01_tanktop_F",
+	"U_I_E_Uniform_01_shortsleeve_F",
+	"U_I_E_Uniform_01_officer_F",
+	"U_I_E_Uniform_01_sweater_F",
+	"U_I_E_CBRN_Suit_01_EAF_F",
+	"U_C_E_LooterJacket_01_F",
+	"U_I_L_Uniform_01_tshirt_skull_F",
+	"U_I_L_Uniform_01_tshirt_black_F",
+	"U_I_L_Uniform_01_tshirt_sport_F",
+	"U_I_L_Uniform_01_tshirt_olive_F",
+	"U_I_CBRN_Suit_01_AAF_F",
 
 	//Helmets
 	"H_HelmetIA",
@@ -760,6 +782,16 @@ _availableItems = [
 	"H_Bandanna_khk",
 	"H_Bandanna_sgg",
 	"H_Bandanna_sand",
+	//"H_HelmetO_ViperSP_ghex_F",
+
+	"H_MilCap_eaf",
+	"H_HelmetHBK_headset_F",
+	"H_HelmetHBK_chops_F",
+	"H_HelmetHBK_ear_F",
+	"H_HelmetHBK_F",
+	"H_HelmetAgresspor_F",
+	"H_HelmetAgresspor_Cover_F",
+	"H_HelmetAgresspor_cover_taiga_F",
 
 	//HeadGear
 	"H_Shemag_khk",
@@ -771,6 +803,7 @@ _availableItems = [
 	"H_Bandanna_camo",
 	"G_Balaclava_combat",
 	"G_Balaclava_oli",
+	"G_Balaclava_blk",
 	"G_Bandanna_tan",
 
 	//Vests
@@ -785,6 +818,9 @@ _availableItems = [
 	"V_BandollierB_ghex_F",
 	"V_RebreatherIR",
 	"V_RebreatherIA",
+	"V_CarrierRigKBT_01_heavy_EAF_F",
+	"V_CarrierRigKBT_01_light_EAF_F",
+	"V_CarrierRigKBT_01_EAF_F",
 
 	//Weapon Accessories
 	"muzzle_snds_H",
@@ -797,9 +833,15 @@ _availableItems = [
 	"muzzle_snds_65_TI_blk_F",
 	"muzzle_snds_65_TI_hex_F",
 	"muzzle_snds_65_TI_ghex_F",
+	"muzzle_snds_B_khk_F",
+	"muzzle_snds_B_snd_F",
+	"muzzle_snds_B_lush_F",
+	"muzzle_snds_B_arid_F",
+	"muzzle_snds_570",
 	"bipod_02_F_blk",
 	"bipod_02_F_hex",
 	"bipod_02_F_tan",
+	"bipod_01_F_blk",
 	"acc_flashlight",
 	"acc_pointer_IR",
 	"optic_Yorris",
@@ -814,7 +856,17 @@ _availableItems = [
 	"optic_ACO_grn",
 	"optic_ARCO",
 	"optic_Arco_blk_F",
-	"optic_ERCO_blk_F"
+	"optic_ERCO_blk_F",
+	"optic_Arco_ghex_F",
+	"optic_Arco_lush_F",
+	"optic_Arco_arid_F",
+	"optic_Arco_AK_blk_F",
+	"optic_Arco_AK_lush_F",
+	"optic_Arco_AK_arid_F",
+	"optic_ico_01_f",
+	"optic_ico_01_black_f",
+	"optic_ico_01_camo_f",
+	"optic_ico_01_sand_f"
 ];
 
 _availableMagazines = [
@@ -879,6 +931,7 @@ _availableMagazines = [
 	"10Rnd_9x21_Mag",
 	"200Rnd_65x39_cased_Box",
 	"200Rnd_65x39_cased_Box_Tracer",
+	"50Rnd_570x28_SMG_03",//ADR
 	//Put
 	"APERSBoundingMine_Range_Mag",
 	"APERSMine_Range_Mag",
@@ -887,7 +940,41 @@ _availableMagazines = [
 	"ClaymoreDirectionalMine_Remote_Mag",
 	"DemoCharge_Remote_Mag",
 	"SLAMDirectionalMine_Wire_Mag",
-	"SatchelCharge_Remote_Mag"
+	"SatchelCharge_Remote_Mag",
+
+	//Contact Mixed
+	"3Rnd_HE_Grenade_shell",
+	"UGL_FlareWhite_F",
+	"30Rnd_45ACP_Mag_SMG_01",
+	"30Rnd_65x39_caseless_mag",
+	"30Rnd_65x39_caseless_khaki_mag",
+	"30Rnd_65x39_caseless_black_mag",
+	"100Rnd_65x39_caseless_mag",
+	"100Rnd_65x39_caseless_khaki_mag",
+	"100Rnd_65x39_caseless_black_mag",
+	"100Rnd_65x39_caseless_mag_Tracer",
+	"100Rnd_65x39_caseless_khaki_mag_tracer",
+	"100Rnd_65x39_caseless_black_mag_tracer",
+	"30Rnd_762x39_AK12_Mag_F",
+	"30Rnd_762x39_Mag_Green_F",
+	"30Rnd_762x39_Mag_Tracer_F",
+	"30Rnd_762x39_Mag_Tracer_Green_F",
+	"30Rnd_762x39_AK12_Mag_Tracer_F",
+	"75Rnd_762x39_Mag_F",
+	"75Rnd_762x39_Mag_Tracer_F",
+	"30rnd_762x39_AK12_Lush_Mag_F",
+	"30rnd_762x39_AK12_Lush_Mag_Tracer_F",
+	"30rnd_762x39_AK12_Arid_Mag_F",
+	"30rnd_762x39_AK12_Arid_Mag_Tracer_F",
+	"75rnd_762x39_AK12_Mag_F",
+	"75rnd_762x39_AK12_Lush_Mag_F",
+	"75rnd_762x39_AK12_Arid_Mag_F",
+	"30Rnd_65x39_caseless_msbs_mag",
+	"30Rnd_65x39_caseless_msbs_mag_Tracer",
+	"6Rnd_12Gauge_Pellets",
+	"6Rnd_12Gauge_Slug",
+	"2Rnd_12Gauge_Pellets",
+	"2Rnd_12Gauge_Slug"
 ];
 
 _availableWeapons = [
@@ -918,6 +1005,15 @@ _availableWeapons = [
 	"arifle_AK12_GL_F",
 	"srifle_DMR_01_F",
 	"hgun_PDW2000_F",
+	//ADR
+	"SMG_03_camo",
+	"SMG_03_hex",
+	"SMG_03_TR_camo",
+	"SMG_03_TR_hex",
+	"SMG_03C_camo",
+	"SMG_03C_hex",
+	"SMG_03C_TR_camo",
+	"SMG_03C_TR_hex",
 
 	//MachineGuns
 	"LMG_Zafir_F",
@@ -940,7 +1036,37 @@ _availableWeapons = [
 	"hgun_ACPC2_F",
 	"hgun_Rook40_F",
 	"hgun_Pistol_heavy_02_F",
-	"hgun_Pistol_01_F"
+	"hgun_Pistol_01_F",
+
+	//Contact Mixed
+	"sgun_HunterShotgun_01_F",//shotgun
+	"sgun_HunterShotgun_01_sawedoff_F",//shotgun
+	"arifle_AK12_lush_F",
+	"arifle_AK12_arid_F",
+	"arifle_AK12_GL_lush_F",
+	"arifle_AK12_GL_arid_F",
+	"arifle_RPK12_F",
+	"arifle_RPK12_lush_F",
+	"arifle_RPK12_arid_F",
+	"arifle_AK12U_F",
+	"arifle_AK12U_lush_F",
+	"arifle_AK12U_arid_F",
+	"arifle_MSBS65_F",
+	"arifle_MSBS65_Mark_F",
+	"arifle_MSBS65_GL_F",
+	"arifle_MSBS65_UBS_F",
+	"arifle_MSBS65_black_F",
+	"arifle_MSBS65_Mark_black_F",
+	"arifle_MSBS65_GL_black_F",
+	"arifle_MSBS65_UBS_black_F",
+	"arifle_MSBS65_sand_F",
+	"arifle_MSBS65_Mark_sand_F",
+	"arifle_MSBS65_GL_sand_F",
+	"arifle_MSBS65_UBS_sand_F",
+	"arifle_MSBS65_camo_F",
+	"arifle_MSBS65_Mark_camo_F",
+	"arifle_MSBS65_GL_camo_F",
+	"arifle_MSBS65_UBS_camo_F"
 ];
 
 [_availableBackpacks,_availableItems,_availableMagazines,_availableWeapons]

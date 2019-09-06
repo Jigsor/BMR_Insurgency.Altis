@@ -13,19 +13,20 @@ class Header
     maxPlayers = 32;
 };
 
-enableDebugConsole		= 1;// 0 = Default behavior, available only in editor, 1 = Available in SP and for hosts / logged in admins, 2 = Available for everyone
-allowFunctionsRecompile	= 0;// 0 = Default behavior all funtions final, 1 = allow Recompile.
-allowFunctionsLog		= 0;// Log to rpt. 0 = Default behavior Disable, 1 = Enable.
-DisabledAI				= 1;// 0 = Default fills empty playable slots with AI, 1 = Don't fill the empty playable slots.
-joinUnassigned			= 1;// 0 = Forces joining players into the first empty slot, 1 = leaves player to select their own.
-Respawn					= 3;// Base
-RespawnDelay			= 3;
-RespawnDialog			= 0;// Show scoreboard at death. 0 = disabled; 1 = enabled (default)
-showGPS					= 1;// Allow GPS
-showCompass				= 1;// Allow Compass
-showMap					= 1;// Allow Map
-showWatch				= 1;// Allow Watch
-forceRotorLibSimulation	= 0;// Default value: 0 = options based; 1 = force enable; 2 = force disable
+enableDebugConsole      = 1;// 0 = Default behavior, available only in editor, 1 = Available in SP and for hosts / logged in admins, 2 = Available for everyone
+allowFunctionsRecompile = 0;// 0 = Default behavior all functions final, 1 = allow Recompile.
+allowFunctionsLog       = 0;// Log to rpt. 0 = Default behavior Disable, 1 = Enable.
+DisabledAI              = 1;// 0 = Default fills empty playable slots with AI, 1 = Don't fill the empty playable slots.
+joinUnassigned          = 1;// 0 = Forces joining players into the first empty slot, 1 = leaves player to select their own.
+Respawn                 = 3;// Base
+RespawnDelay            = 3;// Seconds (do not change, shit can break)
+RespawnDialog           = 0;// Show scoreboard at death. 0 = disabled; 1 = enabled (default)
+showGPS                 = 1;// Allow GPS
+showCompass             = 1;// Allow Compass
+showMap                 = 1;// Allow Map
+showWatch               = 1;// Allow Watch
+forceRotorLibSimulation = 0;// Default value: 0 = options based; 1 = force enable; 2 = force disable
+unsafeCVL               = 1;// Allow createVehicleLocal. 0 = prohibited (default) - 1 = allowed.
 
 #include "Hpp\Parameters.hpp"
 
@@ -60,8 +61,8 @@ class Extended_InitPost_EventHandlers {
     };
 	class Plane {
         class INSplaneActions {
-			exclude[] = {"B_T_UAV_03_F","B_UAV_02_CAS_F","B_UAV_02_F","B_UAV_02_dynamicLoadout_F","B_UAV_05_F","ffaa_reaper_multirrol","ffaa_reaper_gbu","ffaa_reaper_maverick","ffaa_et_searcherIII","ffaa_lanzador_nasams","CUP_B_USMC_MQ9"};
-			clientInit = "(_this select 0) addAction['HALO', {execVM 'scripts\INS_Bail.sqf'}, [], 8, false, false, '', '_target==(vehicle _this)'];(_this select 0) addAction['Auto Countermeasure', {execVM 'scripts\INS_CounterMeasure.sqf'}, [], 7.9, false, false, '', '_target==(vehicle _this)'];";
+			exclude[] = {"B_T_UAV_03_F","B_UAV_02_CAS_F","B_UAV_02_F","B_UAV_02_dynamicLoadout_F","B_UAV_05_F","ffaa_reaper_multirrol","ffaa_reaper_gbu","ffaa_reaper_maverick","ffaa_et_searcherIII","ffaa_lanzador_nasams","CUP_B_USMC_MQ9","CUP_B_USMC_DYN_MQ9"};
+			clientInit = "(_this select 0) addAction['HALO', {execVM 'scripts\INS_Bail.sqf'}, [], 8, false, false, '', '_target==(vehicle _this)'];(_this select 0) addAction['Auto Countermeasure', {call BMRINS_fnc_autoCounterMeasure}, [], 7.9, false, false, '', '_target==(vehicle _this)'];";
 		};
     };
 };
@@ -92,6 +93,12 @@ class CfgDebriefing
 	{
 		title = "Missing Mods";
 		description = "This machine is missing required mod(s). Check mod installations and try again.";
+		picture = "";
+	};
+	class END5
+	{
+		title = "Initialization Failure";
+		description = "Player object did not initialize correctly. Try reslotting or reconnecting";
 		picture = "";
 	};
 };

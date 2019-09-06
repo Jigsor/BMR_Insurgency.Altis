@@ -1,4 +1,4 @@
-_unit = _this select 0;
+params ["_unit"];
 
 _unit action ["getOut",vehicle _unit];
 sleep 2;

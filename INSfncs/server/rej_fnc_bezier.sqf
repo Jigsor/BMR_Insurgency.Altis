@@ -4,13 +4,8 @@
 //_curvePosArr = [startPos,endPos,controlPos,4,true,true] call rej_fnc_bezier;
 //hint format["POSITIONS RETURNED: %1",(curvePositionsArray)];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-private["_vector1","_vector2","_controlVector","_numberOfPoints","_removeStartPos","_x","_y","_increments","_positions"];
-_vector1 = _this select 0;
-_vector2 = _this select 1;
-_controlVector = _this select 2;
-_numberOfPoints = _this select 3;
-_removeStartPos = _this select 4;
-_debug_mkr = _this select 5;
+params ["_vector1","_vector2","_controlVector","_numberOfPoints","_removeStartPos","_debug_mkr"];
+private ["_x","_y","_increments","_positions"];
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //-- Double distance for the control vector to make the peak of the curve pass through the controlVector --//
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

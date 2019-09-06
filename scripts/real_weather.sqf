@@ -89,20 +89,20 @@ if (local player) then {
 		if(wcweatherstart) then {
 			wcweatherstart = false;
 			skipTime -24;
-			86400 setRain (wcweather select 0);
-			86400 setfog (wcweather select 1);
-			86400 setOvercast (wcweather select 2);
+			86400 setRain (wcweather # 0);
+			86400 setfog (wcweather # 1);
+			86400 setOvercast (wcweather # 2);
 			skipTime 24;
 			simulweatherSync;
-			setwind (wcweather select 3);
-			setdate (wcweather select 4);
+			setwind (wcweather # 3);
+			setdate (wcweather # 4);
 		}else{
-			wcweather = _this select 1;
-			60 setRain (wcweather select 0);
-			60 setfog (wcweather select 1);
-			60 setOvercast (wcweather select 2);
-			setwind (wcweather select 3);
-			setdate (wcweather select 4);
+			wcweather = _this # 1;
+			60 setRain (wcweather # 0);
+			60 setfog (wcweather # 1);
+			60 setOvercast (wcweather # 2);
+			setwind (wcweather # 3);
+			setdate (wcweather # 4);
 		};
 	};
 };
@@ -114,17 +114,17 @@ if(!_realtime) then {setTimeMultiplier _timeratio};
 
 // apply weather
 skipTime -24;
-86400 setRain (wcweather select 0);
-86400 setfog (wcweather select 1);
-86400 setOvercast (wcweather select 2);
+86400 setRain (wcweather # 0);
+86400 setfog (wcweather # 1);
+86400 setOvercast (wcweather # 2);
 skipTime 24;
 simulweatherSync;
-setwind (wcweather select 3);
-setdate (wcweather select 4);
+setwind (wcweather # 3);
+setdate (wcweather # 4);
 
 // sync server & client weather & time
 [_timesync] spawn {
-	private _timesync = _this select 0;
+	private _timesync = _this # 0;
 
 	while { true } do {
 		wcweather set [4, date];
@@ -167,10 +167,10 @@ while {true} do {
 	};
 
 	wcweather = [_rain, _fog, _overcast, _wind, date];
-	60 setRain (wcweather select 0);
-	60 setfog (wcweather select 1);
-	60 setOvercast (wcweather select 2);
-	setwind (wcweather select 3);
+	60 setRain (wcweather # 0);
+	60 setfog (wcweather # 1);
+	60 setOvercast (wcweather # 2);
+	setwind (wcweather # 3);
 	if(_random) then {
 		_timeforecast = _mintime + (random (_maxtime - _mintime));
 	};

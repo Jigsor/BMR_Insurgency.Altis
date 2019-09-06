@@ -2,9 +2,16 @@
 
 if (!isServer) exitWith {};
 waitUntil {time > 1};
-if (isDedicated) then {enableEnvironment [false, false]};
+if (isDedicated) then {
+	enableEnvironment [false, false];
+	setShadowDistance 0;
+	//Work Around for inaccessible UAVS for players present at mission start (nonJIP)
+	{{deletevehicle _x} count (allMissionObjects _x)} forEach INS_W_Serv_UAVs;//let them respawn
+};
 sleep 20;
-{_x setDamage 0} forEach (allMissionObjects "I_Heli_Transport_02_F"), (allMissionObjects "I_Heli_light_03_dynamicLoadout_F");// Work around for new bug since A3 1.78 - these helis incur damage at mission start and after recreated... wtf
+{_x setDamage 0;} forEach (allMissionObjects "I_Heli_Transport_02_F"), (allMissionObjects "I_Heli_light_03_dynamicLoadout_F");// Work around for new bug since A3 1.78 - these helis incur damage at mission start and after recreated... wtf
+{_x enableRopeAttach false;} forEach (vehicles select {_x isKindof "StaticWeapon"});
+
 sleep 108;
 
 private _czPosArrys = [];
@@ -17,7 +24,7 @@ private _w = INS_Blu_side;
 private _pOp4 = INS_play_op4;
 
 {
-	_mpos = getmarkerPos _x;
+	_mpos = markerPos _x;
 	_czPosArrys pushBack _mpos;
 } forEach _ctearZones;
 
@@ -42,7 +49,7 @@ while {true} do {
 		_trees = nearestTerrainObjects [_x, ["TREE","SMALL TREE","BUSH"], 50, false];
 		if !(_trees isEqualTo []) then {
 			for "_i" from 0 to (count _trees - 1) step 1 do {
-				_tree = _trees select 0;
+				_tree = _trees # 0;
 				if ((damage _tree isEqualTo 1) && {!(isObjectHidden _tree)}) then {hideobjectGlobal _tree};
 				_trees deleteAt 0;
 			};
@@ -81,7 +88,7 @@ while {true} do {
 						if (count (allMissionObjects _x) > 0) then {
 							{deleteVehicle _x} count (allMissionObjects _x);
 						};
-					} forEach ["Land_Sleeping_bag_F","Land_Sleeping_bag_blue_F","Land_Sleeping_bag_brown_F","Respawn_Sleeping_bag_F","Respawn_Sleeping_bag_brown_F","Respawn_Sleeping_bag_blue_F","B_Patrol_Respawn_tent_F","Respawn_TentDome_F","Respawn_TentA_F","CraterLong","CraterLong_small","Ruins","OPTRE_HEV","OPTRE_HEV_Door","Plane_Fighter_01_Canopy_F","Plane_Fighter_02_Canopy_F","Plane_Fighter_03_Canopy_F","Plane_Fighter_04_Canopy_F","Plane_CAS_01_Canopy_F","Plane_CAS_02_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F","I_Ejection_Seat_Plane_Fighter_04_F","O_Ejection_Seat_Plane_Fighter_02_F","O_Ejection_Seat_Plane_CAS_02_F","I_Ejection_Seat_Plane_Fighter_03_F","rhs_k36d5_seat","rhs_mi28_wing_right","rhs_mi28_wing_left","rhs_a10_acesII_seat","rhs_vs1_seat","CUP_B_Ejection_Seat_A10_USA"];
+					} forEach ["Land_Sleeping_bag_F","Land_Sleeping_bag_blue_F","Land_Sleeping_bag_brown_F","Respawn_Sleeping_bag_F","Respawn_Sleeping_bag_brown_F","Respawn_Sleeping_bag_blue_F","B_Patrol_Respawn_tent_F","Respawn_TentDome_F","Respawn_TentA_F","CraterLong","CraterLong_small","Ruins","OPTRE_HEV","OPTRE_HEV_Door","Plane_Fighter_01_Canopy_F","Plane_Fighter_02_Canopy_F","Plane_Fighter_03_Canopy_F","Plane_Fighter_04_Canopy_F","Plane_CAS_01_Canopy_F","Plane_CAS_02_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F","I_Ejection_Seat_Plane_Fighter_04_F","O_Ejection_Seat_Plane_Fighter_02_F","O_Ejection_Seat_Plane_CAS_02_F","I_Ejection_Seat_Plane_Fighter_03_F","rhs_k36d5_seat","rhs_mi28_wing_right","rhs_mi28_wing_left","rhs_a10_acesII_seat","rhs_vs1_seat","CUP_B_Ejection_Seat_A10_USA","CUP_AV8B_EjectionSeat","CUP_AirVehicles_EjectionSeat"];
 					sleep 2;
 
 					// Delete abandoned sandbags placed by medics.

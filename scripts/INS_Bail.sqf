@@ -1,9 +1,6 @@
 // INS_Bail.sqf //
-
-private ["_target","_loadout","_veh"];
-
-_target = player;
-_veh = vehicle player;
+private _target = player;
+private _veh = vehicle player;
 
 hint "";
 
@@ -16,7 +13,7 @@ if (soundVolume isEqualTo 0.3) then {1 fadeSound 1};
 
 moveOut _target;
 
-_loadout = [_target] call ATM_Getloadout;
+private _loadout = [_target] call ATM_Getloadout;
 0=[_target] call Frontpack;
 
 removeBackpack _target;
@@ -24,7 +21,7 @@ sleep 0.5;
 _target addBackpack "B_Parachute";
 
 while {(getPos _target select 2) > 2} do {
-	if !(isTouchingGround _target and isNull objectParent player) then {
+	if !(isTouchingGround _target && isNull objectParent player) then {
 		playSound "Vent2";
 		sleep (0.9 + random 0.3);
 		playSound "Vent";

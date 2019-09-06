@@ -1,5 +1,4 @@
-_mrk=(_this # 0);
-_radveh	=(_this # 1);
+params ["_mrk","_radveh"];
 
 _pos = [_mkr,true] call SHK_pos;
 

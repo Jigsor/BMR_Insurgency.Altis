@@ -1,5 +1,5 @@
 //http://forums.bistudio.com/showthread.php?172864-Any-idea-how-this-was-done
-_iedPos = _this select 0;
+params ["_iedPos"];
 sleep 0.25;
 if(alive player) then {
 	_distance = (getpos player) distance _iedPOS;

@@ -21,24 +21,26 @@ INS_intro_playTrack = {
 };
 INS_intro = {
 	// Bluefor Intro by Jigsor
-	private ["_dir","_rx","_ry","_text","_cam"];
 	disableSerialization;
 	showCinemaBorder false;
 	enableRadio false;
 	setViewDistance 1100;
-	if (daytime > 20.50 || daytime < 4.50) then {camUseNVG true};
-	_dir = (direction player) -180;
-	_rx = selectRandom [38,-38];
-	_ry = selectRandom [38,-38];
-	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
+	_dd = missionNameSpace getVariable ["BMR_DawnDusk",[]];
+	_dd params ["_dawn","_dusk"];
+	if (daytime > (_dusk + 1) || daytime < (_dawn - 1)) then {camUseNVG true};
+	private _dir = (direction player) -180;
+	private _rx = selectRandom [38,-38];
+	private _ry = selectRandom [38,-38];
+	private _text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
 	0 = 0 spawn INS_intro_playTrack;
-	_cam = "camera" camCreate [position camstart # 0, position camstart # 1, (position camstart select 2) + 80];
+	private _cam = "camera" camCreate [position camstart # 0, position camstart # 1, (position camstart select 2) + 80];
 	_cam camPreload 5;
 	_cam camSetTarget player;
 	waitUntil {preloadCamera [position camstart # 0, position camstart # 1, (position camstart select 2) + 80]};
 	_cam cameraEffect ["Internal", "BACK"];
 	["BIS_ScreenSetup",true] call BIS_fnc_blackIn;
 	_camPos = [(getPos player select 0) + _rx, (getPos player select 1) + _ry, (getTerrainHeightASL (position player)) + 20];
+	_cam camCommand "inertia on";
 	_cam camSetPos [(_camPos select 0) + (100 * sin _dir), (_camPos select 1) + (100 * cos _dir), _camPos # 2];
 	_cam camCommit 25;
 	sleep 10;
@@ -47,6 +49,7 @@ INS_intro = {
 	sleep 7;
 	waitUntil {camcommitted _cam};
 	//[] spawn {[jig_anode,nil,true] call BIS_fnc_moduleLightning;};
+	_cam camCommand "inertia off";
 	_cam camSetPos [position player # 0, position player # 1, 2.2];
 	_cam camCommit 3;
 	playSound "introfx";
@@ -62,6 +65,7 @@ INS_intro = {
 	if (JIG_DustStorm) then {0 spawn JIG_Dust_Storm};
 	if (JIG_SnowStorm) then {0 spawn JIG_Snow_Storm};
 	if (INS_full_loadout isEqualTo 0) then {player sideChat localize "STR_BMR_Reload_toSave_Kit"};
+	if (INS_p_rev in [6,7] && (!INS_ACE_core)) then {player sideChat "You Have 1 life. Bleed out or forced Respawn initiates spectator camera"};
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
@@ -69,7 +73,9 @@ INS_intro_op4 = {
 	showCinemaBorder false;
 	enableRadio false;
 	setViewDistance 1800;
-	if (daytime > 20.50 || daytime < 4.50) then {camUseNVG true};
+	_dd = missionNameSpace getVariable ["BMR_DawnDusk",[]];
+	_dd params ["_dawn","_dusk"];
+	if (daytime > (_dusk + 1) || daytime < (_dawn - 1)) then {camUseNVG true};
 	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
 	_ok = preloadTitleRsc ["bmr_intro", "PLAIN"];
 	0 = 0 spawn INS_intro_playTrack;
@@ -94,6 +100,8 @@ INS_intro_op4 = {
 		player sideChat localize "STR_BMR_initialize_done";
 		player sideChat localize "STR_BMR_intro_tip1";
 		player sideChat localize "STR_BMR_intro_tip2";
+		if (INS_full_loadout isEqualTo 0) then {player sideChat localize "STR_BMR_Reload_toSave_Kit"};
+		if (INS_p_rev in [6,7] && (!INS_ACE_core)) then {player sideChat "You Have 1 life. Bleed out or forced Respawn initiates spectator camera"};
 	};
 	setViewDistance -1;
 	camDestroy _cam;
@@ -101,13 +109,12 @@ INS_intro_op4 = {
 	if (INS_mod_missing) then {0 spawn INS_missing_mods} else {INS_mod_missing=nil};
 	if (JIG_DustStorm) then {0 spawn JIG_Dust_Storm};
 	if (JIG_SnowStorm) then {0 spawn JIG_Snow_Storm};
-	if (INS_full_loadout isEqualTo 0) then {player sideChat "Reload Magazine to Save Kit"};
 };
 JIG_placeSandbag_fnc = {
 	// Player action place sandbag barrier. by Jigsor
 	private _p = _this # 1;
 
-	if (!isNull objectParent _p || {surfaceIsWater position _p}) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
+	if (!isNull objectParent _p || {surfaceIsWater getPosWorld _p}) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
 	if ((getPosWorld _p) inArea trig_alarm1init) exitWith {hintSilent "No Sandbags on Base!"};
 
 	private _lift = 0.2;
@@ -159,7 +166,7 @@ JIG_UGVdrop_fnc = {
 		_p unlinkItem "B_UAVTerminal";
 		_p linkItem "B_UAVTerminal";
 	};
-	ghst_ugvsupport = [(getMarkerPos "ugv_spawn"),"B_UGV_01_rcws_F",3,30] execVM "scripts\ghst_ugvsupport.sqf";
+	ghst_ugvsupport = [(markerPos "ugv_spawn"),"B_UGV_01_rcws_F",3,30] execVM "scripts\ghst_ugvsupport.sqf";
 	true
 };
 X_fnc_returnConfigEntry = {
@@ -319,7 +326,7 @@ INS_maintenance_veh = {
 	hintSilent localize "STR_BMR_Maint_done";
 };
 BTC_repair_wreck = {
-	_object = (nearestObjects [position player, ["LandVehicle","Air"], 10]) select 0;
+	_object = (nearestObjects [position player, ["LandVehicle","Air","Ship"], 10]) select 0;
 	if (!isNil "_object") then {
 		if (damage _object != 1) exitWith {hintSilent localize "STR_BMR_useMaint_action"};
 		BTC_to_server = [0,_object];publicVariableServer "BTC_to_server";
@@ -377,7 +384,7 @@ JIG_p_actions_resp = {
 	// JTAC
 	if (_playertype in INS_W_PlayerJTAC) then {null = [player, 500, true, 3] execVM "JWC_CASFS\addAction.sqf";};
 	// Medic
-	if (_playertype in INS_W_PlayerMedic) then	{MedicSandBag = ObjNull; _id = player addAction[(localize "STR_BMR_place_sandbag"),{call JIG_placeSandbag_fnc}, 0, -9, false];};
+	if (_playertype in INS_W_PlayerMedic) then {MedicSandBag = ObjNull; _id = player addAction[(localize "STR_BMR_place_sandbag"),{call JIG_placeSandbag_fnc}, 0, -9, false];};
 	// UAV Operator
 	if (_playertype in INS_W_PlayerUAVop) then {
 		if !(INS_ACE_core) then {
@@ -392,6 +399,9 @@ JIG_p_actions_resp = {
 	};
 	// All players mission settings
 	if (Fatigue_ability < 1) then {[player] call INS_full_stamina};
+	if !(((toLower (speaker player)) isEqualTo 'novoice') && {_playertype isEqualTo INS_op4_players}) then {
+		player setSpeaker 'NoVoice';
+	};
 	showChat true;
 	true
 };
@@ -406,7 +416,7 @@ JIG_transfer_fnc = {
 		if (surfaceIsWater _pos) then {player setposASL _pos} else {player setPos _pos};
 	};
 	if (_dest isEqualType objNull) then {player setPos [(getPosATL _dest select 0)-10*sin(_dir),(getPosATL _dest select 1)-10*cos(_dir)]};
-	if (_dest isEqualType "") then {player setPos [(getMarkerPos _dest select 0)-10*sin(_dir),(getMarkerPos _dest select 1)-10*cos(_dir)]};
+	if (_dest isEqualType "") then {player setPos [(markerPos _dest select 0)-10*sin(_dir),(markerPos _dest select 1)-10*cos(_dir)]};
 	titleText ["", "BLACK IN",2];
 	true
 };
@@ -498,7 +508,7 @@ Op4_spawn_pos = {
 	private ["_posnotfound","_random_w_player","_basePos","_players","_movelogic","_blu4Speeding","_playerPos","_cooX","_cooY","_wheX","_wheY","_randPos","_c","_spawnPos","_centerPos","_dis","_dir"];
 	_posnotfound = false;
 	_random_w_player = nil;
-	_basePos = getMarkerPos "Respawn_West";
+	_basePos = markerPos "Respawn_West";
 	_players = [];
 	_movelogic = if (INS_p_rev > 5) then {false}else{true};
 
@@ -554,10 +564,10 @@ Op4_spawn_pos = {
 		if (INS_MHQ_exists && {!isNil "Opfor_MHQ"}) then {
 			// Move to Op4 MHQ
 			if !(getMarkerColor "Opfor_MHQ" isEqualTo "") then {
-				if (_movelogic) then {BTC_r_base_spawn setPos getMarkerPos "Opfor_MHQ"};
-				"Respawn_East" setMarkerPos getMarkerPos "Opfor_MHQ";
+				if (_movelogic) then {BTC_r_base_spawn setPos markerPos "Opfor_MHQ"};
+				"Respawn_East" setMarkerPos markerPos "Opfor_MHQ";
 				_dir = random 359;
-				_op4Player setPos [(getMarkerPos "Opfor_MHQ" select 0)-10*sin(_dir),(getMarkerPos "Opfor_MHQ" select 1)-10*cos(_dir)];
+				_op4Player setPos [(markerPos "Opfor_MHQ" select 0)-10*sin(_dir),(markerPos "Opfor_MHQ" select 1)-10*cos(_dir)];
 			};
 			titleCut["", "BLACK IN",1];
 		}else{
@@ -596,6 +606,7 @@ INS_bullet_cam = {
 					_cam camSetTarget _this;
 					_cam camSetRelPos [0,-3,0];
 					_cam camCommit 0;
+					false
 				};
 				sleep 0.4;
 				_cam cameraEffect ["Terminate", "BACK"];
@@ -619,8 +630,8 @@ JIG_circling_cam = {
 	_maxRotation = (_dir + _travel);
 	_camHeight = 15;
 	_camDis = -30;
-	_logic_pos = [_pos # 0, _pos # 1, (_pos # 2) + 3];
-	_camPos = [_pos # 0, _pos # 1, (_pos select 2) + _camHeight];
+	_logic_pos = _pos vectorAdd [0,0,3];
+	_camPos = _pos vectorAdd [0,0,_camHeight];
 
 	_logic = createVehicle ["Land_ClutterCutter_small_F", _logic_pos, [], 0, "CAN_COLLIDE"];
 	_logic setDir _dir;
@@ -696,14 +707,14 @@ JIG_map_click = {
 };
 INS_AI_revive = {
 	// Initialize =BTC= Quick Revive for all group members including AI by Jigsor.
-	if (INS_p_rev isEqualTo 4 || INS_p_rev isEqualTo 5) then {
+	if (INS_p_rev in [4,5]) then {
 		private _pA = [];
 		private _aiA = [];
 		_grp = group player;
 
 		if (count bon_recruit_queue > 0) then { waitUntil {sleep 1; count bon_recruit_queue < 1}; };
 		{if (isPlayer _x) then {_pA pushBack _x;}else{_aiA pushBack _x;};} forEach (units _grp);
-		if (count _pA > 0) then {["btc_qr_fnc_unit_init", _grp] call BIS_fnc_MP;};
+		if !(_pA isEqualTo []) then {["btc_qr_fnc_unit_init", _grp] call BIS_fnc_MP;};
 		{_x call btc_qr_fnc_unit_init;} forEach _aiA;
 	};
 };
@@ -713,8 +724,7 @@ INS_Vehicle_Reward = {
 	_id = player addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_veh_reward") + "</t>",{call JIG_map_click}, [], 10, false, true];
 };
 INS_Recruit_skill = {
-	// Sets skill of a recruited unit if ASR AI mod is not running on server or client
-	if ((ASRrecSkill isEqualTo 1) || {(isClass(configFile >> "cfgPatches" >> "asr_ai_main"))}) exitWith {true};
+	// Sets skill of a recruited unit
 	params ["_unit"];
 	_unit setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 	_unit setSkill ["aimingShake", 0.6];
@@ -736,7 +746,8 @@ INS_RespawnLoadout = {
 	// Save respawn kit used with "Save Respawn Loadout" action by Jigsor
 	missionNamespace setVariable ["INS_SavedLoadout", (getUnitLoadout player)];
 	_kitSaved = "A3\Sounds_F\sfx\Beep_Target.wss";
-	playsound3d [_kitSaved, (_this # 0), false, getPosasl (_this # 1), 10,0.5,10];
+	playsound3d [_kitSaved, (_this # 0), false, getPosasl (_this # 1), 5,0.5,10];
+	hintSilent "Kit Saved";
 	true
 };
 INS_RestoreLoadout = {
@@ -763,7 +774,6 @@ INS_aiHalo = {
 	private _openChuteAlt = 75;//This does not work in Arma 3 as of v1.5. AI will open chute at 150m.
 	private _jumpAlt = 450;
 	private _freefall = true;
-	private _loadout = [];
 	private _headgear = headgear _target;
 	private _back_pack = backpack _target;
 	private _back_pack_items = getItemCargo (unitBackpack _target);
@@ -776,8 +786,8 @@ INS_aiHalo = {
 	removeBackpack _target;
 	sleep 0.5;
 	_target addBackpack "B_Parachute";
-	_target setPos [_halo_pos # 0, _halo_pos # 1, (_halo_pos select 2) + _jumpAlt];
-	_target switchMove "halofreefall_non";
+	_target setPos [(_halo_pos # 0), (_halo_pos # 1), (_halo_pos select 2) + _jumpAlt];
+	_target switchMove "HaloFreeFall_non";//"halofreefall_non";
 	sleep 0.1;
 
 	while {(getPos _target select 2) > 2.5} do {
@@ -815,6 +825,9 @@ mhq_actions2_fnc = {
 				if (INS_VA_type in [1,2]) then {
 					MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
 				};
+				if (MHQ_1 isKindOf "Ship") then {
+					MHQ_1 addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
+				};
 			};
 		};
 		case "MHQ_2" : {
@@ -825,6 +838,9 @@ mhq_actions2_fnc = {
 				};
 				if (INS_VA_type in [1,2]) then {
 					MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
+				};
+				if (MHQ_2 isKindOf "Ship") then {
+					MHQ_2 addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
 				};
 			};
 		};
@@ -871,7 +887,7 @@ INS_MHQ_mkr = {
 
 	if (!_op4 && {_mkrName isEqualTo "Opfor_MHQ"}) then {_exit = true};
 	if (_exit) exitWith {};
-	
+
 	deleteMarkerLocal _mkrName;
 	private _mkr = createMarkerLocal [_mkrName, _mhqPos];
 	_mkr setMarkerTypeLocal "mil_dot";
@@ -901,16 +917,12 @@ INS_MHQ_client = {
 };
 GAS_smokeNear = {
 	//Are we near a smoke shell. Are we not wearing a gas mask. code by Larrow modified by Jigsor
-	if (headgear player in INS_gasMaskH || {goggles player in INS_gasMaskG}) then {
+	if !(([(headgear player),(goggles player)] arrayIntersect INS_allGasMask) isEqualTo []) then {
 		false
 	}else{
-		_smokeShell = player nearObjects ["GrenadeHand", 30];
-		{
-			if !(typeOf _x in INS_Gas_Grenades) then {_smokeShell = _smokeShell - [_x];};
-		} count _smokeShell;
-
+		_smokeShell = player nearObjects ["GrenadeHand", 30] select {typeOf _x in INS_Gas_Grenades};
 		if !(isNull (_smokeShell # 0)) then {
-			vectorMagnitudeSqr velocity (_smokeShell select 0) <= 0.5 && { (_smokeShell select 0) distance2D player < 15 && !((_smokeShell select 0) inArea trig_alarm1init) }
+			vectorMagnitudeSqr velocity (_smokeShell select 0) <= 0.5 && { (_smokeShell select 0) distance player < 15 && !((_smokeShell select 0) inArea trig_alarm1init) }
 		}else{
 			false
 		};
@@ -930,8 +942,8 @@ GAS_inSmoke = {
 	//While were in smoke
 	while { alive player && not captive player && call GAS_smokeNear } do {
 		private _sound = selectRandom Choke_Sounds;
-		playsound3d [_sound, player, false, getPosasl player, 10,1,30];
-		player setDamage (damage player + 0.14);
+		playsound3d [_sound, player, false, getPosasl player, 5,1,30];
+		player setDamage (damage player + 0.13);
 		//if(floor random 2 isEqualTo 0) then {hint "You Should Wear a Gas Mask";};
     	sleep 2.8123;
 	};
@@ -985,36 +997,19 @@ JIG_dsClear = {
 CarHax = {
 	params ["_action","_veh"];
 	private _p = player;
+	if (_action find "Driver" != -1) exitWith {_p moveInDriver _veh};
 	switch (_action) do {
-		case "Get in Prowler (Unarmed) as Driver": {_p moveInDriver _veh};
 		case "Get in Prowler (Unarmed) as Gunner": {_p moveInTurret [_veh, [5]]};
-		case "Get in Prowler (Armed) as Driver": {_p moveInDriver _veh};
 		case "Get in Prowler (Armed) as Gunner": {_p moveInTurret [_veh, [0]]};
-		case "Get in Qilin (Armed) as Driver": {_p moveInDriver _veh};
+		case "Get in Prowler (Light) as Gunner": {_p moveInTurret [_veh, [5]]};
 		case "Get in Qilin (Armed) as Gunner": {_p moveInTurret [_veh, [0]]};
-		case "Get in Qilin (Unarmed) as Driver": {_p moveInDriver _veh};
 		case "Get in Qilin (Unarmed) as Gunner": {_p moveInTurret [_veh, [5]]};
-		case "Get in Rhino MGS as Driver": {_p moveInDriver _veh};
 		case "Get in Rhino MGS as Gunner": {_p moveInTurret [_veh, [0]]};
-		case "Get in Rhino MGS UP as Driver": {_p moveInDriver _veh};
 		case "Get in Rhino MGS UP as Gunner": {_p moveInTurret [_veh, [0]]};
-		case "Get in Prowler (Light) as Driver": {_p moveInDriver _veh};
-		case "Get in Van (Ambulance) as Driver": {_p moveInDriver _veh};
-		case "Get in Van (Cargo) as Driver": {_p moveInDriver _veh};
-		case "Get in Van (Services) as Driver": {_p moveInDriver _veh};
-		case "Get in Van Transport as Driver": {_p moveInDriver _veh};
-		case "Get in MB 4WD as Driver": {_p moveInDriver _veh};
-		case "Get in Kart as Driver": {_p moveInDriver _veh};
-		case "Get in Kart (Fuel) as Driver": {_p moveInDriver _veh};
-		case "Get in MB 4WD (AT) as Driver": {_p moveInDriver _veh};
 		case "Get in MB 4WD (AT) as Gunner": {_p moveInTurret [_veh, [0]]};
-		case "Get in MB 4WD (LMG) as Driver": {_p moveInDriver _veh};
 		case "Get in MB 4WD (LMG) as Gunner": {_p moveInTurret [_veh, [0]]};
-		case "Get in Prowler (AT) as Driver": {_p moveInDriver _veh};
 		case "Get in Prowler (AT) as Gunner": {_p moveInTurret [_veh, [0]]};
-		case "Get in Prowler (HMG) as Driver": {_p moveInDriver _veh};
 		case "Get in Prowler (HMG) as Gunner": {_p moveInTurret [_veh, [0]]};
-		case "Get in Qilin (AT) as Driver": {_p moveInDriver _veh};
 		case "Get in Qilin (AT) as Gunner": {_p moveInTurret [_veh, [0]]};
 		default {};
 	};
@@ -1072,25 +1067,23 @@ HeliHax = {
 		case "Get in Mi-290 Taru as Copilot": {_p moveInTurret [_veh, [0]]};
 		case "Get in Mi-290 Taru as Loadmaster": {_p moveInTurret [_veh, [1]]};
 		case "Get in M-900 as Pilot": {_p moveInDriver _veh};
+		case "Get in WY-55 Czapla as Pilot": {_p moveInDriver _veh};
+		case "Get in WY-55 Czapla (Unarmed) as Pilot": {_p moveInDriver _veh};
 		default {};
 	};
 };
 TankHax = {
 	params ["_action","_veh"];
 	private _p = player;
+	if (_action find "Driver" != -1) exitWith {_p moveInDriver _veh};
 	switch (_action) do {
-		case "Get in AWC 301 Nyx (AT) as Driver": {_p moveInDriver _veh};
+		case "Get in FV-720 Odyniec as Gunner": {_p moveInTurret [_veh, [0]]};
 		case "Get in AWC 301 Nyx (AT) as Commander": {_p moveInTurret [_veh, [0]]};
-		case "Get in AWC 302 Nyx (AA) as Driver": {_p moveInDriver _veh};
 		case "Get in AWC 302 Nyx (AA) as Commander": {_p moveInTurret [_veh, [0]]};
-		case "Get in AWC 303 Nyx (Recon) as Driver": {_p moveInDriver _veh};
 		case "Get in AWC 303 Nyx (Recon) as Commander": {_p moveInTurret [_veh, [0]]};
-		case "Get in AWC 304 Nyx (Autocannon) as Driver": {_p moveInDriver _veh};
 		case "Get in AWC 304 Nyx (Autocannon) as Commander": {_p moveInTurret [_veh, [0]]};
-		case "Get in T-140 Angara as Driver": {_p moveInDriver _veh};
 		case "Get in T-140 Angara as Gunner": {_p moveInTurret [_veh, [0]]};
 		case "Get in T-140 Angara as Commander": {_p moveInTurret [_veh, [0,0]]};
-		case "Get in T-140K Angara as Driver": {_p moveInDriver _veh};
 		case "Get in T-140K Angara as Gunner": {_p moveInTurret [_veh, [0]]};
 		case "Get in T-140K Angara as Commander": {_p moveInTurret [_veh, [0,0]]};
 		default {};
@@ -1099,11 +1092,11 @@ TankHax = {
 ShipHax = {
 	params ["_action","_veh"];
 	private _p = player;
+	if (_action find "Driver" != -1) exitWith {_p moveInDriver _veh};
 	switch (_action) do {
-		case "Get in Water Scooter as Driver": {_p moveInDriver _veh};
 		case "Get in Water Scooter Ride in back": {_p moveInCargo _veh};
-		case "Get in RHIB as Driver": {_p moveInDriver _veh};
-		case "Get in Assault Boat as Driver": {_p moveInDriver _veh};
+		case "Get in Speedboat HMG as Commander": {_p moveInTurret [_veh, [0]]};
+		case "Get in Speedboat HMG as Rear gunner": {_p moveInTurret [_veh, [1]]};
 		default {};
 	};
 };

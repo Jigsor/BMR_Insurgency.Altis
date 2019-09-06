@@ -1,13 +1,9 @@
 if (waitCAS) exitWith {titleText ["CAS already enroute, cancel current CAS or wait for bomb drop before next request!","PLAIN DOWN"]};
 
 waitCAS = true;
-_object = _this select 0;
-_distance = _this select 1;
-_doLock = _this select 2;
-_num = _this select 3;
-_casType = _this select 4;
-_loc = getMarkerPos (_this select 5);
-_id = _this select 6;
+params ["_object","_distance","_doLock","_num","_casType","_origPos","_id"];
+
+_loc = markerPos _origPos;
 _rndsound = selectRandom ["Shell1","Shell2","Shell3","Shell4"];
 
 _lockobj = createAgent ["Logic", [(_loc select 0), (_loc select 1), 0], [] , 0 , "CAN_COLLIDE"];

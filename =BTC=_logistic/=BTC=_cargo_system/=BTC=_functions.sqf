@@ -19,8 +19,7 @@ BTC_l_check_vehicle = {
 			{
 				_text = _text + getText (configFile >> "cfgVehicles" >> typeof _x >> "displayName") + format [" [%1]",[_x] call BTC_get_rc] + "<br/>";
 				[_x,_veh] spawn {
-					_obj = _this select 0;
-					_veh = _this select 1;
+					params ["_obj","_veh"];
 					//player sideChat format ["%1",_obj];
 					_unload = _veh addaction [("<t color='#ffcc00'>") + (format ["UnLoad %1",getText (configFile >> "cfgVehicles" >> typeof _obj >> "displayName")]) + "</t>",BTC_dir_action,[[_veh,_obj],BTC_l_unload],7,true,false,"","true"];
 					private _sleep = time + 15;
@@ -37,7 +36,7 @@ BTC_l_check_vehicle = {
 BTC_l_select = {
 	_array = nearestObjects [player, BTC_def_cargo, 5];
 	if (count _array > 0) then {
-		BTC_cargo_selected = _array select 0;
+		BTC_cargo_selected = _array # 0;
 		if (format ["%1", BTC_cargo_selected getVariable "BTC_cannot_load"] == "1") then
 		{hint "You can not load this object";BTC_cargo_selected = objNull;} else {hint parseText format ["%1 selected<br/>CR: %2",getText (configFile >> "cfgVehicles" >> typeof BTC_cargo_selected >> "displayName"),[BTC_cargo_selected] call BTC_get_rc];};
 	};
@@ -68,8 +67,7 @@ BTC_l_load = {
 	};
 };
 BTC_l_unload = {
-	_veh = _this select 0;
-	_obj = _this select 1;
+	params ["_veh","_obj"];
 	BTC_action_cargo = true;
 	_cargo_cont = _veh getVariable "BTC_cargo_cont";
 	_id = _cargo_cont find _obj;
@@ -139,7 +137,7 @@ BTC_l_drag = {
 			_act  = 1;
 		};
 		if (count _array isEqualTo 0 && _act isEqualTo 1) then {player removeAction _load;_act = 0;};*/
-		hintSilent "Press 'C' if you can't move.";
+		hintSilent "Press 'Ctrl+C' if you can't move.";//https://feedback.bistudio.com/T76860
 		sleep 0.2;
 	};
 	hintSilent "";
@@ -155,7 +153,7 @@ BTC_l_drag = {
 };
 BTC_get_cc = {
 	private ["_n","_array_class"];
-	_obj = _this select 0;
+	_obj = _this # 0;
 	_type = typeOf _obj;
 	_cc	= 0;_cond = false;
 	for "_i" from 0 to (count BTC_def_cc - 1) step 1 do {
@@ -174,7 +172,7 @@ BTC_get_cc = {
 };
 BTC_get_rc = {
 	private ["_n","_array_class"];
-	_obj  = _this select 0;
+	_obj  = _this # 0;
 	_type = typeOf _obj;
 	_rc   = 0;_cond = false;
 	for "_i" from 0 to (count BTC_def_rc - 1) do {
@@ -193,7 +191,7 @@ BTC_get_rc = {
 };
 BTC_check_cc = {
 	private ["_n","_array_class","_cargo"];
-	_veh  = _this select 0;
+	_veh  = _this # 0;
 	if (isNil {_veh getVariable "BTC_cargo_cont"}) then {_veh setVariable ["BTC_cargo_cont",[],false]};
 	_cargo = _veh getVariable "BTC_cargo_cont";
 	_tot_rc   = 0;
@@ -238,7 +236,7 @@ BTC_l_placement = {
 	(findDisplay 46) displayRemoveEventHandler ["KeyDown",BTC_l_camera_EH_keydown];
 };
 BTC_l_create_camera = {
-	_obj = _this select 0;
+	params ["_obj"];
 	BTC_l_camera = "camera" camCreate (position _obj);
 	BTC_l_camera camSetTarget _obj;
 	BTC_l_camera cameraEffect ["Internal", "BACK"];

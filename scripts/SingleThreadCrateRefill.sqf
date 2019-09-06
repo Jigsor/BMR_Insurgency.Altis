@@ -27,19 +27,19 @@ private "_c";
 while {true} do {
 	{
 		_c = _x;
-		if (alive (_c select 0)) then {
-			if !((_c select 1) isEqualTo []) then {
-				clearItemCargoGlobal (_c select 0);
-				{(_c select 0) addItemCargoGlobal [_x, 1];} count (_c select 1);
+		if (alive (_c # 0)) then {
+			if !((_c # 1) isEqualTo []) then {
+				clearItemCargoGlobal (_c # 0);
+				{(_c # 0) addItemCargoGlobal [_x, 1];} count (_c # 1);
 			};
-			if !((_c select 2) isEqualTo []) then {
-				clearBackpackCargoGlobal (_c select 0);
-				{(_c select 0) addBackpackCargoGlobal [_x, 1];} count (_c select 2);
+			if !((_c # 2) isEqualTo []) then {
+				clearBackpackCargoGlobal (_c # 0);
+				{(_c # 0) addBackpackCargoGlobal [_x, 1];} count (_c # 2);
 			};
-			clearMagazineCargoGlobal (_c select 0);
-			{(_c select 0) addMagazineCargoGlobal [_x, 1];} count (_c select 3);
-			clearWeaponCargoGlobal (_c select 0);
-			{(_c select 0) addWeaponCargoGlobal [_x, 1];} count (_c select 4);
+			clearMagazineCargoGlobal (_c # 0);
+			{(_c # 0) addMagazineCargoGlobal [_x, 1];} count (_c # 3);
+			clearWeaponCargoGlobal (_c # 0);
+			{(_c # 0) addWeaponCargoGlobal [_x, 1];} count (_c # 4);
 			sleep 0.3;
 		};
 	} forEach _all_c_params;

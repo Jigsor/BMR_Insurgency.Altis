@@ -13,7 +13,7 @@ class Params
 	title = "		Set the start time:";
 	values[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24};
 	texts[]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"};
-	default = 12;
+	default = 7;
 	};
 	class JIPweather//2
 	{
@@ -55,7 +55,7 @@ class Params
 	title = "		Brighter Nights?";
 	values[]={0,1};
 	texts[]={"Disable","Enable"};
-	default = 1;
+	default = 0;
 	};
 	class INS_Dum_Param2//7
 	{
@@ -75,8 +75,8 @@ class Params
 	"=BTC= Revive :: Only medics can revive. Mobile HQ Enabled.",
 	"=BTC= Quick revive :: AI can revive. Mobile HQ Disabled.",
 	"=BTC= Quick revive :: AI can revive. Mobile HQ Enabled.",
-	"Revive System Disabled. Mobile HQ Disabled.",
-	"Revive System Disabled. Mobile HQ Enabled."};
+	"Revive System Disabled. Mobile HQ Disabled. If not ACE loaded then (No Respawn, only revive. Will spectate if bled out or respawn forced.)",
+	"Revive System Disabled. Mobile HQ Enabled. If not ACE loaded then (No Respawn, only revive. Will spectate if bled out or respawn forced.)"};
 	default = 1;
 	};
 	class INS_p_rev_time//9
@@ -96,25 +96,30 @@ class Params
 	class INS_op_faction//11
 	{
 	title = "		Opposing Army/Mod Initialization";
-	values[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};
+	values[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21};
 	texts[]={
 	"CSAT - Requirements :: None",
 	"AAF - Requirements :: None",
 	"AAF and FIA - Requirements :: None",
 	"CSAT Pacific - Requirements :: Apex Expansion",
 	"CSAT Pacific and Syndikat Apex - Requirements :: Apex Expansion",
+	"LDF and Spetsnaz - Requirements :: Contact DLC",
+	"LDF and Looters - Requirements :: Contact DLC",
+	"Spetsnaz and FIA - Requirements :: Contact DLC",
 	"RHS Armed Forces of the Russian Federation - Requirements :: @RHSAFRF",
 	"RHS Desert Armed Forces of the Russian Federation - Requirements :: @RHSAFRF",
 	"RHS GREF Chenarus Ground Forces and Nationalist Troops - Requirements :: @RHSAFRF;@RHSUSAF;@RHSGREF",
 	"RHS Serbian Armed Forces - Requirements :: @RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF",
-	"Leights Islamic State of Takistan/Sahrani and Afghan Militia - Requirements ::  @RHSAFRF;@RHSUSAF; + (@leights_opfor or @Project_OPFOR)",
+	"Project OPFOR Islamic State of Takistan/Sahrani and Afghan Militia - Requirements ::  @RHSAFRF;@RHSUSAF;@RHSGREF;@Project_OPFOR",
 	"Syrian Arab Army and Islamic State - Requirements :: (@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF;@ISC)",
 	"CUP Takistan Army and Takistan Militia - Requirements :: @CBA_A3;@cup_units;@cup_weapons;@cup_vehicles",
+	"CUP Armed Forces of the Russian Federation - Requirements :: @CBA_A3;@cup_units;@cup_weapons;@cup_vehicles",
 	"Massi CSAT Army and Middle East Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"Massi Takistan Army and Takistan Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"Massi Africian Rebel Army and Civilian Rebel supporters - Requirements :: @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"OPTRE Insurrectionists - Requirements :: @CBA_A3;@OPTRE",
-	"IFA3 Desert US Army - Requirements :: @CUP_Terrains_Core;@IFA3_AIO_LITE"};
+	"IFA3 Desert US Army - Requirements :: @CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE"
+	};
 	default = 3;
 	};
 	class INS_Dum_Param4//12
@@ -215,42 +220,35 @@ class Params
 	texts[]={"No","1 Per Player","2 Per Player","3 Per Player","4 Per Player"};
 	default = 1;
 	};
-	class CiviFoot//26
-	{
-	title = "		Ambient Foot Civilians?";
-	values[]={0,1};
-	texts[]={"No","Yes"};
-	default = 1;
-	};
-	class CivProbability//27
+	class CivProbability//26
 	{
 	title = "		Ambient Foot Civilians Probability";
-	values[]={25,50,75,100};
-	texts[]={"25 % chance","50 % chance","75 % chance","100 % chance"};
+	values[]={0,25,50,75,100};
+	texts[]={"Disabled","25 % chance","50 % chance","75 % chance","100 % chance"};
 	default = 100;
 	};
-	class SuicideBombers//28
+	class SuicideBombers//27
 	{
 	title = "		Enable Civilian Suicide Bomber?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
 	};
-	class INS_Dum_Param7//29
+	class INS_Dum_Param7//28
 	{
 	title = ":: Mission Settings ::";
 	values[]={0};
 	texts[]={ ""};
 	default = 0;
 	};
-	class INS_play_op4//30
+	class INS_play_op4//29
 	{
 	title = "		Playable Opfor";
 	values[]={0,5,7,9,11,99};
 	texts[]={"Enabled with no Limits","Enabled if 5 or more blufor players present","Enabled if 7 or more blufor players present","Enabled if 9 or more blufor players present","Enabled if 11 or more blufor players present","Disabled"};
 	default = 5;
 	};
-	class INS_logistics//31
+	class INS_logistics//30
 	{
 	title = "		Logistics";
 	values[]={0,1,2,3};
@@ -261,142 +259,142 @@ class Params
 	"BTC's cargo, towing and object placement. Duda's Advanced Sling Load lifting. Heavy disabled (realistic)"};
 	default = 1;
 	};
-	class Fatigue_ability//32
+	class Fatigue_ability//31
 	{
 	title = "		Fatigue and Stamina System";
 	values[]={0,1};
 	texts[]={"Arma 3 Player Fatigue and Stamina Disabled","Arma 3 Default Player Fatigue and Stamina Enabled"};
 	default = 0;
 	};
-	class EOS_DAMAGE_MULTIPLIER//33
+	class EOS_DAMAGE_MULTIPLIER//32
 	{
 	title = "		Damage Multiplier (Effective hit on enemy A.I.)";
 	values[]={50,100,200,300};
 	texts[]={"Low","Default","High","Very High"};
 	default = 200;
 	};
-	class INSpDamMul//34
+	class INSpDamMul//33
 	{
 	title = "		Damage Multiplier (Effective hit on Player) - not used when ACE3 mod is loaded";
 	values[]={50,60,70,80,90,100,110,120,130,140,150};
 	texts[]={"50%","60%","70%","80%","90%","100% (Unmodified Default)","110%","120%","130%","140%","150%"};
 	default = 100;
 	};
-	class JigHeliExtraction//35
+	class JigHeliExtraction//34
 	{
 	title = "		Enable CAS1 Group Heli Extraction?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
 	};
-	class INS_GasGrenadeMod//36
+	class INS_GasGrenadeMod//35
 	{
 	title = "		Enable Gas Grenades and Masks";
 	values[]={0,1};
 	texts[]={
 	"No",
-	"Yes (Yellow Hand and GL smoke grenades. A3 Heli Crew Helmets and or Gas Masks from @hiddenidentitypack, @nato_russian_sf_weapons, @AVON FM12, @FFAA mods"};
+	"Yes (Yellow Hand and GL smoke grenades. A3 Nato Pilot helmet, full faced Viper helmets, Contact DLC gas masks and or Gas Masks from @hiddenidentitypack, @nato_russian_sf_weapons, @AVON FM12 and @FFAA mods"};
 	default = 1;
 	};
-	class limitPOV//37
+	class limitPOV//36
 	{
 	title = "		Third person view in vehicles only?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 0;
 	};
-	class INS_Player_Markers//38
+	class INS_Player_Markers//37
 	{
 	title = "		Player Markers";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
 	};
-	class max_ai_recruits//39
+	class max_ai_recruits//38
 	{
 	title = "		Recruitable AI units maximum allowed";
 	values[]={1,2,3,4,5,6,7,8,9,10};
 	texts[]={"Recruitable AI Disabled","1","2","3","4","5","6","7","8","9"};
 	default = 10;
 	};
-	class AI_radio_volume//40
+	class AI_radio_volume//39
 	{
 	title = "		Disable Audible AI Radio?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 0;
 	};
-	class INS_full_loadout//41
+	class INS_full_loadout//40
 	{
 	title = "		Enable Save/Restore full loadout on respawn?";
 	values[]={0,1};
 	texts[]={"No, respawn with inventory you had at death (Reload Magazine to Save Kit)","Yes"};
 	default = 0;
 	};
-	class INS_VA_type//42
+	class INS_VA_type//41
 	{
 	title = "		Virtual Arsenal Type";
 	values[]={0,1,2,3};
 	texts[]={"Unrestricted Contents Blufor Only","Whitelisted Contents Blufor Only","Whitelisted Contents Blufor and Opfor","Whitelisted Contents Opfor Only"};
 	default = 3;
 	};
-	class INS_IEDs//43
+	class INS_IEDs//42
 	{
 	title = "		IED system";
 	values[]={0,1,2};
 	texts[]={"Disabled","brians200's IEDs","Jig IEDs (detectable with mine detector)"};
 	default = 2;
 	};
-	class INS_persistence//44
+	class INS_persistence//43
 	{
 	title = "		Enable Progression Saving and Restoration?";
 	values[]={0,1,2};
 	texts[]={"No, clear progression if any is saved","Yes, save mission progression and restore if any is saved","Yes, save mission progression and clear progression if any is saved"};
 	default = 0;
 	};
-	class INS_Dum_Param8//45
+	class INS_Dum_Param8//44
 	{
 	title = ":: Intel/AmmoCaches ::";
 	values[]={0};
 	texts[]={ ""};
 	default = 0;
 	};
-	class EnemyAmmoCache//46
+	class EnemyAmmoCache//45
 	{
 	title = "		Enable Enemy Ammo Caches?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
 	};
-	class Intel_Loc_Alpha//47
+	class Intel_Loc_Alpha//46
 	{
 	title = "		Show Intel Location Markers?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 1;
 	};
-	class Intel_Count//48
+	class Intel_Count//47
 	{
 	title = "		Maximum possible intel per occupied grid zone ratio";
 	values[]={2,3,4,5,6};
 	texts[]={"1 intel : 2 zones","1 intel : 3 zones","1 intel : 4 zones","1 intel : 5 zones","1 intel : 6 zones"};
 	default = 4;
 	};
-	class INS_Dum_Param9//49
+	class INS_Dum_Param9//48
 	{
 	title = ":: Debug ::";
 	values[]={0};
 	texts[]={ ""};
 	default = 0;
 	};
-	class DebugEnabled//50
+	class DebugEnabled//49
 	{
 	title = "		Debug mode?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
 	default = 0;
 	};
-	class tky_perfmon//51
+	class tky_perfmon//50
 	{
 	title = "		Run performance monitor? (Requires Debug mode Enabled.)";
 	values[]={0,30,60,300};

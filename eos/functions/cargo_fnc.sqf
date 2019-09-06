@@ -2,20 +2,19 @@ HCPresent = if (isNil "Any_HC_present") then {False} else {True};
 
 if ((!isServer && hasInterface) || (HCPresent && isServer)) exitWith{};
 
-params ["_veh","_grpSize","_grp","_faction","_cargoType","_debug","_cargoPool","_emptySeats"];
+params ["_veh","_grpSize","_grp","_faction","_cargoType"];
+_grpSize params ["_grpMin","_grpMax"];
 
-_debug=false;
+private _debug=false;
 
-_cargoPool=[_faction,_cargoType] call eos_fnc_getunitpool;
-_side=side (leader _grp);
+private _cargoPool=[_faction,_cargoType] call eos_fnc_getunitpool;
+//_side=side (leader _grp);// not used
 
 // FILL EMPTY SEATS
-_emptySeats=_veh emptyPositions "cargo";
+private _emptySeats=_veh emptyPositions "cargo";
 if (_debug) then {hint format ["%1",_emptySeats]};
 
 //GET MIN MAX GROUP
-_grpMin=_grpSize # 0;
-_grpMax=_grpSize # 1;
 _d=_grpMax-_grpMin;
 _r=floor(random _d);
 _grpSize=_r+_grpMin;

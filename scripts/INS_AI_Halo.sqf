@@ -35,7 +35,7 @@ waitUntil {visibleMap};
 }] call BIS_fnc_addStackedEventHandler;
 
 waitUntil {mapclick or !(visibleMap)};
-if (mapclick) then {_mkr_pos = getMarkerPos "AI_halo"; deleteMarker "AI_halo";};
+if (mapclick) then {_mkr_pos = markerPos "AI_halo"; deleteMarker "AI_halo";};
 ["AIdrop_mapclick", "onMapSingleClick"] call BIS_fnc_removeStackedEventHandler;
 
 if (!visibleMap) exitwith {};

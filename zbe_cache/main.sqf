@@ -1,9 +1,9 @@
-zbe_aiCacheDist				= _this select 0;
-zbe_minFrameRate			= _this select 1;
-zbe_debug					= _this select 2;
-zbe_vehicleCacheDistCar		= _this select 3;
-zbe_vehicleCacheDistAir		= _this select 4;
-zbe_vehicleCacheDistBoat	= _this select 5;
+zbe_aiCacheDist			= _this # 0;
+zbe_minFrameRate		= _this # 1;
+zbe_debug   			= _this # 2;
+zbe_vehicleCacheDistCar		= _this # 3;
+zbe_vehicleCacheDistAir		= _this # 4;
+zbe_vehicleCacheDistBoat	= _this # 5;
 
 zbe_allGroups	   			= 0;
 zbe_cachedGroups   			= [];
@@ -11,7 +11,7 @@ zbe_cachedUnits	   			= 0;
 zbe_allVehicles	   			= 0;
 zbe_cachedVehicles 			= 0;
 zbe_objectView	   			= 0;
-zbe_players					= [];
+zbe_players     			= [];
 
 call compileFinal preprocessFileLineNumbers "zbe_cache\zbe_functions.sqf";
 

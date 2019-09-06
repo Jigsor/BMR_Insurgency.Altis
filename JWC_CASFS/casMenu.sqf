@@ -1,13 +1,13 @@
 params ["_owner","_caller","_id","_argArr"];
 
-maxDisReq   = _argArr select 0;
-_lockToOwner = _argArr select 1;
+maxDisReq   = _argArr # 0;
+_lockToOwner = _argArr # 1;
 
 if (firstRun) then {
-	numCAS = _argArr select 2;
+	numCAS = _argArr # 2;
 	firstRun = false;
 };
-_num = _argArr select 2;
+_num = _argArr # 2;
 
 if ((_lockToOwner) && (_caller != _owner) && (vehicle _owner isKindOf "Man")) exitWith {titleText["You are not authorized to access the CAS Field System!","PLAIN DOWN"]};
 

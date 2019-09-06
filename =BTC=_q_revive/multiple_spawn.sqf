@@ -30,8 +30,8 @@ lbClear _idc;
 lbSetCurSel [_idc,0];
 lbSort [(_ui displayCtrl _idc), "ASC"];
 
-btc_qr_cam_t setpos (getMarkerPos (lbData [_idc, lbCurSel _idc]));
-btc_qr_cam = "camera" camCreate (getMarkerPos (lbData [_idc, lbCurSel _idc]));
+btc_qr_cam_t setpos (markerPos (lbData [_idc, lbCurSel _idc]));
+btc_qr_cam = "camera" camCreate (markerPos (lbData [_idc, lbCurSel _idc]));
 btc_qr_cam cameraEffect ["Internal", "BACK"];
 btc_qr_cam camSetPos (btc_qr_cam_t modelToWorld [btc_qr_cam_dist,btc_qr_cam_dist,(abs btc_qr_cam_dist)]);
 btc_qr_cam camSetTarget btc_qr_cam_t;
@@ -39,13 +39,13 @@ btc_qr_cam camCommit 0;
 
 waitUntil {btc_qr_spawn_selected};
 
-_startPos = getMarkerPos (lbData [_idc, lbCurSel _idc]);//Jig adding
+_startPos = markerPos (lbData [_idc, lbCurSel _idc]);//Jig adding
 _spawnPos = [_startPos, 0, 12, 1, 0, 0.7, 0] call BIS_fnc_findSafePos;//Jig adding
 
 detach player;
 player enableSimulation false;
 
-//player setPos getMarkerPos (lbData [_idc, lbCurSel _idc]);
+//player setPos markerPos (lbData [_idc, lbCurSel _idc]);
 player setPos _spawnPos;//Jig change
 player switchMove "";
 player allowdamage true;

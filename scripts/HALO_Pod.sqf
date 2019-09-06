@@ -196,7 +196,7 @@ waitUntil {sleep 0.1; {(((getPos _x) select 2) < _chuteDetachHeight)} count _hev
 
 _aiHevOverWater = [];
 {
-	if (surfaceIsWater getPos _x OR (isPlayer (gunner _x))) then {_aiHevOverWater pushBack _x;};
+	if (surfaceIsWater getPosWorld _x OR (isPlayer (gunner _x))) then {_aiHevOverWater pushBack _x;};
 } forEach _hevArrayAi;
 if (count _hevArrayAi > 0) then {
 	_time = time + 60;

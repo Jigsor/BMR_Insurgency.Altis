@@ -30,9 +30,9 @@ while {_run} do {
 		} forEach _roadsSorted;
 
 		if (count _roadsSorted > 0) then {
-			_roadConnectedTo = roadsConnectedTo (_roadsSorted select 0);
+			_roadConnectedTo = roadsConnectedTo (_roadsSorted # 0);
 			if (count _roadConnectedTo > 0) then {
-				_roads pushBack (_roadsSorted select 0);
+				_roads pushBack (_roadsSorted # 0);
 				_run = false;
 			};
 		};
@@ -44,9 +44,9 @@ while {_run} do {
 
 waitUntil {sleep 1; !_run};
 
-_nearestRoad = _roads select 0;
+_nearestRoad = _roads # 0;
 _bgPos = getPos _nearestRoad;
-_connectedRoad = _roadConnectedTo select 0;
+_connectedRoad = _roadConnectedTo # 0;
 _roadDir = _nearestRoad getDir _connectedRoad;
 _bgPos = getPos _nearestRoad;
 
@@ -79,7 +79,7 @@ while {(round (direction _bargate)) != (round _roadDir)} do {
 	sleep 0.1;
 };
 
-RoadBlockEast setPos [getpos RoadBlockEast select 0,getpos RoadBlockEast select 1,0];
+RoadBlockEast setPos [getpos RoadBlockEast # 0,getpos RoadBlockEast # 1,0];
 
 0 spawn {RoadBlockEast animate ["Door_1_rot", 1];};
 
@@ -166,6 +166,8 @@ _Lveh addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 [_Lveh] call anti_collision;
 _Lveh setVariable["persistent",true];
 
+[_Lveh] call BMRINS_fnc_bypassVehCrashDamage;
+
 createVehicleCrew _Lveh; sleep jig_tvt_globalsleep;
 _LvehGrp = (group (crew _Lveh select 0));
 
@@ -210,8 +212,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_hrb";
 _taskdescE = localize "STR_BMR_Tsk_descE_hrb";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
-
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[] remoteExec ['INS_fog_effect', [0,-2] select isDedicated]};};
 
 while {_killrb} do
 {
@@ -245,9 +246,10 @@ if (SideMissionCancel) then {sleep 5} else {sleep 90};
 
 sleep 2;
 {deleteVehicle _x} forEach [_bargate,_bunker1,_bunker2,_Lveh];
+{deleteVehicle _x} forEach _allUnits;
 {deleteGroup _x} forEach _allGrps;
 private _staticGuns = objective_pos_logic getVariable ["INS_ObjectiveStatics",[]];
-{deleteVehicle _x} forEach _staticGuns, _allUnits;
+{deleteVehicle _x} forEach _staticGuns;
 {deleteMarker _x} forEach ["ObjectiveMkr","ins_sm_roadblock"];
 
 if (true) exitWith {sleep 20; execVM "Objectives\random_objectives.sqf";};

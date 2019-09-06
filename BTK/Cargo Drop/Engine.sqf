@@ -18,12 +18,10 @@
 #include "Settings_Objects.sqf";
 
 // Variables
-_Transporter = _this select 0;
+params ["_Transporter","_Unit","_Action","_ActArray"];
+_Selected = _ActArray # 0;
 _TransporterType = typeOf _Transporter;
 _TransporterName = getText (configFile >> "CfgVehicles" >> (typeOf _Transporter) >> "displayName");
-_Unit = _this select 1;
-_Action = _this select 2;
-_Selected = (_this select 3) select 0;
 
 // Create variables for Transporter Setup detection
 _SelectedTransporterTypeS = false;_SelectedTransporterTypeM = false;_SelectedTransporterTypeL = false;_SelectedTransporterTypeXL = false;
@@ -184,7 +182,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeS)) exitWith {
 	};
 
 	// Else, select the object from list
-	_Object = _ObjectsInRange select 0;
+	_Object = _ObjectsInRange # 0;
 	_Object setVariable ["BTK_CargoDrop_ObjectLoaded", true];
 	_Transporter setVariable ["BTK_CargoDrop_TransporterLoaded", true];
 
@@ -336,7 +334,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeM)) exitWith {
 	};
 
 	// Else, select the object from list
-	_Object = _ObjectsInRange select 0;
+	_Object = _ObjectsInRange # 0;
 	_Object setVariable ["BTK_CargoDrop_ObjectLoaded", true];
 	_Transporter setVariable ["BTK_CargoDrop_TransporterLoaded", true];
 
@@ -478,7 +476,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeL)) exitWith {
 	};
 
 	// Else, select the object from list
-	_Object = _ObjectsInRange select 0;
+	_Object = _ObjectsInRange # 0;
 	_Object setVariable ["BTK_CargoDrop_ObjectLoaded", true];
 	_Transporter setVariable ["BTK_CargoDrop_TransporterLoaded", true];
 
@@ -624,7 +622,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 	};
 
 	// Else, select the object from list
-	_Object = _ObjectsInRange select 0;
+	_Object = _ObjectsInRange # 0;
 	_Object setVariable ["BTK_CargoDrop_ObjectLoaded", true, true];
 	_Transporter setVariable ["BTK_CargoDrop_TransporterLoaded", true, true];
 

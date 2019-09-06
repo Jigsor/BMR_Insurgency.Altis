@@ -1,8 +1,8 @@
-_iedPosition = _this select 0;
-_explosiveSequence = _this select 1;
+_iedPosition = _this # 0;
+_explosiveSequence = _this # 1;
 (_this select 2) removeAllEventHandlers "HitPart";
 deleteVehicle (_this select 2);
-_iedNumber = _this select 3;
+_iedNumber = _this # 3;
 
 [[_iedPosition] , "IED_SMOKE", true, false] spawn BIS_fnc_MP;
 [[_iedPosition] , "IED_SCREEN_EFFECTS", true, false] spawn BIS_fnc_MP;

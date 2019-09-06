@@ -5,7 +5,7 @@ private _menu ="
 ";
 _menu = _menu + "
 	<br/><font size='18'>ZEUS SUPPORT</font>
-	<br/>Ares mod is highly recommended to enhance and add functionality to ZEUS.
+	<br/>Achilles client side mod is highly recommended to enhance and add functionality to ZEUS.
 	<br/>Ctrl+Y to open and close Zeus interface.
 	<br/><executeClose expression=""[player,true] spawn INS_Zeus_MP;"">	Assign or remove ZEUS with public notice</executeClose>
 	<br/><executeClose expression=""[player,false] spawn INS_Zeus_MP;"">	Assign or remove ZEUS privately</executeClose>
@@ -20,7 +20,7 @@ _menu = _menu + "
 	<br/><executeClose expression=""0 spawn {waitUntil {!isNil 'JIG_Dust_Storm_Server'}; [22] remoteExec ['JIG_Dust_Storm_Server', 2];};"">	High Speed Dust Storm</executeClose>
 	<br/>
 	<br/><font size='18'>SNOW</font>
-	<br/>Click start Snow. Click again to end Snow.
+	<br/>Click to start Snow. Click again to end Snow.
 	<br/><executeClose expression=""0 spawn {waitUntil {!isNil 'JIG_Snow_Server'}; [2] remoteExec ['JIG_Snow_Server', 2];};"">	Light Snow Storm</executeClose>
 	<br/>
 	<br/><font size='18'>GIVE YOURSELF VEHICLE REWARD</font>
@@ -51,7 +51,7 @@ private _link5 = format ["<br/>	<executeClose expression=""0 spawn {waitUntil {!
 _menu = _menu + _link5;
 _menu = _menu + "
 	<br/><br/><font size='18'>MANUAL MISSION PROGRESSION RESET AND MISSION END</font>
-	<br/>Use this option to clear any saved progression to prepare for a mission restart from begining. Only has affect is progression saving was enabled.
+	<br/>Use this option to clear any saved progression to prepare for a mission restart from begining. Only has affect if progression saving was enabled.
 ";
 private _link6 = format ["<br/>	<executeClose expression=""0 spawn {waitUntil {!isNil 'Manual_ProgressionClearnEnd'}; [] remoteExec ['Manual_ProgressionClearnEnd', [0,-2] select isDedicated];};"">%1</executeClose>", localize "STR_BMR_ClearProgression"];
 _menu = _menu + _link6;
@@ -79,7 +79,7 @@ private _tips ="
 	<br/>
 	<br/>9. Manually kicking Headless Client will effectivley reset/reinforce uncaptured zones as if no enemy had been killed in these zones when HC(s) reconnect/JIP.  If using 2 headless clients then both should be kicked at the same time. As a side affect, the current objective may complete or it's defences deleted because all enemy AI get deleted when a headless client disconnects and leaves AI behind.
 	<br/>
-	<br/>10. The server does not automatically begin saving progression untill one task has been completed.
+	<br/>10. The server does not automatically begin saving progression until one task has been completed.
 ";
 _menu = _menu + _tips;
 player createDiaryRecord ["Diary", ["Administrator Menu", _menu]];

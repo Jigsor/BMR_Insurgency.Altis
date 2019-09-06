@@ -1,5 +1,5 @@
 /* Written by Brian Sweeney - [EPD] Brian*/
-_loc = _this select 0;
+params ["_loc"];
 _aslLoc = [_loc select 0, _loc select 1, getTerrainHeightASL [_loc select 0, _loc select 1]];
 _numPlumes = 20 + floor random 10;
 
@@ -25,8 +25,8 @@ for "_i" from 0 to _numPlumes -1 step 1 do{
 [_aslLoc] spawn { call CREATE_RING};
 
 SAND_TRAIL_SMOKE = {
-	_loc = _this select 0;
-	_aslLoc = _this select 1;
+	_loc = _this # 0;
+	_aslLoc = _this # 1;
 
 	_size = 1 + random 3;
 
@@ -61,8 +61,8 @@ SAND_TRAIL_SMOKE = {
 };
 
 GRAY_TRAIL_SMOKE = {
-	_loc = _this select 0;
-	_aslLoc = _this select 1;
+	_loc = _this # 0;
+	_aslLoc = _this # 1;
 
 	_size = 1 + random 3;
 
@@ -97,8 +97,8 @@ GRAY_TRAIL_SMOKE = {
 };
 
 BROWN_TRAIL_SMOKE = {
-	_loc = _this select 0;
-	_aslLoc = _this select 1;
+	_loc = _this # 0;
+	_aslLoc = _this # 1;
 
 	_size = 1 + random 3;
 
@@ -137,7 +137,7 @@ CREATE_RING = {
 	//.78, .76, .71 whitish color
 	//.1, .1, .1 dark gray
 	//0, 0, 0 black
-	_aslLoc = _this select 0;
+	_aslLoc = _this # 0;
 
 	_smoke1 = "#particlesource" createVehicle _aslLoc;
 	_smoke1 setposasl _aslLoc;

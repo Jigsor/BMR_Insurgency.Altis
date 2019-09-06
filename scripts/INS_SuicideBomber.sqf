@@ -10,12 +10,11 @@ if (DebugEnabled > 0) then {_ins_debug = true;}else{waitUntil {time > 60}; _ins_
 
 missionNamespace setVariable ["sstBomber",ObjNull];
 private _makeBomberGrp = {
-	private _centerC = createCenter civilian;
 	private _grp = createGroup civilian;
 	_grp
 };
 private _delay = true;
-private _basePos = getMarkerPos "Respawn_West";
+private _basePos = markerPos "Respawn_West";
 private _safeZoneRad = 600;// radius _basePos marker safe zone/spawn suicide bomber beyond this distance
 private _targetSide = WEST;
 sstBomber = ObjNull;
@@ -104,13 +103,13 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			//Create a new bomber if we can't recruit one
 			diag_log "No Civilian Jihadi Draftee Available";
 
-			_bmbrPos = [(_playerPos select 0),(_playerPos select 1),_ins_debug] call bmbrBuildPos;
+			_bmbrPos = [(_playerPos # 0),(_playerPos # 1),_ins_debug] call bmbrBuildPos;
 			sleep 1.5;
 
 			if (str(_bmbrPos) isEqualTo "[0,0,0]") then {
 				//1 in 3 chance bomber will try to spawn on ground if no building available else delay
 				if(floor random 3 isEqualTo 2) then {
-					_bmbrPos = [(_playerPos select 0),(_playerPos select 1)] call bmbr_spawnpos_fnc;
+					_bmbrPos = [(_playerPos # 0),(_playerPos # 1)] call bmbr_spawnpos_fnc;
 					sleep 1.5;
 					if (isNil "_bmbrPos") exitWith {_delay = true};
 				};
@@ -127,7 +126,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 			(group _unit) setVariable ["zbe_cacheDisabled",true];
 			_unit setVariable ["asr_ai_exclude",true];
 
-			_unit addeventhandler ["killed",{_this call killed_ss_bmbr_fnc; [(_this select 0)] spawn remove_carcass_fnc}];
+			_unit addeventhandler ["killed",{_this call killed_ss_bmbr_fnc; [(_this # 0)] spawn remove_carcass_fnc}];
 			_bmbrdir = random_w_player4 getDir _unit;
 			if (_bmbrdir < 0) then {_bmbrdir = _bmbrdir + 360}; //SupahG33K - check for negative heading
 
@@ -154,7 +153,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 
 			if(count _nearUnits > 0) then
 			{
-				private _btarget = _nearUnits select 0;
+				private _btarget = _nearUnits # 0;
 
 				[_unit,_btarget] spawn {
 					params ["_u","_targ"];
@@ -166,10 +165,10 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 					};
 				};//Jig adding
 
-				waitUntil {sleep 1; (_unit distance getPosATL (_nearUnits select 0) > 300) || (_unit distance getPosATL (_nearUnits select 0) < 17)};
+				waitUntil {sleep 1; (_unit distance getPosATL (_nearUnits # 0) > 300) || (_unit distance getPosATL (_nearUnits # 0) < 17)};
 
 				//Target out of range, remove bomber
-				if (_unit distance getPosATL (_nearUnits select 0) > 300) exitWith {
+				if (_unit distance getPosATL (_nearUnits # 0) > 300) exitWith {
 					_runCode = 0;
 					_unit setPos [0,0,0];
 					_unit removeAllEventHandlers "killed";

@@ -1,5 +1,5 @@
 /*
- extraction_main.sqf v1.26 by Jigsor
+ extraction_main.sqf v1.27 by Jigsor
  null = [] execVM "JIG_EX\extraction_main.sqf";
  runs in JIG_EX\extraction_init.sqf
 */
@@ -7,7 +7,7 @@
 if (!isServer) exitWith {};
 if (!hasInterface && !isDedicated) exitWith {};
 0 spawn {
-	private ["_recruitsArry","_playerArry","_range","_poscreate","_speed","_SAdir","_spwnairdir","_height","_type","_vehicle","_veh","_vel","_vehgrp","_VarName","_wp0","_evacComplete","_vehgrp_units","_gunners_removed","_has_gunner_pos","_without_gunner_pos","_switch_driver","_animateDoors","_changeLocality"];
+	private ["_recruitsArry","_playerArry","_range","_poscreate","_speed","_SAdir","_spwnairdir","_height","_type","_vehicle","_veh","_vehgrp","_vehUnits","_VarName","_wp0","_evacComplete","_vehgrp_units","_gunners_removed","_has_gunner_pos","_without_gunner_pos","_switch_driver","_animateDoors","_changeLocality"];
 
 	evac_toggle = false;publicVariable "evac_toggle";
 	sleep 0.3;
@@ -41,29 +41,31 @@ if (!hasInterface && !isDedicated) exitWith {};
 		_playerArry = [];
 		{if (isPlayer _x) then {_playerArry pushBack _x;}else{_recruitsArry pushBack _x;};} forEach (units ext_caller_group);
 
-		_poscreate = getMarkerPos "EvacSpawnMkr";
+		_poscreate = markerPos "EvacSpawnMkr";
 		_speed = 60;// starting speed
 		_SAdir = getDir EvacSpawnPad;
-		_spwnairdir = (getPosATL EvacSpawnPad) getDir (getPosATL EvacLZpad);
 		_height = selectRandom [35,45,55];
 		if (JIG_EX_Random_Type) then {
 			_type = selectRandom JIG_EX_Chopper_Type;
 		} else {
-			_type = JIG_EX_Chopper_Type select 0;// select default type
+			_type = JIG_EX_Chopper_Type # 0;// select default type
 		};
 
 		_vehicle = [getPosATL EvacSpawnPad, _SAdir, _type, JIG_EX_Side] call bis_fnc_spawnvehicle;
 		sleep 0.1;
-		(_vehicle select 0) addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fncJE"];
+		_veh = _vehicle # 0;
+		_veh addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fncJE"];
 
-		_veh = _vehicle select 0;
-		_vel = velocity _veh;
+		_spwnairdir = _veh getDir EvacLZpad;
 
-		_veh setpos [(_poscreate select 0) + (sin (_spwnairdir -180)), (_poscreate select 1) + (cos (_spwnairdir -180)), _height];
-		_veh setVelocity [(_vel select 0)+(sin _SAdir*_speed),(_vel select 1)+ (cos _SAdir*_speed),(_vel select 2)];
+		_veh setdir _spwnairdir;
+		_veh setpos [(_poscreate # 0) + (sin (_spwnairdir -180)), (_poscreate # 1) + (cos (_spwnairdir -180)), _height];
+		_veh setVelocityModelSpace [0, _speed, 0];
 
-		_vehgrp = _vehicle select 2 ;// original group of vehicle
+		_vehgrp = _vehicle # 2;// original group of vehicle
 		{_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fncJE"]} forEach (units _vehgrp);
+
+		_vehUnits = _vehicle # 1;
 
 		_veh enableCopilot false;
 		_veh allowdamage JIG_EX_damage;
@@ -106,6 +108,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 			};
 		};
 
+		(driver EvacHeliW1) disableAI "LIGHTS";
 		if (isLightOn EvacHeliW1) then {EvacHeliW1 setPilotLight false};
 		if (isCollisionLightOn EvacHeliW1) then {driver EvacHeliW1 action ["CollisionLightOff", EvacHeliW1]};
 		[EvacHeliW1] spawn {private _animateDoors = [(_this select 0)] call animate_doors_fnc};
@@ -235,8 +238,14 @@ if (!hasInterface && !isDedicated) exitWith {};
 
 			{EvacHeliW1 lock 2} forEach playableunits;
 
-			if !((groupOwner group EvacHeliW1) isEqualTo 2) then {
-				//_changeLocality = group EvacHeliW1 setGroupOwner 2;
+			if (!local EvacHeliW1) then {EvacHeliW1 setOwner 2};
+			if ((count crew EvacHeliW1) > 0 && {!local (driver EvacHeliW1)}) then {
+				if (isNull _vehgrp) then {
+					_vehgrp = createGroup INS_Blu_side;
+					{[_x] joinSilent _vehgrp;} forEach _vehUnits;
+				};
+				(group (driver EvacHeliW1)) setGroupOwner 2;
+				_vehgrp_leader = driver EvacHeliW1;
 			};
 
 			if !(JIG_EX_damage) then {_veh allowdamage true};//allow damage after drop off needed to complete script in some cases.

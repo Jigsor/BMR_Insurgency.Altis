@@ -20,7 +20,7 @@ INS_missing_mods = {
 		if (isServer) then {
 			player sideChat "BMR Insurgency warning. This machine is missing mods and will not spawn enemy AI. Check mod installations.";
 		}else{
-			player sideChat "BMR Insurgency warning. This machine is missing mods you may not see and enemies or their equipment. Check mod installations.";
+			player sideChat "BMR Insurgency warning. This machine is missing mods. You may not see enemies or their equipment. Check mod installations";
 			// Uncomment next line to kick players missing mods required by the mission.
 			//("BMR_Layer_end4" call BIS_fnc_rscLayer) cutText [ "This machine is missing required mod(s). Check mod installations and try again.", "BLACK OUT", 1, true ]; sleep 10; endMission "END4";
 		};
@@ -59,8 +59,9 @@ JIPmkr_updateServer_fnc = {
 anti_collision = {
 	// fixes wheels stuck in ground/vehicles exploding when entering bug by Jigsor.
 	params ["_obj"];
-	_obj setVectorUP (surfaceNormal [(getPosATL _obj) # 0,(getPosATL _obj) # 1]);
-	_obj setPos [(getPosATL _obj) # 0,(getPosATL _obj) # 1,((getPos _obj) # 2) + 0.3];
+	private _origPos = getPosATL _obj;
+	_obj setVectorUP (surfaceNormal [_origPos # 0,_origPos # 1]);
+	_obj setPos (_origPos vectorAdd [0,0,0.3]);
 	true
 };
 BMR_resetDamage = {
@@ -85,13 +86,13 @@ Kicked_for_TKing = {
 	};
 };
 INS_full_stamina = {
-	params ["_unit"];
+	params [["_unit",objNull]];
+	if (isNull _unit) exitWith {};
 	_unit enableStamina false;
 	_unit enableFatigue false;
 	_unit forceWalk false;
 	_unit setCustomAimCoef 0.2;//weapon sway 1=max, 0=min
 	_unit setAnimSpeedCoef 1;//animation speed 1=max, 0=min
-	true
 };
 mhq_actions_fnc = {
 	// Add action for VA and quick VA profile to respawned MHQs. by Jigsor
@@ -106,6 +107,9 @@ mhq_actions_fnc = {
 			if (INS_VA_type in [1,2]) then {
 				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
 			};
+			if (_veh isKindOf "Ship") then {
+				_veh addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
+			};
 		};
 		case (_var isEqualTo "MHQ_2"): {
 			if (INS_VA_type in [0,3]) then {
@@ -114,6 +118,9 @@ mhq_actions_fnc = {
 			};
 			if (INS_VA_type in [1,2]) then {
 				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
+			};
+			if (_veh isKindOf "Ship") then {
+				_veh addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
 			};
 		};
 		case (_var isEqualTo "MHQ_3"): {
@@ -212,12 +219,18 @@ INS_end_mssg = {
 			private ["_video","_play"];
 			0 fadeMusic 1;
 			playMusic ["LeadTrack01a_F_EXP",16];
-			if (isNull objectParent player) then {player playMove "AmovPercMstpSnonWnonDnon_exerciseKata";};
-			if (daytime > 21.00 || daytime < 3.50) then {
+			if (isNull objectParent player) then {
+				removeAllWeapons player;
+				removeBackpack player;
+				player playMove "AmovPercMstpSnonWnonDnon_exerciseKata";
+			};
+			private _dd = missionNameSpace getVariable ["BMR_DawnDusk",[]];
+			_dd params ["_dawn","_dusk"];
+			if (daytime > _dusk || daytime < _dawn) then {
 				0=[15,1,160,"red",10,(position player)] spawn Drop_SmokeFlare_fnc;
 			};
 			_video = selectRandom INS_ending_videos;
-			_play = [_video] spawn bis_fnc_playvideo;
+			_play = [_video] spawn BIS_fnc_playVideo;
 			waitUntil {scriptDone _play};
 			titleText [format["It Was an Honor to Serve with You, %1", name player], "PLAIN", 2.0];
 			titleFadeOut 8;
@@ -306,7 +319,8 @@ fnc_mp_push = {
 	true
 };
 Push_Acc = {
-	params ["_veh"];
+	params [["_veh",objNull]];
+	if (isNull _veh) exitWith {};
 	[_veh] remoteExec ["fnc_mp_push", [0,-2] select isDedicated];
 	true
 };
@@ -315,7 +329,7 @@ Push_Vehicle = {
 	Pushes the boat in the direction the player is looking
 	Created by BearBison */
 	params ["_veh","_unit"];
-	private _isWater = surfaceIsWater position _unit;
+	private _isWater = surfaceIsWater getPosWorld _unit;
 	if (_unit in _veh) exitWith {titleText[localize "STR_BMR_push_restrict2","PLAIN DOWN",1]};
 	if (_isWater) exitWith {titleText[localize "STR_BMR_push_restrict1","PLAIN DOWN",1]};
 	_veh setOwner (owner _unit);
@@ -402,7 +416,7 @@ INS_toggle_Zeus = {
 						};
 					}];
 				};
-				if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc};
+				if (INS_op_faction in [20]) then {[_x] call Trade_Biofoam_fnc};
 			} forEach crew _entity;
 			if ((_entity isKindOf "CAManBase") && {count units group _entity < 2}) then {
 				if (!(side _entity isEqualTo INS_Op4_side) && {side _entity in [RESISTANCE,EAST]}) then {
@@ -590,7 +604,7 @@ Drop_SmokeFlare_fnc = {
 
 	_logic = createVehicle ["Land_ClutterCutter_small_F", _pos, [], 0, "CAN_COLLIDE"]; sleep 0.1;
 	_chemLight = createVehicle ["Chemlight_green", _pos, [], 0, "NONE"]; sleep 0.1;
-	_lPos = [(getPosWorld _logic) select 0, (getPosWorld _logic) select 1, ((getPosWorld _logic) select 2) + _height];
+	_lPos = ((getPosWorld _logic) vectorAdd [0,0,_height]);
 
 	if (_objTyp == 0) then {
 		for "_i" from 0 to (_objCount -1) step 1 do {
@@ -743,8 +757,8 @@ JIG_Snow_Storm = {
 		private _toDelete = [];
 		private "_s";
 		while {JIG_SnowStorm} do {
-			_s = "#particlesource" createVehicleLocal (getPosATL player);
-			_s setParticleParams [["\A3\data_f\ParticleEffects\Universal\Universal", 16, 12, 8, 1], "", "Billboard", 1, 4, [0,0,0], [0,0,0], 1, 0.000001, 0, 1.4, [0.05,0.05], [[0.8,0.7,0.7,0.8]], [0,1], 0.2, 1.2, "", "", vehicle player, 0, false, 0];
+			_s = "#particlesource" createVehicleLocal (getPosATL cameraOn);
+			_s setParticleParams [["\A3\data_f\ParticleEffects\Universal\Universal", 16, 12, 8, 1], "", "Billboard", 1, 4, [0,0,0], [0,0,0], 1, 0.000001, 0, 1.4, [0.05,0.05], [[0.8,0.7,0.7,0.8]], [0,1], 0.2, 1.2, "", "", cameraOn, 0, false, 0];
 			_s setParticleRandom [0, [10, 10, 7], [0, 0, 0], 0, 0.01, [0, 0, 0, 0.1], 0, 0];
 			_s setParticleCircle [0.0, [0, 0, 0]];
 			_s setDropInterval 0.02;

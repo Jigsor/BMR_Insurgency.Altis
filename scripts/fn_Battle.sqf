@@ -53,8 +53,8 @@ AMBSWarfare = {
 	private _sound1 = format ["A3\Sounds_F\ambient\battlefield\battlefield_explosions%1.wss",ceil (random 5)];
 	private _sound2 = format ["A3\Sounds_F\ambient\battlefield\battlefield_firefight%1.wss",ceil (random 4)];
 
-	if (!(surfaceIsWater getPos _logic)) then {_allsounds pushBack _sound2;} else {missionNamespace setVariable ["AmB_nosound",true];};
-	if ((random (_intensity * _SSize / _Scale)) < (random (_Scale * _Isize / _intensity)) or {surfaceIsWater getPos _logic} or {missionNamespace getVariable ["AmB_nosound",false]}) then {_allsounds pushBack _sound1};
+	if (!(surfaceIsWater getPosWorld _logic)) then {_allsounds pushBack _sound2;} else {missionNamespace setVariable ["AmB_nosound",true];};
+	if ((random (_intensity * _SSize / _Scale)) < (random (_Scale * _Isize / _intensity)) or {surfaceIsWater getPosWorld _logic} or {missionNamespace getVariable ["AmB_nosound",false]}) then {_allsounds pushBack _sound1};
 
 	private _dis = _logic distance player;
 	private _vol = switch (true) do {

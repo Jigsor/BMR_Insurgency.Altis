@@ -1,14 +1,9 @@
-private ["_pad","_cargoGrp","_vehicle"];
-_mkr=(_this # 0);
-_veh=(_this # 1);
-_counter=(_this # 2);
+params ["_mkr","_veh","_counter"];
+_veh params ["_vehicle","","_grp","_cargoGrp"];
 
 _debug=false;
-_vehicle = _veh # 0;
-_grp = _veh # 2;
-_cargoGrp= _veh # 3;
 _pos = [_mkr,false] call SHK_pos;
-_pad = createVehicle ["Land_HelipadEmpty_F", _pos, [], 0, "NONE"];
+private _pad = createVehicle ["Land_HelipadEmpty_F", _pos, [], 0, "NONE"];
 if (_debug) then {0= [_mkr,_counter,"Unload Pad",(getpos _pad)] call EOS_debug};
 
 {_x allowFleeing 0} forEach units _grp;

@@ -6,12 +6,12 @@ params ["_newZone","_type"];
 private _pilot_grp = grpNull;
 private _radius = 5;
 private _rnum = str(round (random 999));
-private _basePos = (getMarkerPos "Respawn_West");
+private _basePos = (markerPos "Respawn_West");
 private _pilotType = nil;
 private _getpilot = true;
 
 //mod for CUP
-if (INS_op_faction isEqualTo 12) then {
+if (INS_op_faction in [15,16]) then {
 	if (isClass(configfile >> "CfgVehicles" >> "BlackhawkWreck")) then {
 		activateAddons ["BlackhawkWreck"];
 		_type = "BlackhawkWreck";
@@ -20,13 +20,13 @@ if (INS_op_faction isEqualTo 12) then {
 };
 
 //mod for Operation Trebuchet
-if (INS_op_faction isEqualTo 16) then {
+if (INS_op_faction in [20]) then {
 	_type = "OPTRE_Objects_Wreck_Pelican_Static2";
 	_radius = 9;
 };
 
-//mod for IFA3Lite
-if (INS_op_faction isEqualTo 17) then {
+//mod for IFA3_AIO_LITE
+if (INS_op_faction in [21]) then {
 	if (isClass(configFile >> "CfgPatches" >> "A3_Props_F_Exp")) then {
 		activateAddons ["A3_Props_F_Exp_Military"];
 		_type = "Land_HistoricalPlaneWreck_03_F";
@@ -77,7 +77,7 @@ _pilot allowfleeing 0;
 _pilot setBehaviour "CARELESS";
 removeallweapons _pilot;
 _pilot setCaptive true;
-[ [ _pilot, "AmovPercMstpSsurWnonDnon" ], "switchMoveEverywhere" ] call BIS_fnc_MP;
+[_pilot, "AmovPercMstpSsurWnonDnon"] remoteExec ["switchMoveEverywhere", 0];
 
 // Spawn Objective enemy defences
 private _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
@@ -100,7 +100,7 @@ private _tasktopicE = localize "STR_BMR_Tsk_topicE_rdp";
 private _taskdescE = localize "STR_BMR_Tsk_descE_rdp";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp}};
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[] remoteExec ['INS_fog_effect', [0,-2] select isDedicated]};};
 
 // pilot hold position until rescued or dead
 private ["_nearUnits","_rescuers"];
@@ -123,7 +123,7 @@ while {_loop} do
 		_rescuers = [];
 		{_rescuers pushBack _x} forEach (_nearUnits select {(_x isKindOf "Man") && {side _x isEqualTo _rescueSide}});
 		if !(_rescuers isEqualTo []) then {
-			_hero = _rescuers select 0;
+			_hero = _rescuers # 0;
 			_loop = false;
 		};
 	};

@@ -66,7 +66,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_dhvt";
 _taskdescE = localize "STR_BMR_Tsk_descE_dhvt";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_towerPos] call SHK_Taskmaster_add;
 
-if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[] remoteExec ['INS_fog_effect', [0,-2] select isDedicated]};};
 
 {
 	[_x,true] call BIS_fnc_switchLamp;

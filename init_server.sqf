@@ -43,7 +43,7 @@ if (INS_GasGrenadeMod isEqualTo 1) then {"ToxicGasLoc" addPublicVariableEventHan
 
 // Mission EventHandlers //
 addMissionEventHandler ["HandleDisconnect", {
-	_unit = (_this select 0);
+	params ["_unit"];
 	if !(isPlayer leader (group _unit)) then {
 		{deleteVehicle _x} forEach (units (group _unit) select {(_x isKindOf "Man")});
 	};
@@ -58,33 +58,37 @@ addMissionEventHandler ["HandleDisconnect", {
 	waitUntil {!isNil "INS_MHQ_VarName"};
 
 	if (!isNil "MHQ_1") then {
-		MHQ_1 setVariable ["persistent",true];
+		MHQ_1 setVariable["persistent",true];
+		if (MHQ_1 isKindOf "Ship") then {[MHQ_1] call Push_Acc};
+		[MHQ_1] call BMRINS_fnc_customMHQ;
 		if (JIG_MHQ_enabled) then {
 			MHQ_1 addEventhandler ["Respawn","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [MHQ_1, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_1"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; INS_MHQ_killed = "MHQ_1"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			_nul = [MHQ_1, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_1"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call BMRINS_fnc_customMHQ; INS_MHQ_killed = "MHQ_1"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 	if (!isNil "MHQ_2") then {
 		MHQ_2 setVariable["persistent",true];
+		if (MHQ_2 isKindOf "Ship") then {[MHQ_2] call Push_Acc};
+		[MHQ_2] call BMRINS_fnc_customMHQ;
 		if (JIG_MHQ_enabled) then {
 			MHQ_2 addEventhandler ["Respawn","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [MHQ_2, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_2"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; INS_MHQ_killed = "MHQ_2"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			_nul = [MHQ_2, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_2"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call BMRINS_fnc_customMHQ; INS_MHQ_killed = "MHQ_2"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 	if (!isNil "MHQ_3") then {
-		MHQ_3 setVariable ["persistent",true];
+		MHQ_3 setVariable["persistent",true];
 		[MHQ_3] call paint_heli_fnc;
 		[MHQ_3] spawn BMR_resetDamage;
 		if (JIG_MHQ_enabled) then {
 			MHQ_3 addEventhandler ["killed","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [MHQ_3, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_3"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call paint_heli_fnc; [_this] call anti_collision; [_this] spawn BMR_resetDamage; INS_MHQ_killed = "MHQ_3"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			_nul = [MHQ_3, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_3"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call paint_heli_fnc; [_this] call anti_collision; [_this] spawn BMR_resetDamage; INS_MHQ_killed = "MHQ_3"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 	if (!isNil "Opfor_MHQ") then {
 		Opfor_MHQ setVariable["persistent",true];
 		if (JIG_MHQ_enabled) then {
 			Opfor_MHQ addEventhandler ["Respawn","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [Opfor_MHQ, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "Opfor_MHQ"; _veh setVehicleVarName _VarName; _veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; INS_MHQ_killed = "Opfor_MHQ"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			_nul = [Opfor_MHQ, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "Opfor_MHQ"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; INS_MHQ_killed = "Opfor_MHQ"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 };
@@ -115,7 +119,6 @@ if (markerAlpha "AuxiliaryContent" isEqualTo 1) then {
 
 // Param enabled scripts/settings //
 if (INS_GasGrenadeMod isEqualTo 1) then {0 spawn editorAI_GasMask};
-if (Fatigue_ability < 1) then {{[_x] spawn INS_full_stamina;} forEach playableUnits};
 if (EnableEnemyAir > 0) then {execVM "scripts\AirPatrolEast.sqf"};
 if (DebugEnabled isEqualTo 1) then {
 	if (SuicideBombers isEqualTo 1) then {0 spawn {sleep 30; execVM "scripts\INS_SuicideBomber.sqf"}};
@@ -134,35 +137,25 @@ if (Airfield_opt) then
 {
 	//Clear Altis Airfield near Selakano of trees and bushes if used as air base.
 	if (toLower (worldName) isEqualTo "altis") then {
-		if ((getMarkerPos "Airfield") distance2D [21020.1,7311.07] < 200) then {
+		if ((markerPos "Airfield") distance2D [21020.1,7311.07] < 200) then {
 			{ _x hideObjectGlobal true } foreach (nearestTerrainObjects [[21020.1,7311.07,0],["TREE","SMALL TREE","BUSH"],175]);
 		};
 	};
-	{_x animateSource ["Door_7_sound_source", 1]} ForEach nearestObjects [(getMarkerPos "Airfield"), ["Land_Ss_hangar","Land_Ss_hangard","WarfareBAirport"], 500];
+	{_x animateSource ["Door_7_sound_source", 1]} forEach nearestObjects [(markerPos "Airfield"), ["Land_Ss_hangar","Land_Ss_hangard","WarfareBAirport"], 500];
 
 	//Default empty Bluefor Fixed Wing
-	private ["_mod","_class","_dirfw1","_fw1","_type"];
-	_mod = false;
+	private ["_class","_dirfw1","_fw1","_type"];
+	private _mod = false;
+
+	private _vanillaDefault = {
+		_dirfw1 = getDir INS_fw_1;
+		_fw1 = createVehicle ["B_Plane_CAS_01_dynamicLoadout_F", getPos INS_fw_1, [], 0, "NONE"];
+		_fw1 setDir _dirfw1;[_fw1] call anti_collision;
+		_nul = [_fw1, dynPylons1] call INS_replace_pylons;
+		_nul = [_fw1, 2, 1, {[_this] call anti_collision; [_this, dynPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";
+	};
 
 	switch (INS_op_faction) do {
-		case 6: {
-			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
-				_mod = true; _class = "RHS_A10";
-				INSdefLoadOutBlu = dynPylons9;
-			};
-		};
-		case 7: {
-			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
-				_mod = true; _class = "RHS_A10";
-				INSdefLoadOutBlu = dynPylons9;
-			};
-		};
-		case 8: {
-			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
-				_mod = true; _class = "RHS_A10";
-				INSdefLoadOutBlu = dynPylons9;
-			};
-		};
 		case 9: {
 			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
 				_mod = true; _class = "RHS_A10";
@@ -182,43 +175,61 @@ if (Airfield_opt) then
 			};
 		};
 		case 12: {
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
+				INSdefLoadOutBlu = dynPylons9;
+			};
+		};
+		case 13: {
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
+				INSdefLoadOutBlu = dynPylons9;
+			};
+		};
+		case 14: {
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
+				INSdefLoadOutBlu = dynPylons9;
+			};
+		};
+		case 15: {
 			if (isClass(configFile >> "CfgVehicles" >> "CUP_B_A10_AT_USA")) then {
 				_mod = true; _class = "CUP_B_A10_DYN_USA";
 				INSdefLoadOutBlu = dynPylons8;
 			};
 		};
-		case 13: {
+		case 16: {
+			if (isClass(configFile >> "CfgVehicles" >> "CUP_B_A10_AT_USA")) then {
+				_mod = true; _class = "CUP_B_A10_DYN_USA";
+				INSdefLoadOutBlu = dynPylons8;
+			};
+		};
+		case 17: {
 			if (isClass(configfile >> "CfgVehicles" >> "mas_F_35C")) then {
 				_mod = true; _class = "mas_F_35C_cas";
 			};
 		};
-		case 14: {
+		case 18: {
 			if (isClass (configfile >> "CfgVehicles" >> "mas_F_35C")) then {
 				_mod = true; _class = "mas_F_35C_cas";
 			};
 		};
-		case 15: {
+		case 19: {
 			if (isClass (configfile >> "CfgVehicles" >> "mas_F_35C")) then {
 				_mod = true; _class = "mas_F_35C_cas";
 			};
 		};
-		case 16: {
+		case 20: {
 			if (isClass(configFile >> "CfgVehicles" >> "OPTRE_UNSC_hornet_CAS"))then {
 				_mod = true; _class = "OPTRE_UNSC_hornet_CAS";
 			};
 		};
-		case 17: {
+		case 21: {
 			if (isClass(configFile >> "CfgVehicles" >> "LIB_DAK_FW190F8"))then {
 				_mod = true; _class = "LIB_DAK_FW190F8";
 			};
 		};
-		default {
-			_dirfw1 = getDir INS_fw_1;
-			_fw1 = createVehicle ["B_Plane_CAS_01_dynamicLoadout_F", getPos INS_fw_1, [], 0, "NONE"];
-			_fw1 setDir _dirfw1;[_fw1] call anti_collision;
-			_nul = [_fw1, dynPylons1] call INS_replace_pylons;
-			_nul = [_fw1, 2, 1, {[_this] call anti_collision; [_this, dynPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";
-		};
+		default {};
 	};
 
 	if (_mod) then {
@@ -232,6 +243,8 @@ if (Airfield_opt) then
 		} else {
 			_nul = [_fw1, 2, 1, {[_this] call anti_collision}] execVM "vehrespawn.sqf";
 		};
+	} else {
+		call _vanillaDefault;
 	};
 
 	//UAV service trigger
@@ -260,14 +273,6 @@ if (Airfield_opt) then
 private _anchorPos = getPosATL INS_E_tent;
 private _op4CrateComposition = [INS_Op4_wepCrates,_anchorPos] call BMRINS_fnc_objPositionsGrabber;
 missionNamespace setVariable ["op4CratesOrientation", _op4CrateComposition, true];
-
-//Work Around for inaccessible UAVS for players present at mission start (nonJIP)
-if (isDedicated) then {
-	0 spawn {
-		waitUntil {time > 1};
-		{{deletevehicle _x} count (allMissionObjects _x)} forEach INS_W_Serv_UAVs;//let them respawn
-	};
-};
 
 // Tasks //
 0 spawn {

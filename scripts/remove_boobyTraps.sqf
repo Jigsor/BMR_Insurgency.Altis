@@ -8,7 +8,7 @@ _szPosArry = [];
 _safeZones = Blu4_mkrs + ["Airfield"];
 
 {
-	_pos = getmarkerPos _x;
+	_pos = markerPos _x;
 	_szPosArry pushBack _pos;
 } forEach _safeZones;
 

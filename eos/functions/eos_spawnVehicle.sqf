@@ -2,17 +2,21 @@ HCPresent = if (isNil "Any_HC_present") then {False} else {True};
 
 if ((!isServer && hasInterface) || (HCPresent && isServer)) exitWith{};
 
-_position=(_this # 0);
-_side=(_this # 1);
-_faction=(_this # 2);
-_type=(_this # 3);
-_special = if (count _this > 4) then {_this # 4} else {"CAN_COLLIDE"};
+params ["_position","_side","_faction","_type"];
 
-_vehicleType=[_faction,_type] call eos_fnc_getunitpool;
+_vehicleParams=[_faction,_type] call eos_fnc_getunitpool;
+_vehicleParams params ["_vehType","_unitType"];
 
-_vehPositions=[(_vehicleType # 0)] call BIS_fnc_vehicleRoles;
-_vehicle = createVehicle [(_vehicleType # 0), _position, [], 0, _special];
-if ((_vehicleType # 0) isKindof "StaticWeapon") then {_vehicle setDir random 359};
+_special=if (count _this > 4) then {_this # 4} else {"CAN_COLLIDE"};
+_vehRoles=[_vehType] call BIS_fnc_vehicleRoles;
+_vehRoleCount=count _vehRoles;
+
+if (_vehRoleCount > 8 && {!(_vehType isKindOf "AIR")}) then {//reduce AI count in non Air vehicles to 8 max.
+	_vehRoles deleteRange [8, _vehRoleCount];
+};
+
+_vehicle=createVehicle [_vehType, _position, [], 0, _special];
+if (_vehType isKindof "StaticWeapon") then {_vehicle setDir random 359};
 
 _vehCrew=[];
 _grp = createGroup _side;
@@ -20,7 +24,7 @@ _grp = createGroup _side;
 {
 	_currentPosition=_x;
 	if (_currentPosition # 0 == "driver")then {
-		_unit = _grp createUnit [(_vehicleType # 1), _position, [], 0, "CAN_COLLIDE"];
+		_unit=_grp createUnit [_unitType, _position, [], 0, "CAN_COLLIDE"];
 		if !(side _unit isEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};
 		_unit assignAsDriver _vehicle;
 		_unit moveInDriver _vehicle;
@@ -28,15 +32,15 @@ _grp = createGroup _side;
 	};
 
 	if (_currentPosition # 0 == "turret")then {
-		_unit = _grp createUnit [(_vehicleType # 1), _position, [], 0, "CAN_COLLIDE"];
+		_unit=_grp createUnit [_unitType, _position, [], 0, "CAN_COLLIDE"];
 		if !(side _unit isEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};
 		_unit assignAsGunner _vehicle;
 		_unit MoveInTurret [_vehicle,_currentPosition # 1];
 		_vehCrew pushBack _unit;
 	};
-}foreach _vehPositions;
+}foreach _vehRoles;
 
-if (INS_op_faction isEqualTo 16) then {[_vehicle] call Trade_Biofoam_fnc};
+if (INS_op_faction in [20]) then {[_vehicle] call Trade_Biofoam_fnc};
 
 _return=[_vehicle,_vehCrew,_grp];
 

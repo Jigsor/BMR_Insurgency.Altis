@@ -58,57 +58,65 @@ BTC_AI_init = {
 	} forEach units _group;
 };
 paint_heli_fnc = {
-	//Paints blufor helis (typically Mowhawk and Hellcat) a different color matching terrain as to not mistake them for Opfor helis by Jigsor.
+	//Paints blufor helis (typically Mowhawk and Hellcat) a different color matching terrain as to not mistake them for Opfor/Indie helis by Jigsor.
 	params ["_veh"];
-	private _darkGrey = [
-		[0,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"],
-		[1,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"],
-		[2,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"]
-	];
-	private _sandColor = [
-		[0,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"],
-		[1,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"],
-		[2,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"]
-	];
-	private _green1 = [
-		[0,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"],
-		[1,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"],
-		[2,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"]
-	];
-	private _green2 = [
-		[0,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"],
-		[1,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"],
-		[2,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"]
-	];
-	private "_color";
-	switch (true) do {
-		case (toLower (worldName) isEqualTo "altis"): {_color = _darkGrey};
-		case (toLower (worldName) isEqualTo "tanoa"): {_color = _green2};
-		case (toLower (worldName) isEqualTo "malden"): {_color = _darkGrey};
-		case (toLower (worldName) isEqualTo "stratis"): {_color = _darkGrey};
-		case (toLower (worldName) isEqualTo "takistan"): {_color = _sandColor};
-		case (toLower (worldName) isEqualTo "fallujah"): {_color = _sandColor};
-		case (toLower (worldName) isEqualTo "lingor3"): {_color = _green1};
-		case (toLower (worldName) isEqualTo "dingor"): {_color = _sandColor};
-		case (toLower (worldName) isEqualTo "pja305"): {_color = _green1};
-		case (toLower (worldName) isEqualTo "sara"): {_color = _darkGrey};
-		case (toLower (worldName) isEqualTo "zargabad"): {_color = _sandColor};
-		case (toLower (worldName) isEqualTo "kunduz"): {_color = _sandColor};
-		case (toLower (worldName) isEqualTo "pja310"): {_color = _sandColor};
-		case (toLower (worldName) isEqualTo "xcam_taunus"): {_color = _green1};
-		case (toLower (worldName) isEqualTo "mog"): {_color = _sandColor};
-		case (toLower (worldName) isEqualTo "dya"): {_color = _sandColor};
-		case (toLower (worldName) isEqualTo "fata"): {_color = _sandColor};
-		case (toLower (worldName) isEqualTo "bornholm"): {_color = _green1};
-		case (toLower (worldName) isEqualTo "clafghan"): {_color = _sandColor};
-		case ((toLower (worldName) isEqualTo "napfwinter") || (toLower (worldName) isEqualTo "napf")): {_color = _darkGrey};
-		case (toLower (worldName) isEqualTo "kapaulio"): {_color = _green1};
-		case (toLower (worldName) isEqualTo "lythium"): {_color = _sandColor};
-		default {_color = [];};
-	};
-	if !(_color isEqualTo []) then {
+	private _colorSelection = missionNamespace getVariable ["BMR_paintSchemeB1", 0];
+	if (_colorSelection isEqualType 0) exitWith {
+		private _darkGrey = [
+			[0,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"],
+			[1,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"],
+			[2,"#(argb,8,8,3)color(0.518,0.519,0.455,0.2)"]
+		];
+		private _sandColor = [
+			[0,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"],
+			[1,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"],
+			[2,"#(argb,8,8,3)color(0.96,0.88,0.69,0.35)"]
+		];
+		private _green1 = [
+			[0,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"],
+			[1,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"],
+			[2,"#(argb,8,8,3)color(0.550,0.620,0.4,0.1)"]
+		];
+		private _green2 = [
+			[0,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"],
+			[1,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"],
+			[2,"#(argb,8,8,3)color(0.56,0.62,0.4,0.07)"]
+		];
+		private "_color";
+		switch (true) do {
+			case (toLower (worldName) isEqualTo "altis"): {_color = _darkGrey};
+			case (toLower (worldName) isEqualTo "tanoa"): {_color = _green2};
+			case (toLower (worldName) isEqualTo "malden"): {_color = _darkGrey};
+			case (toLower (worldName) isEqualTo "enoch"): {_color = _green1};
+			case (toLower (worldName) isEqualTo "stratis"): {_color = _darkGrey};
+			case (toLower (worldName) isEqualTo "takistan"): {_color = _sandColor};
+			case (toLower (worldName) isEqualTo "fallujah"): {_color = _sandColor};
+			case (toLower (worldName) isEqualTo "lingor3"): {_color = _green1};
+			case (toLower (worldName) isEqualTo "dingor"): {_color = _sandColor};
+			case (toLower (worldName) isEqualTo "pja305"): {_color = _green1};
+			case (toLower (worldName) isEqualTo "sara"): {_color = _darkGrey};
+			case (toLower (worldName) isEqualTo "zargabad"): {_color = _sandColor};
+			case (toLower (worldName) isEqualTo "kunduz"): {_color = _sandColor};
+			case (toLower (worldName) isEqualTo "pja310"): {_color = _sandColor};
+			case (toLower (worldName) isEqualTo "xcam_taunus"): {_color = _green1};
+			case (toLower (worldName) isEqualTo "mog"): {_color = _sandColor};
+			case (toLower (worldName) isEqualTo "dya"): {_color = _sandColor};
+			case (toLower (worldName) isEqualTo "fata"): {_color = _sandColor};
+			case (toLower (worldName) isEqualTo "bornholm"): {_color = _green1};
+			case (toLower (worldName) isEqualTo "clafghan"): {_color = _sandColor};
+			case ((toLower (worldName) isEqualTo "napfwinter") || (toLower (worldName) isEqualTo "napf")): {_color = _darkGrey};
+			case (toLower (worldName) isEqualTo "kapaulio"): {_color = _green1};
+			case (toLower (worldName) isEqualTo "lythium"): {_color = _sandColor};
+			case (toLower (worldName) isEqualTo "tem_anizay"): {_color = _darkGrey};
+			case (toLower (worldName) isEqualTo "pja312"): {_color = _green2};
+			case (toLower (worldName) isEqualTo "wl_rosche"): {_color = _green1};
+			default {_color = []};
+		};
+		if (_color isEqualTo []) exitWith {missionNamespace setVariable ["BMR_paintSchemeB1", []]};
 		{_veh setObjectTextureGlobal _x;} forEach _color;
+		missionNamespace setVariable ["BMR_paintSchemeB1", _color];
 	};
+	if !(_colorSelection isEqualTo []) then {{_veh setObjectTextureGlobal _x;} forEach _colorSelection};
 };
 add_UAV_crew = {
 	// add crew to UAV/UGV.
@@ -203,7 +211,7 @@ fnc_ghst_rand_position = {
 			_dir = (_radarray select 2) * -1;//specified direction
 		};
 	}else{
-		_position_mark = (getmarkerpos _pos_mark);//getmarker position
+		_position_mark = (markerPos _pos_mark);//getmarker position
 		_radx = (getMarkerSize _pos_mark) # 0;//radius A if position is a marker
 		_rady = (getMarkerSize _pos_mark) # 1;//radius b if position is a marker
 		_dir = (markerDir _pos_mark) * -1;//Marker Direction
@@ -271,7 +279,7 @@ JIG_ammmoCache_damage = {
 			private ["_pos","_dur","_count","_veh","_bObj"];
 			_pos = getPosATL(_this);
 			_bObj = nearestBuilding _pos;
-			[[_bObj, true], "allowDamage", false] call BIS_fnc_MP;
+			_bObj allowDamage true;
 
 			//Block from Insurgency by Fireball, Kol9yN
 			curTime	= time;
@@ -330,16 +338,13 @@ JIG_tower_damage = {
 };
 miss_object_pos_fnc = {
 	// Objective position. by Jigsor
-	params ["_cooX","_cooY","_dis","_wheX","_wheY","_ObjRandomPos","_empty","_goodPos","_mkrType","_newPos","_mkr"];
+	params ["_cooX","_cooY"];
 
-	_dis = 150;
-	_wheX = random (_dis*2)-_dis;
-	_wheY = random (_dis*2)-_dis;
-	_ObjRandomPos = [_cooX+_wheX,_cooY+_wheY,0];
-	_empty = [];
-	_goodPos = [];
-	_mkrType = if (DebugEnabled isEqualTo 1) then {"mil_dot"}else{"EMPTY"};
-	_newPos = _ObjRandomPos isFlatEmpty [25,384,0.4,2,0,false,ObjNull];
+	private _dis = 150;
+	private _wheX = random (_dis*2)-_dis;
+	private _wheY = random (_dis*2)-_dis;
+	private _ObjRandomPos = [_cooX+_wheX,_cooY+_wheY,0];
+	private _newPos = _ObjRandomPos isFlatEmpty [25,384,0.4,2,0,false,ObjNull];
 
 	while {(count _newPos) < 1} do {
 		_newPos = _ObjRandomPos isFlatEmpty [20,384,0.6,2,0,false,ObjNull];
@@ -347,19 +352,29 @@ miss_object_pos_fnc = {
 		_wheX = random (_dis*2)-_dis;
 		_wheY = random (_dis*2)-_dis;
 		_ObjRandomPos = [_cooX+_wheX,_cooY+_wheY,0];
-		if (_dis > 550) exitWith {_goodPos = []};
+		if (_dis > 499) then {
+			private _trees = nearestTerrainObjects [_ObjRandomPos, ["TREE","SMALL TREE","BUSH"], 15, false];
+			if !(_trees isEqualTo []) then {
+				for "_i" from 0 to (count _trees - 1) step 1 do {
+					private _tree = _trees # 0;
+					if !(isObjectHidden _tree) then {hideobjectGlobal _tree} else {_tree hideObjectGlobal false};
+					_trees deleteAt 0;
+				};
+			};
+		};
+		if (_dis > 550) exitWith {_newPos = []};
 		sleep 0.5;
 	};
 
 	if (!(_newPos isEqualTo [])) then {
 		if !(getMarkerType "tempObjMkr" isEqualTo "") then {deleteMarkerLocal "tempObjMkr"};
-		_mkr = createMarkerLocal ["tempObjMkr", _newPos];
+		private _mkrType = ["EMPTY", "mil_dot"] select (DebugEnabled isEqualTo 1);
+		private _mkr = createMarkerLocal ["tempObjMkr", _newPos];
 		_mkr setMarkerShapeLocal "ELLIPSE";
 		"tempObjMkr" setMarkerSizeLocal [1, 1];
 		"tempObjMkr" setMarkerShapeLocal "ICON";
 		"tempObjMkr" setMarkerTypeLocal _mkrType;
 	};
-	if (_newPos isEqualTo []) exitWith {_empty};
 	_newPos
 };
 opfor_NVG = {
@@ -385,10 +400,10 @@ editorAI_GasMask = {
 	private _ai = [];
 	{_ai pushBack _x} forEach (allUnits select {(!isPlayer _x) && (_x isKindOf "Man")});
 	{
-		removeHeadgear _x;
-		if (side _x isEqualTo resistance) then {_x addHeadgear "H_CrewHelmetHeli_I";};
-		if (side _x isEqualTo east) then {_x addHeadgear "H_CrewHelmetHeli_O";};
-		If (side _x isEqualTo west) then {_x addHeadgear "H_CrewHelmetHeli_B";};
+		removeGoggles _x;
+		if (side _x isEqualTo resistance) then {_x addGoggles "G_AirPurifyingRespirator_02_olive_F";};
+		if (side _x isEqualTo east) then {_x addGoggles "G_AirPurifyingRespirator_02_black_F";};
+		If (side _x isEqualTo west) then {_x addGoggles "G_AirPurifyingRespirator_01_F";};
 	} count _ai;
 };
 JIPmkr_updateClient_fnc = {
@@ -404,12 +419,9 @@ JIPmkr_updateClient_fnc = {
 };
 find_bombee_fnc = {
 	// Find suicide bomber player target. by Jigsor
-	private _potentialTargets = [];
 	private _btarget = ObjNull;
-
 	// exclude east players, players in moving vehicles, exclude above ground players such as players in aircraft or in high structures
-	{_potentialTargets pushBack _x} forEach (playableUnits select {(vectorMagnitudeSqr velocity _x < 9) && ((getPosATL _x) select 2 < 3.1) && (side _x isEqualTo west)});
-
+	private _potentialTargets = playableUnits select {(vectorMagnitudeSqr velocity _x < 9) && ((getPosATL _x) select 2 < 3.1) && (side _x isEqualTo west)};
 	if !(_potentialTargets isEqualTo []) then	{
 		_btarget = selectRandom _potentialTargets;
 	};
@@ -564,7 +576,7 @@ spawn_Op4_grp = {
 			params ["_unit", "_weapon", "_muzzle", "_newmag", ["_oldmag", ["","","",""]]];
 			if (_oldmag select 2 isEqualType "") then {_unit addMagazine (_newmag # 0)} else {_unit addMagazine (_oldmag # 0)};
 		}];
-		if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc};
+		if (INS_op_faction in [20]) then {[_x] call Trade_Biofoam_fnc};
 	} forEach (units _grp);
 
 	_grp
@@ -627,7 +639,7 @@ spawn_Op4_StatDef = {
 			_x removeAllEventHandlers "HandleDamage";
 			_x addEventHandler ["HandleDamage", {_damage = (_this select 2)*AIdamMod;_damage}];
 		};
-		if (INS_op_faction isEqualTo 16) then {[_x] call Trade_Biofoam_fnc};
+		if (INS_op_faction in [20]) then {[_x] call Trade_Biofoam_fnc};
 	} forEach (units _statGrp);
 
 	objective_pos_logic setVariable ["INS_ObjectiveStatics", _allGuns1];
@@ -763,24 +775,22 @@ INS_MHQ_VarName = {
 GAS_smoke_AIdamage = {
 	// Give damage to AI not wearing gas mask in toxic smoke by Jigsor
 	private ["_currPos","_aiArray","_sound","_odd"];
-	_currPos = _this;
-	_odd = 1;
+	private _currPos = _this;
+	private _odd = 1;
 
 	// loop time based on approximate life time of smoke grenade (21 seconds)
 	for '_i' from 1 to 10 step 1 do {
-		_aiArray = _currPos nearEntities ["CAManBase",15];
-		{if ((isPlayer _x) || (headgear _x in INS_gasMaskH) || (goggles _x in INS_gasMaskG)) then {_aiArray = _aiArray - [_x];};} count _aiArray;
+		private _aiArray = _currPos nearEntities ["CAManBase",15] select {(!isPlayer _x) && (([(headgear _x),(goggles _x)] arrayIntersect INS_allGasMask) isEqualTo [])};
 		{
-			if (_aiArray isEqualTo []) exitWith {};
 			if (_odd isEqualTo 1) then {
-				_sound = selectRandom Choke_Sounds;
-				playsound3d [_sound, _x, false, getPosasl _x, 14,1,40];
+				private _sound = selectRandom Choke_Sounds;
+				playsound3d [_sound, _x, false, getPosasl _x, 5,1,40];
 				_odd = 2;
 			}else{
 				_odd = 1;
 			};
 			uiSleep (random 0.21);
-			_x setDamage (damage _x + 0.14);
+			_x setDamage (damage _x + 0.13);
 		} count _aiArray;
 		uiSleep 2.1;
 	};

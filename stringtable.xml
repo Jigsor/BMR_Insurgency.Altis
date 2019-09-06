@@ -109,7 +109,7 @@
 <German>Wähle Höhe und Schneiden Taste</German>
 <French>Choisissez votre altitude et clé</French>
 <Russian>Выберите высоту и кнопку отрезания</Russian>
-<Spanish>Elija su altitud y tecla cortar</Spanish>
+<Spanish>Elija su altitud y tecla para cortar la cuerda</Spanish>
 </Key>
 <Key ID="STR_ATM_hover">
 <Original>Your select Altitude</Original>
@@ -125,7 +125,7 @@
 <German>Wähle Absprunghöhe und Landezone für Fallschirmsprung auf der Karte</German>
 <French>Sélectionnez votre altitude et position de saut en cliquant du bouton gauche de la souris sur la carte</French>
 <Russian>Выберите высоту и назначте зону посадки для прыжка HALO на карте</Russian>
-<Spanish>Seleccione altitud y zona de aterrizaje designado para HALO Jump en el mapa</Spanish>
+<Spanish>Seleccione altitud y zona de aterrizaje designado para saltar con paracaídas en el mapa</Spanish>
 </Key>
 <Key ID="STR_ATM_hintjump">
 <Original>PRESS KEY TO CUT-AWAY ROPES</Original>
@@ -149,7 +149,7 @@
 <German>schliessen</German>
 <French>Fermer</French>
 <Russian>Закрыть</Russian>
-<Spanish>Close</Spanish>
+<Spanish>Cierre</Spanish>
 </Key>
 <Key ID="STR_JWC_CAS_field_system">
 <Original>Open CAS field system</Original>
@@ -256,12 +256,12 @@
 <Spanish>Pulse la tecla U para el Administrador de Grupo</Spanish>
 </Key>
 <Key ID="STR_BMR_intro_tip2">
-<Original>Press Y key for Graphic Settings, Digital Heading and HUD</Original>
-<English>Press Y key for Graphic Settings, Digital Heading and HUD</English>
-<German>Drücke Taste Z für Grafikeinstellungen, Richtungsanzeige und Statusanzeige</German>
-<French>Appuyez sur la touche Y pour les paramètres graphiques, Heading numérique et HUD</French>
-<Russian>Нажмите клавишу ы для настройки графики, цифрового заголовка и HUD</Russian>
-<Spanish>Pulse la tecla Y para Ajustes Gráficos, Rubro Digital y HUD</Spanish>
+<Original>Press H key for Graphic Settings, Digital Heading and HUD</Original>
+<English>Press H key for Graphic Settings, Digital Heading and HUD</English>
+<German>Drücken Sie die H-Taste für Grafikeinstellungen, Richtungs- und Statusanzeige</German>
+<French>Appuyez sur la touche H pour les paramètres graphiques, boussole numérique et état</French>
+<Russian>Нажмите Ч, чтобы настроить графику, направление и статус отображения</Russian>
+<Spanish>Empuje la tecla H para ajustes los gráficos, el compás digital y el estatus</Spanish>
 </Key>
 <Key ID="STR_BMR_load_VAprofile">
 <Original>Load VA profile</Original>
@@ -285,7 +285,7 @@
 <German>Fallschirmsprung</German>
 <French>HALO saut</French>
 <Russian>Прыжок HALO</Russian>
-<Spanish>HALO salto</Spanish>
+<Spanish>HALO Paracaídas</Spanish>
 </Key>
 <Key ID="STR_BMR_ai_halo_jump">
 <Original>AI HALO jump</Original>
@@ -293,7 +293,7 @@
 <German>AI Falschirmsprung</German>
 <French>AI HALO saut</French>
 <Russian>Прыжок HALO AI</Russian>
-<Spanish>AI HALO salto</Spanish>
+<Spanish>AI HALO Paracaídas</Spanish>
 </Key>
 <Key ID="STR_BMR_save_loadout">
 <Original>Save Respawn Loadout</Original>
@@ -540,9 +540,9 @@
 <Original>AI HALO in progress</Original>
 <English>AI HALO in progress</English>
 <German>AI Fallschirmspringer auf dem Weg</German>
-<French>AI HALO en cours</French>
-<Russian>AI HALO в процессе</Russian>
-<Spanish>AI HALO en curso</Spanish>
+<French>AI Paracaídas en cours</French>
+<Russian>AI ПАРАШЮТ в процессе</Russian>
+<Spanish>AI Paracaídas en curso</Spanish>
 </Key>
 <Key ID="STR_BMR_Vehicle_destroyed">
 <Original>The vehicle has been destroyed</Original>
@@ -644,7 +644,7 @@
 <Original>Reload Magazine to Save Loadout</Original>
 <English>Reload Magazine to Save Loadout</English>
 <German>Waffe aufladen wird Inventar sparen</German>
-<French>Rechargement d'arme pour sauver l'insecte</French>
+<French>Recharger le magazine pour sauvegarder l'inventaire</French>
 <Russian>Перезарядка оружия позволит сохранить инвентарь</Russian>
 <Spanish>Recargar la Cargador para guardar el inventario</Spanish>
 </Key>

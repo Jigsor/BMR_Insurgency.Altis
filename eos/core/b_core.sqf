@@ -94,7 +94,7 @@ for "_counter" from 1 to _LVehGroups do {
 
 	if ((_LVgroupSize select 0) > 0) then {0=[(_bGroup # 0),_LVgroupSize,(_bGroup # 2),_faction,_cargoType] call eos_fnc_setcargo};
 
-	0=[(_bGroup # 2),"LIGskill"] call eos_fnc_grouphandlers;
+	0=[(_bGroup # 2),"LIGskill",_faction] call eos_fnc_grouphandlers;
 	_bGrp set [count _bGrp,_bGroup];
 	if (_debug) then {player sidechat format ["Light Vehicle:%1 - r%2",_counter,_LVehGroups];0= [_mkr,_counter,"Light Veh",(getpos leader (_bGroup # 2))] call EOS_debug};
 };	
@@ -105,7 +105,7 @@ for "_counter" from 1 to _AVehGroups do {
 	_newpos = _mPos getPos [_Placement, random 360];
 	if (surfaceiswater _newpos) then {_vehType=8;}else{_vehType=2;};
 	_cGroup=[_newpos,_side,_faction,_vehType]call EOS_fnc_spawnvehicle;
-	0=[(_cGroup # 2),"ARMskill"] call eos_fnc_grouphandlers;
+	0=[(_cGroup # 2),"ARMskill",_faction] call eos_fnc_grouphandlers;
 	_cGrp set [count _cGrp,_cGroup];
 	if (_debug) then {player sidechat format ["Armoured:%1 - r%2",_counter,_AVehGroups];0= [_mkr,_counter,"Armour",(getpos leader (_cGroup # 2))] call EOS_debug};
 };
@@ -122,7 +122,7 @@ for "_counter" from 1 to _CHGroups do {
 	if ((_fSize select 0) > 0) then {
 		_cargoGrp = createGroup _side;
 		0=[(_fGroup # 0),_fSize,_cargoGrp,_faction,9] call eos_fnc_setcargo;
-		0=[_cargoGrp,"INFskill"] call eos_fnc_grouphandlers;
+		0=[_cargoGrp,"INFskill",_faction] call eos_fnc_grouphandlers;
 		_fGroup set [count _fGroup,_cargoGrp];
 		null = [_mkr,_fGroup,_counter] execvm "eos\functions\TransportUnload_fnc.sqf";
 	}else{
