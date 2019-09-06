@@ -25,14 +25,14 @@ if (objective_list isEqualTo []) then {
 };
 
 _mission_mkr = selectRandom side_mission_mkrs;
-_mkrPos = getMarkerPos _mission_mkr;
-_xcoor = (getMarkerPos _mission_mkr select 0);
-_ycoor = (getMarkerPos _mission_mkr select 1);
+_mkrPos = markerPos _mission_mkr;
+_xcoor = (markerPos _mission_mkr select 0);
+_ycoor = (markerPos _mission_mkr select 1);
 
 if (DebugEnabled isEqualTo 1) then {diag_log text format ["Mission Marker Pos : %1", _mkrPos];};
 
 {
-	if (_mkrPos distance2D (getmarkerpos _x) == 0) then {
+	if (_mkrPos distance2D (markerPos _x) == 0) then {
 		side_mission_mkrs = side_mission_mkrs - [_x];
 	};
 } foreach side_mission_mkrs;

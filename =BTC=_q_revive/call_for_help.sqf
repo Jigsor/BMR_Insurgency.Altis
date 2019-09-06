@@ -1,14 +1,12 @@
-private ["_caller", "_pos", "_units", "_helper", "_dist"];
-_caller = _this select 0;
+params ["_caller"];
 
-if (isPlayer _caller) then {playSound3D [(selectRandom btc_qr_call_medic),_unit];};
-
-_side = _caller getVariable ["btc_qr_side",west];
 _pos = position _caller;
-_units = _caller nearEntities ["CAManBase", btc_qr_help_radius];
-_units = _units - [_caller];
-_helper = objNull;
-_dist = 99999;
+private _side = _caller getVariable ["btc_qr_side",west];
+private _units = (_caller nearEntities ["CAManBase", btc_qr_help_radius]) - [_caller];
+private _helper = objNull;
+private _dist = 99999;
+
+if (isPlayer _caller) then {playSound3D [(selectRandom btc_qr_call_medic),_caller]};
 
 {
 	if (!isPlayer _x && {side _x == _side} && {damage _x < 0.9} && {_x distanceSqr _caller < _dist} && {"FirstAidKit" in items _x || "Medikit" in items _x}) then {_helper = _x;_dist = _x distanceSqr _caller;};

@@ -1,5 +1,4 @@
-_roads = _this select 0;
-_roadCount = _this select 1;
+params ["_roads","_roadCount"];
 _orthogonalDist = 5;
 _road = _roads select(floor random(_roadCount));
 _dir = 0;
@@ -7,8 +6,8 @@ if(count (roadsConnectedTo _road) > 0) then {
 	_dir = _road getDir ((roadsConnectedTo _road) select 0);
 };
 _position = getpos _road;
-_opositionX = _position select 0;
-_opositionY = _position select 1;
+_opositionX = _position # 0;
+_opositionY = _position # 1;
 
 _offSetDirection = 1;
 if((random 100) > 50) then { _offSetDirection = -1;};

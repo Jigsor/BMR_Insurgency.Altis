@@ -14,11 +14,22 @@ if (_player in _hcEntities) then {
 	};
 
 	[all_eos_mkrs,_INSmkrs] remoteExec ["BMRINS_fnc_HC_allEOSmkrs",_player];
-	diag_log "******BMRINS_fnc_HC_allEOSmkrs remote executed on HC";
+	diag_log "******BMRINS_fnc_HC_allEOSmkrs remote execute scheduled on HC";
 	diag_log format ["*****HC* _didJIP = %1",_didJIP];
 };
 
 if !(_player in _hcEntities) then {
+
+	private _uid = getPlayerUID _player;
+	if (isNull _player || {_uid isEqualTo ""}) exitWith {
+		diag_log "*****BMR Insurgency notice!!! A player connected as null object or with an empty UID";
+		diag_log "*****This means the player has not connected properly, resulting in a no unit message!!!";
+		diag_log format ["*****Player object: %1 Player UID: %2 did JIP: %3", _player, _uid, _didJIP];
+		if (!isNull _player) then {
+			[] remoteExec ["BMRINS_fnc_playerHang",_player];
+			diag_log "Mission ending forced on player";
+		};
+	};
 
 	if (side _player == east) then {
 		waitUntil {!isNil "INS_play_op4"};

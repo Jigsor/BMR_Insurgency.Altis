@@ -1,6 +1,5 @@
 // by Bon_Inf*
 
-if(not local player) exitWith{};
 if((count (units group player) + count bon_recruit_queue) >= max_ai_recruits) exitWith {hint localize "STR_BMR_Max_recruit_limit"};
 
 #include "dialog\definitions.sqf"

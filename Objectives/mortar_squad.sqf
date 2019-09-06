@@ -70,14 +70,14 @@ sleep 1;
 	};
 } forEach (units mortar_grp);
 
-_offset_pos1 = [getMarkerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
-if (isNil "_offset_pos1" || _offset_pos1 distance _newZone > 125) then {_offset_pos1 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
+_offset_pos1 = [markerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
+if (isNil "_offset_pos1" || _offset_pos1 distance _newZone > 125) then {_offset_pos1 = [markerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
 
-_offset_pos2 = [getMarkerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
-if (isNil "_offset_pos2" || _offset_pos2 distance _newZone > 125) then {_offset_pos2 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
+_offset_pos2 = [markerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
+if (isNil "_offset_pos2" || _offset_pos2 distance _newZone > 125) then {_offset_pos2 = [markerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
 
-_offset_pos3 = [getMarkerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
-if (isNil "_offset_pos3" || _offset_pos3 distance _newZone > 125) then {_offset_pos3 = [getMarkerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
+_offset_pos3 = [markerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
+if (isNil "_offset_pos3" || _offset_pos3 distance _newZone > 125) then {_offset_pos3 = [markerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
 
 _static1 = createVehicle [_mortar_type, _offset_pos1, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
 _static2 = createVehicle [_mortar_type, _offset_pos2, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
@@ -119,7 +119,7 @@ _tasktopicE = localize "STR_BMR_Tsk_topicE_dms";
 _taskdescE = localize "STR_BMR_Tsk_topicE_dms";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[] remoteExec ['INS_fog_effect', [0,-2] select isDedicated]};};
 
 while {_run} do {
 	if ({alive _x} count units mortar_grp > 0) then	{

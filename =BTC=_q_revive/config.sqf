@@ -31,7 +31,7 @@ if (BTC_respawn_marker == "respawn_guer") then {BTC_respawn_marker = "Respawn_Gu
 if (BTC_respawn_marker == "respawn_civ") then {BTC_respawn_marker = "respawn_civilian"};
 
 btc_qr_def_spawn pushBack BTC_respawn_marker;
-BTC_r_base_spawn = "Land_ClutterCutter_small_F" createVehicleLocal getMarkerPos BTC_respawn_marker;
+BTC_r_base_spawn = "Land_ClutterCutter_small_F" createVehicleLocal markerPos BTC_respawn_marker;
 
 /*
 	_unit setVariable ["btc_qr_set_unc_time",time_in_seconds]; // time_in_seconds = type number

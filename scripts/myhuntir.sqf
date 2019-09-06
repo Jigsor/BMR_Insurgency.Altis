@@ -4,7 +4,7 @@
 
 player removeAction myhuntiraction;
 myhuntirfired=false;
-_firedeventhandlernumber = (player addEventHandler ["Fired",{if ((_this select 4) == "F_40mm_White") then {myhuntirfired=true;}}]);
+_firedeventhandlernumber = (player addEventHandler ["Fired",{if ((_this # 4) == "F_40mm_White") then {myhuntirfired=true;}}]);
 Hintsilent localize "STR_BMR_HuntIR_tip1";
 waitUntil {sleep 0.1; myhuntirfired};
 sleep 0.3;
@@ -13,19 +13,19 @@ _granat = nearestObject [player,"F_40mm_White"];
 
 if (isNull _granat) exitWith {Hintsilent "STR_BMR_HuntIR_tip2";myhuntiraction = player addAction ["use HuntIR", "scripts\myhuntir.sqf", [], 1, false, true, "", "true"];};
 
-_magassag = (getPos _granat) select 2;
+_magassag = (getPos _granat) # 2;
 sleep 0.2;
-while {_magassag > (getPos _granat) select 2} do {
-  _magassag = (getPos _granat) select 2;
+while {_magassag > (getPos _granat) # 2} do {
+  _magassag = (getPos _granat) # 2;
   //hintsilent format["alt=%1",_magassag];
   sleep 0.1;
 };
 
 //_veh = createVehicle ["Sign_Sphere10cm_F", (getPos _granat), [], 0, "NONE"];
 sleep 1;
-_sattgt = "Logic" createVehicleLocal [getPos _granat select 0, getPos _granat select 1, -10];
+_sattgt = "Logic" createVehicleLocal [getPos _granat # 0, getPos _granat # 1, -10];
 _sattgt setDir 0;
-_sattgt setpos [getPos _granat select 0, getPos _granat select 1, 0];
+_sattgt setpos [getPos _granat # 0, getPos _granat # 1, 0];
 sleep 0.01;
 
 lck_huntirreset=0;
@@ -45,8 +45,8 @@ disableserialization;
 keyspressed = compile preprocessFile "scripts\myhuntir_keydown.sqf";
 HuntIR_Eh = (findDisplay 46) displayAddEventHandler ["KeyDown","_this call keyspressed"];//updated Jig
 
-_granatpos = [(getPos _granat) select 0, (getPos _granat) select 1, ((getPos _granat) select 2)+50];
-_sattgt setpos [getPos _granat select 0, (getPos _granat select 1)-1, 0];
+_granatpos = [(getPos _granat) # 0, (getPos _granat) # 1, ((getPos _granat) # 2)+50];
+_sattgt setpos [getPos _granat # 0, (getPos _granat # 1)-1, 0];
 deleteVehicle _granat;
 
 _camera = "camera" camcreate _granatpos;
@@ -81,7 +81,7 @@ while {(_granatpos select 2 > 2)} do {
 	};
 	if ((movesatx != 0) or (movesaty != 0) or (zoom != 0) or (dive != 0)) then {
 		satpos = [(getpos _sattgt select 0) + movesatx, (getpos _sattgt select 1) + movesaty, 0];
-		_sattgt setpos [satpos select 0, satpos select 1, 0];
+		_sattgt setpos [satpos # 0, satpos # 1, 0];
 		_zoominout = _zoominout + zoom;
 		_divepos = _divepos + dive;
 		if (_zoominout < 0.02) then {_zoominout = 0.02};
@@ -97,7 +97,7 @@ while {(_granatpos select 2 > 2)} do {
 	zoom = 0;
 	dive = 0;
 
-	//hintsilent format["magassag = %1",_granatpos select 2];
+	//hintsilent format["magassag = %1",_granatpos # 2];
 	waituntil{camCommitted _camera};
 	_ido = _ido + 0.02;
 	sleep 0.02;

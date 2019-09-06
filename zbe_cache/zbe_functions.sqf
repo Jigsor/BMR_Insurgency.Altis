@@ -24,9 +24,8 @@ zbe_unCache = {
 	} forEach _toCache;
 };
 zbe_closestUnit = {
-	private["_units", "_unit", "_dist", "_udist"];
-	_units = _this select 0;
-	_unit = _this select 1;
+	params ["_units","_unit"];
+	private["_dist","_udist"];
 	_dist = 10^5;
 	{
 		_udist = _x distance _unit;

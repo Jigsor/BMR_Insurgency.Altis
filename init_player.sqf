@@ -55,7 +55,7 @@ if (DebugEnabled > 0) then {
 	//Delivery_Box enableRopeAttach false;
 	//if (local player) then {player setVariable ["BIS_enableRandomization", false]};// Disables randomization of gear
 	if (AI_radio_volume isEqualTo 1) then {0 fadeRadio 0};
-	if (INS_p_rev isEqualTo 4 || INS_p_rev isEqualTo 5) then {player call btc_qr_fnc_unit_init};// BTC Quick Revive
+	if (INS_p_rev in [4,5]) then {player call btc_qr_fnc_unit_init};// BTC Quick Revive
 	if (INS_GasGrenadeMod isEqualTo 1) then {player setVariable ["inSmoke",false]};
 	if (Remove_grass_opt isEqualTo 1) then {tawvd_disablenone = true};// Disables the grass Option 'None' button in Taw View Distance UI
 	if (_playertype in INS_W_PlayerUAVop) then {player setVariable ["ghst_ugvsup", 0]};
@@ -68,9 +68,7 @@ if (DebugEnabled > 0) then {
 	// Fatigue and Stamina
 	setStaminaScheme "FastDrain";
 	if (Fatigue_ability isEqualTo 0) then {//Disable Fatigue/Stamina
-		if (local Player) then {
-			0 spawn {[player] call INS_full_stamina};
-		};
+		[player] call INS_full_stamina;
 	};
 
 	// Group Manager
@@ -79,7 +77,7 @@ if (DebugEnabled > 0) then {
 	// Object Actions //
 
 	// Base Flag Pole
-	if (INS_op_faction isEqualTo 16) then {
+	if (INS_op_faction in [20]) then {
 		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 0, 3.9];
 		if (max_ai_recruits > 1) then {
 			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 1, 3.8];
@@ -137,8 +135,8 @@ if (DebugEnabled > 0) then {
 	if (max_ai_recruits > 1) then {INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#1d78ed'>") + (localize "STR_BMR_recruit_inf") + "</t>","bon_recruit_units\open_dialog.sqf", [], 1, true, true, "", "true", 15];};
 
 	// Player actions for Engineer's FARP/vehicle service point
-	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_maintenance_veh") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],INS_maintenance_veh], 8, true, true, "", "count (nearestObjects [_this, ['LandVehicle','Air'], 15]) > 0"];
-	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_repair_wreck") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_repair_wreck], 8, true, true, "", "count (nearestObjects [_this, ['LandVehicle','Air'], 15]) > 0"];
+	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_maintenance_veh") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],INS_maintenance_veh], 8, true, true, "", "count (nearestObjects [_this, ['LandVehicle','Air','Ship'], 15]) > 0"];
+	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_repair_wreck") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],BTC_repair_wreck], 8, true, true, "", "count (nearestObjects [_this, ['LandVehicle','Air','Ship'], 15]) > 0"];
 	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_flip_veh") + "</t>","call INS_Flip_Veh", nil, 8];
 
 	// Player Object Actions //
@@ -174,8 +172,8 @@ if (DebugEnabled > 0) then {
 	0 spawn {
 		sleep 5;
 		waitUntil {!isNull (findDisplay 46)};
-		(findDisplay 46) displayAddEventHandler ["KeyDown", "_this call Jig_fnc_keyHandler"];
-		(findDisplay 46) displayAddEventHandler ["KeyDown", {if ((_this # 1) in ((actionKeys 'User3') + [0x3d])) then {call INS_planeReverse_key_F3;};}];
+		(findDisplay 46) displayAddEventHandler ["KeyUp", "_this call Jig_fnc_keyHandler"];
+		(findDisplay 46) displayAddEventHandler ["KeyUp", {if ((_this # 1) in ((actionKeys 'User3') + [0x3d])) then {call INS_planeReverse_key_F3;};}];
 		if (limitPOV isEqualTo 1 && {(difficultyOption "thirdPersonView") isEqualTo 1}) then {
 			player switchCamera "INTERNAL";
 			JIG_3rdPersonVeh = (findDisplay 46) displayAddEventHandler["KeyDown", {
@@ -227,7 +225,7 @@ if (DebugEnabled > 0) then {
 		}] call BIS_fnc_addStackedEventHandler;
 	};
 
-	if ((INS_p_rev isEqualTo 4) || (INS_p_rev isEqualTo 5)) then {
+	if (INS_p_rev in [4,5]) then {
 		player addEventHandler ["Killed",{_this spawn {sleep 3; deletevehicle (_this # 0)}}];
 		player addEventHandler ["Respawn", {
 			[(_this # 0)] spawn {
@@ -240,7 +238,7 @@ if (DebugEnabled > 0) then {
 	};
 
 	if (!(INS_ACE_core) && !(INSpDamMul isEqualTo 100)) then {
-		if (INS_p_rev isEqualTo 4 || INS_p_rev isEqualTo 5) then {
+		if (INS_p_rev in [4,5]) then {
 			0 spawn {
 				waitUntil {time > 4};
 				hint "Player damage modifier not compatible with BTC Quick Revive. Default damage will be taken (100%)";
@@ -295,6 +293,9 @@ if (DebugEnabled > 0) then {
 		}] call BIS_fnc_addScriptedEventHandler;
 	};
 
+	// Remove black listed weapons from player when Arsenal Closed
+	[missionNamespace, "arsenalClosed", {call BMRINS_fnc_arsenalWeaponRemoval}] call BIS_fnc_addScriptedEventHandler;
+
 	// Delete useless sleeping bags and respawn tents on deployment.
 	player addEventHandler ["WeaponAssembled", {
 		params ["_unit", "_staticWeapon"];
@@ -328,6 +329,25 @@ if (DebugEnabled > 0) then {
 			};
 		}];
 	};
+
+	//UAV controll view distance
+	addMissionEventHandler ["PlayerViewChanged", {
+		params ["_oldUnit","_newUnit","_vehicle","_oldCamera","_newCamera","_uav"];
+		if (isNull _uav) exitWith {
+			call TAWVD_fnc_updateViewDistance;
+		};
+		if (!isNull getConnectedUAV player) then {
+			private _dist = tawvd_car;
+			if (typeof (getConnectedUAV player) isKindof "Air") then {
+				_dist = tawvd_air;
+			};
+			setViewDistance _dist;
+			if(tawvd_syncObject) then {
+				setObjectViewDistance [_dist,100];
+				tawvd_object = _dist;
+			};
+		};
+	}];
 
 	// Routines //
 
@@ -539,6 +559,7 @@ if (DebugEnabled > 0) then {
 		while {_l} do {
 			if (serverCommandAvailable "#lock") then {
 				#include "scripts\AdminMenu.sqf"
+				hintSilent "Admin Menu Available";
 				_l = false;
 			};
 			sleep 60;

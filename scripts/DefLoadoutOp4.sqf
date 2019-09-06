@@ -3,8 +3,7 @@ params ["_p"];
 waitUntil {alive _p};
 
 // CSAT (A3) or CSAT (Pacific)
-if ((INS_op_faction isEqualTo 1) || (INS_op_faction isEqualTo 4) || (INS_op_faction isEqualTo 5)) exitWith
-{
+if (INS_op_faction in [1,4,5]) exitWith {
 	removeAllAssignedItems _p;
 	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles_OPFOR"];
 };
@@ -15,7 +14,7 @@ removeAllContainers _p;
 removeHeadgear _p;
 removeGoggles _p;
 
-if ((INS_op_faction isEqualTo 2) || (INS_op_faction isEqualTo 3)) then {
+if (INS_op_faction in [2,3]) exitWith {
 // AAF (A3)
 
 	_p forceAddUniform "U_I_CombatUniform";
@@ -57,9 +56,96 @@ if ((INS_op_faction isEqualTo 2) || (INS_op_faction isEqualTo 3)) then {
 	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles_INDEP"];
 };
 
+if (INS_op_faction in [6,7]) exitWith {
+// LDF (A3)
+
+	_p addWeapon "arifle_MSBS65_ico_pointer_f";
+	_p addPrimaryWeaponItem "muzzle_snds_H";
+	_p addPrimaryWeaponItem "acc_pointer_IR";
+	_p addPrimaryWeaponItem "optic_Arco_lush_F";
+	_p addPrimaryWeaponItem "30Rnd_65x39_caseless_msbs_mag";
+	_p addWeapon "launch_RPG32_green_F";
+	_p addSecondaryWeaponItem "RPG32_F";
+	_p addWeapon "hgun_Pistol_heavy_01_green_F";
+	_p addHandgunItem "11Rnd_45ACP_Mag";
+
+	_p forceAddUniform "U_I_E_Uniform_01_F";
+	_p addVest "V_CarrierRigKBT_01_light_EAF_F";
+	_p addBackpack "B_Fieldpack_green_IEAT_F";
+
+	for "_i" from 1 to 2 do {_p addItemToUniform "FirstAidKit";};
+	for "_i" from 1 to 2 do {_p addItemToUniform "30Rnd_65x39_caseless_msbs_mag";};
+	for "_i" from 1 to 2 do {_p addItemToUniform "Chemlight_blue";};
+	for "_i" from 1 to 3 do {_p addItemToVest "30Rnd_65x39_caseless_msbs_mag";};
+	for "_i" from 1 to 2 do {_p addItemToVest "11Rnd_45ACP_Mag";};
+	for "_i" from 1 to 3 do {_p addItemToVest "SmokeShellBlue";};
+	_p addItemToVest "APERSBoundingMine_Range_Mag";
+	for "_i" from 1 to 2 do {_p addItemToVest "APERSTripMine_Wire_Mag";};
+	_p addItemToVest "HandGrenade";
+	for "_i" from 1 to 3 do {_p addItemToBackpack "FirstAidKit";};
+	_p addItemToBackpack "MineDetector";
+	for "_i" from 1 to 2 do {_p addItemToBackpack "RPG32_F";};
+	for "_i" from 1 to 2 do {_p addItemToBackpack "30Rnd_65x39_caseless_msbs_mag";};
+	_p addItemToBackpack "HandGrenade";
+	_p addHeadgear "H_HelmetHBK_ear_F";
+	_p addGoggles "G_Tactical_Clear";
+
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS","NVGoggles_INDEP"];
+
+	[_p,"WhiteHead_22_l","male03pol"] call BIS_fnc_setIdentity;
+};
+
+if (INS_op_faction in [8]) exitWith {
+// Spetsnaz (A3)
+
+	_p addWeapon "arifle_AK12_lush_F";
+	_p addPrimaryWeaponItem "muzzle_snds_B_lush_F";
+	_p addPrimaryWeaponItem "acc_pointer_IR";
+	_p addPrimaryWeaponItem "optic_Arco_AK_lush_F";
+	_p addPrimaryWeaponItem "30rnd_762x39_AK12_Lush_Mag_F";
+	_p addWeapon "launch_RPG32_green_F";
+	_p addSecondaryWeaponItem "RPG32_F";
+	_p addWeapon "hgun_Rook40_F";
+	_p addHandgunItem "16Rnd_9x21_Mag";
+
+	_p forceAddUniform "U_O_R_Gorka_01_camo_F";
+	_p addVest "V_SmershVest_01_F";
+	_p addBackpack "B_FieldPack_taiga_RPG_AT_F";
+
+	_p addWeapon "Binocular";
+
+	_p addItemToUniform "FirstAidKit";
+	_p addItemToUniform "Chemlight_red";
+	for "_i" from 1 to 3 do {_p addItemToUniform "30rnd_762x39_AK12_Lush_Mag_F";};
+	_p addItemToVest "MineDetector";
+	_p addItemToVest "FirstAidKit";
+	for "_i" from 1 to 2 do {_p addItemToVest "16Rnd_9x21_Mag";};
+	for "_i" from 1 to 4 do {_p addItemToVest "SmokeShellRed";};
+	_p addItemToVest "Chemlight_red";
+	for "_i" from 1 to 4 do {_p addItemToVest "30rnd_762x39_AK12_Lush_Mag_F";};
+	for "_i" from 1 to 2 do {_p addItemToVest "HandGrenade";};
+	_p addItemToVest "APERSBoundingMine_Range_Mag";
+	_p addItemToVest "APERSTripMine_Wire_Mag";
+	for "_i" from 1 to 2 do {_p addItemToBackpack "FirstAidKit";};
+	_p addItemToBackpack "ToolKit";
+	_p addItemToBackpack "RPG32_F";
+	_p addItemToBackpack "RPG32_HE_F";
+	_p addHeadgear "H_HelmetAggressor_cover_taiga_F";
+	_p addGoggles "G_Tactical_Clear";
+
+	_p linkItem "ItemMap";
+	_p linkItem "ItemCompass";
+	_p linkItem "ItemWatch";
+	_p linkItem "ItemRadio";
+	_p linkItem "ItemGPS";
+	_p linkItem "O_NVGoggles_grn_F";
+
+	[_p,"WhiteHead_22_l","male02rus"] call BIS_fnc_setIdentity;
+};
+
 switch (INS_op_faction) do {//begin switch
 
-case 6: {
+case 9: {
 // RHS - Armed Forces of the Russian Federation (@RHSAFRF)
 
 	_p forceAddUniform "rhs_uniform_flora";
@@ -97,7 +183,7 @@ case 6: {
 
 	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"];//"NVGoggles_OPFOR"
 };
-case 7: {
+case 10: {
 // RHS - DES Armed Forces of the Russian Federation (@RHSAFRF)
 
 	_p forceAddUniform "rhs_uniform_vdv_emr_des";
@@ -135,7 +221,7 @@ case 7: {
 
 	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"];//"NVGoggles_OPFOR"
 };
-case 8: {
+case 11: {
 // RHS - GREF (@RHSAFRF;@RHSUSAF;@RHSGREF)
 
 	_p forceAddUniform "rhsgref_uniform_ttsko_mountain";
@@ -174,8 +260,9 @@ case 8: {
 
 	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"];//"NVGoggles_INDEP"
 };
-case 9: {
+case 12: {
 // RHS - SAF (@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF)
+
 	_p forceAddUniform "rhssaf_uniform_m10_digital";
 	_p addItemToUniform "FirstAidKit";
 	for "_i" from 1 to 2 do {_p addItemToUniform "rhs_mag_9x19mm_7n21_20";};
@@ -210,8 +297,8 @@ case 9: {
 	_p setFace "WhiteHead_22_l";
 	_p setSpeaker "Male05GRE";
 };
-case 10: {
-// Leight's Opfor Pack (@RHSAFRF;@RHSUSAF; + (@leights_opfor or @Project_OPFOR))
+case 13: {
+// Project OPFOR (@RHSAFRF;@RHSUSAF;@RHSGREF;@Project_OPFOR)
 
 	_p forceAddUniform "LOP_U_ISTS_Fatigue_01";
 	for "_i" from 1 to 3 do {_p addItemToUniform "FirstAidKit";};
@@ -248,7 +335,7 @@ case 10: {
 	_p setFace "PersianHead_A3_02";
 	_p setSpeaker "Male03PER";
 };
-case 11: {
+case 14: {
 // Iraqi-Syrian Conflict - Islamic State (@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF;@ISC)
 
 	_p forceAddUniform "rhsgref_uniform_woodland";
@@ -286,7 +373,7 @@ case 11: {
 	_p setFace "PersianHead_A3_02";
 	_p setSpeaker "male03per";
 };
-case 12: {
+case 15: {
 // CUP Takistan Army (@CBA_A3;@cup_units;@cup_weapons;@cup_vehicles")
 
 	_p forceAddUniform "CUP_U_O_TK_Green";
@@ -322,7 +409,41 @@ case 12: {
 	_p setFace "PersianHead_A3_02";
 	_p setSpeaker "Male01PER";
 };
-case 13: {
+case 16: {
+// CUP Armed Forces of the Russian Federation MSV (@CBA_A3;@cup_units;@cup_weapons;@cup_vehicles")
+
+	_p forceAddUniform "CUP_U_O_RUS_EMR_2";
+	_p addItemToUniform "FirstAidKit";
+	for "_i" from 1 to 2 do {_p addItemToUniform "SmokeShell";};
+	_p addItemToUniform "CUP_HandGrenade_RGD5";
+
+	_p addVest "CUP_V_RUS_6B45_2";
+
+	_p addBackpack "CUP_B_RUS_Pack_MG";
+	_p addItemToBackpack "CUP_optic_PechenegScope";
+	for "_i" from 1 to 6 do {_p addItemToBackpack "FirstAidKit";};
+	_p addItemToBackpack "ToolKit";
+	_p addItemToBackpack "MineDetector";
+	for "_i" from 1 to 3 do {_p addItemToBackpack "CUP_HandGrenade_RGD5";};
+	for "_i" from 1 to 2 do {_p addItemToBackpack "APERSBoundingMine_Range_Mag";};
+	for "_i" from 1 to 2 do {_p addItemToBackpack "APERSMine_Range_Mag";};
+	for "_i" from 1 to 2 do {_p addItemToBackpack "APERSTripMine_Wire_Mag";};
+
+	_p addHeadgear "CUP_H_RUS_6B46";
+	_p addGoggles "G_Tactical_Clear";
+
+	[_p,"CUP_lmg_Pecheneg_PScope",2] call BIS_fnc_AddWeapon;
+	_p addPrimaryWeaponItem "CUP_optic_ekp_8_02";
+	[_p,"CUP_hgun_MicroUzi",3] call BIS_fnc_AddWeapon;
+	_p addWeapon "CUP_launch_RPG18";
+	_p addWeapon "CUP_LRTV";
+
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS","CUP_NVG_HMNVS"];
+
+	_p setFace "WhiteHead_22_l";
+	_p setSpeaker "cup_d_male03_ru";
+};
+case 17: {
 //Masi Middle Eastern Wafare CSAT Army
 
 	_p forceAddUniform "U_mas_med_O_CombatUniform_ir";
@@ -362,7 +483,7 @@ case 13: {
 	_p setFace "GreekHead_A3_10_a";
 	_p setSpeaker "Male03PER";
 };
-case 14: {
+case 18: {
 //Masi Middle Eastern Wafare Takistan Army
 
 	_p forceAddUniform "U_mas_med_O_CombatUniform";
@@ -403,7 +524,7 @@ case 14: {
 	_p setFace "GreekHead_A3_10_a";
 	_p setSpeaker "Male03PER";
 };
-case 15: {
+case 19: {
 // African Conflict (@CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle)
 
 	_p forceAddUniform "U_mas_afr_O_uniform1";
@@ -438,64 +559,67 @@ case 15: {
 	_p setFace "PersianHead_A3_02";
 	_p setSpeaker "Male01PER";
 };
-case 16: {
+case 20: {
 // OPTRE (@CBA_A3;@OPTRE)
-	_p forceAddUniform "OPTRE_Ins_ER_uniform_GAtan";
-	for "_i" from 1 to 4 do {_p addItemToUniform "FirstAidKit";};
 
-	_p addVest "OPTRE_INS_UNSC_vest12";
-	for "_i" from 1 to 4 do {_p addItemToVest "OPTRE_60Rnd_762x51_Mag";};
-	for "_i" from 1 to 2 do {_p addItemToVest "OPTRE_60Rnd_762x51_Mag_Tracer";};
-	for "_i" from 1 to 4 do {_p addItemToVest "OPTRE_12Rnd_127x40_Mag";};
+	_p addWeapon "OPTRE_MA5A";
+	_p addPrimaryWeaponItem "muzzle_snds_65_TI_blk_F";
+	_p addPrimaryWeaponItem "acc_pointer_IR";
+	_p addPrimaryWeaponItem "optic_Hamr";
+	_p addPrimaryWeaponItem "OPTRE_60Rnd_762x51_Mag_Tracer_Yellow";
+	_p addWeapon "OPTRE_M41_SSR";
+	_p addSecondaryWeaponItem "OPTRE_M41_Twin_HEAT";
 
-	_p addBackpack "OPTRE_ILCS_Rucksack_tan";
-	_p addItemToBackpack "OPTRE_MedKit";
-	for "_i" from 1 to 4 do {_p addItemToBackpack "OPTRE_M9_Frag";};
-	for "_i" from 1 to 4 do {_p addItemToBackpack "OPTRE_M8_Flare";};
-	for "_i" from 1 to 2 do {_p addItemToBackpack "OPTRE_M2_Smoke";};
-	for "_i" from 1 to 2 do {_p addItemToBackpack "OPTRE_M2_Smoke_Red";};
-	_p addItemToBackpack "DemoCharge_Remote_Mag";
+	_p forceAddUniform "OPTRE_Ins_URF_Combat_Uniform";
+	_p addVest "OPTRE_Ins_URF_Armor1";
+	_p addBackpack "OPTRE_B_TacticalPack_blk_M41G";
+
+	_p addWeapon "Binocular";
+
+	for "_i" from 1 to 2 do {_p addItemToUniform "FirstAidKit";};
+	_p addItemToUniform "OPTRE_M2_Smoke";
+	_p addItemToUniform "HandGrenade";
+	for "_i" from 1 to 3 do {_p addItemToVest "FirstAidKit";};
+	_p addItemToVest "MineDetector";
+	for "_i" from 1 to 4 do {_p addItemToVest "OPTRE_60Rnd_762x51_Mag_Tracer_Yellow";};
+	_p addItemToVest "OPTRE_M2_Smoke_Green";
+	for "_i" from 1 to 3 do {_p addItemToVest "SmokeShellGreen";};
+	_p addItemToBackpack "OPTRE_M41_Twin_HEAT";
 	for "_i" from 1 to 2 do {_p addItemToBackpack "APERSTripMine_Wire_Mag";};
-	for "_i" from 1 to 2 do {_p addItemToBackpack "APERSBoundingMine_Range_Mag";};
-	_p addItemToBackpack "IEDUrbanBig_Remote_Mag";
+	_p addItemToBackpack "APERSBoundingMine_Range_Mag";
+	_p addItemToBackpack "M41_IED_B_Remote_Mag";
+	_p addItemToBackpack "UNSCMine_Range_Mag";
+	_p addHeadgear "OPTRE_Ins_URF_Helmet4";
+	_p addGoggles "G_Tactical_Clear";
 
-	_p addHeadgear "OPTRE_INS_Helmet_vet";
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemWatch","ItemRadio","OPTRE_NVG"];
 
-	[_p,"OPTRE_MA5B",1] call BIS_fnc_AddWeapon;
-	_p addPrimaryWeaponItem "OPTRE_MA5B_Flashlight";
-	_p addPrimaryWeaponItem "OPTRE_MA5B_AmmoCounter";
-	[_p,"OPTRE_M6C",1] call BIS_fnc_AddWeapon;
-	_p addHandgunItem "OPTRE_M6C_Laser";
-	_p addWeapon "Rangefinder";
-
-	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS","OPTRE_NVG"];
-
-	_p setFace "PersianHead_A3_02";
-	_p setSpeaker "Male03PER";
+	[_p,"WhiteHead_22_l",""] call BIS_fnc_setIdentity;
 };
+case 21: {
 // IFA3 Desert US Army (@CBA_A3;@CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE)
-case 17: {
-	_P forceAddUniform "U_LIB_US_Private";
-	for "_i" from 1 to 3 do {_P addItemToUniform "FirstAidKit";};
-	for "_i" from 1 to 2 do {_P addItemToUniform "LIB_8Rnd_9x19";};
 
-	_P addVest "V_LIB_US_Vest_Bar";
-	_P addItemToVest "FirstAidKit";
-	_P addItemToVest "LIB_8Rnd_9x19";
-	for "_i" from 1 to 3 do {_P addItemToVest "LIB_63Rnd_762x54";};
-	for "_i" from 1 to 5 do {_P addItemToVest "LIB_m39";};
+	_p forceAddUniform "U_LIB_US_private";
+	for "_i" from 1 to 3 do {_p addItemToUniform "FirstAidKit";};
+	for "_i" from 1 to 2 do {_p addItemToUniform "LIB_8Rnd_9x19";};
 
-	_P addBackpack "B_LIB_US_Backpack";
-	_P addItemToBackpack "FirstAidKit";
-	for "_i" from 1 to 4 do {_P addItemToBackpack "LIB_US_M18_Red";};
-	_P addItemToBackpack "LIB_US_TNT_4pound_mag";
+	_p addVest "V_LIB_US_Vest_Bar";
+	_p addItemToVest "FirstAidKit";
+	_p addItemToVest "LIB_8Rnd_9x19";
+	for "_i" from 1 to 3 do {_p addItemToVest "LIB_63Rnd_762x54";};
+	for "_i" from 1 to 5 do {_p addItemToVest "LIB_m39";};
+
+	_p addBackpack "B_LIB_US_Backpack";
+	_p addItemToBackpack "FirstAidKit";
+	for "_i" from 1 to 4 do {_p addItemToBackpack "LIB_US_M18_Red";};
+	_p addItemToBackpack "LIB_US_TNT_4pound_mag";
 
 	_p addHeadgear "H_LIB_US_Helmet";
 
 	[_p,"LIB_DT",1] call BIS_fnc_AddWeapon;
 	[_p,"LIB_M1A1_Bazooka",1] call BIS_fnc_AddWeapon;
-	_P addWeapon "LIB_M1908";
-	_P addWeapon "LIB_Binocular_GER";
+	_p addWeapon "LIB_M1908";
+	_p addWeapon "LIB_Binocular_GER";
 
 	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS","G_LIB_Scarf_G"];
 
@@ -506,7 +630,4 @@ default {};
 
 };//end switch
 
-/*
-British Voices ["Male01ENGB","Male02ENGB","Male03ENGB","Male04ENGB"]
-primaryWeaponItems player, magazinecargo player
-*/
+//primaryWeaponItems player, magazinecargo player

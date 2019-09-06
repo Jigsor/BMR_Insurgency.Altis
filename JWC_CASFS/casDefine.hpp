@@ -108,6 +108,7 @@ class JWC_Map {
 	ptsPerSquareRoad = 6;
 	ptsPerSquareObj = 9;
 	showCountourInterval = 0;
+	widthRailWay = 4;
 	scaleMin = 0.001000;
 	scaleMax = 1.000000;
 	scaleDefault = 0.160000;

@@ -15,7 +15,7 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 	<br/>	nicolas_boiteux@yahoo.fr.
 	<br/>vehRespawn.sqf, and ICE_HUD by Iceman77
 	<br/>repetitive_cleanup.sqf v1.7, player_markers.sqf v2.6,
-	<br/>JW Custom Close Air Support v0.1b.by JW Custom
+	<br/>JW Custom Close Air Support v0.1b by JW Custom
 	<br/>Halo =ATM= Airdrop v6.0 by pokertour.
 	<br/>Traffic by MAD T.
 	<br/>Randomly generated roadside IED's by brians200
@@ -77,10 +77,33 @@ player createDiaryRecord ["Diary", ["Credits","
 	<br/><br/><img image='images\bmrbw.paa' widwidth='256' height='256'/>
 	<br/>If you feel graciously appreciative to the mission author you may consider clicking here to copy link to clipboard: <execute expression=""copyToClipboard 'https://www.paypal.me/MissionDev';"">https://www.paypal.me/MissionDev</execute> and donating.
 "]];
-player createDiaryRecord ["Diary", ["INFO","
+player createDiaryRecord ["Diary", ["Server Rules","
+	<br/>1. No teamkilling, revenge killing or retributive actions regarding such outside of the teamkill punish option.
+	<br/>2. Unsportsmanlike conduct will not be permitted on the servers, such as any genuine personal attacks, threats, stalking, or related actions.
+	<br/>3. No pretending to be an admin.
+	<br/>4. No unauthorized access of full admin privileges.
+	<br/>5. No purposeful destruction of usable (operable/non-damaged) vehicles at base.
+	<br/>6. Lighting up large areas without coordination with fellow BLUFOR is ill-advised and frowned upon. Repeated instances will result in verbal requests to move. Should requests be ignored the individual may be subject to teleport to relocate them.
+	<br/>
+	<br/>The following are not allowed regarding OPFOR:
+	<br/>1. Bypassing OPFOR arsenal/vehicle restrictions through use of a BLUFOR slot/contact.
+	<br/>2. Those providing equipment or other assets to OPFOR while on BLUFOR are subject to the same rule listed previously.
+"]];
+
+private _serverName = format ["%1", serverName];
+private _briefingName = format ["%1", briefingName];
+private _worldName = format [".%1", worldName];
+private _missionName = _briefingName + _worldName;
+private _info ="<br/><font size='20'>SERVER INFO</font><br/><br/>Server Name: ";
+_info = _info + _serverName;
+_info = _info + "<br/><br/>Mission Name: ";
+_info = _info + _missionName;
+
+_info = _info +"
+	<br/>
 	<br/><font size='20'>SETTINGS</font>
 	<br/>
-	<br/>Press Y key for View Distance Settings, Digital Heading, Status Hud, Ear Plugs, Ambient Wild Life Toggle and Engine Text Chatter Toggle.
+	<br/>Press H key for View Distance Settings, Digital Heading, Status Hud, Ear Plugs, Ambient Wild Life Toggle and Engine Text Chatter Toggle.
 	<br/>Status Hud Icon Legend:
 	<br/><br/><img image='\A3\Weapons_F\Data\UI\gear_item_compass_ca.paa' widwidth='32' height='32'/>--  Local Player/Vehicle General Compass Heading
 	<br/><br/>  <img image='images\fps.paa' widwidth='16' height='16'/>   --  Frames per Second
@@ -116,16 +139,16 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>While waiting for a revive you can spectate and control camera with usual movement controls.
 	<br/>
 	<br/>To have a fully restored loadout/kit after respawn or revive, use scroll action Save Respawn Loadout at main ammo box. If this action is not available then server admin has opted for reload magazine to save kit for progressive depleation.
-	<br/>	
+	<br/>
 	<br/><font size='20'>MEDICAL</font>
 	<br/>
 	<br/>With BTC's Revive and Quick Revive sytems you need a First Aid Kit (F.A.K.) to revive a player. If you are medic then you need at least one F.A.K. and a medkit for unlimited revives and heals. Only medics can heal themselves or others to %100. Any other player type can heal themselves or someone else to 75% with a F.A.K. Admin can set mission to allow only medics to revive. With other medical systems such as ACE_3 its up to server admin to customize medical details.
 	<br/>
 	<br/><font size='20'>GAS GRENADES</font>
 	<br/>
-	<br/>Vanilla Arma 3 Yellow hand and GL smoke grenades are Toxic and can kill players or AI.
+	<br/>Vanilla Arma 3 Yellow hand and GL smoke grenades are Toxic and can kill players or AI. Has no affect on base.
 	<br/>
-	<br/>For immunity wear A3 Heli Crew, Pilot, CRTG Combat Stealth or Viper Green Hex helmets.
+	<br/>For immunity wear A3 Nato Pilot Helmet, Contact DLC gas masks/respirators or Full Faced Viper Helmets.
 	<br/>
 	<br/>Moded support for gas masks include masks from Hidden Identity Pack v2, Identity Pack v3, FFAA, NATO SF and Russian Spetsnaz Weapons, FM-12 strapless from AVON FM12 Respirator Pack, OPTRE_UNSC_CH252_Helmet_Vacuum_DES and OPTRE_UNSC_ODST_Helmet_CBRN from Operation TREBUCHET.
 	<br/>
@@ -141,7 +164,7 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/>A parachute will automatically be provided for you and will move your back pack to ventril position. Back pack will be returned to back after landing.
 	<br/>
-	<br/>If windy, head into wind with forward key untill touchdown to increase survivability.
+	<br/>If windy, head into wind with forward key until touchdown to increase survivability.
 	<br/>
 	<br/><font size='20'>Win - Loose</font>
 	<br/>
@@ -151,6 +174,8 @@ player createDiaryRecord ["Diary", ["INFO","
 	<br/>
 	<br/><font size='20'>SERVER ADMINS</font>
 	<br/>
-	<br/>Gain access to Breifing ADMINISTRATOR TOOLS panel by logging in as Admin. The panel may take a minute to appear. Once the panel appears in breifing section it will remain if loged out untill you rejoin the game. This way multiple Admins may have access to the tools.
-"]];
+	<br/>Gain access to Breifing ADMINISTRATOR TOOLS panel by logging in as Admin. The panel may take a minute to appear. Once the panel appears in breifing section it will remain if loged out until you rejoin the game. This way multiple Admins may have access to the tools.
+";
+player createDiaryRecord ["Diary", ["INFO", _info]];
+
 player createDiaryRecord ["Diary", ["Briefing","Gather Intel on Ammo Cache location by picking up suitcases. Destroy Ammo Caches with satchel or demo charges and Earn a vehicle reward of your choice. Clear all red zones of enemy forces. Complete random objectives. Get Some!"]];

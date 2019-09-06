@@ -183,7 +183,7 @@ class FSM
           priority = 0.000000;
           to="End";
           precondition = "";
-          condition="((getMarkerPos _Center select 0) == 0) && ((getMarkerPos _Center select 1) == 0)";
+          condition="((markerPos _Center select 0) == 0) && ((markerPos _Center select 1) == 0)";
           action="";
         };
       };

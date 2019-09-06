@@ -1,6 +1,6 @@
 //V1.2 Script by: Ghost - calls in a support UGV until dead
-//ghst_ugvsupport = [(getmarkerpos "spawnmarker"),"typeofugv",max number of ugvs,delay in mins] execvm "scripts\ghst_ugvsupport.sqf";
-//ghst_ugvsupport = [(getmarkerpos "ugv_support"),"B_UGV_01_rcws_F",2,30] execvm "scripts\ghst_ugvsupport.sqf";
+//ghst_ugvsupport = [(markerPos "spawnmarker"),"typeofugv",max number of ugvs,delay in mins] execvm "scripts\ghst_ugvsupport.sqf";
+//ghst_ugvsupport = [(markerPos "ugv_support"),"B_UGV_01_rcws_F",2,30] execvm "scripts\ghst_ugvsupport.sqf";
 
 private ["_spawnmark","_type","_max_num","_delay","_dir","_smoke1","_chute1","_ugv1","_wGrp","_ugv_num","_score","_points","_deficit","_exit","_groundPos"];
 

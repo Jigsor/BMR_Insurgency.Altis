@@ -218,7 +218,7 @@ class ASORVS_CountTextBoxBG : ASORVS_RscText
 	colorBackground[] = {1,1,1,1};
 	colorText[] = {0,1,0,1};
 	colorDisabled[] = {1,1,1,1};
-	 colorBackgroundDisabled[] = { 1, 1, 1, 1 }; // background color for disabled state
+	colorBackgroundDisabled[] = { 1, 1, 1, 1 }; // background color for disabled state
   	colorBackgroundActive[] = { 1, 1, 1, 1 }; // background color for active state
 	color[] = {1,1,0,1};
 	colorBorder[] = {0,0,1,1}; // grey

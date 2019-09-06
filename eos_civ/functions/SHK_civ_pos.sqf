@@ -31,7 +31,7 @@ Parameters for relative position:
 
 Usage examples:
 	myPos = [getpos player,random 360,200,true] execvm "SHK_civ_pos.sqf";
-	myPos = [getmarkerpos "myMarker",125,random 500] execvm "SHK_civ_pos.sqf";
+	myPos = [markerPos "myMarker",125,random 500] execvm "SHK_civ_pos.sqf";
 	myPos = [getpos player,random 360,[200,500],false,2] execvm "SHK_civ_pos.sqf";
 
 Example of creating multiple positions:
@@ -48,12 +48,8 @@ Example of creating multiple positions:
 			};
 	};
 */
-private "_getpos";
-_getpos = {
-	private ["_origo","_dir","_dist"];
-	_origo = _this select 0;
-	_dir = _this select 1;
-	_dist = _this select 2;
+private _getpos = {
+	params ["_origo","_dir","_dist"];
 	if (_dir isEqualType []) then {
 		if ((_dir select 0) > (_dir select 1)) then { _dir set [1,((_dir select 1) + 360)] };
 		_dir = ((_dir select 0) + random((_dir select 1)-(_dir select 0)))
@@ -65,16 +61,16 @@ _getpos = {
 };
 
 private "_water";
-if ((_this select 0) isEqualType "") then {
+if ((_this # 0) isEqualType "") then {
 	private ["_pos","_area","_cp","_cx","_cy","_as","_rx","_ry","_ad","_cd","_sd","_xo","_yo","_loop"];
-	_area = _this select 0;
-	if (count _this > 1) then {_water = _this select 1} else {_water = false};
-	_cp = getMarkerPos _area;
+	_area = _this # 0;
+	if (count _this > 1) then {_water = _this # 1} else {_water = false};
+	_cp = markerPos _area;
 	_cx = abs(_cp select 0);
 	_cy = abs(_cp select 1);
 	_as = getMarkerSize _area;
-	_rx = _as select 0;
-	_ry = _as select 1;
+	_rx = _as # 0;
+	_ry = _as # 1;
 	_ad = (markerDir _area) * -1;
 	_cd = cos _ad;
 	_sd = sin _ad;
@@ -87,25 +83,23 @@ if ((_this select 0) isEqualType "") then {
 		_pos = [_xo,_yo,0];
 		if (_water) then {
 			_loop = false;
-		}else{
-			if (!surfaceIsWater [_pos select 0,_pos select 1]) then {_loop = false};
+		} else {
+			if (!surfaceIsWater [_pos # 0,_pos # 1]) then {_loop = false};
 		};
 	};
 	_pos
-}else{
-	private ["_origo","_dir","_dist","_pos","_loop","_watersolution"];
-	_origo = _this select 0;
-	_dir = _this select 1;
-	_dist = _this select 2;
-	if (count _this > 3) then {_water = _this select 3} else {_water = false};
-	if (count _this > 4) then {_watersolution = _this select 4} else {_watersolution = 1};
+} else {
+	params ["_origo","_dir","_dist"];
+	private ["_pos","_loop","_watersolution"];
+	if (count _this > 3) then {_water = _this # 3} else {_water = false};
+	if (count _this > 4) then {_watersolution = _this # 4} else {_watersolution = 1};
 	_pos = [_origo,_dir,_dist] call _getpos;
 	if (!_water) then {
 		private ["_d","_l","_p"];
 		_l = true;
 		switch _watersolution do {
 			case 0: {
-				if (surfaceIsWater [_pos select 0,_pos select 1]) then {
+				if (surfaceIsWater _pos) then {
 					_pos = +[];
 				};
 			};
@@ -114,7 +108,7 @@ if ((_this select 0) isEqualType "") then {
 				while {_l} do {
 					for "_i" from 0 to 350 step 1 do {
 						_p = [_pos,_i,_d] call _getpos;
-						if (!surfaceIsWater [_p select 0,_p select 1]) exitwith {_l = false};
+						if (!surfaceIsWater _pos) exitwith {_l = false};
 					};
 					_d = _d + 10;
 				};
@@ -124,7 +118,7 @@ if ((_this select 0) isEqualType "") then {
 				_d = _pos distance _origo;
 				while {_d = _d - 10; _l} do {
 					_pos = [_pos,_dir,_d] call _getpos;
-					if (!surfaceIsWater [_pos select 0,_pos select 1]) then {_l = false};
+					if (!surfaceIsWater _pos) then {_l = false};
 					if (_d < 10) then {_l = false; _pos = + []};
 				};
 			};
@@ -132,20 +126,20 @@ if ((_this select 0) isEqualType "") then {
 				_d = _pos distance _origo;
 				while {_d = _d + 10; _l} do {
 					_pos = [_pos,_dir,_d] call _getpos;
-					if (!surfaceIsWater [_pos select 0,_pos select 1]) then {_l = false};
+					if (!surfaceIsWater _pos) then {_l = false};
 					if (_d > 10000) then {_l = false; _pos = + []};
 				};
 			};
 			case 4: {
 				if (_dir isEqualType []) then {
-					_d = _dir select 0;
-					_dir = _dir select 0;
-				}else{
+					_d = _dir # 0;
+					_dir = _dir # 0;
+				} else {
 					_d = _dir;
 				};
 				while {_l} do {
 					_p = [_pos,_d,_dist] call _getpos;
-					if (!surfaceIsWater [_p select 0,_p select 1]) exitwith {_l = false};
+					if (!surfaceIsWater _pos) exitwith {_l = false};
 					if (_d < (_dir - 360)) then {_l = false};
 					_d = _d - 10;
 				};
@@ -153,14 +147,14 @@ if ((_this select 0) isEqualType "") then {
 			};
 			case 5: {
 				if (_dir isEqualType []) then {
-					_d = _dir select 1;
-					_dir = _dir select 1;
-				}else{
+					_d = _dir # 1;
+					_dir = _dir # 1;
+				} else {
 					_d = _dir;
 				};
 				while {_l} do {
 					_p = [_pos,_d,_dist] call _getpos;
-					if (!surfaceIsWater [_p select 0,_p select 1]) exitwith {_l = false};
+					if (!surfaceIsWater _pos) exitwith {_l = false};
 					if (_d > (_dir + 360)) then {_l = false};
 					_d = _d + 10;
 				};

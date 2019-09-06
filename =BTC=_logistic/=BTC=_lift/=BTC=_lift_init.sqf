@@ -33,9 +33,9 @@ BTC_lift_check = {
 	if (!isNull BTC_cargo && _can_lift) then {
 		_cargo_pos = getPosATL BTC_cargo;
 		private _rel_pos   = _chopper worldToModel _cargo_pos;
-		BTC_cargo_x   = _rel_pos select 0;
-		BTC_cargo_y   = _rel_pos select 1;
-		BTC_cargo_z   = _rel_pos select 2;//hintSilent format ["%1 - %2 - %3",BTC_cargo_x,BTC_cargo_y,BTC_cargo_z];
+		BTC_cargo_x   = _rel_pos # 0;
+		BTC_cargo_y   = _rel_pos # 1;
+		BTC_cargo_z   = _rel_pos # 2;//hintSilent format ["%1 - %2 - %3",BTC_cargo_x,BTC_cargo_y,BTC_cargo_z];
 	};
 	if (((abs BTC_cargo_z) < BTC_lift_max_h) && ((abs BTC_cargo_z) > BTC_lift_min_h) && ((abs BTC_cargo_x) < BTC_lift_radius) && ((abs BTC_cargo_y) < BTC_lift_radius)) then
 	{_can_lift = true;} else {_can_lift = false;};
@@ -105,9 +105,9 @@ BTC_fnc_hud = {
 		if (!isNull _cargo) then {
 			_cargo_pos = getPosATL _cargo;
 			_rel_pos   = (vehicle player) worldToModel _cargo_pos;
-			_cargo_x   = _rel_pos select 0;
-			_cargo_y   = _rel_pos select 1;
-			_cargo_z   = _rel_pos select 2;
+			_cargo_x   = _rel_pos # 0;
+			_cargo_y   = _rel_pos # 1;
+			_cargo_z   = _rel_pos # 2;
 			_obj_img ctrlShow true;
 			_hud_x   = _cargo_x / 100;
 			_hud_y   = 0;

@@ -1,5 +1,5 @@
 EXPLOSION = {
-	_iedPosition = _this select 0;
+	params ["_iedPosition"];
 	_explosiveSequence = ["R_80mm_HE","M_PG_AT","M_PG_AT","R_80mm_HE","M_PG_AT","R_80mm_HE","M_PG_AT","M_PG_AT","M_PG_AT","R_80mm_HE"];
 	[[_iedPosition] , "IED_SCREEN_EFFECTS", true, false] spawn BIS_fnc_MP;
 	for "_i" from 0 to (count _explosiveSequence) -1 step 1 do{

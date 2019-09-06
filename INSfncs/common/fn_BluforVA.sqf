@@ -2,7 +2,7 @@
 // If using class names from moded content then these mods must be loaded or else client side error occurs.
 if (!hasInterface) exitWith {};
 
-if (INS_op_faction isEqualTo 17) exitWith
+if (INS_op_faction in [21]) exitWith
 { // IFA3/FOW contents only
 _availableBackpacks = [
 	"B_Parachute",       //Vanilla, Not required for HALO or Bail
@@ -863,8 +863,6 @@ _availableBackpacks = [
 	"B_Kitbag_rgr",
 	"B_Kitbag_mcamo",
 	"B_Kitbag_cbr",
-	"B_Static_Designator_01_weapon_F",
-	"B_UAV_01_backpack_F",
 	"B_GMG_01_A_weapon_F",
 	"B_HMG_01_A_weapon_F",
 	"B_HMG_01_high_weapon_F",
@@ -880,7 +878,17 @@ _availableBackpacks = [
 	"B_AT_01_weapon_F",
 	"B_UAV_06_medical_backpack_F",
 	"B_UAV_01_backpack_F",
-	"C_UAV_06_medical_backpack_F"
+	"C_UAV_06_medical_backpack_F",
+
+	"B_SCBA_01_F",
+	"B_RadioBag_01_black_F",
+	"B_RadioBag_01_mtp_F",
+	"B_RadioBag_01_tropic_F",
+	"B_SCBA_01_F",
+	"B_UGV_02_Demining_backpack_F",
+	"B_UGV_02_Science_backpack_F",
+	"B_Carryall_wdl_F",
+	"B_CombinationUnitRespirator_01_F"
 ];
 
 _availableItems = [
@@ -903,6 +911,8 @@ _availableItems = [
 	"NVGogglesB_blk_F",
 	"NVGogglesB_grn_F",
 	"NVGogglesB_gry_F",
+	"G_AirPurifyingRespirator_01_F", //Is Gas mask
+	"G_RegulatorMask_F", //Is Gas mask
 	"G_Diving",
 	"G_B_Diving",
 	"G_Lowprofile",
@@ -941,6 +951,10 @@ _availableItems = [
 	"muzzle_snds_338_green",
 	"muzzle_snds_338_sand",
 	"muzzle_snds_H_khk_F",
+	"muzzle_snds_B_khk_F",
+	"muzzle_snds_B_snd_F",
+	"muzzle_snds_B_lush_F",
+	"muzzle_snds_570",
 	"optic_Yorris",
 	"optic_MRD",
 	"optic_Hamr",
@@ -948,6 +962,11 @@ _availableItems = [
 	"optic_ACO_grn",
 	"optic_Aco_smg",
 	"optic_ACO_grn_smg",
+	"optic_Arco_lush_F",
+	"optic_Arco_arid_F",
+	"optic_Arco_AK_blk_F",
+	"optic_Arco_AK_lush_F",
+	"optic_Arco_AK_arid_F",
 	"optic_ARCO",
 	"optic_Arco_blk_F",
 	"optic_ERCO_blk_F",
@@ -957,6 +976,10 @@ _availableItems = [
 	"optic_Holosight_smg",
 	"optic_Holosight_smg_blk_F",
 	"optic_KHS_old",
+	"optic_ico_01_f",
+	"optic_ico_01_black_f",
+	"optic_ico_01_camo_f",
+	"optic_ico_01_sand_f",
 	"optic_SOS",
 	"optic_NVS",
 	"optic_tws",
@@ -994,6 +1017,11 @@ _availableItems = [
 	"U_B_T_Soldier_SL_F",
 	"U_B_Wetsuit",
 
+	"U_B_CombatUniform_mcam_wdl_f",
+	"U_B_CBRN_Suit_01_MTP_F",
+	"U_B_CBRN_Suit_01_Tropic_F",
+	"U_B_CBRN_Suit_01_Wdl_F",
+
 	//Vests
 	"V_BandollierB_khk",
 	"V_BandollierB_blk",
@@ -1005,9 +1033,12 @@ _availableItems = [
 	"V_PlateCarrierL_CTRG",
 	"V_PlateCarrierH_CTRG",
 
+	"V_PlateCarrier1_wdl",
+	"V_PlateCarrier2_wdl",
+	"V_PlateCarrierGL_wdl",
+	"V_PlateCarrierSpec_wdl",
+
 	//Helmets
-	"H_HelmetB_TI_tna_F",    //Is Gas mask
-	"H_CrewHelmetHeli_B",    //Is Gas mask
 	"H_PilotHelmetFighter_B",//Is Gas mask
 	"H_HelmetB",
 	"H_HelmetB_camo",
@@ -1049,6 +1080,10 @@ _availableItems = [
 	"H_Cap_tan_specops_US",
 	"H_Cap_usblack",
 	"H_Cap_khaki_specops_UK",
+
+	"H_MilCap_wdl",
+	"H_HelmetSpecB_wdl",
+	"H_HelmetB_light_wdl",
 
 	//HeadGear
 	"G_Balaclava_TI_blk_F",
@@ -1147,6 +1182,14 @@ _availableMagazines = [
 	"30Rnd_9x21_Green_Mag",
 	"30Rnd_65x39_caseless_mag",
 	"100Rnd_65x39_caseless_mag",
+	"100Rnd_65x39_caseless_mag_Tracer",
+	"100Rnd_65x39_caseless_black_mag",
+	"100Rnd_65x39_caseless_black_mag_tracer",
+	"100Rnd_65x39_caseless_khaki_mag",
+	"100Rnd_65x39_caseless_khaki_mag_tracer",
+
+
+
 	"20Rnd_762x51_Mag",
 	"7Rnd_408_Mag",
 	"10Rnd_338_Mag",
@@ -1162,6 +1205,13 @@ _availableMagazines = [
 	"200Rnd_556x45_Box_Tracer_Red_F",
 	"11Rnd_45ACP_Mag",
 	"10Rnd_127x54_Mag",
+
+	"10Rnd_Mk14_762x51_Mag",
+	"6Rnd_12Gauge_Pellets",
+	"6Rnd_12Gauge_Slug",
+	"2Rnd_12Gauge_Pellets",
+	"2Rnd_12Gauge_Slug",
+	"50Rnd_570x28_SMG_03",//ADR
 
 	//Launcher ammo
 	"RPG32_HE_F",
@@ -1212,6 +1262,18 @@ _availableWeapons = [
 	"arifle_SPAR_01_snd_F",
 	"arifle_SPAR_01_GL_blk_F",
 	"arifle_SPAR_03_blk_F",
+	"srifle_DMR_06_hunter_F",//M14
+	"sgun_HunterShotgun_01_F",//Shotgun
+	"sgun_HunterShotgun_01_sawedoff_F",//Shotgun
+	//ADR
+	"SMG_03_black",
+	"SMG_03_khaki",
+	"SMG_03_TR_black",
+	"SMG_03_TR_khaki",
+	"SMG_03C_black",
+	"SMG_03C_khaki",
+	"SMG_03C_TR_black",
+	"SMG_03C_TR_khaki",
 
 	//MachineGuns
 	"arifle_SPAR_02_blk_F",
@@ -1227,6 +1289,7 @@ _availableWeapons = [
 
 	//Launchers
 	"launch_RPG32_F",//opfor
+	"launch_RPG7_F",//opfor
 	"launch_NLAW_F",
 	"launch_B_Titan_F",
 	"launch_B_Titan_short_F",

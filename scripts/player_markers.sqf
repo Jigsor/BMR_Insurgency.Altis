@@ -35,11 +35,9 @@ USAGE:
 if (isDedicated) exitWith {}; // is server
 if (!isNil{aero_player_markers_pos}) exitWith {}; // already running
 
-private ["_marker","_markerText","_unit","_vehicle","_markerNumber","_show","_injured","_text","_num","_getNextMarker","_getMarkerColor","_showAllSides","_showPlayers","_showAIs","_l"];
-
-_showAllSides=false;
-_showPlayers=false;
-_showAIs=false;
+private _showAllSides=false;
+private _showPlayers=false;
+private _showAIs=false;
 
 if(count _this==0) then {
 	_showAllSides=false;
@@ -48,7 +46,7 @@ if(count _this==0) then {
 };
 
 {
-	_l=toLower _x;
+	private _l=toLower _x;
 	if(_l in ["player","players"]) then {
 		_showPlayers=true;
 	};
@@ -66,7 +64,8 @@ aero_player_markers_pos = [0,0];
 	aero_player_markers_pos=_pos;
 }] call BIS_fnc_addStackedEventHandler;
 
-_getNextMarker = {
+private "_markerNumber";
+private _getNextMarker = {
 	_markerNumber = _markerNumber + 1;
 	private _marker = format["um%1",_markerNumber];
 	if(getMarkerType _marker isEqualTo "") then {
@@ -77,7 +76,7 @@ _getNextMarker = {
 	_marker;
 };
 
-_getMarkerColor = {
+private _getMarkerColor = {
 	[(((side _this) call bis_fnc_sideID) call bis_fnc_sideType),true] call bis_fnc_sidecolor;
 };
 disableSerialization;
@@ -93,9 +92,9 @@ while {true} do {
 
 	// show players or player's vehicles
 	{
-		_show = false;
-		_injured = false;
-		_unit = _x;
+		private _show = false;
+		private _injured = false;
+		private _unit = _x;
 
 		if(
 			(
@@ -121,16 +120,16 @@ while {true} do {
 		};
 
 		if(_show) then {
-			_vehicle = vehicle _unit;
+			private _vehicle = vehicle _unit;
 			_pos = getPosWorld _vehicle;
 			_color = _unit call _getMarkerColor;
 
-			_markerText = _pos call _getNextMarker;
+			private _markerText = _pos call _getNextMarker;
 			_markerText setMarkerColorLocal _color;
  			_markerText setMarkerTypeLocal "c_unknown";
 			_markerText setMarkerSizeLocal [0.8,0];
 
-			_marker = _pos call _getNextMarker;
+			private _marker = _pos call _getNextMarker;
 			_marker setMarkerColorLocal _color;
 			_marker setMarkerDirLocal getDir _vehicle;
 			_marker setMarkerTypeLocal "mil_triangle";
@@ -141,12 +140,14 @@ while {true} do {
 				_marker setMarkerSizeLocal [0.5,0.7];
 			};
 
+			private "_text";
  			if(_vehicle != _unit && !(_vehicle isKindOf "ParachuteBase")) then {
 				_text = format["[%1]", getText(configFile>>"CfgVehicles">>typeOf _vehicle>>"DisplayName")];
 				if(!isNull driver _vehicle && {alive driver _vehicle}) then {
 					_text = format["%1 %2", name driver _vehicle, _text];
 				};
 
+				private "_num";
 				if((aero_player_markers_pos distance2D getPosWorld _vehicle) < 50) then {
 					aero_player_markers_pos = getPosWorld _vehicle;
 					_num = 0;
@@ -178,7 +179,7 @@ while {true} do {
 	// show player controlled uavs
 	{
 		if(isUavConnected _x) then {
-			_unit=(uavControl _x) select 0;
+			private _unit=(uavControl _x) select 0;
 			if(
 				(
 					(_showAIs && {!isPlayer _unit}) ||
@@ -190,7 +191,7 @@ while {true} do {
 				_color = _x call _getMarkerColor;
 				_pos = getPosWorld _x;
 
-				_marker = _pos call _getNextMarker;
+				private _marker = _pos call _getNextMarker;
 				_marker setMarkerColorLocal _color;
 				_marker setMarkerDirLocal getDir _x;
 				_marker setMarkerTypeLocal "mil_triangle";
@@ -201,7 +202,7 @@ while {true} do {
 					_marker setMarkerSizeLocal [0.5,0.7];
 				};
 
-				_markerText = _pos call _getNextMarker;
+				private _markerText = _pos call _getNextMarker;
 				_markerText setMarkerColorLocal _color;
 				_markerText setMarkerTypeLocal "c_unknown";
 				_markerText setMarkerSizeLocal [0.8,0];
@@ -211,7 +212,7 @@ while {true} do {
 	} forEach allUnitsUav;
 
 	_markerNumber = _markerNumber + 1;
-	_marker = format["um%1",_markerNumber];
+	private _marker = format["um%1",_markerNumber];
 	while {(getMarkerType _marker) != ""} do {
 		deleteMarkerLocal _marker;
 		_markerNumber = _markerNumber + 1;

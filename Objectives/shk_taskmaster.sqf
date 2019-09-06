@@ -76,7 +76,7 @@ SHK_Taskmaster_addTask = {
 				_x setcurrenttask _handle;
 			};
 			if (_dest isEqualType ObjNull) then { _handle setsimpletasktarget [_dest,true] };
-			if (_dest isEqualType "") then { _handle setsimpletaskdestination (getmarkerpos _dest) };
+			if (_dest isEqualType "") then { _handle setsimpletaskdestination (markerPos _dest) };
 			if (_dest isEqualType []) then { _handle setsimpletaskdestination _dest };
 
 			_handles set [count _handles,_handle];
@@ -193,7 +193,7 @@ SHK_Taskmaster_checkCond = {
 		switch (typename _cond) do {
 			case (typename grpNull): { (_unit in (units _cond)) };
 			case (typename objNull): { _unit == _cond };
-			case (typename WEST):    { (side _unit == _cond) };
+			case (typename sideUnknown):    { (side _unit == _cond) };
 			case (typename true):    { _cond };
 			case (typename []):      { (_unit in _cond) };
 			case (typename ""): {
@@ -239,7 +239,7 @@ SHK_Taskmaster_handleEvent = {
 		In: array	SHK_Taskmaster_Tasks from pubvar eventhandler
 		Out:
 	*/
-	waituntil {sleep 3; alive player};
+	waituntil {sleep 3; alive player && {(missionNameSpace getVariable "BMR_regSide") isEqualTo side player}};
 	private "_name";
 	{
 		_name = _x select 0;
@@ -506,6 +506,8 @@ if (hasInterface) then {
 		waituntil {!isnil "SHK_Taskmaster_Tasks"};
 		if DEBUG then {diag_log format ["SHK_Taskmaster> Tasks received first time: %1",SHK_Taskmaster_Tasks]};
 		private _sh = SHK_Taskmaster_Tasks spawn SHK_Taskmaster_handleEvent;
+		missionNameSpace setVariable ["BMR_regSide", playerSide];
+		private _side = missionNameSpace getVariable ["BMR_regSide", side player];
 		waituntil {scriptdone _sh};
 
 		SHK_Taskmaster_showHints = true;

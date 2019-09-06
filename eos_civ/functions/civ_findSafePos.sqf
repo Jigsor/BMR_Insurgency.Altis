@@ -1,5 +1,5 @@
-_mrk=(_this select 0);
-_radveh	=(_this select 1);
+params ["_mrk","_radveh"];
+
 _pos = [_mkr,true] call SHK_civ_pos;
 
 for "_counter" from 0 to 20 step 1 do {

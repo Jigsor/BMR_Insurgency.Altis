@@ -1,4 +1,4 @@
-_vehicle = _this select 0;
+params ["_vehicle"];
 _ret = "";
 _headerformat = "<t shadow='2' size='1'>";
 _itemformat = "<t shadow='2' size='2'>";
@@ -74,7 +74,7 @@ if(count _weapons > 0) then {
 		if(!_first) then {
 			_ret = _ret + ", ";
 		};
-		_weapon = _weapons select 0;
+		_weapon = _weapons # 0;
 		_count = {tolower(_x) == tolower(_weapon) } count _weapons;
 		if(_count > 1) then {
 			_ret = _ret + format ["%1x %2", _count, _weapon];
@@ -94,9 +94,11 @@ _slingLoadable = count (getArray (configFile >> "CfgVehicles" >> typeOf _vehicle
 if(_slingLoadable || !_isAir) then { //only show air vehicles if they are slingloadable (never?)
 	_ret = _ret + _headerformat + format["Can Be Slingloaded</t><br/>%1%2</t><br/>", _itemformat, if(_slingLoadable) then {"Yes"} else {"No"}];
 };
-_maxSlingloadMass = getNumber (configFile >> "CfgVehicles" >> typeOf _vehicle >> "slingLoadMaxCargoMass"); 
+_maxSlingloadMass = getNumber (configFile >> "CfgVehicles" >> typeOf _vehicle >> "slingLoadMaxCargoMass");
 if(_maxSlingloadMass > 0) then {
 	_ret = _ret + _headerformat + format["Maximum Slingload Mass</t><br/>%1%2kg</t><br/>", _itemformat, _maxSlingloadMass];
 };
+_canFloat = getNumber (configfile >> "CfgVehicles" >> typeOf _vehicle >> "canFloat");
+_ret = _ret + _headerformat + format["Can Float</t><br/>%1%2</t><br/>", _itemformat, if (_canFloat > 0) then {"Yes"} else {"No"}];
 
 _ret

@@ -31,13 +31,13 @@ if (BTC_active_lift isEqualTo 1) then {
 	BTC_l_pip_cond    = false;
 	BTC_cargo_lifted  = objNull;
 	BTC_Hud_Cond      = false;
-	BTC_HUD_x         = (SafeZoneW+2*SafeZoneX) - 0.155;//+ 0.045;
+	BTC_HUD_x         = (SafeZoneW+2*SafeZoneX) - 0.155;
 	BTC_HUD_y         = (SafeZoneH+2*SafeZoneY) + 0.045;
 	_lift = [] execVM "=BTC=_logistic\=BTC=_lift\=BTC=_lift_init.sqf";
 
 	BTC_get_liftable_array = {
-		_chopper = _this select 0;
-		_array   = [];
+		params ["_chopper"];
+		_array = [];
 		switch (typeOf _chopper) do	{
 	// Modify the array to change liftable objects by chopper class
 	//A3
@@ -53,6 +53,8 @@ if (BTC_active_lift isEqualTo 1) then {
 			case "I_Heli_light_03_dynamicLoadout_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F","StaticWeapon","B_UGV_01_F","B_UGV_01_rcws_F"] + BTC_fob_materials};
 			case "I_Heli_light_03_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F","StaticWeapon","B_UGV_01_F","B_UGV_01_rcws_F"] + BTC_fob_materials};
 			case "I_Heli_light_03_unarmed_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F","StaticWeapon","B_UGV_01_F","B_UGV_01_rcws_F"] + BTC_fob_materials};
+			case "I_E_Heli_light_03_dynamicLoadout_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F","StaticWeapon","B_UGV_01_F","B_UGV_01_rcws_F"] + BTC_fob_materials};
+			case "I_E_Heli_light_03_unarmed_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F","StaticWeapon","B_UGV_01_F","B_UGV_01_rcws_F"] + BTC_fob_materials};
 			//MH9
 			case "B_Heli_Light_01_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F"]};
 			case "B_Heli_Light_01_dynamicLoadout_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F"]};
@@ -93,8 +95,10 @@ if (BTC_active_lift isEqualTo 1) then {
 			case "CUP_B_Merlin_HC3_Armed_GB" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","CUP_B_M113_desert_USA","B_UGV_01_F","B_UGV_01_rcws_F","Air","Ship"] + BTC_fob_materials};
 			case "CUP_Merlin_HC3" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","CUP_B_M113_desert_USA","Air","B_UGV_01_F","B_UGV_01_rcws_F","Ship"] + BTC_fob_materials};
 			//CH47 Chinook
+			case "CUP_B_MH47E_USA" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","CUP_B_M113_desert_USA","CUP_B_M2A3Bradley_USA_D","CUP_B_M6LineBacker_USA_D","B_UGV_01_F","B_UGV_01_rcws_F","Air","Ship"] + BTC_fob_materials};
 			case "CUP_B_CH47F_USA" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","CUP_B_M113_desert_USA","CUP_B_M2A3Bradley_USA_D","CUP_B_M6LineBacker_USA_D","B_UGV_01_F","B_UGV_01_rcws_F","Air","Ship"] + BTC_fob_materials};
 			case "CUP_B_CH47F_VIV_USA" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","CUP_B_M113_desert_USA","CUP_B_M2A3Bradley_USA_D","CUP_B_M6LineBacker_USA_D","B_UGV_01_F","B_UGV_01_rcws_F","Air","Ship"] + BTC_fob_materials};
+			case "CUP_B_MH47E_GB" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","CUP_B_M113_desert_USA","CUP_B_M2A3Bradley_USA_D","CUP_B_M6LineBacker_USA_D","B_UGV_01_F","B_UGV_01_rcws_F","Air","Ship"] + BTC_fob_materials};
 			//CH53 Super Stallion
 			case "CUP_B_CH53E_USMC" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","CUP_B_M113_desert_USA","CUP_B_M2A3Bradley_USA_D","CUP_B_M6LineBacker_USA_D","B_UGV_01_F","B_UGV_01_rcws_F","Air","Ship"] + BTC_fob_materials};
 			case "CUP_B_CH53E_VIV_USMC" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","CUP_B_M113_desert_USA","CUP_B_M2A3Bradley_USA_D","CUP_B_M6LineBacker_USA_D","B_UGV_01_F","B_UGV_01_rcws_F","Air","Ship"] + BTC_fob_materials};
@@ -123,6 +127,7 @@ if (BTC_active_lift isEqualTo 1) then {
 			case "CUP_B_AW159_RN_Blackcat" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F","StaticWeapon","B_UGV_01_F","B_UGV_01_rcws_F"] + BTC_fob_materials};
 			//SA330 Pumas
 			case "CUP_B_SA330_Puma_HC1_BAF" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","B_UGV_01_F","B_UGV_01_rcws_F","Air","Ship"] + BTC_fob_materials};
+			case "CUP_B_SA330_Puma_HC2_BAF" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","B_UGV_01_F","B_UGV_01_rcws_F","Air","Ship"] + BTC_fob_materials};
 			//MV22V Osprey
 			case "CUP_B_MV22_USMC" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Air","Ship"] + BTC_fob_materials};
 			//Little Bird
@@ -150,6 +155,7 @@ if (BTC_active_lift isEqualTo 1) then {
 	//KYO
 			//Boeing/SOAR MH47
 			case "kyo_MH47E_base" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Air","Ship"] + BTC_fob_materials};
+			default {};
 		};
 		_array
 	};
@@ -194,9 +200,7 @@ if (BTC_active_towing isEqualTo 1) then {
 };
 //Functions
 BTC_l_paradrop = {
-	_veh = _this select 0;
-	_dropped = _this select 1;
-	_chute_type = _this select 2;
+	params ["_veh","_dropped","_chute_type"];
 	_dropped_type = typeOf _dropped;
 	_dropped attachTo [_veh,[0,2,-5]];
 	sleep 0.1;
@@ -215,7 +219,7 @@ BTC_l_paradrop = {
 	detach _dropped;
 };
 BTC_l_obj_fall = {
-	_obj    = _this select 0;
+	params ["_obj"];
 	_height = (getPos _obj) select 2;
 	_fall   = 0.09;
 	while {((getPos _obj) select 2) > 0.1} do {

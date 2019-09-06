@@ -2,13 +2,13 @@
  [activated_cache_pos] execVM "scripts\ghst_PutinBuildIntel.sqf";
  V2.5.2 - By Ghost - coord snippet is from DiRaven
  fills a random building around a position with all objects listed. Best to keep radius small so not many buidlings need to be calculated.
- Modified by Jigsor. Last Edit 10/6/2018.//Adapted to spawn intel. Modified mostly beginning and ending. The core is by Ghost. Places Intel and creates intel location markers.
+ Modified by Jigsor. Last Edit 7/21/2019.//Adapted to spawn intel. Modified mostly beginning and ending. The core is by Ghost. Places Intel and creates intel location markers.
 */
 
 if (!isServer) exitWith{};
 if (EnemyAmmoCache isEqualTo 0) exitWith{};
 
-current_cache_pos = _this select 0; publicVariable "current_cache_pos";
+current_cache_pos = _this # 0; publicVariable "current_cache_pos";
 private _all_cache_pos = [];
 activated_cache = [];
 private _uncaped_eos_mkrs = all_eos_mkrs;
@@ -28,20 +28,20 @@ sleep 2;
 if ([activated_cache] in _all_cache_pos) exitWith {};
 
 if !([activated_cache] in _all_cache_pos) then {_all_cache_pos pushBack activated_cache};
-private _current_cache = activated_cache select 0;
+private _current_cache = activated_cache # 0;
 
 {if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} foreach _uncaped_eos_mkrs;
 private _uncaped_mkr_count = (count _uncaped_eos_mkrs);
-private _total_intelObjs = (round(_uncaped_mkr_count/Intel_Count));//total max suitcases per ammo cache
+private _total_intelObjs = (round(_uncaped_mkr_count/Intel_Count));//total max briefcases per ammo cache
 
 private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_total_intelObjs] spawn
 {
 	params ["_uncaped_eos_mkrs","_hide_intel","_current_cache","_uncaped_mkr_count","_total_intelObjs"];
-	private ["_nearBuildings","_intel","_strNum","_displayName","_VarName","_mkrPos","_radarray","_unitarray","_markunits","_mcolor","_msize","_markunitspos","_jigxcoor","_jigycoor","_loop","_p","_n","_i","_markname","_mkr","_current_cache"];
+	private ["_nearBuildings","_intel","_strNum","_VarName","_mkrPos","_radarray","_unitarray","_markunits","_mcolor","_msize","_markunitspos","_jigxcoor","_jigycoor","_loop","_p","_n","_i","_markname","_mkr","_current_cache"];
 
 	private _iobj = 0;
 	private _intel_types = ["Land_Suitcase_F","Land_Laptop_unfolded_F","Land_PortableLongRangeRadio_F","Land_SurvivalRadio_F"];
-	private _objtype = _intel_types select 0;
+	private _objtype = _intel_types # 0;
 	private _createPos = position air_pat_pos;
 	private _imks = [];
 	private _displayName = getText (configFile >> "cfgVehicles" >> (_objtype) >> "displayName");
@@ -64,20 +64,18 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 		publicVariable _VarName;
 		sleep 0.3;
 
-		_mkrPos = getMarkerpos _curr_mkr;//position
+		_mkrPos = markerPos _curr_mkr;//position
 		_radarray = [50,50,0];//radius array around position and Direction [30,30,0]
 		_unitarray = [_intel];//object to be placed in building
 		_markunits = true;
 		_mcolor = "ColorBlack";
 		_msize = [3,3];// marker size 3
 		_markunitspos = true;
-		_jigxcoor = _mkrPos select 0;
-		_jigycoor = _mkrPos select 1;
+		_jigxcoor = _mkrPos # 0;
+		_jigycoor = _mkrPos # 1;
 
 		//get all buildings around position of set radius
-		private "_rad";
-
-		if ((_radarray select 0) > (_radarray select 1)) then {_rad = (_radarray select 0);} else {_rad = (_radarray select 1);};
+		private _rad = if ((_radarray select 0) > (_radarray select 1)) then {(_radarray select 0)} else {(_radarray select 1)};
 
 		_nearBuildings = [_jigxcoor,_jigycoor] nearObjects ["HouseBase", _rad];
 		if (_nearBuildings isEqualTo []) then {_nearBuildings = [] + [(nearestBuilding [_jigxcoor,_jigycoor])]};//Jig adding
@@ -104,7 +102,7 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 				_posArr = _selbuild call fnc_ghst_build_positions;
 
 				_r = floor(random count _posArr);
-				_position = _posArr select _r;
+				_position = _posArr # _r;
 				_posArr deleteAt _r;
 
 				if !(isnil "_position") exitwith {_loop = false};
@@ -134,28 +132,28 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 				}else{
 					_b_pos = [_mkrPos,_radarray] call fnc_ghst_rand_position;
 					if (isNil "_b_pos") then {
-						_b_pos = _mkrPos findEmptyPosition[ 0 , 20 , typeof _x];
+						_b_pos = _mkrPos findEmptyPosition[0, 20, typeof _x];
 					};
 				};
 				_position = _b_pos;
 
 				_x allowdamage false;
-				_x setPosatl [(_position select 0), (_position select 1), 0.5];
+				_x setPosatl [(_position # 0), (_position # 1), 0.5];
 				_x setFormDir 0;
 				_x setUnitPos "UP";
-				_x setVectorUP (surfaceNormal [(getPosATL _x) select 0,(getPosATL _x) select 1]);
+				_x setVectorUP (surfaceNormal [(getPosATL _x) # 0,(getPosATL _x) # 1]);
 			} else {
 				if (_debug) then {diag_log format["PLACED OBJECT %1 POS %2", _x, _position];};
 				_x allowdamage false;
-				_x setPosatl [(_position select 0), (_position select 1), (_position select 2) + 0.5];
+				_x setPosatl [(_position # 0), (_position # 1), (_position # 2) + 0.5];
 				_x setFormDir 0;
 				_x setUnitPos "UP";
-				_x setVectorUP (surfaceNormal [(getPosATL _x) select 0,(getPosATL _x) select 1]);
+				_x setVectorUP (surfaceNormal [(getPosATL _x) # 0,(getPosATL _x) # 1]);
 			};
 
 			//create markers for units
 			if (_markunits) then {
-				_pos = [_position,[_msize select 0,_msize select 1,(random 360)]] call fnc_ghst_rand_position;
+				_pos = [_position,[_msize # 0,_msize # 1,(random 360)]] call fnc_ghst_rand_position;
 				_markname = str(_pos);
 				_mkr = createMarker [_markname, _pos];
 				_mkr setMarkerShape "Ellipse";

@@ -1,9 +1,8 @@
-private ["_unit","_isPlayer"];
-_unit = _this;
+private _unit = _this;
 
 _unit setVariable ["btc_qr_resp",true];
 
-_isPlayer = isPlayer _unit;
+private _isPlayer = isPlayer _unit;
 
 if (!btc_qr_AI_resp && {!_isPlayer}) exitWith {_unit setDamage 1;};
 
@@ -21,7 +20,7 @@ if (isMultiplayer) then
 				Op4handle = [player] execVM "scripts\MoveOp4Base.sqf";
 				waitUntil { scriptDone Op4handle };
 			};
-			
+
 			if (!isNil {_unit getVariable "btc_qr_on_respawn"}) then {
 				_unit spawn (_unit getVariable "btc_qr_on_respawn");
 			};

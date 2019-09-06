@@ -1,30 +1,29 @@
-// extraction_fncs.sqf v1.26 by Jigsor
+// extraction_fncs.sqf v1.27 by Jigsor
 
 // Global hint
 JIG_EX_MPhint_fnc = {if (hasInterface) then { hint _this };};
 extraction_pos_fnc = {
 	// Actual Evac Position based on requested map click evac position
-	private ["_posnotfound","_c","_dis","_cooX","_cooY","_wheX","_wheY","_randPos","_newPos","_mkr","_veh","_lzName"];
-	_posnotfound = [];
-	_c = 0;
-	_dis = JIG_EX_Clear_Pos_Dis;
-	_cooX = (getMarkerPos "extractmkr" select 0);
-	_cooY = (getMarkerPos "extractmkr" select 1);
-	_wheX = random (_dis*2)-_dis;
-	_wheY = random (_dis*2)-_dis;
-	_randPos = [_cooX+_wheX,_cooY+_wheY,0];
-	_newPos = _randPos isFlatEmpty [20,50,0.4,2,0,false,player];
+	private _posnotfound = [];
+	private _dis = JIG_EX_Clear_Pos_Dis;
+	private _cooX = (markerPos "extractmkr" # 0);
+	private _cooY = (markerPos "extractmkr" # 1);
+	private _wheX = random (_dis*2)-_dis;
+	private _wheY = random (_dis*2)-_dis;
+	private _randPos = [_cooX+_wheX,_cooY+_wheY,0];
+	private _newPos = _randPos isFlatEmpty [20,50,0.4,2,0,false,player];
+	private _c = 0;
 
 	while {(count _newPos) < 1} do {
 		_newPos = _randPos isFlatEmpty [JIG_EX_Chopper_size,256,0.5,2,0,false,player];
 		_c = _c + 1;
-		if (_c > 2) exitWith {_newPos = [];};
+		if (_c > 2) exitWith {_newPos = []};
 		sleep 0.2;
 	};
 
 	if !(_newPos isEqualTo []) then {
 		if !(getMarkerColor "tempPUmkr" isEqualTo "") then {deleteMarker "tempPUmkr"};
-		_mkr = createMarker ["tempPUmkr", _newPos];
+		private _mkr = createMarker ["tempPUmkr", _newPos];
 		_mkr setMarkerShape "ELLIPSE";
 		"tempPUmkr" setMarkerSize [1, 1];
 		"tempPUmkr" setMarkerShape "ICON";
@@ -33,9 +32,9 @@ extraction_pos_fnc = {
 		"tempPUmkr" setMarkerText "Extraction Position";
 		[[_mkr],east] remoteExec ["Hide_Mkr_fnc", [0,-2] select isDedicated];
 
-		_veh = createVehicle ["Land_HelipadEmpty_F", getMarkerPos "tempPUmkr", [], 0, "NONE"];
+		private _veh = createVehicle ["Land_HelipadEmpty_F", markerPos "tempPUmkr", [], 0, "NONE"];
 		sleep 0.1;
-		_lzName = "EvacLZpad";
+		private _lzName = "EvacLZpad";
 		_veh setVehicleVarName _lzName;
 		missionNamespace setVariable [_lzName,_veh,true];
 		_veh Call Compile Format ["%1=_this; publicVariable '%1'", _lzName];
@@ -52,8 +51,8 @@ drop_off_pos_fnc = {
 	_posnotfound = [];
 	_c = 0;
 	_dis = JIG_EX_Clear_Pos_Dis;
-	_cooX = (getMarkerPos "dropmkr" select 0);
-	_cooY = (getMarkerPos "dropmkr" select 1);
+	_cooX = (markerPos "dropmkr" select 0);
+	_cooY = (markerPos "dropmkr" select 1);
 	_wheX = random (_dis*2)-_dis;
 	_wheY = random (_dis*2)-_dis;
 	_randPos = [_cooX+_wheX,_cooY+_wheY,0];
@@ -77,7 +76,7 @@ drop_off_pos_fnc = {
 		"tempDropMkr" setMarkerText "Drop Off Position";
 		[[_tempPUmkr2],east] remoteExec ["Hide_Mkr_fnc", [0,-2] select isDedicated];
 
-		_veh = createVehicle ["Land_HelipadEmpty_F", getMarkerPos "tempDropMkr", [], 0, "NONE"];
+		_veh = createVehicle ["Land_HelipadEmpty_F", markerPos "tempDropMkr", [], 0, "NONE"];
 		sleep 0.1;
 		_VarLZName = "DropLZpad";
 		_veh setVehicleVarName _VarLZName;
@@ -101,38 +100,44 @@ Evac_Spawn_Loc = {
 	"EvacSpawnMkr" setMarkerType "Empty";
 	"EvacSpawnMkr" setMarkerColor "ColorRed";
 	"EvacSpawnMkr" setMarkerText "Evac Spawn Pos";
-	"EvacSpawnMkr" setMarkerPos [(getMarkerPos "tempPUmkr" select 0) + (JIG_EX_Spawn_Dis * sin floor(random 360)), (getMarkerPos "tempPUmkr" select 1) + (JIG_EX_Spawn_Dis * cos floor(random 360)), 0];
-	_mkrPos = getMarkerPos "EvacSpawnMkr";
-	EvacSpawnPad = createVehicle ["Land_HelipadEmpty_F", getMarkerPos "EvacSpawnMkr", [], 0, "NONE"];
+	"EvacSpawnMkr" setMarkerPos [(markerPos "tempPUmkr" select 0) + (JIG_EX_Spawn_Dis * sin floor(random 360)), (markerPos "tempPUmkr" select 1) + (JIG_EX_Spawn_Dis * cos floor(random 360)), 0];
+	_mkrPos = markerPos "EvacSpawnMkr";
+	EvacSpawnPad = createVehicle ["Land_HelipadEmpty_F", markerPos "EvacSpawnMkr", [], 0, "NONE"];
 	EvacSpawnPad setDir (_mkrPos getDir EvacLZpad);
 	EvacSpawnPad setpos getpos EvacSpawnPad;
 };
 Ex_LZ_smoke_fnc = {
 	// Pops Smoke and Chemlight at Extraction LZ
 	(localize "STR_BMR_heli_extraction_smoke") remoteExec ['JIG_EX_MPhint_fnc', WEST];
-	private ["_smokeColor","_chemLight","_smoke","_flrObj"];
-	_smokeColor = JIG_EX_Smoke_Color;
-	_chemLight = createVehicle ["Chemlight_green", getPosATL EvacLZpad, [], 0, "NONE"];
+	private _smokeColor = JIG_EX_Smoke_Color;
+	private _lz = getPosATL EvacLZpad;
+	private _chemLight = createVehicle ["Chemlight_green", _lz, [], 0, "NONE"];
+
 	sleep 1;
-	_flrObj = "F_20mm_Red" createvehicle ((EvacHeliW1) ModelToWorld [0,100,200]);
+	private _flrObj = "F_20mm_Red" createVehicle ((EvacHeliW1) ModelToWorld [0,100,200]);
 	_flrObj setVelocity [0,0,-10];
 	sleep 0.1;
 
+	private "_smoke";
 	for "_i" from 0 to 8 step 1 do {
-		_smoke = createVehicle [_smokeColor, [(position EvacLZpad select 0) + 2, (position EvacLZpad select 1) + 2, 55], [], 0, "NONE"];
+		_smoke = createVehicle [_smokeColor, [(_lz # 0) + 2, (_lz # 1) + 2, 55], [], 0, "NONE"];
 		sleep 20;
+		if (isNull EvacHeliW1) exitWith {};
 	};
 	deleteVehicle _chemLight;
 };
 Drop_LZ_smoke_fnc = {
 	// Pops Smoke and Chemlight at Drop Off LZ
-	private ["_smokeColor","_chemLight","_smoke"];
-	_smokeColor = JIG_EX_Smoke_Color;
-	_chemLight = createVehicle ["Chemlight_green", getPosATL DropLZpad, [], 0, "NONE"];
+	private _smokeColor = JIG_EX_Smoke_Color;
+	private _lz = getPosATL DropLZpad;
+	private _chemLight = createVehicle ["Chemlight_green", _lz, [], 0, "NONE"];
+	private "_smoke";
+
 	sleep 1;
-		for "_i" from 0 to 4 step 1 do {
-		_smoke = createVehicle [_smokeColor, [(position DropLZpad select 0) + 1, (position DropLZpad select 1) + 1, 55], [], 0, "NONE"];
+	for "_i" from 0 to 4 step 1 do {
+		_smoke = createVehicle [_smokeColor, [(_lz # 0) + 1, (_lz # 1) + 1, 55], [], 0, "NONE"];
 		sleep 12.5;
+		if (isNull EvacHeliW1) exitWith {};
 	};
 };
 Evac_MPcleanUp = {
@@ -303,7 +308,7 @@ JigEx_heliMkr = {
 	if (isNil "EvacHeliW1") then {EvacHeliW1 = objNull};
 	findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw", "
 		if (!isNull EvacHeliW1) then {
-			_this select 0 drawIcon [
+			_this # 0 drawIcon [
 				'iconHelicopter',
 				missionNamespace getVariable ['JIGEXcolor',[0,0,1,1]],
 				getPosWorld EvacHeliW1,

@@ -34,15 +34,15 @@ mb_fnc_InitialWeather = {
 	private["_weatherInitialArray","_weatherInitialSettings","_weatherInitialOvercast","_weatherInitialRainSnow","_weatherInitialFog","_weatherInitialWindEW","_weatherInitialWindNS"];
 
 	waitUntil {!isNil "rw2_Current_Weather"};
-	_weatherInitialArray = weatherTemplates select rw2_Current_Weather;
-    weatherCurrentName = _weatherInitialArray select 0;
-    _weatherInitialSettings = _weatherInitialArray select 2;
+	_weatherInitialArray = weatherTemplates # rw2_Current_Weather;
+    weatherCurrentName = _weatherInitialArray # 0;
+    _weatherInitialSettings = _weatherInitialArray # 2;
 
-    _weatherInitialOvercast = _weatherInitialSettings select 0;
-    _weatherInitialRainSnow = _weatherInitialSettings select 1;
-    _weatherInitialFog = _weatherInitialSettings select 2;
-    _weatherInitialWindEW = _weatherInitialSettings select 3;
-    _weatherInitialWindNS = _weatherInitialSettings select 4;
+    _weatherInitialOvercast = _weatherInitialSettings # 0;
+    _weatherInitialRainSnow = _weatherInitialSettings # 1;
+    _weatherInitialFog = _weatherInitialSettings # 2;
+    _weatherInitialWindEW = _weatherInitialSettings # 3;
+    _weatherInitialWindNS = _weatherInitialSettings # 4;
 
 	skipTime -24;
 	86400 setOvercast _weatherInitialOvercast;
@@ -60,17 +60,17 @@ mb_fnc_InitialWeather = {
 mb_fnc_UpdateWeather = {
 	private ["_weatherCurrentArray","_weatherNextArray","_weatherNextSettings","_weatherNextOvercast","_weatherNextRainSnow","_weatherNextFog","_weatherNextWindEW","_weatherNextWindNS"];
 
-	_weatherCurrentArray = weatherTemplates select rw2_Current_Weather;
-	weatherCurrentName = _weatherCurrentArray select 0;
-	_weatherNextArray = weatherTemplates select rw2_Next_Weather;
-	weatherNextName = _weatherNextArray select 0;
-	_weatherNextSettings = _weatherNextArray select 2;
+	_weatherCurrentArray = weatherTemplates # rw2_Current_Weather;
+	weatherCurrentName = _weatherCurrentArray # 0;
+	_weatherNextArray = weatherTemplates # rw2_Next_Weather;
+	weatherNextName = _weatherNextArray # 0;
+	_weatherNextSettings = _weatherNextArray # 2;
 
-	_weatherNextOvercast = _weatherNextSettings select 0;
-	_weatherNextRainSnow = _weatherNextSettings select 1;
-	_weatherNextFog = _weatherNextSettings select 2;
-	_weatherNextWindEW = _weatherNextSettings select 3;
-	_weatherNextWindNS = _weatherNextSettings select 4;
+	_weatherNextOvercast = _weatherNextSettings # 0;
+	_weatherNextRainSnow = _weatherNextSettings # 1;
+	_weatherNextFog = _weatherNextSettings # 2;
+	_weatherNextWindEW = _weatherNextSettings # 3;
+	_weatherNextWindNS = _weatherNextSettings # 4;
 
 	//Jig adding Brighter Nights by Ralian
 	if ((daytime > 21.00 || daytime < 3.50) && {Brighter_Nights isEqualTo 1}) then {
@@ -98,8 +98,8 @@ if (isServer) then {
 	while {true} do {
 		// Pick weather template from possible forecasts for next weather update
 		sleep 10;
-		_weatherUpdateArray = weatherTemplates select rw2_Current_Weather;
-		_weatherUpdateForecasts = _weatherUpdateArray select 1;
+		_weatherUpdateArray = weatherTemplates # rw2_Current_Weather;
+		_weatherUpdateForecasts = _weatherUpdateArray # 1;
 		rw2_Next_Weather = _weatherUpdateForecasts select floor(random(count(_weatherUpdateForecasts)));
 		publicVariable "rw2_Next_Weather";
 		sleep 1190;

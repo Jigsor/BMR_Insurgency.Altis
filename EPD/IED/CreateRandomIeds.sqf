@@ -1,11 +1,5 @@
-_origin = (_this select 0);
-_distance = (_this select 1);
-_side = (_this select 2);
-_iedAmountToPlace = (_this select 3);
-_fakeAmountToPlace = (_this select 4);
-_iedCounterOffset = (_this select 5);
-_fakeCounterOffset = (_this select 6);
-_sectionNumber = (_this select 7);
+params ["_origin","_distance","_side","_iedAmountToPlace","_fakeAmountToPlace","_iedCounterOffset","_fakeCounterOffset","_sectionNumber"];
+
 _counter = 0;
 
 _roads = (_origin nearRoads _distance) - safeRoads;
@@ -14,8 +8,8 @@ if(_roadCount > 0) then {
 	while{_counter < _iedAmountToPlace} do {
 
 		_iedSize = [] call GET_SIZE_AND_TYPE;
-		_iedType = _iedSize select 1;
-		_iedSize = _iedSize select 0;
+		_iedType = _iedSize # 1;
+		_iedSize = _iedSize # 0;
 		_iedPos = [_roads, _roadCount] call FIND_LOCATION_BY_ROAD;
 		[_iedCounterOffset+_counter, _iedPos, _iedSize, _iedType, _side] call CREATE_IED;	
 		if((disarmedSections select _sectionNumber) == "") then {

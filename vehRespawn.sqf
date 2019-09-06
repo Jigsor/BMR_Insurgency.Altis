@@ -7,12 +7,12 @@ Description:
 Respawn destroyed and abandoned vehicles
 
 Parameter(s):
-_this select 0: vehicle 
+_this select 0: vehicle
 _this select 1: abandoned delay in minute(s) - Required
 _this select 2: destroyed delay in minute(s) - Required
 _this select 3: Function to call for the newly spawned vehicle (for custom armaments etc) - Optional
 
-How to use - Vehicle Init Line: 
+How to use - Vehicle Init Line:
 _nul = [this, 2, 1, {[_this] call TAG_FNC_TankInit}] execVM "vehRespawn.sqf"; << 2 minute abandoned delay, 1 minute destroyed delay, call the function that disables the TI
 _nul = [this, 2, 1, {}] execVM "vehrespawn.sqf"; << 2 minute abandoned delay, 1 minute destroyed delay, NO function called for the newly respawned vehicle (standard way)
 
@@ -47,7 +47,7 @@ if (isServer) then {
 
 				_veh = createVehicle [_vehtype, _vehPos, [], 0, "CAN_COLLIDE"];
 				_veh setDir _dir;
-				_veh setPos [_vehPos select 0, _vehPos select 1,0];
+				_veh setPos [_vehPos # 0, _vehPos # 1, 0];
 				if !(_vehName isEqualTo "") then {
 					missionNamespace setVariable [_vehName, _veh];
 					publicVariable _vehName;
@@ -71,7 +71,7 @@ if (isServer) then {
 
 				_veh = createVehicle [_vehtype, _vehPos, [], 0, "CAN_COLLIDE"];
 				_veh setDir _dir;
-				_veh setPos [_vehPos select 0, _vehPos select 1,0];
+				_veh setPos [_vehPos # 0, _vehPos # 1, 0];
 				if !(_vehName isEqualTo "") then {
 					missionNamespace setVariable [_vehName, _veh];
 					publicVariable _vehName;

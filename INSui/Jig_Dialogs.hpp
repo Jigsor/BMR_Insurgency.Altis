@@ -1,10 +1,10 @@
 // by Jigsor
 
-class Jig_Y_Menu {
+class Jig_H_Menu {
 	idd = 29876;
 	movingEnable = false;
 	enableSimulation = true;
-	onLoad = "uiNamespace setVariable ['Jig_Y_Menu', _this select 0]";
+	onLoad = "uiNamespace setVariable ['Jig_H_Menu', _this select 0]";
 	onUnLoad = "";
 
 	class Controls {

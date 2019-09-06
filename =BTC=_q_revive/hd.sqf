@@ -1,8 +1,4 @@
-_unit = _this select 0;
-_part = _this select 1;
-_dam = _this select 2;
-_injurer = _this select 3;
-_ammo = _this select 4;
+params ["_unit","_part","_dam","_injurer","_ammo"];
 
 //diag_log format ["----QR: HD = %1",_this];
 

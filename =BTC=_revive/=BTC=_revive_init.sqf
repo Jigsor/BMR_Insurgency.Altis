@@ -1,12 +1,13 @@
 /*
 Created by =BTC= Giallustio
 version 0.98 Offical release
-Visit us at: 
+Visit us at:
 http://www.blacktemplars.altervista.org/
 06/03/2012
 */
 
 ////////////////// EDITABLE \\\\\\\\\\\\\\\\\\\\\\\\\\
+
 switch (INS_p_rev) do {
 	case 0 : {
 		BTC_who_can_revive = ["Man"];
@@ -60,6 +61,32 @@ switch (INS_p_rev) do {
 			BTC_vehs_mobile_civ  = [];//Editable - define mobile civilian
 		};
 	};
+	case 6 : {
+		BTC_who_can_revive = ["Man"];
+		BTC_objects_actions_west = [];
+		BTC_objects_actions_east = [];
+		BTC_objects_actions_guer = [];
+		BTC_objects_actions_civ  = [];
+		if (isServer) then {
+			BTC_vehs_mobile_west = [];
+			BTC_vehs_mobile_east = [];
+			BTC_vehs_mobile_guer = [];
+			BTC_vehs_mobile_civ  = [];
+		};
+	};
+	case 7 : {
+		BTC_who_can_revive = ["Man"];
+		BTC_objects_actions_west = [INS_flag];
+		BTC_objects_actions_east = [INS_Op4_flag];
+		BTC_objects_actions_guer = [];
+		BTC_objects_actions_civ  = [];
+		if (isServer) then {
+			BTC_vehs_mobile_west = [MHQ_1, MHQ_2, MHQ_3];//Editable - define mobile west
+			BTC_vehs_mobile_east = [Opfor_MHQ];//Editable - define mobile east
+			BTC_vehs_mobile_guer = [];
+			BTC_vehs_mobile_civ  = [];
+		};
+	};
 };
 BTC_revive_time_min	= 5;
 BTC_revive_time_max	= INS_p_rev_time;
@@ -86,6 +113,11 @@ BTC_3d_icon_size	= 0.5;
 BTC_3d_icon_color	= [1,0,0,1];
 BTC_dlg_on_respawn	= 1;//1 = Mobile only - 2 Leader group and mobile - 3 = Units group and mobile - 4 = All side units and mobile
 
+if (INS_p_rev in [6,7]) then {//No Respawn, only revive. Will spectate if bled out or respawn forced.
+	BTC_lifes = 1;
+	BTC_spectating = 3;
+};
+
 ////////////////// Don't edit below \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //FNC
 call compile preprocessFileLineNumbers "=BTC=_revive\=BTC=_functions.sqf";
@@ -93,10 +125,10 @@ call compile preprocessFileLineNumbers "=BTC=_revive\=BTC=_functions.sqf";
 if (isServer) then {
 	//Mobile
 	BTC_vehs_mobile_west_str = [];BTC_vehs_mobile_east_str = [];BTC_vehs_mobile_guer_str = [];BTC_vehs_mobile_civ_str = [];
-	if (BTC_active_mobile isEqualTo 1 && count BTC_vehs_mobile_west != 0) then {for "_i" from 0 to ((count BTC_vehs_mobile_west) - 1) step 1 do {_veh = (BTC_vehs_mobile_west select _i);_var = str (_veh);BTC_vehs_mobile_west_str = BTC_vehs_mobile_west_str + [_var];_veh setVariable ["BTC_mobile_west",_var,true];if (BTC_mobile_respawn isEqualTo 1) then {_resp = [_veh,_var,"BTC_mobile_west"] spawn BTC_vehicle_mobile_respawn;};};} else {{deleteVehicle _x} foreach BTC_vehs_mobile_west;};
-	if (BTC_active_mobile isEqualTo 1 && count BTC_vehs_mobile_east != 0) then {for "_i" from 0 to ((count BTC_vehs_mobile_east) - 1) do {_veh = (BTC_vehs_mobile_east select _i);_var = str (_veh);BTC_vehs_mobile_east_str = BTC_vehs_mobile_east_str + [_var];_veh setVariable ["BTC_mobile_east",_var,true];if (BTC_mobile_respawn isEqualTo 1) then {_resp = [_veh,_var,"BTC_mobile_east"] spawn BTC_vehicle_mobile_respawn;};};} else {{deleteVehicle _x} foreach BTC_vehs_mobile_east;};
-	if (BTC_active_mobile isEqualTo 1 && count BTC_vehs_mobile_guer != 0) then {for "_i" from 0 to ((count BTC_vehs_mobile_guer) - 1) do {_veh = (BTC_vehs_mobile_guer select _i);_var = str (_veh);BTC_vehs_mobile_guer_str = BTC_vehs_mobile_guer_str + [_var];_veh setVariable ["BTC_mobile_guer",_var,true];if (BTC_mobile_respawn isEqualTo 1) then {_resp = [_veh,_var,"BTC_mobile_guer"] spawn BTC_vehicle_mobile_respawn;};};} else {{deleteVehicle _x} foreach BTC_vehs_mobile_guer;};
-	if (BTC_active_mobile isEqualTo 1 && count BTC_vehs_mobile_civ != 0) then {for "_i" from 0 to ((count BTC_vehs_mobile_civ) - 1) do {_veh = (BTC_vehs_mobile_civ select _i);_var = str (_veh);BTC_vehs_mobile_civ_str = BTC_vehs_mobile_civ_str + [_var];_veh setVariable ["BTC_mobile_civ",_var,true];if (BTC_mobile_respawn isEqualTo 1) then {_resp = [_veh,_var,"BTC_mobile_civ"] spawn BTC_vehicle_mobile_respawn;};};} else {{deleteVehicle _x} foreach BTC_vehs_mobile_civ;};
+	if (BTC_active_mobile isEqualTo 1 && !(BTC_vehs_mobile_west isEqualTo [])) then {for "_i" from 0 to ((count BTC_vehs_mobile_west) - 1) step 1 do {_veh = (BTC_vehs_mobile_west select _i);_var = str (_veh);BTC_vehs_mobile_west_str = BTC_vehs_mobile_west_str + [_var];_veh setVariable ["BTC_mobile_west",_var,true];if (BTC_mobile_respawn isEqualTo 1) then {_resp = [_veh,_var,"BTC_mobile_west"] spawn BTC_vehicle_mobile_respawn;};};} else {{deleteVehicle _x} foreach BTC_vehs_mobile_west;};
+	if (BTC_active_mobile isEqualTo 1 && !(BTC_vehs_mobile_east isEqualTo [])) then {for "_i" from 0 to ((count BTC_vehs_mobile_east) - 1) do {_veh = (BTC_vehs_mobile_east select _i);_var = str (_veh);BTC_vehs_mobile_east_str = BTC_vehs_mobile_east_str + [_var];_veh setVariable ["BTC_mobile_east",_var,true];if (BTC_mobile_respawn isEqualTo 1) then {_resp = [_veh,_var,"BTC_mobile_east"] spawn BTC_vehicle_mobile_respawn;};};} else {{deleteVehicle _x} foreach BTC_vehs_mobile_east;};
+	if (BTC_active_mobile isEqualTo 1 && !(BTC_vehs_mobile_guer isEqualTo [])) then {for "_i" from 0 to ((count BTC_vehs_mobile_guer) - 1) do {_veh = (BTC_vehs_mobile_guer select _i);_var = str (_veh);BTC_vehs_mobile_guer_str = BTC_vehs_mobile_guer_str + [_var];_veh setVariable ["BTC_mobile_guer",_var,true];if (BTC_mobile_respawn isEqualTo 1) then {_resp = [_veh,_var,"BTC_mobile_guer"] spawn BTC_vehicle_mobile_respawn;};};} else {{deleteVehicle _x} foreach BTC_vehs_mobile_guer;};
+	if (BTC_active_mobile isEqualTo 1 && !(BTC_vehs_mobile_civ isEqualTo [])) then {for "_i" from 0 to ((count BTC_vehs_mobile_civ) - 1) do {_veh = (BTC_vehs_mobile_civ select _i);_var = str (_veh);BTC_vehs_mobile_civ_str = BTC_vehs_mobile_civ_str + [_var];_veh setVariable ["BTC_mobile_civ",_var,true];if (BTC_mobile_respawn isEqualTo 1) then {_resp = [_veh,_var,"BTC_mobile_civ"] spawn BTC_vehicle_mobile_respawn;};};} else {{deleteVehicle _x} foreach BTC_vehs_mobile_civ;};
 	if (BTC_active_mobile isEqualTo 1) then {publicVariable "BTC_vehs_mobile_west_str";publicVariable "BTC_vehs_mobile_east_str";publicVariable "BTC_vehs_mobile_guer_str";publicVariable "BTC_vehs_mobile_civ_str";};
 
 	BTC_killed_pveh = [];publicVariable "BTC_killed_pveh";
@@ -129,7 +161,7 @@ BTC_respawn_cond = false;
 	BTC_respawn_marker = format ["respawn_%1",playerSide];
 	if (BTC_respawn_marker == "respawn_guer") then {BTC_respawn_marker = "respawn_guerrila"};
 	if (BTC_respawn_marker == "respawn_civ") then {BTC_respawn_marker = "respawn_civilian"};
-	BTC_r_base_spawn = "Land_ClutterCutter_small_F" createVehicleLocal getMarkerPos BTC_respawn_marker;
+	BTC_r_base_spawn = "Land_ClutterCutter_small_F" createVehicleLocal markerPos BTC_respawn_marker;
 	player addEventHandler ["Killed", BTC_player_killed];
 	player setVariable ["BTC_need_revive",0,true];
 	//{_x setVariable ["BTC_need_revive",0,true];} foreach allunits;//[] spawn {while {true} do {sleep 0.1;player sidechat format ["%1",BTC_r_mobile_selected];};};
@@ -187,7 +219,9 @@ BTC_respawn_cond = false;
 	{
 		BTC_vehs_mobile_west_str = [];BTC_vehs_mobile_east_str = [];BTC_vehs_mobile_guer_str = [];BTC_vehs_mobile_civ_str = [];
 	};
-	if (({player isKindOf _x} count BTC_3d_can_see) > 0) then {if (BTC_pvp isEqualTo 1) then {_3d = [] spawn BTC_3d_markers_pvp;} else {_3d = [] spawn BTC_3d_markers;};};
+	if (({player isKindOf _x} count BTC_3d_can_see) > 0) then {
+		_3d = if (BTC_pvp isEqualTo 1) then {[] spawn BTC_3d_markers_pvp} else {[] spawn BTC_3d_markers};
+	};
 	BTC_revive_started = true;
 	//hint "REVIVE STARTED";
 };

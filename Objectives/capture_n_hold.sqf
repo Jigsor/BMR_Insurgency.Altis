@@ -55,7 +55,10 @@ private _tasktopicE = localize "STR_BMR_Tsk_topicE_cnho";
 private _taskdescE = localize "STR_BMR_Tsk_descE_cnho";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
-if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+private _dd = missionNameSpace getVariable ["BMR_DawnDusk",[]];
+_dd params ["_dawn","_dusk"];
+
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[] remoteExec ['INS_fog_effect', [0,-2] select isDedicated]};};
 
 private _fireF = 1;
 
@@ -70,7 +73,7 @@ while {_uncaped} do {
 	};
 
 	if (_fireF isEqualTo 1) then {
-		if (daytime > 20.00 || daytime < 4.00) then {
+		if (daytime > _dusk || daytime < _dawn) then {
 			private _sfCount = [1,6] call BIS_fnc_randomInt;
 			null=[_sfCount,1,220,"red",100,_newZone] spawn Drop_SmokeFlare_fnc;
 			_fireF = 2;

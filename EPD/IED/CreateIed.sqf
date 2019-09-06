@@ -1,8 +1,4 @@
-_iedNumber = _this select 0;
-_iedPos = _this select 1;
-_iedSize = _this select 2;
-_iedType = _this select 3;
-_side = _this select 4;
+params ["_iedNumber","_iedPos","_iedSize","_iedType","_side"];
 
 if !(_side isEqualType []) then { _side = [_side];};
 for "_i" from 0 to (count _side) -1 step 1 do{

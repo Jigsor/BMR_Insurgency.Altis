@@ -6,7 +6,6 @@ private ["_list","_nearZones","_buildingNear","_rnum","_uncaped_eos_mkrs","_ins_
 
 _list = 1;
 _nearZones = [];
-_lift = true;
 _buildingNear = false;
 _alt = false;
 _b_pos = nil;
@@ -23,7 +22,7 @@ objective_pos_logic setPos _startPos;
 {if (getMarkerColor _x == "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} count _uncaped_eos_mkrs;
 if (_uncaped_eos_mkrs isEqualTo []) exitWith {sleep 10; execVM "Objectives\random_objectives.sqf";};//skip objective
 
-_nearMkrs = [_uncaped_eos_mkrs,[],{objective_pos_logic distance (getMarkerPos _x)},"ASCEND"] call BIS_fnc_sortBy;
+_nearMkrs = [_uncaped_eos_mkrs,[],{objective_pos_logic distance (markerPos _x)},"ASCEND"] call BIS_fnc_sortBy;
 
 if (count _nearMkrs > 10) then {
 	private ["_g","_m"];
@@ -42,7 +41,7 @@ if (_ins_debug) then {diag_log text format["Retreve Data Nearest EOS Markers : %
 //block based on ghst_PutinBuild.sqf by ghost
 while {!_buildingNear && count _nearZones > 0} do {
 	_rand = selectRandom _nearZones;
-	_nearBuildings = [getMarkerPos _rand select 0, getMarkerPos _rand select 1] nearObjects ["HouseBase", 75];
+	_nearBuildings = [markerPos _rand select 0, markerPos _rand select 1] nearObjects ["HouseBase", 75];
 	if (_ins_debug) then {diag_log text format["Retreve Data Near Buildings Iteration %1 : %2", _list, _nearBuildings];};
 
 	if (!isNil "_nearBuildings" && {(count _nearBuildings > 0)}) then {
@@ -53,7 +52,7 @@ while {!_buildingNear && count _nearZones > 0} do {
 
 		_posArray = _selbuild call fnc_ghst_build_positions;
 		_r = floor(random count _posArray);
-		_position = _posArray select _r;
+		_position = _posArray # _r;
 		_posArray deleteAt _r;
 
 		if (!isnil "_position") exitwith {
@@ -103,9 +102,20 @@ _buildDir = direction _buildObj;
 
 _device allowdamage false;
 _device setdir _buildDir;
+
+/*
+if (_buildingNear) then {
+	_boundingCenterZoffset = ((boundingCenter _device) # 2) + (_bldgPos # 2);
+	_bldgPos set [2, _boundingCenterZoffset];
+	_device setpos _bldgPos;
+} else {
+	_device setpos _bldgPos;
+	_device setVectorUp surfaceNormal position _device;
+	_device setVehiclePosition [getposATL _device,[''],0];
+};
+*/
+
 _device setpos _bldgPos;
-_device setVectorUp surfaceNormal position _device;
-_device setVehiclePosition [getposATL _device,[''],0];
 sleep 5;
 
 if (count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0),(getposASL _device select 1), ((getposASL _device select 2) + 2)]]) > 1) then {
@@ -139,7 +149,7 @@ if (count(lineIntersectsObjs [(getposASL _device), [(getposASL _device select 0)
 	};
 };
 
-[[_buildObj, false], "allowDamage", false] call BIS_fnc_MP;
+_buildObj allowDamage false;
 
 objective_pos_logic setPos _bldgPos;
 

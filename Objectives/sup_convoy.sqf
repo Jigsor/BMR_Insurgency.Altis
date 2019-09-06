@@ -43,29 +43,29 @@ _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 //Spawn Convoy
 sconvoy_grp = createGroup INS_Op4_side;
 
-_newPos = [getMarkerPos "ObjectiveMkr", 0, 50, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
+_newPos = [markerPos "ObjectiveMkr", 0, 50, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
 _type = [] call _randVeh;
 _vehicle1 = [_newPos, 0, _type, sconvoy_grp] call BIS_fnc_spawnvehicle;
 sleep 1;
-_veh1 = _vehicle1 select 0;
+_veh1 = _vehicle1 # 0;
 
-_newPos = [getMarkerPos "ObjectiveMkr", 5, 55, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
+_newPos = [markerPos "ObjectiveMkr", 5, 55, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
 _type = [] call _randVeh;
 _vehicle2 = [_newPos, 0, _type, sconvoy_grp] call BIS_fnc_spawnvehicle;
 sleep 1;
-_veh2 = _vehicle2 select 0;
+_veh2 = _vehicle2 # 0;
 
-_newPos = [getMarkerPos "ObjectiveMkr", 10, 60, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
+_newPos = [markerPos "ObjectiveMkr", 10, 60, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
 _type = [] call _randVeh;
 _vehicle3 = [_newPos, 0, _type, sconvoy_grp] call BIS_fnc_spawnvehicle;
 sleep 1;
-_veh3 = _vehicle3 select 0;
+_veh3 = _vehicle3 # 0;
 
-_newPos = [getMarkerPos "ObjectiveMkr", 15, 65, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
+_newPos = [markerPos "ObjectiveMkr", 15, 65, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
 _type = [] call _randVeh;
 _vehicle4 = [_newPos, 0, _type, sconvoy_grp] call BIS_fnc_spawnvehicle;
 sleep 1;
-_veh4 = _vehicle4 select 0;
+_veh4 = _vehicle4 # 0;
 
 _allVeh = [_veh1,_veh2,_veh3,_veh4];
 {_x setDamage 0} forEach _allVeh;
@@ -73,11 +73,13 @@ _allVeh = [_veh1,_veh2,_veh3,_veh4];
 	_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 	_x addEventHandler ["GetOutMan",{_this select 0 doMove (position objective_pos_logic)}];
 } forEach (units sconvoy_grp);
-{_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"]} forEach _allVeh;
-
-{[_x] call anti_collision} foreach _allVeh;
-{_x setVariable["persistent",true]} foreach _allVeh;
-{private _car = _x; _car allowCrewInImmobile true} forEach _allVeh;
+{
+	private _vic = _x;
+	_vic addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
+	[_vic] call anti_collision;
+	_vic setVariable["persistent",true];
+	[_vic] call BMRINS_fnc_bypassVehCrashDamage;
+} forEach _allVeh;
 
 // convoy movement
 _handle1=[sconvoy_grp, position objective_pos_logic, _range] call Veh_taskPatrol_mod;
@@ -97,9 +99,9 @@ _taskdescE = localize "STR_BMR_Tsk_descE_dsc";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_newZone] call SHK_Taskmaster_add;
 
 waitUntil {{alive _x} count units sconvoy_grp > 0};
-sleep 0.1;
+sleep 5;
 
-if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[[], "INS_fog_effect"] call BIS_fnc_mp};};
+if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[] remoteExec ['INS_fog_effect', [0,-2] select isDedicated]};};
 
 while {_killconvoy} do
 {
@@ -121,10 +123,9 @@ while {_killconvoy} do
 // clean up
 "ObjectiveMkr" setMarkerAlpha 0;
 if (SideMissionCancel) then {sleep 5} else {sleep 90};
-
 {deleteVehicle _x; sleep 0.1} forEach units _grp;
 {deleteVehicle _x; sleep 0.1} forEach units _stat_grp;
-sleep 1;
+{deleteVehicle _x; sleep 0.1} forEach units sconvoy_grp;
 {deleteGroup _x} forEach [_grp, _stat_grp, sconvoy_grp];
 if (!isNull _cone) then {deleteVehicle _cone};
 {deleteVehicle _x} foreach (_allVeh select {!isNull _x});

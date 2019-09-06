@@ -1,8 +1,5 @@
 //staus_hud_switch.sqf by Jig
-
-private ["_run","_SHhandle"];
-
-_run = true;
+private _run = true;
 
 if (status_hud_on) exitWith {
 	("ICE_Layer" call BIS_fnc_rscLayer) cutText ["","PLAIN"];
@@ -10,7 +7,7 @@ if (status_hud_on) exitWith {
 	player setVariable ["stathud_resp", false];
 };
 
-_SHhandle = [] spawn ICE_HUD;
+private _SHhandle = [] spawn ICE_HUD;
 status_hud_on = true;
 player setVariable ["stathud_resp", true];
 

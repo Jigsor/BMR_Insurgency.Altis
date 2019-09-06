@@ -53,7 +53,7 @@ for "_i" from 0 to (count safeZones) -1 step 1 do{
 		};
 
 		if(not _found) then {
-			_origin = getmarkerpos (_name);
+			_origin = markerPos (_name);
 			if(hideIedMarker) then {
 				(_name) setMarkerAlpha 0;
 			};
@@ -137,7 +137,7 @@ while{_paramCounter < count _paramArray} do {
 				_origin = predefinedLocations select _predefinedLocationIndex select 1;
 				_distance = predefinedLocations select _predefinedLocationIndex select 2;
 			} else {
-				_origin = getmarkerpos (_arr select 0);
+				_origin = markerPos (_arr select 0);
 				if(hideIedMarker) then {
 					(_arr select 0) setMarkerAlpha 0;
 				};

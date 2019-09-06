@@ -1,11 +1,12 @@
 /*
- extraction_player.sqf v1.26 by Jigsor
+ extraction_player.sqf v1.27 by Jigsor
  handles map click pickup/dropoff points and group inventory.
  jig_ex_actid_show = _ex_caller addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>", "JIG_EX\extraction_player.sqf", JIG_EX_Caller removeAction jig_ex_actid_show, 1, false, true, "","player ==_target"];
  runs from JIG_EX\extraction_init.sqf and JIG_EX\respawnAddActionHE.sqf
 */
 
-private ["_target","_caller","_action","_recruitsArry","_pPos","_tempmkr1","_tempmkr2","_actual_ext_pos","_actual_drop_pos","_leaderPos","_outof_range_members","_orAI","_orP"];
+params ["_target","_caller","_action"];
+private ["_recruitsArry","_pPos","_tempmkr1","_tempmkr2","_actual_ext_pos","_actual_drop_pos","_leaderPos","_outof_range_members","_orAI","_orP"];
 
 _target = _this # 0;  // Object that had the Action (also _target in the addAction command)
 _caller = _this # 1;  // Unit that used the Action (also _this in the addAction command)
@@ -103,7 +104,7 @@ sleep 1.5;
 ctrlActivate ((findDisplay 12) displayCtrl 107);// map texture toggle
 openMap false;
 
-if (getMarkerPos "extractmkr" distance getMarkerPos "dropmkr" < 500) exitWith {hint "Extraction and Drop Position is less then 500 meters apart. Try again."; player addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>", "JIG_EX\extraction_player.sqf", JIG_EX_Caller removeAction jig_ex_actid_show, 1, false, true, "", "player ==_target"]};
+if (markerPos "extractmkr" distance markerPos "dropmkr" < 500) exitWith {hint "Extraction and Drop Position is less then 500 meters apart. Try again."; player addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>", "JIG_EX\extraction_player.sqf", JIG_EX_Caller removeAction jig_ex_actid_show, 1, false, true, "", "player ==_target"]};
 
 0 spawn Ex_LZ_smoke_fnc;
 if (JIG_EX_AmbRadio) then {0 = 0 spawn AmbExRadio_fnc};

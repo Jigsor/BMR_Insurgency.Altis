@@ -2,8 +2,9 @@
 //put me in the mission scripts folder and fire me up from init.sqf or similar with nul = execVM "Scripts\tky_evo_performance_report.sqf";
 diag_log "perfmon";
 
-private ["_myentities", "_westcars","_eastcars","_resistancecars","_civiliancars","_westmen","_civmen","_westair","_eastair","_resistanceair","_animals", "_mypause","_totalgrps","_resistancemen"];
-_mypause = _this select 0;
+params ["_mypause"];
+private ["_myentities","_westcars","_eastcars","_resistancecars","_civiliancars","_westmen","_civmen","_westair","_eastair","_resistanceair","_animals","_totalgrps","_resistancemen"];
+
 //hint format ["pause value:%1",_mypause];
 
 if (!isServer) exitWith {};

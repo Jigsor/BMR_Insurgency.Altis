@@ -1,12 +1,12 @@
 if(allowExplosiveToTriggerIEDs) then {
 
-	_ied = _this select 1;
-	_trigger = _this select 5;	
+	_ied = _this # 1;
+	_trigger = _this # 5;	
 	if((isnull _ied) or (isnull _trigger)) exitwith{};
 
-	_iedSize = _this select 2; 
-	_iedPosition = _this select 3;
-	_iedNumber = _this select 4;
+	_iedSize = _this # 2; 
+	_iedPosition = _this # 3;
+	_iedNumber = _this # 4;
 
 	_projectile =  _this select 0 select 0 select 6 select 4;
 	_isExplosive = false;

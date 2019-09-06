@@ -1,6 +1,11 @@
 _grp=(_this # 0);
-
 _skillset = server getvariable (_this # 1);
+_nvg = if ((_this # 2) isEqualTo 1) then {(missionNamespace getVariable "BMR_major_facArr") # 11} else {(missionNamespace getVariable "BMR_minor_facArr") # 11};
+_grpSide = side _grp;
+_dd = missionNameSpace getVariable ["BMR_DawnDusk",[]];
+_dd params ["_dawn","_dusk"];
+_isNight = if (daytime > _dusk || daytime < _dawn) then {true} else {false};
+
 {
 	_unit = _x;
 	{
@@ -17,23 +22,25 @@ _skillset = server getvariable (_this # 1);
 	}];
 
 	//Jig adding
-	if (side _unit isEqualTo east) then {
-		_unit unlinkitem (hmd _unit);
-		if ((_this # 2) in eosFacNVG) then {
-			_unit linkItem "NVGoggles_OPFOR";
-		};
-	}else{
-		if (side _unit isEqualTo resistance) then {
-			_unit unlinkitem (hmd _unit);
-			if ((_this # 2) in eosFacNVG) then {
-				_unit linkItem "NVGoggles_INDEP";
-			};
-		};
+	_unit unlinkitem (hmd _unit);
+	if (_grpSide isEqualTo east && {(_nvg && {_isNight})}) then {
+		_unit linkItem "NVGoggles_OPFOR";
 	};
-	_unit addPrimaryWeaponItem "acc_flashlight";
-	_unit enableGunLights "forceOn";//"AUTO"
+	if (_grpSide isEqualTo resistance && {(_nvg && {_isNight})}) then {
+		_unit linkItem "NVGoggles_INDEP";
+	};
+
+	if (_isNight) then {
+		_unit addPrimaryWeaponItem "acc_flashlight";
+		_unit enableGunLights "forceOn";//"AUTO"
+	}
+	else
+	{
+		_wepAcc = _unit weaponAccessories primaryWeapon _unit;
+		if (_wepAcc param [1, ""] != "") then {_unit removePrimaryWeaponItem _wepAcc # 1};
+	};
+
 	_unit addeventhandler ["killed","[(_this # 0)] spawn remove_carcass_fnc"];
-	if (Fatigue_ability isEqualTo 0) then {_unit enableStamina false};
-	if (INS_op_faction isEqualTo 16) then {[_unit] call Trade_Biofoam_fnc};
+	if (INS_op_faction in [20]) then {[_unit] call Trade_Biofoam_fnc};
 
 } forEach (units _grp);

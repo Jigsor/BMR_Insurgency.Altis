@@ -1,16 +1,14 @@
-//////////////////////////////////////////////////////////
-//                =ATM= Airdrop       	 				//
-//         		 =ATM=Pokertour        		       		//
-//				version : 6.0							//
-//				date : 12/02/2014						//
-//                   visit us : atmarma.fr              //
-//////////////////////////////////////////////////////////
+/*
+	=ATM= Airdrop
+	=ATM=Pokertour
+	version : 6.0
+	date : 12/02/2014
+	visit us : atmarma.fr
+*/
 
-private ["_position","_cut","_dialog","_s_alt","_s_alt_text","_sound","_sound2","_soundPath"];
-waitUntil { !isNull player };
+waitUntil {!isNull player};
 
-_position = GetPos player;
-_z = _position select 2;
+_z = (getPos player) # 2;
 Altitude = 500;
 
 hint Localize "STR_ATM_hinton";
@@ -18,9 +16,9 @@ openMap true;
 
 createDialog "ATM_AD_ALTITUDE_SELECT";
 disableSerialization;
-_dialog = findDisplay 2900;
-_s_alt = _dialog displayCtrl 2901;
-_s_alt_text = _dialog displayCtrl 2902;
+private _dialog = findDisplay 2900;
+private _s_alt = _dialog displayCtrl 2901;
+private _s_alt_text = _dialog displayCtrl 2902;
 _s_alt_text ctrlSetText format["%1", Altitude];
 _s_alt sliderSetRange [500,20000];
 _s_alt slidersetSpeed [100,100,100];
@@ -64,7 +62,7 @@ IrOn = _target addAction["<t color='#FF00CC'>Strobe IR On</t>", "ATM_airdrop\atm
 
 _loadout=[_target] call ATM_Getloadout;
 
-_posJump = getMarkerPos "mkr_halo";
+_posJump = markerPos "mkr_halo";
 _x = _posJump # 0;
 _y = _posJump # 1;
 _z = _posJump # 2;
@@ -78,7 +76,7 @@ deleteMarker "mkr_halo";
 removeBackpack _target;
 sleep 0.5;
 _target addBackpack "B_Parachute";
-if ((getPos _target select 2) >= 8000) then {
+if ((getPos _target # 2) >= 8000) then {
 	removeHeadgear _target;
 	_target addHeadgear "H_CrewHelmetHeli_B";
 	sleep 0.5;
@@ -88,14 +86,14 @@ hintsilent "";
 hint Localize "STR_ATM_hintjump";
 Cut_Rope = (FindDisplay 46) displayAddEventHandler ["KeyDown","_this call dokeyDown"];
 
-while {(getPos _target select 2) > 2} do {
+while {(getPos _target # 2) > 2} do {
 	if !(isTouchingGround _target and isNull objectParent player) then {
 		if(floor random 3 isEqualTo 0) then {playSound "Vent"};
 		sleep (1 + random 0.3);
 		if(floor random 3 isEqualTo 0) then {playSound "Vent2"};
 	};
 	if !(INS_ACE_para) then {//Jig adding
-		if (getPos _target select 2 < 160) then {
+		if ((getPos _target # 2) < 160) then {
 			_target action ["OpenParachute", _target];
 		};
 	};

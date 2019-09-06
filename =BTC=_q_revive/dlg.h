@@ -133,7 +133,7 @@ class btc_qr_dlg_resp
 		w = 0.18 * safezoneW;
 		h = 0.0286915 * safezoneH;
 		shadow = 0;
-		onLBSelChanged = "btc_qr_cam_t setpos (getMarkerPos (lbData [181, lbCurSel 181]));btc_qr_cam camSetPos (btc_qr_cam_t modelToWorld [btc_qr_cam_dist,btc_qr_cam_dist,(abs btc_qr_cam_dist)]);btc_qr_cam camSetTarget btc_qr_cam_t;btc_qr_cam camCommit 0;";
+		onLBSelChanged = "btc_qr_cam_t setpos (markerPos (lbData [181, lbCurSel 181]));btc_qr_cam camSetPos (btc_qr_cam_t modelToWorld [btc_qr_cam_dist,btc_qr_cam_dist,(abs btc_qr_cam_dist)]);btc_qr_cam camSetTarget btc_qr_cam_t;btc_qr_cam camCommit 0;";
 		colorSelect[] = {0,0,0,1};
 		colorText[] = {0.95,0.95,0.95,1};
 		colorBackground[] = {0,0,0,1};

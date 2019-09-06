@@ -48,10 +48,10 @@ if isserver then {
 		private _sort = {
 			private ["_h","_i","_j","_a","_lo","_hi","_x","_id"];
 
-			_a = _this select 0; //array to be sorted
-			_id = _this select 1; //array item index to be compared
-			_lo = _this select 2; //lower index to sort from
-			_hi = _this select 3; //upper index to sort to
+			_a = _this # 0; //array to be sorted
+			_id = _this # 1; //array item index to be compared
+			_lo = _this # 2; //lower index to sort from
+			_hi = _this # 3; //upper index to sort to
 
 			_h = nil;	//used to make a do-while loop below
 			_i = _lo;
@@ -82,9 +82,9 @@ if isserver then {
 	};
 
 	private ["_opos","_rad","_bpos"];
-	_opos = _this select 0;
+	_opos = _this # 0;
 	if (_opos isEqualType objNull) then {_opos = getpos _opos};
-	_men = _this select 1;
+	_men = _this # 1;
 	_rad = if (count _this > 2) then { _this select 2 } else { 20 };
 
 	_bpos = [];
@@ -98,7 +98,7 @@ if isserver then {
 	// Priority
 	private "_prio";
 	if (count _this > 3) then {
-		_prio = _this select 3;
+		_prio = _this # 3;
 		_bpos = [_bpos,2] call _sortArray;
 	} else {
 		_prio = 0;
@@ -159,19 +159,19 @@ if (count _this > 7) then {
 		};
 		"SHK_BuildingPos_EH" addpublicvariableeventhandler {
 			private ["_act","_arr"];
-			_arr = _this select 1;
-			_act = _arr select 0;
-			_arr = _arr select 1;
+			_arr = _this # 1;
+			_act = _arr # 0;
+			_arr = _arr # 1;
 			[_act,_arr] call SHK_BuildingPos_fnc;
 		};
 		SHK_BuildingPos_init = true;
 	};
 	if isserver then {
 		private ["_hide","_portition","_condition","_hidden","_u","_i"];
-		_hide = _this select 7;
-		_portition = _hide select 0;
+		_hide = _this # 7;
+		_portition = _hide # 0;
 		_portition = round (_portition * (count _men));
-		_condition = _hide select 1;
+		_condition = _hide # 1;
 		_hidden = [];
 
 		for "_i" from 0 to (_portition - 1) do {

@@ -16,7 +16,7 @@ hcam_id = 0;
 hcam_zoom = 1;
 
 hcam_ui_init = {
-	_disp = _this select 0;
+	params ["_disp"];
 	uiNamespace setVariable ["hcam_ui_disp", _disp];
 	uiNamespace setVariable ["hcam_ctrl_pip", _disp displayCtrl 0];
 	uiNamespace setVariable ["hcam_ctrl_title", _disp displayCtrl 1];

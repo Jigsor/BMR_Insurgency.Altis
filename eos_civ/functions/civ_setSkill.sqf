@@ -1,6 +1,6 @@
-_grp=(_this select 0);
+_grp=(_this # 0);
 
-_skillset = server getvariable (_this select 1);
+_skillset = server getvariable (_this # 1);
 {
 	_unit = _x;
 	{

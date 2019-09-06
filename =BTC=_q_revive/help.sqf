@@ -1,7 +1,4 @@
-private ["_unit","_helper"];
-
-_unit = _this select 0;
-_helper = _this select 1;
+params ["_unit","_helper"];
 
 if (_helper getVariable ["btc_qr_helping",false]) exitWith {};
 

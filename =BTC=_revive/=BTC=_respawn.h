@@ -225,7 +225,7 @@ class BTC_spectating_dialog
 			idc = 120;
 			onLBSelChanged = "_spawn = [] spawn BTC_r_s_change_target";
 			x = 0;
-			y = -0.2;
+			y = 0.2 * safezoneH + safezoneY;
 			w = 0.4;
 			h = 0.035;
 		};

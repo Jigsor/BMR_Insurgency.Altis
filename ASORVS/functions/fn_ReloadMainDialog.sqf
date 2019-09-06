@@ -14,32 +14,32 @@ disableSerialization;
 _playerSide = -1;
 
 switch (side player) do {
-	case EAST: {_playerSide = SIDE_EAST;};
-	case WEST: {_playerSide = SIDE_WEST;};
-	case INDEPENDENT: {_playerSide = SIDE_INDEPENDENT;};
-	case CIVILIAN: {_playerSide = SIDE_CIV;};
+	case EAST: {_playerSide = SIDE_EAST};
+	case WEST: {_playerSide = SIDE_WEST};
+	case INDEPENDENT: {_playerSide = SIDE_INDEPENDENT};
+	case CIVILIAN: {_playerSide = SIDE_CIV};
 };
 ASORVS_PlayerSideID = _playerSide;
 
 _sideBlacklistName = format["ASORVS_Blacklist_%1", side player];
 _sideBlacklist = missionNamespace getVariable _sideBlacklistName;
-if(isNil '_sideBlacklist') then {_sideBlacklist = [];};
+if(isNil '_sideBlacklist') then {_sideBlacklist = []};
 
 _factionName = faction player;
 _factionBlacklistName = format["ASORVS_Blacklist_%1", side player];
 _factionBlacklist = missionNamespace getVariable _factionBlacklistName;
-if(isNil '_factionBlacklist') then {_factionBlacklist = [];};
+if(isNil '_factionBlacklist') then {_factionBlacklist = []};
 
 ASORVS_RuntimeBlacklist = _sideBlacklist + _factionBlacklist;
 
 _sideWhitelistName = format["ASORVS_Whitelist_%1", side player];
 _sideWhitelist = missionNamespace getVariable _sideWhitelistName;
-if(isNil '_sideWhitelist') then {_sideWhitelist = [];};
+if(isNil '_sideWhitelist') then {_sideWhitelist = []};
 
 _factionName = faction player;
 _factionWhitelistName = format["ASORVS_Whitelist_%1", side player];
 _factionWhitelist = missionNamespace getVariable _factionWhitelistName;
-if(isNil '_factionWhitelist') then {_factionWhitelist = [];};
+if(isNil '_factionWhitelist') then {_factionWhitelist = []};
 ASORVS_RuntimeWhitelist = _sideWhitelist + _factionWhitelist + ASORVS_VehicleWhitelist;
 
 //hint format["%1,%2,%3",_sideBlacklist, _factionBlacklist, ASORVS_RuntimeBlacklist];

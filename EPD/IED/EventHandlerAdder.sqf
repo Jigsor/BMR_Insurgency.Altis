@@ -1,8 +1,4 @@
-_ied = _this select 0;
-_iedSize = _this select 1;
-_iedPosition = _this select 2;
-_trigger = _this select 3;
-_iedNumber = _this select 4;
+params ["_ied","_iedSize","_iedPosition","_trigger","_iedNumber"];
 
 //if(EPD_IED_debug) then {player sidechat format["synching %1 and %2", compile _trigger, compile _ied];};
 
