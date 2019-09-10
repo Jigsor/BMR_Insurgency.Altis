@@ -295,6 +295,8 @@ missionNamespace setVariable ["op4CratesOrientation", _op4CrateComposition, true
 	};
 };
 
+// Log internal mission version //
+diag_log "BMR Insurgency Internal Mission Version 1.501";
 // Log mission parameters //
 diag_log "BMR Insurgency Mission Parameters:";
 for [ {_i = 0}, {_i < count(paramsArray)}, {_i = _i + 1} ] do {

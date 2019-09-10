@@ -387,6 +387,7 @@ BTC_player_killed = {
 			closedialog 0;
 			if (time > _timeout && format ["%1", player getVariable "BTC_need_revive"] == "1") then {
 				//_respawn = [] spawn BTC_player_respawn;
+				if (INS_p_rev in [6,7]) exitWith {BTC_respawn_cond = true;closeDialog 0;_bledOut = [] spawn BTC_player_respawn;};
 				BTC_respawn_cond = true;closeDialog 0;player setVariable ["BTC_need_revive",0,true];_respawn = [] spawn BTC_r_close;//Jig - respawns player when revive timer exceeded
 			};
 			if (format ["%1", player getVariable "BTC_need_revive"] == "0" && !BTC_respawn_cond) then {

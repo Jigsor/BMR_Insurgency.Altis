@@ -189,6 +189,12 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	2. Perhaps objective delivery cargo has been misplaced.
 			Delivery_Box setpos getpos player;
 
+9/9/2019
+Hot fix for v1_50
+Added: Rpt. Logging of internal mission version (useful for hot fixes and dev builds) currently version 1.501. Mission file name remains 1_50 for ease and simplicity.
+Fixed: No Respawn mode would respawn player at base if revive timer expired. Now BIS spectate is initialized.
+Fixed: Potential undefined variable error of depricated variable Jig_Y_Menu.
+
 9/1/2019
 BMR_Insurgency_v1_50
 Built on A3 engine v1.94
@@ -216,6 +222,7 @@ Added: Function to save dawn and dusk times wich is unique to each terrain to va
 Added: Functionality to switch weaponless versioned Strider to blufor version if used for MHQ_1 and/or MHQ_2 and when INS_Blu_side = WEST.
 Added: Contact DLC vehicles to DLC vehicle restriction bypass.
 Added: ADR-97s and Contact content to whitelised Arsenal of corresponding sides.
+Added: Server name and Mission file name to briefing.
 Change: Game menu key moved from Y to H and now activates on key release instead of press for optimization.
 Change: Grid spawned enemy AI will only be equiped with night vision goggles and torches if it is night time for optimization.
 Change: Hemmit MHQs replaced with turretless Marshall on most maps or turretless Gorgone on some.
@@ -229,6 +236,7 @@ Change: Redundant "Ambient Foot Civilians" boolean lobby option removed and can 
 Change: Snow particles surround current camera instead of player object.
 Change: Updated mod support/class names for RHS, CUP, Project OPFOR and OPTRE.
 Fixed: widthRailWay popup errors wich occured when CAS GUI map was opened. Caused by Arma 3 engine update 1.90.
+Fixed: Scripts using playsound3d wich was limited to 5 decibles max in enginge update 1.90.
 Fixed: Script error in bullet cam introduced with Arma 3 engine update 1.94.
 Fixed: Minor Issue, Heli Group Extraction did not fly away after drop off in dedicated enviroment.
 Fixed: Task notifications could fail between death and respawn events.
