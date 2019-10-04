@@ -3,7 +3,7 @@
     <img src="https://bmr-squad.com/wp-content/uploads/2019/10/bmr_insurgency.jpg" width="728">
 </p>
 <p align="center">
-    <a href="discord.bmr-squad.com">Discord</a> | <a href="https://bmr-squad.com">Website</a> 
+    <a href="http://discord.bmr-squad.com">Discord</a> | <a href="https://bmr-squad.com">Website</a> 
 </p>
 </div>
 
