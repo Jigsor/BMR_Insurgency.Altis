@@ -46,7 +46,7 @@ if (DebugEnabled > 0) then {
 
 	private _playertype = typeOf (vehicle player);
 	player setVariable ["BIS_noCoreConversations", true];
-	disableMapIndicators [false,true,false,false];
+	disableMapIndicators [false,true,true,false];
 	enableSentences false;
 	setTerrainGrid 25;
 	status_hud_on = false;
