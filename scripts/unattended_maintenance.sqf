@@ -34,7 +34,7 @@ while {true} do {
 	// End mission for Opfor players if not enough blufor players.
 	if (_op4Check && {playersNumber _w < _pOp4}) then {
 		private _AllOp4Players=[];
-		{_AllOp4Players pushBack _x} forEach (allPlayers select {side _x isEqualTo INS_Op4_side});
+		{_AllOp4Players pushBack _x} forEach (allPlayers select {side _x isEqualTo EAST});
 		private "_player";
 		{
 			_player = _x;
