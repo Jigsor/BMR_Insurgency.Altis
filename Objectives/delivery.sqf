@@ -66,12 +66,12 @@ if (isNil "MHQ_3" || !Alive MHQ_3) then {// Create Helicopter MHQ_3 if it doesn'
 	MHQ_3 setVariable ["BTK_CargoDrop_TransporterLoaded", false];
 
 	//// Wait until loaded
-	waitUntil {sleep 1; (Delivery_Box getVariable "BTK_CargoDrop_ObjectLoaded") && {(MHQ_3 getVariable "BTK_CargoDrop_TransporterLoaded")}};
+	waitUntil {sleep 1; (Delivery_Box getVariable ["BTK_CargoDrop_ObjectLoaded",false]) && {(MHQ_3 getVariable ["BTK_CargoDrop_TransporterLoaded",false])}};
 	Demo_Loaded = true;
 	publicVariableServer "Demo_Loaded";
 
 	//// Wait until UNloaded
-	waitUntil {sleep 0.5; !(Delivery_Box getVariable "BTK_CargoDrop_ObjectLoaded") && !(MHQ_3 getVariable "BTK_CargoDrop_TransporterLoaded")};
+	waitUntil {sleep 0.5; !(Delivery_Box getVariable ["BTK_CargoDrop_ObjectLoaded",true]) && !(MHQ_3 getVariable ["BTK_CargoDrop_TransporterLoaded",true])};
 	Demo_Unloaded = true;
 	publicVariableServer "Demo_Unloaded";
 };
