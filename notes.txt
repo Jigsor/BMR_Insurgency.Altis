@@ -189,11 +189,15 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	2. Perhaps objective delivery cargo has been misplaced.
 			Delivery_Box setpos getpos player;
 
-10/9/2019
+
+10/20/2019
 Minor Hot fix for v1_50
+Fixed: Progression Restoration race condition on dedicated server.
+Fixed: Progression Restoration on Headless client no longer requires headless clients to Join in progress.
 Fixed: Delivery Objective Error "waitUntil returned nil. True or false expected". Defaults values added to getvariable. Caused by previous Arma 3 engine update.
 Fixed: Opfor player's mission would not end if Blufor player count fell below "Playable Opfor" lobby parameter limits.
 Fixed: Classname typo on Opposing Army IFA3 Wehrmacht playable Bluefor slot's default uniform in Green versions.
+Fixed: Capture and hold timer could cease prematurely if server has high fps typically when headless clients present.
 Change: Mine field map markers created by server when player places a mine. Seems to not have affect on Dedicated server..
 Change: Internal version number to 1.502
 
