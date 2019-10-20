@@ -13,7 +13,7 @@ if (_player in _hcEntities) then {
 		{if (getMarkerColor _x isEqualTo "ColorGreen") then {_INSmkrs = _INSmkrs - [_x];};} foreach _INSmkrs;
 	};
 
-	[all_eos_mkrs,_INSmkrs] remoteExec ["BMRINS_fnc_HC_allEOSmkrs",_player];
+	[all_eos_mkrs,_INSmkrs,_didJIP] remoteExec ["BMRINS_fnc_HC_allEOSmkrs",_player];
 	diag_log "******BMRINS_fnc_HC_allEOSmkrs remote execute scheduled on HC";
 	diag_log format ["*****HC* _didJIP = %1",_didJIP];
 };
