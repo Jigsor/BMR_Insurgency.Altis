@@ -120,6 +120,7 @@ if (!SideMissionCancel) then {
 	};
 
 	private _currTime = time;
+	private _maxTime = (60 * _holdTime) + (_currTime + 30);
 	if (_ins_debug) then {diag_log format["***CnH TIMER PARAMETERS: Server Time %1, Timer Length %2, Defenders %3", _currTime, _holdTime, _defcnt];};
 
 	[[false,_holdTime," Hold Outpost"],"scripts\Timer.sqf"] remoteExec ["BIS_fnc_execVM",([0,-2] select isDedicated),false];// without JIP persistance
@@ -194,7 +195,7 @@ if (!SideMissionCancel) then {
 				if (!makewave) exitWith {};
 
 				_c = _c + 1;
-				if (_c > 14) then {timesup = true; publicVariable "timesup"; sleep 3; makewave = false; publicVariableServer "makewave";};//added to combat runaway loop on dedi, happens when no player has timer.
+				if (time > _maxTime || {_c > 30}) then {timesup = true; publicVariable "timesup"; sleep 3; makewave = false; publicVariableServer "makewave";};//added to combat runaway loop on dedi, happens when no player has timer.
 			};
 		};
 
