@@ -129,7 +129,7 @@ BMR_Insurgency_v1_50.pja312
 Required mods: @CUP_Terrains_Core;@G.O.S Song Bin Tanh 2.0 (APEX)
 
 BMR_Insurgency_v1_50.WL_Rosche
-Required mods: @Rosche, Germany;@MBG Buildings 3 (Arma2 Legacy)
+Required mods: @CUP_Terrains_Core;@Rosche, Germany;@MBG Buildings 3 (Arma2 Legacy)
 
 BMR_Insurgency_Green.Staszow
 Required mods: @CBA_A3;@CUP_Terrains_Core;@IFA3_AIO_LITE;@Faces_of_War;@Iron_Front_ArmA_3_Faces_of_War_Compatibility_patch
@@ -189,6 +189,12 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 	2. Perhaps objective delivery cargo has been misplaced.
 			Delivery_Box setpos getpos player;
 
+
+10/22/2019
+Hot fix for v1_50
+Fixed: Recruited AI would get stuck in Base Respawn fortification on Livonia and Rosche Germany.
+Fixed: Broke Capture and hold Objective in last hotfix (undefined variable).
+Change: Internal version number to 1.503
 
 10/20/2019
 Minor Hot fix for v1_50

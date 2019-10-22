@@ -121,13 +121,13 @@ if (!SideMissionCancel) then {
 
 	private _currTime = time;
 	private _maxTime = (60 * _holdTime) + (_currTime + 30);
-	if (_ins_debug) then {diag_log format["***CnH TIMER PARAMETERS: Server Time %1, Timer Length %2, Defenders %3", _currTime, _holdTime, _defcnt];};
+	if (_ins_debug) then {diag_log format["***CnH TIMER PARAMETERS: Server Time %1, Timer Length %2, Defenders %3, Max time %4", _currTime, _holdTime, _defcnt, _maxTime];};
 
 	[[false,_holdTime," Hold Outpost"],"scripts\Timer.sqf"] remoteExec ["BIS_fnc_execVM",([0,-2] select isDedicated),false];// without JIP persistance
 
-	private _rwave = [_newZone,_ins_debug,_defcnt] spawn {
+	private _rwave = [_newZone,_ins_debug,_defcnt,_maxTime] spawn {
 
-		params ["_newZone","_ins_debug","_defcnt"];
+		params ["_newZone","_ins_debug","_defcnt","_maxTime"];
 
 		private _cnhWaveUnits = [];
 		private _cnhWaveGrps = [];
