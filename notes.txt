@@ -190,6 +190,11 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 			Delivery_Box setpos getpos player;
 
 
+12/7/2019
+Update for v1_50
+Fixed: All RHS Titled versions affected/mission.sqm change. MHQ_3 (CH53E variants) model sunken into ground due to RHS updated 0.5.0.
+Change: Internal version number to 1.504
+
 10/22/2019
 Hot fix for v1_50
 Fixed: Recruited AI would get stuck in Base Respawn fortification on Livonia and Rosche Germany.
