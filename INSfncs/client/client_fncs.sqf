@@ -31,7 +31,8 @@ INS_intro = {
 	private _dir = (direction player) -180;
 	private _rx = selectRandom [38,-38];
 	private _ry = selectRandom [38,-38];
-	private _text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
+	private _worldDesc = getText (configFile >> "CfgWorlds" >> worldName >> "description");
+	private _text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (_worldDesc)], "color='#0059B0' font='PuristaBold'"] ];
 	0 = 0 spawn INS_intro_playTrack;
 	private _cam = "camera" camCreate [position camstart # 0, position camstart # 1, (position camstart select 2) + 80];
 	_cam camPreload 5;
@@ -76,7 +77,8 @@ INS_intro_op4 = {
 	_dd = missionNameSpace getVariable ["BMR_DawnDusk",[]];
 	_dd params ["_dawn","_dusk"];
 	if (daytime > (_dusk + 1) || daytime < (_dawn - 1)) then {camUseNVG true};
-	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (worldName)], "color='#0059B0' font='PuristaBold'"] ];
+	_worldDesc = getText (configFile >> "CfgWorlds" >> worldName >> "description");
+	_text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (_worldDesc)], "color='#0059B0' font='PuristaBold'"] ];
 	_ok = preloadTitleRsc ["bmr_intro", "PLAIN"];
 	0 = 0 spawn INS_intro_playTrack;
 	_centPos = getPosATL center;
