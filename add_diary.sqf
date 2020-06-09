@@ -83,11 +83,12 @@ player createDiaryRecord ["Diary", ["Server Rules","
 	<br/>3. No pretending to be an admin.
 	<br/>4. No unauthorized access of full admin privileges.
 	<br/>5. No purposeful destruction of usable (operable/non-damaged) vehicles at base.
-	<br/>6. Lighting up large areas without coordination with fellow BLUFOR is ill-advised and frowned upon. Repeated instances will result in verbal requests to move. Should requests be ignored the individual may be subject to teleport to relocate them.
+	<br/>6. Lighting up large areas without coordination with fellow BLUFOR is ill-advised and frowned upon. Repeated instances will result in vebal requests to move. Should requests be ignored the individual may be subject to teleport to relocate them.
+	<br/>7. No destruction of cities wich are not activated via artillery and all artillery should be coordinated.
 	<br/>
 	<br/>The following are not allowed regarding OPFOR:
-	<br/>1. Bypassing OPFOR arsenal/vehicle restrictions through use of a BLUFOR slot/contact.
-	<br/>2. Those providing equipment or other assets to OPFOR while on BLUFOR are subject to the same rule listed previously.
+	<br/>8. Bypassing OPFOR arsenal/vehicle restrictions through use of a BLUFOR slot/contact.
+	<br/>9. Those providing equipment or other assets to OPFOR while on BLUFOR are subject to the same rule listed previously.
 "]];
 
 private _serverName = format ["%1", serverName];
