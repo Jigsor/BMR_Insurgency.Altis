@@ -111,7 +111,7 @@ while {_killvics} do
 		_killvics = false;
 	};
 
-	if (SideMissionCancel isEqualTo true) exitWith {
+	if (SideMissionCancel) exitWith {
 		[_tskW, "canceled"] call SHK_Taskmaster_upd;
 		[_tskE, "canceled"] call SHK_Taskmaster_upd;
 		_killvics = false;
