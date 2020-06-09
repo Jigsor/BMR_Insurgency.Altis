@@ -108,7 +108,7 @@ mhq_actions_fnc = {
 				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
 			};
 			if (_veh isKindOf "Ship") then {
-				_veh addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
+				_veh addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","",8];
 			};
 		};
 		case (_var isEqualTo "MHQ_2"): {
@@ -120,7 +120,7 @@ mhq_actions_fnc = {
 				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
 			};
 			if (_veh isKindOf "Ship") then {
-				_veh addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
+				_veh addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","",8];
 			};
 		};
 		case (_var isEqualTo "MHQ_3"): {
@@ -314,7 +314,7 @@ JIG_base_protection = {
 fnc_mp_push = {
 	if (hasInterface) then {
 		params ["_veh"];
-		_veh addAction [("<t color='#FF9900'>") + (localize "STR_BMR_Push") + "</t>", {call Push_Vehicle},[],-1,false,true,"","_this distance _target < 8"];
+		_veh addAction [("<t color='#FF9900'>") + (localize "STR_BMR_Push") + "</t>", {call Push_Vehicle},[],-1,false,true,"","",8];
 	};
 	true
 };
@@ -371,7 +371,7 @@ INS_toggle_Zeus = {
 	if(isNull _unit) exitWith {};
 	private _addons = [""];
 
-	private ["_curator","_curatorCreate","_text"];
+	private ["_curator","_curatorCreate","_text","_allunits"];
 	if (!isNull (getAssignedCuratorLogic _unit)) exitWith {
 		_curator = getAssignedCuratorLogic _unit;
 		unassignCurator _curator;
@@ -401,6 +401,7 @@ INS_toggle_Zeus = {
 	if (_curatorCreate) then {
 		_curator = (createGroup sideLogic) createUnit ["modulecurator_f",[0,0,0],[],0,"CAN_COLLIDE"];
 		{_curator setCuratorCoef [_x,0];} forEach ["place","edit","delete","destroy","group","synchronize"];
+		_curator setVariable ["TFAR_curatorCamEars", true];
 		_curator addEventHandler ['CuratorObjectPlaced',{
 			params ["_curator","_entity"];
 			{
@@ -447,6 +448,22 @@ INS_toggle_Zeus = {
 	removeallcuratoraddons _curator;
 	[_curator,_addons,{true},""] call BIS_fnc_manageCuratorAddons;
 	_curator addCuratorAddons _addons;
+	
+	
+	//Prevent Zeus from interrupting an extraction in progress
+	if (isDedicated && {!isNil "EvacHeliW1" && {!isNull EvacHeliW1 && {!isNull (currentPilot EvacHeliW1)}}}) then {
+		_exclude = units (group (driver EvacHeliW1));
+		_allunits = allUnits select {!(_x in _exclude)};
+	}
+	else
+	{
+		_allunits = allUnits;
+	};
+
+	_curator addCuratorEditableObjects [_allunits,true];
+
+	
+	
 	_curator addCuratorEditableObjects [allUnits,true];
 	//if (!isNil {missionNamespace getVariable "BTC_cargo_repo"} && {!isNull BTC_cargo_repo}) then {_curator removeCuratorEditableObjects [[BTC_cargo_repo],true]};
 	if (!isNil {missionNamespace getVariable "Land_DataTerminal_Obj"} && {!isNull Land_DataTerminal_Obj}) then {_curator addCuratorEditableObjects [[Land_DataTerminal_Obj],true]};
