@@ -1,6 +1,6 @@
 <div>
 <p  align="center">
-    <img src="https://bmr-squad.com/wp-content/uploads/2019/10/bmr_insurgency.jpg" width="728">
+    <img src="http://i.imgur.com/kx8f8qt.png" width="728">
 </p>
 <p align="center">
     <a href="http://discord.bmr-squad.com">Discord</a> | <a href="https://bmr-squad.com">Website</a> 
