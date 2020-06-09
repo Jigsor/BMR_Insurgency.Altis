@@ -1,5 +1,5 @@
 // fn_DigiHeading.sqf by Jigsor
-// Digital Heading of Sceen Center
+// Digital Heading of Screen Center
 
 private _display = uiNamespace getVariable ["jig_headingDisplay", displayNull];
 
