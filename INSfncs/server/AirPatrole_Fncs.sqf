@@ -175,7 +175,7 @@ find_west_target_fnc = {
 		_wpRad = selectRandom [12,24,36,48,60];
 	} else {
 		_delay = 90;
-		_wpRad = [50,150] call BIS_fnc_randomInt;
+		_wpRad = floor linearConversion [0, 1, random 1, 50 min 150, 150 max 50 + 1];
 	};
 
 	_cfgMapSize = getnumber (configfile >> "CfgWorlds" >> worldName >> "mapSize");
