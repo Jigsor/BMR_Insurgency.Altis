@@ -516,8 +516,8 @@ bmbr_spawnpos_fnc = {
 	params ["_cooX","_cooY"];
 	private ["_disX","_disY","_wheX","_wheY","_startPos","_empty","_goodPos","_c","_newPos","_mkr"];
 
-	_disX = [130,240] call BIS_fnc_randomInt;
-	_disY = [130,240] call BIS_fnc_randomInt;
+	_disX = floor linearConversion [0, 1, random 1, 130 min 240, 240 max 130 + 1];
+	_disY = floor linearConversion [0, 1, random 1, 130 min 240, 240 max 130 + 1];
 	_wheX = random (_disX*2)-_disX;
 	_wheY = random (_disY*2)-_disY;
 	_startPos = [_cooX+_wheX,_cooY+_wheY,0];
@@ -527,8 +527,8 @@ bmbr_spawnpos_fnc = {
 
 	_newPos = _startPos isFlatEmpty [15,384,0.5,2,0,false,ObjNull];
 	while {(count _newPos) < 1} do {
-		_disX = [110,135] call BIS_fnc_randomInt;
-		_disY = [110,135] call BIS_fnc_randomInt;
+		_disX = floor linearConversion [0, 1, random 1, 110 min 135, 135 max 110 + 1];
+		_disY = floor linearConversion [0, 1, random 1, 110 min 135, 135 max 110 + 1];
 		_wheX = random (_disX*2)-_disX;
 		_wheY = random (_disY*2)-_disY;
 		_startPos = [_cooX+_wheX,_cooY+_wheY,0];
