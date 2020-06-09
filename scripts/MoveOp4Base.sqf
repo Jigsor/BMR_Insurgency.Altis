@@ -35,8 +35,8 @@ if (!isNil "_rwp") then {
 	_pP = getPos _rwp;
 	_cooX = _pP # 0;
 	_cooY = _pP # 1;
-	_wheX = [250,500] call BIS_fnc_randomInt;
-	_wheY = [250,500] call BIS_fnc_randomInt;
+	_wheX = floor linearConversion [0, 1, random 1, 250 min 500, 500 max 250 + 1];
+	_wheY = floor linearConversion [0, 1, random 1, 250 min 500, 500 max 250 + 1];	
 	if (floor random 2 isEqualTo 0) then {_wheX = _wheX - (_wheX * 2)};
 	if (floor random 2 isEqualTo 0) then {_wheY = _wheY - (_wheY * 2)};
 	_Op4rP = [_cooX+_wheX,_cooY+_wheY,0];
