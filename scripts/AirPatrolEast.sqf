@@ -79,6 +79,7 @@ if (EnableEnemyAir in [1,3,4,6]) then
 
 				if (BTC_p_skill isEqualTo 1) then {[_vehgrp] call BTC_AI_init;};
 				//{_x setVariable ["asr_ai_exclude",true];} foreach _vehCrew;//ASR_AI does not affect air units
+				_vehgrp setVariable ["lambs_Danger_disableGroupAI", true]; 
 
 				_veh addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 				{_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"]} forEach (units _vehgrp);
@@ -173,6 +174,7 @@ if (EnableEnemyAir in [2,3,5,6]) then
 				_veh setVelocityModelSpace [0, _speed, 0];
 
 				if (BTC_p_skill isEqualTo 1) then {[_vehgrp] call BTC_AI_init;};
+				_vehgrp setVariable ["lambs_Danger_disableGroupAI", true]; 
 
 				_veh addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 				{_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"]} forEach (units _vehgrp);
