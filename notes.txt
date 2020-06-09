@@ -190,6 +190,22 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 			Delivery_Box setpos getpos player;
 
 
+6/8/2020
+v1_51 alpha
+Added: M2 50 caliber statics from A3 Old Man update.
+Added: Hilux from CUP Vehicles update.
+Added: _unit disableAI "RADIOPROTOCOL"; to bon_recruit_units\init_newunit.sqf
+Change: worldName to worldName >> "description" in intro so Enoch will say Livonia, N'Zwasago instead of pja310 etc.
+Change: more efficient native distance check on Push addaction on Ships.
+Change: all BIS_fnc_randomInt function calls replaced with more efficient command linearConversion.
+Added: Mission's Zeus can hear all radio Coms.
+Added: Exclusion of HeliExtraction pilot/crew transfer to Zeus.
+Added: Exclusion of Suicide bomber for lambs danger mod. // may not be nessesary.
+Added: Exclusion of Airpatrol Lambs Danger mod.
+Added: Some Chinese translations to stringtable.
+Added: New server rules.
+
+
 12/7/2019
 Update for v1_50
 Fixed: All RHS Titled versions affected/mission.sqm change. MHQ_3 (CH53E variants) model sunken into ground due to RHS updated 0.5.0.
