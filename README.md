@@ -17,3 +17,5 @@ Official BIS Thread and Change log info:
 Map variants and instructions available at : https://github.com/Jigsor/BMR-Insurgency
 ## Official Servers 
 Checkout all the official =BMR= Insurgency Servers at <a href="https://bmr-squad.com">bmr-squad.com</a>
+## Github
+All pull requests should be made on DevBranch and will not be accepted on Main Branch.
