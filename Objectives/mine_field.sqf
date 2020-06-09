@@ -10,7 +10,7 @@ _deadWmen = [];
 _checkmines = true;
 _minefielrad = 65;
 _ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
-_random_mine_cnt = [5,15] call BIS_fnc_randomInt;
+_random_mine_cnt = floor linearConversion [0, 1, random 1, 5 min 15, 15 max 5 + 1];
 
 // Positional info
 objective_pos_logic setPos _newZone;
