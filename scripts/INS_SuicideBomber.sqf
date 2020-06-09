@@ -31,10 +31,10 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 	{
 		private "_rSleep";
 		if (_ins_debug) then {
-			_rSleep = [20,40] call BIS_fnc_randomInt;
+			_rSleep = floor linearConversion [0, 1, random 1, 20 min 40, 40 max 20 + 1];
 			sleep _rSleep;
 		} else {
-			_rSleep = [900,2400] call BIS_fnc_randomInt;//15-40 minute random loop delay
+			_rSleep = floor linearConversion [0, 1, random 1, 900 min 2400, 2400 max 900 + 1];//15-40 minute random loop delay
 			sleep _rSleep;
 		};
 
@@ -125,6 +125,7 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 
 			(group _unit) setVariable ["zbe_cacheDisabled",true];
 			_unit setVariable ["asr_ai_exclude",true];
+			_unit setVariable ["lambs_danger_disableAI", true];
 
 			_unit addeventhandler ["killed",{_this call killed_ss_bmbr_fnc; [(_this # 0)] spawn remove_carcass_fnc}];
 			_bmbrdir = random_w_player4 getDir _unit;
