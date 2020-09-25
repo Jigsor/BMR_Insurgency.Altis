@@ -64,6 +64,9 @@ if (DebugEnabled > 0) then {
 		if !(player getUnitTrait "explosiveSpecialist") then {player setUnitTrait ['explosiveSpecialist',true]};
 		0=[] execVM "scripts\minedetector.sqf";
 	};
+	if (_playertype in INS_all_medics) then {
+		if !(player getUnitTrait "Medic") then {player setUnitTrait ['Medic',true];
+	};
 
 	// Fatigue and Stamina
 	setStaminaScheme "FastDrain";
