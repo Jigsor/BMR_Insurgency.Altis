@@ -27,6 +27,7 @@ showMap                 = 1;// Allow Map
 showWatch               = 1;// Allow Watch
 forceRotorLibSimulation = 0;// Default value: 0 = options based; 1 = force enable; 2 = force disable
 unsafeCVL               = 1;// Allow createVehicleLocal. 0 = prohibited (default) - 1 = allowed.
+arsenalRestrictedItems[] = {"HLC_wp_M134Painless"};//Used to blacklist undesired Arsenal equipment, which prevents user saved loadout from being loaded if it contains restricted items.
 
 #include "Hpp\Parameters.hpp"
 
