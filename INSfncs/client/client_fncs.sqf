@@ -963,7 +963,7 @@ GAS_smokeClear = {
 	20 fadeSound 1;
 };
 INS_EarPlugs = {
-	if (INS_ACE_core && {ace_hearing_EnableCombatDeafness}) exitWith {
+	if (INS_ACE_core && {missionnamespace getvariable ['ace_hearing_EnableCombatDeafness', false]}) exitWith {
 		if (!([player] call ace_hearing_fnc_hasEarPlugsIn) && {'ACE_EarPlugs' in items player}) then {
 			[player] call ace_hearing_fnc_putInEarPlugs;
 		} else {
