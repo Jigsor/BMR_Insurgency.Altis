@@ -110,6 +110,7 @@ paint_heli_fnc = {
 			case (toLower (worldName) isEqualTo "tem_anizay"): {_color = _darkGrey};
 			case (toLower (worldName) isEqualTo "pja312"): {_color = _green2};
 			case (toLower (worldName) isEqualTo "wl_rosche"): {_color = _green1};
+			case (toLower (worldName) isEqualTo "hyde_sark"): {_color = _green1};
 			default {_color = []};
 		};
 		if (_color isEqualTo []) exitWith {missionNamespace setVariable ["BMR_paintSchemeB1", []]};
