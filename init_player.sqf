@@ -65,7 +65,7 @@ if (DebugEnabled > 0) then {
 		0=[] execVM "scripts\minedetector.sqf";
 	};
 	if (_playertype in INS_all_medics) then {
-		if !(player getUnitTrait "Medic") then {player setUnitTrait ['Medic',true];
+		if !(player getUnitTrait "Medic") then {player setUnitTrait ['Medic',true]};
 	};
 
 	// Fatigue and Stamina
