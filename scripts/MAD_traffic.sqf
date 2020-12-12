@@ -13,11 +13,11 @@ MAD_maxCarDistance = _this # 2; //max distance until cars despawn
 if (isNil "WBpos") then {WBpos = getPosATL trig_alarm1init};
 //Jig adding exclusion distance
 ExcDis = 600;
-if ((toLower (worldName)) in ["tem_anizay","clafghan","napf","napfwinter","kapaulio","wl_rosche","xcam_taunus","enoch"]) then {ExcDis = 750};
+if ((toLowerANSI worldName) in ["tem_anizay","clafghan","napf","napfwinter","kapaulio","wl_rosche","xcam_taunus","enoch"]) then {ExcDis = 750};
 //Jig adding map size
 MTnlRad = getnumber (configfile >> "CfgWorlds" >> worldName >> "mapSize");
 if ((isNil "MTnlRad") || {MTnlRad isEqualTo 0}) then {MTnlRad = 30000};
-if (toLower (worldName) isEqualTo "stratis") then {MTnlRad = 6700};
+if ((toLowerANSI worldName) isEqualTo "stratis") then {MTnlRad = 6700};
 
 MAD_carsArray = [];
 
@@ -88,8 +88,9 @@ MAD_spawnCar = {
 		_driver addeventhandler ["killed", {_this spawn INSciviKilled_fnc}];
 		(group _driver) setVariable ["zbe_cacheDisabled",true];
 		_driver moveindriver _spawncar;
-		_driver setbehaviour "SAFE";
 		_spawncar setvariable ["MAD_car_driver", _driver];
+		_driver setbehaviour "SAFE";
+		_driver disableAI "MINEDETECTION";
 		[leader _sqname] call MAD_carWaypoint;
 	};
 };
