@@ -216,7 +216,10 @@ find_west_target_fnc = {
 					_wp1 setWaypointPosition [_cntrPos, _wpRad];
 					(group _vcl) setCurrentWaypoint _wp1;
 
-					{_x reveal (_nrstWTgts # 0);} forEach (units group _vcl);
+					{
+						_x forgetTarget (_nrstWTgts # 0);
+						_x reveal [(_nrstWTgts # 0), 4];
+					} forEach (units group _vcl);
 
 					private _chance = floor(random 3);
 					if (_chance >= 1) then {
@@ -267,7 +270,8 @@ find_west_target_fnc = {
 
 						_cntrPos = getPos _victim;
 						{
-							_x reveal _victim;
+							_x forgetTarget _victim;
+							_x reveal [_victim, 4];
 							_x doTarget _cntrPos;
 							_x doFire _cntrPos;
 						} forEach (units group _vcl);
@@ -310,7 +314,8 @@ find_west_target_fnc = {
 					(group _vcl) setCurrentWaypoint _wp1;
 
 					{
-						_x reveal (_nrstWTgts # 0);
+						_x forgetTarget (_nrstWTgts # 0);
+						_x reveal [(_nrstWTgts # 0), 4];
 						_x doTarget _cntrPos;
 						_x doFire _cntrPos;
 					} forEach (units group _vcl);
@@ -337,7 +342,8 @@ find_west_target_fnc = {
 			};
 
 			{
-				_x reveal _hunted;
+				_x forgetTarget _hunted;
+				_x reveal [_hunted, 4];
 				_x doTarget _hunted;
 				_x doFire _hunted;
 			} forEach (units group _vcl);
