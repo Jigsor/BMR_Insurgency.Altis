@@ -63,10 +63,8 @@ IrOn = _target addAction["<t color='#FF00CC'>Strobe IR On</t>", "ATM_airdrop\atm
 _loadout=[_target] call ATM_Getloadout;
 
 _posJump = markerPos "mkr_halo";
-_x = _posJump # 0;
-_y = _posJump # 1;
-_z = _posJump # 2;
-_target setPos [_x,_y,_z+Altitude];
+_posJump set [2, Altitude];
+_target setPos _posJump;
 
 openMap false;
 deleteMarker "mkr_halo";
