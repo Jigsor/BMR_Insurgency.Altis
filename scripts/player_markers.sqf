@@ -33,20 +33,20 @@ USAGE:
 */
 
 if (isDedicated) exitWith {}; // is server
-if (!isNil{aero_player_markers_pos}) exitWith {}; // already running
+if (!isNil{AeroPlayerMkrsPos}) exitWith {}; // already running
 
 private _showAllSides=false;
 private _showPlayers=false;
-private _showAIs=false;
+private _showAIs=true;
 
 if(count _this==0) then {
 	_showAllSides=false;
 	_showPlayers=true;
-	_showAIs=!isMultiplayer;
+	//_showAIs=!isMultiplayer;
 };
 
 {
-	private _l=toLower _x;
+	private _l=toLowerANSI _x;
 	if(_l in ["player","players"]) then {
 		_showPlayers=true;
 	};
@@ -58,164 +58,159 @@ if(count _this==0) then {
 	};
 } forEach _this;
 
-aero_player_markers_pos = [0,0];
+AeroPlayerMkrsPos = [0,0];
 
 ["PlayerMarkers_mapclick","onMapSingleClick", {
-	aero_player_markers_pos=_pos;
+	AeroPlayerMkrsPos=_pos;
 }] call BIS_fnc_addStackedEventHandler;
 
-private "_markerNumber";
-private _getNextMarker = {
-	_markerNumber = _markerNumber + 1;
-	private _marker = format["um%1",_markerNumber];
-	if(getMarkerType _marker isEqualTo "") then {
-		createMarkerLocal [_marker, _this];
+private "_mkrNo";
+private _getNextMkr = {
+	_mkrNo = _mkrNo + 1;
+	private _mkr = format["um%1",_mkrNo];
+	if(getMarkerType _mkr isEqualTo "") then {
+		createMarkerLocal [_mkr, _this];
 	} else {
-		_marker setMarkerPosLocal _this;
+		_mkr setMarkerPosLocal _this;
 	};
-	_marker;
+	_mkr;
 };
 
-private _getMarkerColor = {
+private _getMkrCol = {
 	[(((side _this) call bis_fnc_sideID) call bis_fnc_sideType),true] call bis_fnc_sidecolor;
 };
 disableSerialization;
 
 while {true} do {
-
-	waitUntil {
-		uisleep 1;
-		true;
-	};
-
-	_markerNumber = 0;
+	uisleep 1;
+	_mkrNo = 0;
 
 	// show players or player's vehicles
 	{
 		private _show = false;
 		private _injured = false;
-		private _unit = _x;
+		private _u = _x;
 
 		if(
 			(
-				(_showAIs && {!isPlayer _unit} && {0=={ {_x==_unit} count crew _x>0} count allUnitsUav}) ||
-				(_showPlayers && {isPlayer _unit})
+				(_showAIs && {!isPlayer _u} && {0=={ {_x==_u} count crew _x>0} count allUnitsUav}) ||
+				(_showPlayers && {isPlayer _u})
 			) && {
-				_showAllSides || side _unit isEqualTo side player
+				_showAllSides || side _u isEqualTo side player
 			}
 		) then {
-			if((crew vehicle _unit) select 0 == _unit) then {
+			if((crew vehicle _u) select 0 == _u) then {
 				_show = true;
 			};
-			if(!alive _unit || damage _unit > 0.9) then {
+			if(!alive _u || damage _u > 0.9) then {
 				_injured = true;
 			};
-			if(!isNil {_unit getVariable "hide"}) then {
+			if(!isNil {_u getVariable "hide"}) then {
 				_show = false;
 			};
-			if(_unit getVariable ["BTC_need_revive",-1] == 1 || {lifeState _unit isEqualTo "INCAPACITATED"} || {_unit getVariable ["ACE_isUnconscious", false]}) then {
+			if(_u getVariable ["BTC_need_revive",-1] == 1 || {lifeState _u isEqualTo "INCAPACITATED"} || {_u getVariable ["ACE_isUnconscious", false]}) then {
 				_injured = true;
 				_show = false;
 			};
 		};
 
 		if(_show) then {
-			private _vehicle = vehicle _unit;
-			_pos = getPosWorld _vehicle;
-			_color = _unit call _getMarkerColor;
+			private _veh = vehicle _u;
+			_pos = getPosWorld _veh;
+			_col = _u call _getMkrCol;
 
-			private _markerText = _pos call _getNextMarker;
-			_markerText setMarkerColorLocal _color;
- 			_markerText setMarkerTypeLocal "c_unknown";
-			_markerText setMarkerSizeLocal [0.8,0];
+			private _mkrTxt = _pos call _getNextMkr;
+			_mkrTxt setMarkerColorLocal _col;
+ 			_mkrTxt setMarkerTypeLocal "c_unknown";
+			_mkrTxt setMarkerSizeLocal [0.8,0];
 
-			private _marker = _pos call _getNextMarker;
-			_marker setMarkerColorLocal _color;
-			_marker setMarkerDirLocal getDir _vehicle;
-			_marker setMarkerTypeLocal "mil_triangle";
-			_marker setMarkerTextLocal "";
-			if(_vehicle == vehicle player) then {
-				_marker setMarkerSizeLocal [0.8,1];
+			private _mkr = _pos call _getNextMkr;
+			_mkr setMarkerColorLocal _col;
+			_mkr setMarkerDirLocal getDir _veh;
+			_mkr setMarkerTypeLocal "mil_triangle";
+			_mkr setMarkerTextLocal "";
+			if(_veh == vehicle player) then {
+				_mkr setMarkerSizeLocal [0.8,1];
 			} else {
-				_marker setMarkerSizeLocal [0.5,0.7];
+				_mkr setMarkerSizeLocal [0.5,0.7];
 			};
 
-			private "_text";
- 			if(_vehicle != _unit && !(_vehicle isKindOf "ParachuteBase")) then {
-				_text = format["[%1]", getText(configFile>>"CfgVehicles">>typeOf _vehicle>>"DisplayName")];
-				if(!isNull driver _vehicle && {alive driver _vehicle}) then {
-					_text = format["%1 %2", name driver _vehicle, _text];
+			private "_txt";
+ 			if(_veh != _u && !(_veh isKindOf "ParachuteBase")) then {
+				_txt = format["[%1]", getText(configFile>>"CfgVehicles">>typeOf _veh>>"DisplayName")];
+				if(!isNull driver _veh && {alive driver _veh}) then {
+					_txt = format["%1 %2", name driver _veh, _txt];
 				};
 
 				private "_num";
-				if((aero_player_markers_pos distance2D getPosWorld _vehicle) < 50) then {
-					aero_player_markers_pos = getPosWorld _vehicle;
+				if((AeroPlayerMkrsPos distance2D getPosWorld _veh) < 50) then {
+					AeroPlayerMkrsPos = getPosWorld _veh;
 					_num = 0;
 					{
-						if(alive _x && isPlayer _x && _x != driver _vehicle) then {
-							_text = format["%1%2 %3", _text, if(_num>0)then{","}else{""}, name _x];
+						if(alive _x && isPlayer _x && _x != driver _veh) then {
+							_txt = format["%1%2 %3", _txt, if(_num>0)then{","}else{""}, name _x];
 							_num = _num + 1;
 						};
-					} forEach crew _vehicle;
+					} forEach crew _veh;
 				} else {
-					_num = {alive _x && isPlayer _x && _x != driver _vehicle} count crew _vehicle;
+					_num = {alive _x && isPlayer _x && _x != driver _veh} count crew _veh;
 					if (_num>0) then {
-						if (isNull driver _vehicle) then {
-							_text = format["%1 %2", _text, name (crew _vehicle select 0)];
+						if (isNull driver _veh) then {
+							_txt = format["%1 %2", _txt, name (crew _veh select 0)];
 							_num = _num - 1;
 						};
 						if (_num>0) then {
-							_text = format["%1 +%2", _text, _num];
+							_txt = format["%1 +%2", _txt, _num];
 						};
 					};
 				};
 			} else {				
-				_text = ["Unidentified", name _x] select (alive _x); //if dead "Unidentified" is selected
+				_txt = ["Unidentified", name _x] select (alive _x); //if dead "Unidentified" is selected
 			};
-			_markerText setMarkerTextLocal _text;
+			_mkrTxt setMarkerTextLocal _txt;
 		};
 	} forEach allUnits;
 
 	// show player controlled uavs
 	{
 		if(isUavConnected _x) then {
-			private _unit=(uavControl _x) select 0;
+			private _u=(uavControl _x) select 0;
 			if(
 				(
-					(_showAIs && {!isPlayer _unit}) ||
-					(_showPlayers && {isPlayer _unit})
+					(_showAIs && {!isPlayer _u}) ||
+					(_showPlayers && {isPlayer _u})
 				) && {
-					_showAllSides || side _unit==side player
+					_showAllSides || side _u==side player
 				}
 			) then {
-				_color = _x call _getMarkerColor;
+				_col = _x call _getMkrCol;
 				_pos = getPosWorld _x;
 
-				private _marker = _pos call _getNextMarker;
-				_marker setMarkerColorLocal _color;
-				_marker setMarkerDirLocal getDir _x;
-				_marker setMarkerTypeLocal "mil_triangle";
-				_marker setMarkerTextLocal "";
-				if(_unit == player) then {
-					_marker setMarkerSizeLocal [0.8,1];
+				private _mkr = _pos call _getNextMkr;
+				_mkr setMarkerColorLocal _col;
+				_mkr setMarkerDirLocal getDir _x;
+				_mkr setMarkerTypeLocal "mil_triangle";
+				_mkr setMarkerTextLocal "";
+				if(_u == player) then {
+					_mkr setMarkerSizeLocal [0.8,1];
 				} else {
-					_marker setMarkerSizeLocal [0.5,0.7];
+					_mkr setMarkerSizeLocal [0.5,0.7];
 				};
 
-				private _markerText = _pos call _getNextMarker;
-				_markerText setMarkerColorLocal _color;
-				_markerText setMarkerTypeLocal "c_unknown";
-				_markerText setMarkerSizeLocal [0.8,0];
-				_markerText setMarkerTextLocal format["%1 [%2]", name _unit, getText(configFile>>"CfgVehicles">>typeOf _x>>"DisplayName")];
+				private _mkrTxt = _pos call _getNextMkr;
+				_mkrTxt setMarkerColorLocal _col;
+				_mkrTxt setMarkerTypeLocal "c_unknown";
+				_mkrTxt setMarkerSizeLocal [0.8,0];
+				_mkrTxt setMarkerTextLocal format["%1 [%2]", name _u, getText(configFile>>"CfgVehicles">>typeOf _x>>"DisplayName")];
 			};
 		};
 	} forEach allUnitsUav;
 
-	_markerNumber = _markerNumber + 1;
-	private _marker = format["um%1",_markerNumber];
-	while {(getMarkerType _marker) != ""} do {
-		deleteMarkerLocal _marker;
-		_markerNumber = _markerNumber + 1;
-		_marker = format["um%1",_markerNumber];
+	_mkrNo = _mkrNo + 1;
+	private _mkr = format["um%1",_mkrNo];
+	while {(getMarkerType _mkr) != ""} do {
+		deleteMarkerLocal _mkr;
+		_mkrNo = _mkrNo + 1;
+		_mkr = format["um%1",_mkrNo];
 	};
 };
