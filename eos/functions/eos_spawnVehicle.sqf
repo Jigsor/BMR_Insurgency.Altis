@@ -11,8 +11,12 @@ _special=if (count _this > 4) then {_this # 4} else {"CAN_COLLIDE"};
 _vehRoles=[_vehType] call BIS_fnc_vehicleRoles;
 _vehRoleCount=count _vehRoles;
 
-if (_vehRoleCount > 8 && {!(_vehType isKindOf "AIR")}) then {//reduce AI count in non Air vehicles to 8 max.
-	_vehRoles deleteRange [8, _vehRoleCount];
+if (_vehRoleCount > 8) then {
+	if (_vehType isKindOf "AIR") then {
+		_vehRoles deleteRange [10, _vehRoleCount];//reduce AI count in Air vehicles to 10 max.
+	} else {
+		_vehRoles deleteRange [8, _vehRoleCount];//reduce AI count in non Air vehicles to 8 max.
+	};
 };
 
 _vehicle=createVehicle [_vehType, _position, [], 0, _special];
