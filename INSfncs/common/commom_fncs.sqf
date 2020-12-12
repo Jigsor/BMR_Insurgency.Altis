@@ -460,11 +460,8 @@ INS_toggle_Zeus = {
 		_allunits = allUnits;
 	};
 
-	_curator addCuratorEditableObjects [_allunits,true];
+	_curator addCuratorEditableObjects [_allunits,true];	
 
-	
-	
-	_curator addCuratorEditableObjects [allUnits,true];
 	//if (!isNil {missionNamespace getVariable "BTC_cargo_repo"} && {!isNull BTC_cargo_repo}) then {_curator removeCuratorEditableObjects [[BTC_cargo_repo],true]};
 	if (!isNil {missionNamespace getVariable "Land_DataTerminal_Obj"} && {!isNull Land_DataTerminal_Obj}) then {_curator addCuratorEditableObjects [[Land_DataTerminal_Obj],true]};
 	_unit assignCurator _curator;
