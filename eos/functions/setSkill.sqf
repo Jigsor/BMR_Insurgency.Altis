@@ -22,6 +22,8 @@ _isNight = if (daytime > _dusk || daytime < _dawn) then {true} else {false};
 	}];
 
 	//Jig adding
+	_binocs = binocular _unit;
+	if !(_binocs isEqualTo "") then {_unit removeWeapon _binocs};
 	_unit unlinkitem (hmd _unit);
 	if (_grpSide isEqualTo east && {(_nvg && {_isNight})}) then {
 		_unit linkItem "NVGoggles_OPFOR";
