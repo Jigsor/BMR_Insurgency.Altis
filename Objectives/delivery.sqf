@@ -22,11 +22,11 @@ if (isNil "INS_Op4_Veh_AA" || {INS_Op4_Veh_AA isEqualTo []}) then {
 objective_pos_logic setPos _newZone;
 
 private _objmkr = createMarker ["ObjectiveMkr", _newZone];
-"ObjectiveMkr" setMarkerShape "ELLIPSE";
-"ObjectiveMkr" setMarkerSize [2, 2];
-"ObjectiveMkr" setMarkerShape "ICON";
-"ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "ColorRed";
+_objmkr setMarkerShape "ELLIPSE";
+_objmkr setMarkerSize [2, 2];
+_objmkr setMarkerShape "ICON";
+_objmkr setMarkerType "mil_dot";
+_objmkr setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Delivery Zone";
 
 "deliveryfail" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
@@ -89,15 +89,14 @@ Demo_Arrow = createVehicle ["Sign_Arrow_Large_Yellow_F", getPosATL MHQ_3, [], 0,
 sleep jig_tvt_globalsleep;
 Demo_Arrow setPos [getPos Demo_Arrow # 0, getPos Demo_Arrow # 1, 6];
 
-private ["_newPos","_tmarker"];
-_newPos = (getposATL MHQ_3);
+private _newPos = (getposATL MHQ_3);
 
 if !(getMarkerColor "Task_Transport" isEqualTo "") then {deleteMarker "Task_Transport"};
-_tmarker = createMarker ["Task_Transport", _newPos];
-"Task_Transport" setMarkerShape "ICON";
-"Task_Transport" setMarkerSize [2, 2];
-"Task_Transport" setMarkerType "mil_dot";
-"Task_Transport" setMarkerColor "ColorBlue";
+private _tmarker = createMarker ["Task_Transport", _newPos];
+_tmarker setMarkerShape "ICON";
+_tmarker setMarkerSize [2, 2];
+_tmarker setMarkerType "mil_dot";
+_tmarker setMarkerColor "ColorBlue";
 "Task_Transport" setMarkerText "Task_Transport";
 publicVariable "Task_Transport";
 sleep 2;
@@ -162,8 +161,9 @@ while {_makedelivery} do
 		_newPos = [_newZone, 0, 75, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
 		private _AA = [_newPos, 180, _type, INS_Op4_side] call bis_fnc_spawnvehicle;
 		sleep jig_tvt_globalsleep;
-		_AAveh = _AA select 0;
-		_vehgrp = _AA select 2;
+
+		_AAveh = _AA # 0;
+		_vehgrp = _AA # 2;
 
 		_AAveh addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 		{_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"]} forEach (units _vehgrp);
