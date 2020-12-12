@@ -14,7 +14,7 @@ BTC_assign_actions = {
 			(localize "str_a3_cfgrespawntemplates_revive_displayname"),
 			"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_revive_ca.paa",
 			"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_reviveMedic_ca.paa",
-			"[] call BTC_check_action_first_aid",
+			"call BTC_check_action_first_aid",
 			"true",
 			{player playMove "AinvPknlMstpSlayWrflDnon_medic"},
 			{}, //{hintSilent ""},
@@ -162,15 +162,18 @@ BTC_fnc_PVEH = {
 	};
 };
 BTC_first_aid = {
-	private ["_injured","_array_item_injured","_array_item","_cond"];
-	_injured = objNull;
+	private _injured = objNull;
 	_men = nearestObjects [player, ["Man"], 2];
 	if (count _men < 2) exitWith {_injured};
-	if (count _men > 1) then {_injured = _men # 1};
+	if (count _men > 1) then {
+		_injured = _men # 1;
+		_men = nearestObjects [player, ["Man"], 2, true];
+		if !(_injured isEqualTo (_men # 1)) exitWith {objNull};
+	};
 	if (format ["%1",_injured getVariable "BTC_need_revive"] != "1") exitWith {_injured};
-	_array_item = items player;
-	_array_item_injured = items _injured;
-	_cond = false;
+	private _array_item = items player;
+	private _array_item_injured = items _injured;
+	private _cond = false;
 	if (BTC_need_first_aid isEqualTo 0) then {_cond = true};
 	if ((_array_item_injured find "FirstAidKit" == -1) && (BTC_need_first_aid isEqualTo 1)) then {_cond = false;} else {_cond = true;};
 	if ((!_cond && BTC_need_first_aid isEqualTo 1) && {_array_item find "FirstAidKit" == -1}) then {_cond = false;} else {_cond = true;};
@@ -184,7 +187,7 @@ BTC_first_aid = {
 	_injured
 };
 BTC_drag = {
-	private "_injured";
+	private _injured = objNull;
 	_men = nearestObjects [player, ["Man"], 2];
 	if (count _men > 1) then {_injured = _men # 1};
 	if (format ["%1",_injured getVariable "BTC_need_revive"] != "1") exitWith {};
@@ -223,7 +226,7 @@ BTC_drag = {
 	BTC_dragging = false;
 };
 BTC_carry = {
-	private "_injured";
+	private _injured = objNull;
 	_men = nearestObjects [player, ["Man"], 2];
 	if (count _men > 1) then {_injured = _men # 1};
 	if (format ["%1",_injured getVariable "BTC_need_revive"] != "1") exitWith {};
