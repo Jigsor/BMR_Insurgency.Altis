@@ -31,16 +31,18 @@ ICE_HUD = {
 
 		_dir = if (isNull objectParent player) then {getDir player}else{getDir vehicle player};
 
-		switch (true) do {
-			case (_dir >= 337.5 || _dir < 22.5): {_heading = "N"};
-			case (_dir >= 292.5 && _dir < 337.5): {_heading = "NW"};
-			case (_dir >= 247.5 && _dir < 292.5): {_heading = "W"};
-			case (_dir >= 202.5 && _dir < 247.5): {_heading ="SW"};
-			case (_dir >= 157.5 && _dir < 202.5): {_heading ="S"};
-			case (_dir >= 112.5 && _dir < 157.5): {_heading ="SE"};
-			case (_dir >= 67.5 && _dir < 112.5): {_heading ="E"};
-			case (_dir >= 22.5 && _dir < 67.5): {_heading ="NE"};
-		};
+		_heading = call {
+			_dir45 = round (_dir/45) ;
+			if (_dir45 == 1) exitWith {"NE"};
+			if (_dir45 == 2) exitWith {"E"};
+			if (_dir45 == 3) exitWith {"SE"};
+			if (_dir45 == 4) exitWith {"S"};
+			if (_dir45 == 5) exitWith {"SW"};
+			if (_dir45 == 6) exitWith {"W"};
+			if (_dir45 == 7) exitWith {"NW"};
+			"N"
+		} ;
+
 		_ctrlDir ctrlSetText format ["%1", _heading];
     };
 };
