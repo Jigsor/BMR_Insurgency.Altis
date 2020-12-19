@@ -91,6 +91,12 @@ MAD_spawnCar = {
 		_spawncar setvariable ["MAD_car_driver", _driver];
 		_driver setbehaviour "SAFE";
 		_driver disableAI "MINEDETECTION";
+
+		_spawncar addEventHandler ["GetOut", {
+			params ["","","_unit"];
+			MAD_carsArray pushBack _unit;
+		}];
+
 		[leader _sqname] call MAD_carWaypoint;
 	};
 };
@@ -124,6 +130,9 @@ MAD_deleteCars = {
 	}else{
 		_players = [player];
 	};
+
+	_index = MAD_carsArray findIf {vehicleVarName _x isEqualTo "sstBomber"};
+	if (_index != -1) then {MAD_carsArray deleteAt _index};
 
 	private "_car";
 	{
