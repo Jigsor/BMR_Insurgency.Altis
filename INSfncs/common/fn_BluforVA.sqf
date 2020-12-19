@@ -617,8 +617,8 @@ _availableMagazines = [
 	"LIB_8Rnd_762x63_t",
 	"LIB_5Rnd_762x63",
 	"LIB_5Rnd_762x63_t",
-	"LIB_20Rnd_762x63",
-	"LIB_50Rnd_762x63",
+	"LIB_20Rnd_762x63",//BAR
+	"LIB_50Rnd_762x63",//M1919
 	"LIB_30Rnd_45ACP",
 	"LIB_30Rnd_45ACP_t",
 	"LIB_50Rnd_45ACP",
@@ -659,6 +659,7 @@ _availableMagazines = [
 	"LIB_1rnd_82mmHE_BM37",
 	"LIB_1rnd_60mmHE_M2",
 	"LIB_M3_MINE_mag",
+	"LIB_30Rnd_770x56",//BREN
 
 	"fow_1Rnd_pzfaust_100",
 	"fow_10nd_792x57",
@@ -724,9 +725,10 @@ _availableMagazines = [
 
 _availableWeapons = [
 //IFA3
-	"LIB_Binocular_US",
 	"LIB_Binocular_GER",
 	"LIB_Binocular_SU",
+	"LIB_Binocular_US",
+	"LIB_Binocular_UK",
 	"LIB_FG42G",
 	"LIB_G3340",
 	"LIB_G41",
