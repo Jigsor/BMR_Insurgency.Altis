@@ -190,8 +190,8 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 			Delivery_Box setpos getpos player;
 
 
-12/09/2020
-v1_51 alpha internal version No. 1.5081
+12/18/2020
+v1_51 alpha internal version No. 1.5083
 Added: M2 50 caliber statics from A3 Old Man update.
 Added: Hilux from CUP Vehicles update.
 Added: _unit disableAI "RADIOPROTOCOL"; to bon_recruit_units\init_newunit.sqf
@@ -203,7 +203,7 @@ Change: faster and newer toLowerANSI in place of of toLower command.
 Change: reduced max number of units in Air vehicles to 10.
 Change: Disabled minedetection on Civilian AI drivers.
 Change: Removed Binoculars from Grid AI.
-Change: Freindly AI markers now visible on map. Marker code greatly shortened.
+Change: Friendly AI markers now visible on map. Marker code greatly shortened.
 Added: New mission version BMR_Insurgency_Green.Hyde_Sark
 Added: New mission version BMR_Insurgency_vXXX.cup_chernarus_A3
 Added: Mission's Zeus can hear all radio Coms.
@@ -212,7 +212,9 @@ Added: Exclusion of Suicide bomber for lambs danger mod. // may not be nessesary
 Added: Exclusion of Airpatrol Lambs Danger mod.
 Added: Some Chinese translations to stringtable.
 Added: New server rules.
+Added: to whitelisted Arsenal some newer IFA3 UK gear.
 Fixed: Infinate foot Civi waypoints. (needs verification)
+Fixed: Infinate Civi vehicle waypoints. (needs verification), EOS foot Civi was probably ok.
 Fixed: False positive confirmation of player revived when to many alive players are near a downed player who needs reviving in =BTC= Revive.
 Fixed: Player actions for drag carry removed when other players are very close to downed player.
 
