@@ -631,7 +631,7 @@ _availableMagazines = [
 	"LIB_7Rnd_9x19",
 
 	"LIB_30Rnd_770x56",//BREN
-	"LIB_20Rnd_762x63"//BAR
+	"LIB_20Rnd_762x63",//BAR
 	"LIB_50Rnd_762x63",//M1919
 
 	"fow_1Rnd_pzfaust_100",
