@@ -282,7 +282,7 @@ if (hasInterface) then
 		};
 
 		call compile preProcessFileLineNumbers "init_player.sqf";
-		call compile preprocessFile "INSui\UI\HUD.sqf";
+		call compile preprocessFileLineNumbers "INSui\UI\HUD.sqf";
 		if (INS_Player_Markers isEqualTo 1) then {0 = [] execVM 'scripts\player_markers.sqf';};
 		execVM "scripts\zlt_fastrope.sqf";
 	};

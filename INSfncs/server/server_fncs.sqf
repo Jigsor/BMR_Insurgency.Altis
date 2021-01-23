@@ -155,7 +155,7 @@ fnc_ghst_build_positions = {
 		_e = _this buildingExit _i;
 		_p = _this buildingPos _i;
 
-		if (( str _p != "[0,0,0]" ) && {!(_type in StructureBlackList)} && {!(_type find "_Pier" != -1)} && {!(_e isEqualTo _p)}) then {
+		if (( str _p != "[0,0,0]" ) && {!(_e isEqualTo _p)} && {!(_type in StructureBlackList)} && {!(toLowerANSI _type find "_pier" != -1)}) then {
 			_b pushback _p;
 		}else{
 			_pIsEmpty = true;

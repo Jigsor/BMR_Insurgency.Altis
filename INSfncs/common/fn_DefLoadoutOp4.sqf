@@ -5,6 +5,7 @@ waitUntil {alive _p};
 // CSAT (A3) or CSAT (Pacific)
 if (INS_op_faction in [1,4,5]) exitWith {
 	removeAllAssignedItems _p;
+	//{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles_OPFOR"];
 	["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles_OPFOR"] apply {_p linkItem _x};
 };
 
@@ -53,6 +54,7 @@ if (INS_op_faction in [2,3]) exitWith {
 	_p addprimaryweaponitem "optic_Hamr";
 	_p addprimaryweaponitem "acc_flashlight";//"optic_Arco","optic_MRCO"
 
+	//{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles_INDEP"];
 	["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles_INDEP"] apply {_p linkItem _x};
 };
 
@@ -90,6 +92,7 @@ if (INS_op_faction in [6,7]) exitWith {
 	_p addHeadgear "H_HelmetHBK_ear_F";
 	_p addGoggles "G_Tactical_Clear";
 
+	//{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS","NVGoggles_INDEP"];
 	["ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS","NVGoggles_INDEP"] apply {_p linkItem _x};
 
 	[_p,"WhiteHead_22_l","male03pol"] call BIS_fnc_setIdentity;
@@ -181,6 +184,7 @@ case 9: {
 	[_p,"hgun_ACPC2_F",2] call BIS_fnc_AddWeapon;//"hgun_ACPC2_F" compatible mags = "9Rnd_45ACP_Mag"
 	_p addprimaryweaponitem "rhs_acc_1p29";
 
+	//{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"];//"NVGoggles_OPFOR"
 	["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"] apply {_p linkItem _x};//"NVGoggles_OPFOR"
 };
 case 10: {
@@ -219,6 +223,7 @@ case 10: {
 	[_p,"hgun_ACPC2_F",2] call BIS_fnc_AddWeapon;//"hgun_ACPC2_F" compatible mags = "9Rnd_45ACP_Mag"
 	_p addprimaryweaponitem "rhs_acc_1p29";
 
+	//{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"];//"NVGoggles_OPFOR"
 	["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"] apply {_p linkItem _x};//"NVGoggles_OPFOR"
 };
 case 11: {

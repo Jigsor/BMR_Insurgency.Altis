@@ -26,5 +26,9 @@ class BMRINS
 		class arsenalWeaponRemoval {};
 		class bypassVehCrashDamage {};
 		class playerHang {};
+		class DefLoadoutOp4 {};
+		class Op4PlayerKilled {};
+		class Op4buildingPos {};
+		class MoveOp4Base {};
 	};
 };

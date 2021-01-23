@@ -301,7 +301,7 @@ class Params
 	title = "		Third person view in vehicles only?";
 	values[]={0,1};
 	texts[]={"No","Yes"};
-	default = 0;
+	default = 1;
 	};
 	class INS_Player_Markers//37
 	{

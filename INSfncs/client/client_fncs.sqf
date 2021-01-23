@@ -21,6 +21,7 @@ INS_intro_playTrack = {
 };
 INS_intro = {
 	// Bluefor Intro by Jigsor
+	player enableSimulation false;
 	disableSerialization;
 	showCinemaBorder false;
 	enableRadio false;
@@ -58,6 +59,7 @@ INS_intro = {
 	player sideChat localize "STR_BMR_intro_tip1";
 	player sideChat localize "STR_BMR_intro_tip2";
 	waitUntil {camcommitted _cam};
+	player enableSimulation true;
 	player cameraEffect ["Terminate", "BACK"];
 	setViewDistance -1;
 	camDestroy _cam;
@@ -70,6 +72,7 @@ INS_intro = {
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
+	player enableSimulation false;
 	disableSerialization;
 	showCinemaBorder false;
 	enableRadio false;
@@ -96,6 +99,7 @@ INS_intro_op4 = {
 	[_text, safezoneX - 0.01, safeZoneY + (1 - 0.125) * safeZoneH, true, "<t align='right' size='1.0' font='PuristaLight'>%1</t>"] spawn BIS_fnc_typeText2;
 	UIsleep 3;
 	waitUntil {camcommitted _cam};
+	player enableSimulation true;
 	player cameraEffect ["Terminate","BACK"];
 	UIsleep 0.5;
 	0 spawn {
@@ -473,7 +477,7 @@ JIG_intel_found = {
 	[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 
 	_direction = floor random 360;
-	_distance = [10,_maxClueDis] call BIS_fnc_randomInt; // Minimum intel marker range 10m. Maximum intel marker range defined by INS_maxClueDis in INS_definitions.sqf.
+	_distance = floor linearConversion [0, 1, random 1, 10 min _maxClueDis, _maxClueDis max 10 + 1]; // Minimum intel marker range 10m. Maximum intel marker range defined by INS_maxClueDis in INS_definitions.sqf.
 	_randomPos = _pos_info getPos [_distance, _direction];
 
 	_rnum = str(round (random 999));
@@ -504,7 +508,7 @@ JIG_intel_found = {
 	};
 	true
 };
-Op4_spawn_pos = {
+Op4_initial_spawn_pos = {
 	// Initial Op4 spawn position by Jigsor
 	params ["_op4Player"];
 	private ["_posnotfound","_random_w_player","_basePos","_players","_movelogic","_blu4Speeding","_playerPos","_cooX","_cooY","_wheX","_wheY","_randPos","_c","_spawnPos","_centerPos","_dis","_dir"];
@@ -540,8 +544,8 @@ Op4_spawn_pos = {
 		_playerPos = getPos _random_w_player;
 		_cooX = _playerPos # 0;
 		_cooY = _playerPos # 1;
-		_wheX = [250,500] call BIS_fnc_randomInt;
-		_wheY = [250,500] call BIS_fnc_randomInt;
+		_wheX = floor linearConversion [0, 1, random 1, 250 min 500, 500 max 250 + 1];
+		_wheY = floor linearConversion [0, 1, random 1, 250 min 500, 500 max 250 + 1];
 		_randPos = [_cooX+_wheX,_cooY+_wheY,0];
 		_c = 0;
 		_spawnPos = _randPos isFlatEmpty [8,384,0.5,2,0,false,ObjNull];
@@ -593,7 +597,7 @@ Op4_spawn_pos = {
 			titleCut["", "BLACK IN",1];
 		};
 	};
-	if (true) exitWith {Op4_spawn_pos = nil; true};
+	if (true) exitWith {Op4_initial_spawn_pos = nil; true};
 };
 INS_bullet_cam = {
 	// add bullet cam

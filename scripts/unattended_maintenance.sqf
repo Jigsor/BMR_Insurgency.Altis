@@ -14,6 +14,9 @@ sleep 20;
 
 sleep 108;
 
+private _MHQs = [];
+{private _v = _x; if (!isNil (str _v) && {!(isNull _v)} && {_v isKindOf "LandVehicle"}) then {_MHQs pushBack _v};} forEach [MHQ_1, MHQ_2, MHQ_3, Opfor_MHQ];
+
 private _czPosArrys = [];
 private _ctearZones = Blu4_mkrs + ["Airfield"];
 private "_mpos";
@@ -59,6 +62,25 @@ while {true} do {
 
 	// Delete empty groups.
 	{deleteGroup _x} forEach (allGroups select {local _x && {(count units _x) isEqualTo 0}});
+
+	//destroy MHQs trapped under water
+	{
+		private _mhq = _x;
+		if (surfaceIsWater getPosWorld _mhq) then {
+			if !(canMove _mhq) then {
+				if ((alive _mhq) && {{alive _x} count crew _mhq isEqualTo 0}) then {
+					if !(isEngineOn _mhq) then {
+						if ((getPosASLW _mhq select 2) < 0) then {
+							if (_mhq getHitPointDamage "hitEngine" > 0.5) then {
+								_mhq setDamage 1;
+							};
+						};
+					};
+				};
+			};
+		};
+		sleep 0.06;
+	} forEach _MHQs;
 
 	private _justPlayers = allPlayers - entities "HeadlessClient_F";
 
@@ -106,7 +128,7 @@ while {true} do {
 					// Delete all mines beyond 500 meters away from objective position
 					{deleteVehicle _x} forEach (allMines select {((_x distance objective_pos_logic) > 500) && !(_x getVariable "persistent")});
 					sleep 2;
-					
+
 					// Delete sound objects created with say3D
 					private _say3Dtrash = allMissionObjects "#soundonvehicle";
 					{deleteVehicle _x} count _say3Dtrash;

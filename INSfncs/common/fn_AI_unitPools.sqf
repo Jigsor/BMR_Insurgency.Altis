@@ -1,8 +1,8 @@
-// fn_AI_unitPools.sqf // runs preinit
+// fn_AI_unitPools.sqf
 private _opposingArmies = ["INS_op_faction", 0] call BIS_fnc_getParamValue;
 if (_opposingArmies isEqualTo 0) exitWith {diag_log "!!! BMR Insurgency Warning: lobby option Opposing Army/Mod Initialization does not exist or configured improperly"};
 
-// Global Class Arrays /////////////////////////////////////////////////////
+// Global Class Arrays ///////////////////////////////////////////////////////////////////////
 	//Typically used for objectives, civilians, civilian vehicles,  airpatrol types, CAS type.
 
 // CSAT
@@ -347,7 +347,7 @@ if (_opposingArmies isEqualTo 21) then {
 if (!isServer && hasInterface) exitWith {};
 
 private _gridMarkerUnitPools = {
-	// Classes used by grid system
+	// Classes used by grid system //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	params ["_faction"];
 	//diag_log format ["RESULT %1",_faction];
 	private ["_InfPool","_ArmPool","_MotPool","_ACHPool","_CHPool","_uavPool","_stPool","_shipPool","_diverPool","_crewPool","_heliCrew","_issueNVG"];

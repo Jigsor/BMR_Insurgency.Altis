@@ -179,13 +179,13 @@
 <Chinesesimp>打开近距离空中支援(CAS)系统</Chinesesimp>
 </Key>
 <Key ID="STR_JWC_CAS_inbound">
-<Original>Coordinates received, CAS inbound</Original>
-<English>Coordinates received, CAS inbound</English>
-<German>Koordinaten erhalten, CAS auf dem Weg</German>
-<French>Coordonne reçu, entrant CAS</French>
-<Russian>Координаты получены, CAS приближается</Russian>
-<Spanish>Coordina recibido, CAS en ruta</Spanish>
-<Chinesesimp>坐标已收到, 近距离空中支援(CAS)正在进场</Chinesesimp>
+<Original>%1 Coordinates received, CAS inbound</Original>
+<English>%1 Coordinates received, CAS inbound</English>
+<German>%1 Koordinaten erhalten, CAS auf dem Weg</German>
+<French>%1 Coordonne reçu, entrant CAS</French>
+<Russian>%1 Координаты получены, CAS приближается</Russian>
+<Spanish>%1 Coordina recibido, CAS en ruta</Spanish>
+<Chinesesimp>%1 坐标已收到, 近距离空中支援(CAS)正在进场</Chinesesimp>
 </Key>
 <Key ID="STR_JWC_CAS_aborted">
 <Original>CAS mission aborted</Original>
@@ -291,7 +291,7 @@
 <English>Press H key for Graphic Settings, Digital Heading and HUD</English>
 <German>Drücken Sie die H-Taste für Grafikeinstellungen, Richtungs- und Statusanzeige</German>
 <French>Appuyez sur la touche H pour les paramètres graphiques, boussole numérique et état</French>
-<Russian>Нажмите Ч, чтобы настроить графику, направление и статус отображения</Russian>
+<Russian>Нажмите Р, чтобы настроить графику, направление и статус отображения</Russian>
 <Spanish>Empuje la tecla H para ajustes los gráficos, el compás digital y el estatus</Spanish>
 <Chinesesimp>按H键打开图形设置、数字标题和HUD显示界面</Chinesesimp>
 </Key>
@@ -643,7 +643,16 @@
 <German>Drehe Fahrzeug</German>
 <French>Bascule Véhicule</French>
 <Russian>Перевернуть транспорт</Russian>
-<Spanish>Vehículo tirón</Spanish>
+<Spanish>Voltear Vuelta</Spanish>
+<Chinese>翻轉車輛</Chinese>
+<Italian>Capovolgere il veicolo</Italian>
+<Polish>Odwróć pojazd</Polish>
+<Czech>Překlopte vozidlo</Czech>
+<Portuguese>Virar veículo</Portuguese>
+<Korean>플립 차량</Korean>
+<Chinesesimp>翻转车辆</Chinesesimp>
+<Japanese>フリップビークル</Japanese>
+<Turkish>Çevirme aracı</Turkish>
 </Key>
 <Key ID="STR_BMR_Side_Canx">
 <Original>Cancel Current Side Mission</Original>

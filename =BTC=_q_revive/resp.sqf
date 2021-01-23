@@ -17,8 +17,7 @@ if (isMultiplayer) then
 			waitUntil {Alive player};
 
 			if (playerSide isEqualTo EAST) then {//Jig adding
-				Op4handle = [player] execVM "scripts\MoveOp4Base.sqf";
-				waitUntil { scriptDone Op4handle };
+				[player] call BMRINS_fnc_Op4PlayerKilled;
 			};
 
 			if (!isNil {_unit getVariable "btc_qr_on_respawn"}) then {

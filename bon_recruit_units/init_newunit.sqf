@@ -22,6 +22,6 @@ if (INS_GasGrenadeMod isEqualTo 1 && !(INS_op_faction in [21])) then {
 
 _unit addAction ["<t color='#1d78ed'>Dismiss</t>",BON_RECRUIT_PATH+"dismiss.sqf",[],-10,false,true,""];
 _unit setVariable ["BIS_noCoreConversations", true];//_unit setSpeaker "NoVoice";
-_unit disableAI "RADIOPROTOCOL";
+//_unit disableAI "RADIOPROTOCOL";//breaks locked on missile warning sound?
 _unit SetUnitPos "UP";
 [_unit] call INS_Recruit_skill;

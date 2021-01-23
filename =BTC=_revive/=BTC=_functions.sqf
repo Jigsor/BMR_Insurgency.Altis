@@ -743,11 +743,11 @@ BTC_r_create_dialog_mobile = {
 		BTC_r_list = [];
 		BTC_r_mobile_selected = objNull;
 		titleText ["", "BLACK IN"];
-		sleep 0.5;
+		uiSleep 0.5;
 		disableSerialization;
 		closeDialog 0;
 		_r_dlg = createDialog "BTC_move_to_mobile_dialog";
-		sleep 0.5;
+		uiSleep 0.5;
 		titleText ["", "PLAIN"];
 		waitUntil {dialog};
 		player enableSimulation false;
@@ -758,7 +758,7 @@ BTC_r_create_dialog_mobile = {
 			//player setVelocity [0,0,0];
 			call BTC_r_load;
 			if (count BTC_r_list isEqualTo 0) then {titleText ["NO SPAWN POINTS FOUND", "PLAIN"];};
-			sleep 1;
+			uiSleep 1;
 		};
 		player allowdamage true;
 		closeDialog 0;

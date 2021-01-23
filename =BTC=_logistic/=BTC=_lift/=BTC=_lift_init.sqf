@@ -142,12 +142,22 @@ BTC_l_camera = {
 		hint "Activating camera...";
 		BTC_l_pip_cond = true;
 		BTC_l_feed_target = "Land_HelipadEmpty_F" createVehicle (position player);
-		0 spawn {while {BTC_l_pip_cond} do {BTC_l_feed_target setpos [getPos (vehicle player) select 0,(getPos (vehicle player) select 1) + 1,0];sleep 0.1;};deleteVehicle BTC_l_feed_target;};
-		[player, player, player] call BIS_fnc_liveFeed;
+		0 spawn {
+			//spinning lift camera.. needs improvement
+			while {BTC_l_pip_cond} do {
+				_vp = vehicle player;
+				BTC_l_feed_target setpos [getPosVisual _vp select 0,(getPosVisual _vp select 1) + 1,0];
+				BTC_l_feed_target setDir getDir _vp;
+				sleep 0.1;
+			};
+			deleteVehicle BTC_l_feed_target;
+		};
+		[vehicle player, BTC_l_feed_target, player] call BIS_fnc_liveFeed;
 		waitUntil {!(isNil "BIS_liveFeed")};
 		hintSilent "";
 		BIS_liveFeed attachTo [vehicle player,[0, - 1, -3]];
 		BTC_l_feed_target call BIS_fnc_liveFeedSetTarget;
+		BIS_liveFeed camPrepareTarget BTC_l_feed_target;
 		WaitUntil {sleep 1; (!(objectParent player isKindOf "Helicopter") || !Alive player)};
 		if (BTC_l_pip_cond) then {BTC_l_pip_cond = false;[] call BIS_fnc_liveFeedTerminate;};
 	};

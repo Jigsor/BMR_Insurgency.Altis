@@ -560,7 +560,7 @@ Drop_SmokeFlare_fnc = {
 	params ["_objCount","_objTyp","_height","_color","_range","_pos"];
 	private ["_col","_lA","_fA","_sA","_mapClick","_chemLight","_smoke","_flare","_dir","_dir2","_logic","_lPos","_cA","_offset"];
 
-	_col = toLower _color;
+	_col = toLowerANSI _color;
 	_lA = [];
 	_fA = [];
 	_sA = [];

@@ -81,21 +81,21 @@ if (DebugEnabled > 0) then {
 
 	// Base Flag Pole
 	if (INS_op_faction in [20]) then {
-		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 0, 3.9];
+		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 0, 3.9, false, true, "", "", 15];
 		if (max_ai_recruits > 1) then {
-			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 1, 3.8];
-			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + "Player and AI HALO" + "</t>","scripts\HALO_Pod.sqf", 2, 3.79];
+			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 1, 3.8, false, true, "", "", 15];
+			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + "Player and AI HALO" + "</t>","scripts\HALO_Pod.sqf", 2, 3.79, false, true, "", "", 15];
 		};
 	}else{
-		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","ATM_airdrop\atm_airdrop.sqf", nil, 3.9];
-		if (max_ai_recruits > 1) then {INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\INS_AI_Halo.sqf", nil, 3.8];};
+		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","ATM_airdrop\atm_airdrop.sqf", nil, 3.9, false, true, "", "", 15];
+		if (max_ai_recruits > 1) then {INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\INS_AI_Halo.sqf", nil, 3.8, false, true, "", "", 15];};
 	};
 
-	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Airfield</t>","call JIG_transfer_fnc", ["Airfield"], 3.7];
-	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Dock</t>","call JIG_transfer_fnc", ["Dock"], 3.6];
+	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Airfield</t>","call JIG_transfer_fnc", ["Airfield"], 3.7, false, true, "", "", 15];
+	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Dock</t>","call JIG_transfer_fnc", ["Dock"], 3.6, false, true, "", "", 15];
 	if (!isNil "USSfreedom") then {
 		private _carrierPos = USSfreedom getRelPos [181, 349];
-		INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>USS Freedom</t>", "call JIG_transfer_fnc", [[(_carrierPos # 0),(_carrierPos # 1),19.2468]], 3.5];
+		INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>USS Freedom</t>", "call JIG_transfer_fnc", [[(_carrierPos # 0),(_carrierPos # 1),19.2468]], 3.5, false, true, "", "", 15];
 	};
 
 	// Ace Arsenal Init
@@ -237,7 +237,7 @@ if (DebugEnabled > 0) then {
 			};
 		}];
 	}else{
-		If (side player == east) then {player addEventHandler ["Killed", {Op4handle = [_this select 0] execVM "scripts\MoveOp4Base.sqf"}];};
+		If (side player == east) then {player  addEventHandler ["Killed", {params ["_unit"]; [_unit] call BMRINS_fnc_Op4PlayerKilled}];};
 	};
 
 	if (!(INS_ACE_core) && !(INSpDamMul isEqualTo 100)) then {
@@ -364,12 +364,12 @@ if (DebugEnabled > 0) then {
 			player setUnitTrait ['Engineer',true];
 			player setUnitTrait ['Medic',true];
 			0 spawn INS_intro_op4;
-			0 spawn {sleep 10; [player] call Op4_spawn_pos};
+			0 spawn {sleep 10; [player] call Op4_initial_spawn_pos};
 			0 spawn {
 				waitUntil {time > 1};
-				loadout_handler = [player] execVM "scripts\DefLoadoutOp4.sqf";
-				waitUntil { scriptDone loadout_handler };
+				[player] call BMRINS_fnc_DefLoadoutOp4;
 				loadout = getUnitLoadout player;
+				call INS_Depleated_Loadout;
 				if (JIG_MHQ_enabled) then {
 					private ["_mhqObj","_mhqPos"];
 					missionNamespace setVariable ["INS_usesOP4mhq", true];
@@ -391,6 +391,7 @@ if (DebugEnabled > 0) then {
 			0 spawn {
 				sleep 15;
 				loadout = getUnitLoadout player;
+				call INS_Depleated_Loadout;
 				if (JIG_MHQ_enabled) then {
 					private ["_op4","_mhqPos","_mhqObj1","_mhqObj2","_mhqObj3"];
 					missionNamespace setVariable ["INS_usesOP4mhq", false];
@@ -417,10 +418,9 @@ if (DebugEnabled > 0) then {
 			if (INS_play_op4 isEqualTo 99) exitWith {};
 			player setUnitTrait ['Engineer',true];
 			player setUnitTrait ['Medic',true];
-			0 spawn {[player] call Op4_spawn_pos};
+			0 spawn {[player] call Op4_initial_spawn_pos};
 			0 spawn {
-				loadout_handler = [player] execVM "scripts\DefLoadoutOp4.sqf";
-				waitUntil { scriptDone loadout_handler };
+				[player] call BMRINS_fnc_DefLoadoutOp4;
 				loadout = getUnitLoadout player;
 				if (JIG_MHQ_enabled) then {
 					private ["_op4","_mhqObj","_mhqPos"];

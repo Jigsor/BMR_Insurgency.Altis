@@ -74,7 +74,7 @@ while {_uncaped} do {
 
 	if (_fireF isEqualTo 1) then {
 		if (daytime > _dusk || daytime < _dawn) then {
-			private _sfCount = [1,6] call BIS_fnc_randomInt;
+			private _sfCount = floor linearConversion [0, 1, random 1, 1 min 6, 6 max 1 + 1];
 			null=[_sfCount,1,220,"red",100,_newZone] spawn Drop_SmokeFlare_fnc;
 			_fireF = 2;
 		};
@@ -142,7 +142,7 @@ if (!SideMissionCancel) then {
 			private _bellDir = if (floor random 2 isEqualTo 0) then {90}else{270};
 
 			//Thanks to Larrow for this next block. Creates 2D obtuse isosceles triangle points.
-			private _start_dis = [250,400] call BIS_fnc_randomInt;
+			private _start_dis = floor linearConversion [0, 1, random 1, 250 min 400, 400 max 250 + 1];
 			private _start_pos1 = [_newZone, 10, _start_dis, 10, 0, 0.6, 0] call BIS_fnc_findSafePos;
 			private _midLength = ( _newZone distance _start_pos1 ) / 2;
 			private _midDir = objective_pos_logic getRelDir _start_pos1;
@@ -170,7 +170,7 @@ if (!SideMissionCancel) then {
 				_cnhWaveGrps pushBack _rgrp1;
 				{_cnhWaveUnits pushBack _x;} forEach (units _rgrp1);
 
-				private _sfCount = [3,8] call BIS_fnc_randomInt;
+				private _sfCount = floor linearConversion [0, 1, random 1, 3 min 8, 8 max 3 + 1];
 				private _smokePos = (curvePosArr select 6);
 				null=[_sfCount,0,215,"red",50,_smokePos] spawn Drop_SmokeFlare_fnc;
 

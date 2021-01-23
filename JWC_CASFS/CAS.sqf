@@ -3,6 +3,8 @@ if (waitCAS) exitWith {titleText ["CAS already enroute, cancel current CAS or wa
 waitCAS = true;
 params ["_object","_distance","_doLock","_num","_casType","_origPos","_id"];
 
+_object removeAction _id;
+
 _loc = markerPos _origPos;
 _rndsound = selectRandom ["Shell1","Shell2","Shell3","Shell4"];
 
@@ -19,13 +21,11 @@ _ranPos = [(_loc select 0) + _dis * sin _dir, (_loc select 1) + _dis * cos _dir,
 _dirTo = _ranPos getDir _lockobj;
 
 _veh = [_ranPos, _dirTo, INS_CAS, WEST] call bis_fnc_spawnvehicle;
-sleep jig_tvt_globalsleep;
-
-_buzz = _veh select 0;
-_grp = _veh select 2;
+sleep 0.1;
+_veh params ["_buzz","","_grp"];
 
 _vel = velocity _buzz;
-_buzz setVelocity [(_vel select 0)+(sin _dirTo*_speed),(_vel select 1)+ (cos _dirTo*_speed),(_vel select 2)];
+_buzz setVelocity [(_vel#0)+(sin _dirTo*_speed),(_vel#1)+ (cos _dirTo*_speed),(_vel#2)];
 
 [_buzz] remoteExec ["JWC_CAStrack", 2];//Moved handling to server. Jig
 
@@ -36,7 +36,10 @@ _buzz allowDamage false;
 	_x allowDamage false;
 } forEach (units _grp);
 
-(leader _grp) sideChat localize "STR_JWC_CAS_inbound";
+//(leader _grp) sideChat localize "STR_JWC_CAS_inbound";
+private _jtac = name player;
+private _txt = format [localize "STR_JWC_CAS_inbound",_jtac];
+[_txt] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 
 _grp setBehaviour "STEALTH";
 _grp setSpeedMode "FULL";
@@ -45,13 +48,12 @@ _grp setCombatMode "BLUE";
 (driver _buzz) doMove _loc;
 
 doCounterMeasure = {
-	_plane = _this select 0;
+	params ["_plane"];
 	for "_i" from 1 to 4 step 1 do	{
 		_bool = _plane fireAtTarget [_plane,"CMFlareLauncher"];
 		sleep 0.3;
 	};
 	sleep 3;
-	_plane = _this select 0;
 	for "_i" from 1 to 4 step 1 do	{
 		_bool = _plane fireAtTarget [_plane,"CMFlareLauncher"];
 		sleep 0.3;
@@ -84,13 +86,6 @@ if (abortCAS) exitWith {
 };
 
 usedCAS = usedCAS + 1;
-
-_object removeAction _id;
-
-if (usedCAS < usedCAS) then {
-	_num = _num - usedCAS;
-	[_object, _distance, _doLock, _num] execVM "JWC_CASFS\addAction.sqf"
-};
 
 [_buzz] spawn doCounterMeasure;
 
