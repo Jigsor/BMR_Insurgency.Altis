@@ -1,8 +1,7 @@
 player createDiaryRecord ["Diary", ["3rd Party Credits","
-	<br/>Original insurgency by pogoman, Fireball, and Kol9yN.
-	<br/>Insurgency is based off the game mode created by the Project
-	<br/>	Reality team, originally released for
-	<br/>	Arma 2 Operation Arrowhead.
+	<br/>BMR Insurgency is inspired by the original Insurgency game mode
+	<br/>created by Pogoman, Fireball, and Kol9yN for Arma 2.
+	<br/>which is a recreation of the Second Battle of Fallujah 2004
 	<br/>
 	<br/>----------------------------- Scripts -----------------------------
 	<br/>EOS v1.98 by BangaBob (H8erMaker)
@@ -91,14 +90,17 @@ player createDiaryRecord ["Diary", ["Server Rules","
 	<br/>9. Those providing equipment or other assets to OPFOR while on BLUFOR are subject to the same rule listed previously.
 "]];
 
+private _missionVer = localNamespace getVariable ["BMR_INS_IntVer", "BMR Insurgency build version undetermined"];
 private _serverName = format ["%1", serverName];
 private _briefingName = format ["%1", briefingName];
 private _worldName = format [".%1", worldName];
 private _missionName = _briefingName + _worldName;
 private _info ="<br/><font size='20'>SERVER INFO</font><br/><br/>Server Name: ";
 _info = _info + _serverName;
-_info = _info + "<br/><br/>Mission Name: ";
+_info = _info + "<br/>Mission Name: ";
 _info = _info + _missionName;
+_info = _info + "<br/>Internal Mission Build: ";
+_info = _info + _missionVer;
 
 _info = _info +"
 	<br/>
