@@ -209,6 +209,7 @@ switch (INS_op_faction) do {
 		_requiredAddons = ["CBA_main","OPTRE_Core"];
 		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
 			activateAddons ["CBA_main","OPTRE_Core","OPTRE_Vehicles","OPTRE_Ins_Units","OPTRE_Hud","OPTRE_CAA_Units","OPTRE_Weapons_StaticTurret","OPTRE_UNSC_Units_Army","OPTRE_Vehicles_Warthog","OPTRE_Vehicles_Pelican","OPTRE_Misc_Crates","OPTRE_Vehicles_Mongoose","OPTRE_Vehicles_Bison","OPTRE_Vehicles_Hornet","OPTRE_Vehicles_Falcon","OPTRE_UNSC_Structure_Military","OPTRE_Vehicles_Misc","OPTRE_Weapons_FG75","OPTRE_Vehicles_Cart","OPTRE_Vehicles_genet"];
+			missionNamespace setVariable ["OPTRE_disable_SlimLeg", true];// disable switch uniforms on the fly feature as of OPTRE v0.18
 			[EAST]execVM "eos\OpenMe.sqf";
 		}else{INS_mod_missing = true;};
 	};
