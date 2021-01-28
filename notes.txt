@@ -190,8 +190,8 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 			Delivery_Box setpos getpos player;
 
 
-1/23/2020
-v1_51 alpha internal version No. 1.5085
+1/26/2020
+v1_51 alpha internal version No. 1.5086
 Added: M2 50 caliber statics from A3 Old Man update.
 Added: Hilux from CUP Vehicles update.
 //Added: _unit disableAI "RADIOPROTOCOL"; to bon_recruit_units\init_newunit.sqf//bugs lock on missile warning sound?
@@ -215,6 +215,8 @@ Added: Some Simplified Chinese translations to stringtable. Thanks to GoldJohnKi
 Added: more server rules.
 Added: to whitelisted Arsenal some newer IFA3 UK gear.
 Added: Op4 player base respawn point attempts to find a suitable building position in active grid zone near players before it defaults to old sytem. (WIP)
+Added: disable switch uniforms on the fly feature as of OPTRE v0.18.
+Added: Internal mission build version now viewable in briefing info.
 Fixed: Infinate Civi waypoints possible when driver exits vehicle from ambient civilian traffic.
 Fixed: False positive confirmation of player revived when to many alive players are near a downed player who needs reviving in =BTC= Revive.
 Fixed: Player actions for drag carry removed when other players are very close to downed player.
@@ -222,6 +224,7 @@ Fixed: some Russian and Spanish translation strings
 Fixed: It was possible for JTAC to spam CAS call if requested very quickly in succession.
 Fixed: A non amphibious land vehicle MHQ could get lost underwater and became non recoverable. Now it respawns.
 Fixed: Player could get killed during intro.
+Fixed: Player could bypass weapon restrictions though Quick Loadout actions.
 
 
 12/7/2019
