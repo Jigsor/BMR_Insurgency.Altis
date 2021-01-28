@@ -249,7 +249,7 @@ if (Airfield_opt) then
 
 	//UAV service trigger
 	0 spawn {
-		if (!(getMarkerColor "AircraftMaintenance" isEqualTo "") || (markerAlpha "AircraftMaintenance" isEqualTo 1)) then {
+		if (!(markerColor "AircraftMaintenance" isEqualTo "") || (markerAlpha "AircraftMaintenance" isEqualTo 1)) then {
 			private ["_mPos","_actCond","_onActiv","_uavServiceTrig"];
 
 			_mPos=markerpos "AircraftMaintenance";
@@ -296,7 +296,8 @@ missionNamespace setVariable ["op4CratesOrientation", _op4CrateComposition, true
 };
 
 // Log internal mission version //
-diag_log "BMR Insurgency Internal Mission Version 1.5085";
+_version = localNamespace getVariable ["BMR_INS_IntVer", "BMR Insurgency build version undetermined"];
+diag_log format ["BMR Insurgency internal mission build version %1", _version];
 // Log mission parameters //
 diag_log "BMR Insurgency Mission Parameters:";
 for [ {_i = 0}, {_i < count(paramsArray)}, {_i = _i + 1} ] do {
