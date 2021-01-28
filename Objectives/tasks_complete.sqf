@@ -24,7 +24,7 @@ if (_INS_tsks_finished) then {
 	private _s = if (INS_persistence in [1,2]) then {true}else{false};
 	private _uncapturedMkrs = all_eos_mkrs;
 	while {true} do {
-		{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1;};} foreach _uncapturedMkrs;
+		{if (markerColor _x isEqualTo "ColorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x]; sleep 0.1;};} foreach _uncapturedMkrs;
 
 		//Save progression every 5 minutes if lobby option permits
 		if (_s && {_c isEqualTo 6}) then {

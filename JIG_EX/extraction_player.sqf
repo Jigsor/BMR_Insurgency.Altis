@@ -27,7 +27,7 @@ extractmkr = [];
 dropmkr = [];
 _pPos = getPosATL vehicle player;
 
-if !(getMarkerColor "extractmkr" isEqualTo "") then {deleteMarker "extractmkr"};
+if !(markerColor "extractmkr" isEqualTo "") then {deleteMarker "extractmkr"};
 _tempmkr1 = createMarker ["extractmkr", [0,0,0]];
 _tempmkr1 setMarkerShape "ELLIPSE";
 "extractmkr" setMarkerSize [1, 1];
@@ -38,7 +38,7 @@ _tempmkr1 setMarkerShape "ELLIPSE";
 "extractmkr" setMarkerAlpha 0;
 sleep 0.1;
 
-if !(getMarkerColor "dropmkr" isEqualTo "") then {deleteMarker "dropmkr"};
+if !(markerColor "dropmkr" isEqualTo "") then {deleteMarker "dropmkr"};
 _tempmkr2 = createMarker ["dropmkr", [0,0,0]];
 _tempmkr2 setMarkerShape "ELLIPSE";
 "dropmkr" setMarkerSize [1, 1];

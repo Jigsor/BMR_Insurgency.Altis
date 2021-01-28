@@ -569,7 +569,7 @@ Op4_initial_spawn_pos = {
 	if (_posnotfound) then {
 		if (INS_MHQ_exists && {!isNil "Opfor_MHQ"}) then {
 			// Move to Op4 MHQ
-			if !(getMarkerColor "Opfor_MHQ" isEqualTo "") then {
+			if !(markerColor "Opfor_MHQ" isEqualTo "") then {
 				if (_movelogic) then {BTC_r_base_spawn setPos markerPos "Opfor_MHQ"};
 				"Respawn_East" setMarkerPos markerPos "Opfor_MHQ";
 				_dir = random 359;
@@ -666,7 +666,7 @@ JIG_map_click = {
 	// Vehicle reward mapclick position by Jigsor
 	if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint localize "STR_BMR_missing_map";true};
 	if (player getVariable "createEnabled") then {
-		if !(getMarkerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop"};
+		if !(markerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop"};
 		hint "";
 		GetClick = true;
 		openMap true;
@@ -707,7 +707,7 @@ JIG_map_click = {
 		[["cars", "tanks", "helicopters", "planes", "boats"], [], "VehDrop", 0.3, 3] execVM "ASORVS\open.sqf";
 	}else{
 		(_this # 0) removeAction (_this # 2);
-		if !(getMarkerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop"};
+		if !(markerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop"};
 	};
 	true
 };

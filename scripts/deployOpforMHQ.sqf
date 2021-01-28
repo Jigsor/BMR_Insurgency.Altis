@@ -33,7 +33,7 @@ _dir = round(direction _caller);
 //Create Arsenal marker at crates' deployment position
 //Disabled for now because it does not always hide the marker from blufor. Not sure why..
 waitUntil {sleep 0.2; !(_curWepsPos isEqualTo getPosWorld INS_weps_Cbox)};
-if !(getMarkerColor "OpforWeapons" isEqualTo "") then {deleteMarker "OpforWeapons"};
+if !(markerColor "OpforWeapons" isEqualTo "") then {deleteMarker "OpforWeapons"};
 private _mark = (localize "STR_A3_Arsenal");
 private _op4MHQ = createMarker ["OpforWeapons", getPosWorld INS_weps_Cbox];
 _op4MHQ setMarkerShape "ICON";

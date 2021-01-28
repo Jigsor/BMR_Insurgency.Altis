@@ -22,7 +22,7 @@ extraction_pos_fnc = {
 	};
 
 	if !(_newPos isEqualTo []) then {
-		if !(getMarkerColor "tempPUmkr" isEqualTo "") then {deleteMarker "tempPUmkr"};
+		if !(markerColor "tempPUmkr" isEqualTo "") then {deleteMarker "tempPUmkr"};
 		private _mkr = createMarker ["tempPUmkr", _newPos];
 		_mkr setMarkerShape "ELLIPSE";
 		"tempPUmkr" setMarkerSize [1, 1];
@@ -66,7 +66,7 @@ drop_off_pos_fnc = {
 	};
 
 	if !(_newPos isEqualTo []) then {
-		if !(getMarkerColor "tempDropMkr" isEqualTo "") then {deleteMarker "tempDropMkr"};
+		if !(markerColor "tempDropMkr" isEqualTo "") then {deleteMarker "tempDropMkr"};
 		_tempPUmkr2 = createMarker ["tempDropMkr", _newPos];
 		_tempPUmkr2 setMarkerShape "ELLIPSE";
 		"tempDropMkr" setMarkerSize [1, 1];
@@ -92,7 +92,7 @@ drop_off_pos_fnc = {
 Evac_Spawn_Loc = {
 	// Spawn position of Evac heli
 	private ["_mkr","_mkrPos"];
-	if !(getMarkerColor "EvacSpawnMkr" isEqualTo "") then {deleteMarker "EvacSpawnMkr"};
+	if !(markerColor "EvacSpawnMkr" isEqualTo "") then {deleteMarker "EvacSpawnMkr"};
 	_mkr = createMarker ["EvacSpawnMkr", getposATL EvacLZpad];
 	_mkr setMarkerShape "ELLIPSE";
 	"EvacSpawnMkr" setMarkerSize [1, 1];

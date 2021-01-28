@@ -16,7 +16,7 @@ remove_carcass_fnc = {
 };
 BTC_m_fnc_only_server = {
 	params ["_type","_array"];
-	if (_type isEqualTo 0) then	{
+	if (_type isEqualTo 0) then {
 		private _veh = _array # 1;
 		_veh spawn BTC_server_repair_wreck;
 	}
@@ -34,7 +34,7 @@ BTC_AIunit_init = {
 	_unit setSkill ["spotTime", 0.5];
 	_unit setSkill ["courage", 0.5];
 	_unit setSkill ["reloadSpeed", 1];
-	if (_unit isEqualTo (leader group _x)) then	{
+	if (_unit isEqualTo (leader group _x)) then {
 		_unit setSkill ["commanding", 1];
 	};
 	_unit setSkill ["general", 0.6];
@@ -391,9 +391,9 @@ JIPmkr_updateClient_fnc = {
 	_coloredMarkers=server getVariable "IntelMarkers";
 	if (isNil {server getVariable "IntelMarkers"}) exitWith {};
 	{
-		_x setMarkerType (getMarkerType _x);
-		_x setMarkercolor (getMarkercolor _x);
-		_x setMarkerAlpha (MarkerAlpha _x);
+		_x setMarkerType (markerType _x);
+		_x setMarkercolor (markerColor _x);
+		_x setMarkerAlpha (markerAlpha _x);
 	} forEach _coloredMarkers;
 	true
 };
@@ -402,7 +402,7 @@ find_bombee_fnc = {
 	private _btarget = ObjNull;
 	// exclude east players, players in moving vehicles, exclude above ground players such as players in aircraft or in high structures
 	private _potentialTargets = playableUnits select {(vectorMagnitudeSqr velocity _x < 9) && ((getPosATL _x) select 2 < 3.1) && (side _x isEqualTo west)};
-	if !(_potentialTargets isEqualTo []) then	{
+	if !(_potentialTargets isEqualTo []) then {
 		_btarget = selectRandom _potentialTargets;
 	};
 	_btarget

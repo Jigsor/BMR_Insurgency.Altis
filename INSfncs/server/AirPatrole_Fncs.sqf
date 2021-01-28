@@ -151,7 +151,7 @@ AirEast_move_logic_fnc = {
 	private _lastpos = markerPos "curAEspawnpos";
 	if (_ranAEguard distance2D _lastpos > 1) then {
 		EastAirLogic setPos markerPos "spawnaire";
-		if !(getMarkerColor "curAEspawnpos" isEqualTo "") then {deleteMarker "curAEspawnpos"};
+		if !(markerColor "curAEspawnpos" isEqualTo "") then {deleteMarker "curAEspawnpos"};
 		private _currentmarker = createMarker ["curAEspawnpos", getPosATL EastAirLogic];
 		_currentmarker setMarkerShape "ELLIPSE";
 		"curAEspawnpos" setMarkerSize [2, 2];

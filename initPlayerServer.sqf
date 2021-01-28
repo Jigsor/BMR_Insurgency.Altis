@@ -10,7 +10,7 @@ if (_player in _hcEntities) then {
 		_INSmkrs = profileNamespace getVariable ["BMR_INS_progress", []];
 	} else {
 		_INSmkrs = all_eos_mkrs;
-		{if (getMarkerColor _x isEqualTo "ColorGreen") then {_INSmkrs = _INSmkrs - [_x];};} foreach _INSmkrs;
+		{if (markerColor _x isEqualTo "ColorGreen") then {_INSmkrs = _INSmkrs - [_x];};} foreach _INSmkrs;
 	};
 
 	[all_eos_mkrs,_INSmkrs,_didJIP] remoteExec ["BMRINS_fnc_HC_allEOSmkrs",_player];

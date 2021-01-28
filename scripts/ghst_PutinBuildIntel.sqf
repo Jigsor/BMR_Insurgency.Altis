@@ -30,7 +30,7 @@ if ([activated_cache] in _all_cache_pos) exitWith {};
 if !([activated_cache] in _all_cache_pos) then {_all_cache_pos pushBack activated_cache};
 private _current_cache = activated_cache # 0;
 
-{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} foreach _uncaped_eos_mkrs;
+{if (markerColor _x isEqualTo "ColorGreen") then {_uncaped_eos_mkrs = _uncaped_eos_mkrs - [_x];};} foreach _uncaped_eos_mkrs;
 private _uncaped_mkr_count = (count _uncaped_eos_mkrs);
 private _total_intelObjs = (round(_uncaped_mkr_count/Intel_Count));//total max briefcases per ammo cache
 

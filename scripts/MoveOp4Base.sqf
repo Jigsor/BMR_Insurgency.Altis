@@ -36,7 +36,7 @@ if (!isNil "_rwp") then {
 	_cooX = _pP # 0;
 	_cooY = _pP # 1;
 	_wheX = floor linearConversion [0, 1, random 1, 250 min 500, 500 max 250 + 1];
-	_wheY = floor linearConversion [0, 1, random 1, 250 min 500, 500 max 250 + 1];	
+	_wheY = floor linearConversion [0, 1, random 1, 250 min 500, 500 max 250 + 1];
 	if (floor random 2 isEqualTo 0) then {_wheX = _wheX - (_wheX * 2)};
 	if (floor random 2 isEqualTo 0) then {_wheY = _wheY - (_wheY * 2)};
 	_Op4rP = [_cooX+_wheX,_cooY+_wheY,0];
@@ -57,7 +57,7 @@ if (!isNil "_rwp") then {
 if (_pnf) then {
 	if (INS_MHQ_exists && {!isNil "Opfor_MHQ"}) then {
 		// Move to Op4 MHQ
-		if !(getMarkerColor "Opfor_MHQ" isEqualTo "") then {
+		if !(markerColor "Opfor_MHQ" isEqualTo "") then {
 			if (_mL) then {BTC_r_base_spawn setPos markerPos "Opfor_MHQ"};
 			"Respawn_East" setMarkerPos markerPos "Opfor_MHQ";
 			_dir = round(random 360);

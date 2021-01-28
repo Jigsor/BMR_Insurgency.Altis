@@ -4,7 +4,7 @@
 private _mkrs = server getvariable ["EOSmarkers",[]];
 if (_mkrs isEqualto [] || {isNil "bastionColor"}) exitWith {_mkrs};
 private _green = VictoryColor;
-private _activeMkrs = _mkrs select {!(getMarkerColor _x isEqualTo _green) && (markerAlpha _x isEqualTo 1)};
+private _activeMkrs = _mkrs select {!(markerColor _x isEqualTo _green) && (markerAlpha _x isEqualTo 1)};
 if (_activeMkrs isEqualto []) exitWith {[]};
 private _blu = entities [["SoldierWB"], ["Civilian"], true, true];
 if (_blu isEqualto []) exitWith {[]};
@@ -18,7 +18,7 @@ private _maxDis =  _minDis + 300;
 
 private _loop = true;
 for [{_i=1},{_i<=(count _activeMkrs - 1) && _loop},{_i=_i+1}] do {
-	if ( (getMarkerPos (_activeMkrs select _i)) distance2D (_activeBlu select 0) < _minDis && {!(( (getMarkerPos (_activeMkrs select _i)) distance2D (_activeBlu select 0)) > _maxDis)} ) then {
+	if ( (markerPos (_activeMkrs select _i)) distance2D (_activeBlu select 0) < _minDis && {!(( (markerPos (_activeMkrs select _i)) distance2D (_activeBlu select 0)) > _maxDis)} ) then {
 		_activeBlu deleteAt 0;
 		_activeMkrs deleteAt _i;
 		_i = _i - 1;
@@ -49,7 +49,7 @@ private _gPos = [];
 private _bPoses = [];
 for "_l" from 0 to 9 step 1 do {
 	if !(_suffledMkrs isEqualTo []) then {
-		_opos = getMarkerPos (_suffledMkrs # 0);
+		_opos = markerPos (_suffledMkrs # 0);
 		_suffledMkrs deleteAt 0;
 		_bPoses = [_opos] call _findBuildPoses;
 		_gPos = selectRandom (_bPoses select {lineIntersects [AGLToASL _x, (AGLToASL _x) vectorAdd [0,0,10]]});

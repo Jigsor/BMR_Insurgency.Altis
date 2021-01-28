@@ -845,7 +845,7 @@ Manual_ProgressionSave = {
 	// Force zone marker progression saving on Server
 	if (!isServer) exitWith {};
 	private _uncapturedMkrs = all_eos_mkrs;
-	{if (getMarkerColor _x isEqualTo "ColorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x];};} foreach _uncapturedMkrs;
+	{if (markerColor _x isEqualTo "ColorGreen") then {_uncapturedMkrs = _uncapturedMkrs - [_x];};} foreach _uncapturedMkrs;
 	profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
 	saveProfileNamespace;//<-necessary to survive Server executable restart
 	diag_log "***Manual Progression Save Complete";

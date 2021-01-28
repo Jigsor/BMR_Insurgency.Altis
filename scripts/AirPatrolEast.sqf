@@ -20,7 +20,7 @@ private _ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
 
 if (_ins_debug) then {
 	// show initial spawn position
-	if !(getMarkerColor "curAEspawnpos" isEqualTo "") then {deleteMarker "curAEspawnpos"};
+	if !(markerColor "curAEspawnpos" isEqualTo "") then {deleteMarker "curAEspawnpos"};
 	private _currMkr = createMarker ["curAEspawnpos", markerPos "spawnaire"];
 	_currMkr setMarkerShape "ELLIPSE";
 	"curAEspawnpos" setMarkerSize [2, 2];
@@ -174,7 +174,7 @@ if (EnableEnemyAir in [2,3,5,6]) then
 				_veh setVelocityModelSpace [0, _speed, 0];
 
 				if (BTC_p_skill isEqualTo 1) then {[_vehgrp] call BTC_AI_init;};
-				_vehgrp setVariable ["lambs_Danger_disableGroupAI", true]; 
+				_vehgrp setVariable ["lambs_Danger_disableGroupAI", true];
 
 				_veh addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
 				{_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"]} forEach (units _vehgrp);
