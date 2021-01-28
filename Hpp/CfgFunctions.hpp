@@ -9,6 +9,7 @@ class BMRINS
 		class reinstateSensors {preInit = 1;};
 		class HCpresent {preInit = 1;};
 		class dawnDusk {preInit = 1;};
+		class InternalVersion {preInit = 1;};
 		class AI_unitPools {};
 		class civVehTextureGlobal {};
 		class setPlate {};
