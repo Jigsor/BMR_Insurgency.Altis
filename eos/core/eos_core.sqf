@@ -16,8 +16,8 @@ _settings params ["_faction","_mA","_distance","_side",["_heightLimit",true],["_
 //_debug = true;
 
 private _mPos=markerpos _mkr;
-private _mkrX=getMarkerSize _mkr # 0;
-private _mkrY=getMarkerSize _mkr # 1;
+private _mkrX=markerSize _mkr # 0;
+private _mkrY=markerSize _mkr # 1;
 private _mkrAgl=markerDir _mkr;
 
 private "_enemyFaction";
@@ -66,13 +66,13 @@ if (!_cache) then {
 };
 
 _mkr setmarkerAlpha _mAN;
-if !(getmarkercolor _mkr isEqualTo VictoryColor) then { //IF MARKER IS GREEN DO NOT CHANGE COLOUR
+if !(markerColor _mkr isEqualTo VictoryColor) then { //IF MARKER IS GREEN DO NOT CHANGE COLOUR
 	_mkr setmarkercolor hostileColor;
 };
 
 waituntil {sleep 0.1; triggeractivated _eosActivated && RedHot <= _mz}; //WAIT UNTIL PLAYERS IN ZONE and count of activated zones less than or equal to limiter
-if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
-	if !(getmarkercolor _mkr isEqualTo VictoryColor) then {_mkr setmarkerAlpha _mAH; RedHot = RedHot +1;};
+if !(markerColor _mkr isEqualTo "ColorBlack") then {
+	if !(markerColor _mkr isEqualTo VictoryColor) then {_mkr setmarkerAlpha _mAH; RedHot = RedHot +1;};
 
 	// SPAWN HOUSE PATROLS
 	for "_counter" from 1 to _aGrps step 1 do {
@@ -217,8 +217,8 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 			_cc=_cacheDelay * 60 / 2; //Cache: Calculate the delay for according minutes //rip
 		}; //Cache: Decrease counter with each loop
 
-		if (_cc <= 0 && (!triggeractivated _eosActivated || getmarkercolor _mkr isEqualTo "ColorBlack")) exitwith { //Cache: Check if caching counter hit 0
-			if (_debug) then {if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {hint "Restarting Zone AND deleting units";}else{hint "EOS zone deactivated";};};
+		if (_cc <= 0 && (!triggeractivated _eosActivated || markerColor _mkr isEqualTo "ColorBlack")) exitwith { //Cache: Check if caching counter hit 0
+			if (_debug) then {if !(markerColor _mkr isEqualTo "ColorBlack") then {hint "Restarting Zone AND deleting units";}else{hint "EOS zone deactivated";};};
 			//CACHE LIGHT VEHICLES
 			if (!isnil "_cGrp") then {
 				{
@@ -295,7 +295,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 		if (triggeractivated _clear and triggeractivated _taken and !_civZone)exitwith
 		{// IF ZONE CAPTURED BEGIN CHECKING FOR ENEMIES
 			_cGrps=0;_aGrps=0;_bGrps=0;_dGrps=0;_eGrps=0;_fGrps=0;
-			while {triggeractivated _eosActivated AND !(getmarkercolor _mkr isEqualTo "ColorBlack")} do {
+			while {triggeractivated _eosActivated AND !(markerColor _mkr isEqualTo "ColorBlack")} do {
 				if (!triggeractivated _clear) then {
 					_mkr setmarkercolor hostileColor;
 					_mkr setmarkerAlpha _mAH;
@@ -315,7 +315,7 @@ if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
 
 	deletevehicle _clear;deletevehicle _taken;
 
-	if !(getmarkercolor _mkr isEqualTo "ColorBlack") then {
+	if !(markerColor _mkr isEqualTo "ColorBlack") then {
 		null = [_mkr,[_aGrps,_aSize],[_bGrps,_bSize],[_cGrps,_cSize],[_dGrps,_eGrps,_fGrps,_fSize],_settings,true] execVM "eos\core\eos_core.sqf";
 	}else{
 		_mkr setmarkeralpha 0;

@@ -9,7 +9,7 @@ RedHot = 0; //activated zones count
 _JIPmkr=(_this # 0);
 
 {
-	if (getmarkerColor _x isEqualTo "ColorGreen") then {_JIPmkr =_JIPmkr - [_x];};
+	if (markerColor _x isEqualTo "ColorGreen") then {_JIPmkr =_JIPmkr - [_x];};
 } forEach _JIPmkr;
 if (_JIPmkr isEqualTo []) exitWith {};
 

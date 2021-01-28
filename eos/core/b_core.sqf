@@ -4,7 +4,7 @@ if ((!isServer && hasInterface) || (HCPresent && isServer)) exitWith{};
 
 private ["_fGroup","_cargoType","_vehType","_CHside","_mkrAgl","_initialLaunch","_pause","_eosZone","_hints","_waves","_aGroup","_side","_actCond","_enemyFaction","_mAH","_mAN","_distance","_grp","_cGroup","_bGroup","_CHType","_time","_timeout","_faction"];
 
-_mkr=(_this # 0);_mPos=markerpos(_this # 0);_mkrX=getMarkerSize _mkr # 0;_mkrY=getMarkerSize _mkr # 1;_mkrAgl=markerDir _mkr;
+_mkr=(_this # 0);_mPos=markerpos(_this # 0);_mkrX=markerSize _mkr # 0;_mkrY=markerSize _mkr # 1;_mkrAgl=markerDir _mkr;
 _infantry=(_this # 1);_PApatrols=_infantry # 0;_PAgroupSize=_infantry # 1;
 _LVeh=(_this # 2);_LVehGroups=_LVeh # 0;_LVgroupSize=_LVeh # 1;
 _AVeh=(_this # 3);_AVehGroups=_AVeh # 0;
@@ -171,7 +171,7 @@ for "_counter" from 1 to _timeout do {
 	if (_waves > 1) then {hint format ["Next wave ETA : %1",(_timeout - _counter)]};
 	};
 	sleep 1;
-	if (!triggeractivated _bastActive || getmarkercolor _mkr == "ColorBlack") exitwith {
+	if (!triggeractivated _bastActive || markerColor _mkr == "ColorBlack") exitwith {
 		hint "Zone lost. You must re-capture it";
 		_mkr setmarkercolor hostileColor;
 		_mkr setmarkeralpha _mAN;
@@ -195,7 +195,7 @@ if (triggeractivated _bastActive and triggeractivated _bastClear and (_waves < 1
 	};
 };
 
-waituntil {getmarkercolor _mkr == "ColorBlack" OR getmarkercolor _mkr == VictoryColor OR getmarkercolor _mkr == hostileColor or !triggeractivated  _bastActive};
+waituntil {markerColor _mkr == "ColorBlack" OR markerColor _mkr == VictoryColor OR markerColor _mkr == hostileColor or !triggeractivated  _bastActive};
 if (_debug) then {player sidechat "delete units"};
 {
 	{deleteVehicle _x} foreach units _x;
@@ -240,4 +240,4 @@ if (count _fGrp > 0) then {
 };
 
 deletevehicle _bastActive;deletevehicle _bastClear;deletevehicle _basActivated;
-if (getmarkercolor _mkr isEqualTo "ColorBlack") then {_mkr setmarkeralpha 0};
+if (markerColor _mkr isEqualTo "ColorBlack") then {_mkr setmarkeralpha 0};
