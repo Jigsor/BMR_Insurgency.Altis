@@ -3,15 +3,16 @@ if (waitCAS) exitWith {titleText ["CAS already enroute, cancel current CAS or wa
 waitCAS = true;
 params ["_object","_distance","_doLock","_num","_casType","_origPos","_id"];
 
+casRequest = false;
 _object removeAction _id;
 
 _loc = markerPos _origPos;
 _rndsound = selectRandom ["Shell1","Shell2","Shell3","Shell4"];
 
-_lockobj = createAgent ["Logic", [(_loc select 0), (_loc select 1), 0], [] , 0 , "CAN_COLLIDE"];
+_lockobj = createAgent ["Logic", [_loc # 0, _loc # 1, 0], [] , 0 , "CAN_COLLIDE"];
 _lockobj setPos _loc;
 
-_lock = getPosASL _lockobj select 2;
+_lock = getPosASL _lockobj # 2;
 _loc = visiblePosition _lockobj;
 _dir = random 360;
 _dis = 3500;
@@ -91,12 +92,12 @@ usedCAS = usedCAS + 1;
 
 private "_velocityZ";
 if ((alive _buzz) && (_casType isEqualTo "JDAM")) then {
-	_drop = createAgent ["Logic", [getPos _buzz select 0, getPos _buzz select 1, 0], [] , 0 , "CAN_COLLIDE"];
+	_drop = createAgent ["Logic", [getPos _buzz # 0, getPos _buzz # 1, 0], [] , 0 , "CAN_COLLIDE"];
 	_soundpos = getposATL _drop;
 	_height = 225 + _lock;
-	_ASL = getPosASL _drop select 2;
+	_ASL = getPosASL _drop # 2;
 	_height = _height - _ASL;
-	_bomb = "Bo_GBU12_LGB" createvehicle [getPos _drop select 0, getPos _drop select 1, _height];
+	_bomb = "Bo_GBU12_LGB" createvehicle [getPos _drop # 0, getPos _drop # 1, _height];
 	_bomb setDir ((_loc select 0)-(getPos _bomb select 0)) atan2 ((_loc select 1)-(getPos _bomb select 1));
 	_dist = _bomb distance _loc;
 	if (_dist > 536) then {
@@ -118,10 +119,10 @@ if ((alive _buzz) && (_casType isEqualTo "JDAM")) then {
 };
 
 if ((alive _buzz) && (_casType isEqualTo "CBU")) then {
-	_drop = createAgent ["Logic", [getPos _buzz select 0, getPos _buzz select 1, 0], [] , 0 , "CAN_COLLIDE"];
+	_drop = createAgent ["Logic", [getPos _buzz # 0, getPos _buzz # 1, 0], [] , 0 , "CAN_COLLIDE"];
 	_soundpos = getposATL _drop;
 	_height = 225 + _lock;
-	_ASL = getPosASL _drop select 2;
+	_ASL = getPosASL _drop # 2;
 	_height = _height - _ASL;
 	_height = _height + 40;
 	_cbu = "Bo_GBU12_LGB" createvehicle [getPos _drop select 0, getPos _drop select 1, _height];
@@ -155,12 +156,12 @@ if ((alive _buzz) && (_casType isEqualTo "CBU")) then {
 };
 
 if ((alive _buzz) && (_casType isEqualTo "COMBO")) then {
-	_drop = createAgent ["Logic", [getPos _buzz select 0, getPos _buzz select 1, 0], [] , 0 , "CAN_COLLIDE"];
+	_drop = createAgent ["Logic", [getPos _buzz # 0, getPos _buzz # 1, 0], [] , 0 , "CAN_COLLIDE"];
 	_soundpos = getposATL _drop;
 	_height = 225 + _lock;
-	_ASL = getPosASL _drop select 2;
+	_ASL = getPosASL _drop # 2;
 	_height = _height - _ASL;
-	_bomb = "Bo_GBU12_LGB" createvehicle [getPos _drop select 0, getPos _drop select 1, _height];
+	_bomb = "Bo_GBU12_LGB" createvehicle [getPos _drop # 0, getPos _drop # 1, _height];
 	_bomb setDir ((_loc select 0)-(getPos _bomb select 0)) atan2 ((_loc select 1)-(getPos _bomb select 1));
 	_dist = _bomb distance _loc;
 	if (_dist > 536) then {
@@ -185,13 +186,13 @@ if ((alive _buzz) && (_casType isEqualTo "COMBO")) then {
 		if (abortCAS) exitWith {};
 		sleep 0.01;
 	};
-	_drop = createAgent ["Logic", [getPos _buzz select 0, getPos _buzz select 1, 0], [] , 0 , "CAN_COLLIDE"];
+	_drop = createAgent ["Logic", [getPos _buzz # 0, getPos _buzz # 1, 0], [] , 0 , "CAN_COLLIDE"];
 	_soundpos = getposATL _drop;
 	_height = 225 + _lock;
-	_ASL = getPosASL _drop select 2;
+	_ASL = getPosASL _drop # 2;
 	_height = _height - _ASL;
 	_height = _height + 40;
-	_cbu = "Bo_GBU12_LGB" createvehicle [getPos _drop select 0, getPos _drop select 1, _height];
+	_cbu = "Bo_GBU12_LGB" createvehicle [getPos _drop # 0, getPos _drop # 1, _height];
 	_cbu setDir ((_loc select 0)-(getPos _cbu select 0)) atan2 ((_loc select 1)-(getPos _cbu select 1));
 	_dist = _cbu distance _loc;
 	if (_dist > 536) then {
@@ -228,8 +229,6 @@ if (_casType isEqualTo "COMBO") then {
 };
 
 deleteVehicle _lockobj;
-
-casRequest = false;
 
 deleteMarker "CAS_TARGET";
 (leader _grp) sideChat localize "STR_JWC_CAS_rtb";
