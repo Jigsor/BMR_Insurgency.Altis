@@ -379,6 +379,7 @@ JIG_load_VA_profile = {
 			};
 			_name_index = _name_index + 2;
 		};
+		0 spawn {sleep 23; call BMRINS_fnc_arsenalWeaponRemoval};
 	};
 };
 JIG_p_actions_resp = {

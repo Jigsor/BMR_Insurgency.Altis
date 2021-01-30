@@ -159,6 +159,7 @@ JIG_load_VA_profile_MHQ1 = {
 			};
 			_name_index = _name_index + 2;
 		};
+		0 spawn {sleep 23; call BMRINS_fnc_arsenalWeaponRemoval};
 	};
 };
 JIG_load_VA_profile_MHQ2 = {
@@ -177,6 +178,7 @@ JIG_load_VA_profile_MHQ2 = {
 			};
 			_name_index = _name_index + 2;
 		};
+		0 spawn {sleep 23; call BMRINS_fnc_arsenalWeaponRemoval};
 	};
 };
 JIG_load_VA_profile_MHQ3 = {
@@ -195,6 +197,7 @@ JIG_load_VA_profile_MHQ3 = {
 			};
 			_name_index = _name_index + 2;
 		};
+		0 spawn {sleep 23; call BMRINS_fnc_arsenalWeaponRemoval};
 	};
 };
 mp_Say3D_fnc = {
