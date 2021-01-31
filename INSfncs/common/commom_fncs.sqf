@@ -102,10 +102,10 @@ mhq_actions_fnc = {
 		case (_var isEqualTo "MHQ_1"): {
 			if (INS_VA_type in [0,3]) then {
 				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ1],1,true,true,"","true",12];
-				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST && _this isEqualTo vehicle player",12];
 			};
 			if (INS_VA_type in [1,2]) then {
-				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST && _this isEqualTo vehicle player",12];
 			};
 			if (_veh isKindOf "Ship") then {
 				_veh addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","",8];
@@ -114,10 +114,10 @@ mhq_actions_fnc = {
 		case (_var isEqualTo "MHQ_2"): {
 			if (INS_VA_type in [0,3]) then {
 				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ2],1,true,true,"","true",12];
-				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST && _this isEqualTo vehicle player",12];
 			};
 			if (INS_VA_type in [1,2]) then {
-				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST && _this isEqualTo vehicle player",12];
 			};
 			if (_veh isKindOf "Ship") then {
 				_veh addAction ["<t color='#FF9900'>Push</t>",{call Push_Vehicle},[],-1,false,true,"","",8];
@@ -126,10 +126,10 @@ mhq_actions_fnc = {
 		case (_var isEqualTo "MHQ_3"): {
 			if (INS_VA_type in [0,3]) then {
 				_veh addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[(_this # 1)],JIG_load_VA_profile_MHQ3],1,true,true,"","true",12];
-				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST",12];
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal},nil,6,true,true,"","side _this != EAST && _this isEqualTo vehicle player",12];
 			};
 			if (INS_VA_type in [1,2]) then {
-				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST",12];
+				_veh addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA},nil,6,true,true,"","side _this != EAST && _this isEqualTo vehicle player",12];
 			};
 		};
 		case (_var isEqualTo "Opfor_MHQ"): {
