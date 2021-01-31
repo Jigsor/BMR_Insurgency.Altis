@@ -65,7 +65,8 @@ private _objsel = selectRandom objective_list;
 //_objsel = objective_list # 9;// test "c_n_h"
 //_objsel = objective_list # 10;// test "destroy_roadblock"
 //_objsel = objective_list # 11;// test "retrieve_data"
-//objective_list = objective_list - [_objsel];
+
+objective_list = objective_list - [_objsel];
 publicVariable "objective_list";
 sleep 3;
 
