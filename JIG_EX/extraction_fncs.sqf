@@ -1,34 +1,36 @@
-// extraction_fncs.sqf v1.27 by Jigsor
+// extraction_fncs.sqf v1.28 by Jigsor
 
 // Global hint
 JIG_EX_MPhint_fnc = {if (hasInterface) then { hint _this };};
 extraction_pos_fnc = {
 	// Actual Evac Position based on requested map click evac position
-	private _posnotfound = [];
+	private _posNotFound = [];
 	private _dis = JIG_EX_Clear_Pos_Dis;
-	private _cooX = (markerPos "extractmkr" # 0);
-	private _cooY = (markerPos "extractmkr" # 1);
-	private _wheX = random (_dis*2)-_dis;
-	private _wheY = random (_dis*2)-_dis;
-	private _randPos = [_cooX+_wheX,_cooY+_wheY,0];
+	private _size = JIG_EX_Chopper_size;
+	private _mrkPos = markerPos "extractmkr";
+	private _randPos = _mrkPos getPos [_dis * sqrt random 1, random 360];
 	private _newPos = _randPos isFlatEmpty [20,50,0.4,2,0,false,player];
-	private _c = 0;
 
-	while {(count _newPos) < 1} do {
-		_newPos = _randPos isFlatEmpty [JIG_EX_Chopper_size,256,0.5,2,0,false,player];
-		_c = _c + 1;
-		if (_c > 2) exitWith {_newPos = []};
-		sleep 0.2;
+	if !(_newPos isEqualTo []) then {
+		private _c = 0;
+		private _maxAttempts = 4;
+		for "_c" from 1 to _maxAttempts do {
+			_randPos = _mrkPos getPos [_dis * sqrt random 1, random 360];
+			_newPos = _randPos isFlatEmpty [_size,256,0.5,2,0,false,player];
+			_c = _c + 1;
+			if !(_newPos isEqualTo []) exitWith {_newPos};
+			sleep 0.2;
+		};
 	};
 
 	if !(_newPos isEqualTo []) then {
 		if !(markerColor "tempPUmkr" isEqualTo "") then {deleteMarker "tempPUmkr"};
 		private _mkr = createMarker ["tempPUmkr", _newPos];
 		_mkr setMarkerShape "ELLIPSE";
-		"tempPUmkr" setMarkerSize [1, 1];
-		"tempPUmkr" setMarkerShape "ICON";
-		"tempPUmkr" setMarkerType "mil_dot";
-		"tempPUmkr" setMarkerColor "ColorOrange";
+		_mkr setMarkerSize [1, 1];
+		_mkr setMarkerShape "ICON";
+		_mkr setMarkerType "mil_dot";
+		_mkr setMarkerColor "ColorOrange";
 		"tempPUmkr" setMarkerText "Extraction Position";
 		[[_mkr],east] remoteExec ["Hide_Mkr_fnc", [0,-2] select isDedicated];
 
@@ -41,70 +43,72 @@ extraction_pos_fnc = {
 		sleep 1;
 	};
 
-	if (_newPos isEqualTo []) exitWith {_posnotfound;};
+	if (_newPos isEqualTo []) exitWith {_posNotFound};
 	"extractmkr" setMarkerAlpha 0;
-	_newPos;
+	_newPos
 };
 drop_off_pos_fnc = {
 	// Actual Drop Off Position based on requested map click drop off position
-	private ["_posnotfound","_c","_dis","_cooX","_cooY","_wheX","_wheY","_randPos","_newPos","_tempPUmkr2","_veh","_VarLZName"];
-	_posnotfound = [];
-	_c = 0;
-	_dis = JIG_EX_Clear_Pos_Dis;
-	_cooX = (markerPos "dropmkr" select 0);
-	_cooY = (markerPos "dropmkr" select 1);
-	_wheX = random (_dis*2)-_dis;
-	_wheY = random (_dis*2)-_dis;
-	_randPos = [_cooX+_wheX,_cooY+_wheY,0];
-	_newPos = _randPos isFlatEmpty [20,50,0.4,2,0,false,player];
 
-	while {(count _newPos) < 1} do {
-		_newPos = _randPos isFlatEmpty [JIG_EX_Chopper_size,256,0.5,2,0,false,player];
-		_c = _c + 1;
-		if (_c > 2) exitWith {_newPos = [];};
-		sleep 0.2;
+	private _posNotFound = [];
+	private _dis = JIG_EX_Clear_Pos_Dis;
+	private _size = JIG_EX_Chopper_size;
+	private _mrkPos = markerPos "dropmkr";
+	private _randPos = _mrkPos getPos [_dis * sqrt random 1, random 360];
+	private _newPos = _randPos isFlatEmpty [20,50,0.4,2,0,false,player];
+
+	if !(_newPos isEqualTo []) then {
+		private _c = 0;
+		private _maxAttempts = 4;
+		for "_c" from 1 to _maxAttempts do {
+			_randPos = _mrkPos getPos [_dis * sqrt random 1, random 360];
+			_newPos = _randPos isFlatEmpty [_size,256,0.5,2,0,false,player];
+			_c = _c + 1;
+			if !(_newPos isEqualTo []) exitWith {_newPos};
+			sleep 0.2;
+		};
 	};
 
 	if !(_newPos isEqualTo []) then {
 		if !(markerColor "tempDropMkr" isEqualTo "") then {deleteMarker "tempDropMkr"};
-		_tempPUmkr2 = createMarker ["tempDropMkr", _newPos];
-		_tempPUmkr2 setMarkerShape "ELLIPSE";
-		"tempDropMkr" setMarkerSize [1, 1];
-		"tempDropMkr" setMarkerShape "ICON";
-		"tempDropMkr" setMarkerType "mil_dot";
-		"tempDropMkr" setMarkerColor "ColorOrange";
+		private _mkr = createMarker ["tempDropMkr", _newPos];
+		_mkr setMarkerShape "ELLIPSE";
+		_mkr setMarkerSize [1, 1];
+		_mkr setMarkerShape "ICON";
+		_mkr setMarkerType "mil_dot";
+		_mkr setMarkerColor "ColorOrange";
 		"tempDropMkr" setMarkerText "Drop Off Position";
-		[[_tempPUmkr2],east] remoteExec ["Hide_Mkr_fnc", [0,-2] select isDedicated];
+		[[_mkr],east] remoteExec ["Hide_Mkr_fnc", [0,-2] select isDedicated];
 
-		_veh = createVehicle ["Land_HelipadEmpty_F", markerPos "tempDropMkr", [], 0, "NONE"];
+		private _veh = createVehicle ["Land_HelipadEmpty_F", markerPos "tempDropMkr", [], 0, "NONE"];
 		sleep 0.1;
-		_VarLZName = "DropLZpad";
-		_veh setVehicleVarName _VarLZName;
-		missionNamespace setVariable [_VarLZName,_veh,true];
-		_veh Call Compile Format ["%1=_this; publicVariable '%1'",_VarLZName];
+		private _lzName = "DropLZpad";
+		_veh setVehicleVarName _lzName;
+		missionNamespace setVariable [_lzName,_veh,true];
+		_veh Call Compile Format ["%1=_this; publicVariable '%1'",_lzName];
 		sleep 1;
 	};
 
-	if (_newPos isEqualTo []) exitWith {_posnotfound;};
+	if (_newPos isEqualTo []) exitWith {_posNotFound};
 	"dropmkr" setMarkerAlpha 0;
-	_newPos;
+	_newPos
 };
 Evac_Spawn_Loc = {
 	// Spawn position of Evac heli
 	private ["_mkr","_mkrPos"];
 	if !(markerColor "EvacSpawnMkr" isEqualTo "") then {deleteMarker "EvacSpawnMkr"};
-	_mkr = createMarker ["EvacSpawnMkr", getposATL EvacLZpad];
+	private _mkr = createMarker ["EvacSpawnMkr", getposATL EvacLZpad];
 	_mkr setMarkerShape "ELLIPSE";
-	"EvacSpawnMkr" setMarkerSize [1, 1];
-	"EvacSpawnMkr" setMarkerShape "ICON";
-	"EvacSpawnMkr" setMarkerType "Empty";
-	"EvacSpawnMkr" setMarkerColor "ColorRed";
-	"EvacSpawnMkr" setMarkerText "Evac Spawn Pos";
+	_mkr setMarkerSize [1, 1];
+	_mkr setMarkerShape "ICON";
+	_mkr setMarkerType "Empty";
+	_mkr setMarkerColor "ColorRed";
+	_mkr setMarkerText "Evac Spawn Pos";
 	"EvacSpawnMkr" setMarkerPos [(markerPos "tempPUmkr" select 0) + (JIG_EX_Spawn_Dis * sin floor(random 360)), (markerPos "tempPUmkr" select 1) + (JIG_EX_Spawn_Dis * cos floor(random 360)), 0];
-	_mkrPos = markerPos "EvacSpawnMkr";
-	EvacSpawnPad = createVehicle ["Land_HelipadEmpty_F", markerPos "EvacSpawnMkr", [], 0, "NONE"];
+	private _mkrPos = markerPos "EvacSpawnMkr";
+	EvacSpawnPad = createVehicle ["Land_HelipadEmpty_F", _mkrPos, [], 0, "NONE"];
 	EvacSpawnPad setDir (_mkrPos getDir EvacLZpad);
-	EvacSpawnPad setpos getpos EvacSpawnPad;
+	EvacSpawnPad setpos getPos EvacSpawnPad;
 };
 Ex_LZ_smoke_fnc = {
 	// Pops Smoke and Chemlight at Extraction LZ
@@ -119,7 +123,7 @@ Ex_LZ_smoke_fnc = {
 	sleep 0.1;
 
 	private "_smoke";
-	for "_i" from 0 to 8 step 1 do {
+	for "_i" from 0 to 8 do {
 		_smoke = createVehicle [_smokeColor, [(_lz # 0) + 2, (_lz # 1) + 2, 55], [], 0, "NONE"];
 		sleep 20;
 		if (isNull EvacHeliW1) exitWith {};
@@ -134,7 +138,7 @@ Drop_LZ_smoke_fnc = {
 	private "_smoke";
 
 	sleep 1;
-	for "_i" from 0 to 4 step 1 do {
+	for "_i" from 0 to 4 do {
 		_smoke = createVehicle [_smokeColor, [(_lz # 0) + 1, (_lz # 1) + 1, 55], [], 0, "NONE"];
 		sleep 12.5;
 		if (isNull EvacHeliW1) exitWith {};
@@ -221,7 +225,7 @@ animate_doors_fnc = {
 AmbExRadio_fnc = {
 	// Ambient Radio Chatter in/near Vehicles (TPW code) modified by Jigsor
 	if (ambRadioChatter isEqualTo 1 || !hasInterface) exitWith {};
-	for "_i" from 0 to 4 step 1 do {
+	for "_i" from 0 to 4 do {
 		if (!(isNull objectParent player) && {!(objectParent player isKindOf "ParachuteBase")} && {!(objectParent player isKindOf "StaticWeapon")}) then {
 			playmusic format ["RadioAmbient%1",floor (random 31)];
 		} else {
