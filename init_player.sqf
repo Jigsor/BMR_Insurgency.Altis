@@ -81,14 +81,14 @@ if (DebugEnabled > 0) then {
 
 	// Base Flag Pole
 	if (INS_op_faction in [20]) then {
-		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 0, 3.9, false, true, "", "", 15];
+		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 0, 3.9, false, true, "", "_this isEqualTo vehicle player", 15];
 		if (max_ai_recruits > 1) then {
-			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 1, 3.8, false, true, "", "", 15];
-			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + "Player and AI HALO" + "</t>","scripts\HALO_Pod.sqf", 2, 3.79, false, true, "", "", 15];
+			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\HALO_Pod.sqf", 1, 3.8, false, true, "", "_this isEqualTo vehicle player", 15];
+			INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + "Player and AI HALO" + "</t>","scripts\HALO_Pod.sqf", 2, 3.79, false, true, "", "_this isEqualTo vehicle player", 15];
 		};
 	}else{
-		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","ATM_airdrop\atm_airdrop.sqf", nil, 3.9, false, true, "", "", 15];
-		if (max_ai_recruits > 1) then {INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\INS_AI_Halo.sqf", nil, 3.8, false, true, "", "", 15];};
+		INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_halo_jump") + "</t>","ATM_airdrop\atm_airdrop.sqf", nil, 3.9, false, true, "", "_this isEqualTo vehicle player", 15];
+		if (max_ai_recruits > 1) then {INS_flag addAction[("<t size='1.5' shadow='2' color='#ff9900'>") + (localize "STR_BMR_ai_halo_jump") + "</t>","scripts\INS_AI_Halo.sqf", nil, 3.8, false, true, "", "_this isEqualTo vehicle player", 15];};
 	};
 
 	INS_flag addAction["<t size='1.5' shadow='2' color='#12F905'>Airfield</t>","call JIG_transfer_fnc", ["Airfield"], 3.7, false, true, "", "", 15];
@@ -103,26 +103,26 @@ if (DebugEnabled > 0) then {
 
 	// Virtual Arsenal
 	if (INS_VA_type in [0,3]) then {
-		INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}, nil, 1.5, true, true, "", "true", 15];
-		MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}, nil, 6, true, true, "", "side _this != EAST", 12];
-		MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}, nil, 6, true, true, "", "side _this != EAST", 12];
-		MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}, nil, 6, true, true, "", "side _this != EAST", 12];
+		INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}, nil, 1.5, true, true, "", "_this isEqualTo vehicle player", 15];
+		MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}, nil, 6, true, true, "", "side _this != EAST && _this isEqualTo vehicle player", 12];
+		MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}, nil, 6, true, true, "", "side _this != EAST && _this isEqualTo vehicle player", 12];
+		MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal}, nil, 6, true, true, "", "side _this != EAST && _this isEqualTo vehicle player", 12];
 
-		INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#00ffe9'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],JIG_load_VA_profile], 1, true, true, "", "true", 15];
-		MHQ_1 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],JIG_load_VA_profile_MHQ1], 1, true, true, "", "side _this != EAST", 12];
-		MHQ_2 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],JIG_load_VA_profile_MHQ2], 1, true, true, "", "side _this != EAST", 12];
-		MHQ_3 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],JIG_load_VA_profile_MHQ3], 1, true, true, "", "side _this != EAST", 12];
+		INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#00ffe9'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],JIG_load_VA_profile], 1, true, true, "", "_this isEqualTo player", 15];
+		MHQ_1 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],JIG_load_VA_profile_MHQ1], 1, true, true, "", "side _this != EAST && _this isEqualTo vehicle player", 12];
+		MHQ_2 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],JIG_load_VA_profile_MHQ2], 1, true, true, "", "side _this != EAST && _this isEqualTo vehicle player", 12];
+		MHQ_3 addAction[("<t color='#F56618'>") + (localize "STR_BMR_load_VAprofile") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],JIG_load_VA_profile_MHQ3], 1, true, true, "", "side _this != EAST && _this isEqualTo vehicle player", 12];
 	};
 	if (INS_VA_type in [1,2]) then {
-		INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}, nil, 1.5, true, true, "", "true", 15];
-		MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}, nil, 6, true, true, "", "side _this != EAST", 12];
-		MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}, nil, 6, true, true, "", "side _this != EAST", 12];
-		MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}, nil, 6, true, true, "", "side _this != EAST", 12];
+		INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}, nil, 1.5, true, true, "", "_this isEqualTo player", 15];
+		MHQ_1 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}, nil, 6, true, true, "", "side _this != EAST && _this isEqualTo vehicle player", 12];
+		MHQ_2 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}, nil, 6, true, true, "", "side _this != EAST && _this isEqualTo vehicle player", 12];
+		MHQ_3 addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}, nil, 6, true, true, "", "side _this != EAST && _this isEqualTo vehicle player", 12];
 	};
 
 	// Blufor save respawn loadout
 	if (INS_full_loadout isEqualTo 1) then {
-		INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#ff9207'>") + (localize "STR_BMR_save_loadout") + "</t>", {call INS_RespawnLoadout}, [], 1, false, true, "", "side _this != EAST", 15];
+		INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#ff9207'>") + (localize "STR_BMR_save_loadout") + "</t>", {call INS_RespawnLoadout}, [], 1, false, true, "", "side _this != EAST && _this isEqualTo vehicle player", 15];
 	};
 
 	// Op4 MHQ
@@ -135,7 +135,7 @@ if (DebugEnabled > 0) then {
 	INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side", 12];
 
 	// AI recruitment
-	if (max_ai_recruits > 1) then {INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#1d78ed'>") + (localize "STR_BMR_recruit_inf") + "</t>","bon_recruit_units\open_dialog.sqf", [], 1, true, true, "", "true", 15];};
+	if (max_ai_recruits > 1) then {INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#1d78ed'>") + (localize "STR_BMR_recruit_inf") + "</t>","bon_recruit_units\open_dialog.sqf", [], 1, true, true, "", "_this isEqualTo player", 15];};
 
 	// Player actions for Engineer's FARP/vehicle service point
 	Jig_m_obj addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_maintenance_veh") + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[],INS_maintenance_veh], 8, true, true, "", "count (nearestObjects [_this, ['LandVehicle','Air','Ship'], 15]) > 0"];
