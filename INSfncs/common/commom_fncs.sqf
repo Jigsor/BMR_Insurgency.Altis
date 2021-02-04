@@ -454,7 +454,7 @@ INS_toggle_Zeus = {
 	
 	
 	//Prevent Zeus from interrupting an extraction in progress
-	if (isDedicated && {!isNil "EvacHeliW1" && {!isNull EvacHeliW1 && {!isNull (currentPilot EvacHeliW1)}}}) then {
+	if (!isNil "EvacHeliW1" && {!isNull EvacHeliW1 && {!isNull (currentPilot EvacHeliW1)}}) then {
 		_exclude = units (group (driver EvacHeliW1));
 		_allunits = allUnits select {!(_x in _exclude)};
 	}
