@@ -117,33 +117,52 @@ INS_intro_op4 = {
 	if (JIG_SnowStorm) then {0 spawn JIG_Snow_Storm};
 };
 JIG_placeSandbag_fnc = {
-	// Player action place sandbag barrier. by Jigsor
+	// Player action place sandbag barrier. by Jigsor //WIP
 	private _p = _this # 1;
 
-	if (!isNull objectParent _p || {surfaceIsWater getPosWorld _p}) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
-	if ((getPosWorld _p) inArea trig_alarm1init) exitWith {hintSilent "No Sandbags on Base!"};
+	hintSilent "";
+	if (!isNull objectParent _p) exitWith {hintSilent localize "STR_BMR_Sandbag_restrict"};
 
-	private _lift = 0.2;
+	private _isOverWater = false;
+	private _wldPos = getPosWorld _p;
+	private _posATLplyr = getPosATL _p;
+
+	private _inWater = false;
+	if (surfaceIsWater _wldPos) then {
+		_isOverWater = true;
+		//if ((getTerrainHeightASL getpos _p < -0.6 && _posATLplyr # 2 < 0.146) || eyePos _p select 2 < 0.2) then {_inWater = true};
+		if ((getTerrainHeightASL getpos _p < -0.6 && _wldPos # 2 < -0.8) || eyePos _p select 2 < 0.2) then {_inWater = true};	
+	};
+
+	if (_inWater) exitWith {hintSilent "Water is to deep!"};
+	if (_wldPos inArea trig_alarm1init) exitWith {hintSilent "No Sandbags on Base!"};
+
 	private _dist = 2;
 	private _zvector = ((_p weaponDirection (primaryWeapon _p)) # 2) * 3;
+	private _lift = 0.2;
 
 	if (!isNull MedicSandBag) then {deleteVehicle MedicSandBag};
-	MedicSandBag = createVehicle ["Land_BagFence_Round_F",[(getposATL _p # 0) + (sin(getdir _p) * _dist), (getposATL _p # 1) + (cos(getdir _p) * _dist)], [], 0, "CAN_COLLIDE"];
-
+	MedicSandBag = createVehicle ["Land_BagFence_Round_F",[(_posATLplyr # 0) + (sin(getdir _p) * _dist), (_posATLplyr # 1) + (cos(getdir _p) * _dist)], [], 0, "CAN_COLLIDE"];
 	MedicSandBag setDir (getDir _p) - 180;
-	MedicSandBag setposATL [(getposATL _p # 0) + (sin(getdir _p) * _dist), (getposATL _p # 1) + (cos(getdir _p) * _dist), (getposATL _p # 2) + _zvector + 1];
+	MedicSandBag setposATL [(_posATLplyr # 0) + (sin(getdir _p) * _dist), (_posATLplyr # 1) + (cos(getdir _p) * _dist), (_posATLplyr # 2) + _zvector + 1];
 
-	if ((getPosATL MedicSandBag # 2) > (getPosATL _p # 2)) then {
-		MedicSandBag setPos [(getPosATL MedicSandBag # 0), (getPosATL MedicSandBag # 1), (getPosATL _p # 2)];
-		MedicSandBag setVectorUp [0,0,1];
-	}else{
-		while {((position MedicSandBag # 2) + 0.2) < (getPosATL _p # 2)} do {
-			MedicSandBag setPos [(getPosATL MedicSandBag # 0), (getPosATL MedicSandBag # 1), ((getPosATL MedicSandBag # 2) + _lift)];
+	if (_isOverWater && _posATLplyr # 2 > 0.145) then {
+		private _waterPos = ASLToATL (AGLToASL _wldPos); //(ASLToAGL getPosASL _p)
+		MedicSandBag setPosATL (_p ModelToWorld [0,1.3, (_waterPos select 2) - (_wldPos select 2)]);
+		//MedicSandBag setPosATL (_p ModelToWorld [0,1.3, (abs(_waterPos select 2)) - (_wldPos select 2)]);
+	} else {
+		if ((getPosATL MedicSandBag # 2) > _posATLplyr # 2) then {
+			MedicSandBag setPos [getPosATL MedicSandBag # 0, getPosATL MedicSandBag # 1, _posATLplyr # 2];
 			MedicSandBag setVectorUp [0,0,1];
-			_lift = _lift + 0.1;
-		};
-		if (((getPosATL MedicSandBag # 2) -2) > (getPosATL player # 2)) then {
-			MedicSandBag setPosATL (player ModelToWorld [0,1.3,0]);
+		} else {
+			while {((position MedicSandBag # 2) + 0.2) < _posATLplyr # 2} do {
+				MedicSandBag setPos [getPosATL MedicSandBag # 0, getPosATL MedicSandBag # 1, (getPosATL MedicSandBag select 2) + _lift];
+				MedicSandBag setVectorUp [0,0,1];
+				_lift = _lift + 0.1;
+			};
+			if (((getPosATL MedicSandBag # 2) -2) > _posATLplyr # 2) then {
+				MedicSandBag setPosATL (_p ModelToWorld [0,1.3,0]);
+			};
 		};
 	};
 
