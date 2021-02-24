@@ -86,7 +86,7 @@ paint_heli_fnc = {
 		private _wN = toLowerANSI worldName;
 		switch (true) do {
 			case (_wN in ["altis","malden","stratis","sara","napfwinter","napf","tem_anizay","cup_chernarus_a3"]): {_color = _darkGrey};
-			case (_wN in ["tanoa","pja312"]): {_color = _green2};
+			case (_wN in ["tanoa","pja312","rhspkl"]): {_color = _green2};
 			case (_wN in ["enoch","lingor3","pja305","xcam_taunus","bornholm","kapaulio","wl_rosche","hyde_sark"]): {_color = _green1};
 			case (_wN in ["takistan","fallujah","dingor","zargabad","kunduz","pja310","mog","dya","fata","clafghan","lythium"]): {_color = _sandColor};
 			case (_wN in ["tanoa","pja312"]): {_color = _green2};
@@ -347,7 +347,7 @@ miss_object_pos_fnc = {
 	};
 
 	if (!(_newPos isEqualTo [])) then {
-		if !(getMarkerType "tempObjMkr" isEqualTo "") then {deleteMarkerLocal "tempObjMkr"};
+		if !(markerType "tempObjMkr" isEqualTo "") then {deleteMarkerLocal "tempObjMkr"};
 		private _mkrType = ["EMPTY", "mil_dot"] select (DebugEnabled isEqualTo 1);
 		private _mkr = createMarkerLocal ["tempObjMkr", _newPos];
 		_mkr setMarkerShapeLocal "ELLIPSE";
@@ -520,7 +520,7 @@ bmbr_spawnpos_fnc = {
 	};
 
 	if (!(_newPos isEqualTo [])) then {
-		if !(getMarkerType "bomberMkr" isEqualTo "") then {deleteMarkerLocal "bomberMkr";};
+		if !(markerType "bomberMkr" isEqualTo "") then {deleteMarkerLocal "bomberMkr";};
 		_mkr = createMarkerLocal ["bomberMkr", _newPos];
 		_mkr setMarkerShapeLocal "ELLIPSE";
 		"bomberMkr" setMarkerSizeLocal [1, 1];
