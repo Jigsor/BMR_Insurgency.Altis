@@ -69,6 +69,14 @@ btc_qr_fnc_unc = compile preprocessFileLineNumbers "=BTC=_q_revive\unc.sqf";
 btc_qr_fnc_unit_init = compile preprocessFileLineNumbers "=BTC=_q_revive\unit_init.sqf";
 btc_qr_fnc_var = compile preprocessFileLineNumbers "=BTC=_q_revive\var.sqf";
 
+//Jig adding EH
+_respCtrl = (findDisplay 49 displayCtrl 1010);
+_respCtrlEH = _respCtrl ctrlAddEventHandler ["MouseButtonDown", {
+	//(findDisplay 49) closeDisplay 0; hint "Respawn Location Selection Bypassed";
+	player setPos (getPos BTC_r_base_spawn);
+}];
+//_respCtrl ctrlRemoveEventHandler ["MouseButtonDown", _respCtrlEH];
+
 btc_qr_ready = true;
 
 //hint "=BTC= Quick revive ready!";
