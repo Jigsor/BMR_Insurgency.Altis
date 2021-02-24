@@ -13,7 +13,7 @@ MAD_maxCarDistance = _this # 2; //max distance until cars despawn
 if (isNil "WBpos") then {WBpos = getPosATL trig_alarm1init};
 //Jig adding exclusion distance
 ExcDis = 600;
-if ((toLowerANSI worldName) in ["tem_anizay","clafghan","napf","napfwinter","kapaulio","wl_rosche","xcam_taunus","enoch"]) then {ExcDis = 750};
+if ((toLowerANSI worldName) in ["tem_anizay","clafghan","napf","napfwinter","kapaulio","wl_rosche","xcam_taunus","enoch","rhspkl"]) then {ExcDis = 750};
 //Jig adding map size
 MTnlRad = getnumber (configfile >> "CfgWorlds" >> worldName >> "mapSize");
 if ((isNil "MTnlRad") || {MTnlRad isEqualTo 0}) then {MTnlRad = 30000};
