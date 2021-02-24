@@ -31,5 +31,6 @@ class BMRINS
 		class Op4PlayerKilled {};
 		class Op4buildingPos {};
 		class MoveOp4Base {};
+		class clearVehCargo {};
 	};
 };
