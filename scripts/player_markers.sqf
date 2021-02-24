@@ -68,7 +68,7 @@ private "_mkrNo";
 private _getNextMkr = {
 	_mkrNo = _mkrNo + 1;
 	private _mkr = format["um%1",_mkrNo];
-	if(getMarkerType _mkr isEqualTo "") then {
+	if(markerType _mkr isEqualTo "") then {
 		createMarkerLocal [_mkr, _this];
 	} else {
 		_mkr setMarkerPosLocal _this;
@@ -208,7 +208,7 @@ while {true} do {
 
 	_mkrNo = _mkrNo + 1;
 	private _mkr = format["um%1",_mkrNo];
-	while {(getMarkerType _mkr) != ""} do {
+	while {(markerType _mkr) != ""} do {
 		deleteMarkerLocal _mkr;
 		_mkrNo = _mkrNo + 1;
 		_mkr = format["um%1",_mkrNo];
