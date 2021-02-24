@@ -30,7 +30,7 @@ if (_this isEqualType objNull) then { _grp = group _this };
 if (_this isEqualType [])then {
 	_grp = _this # 0;
 	if (_grp isEqualType objNull) then {_grp = group _grp};
-	if (count _this > 1) then {private _mkr = _this select 1};
+	if (count _this > 1) then {_mkr = _this # 1};
 };
 
 _grp setBehaviour "AWARE";
@@ -49,7 +49,7 @@ while {count _wps < _cnt} do {
 	if (surfaceiswater (getposWorld(leader _grp))) then {
 		_p = [_mkr,true] call SHK_pos;
 	}else{
-		_p = [_mkr,true] call SHK_pos;
+		_p = [_mkr] call SHK_pos;
 	};
 	_wps pushBack _p;
 };
@@ -83,7 +83,7 @@ _wp1 setWaypointCompletionRadius 35;
 
 if (DEBUG) then {
     while {sleep 5; {alive _x} count (units _grp) > 0} do {
-		private _p = getpos leader _grp;
+		private _p = getposWorld leader _grp;
 		private _m = createMarker [format["SHK_patrol_%1%2%3",(floor(_p select 0)),(floor(_p select 1)),floor time],_p];
 		_m setMarkerShape "Icon";
 		_m setMarkerType "mil_dot";

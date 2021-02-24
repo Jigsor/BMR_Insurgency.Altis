@@ -11,7 +11,11 @@ _r=floor(random _d);
 //if (_r isEqualTo 0) then {_r=ceil(random _d);};//Aprox 12 to 22 percent increase to current lobby parameter probability?
 _grpSize=_r+_grpMin;
 
-private _pool=if (surfaceiswater _pos) then {[_faction,1] call eos_fnc_getunitpool;}else{[_faction,0] call eos_fnc_getunitpool;};
+private _pool=if (surfaceiswater _pos && {getTerrainHeightASL _pos < -1.3}) then {
+	[_faction,1] call eos_fnc_getunitpool;
+}else{
+	[_faction,0] call eos_fnc_getunitpool;
+};
 
 _grp=createGroup _side;
 
