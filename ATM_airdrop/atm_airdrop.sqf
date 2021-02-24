@@ -24,7 +24,7 @@ _s_alt sliderSetRange [500,20000];
 _s_alt slidersetSpeed [100,100,100];
 _s_alt sliderSetPosition Altitude;
 
-Keys = 0;
+ATMcrKey = 0;
 IsCutRope = false;
 
 _ctrl = _dialog displayCtrl 2903;

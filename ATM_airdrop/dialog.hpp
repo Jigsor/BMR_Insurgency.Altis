@@ -244,7 +244,7 @@ class ATM_AD_ALTITUDE_SELECT {
 			x = 0.32; y = 0.258;
 			w = 0.275; h = 0.04;
 		};
-		class Keys : ATM_AD_RscText {
+		class crKeys : ATM_AD_RscText {
 			idc = -1;
 			text = "$STR_ATM_Keys";
 			x = 0.32; y = 0.358;

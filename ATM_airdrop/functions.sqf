@@ -22,78 +22,78 @@ pkChangeKey={
 	_index = lbCurSel 2903;
 	switch _index do {
 		case 0:{};//Fr Keyboard
-		case 1:{Keys=16};//A
-		case 2:{Keys=48};//B
-		case 3:{Keys=46};//C
-		case 4:{Keys=32};//D
-		case 5:{Keys=18};//E
-		case 6:{Keys=33};//F
-		case 7:{Keys=34};//G
-		case 8:{Keys=35};//H
-		case 9:{Keys=23};//I
-		case 10:{Keys=36};//J
-		case 11:{Keys=37};//K
-		case 12:{Keys=38};//L
-		case 13:{Keys=39};//M
-		case 14:{Keys=49};//N
-		case 15:{Keys=24};//O
-		case 16:{Keys=25};//P
-		case 17:{Keys=30};//Q
-		case 18:{Keys=19};//R
-		case 19:{Keys=31};//S
-		case 20:{Keys=20};//T
-		case 21:{Keys=22};//U
-		case 22:{Keys=47};//V
-		case 33:{Keys=44};//W
-		case 24:{Keys=45};//X
-		case 25:{Keys=21};//Y
-		case 26:{Keys=17};//Z
+		case 1:{ATMkeys=16};//A
+		case 2:{ATMkeys=48};//B
+		case 3:{ATMkeys=46};//C
+		case 4:{ATMkeys=32};//D
+		case 5:{ATMkeys=18};//E
+		case 6:{ATMkeys=33};//F
+		case 7:{ATMkeys=34};//G
+		case 8:{ATMkeys=35};//H
+		case 9:{ATMkeys=23};//I
+		case 10:{ATMkeys=36};//J
+		case 11:{ATMkeys=37};//K
+		case 12:{ATMkeys=38};//L
+		case 13:{ATMkeys=39};//M
+		case 14:{ATMkeys=49};//N
+		case 15:{ATMkeys=24};//O
+		case 16:{ATMkeys=25};//P
+		case 17:{ATMkeys=30};//Q
+		case 18:{ATMkeys=19};//R
+		case 19:{ATMkeys=31};//S
+		case 20:{ATMkeys=20};//T
+		case 21:{ATMkeys=22};//U
+		case 22:{ATMkeys=47};//V
+		case 33:{ATMkeys=44};//W
+		case 24:{ATMkeys=45};//X
+		case 25:{ATMkeys=21};//Y
+		case 26:{ATMkeys=17};//Z
 		case 27:{};//US Keyboard
-		case 28:{Keys=30};//A
-		case 29:{Keys=48};//B
-		case 30:{Keys=46};//C
-		case 31:{Keys=32};//D
-		case 32:{Keys=18};//E
-		case 33:{Keys=33};//F
-		case 34:{Keys=34};//G
-		case 35:{Keys=35};//H
-		case 36:{Keys=23};//I
-		case 37:{Keys=36};//J
-		case 38:{Keys=37};//K
-		case 39:{Keys=38};//L
-		case 40:{Keys=50};//M
-		case 41:{Keys=49};//N
-		case 42:{Keys=24};//O
-		case 43:{Keys=25};//P
-		case 44:{Keys=16};//Q
-		case 45:{Keys=19};//R
-		case 46:{Keys=31};//S
-		case 47:{Keys=20};//T
-		case 48:{Keys=22};//U
-		case 49:{Keys=47};//V
-		case 50:{Keys=17};//W
-		case 51:{Keys=45};//X
-		case 52:{Keys=21};//Y
-		case 53:{Keys=44};//Z
+		case 28:{ATMkeys=30};//A
+		case 29:{ATMkeys=48};//B
+		case 30:{ATMkeys=46};//C
+		case 31:{ATMkeys=32};//D
+		case 32:{ATMkeys=18};//E
+		case 33:{ATMkeys=33};//F
+		case 34:{ATMkeys=34};//G
+		case 35:{ATMkeys=35};//H
+		case 36:{ATMkeys=23};//I
+		case 37:{ATMkeys=36};//J
+		case 38:{ATMkeys=37};//K
+		case 39:{ATMkeys=38};//L
+		case 40:{ATMkeys=50};//M
+		case 41:{ATMkeys=49};//N
+		case 42:{ATMkeys=24};//O
+		case 43:{ATMkeys=25};//P
+		case 44:{ATMkeys=16};//Q
+		case 45:{ATMkeys=19};//R
+		case 46:{ATMkeys=31};//S
+		case 47:{ATMkeys=20};//T
+		case 48:{ATMkeys=22};//U
+		case 49:{ATMkeys=47};//V
+		case 50:{ATMkeys=17};//W
+		case 51:{ATMkeys=45};//X
+		case 52:{ATMkeys=21};//Y
+		case 53:{ATMkeys=44};//Z
 	};
 };
 
 dokeyDown={
 	private ["_r","_key_delay","_cutawaysound"];
 	_key_delay  = 0.3;
-	player setvariable ["key",false];
+	player setvariable ["ATMcrKey",false];
 	_r = false ;
 
-	if (player getvariable["key",true] && (_this select 1) isEqualTo Keys) exitwith {player setvariable["key",false]; [_key_delay] spawn {sleep (_this select 0);player setvariable["key",true]; }; _r};
-	if ((_this select 1) isEqualTo Keys) then {
-		if  (player != vehicle player && player getvariable ["cutaway",true]) then {
+	if (player getvariable["ATMcrKey",true] && (_this select 1) isEqualTo ATMkeys) exitwith {player setvariable["ATMcrKey",false]; [_key_delay] spawn {sleep (_this select 0);player setvariable["ATMcrKey",true]; }; _r};
+	if ((_this select 1) isEqualTo ATMkeys) then {
+		if  (player != vehicle player && player getvariable ["ATMcutaway",true]) then {
 			playSound "Para";
 			_cut = nearestObjects [player, ["Steerable_Parachute_F"], 5];
 			{deletevehicle _x} count _cut;
 			player addBackpack "B_Parachute";
 			deletevehicle (player getvariable "frontpack"); player setvariable ["frontpack",nil];
-			player setvariable["key",true];
-			player setvariable ["cutaway",false];
+			player setvariable["ATMcrKey",true];
+			player setvariable ["ATMcutaway",false];
 			(findDisplay 46) displayRemoveEventHandler ["KeyDown", Cut_Rope];
 			IsCutRope = true;
 		};
