@@ -2,7 +2,7 @@
  execVM "scripts\ghst_PutinBuild.sqf";
  V2.5.2 - By Ghost - coord snippet is from DiRaven
  fills a random building around a position with all objects listed. best to keep radius small so not many buidlings need to be calculated
- Modified by Jigsor 8/22/2019. Modified mostly beginning and ending. The core is by Ghost. Creates and places Ammo Cache.
+ Modified by Jigsor 2/13/2021. Modified mostly beginning and ending. The core is by Ghost. Creates and places Ammo Cache.
 */
 
 if (!isServer) exitWith{};
@@ -107,9 +107,7 @@ private _cache_loop = [] spawn
 		_jigycoor = _jigcoor # 1;
 
 		//get all buildings around position of set radius
-		private "_rad";
-
-		if ((_radarray select 0) > (_radarray select 1)) then {_rad = (_radarray select 0);} else {_rad = (_radarray select 1);};
+		private _rad = if ((_radarray select 0) > (_radarray select 1)) then {(_radarray select 0)} else {(_radarray select 1)};
 
 		_nearBuildings = [_jigxcoor,_jigycoor] nearObjects ["HouseBase", _rad];
 
@@ -117,8 +115,10 @@ private _cache_loop = [] spawn
 
 		//Put specified objects in Buildings With Guards
 		{
-			private ["_selbuild","_position","_positionarray"];
+			private ["_selbuild","_position","_posArr","_aboveWater","_waterPos"];
 
+			_aboveWater = false;
+			_waterPos = [];
 			_loop = true;
 			_p = 1;
 			while {_loop} do {
@@ -132,13 +132,20 @@ private _cache_loop = [] spawn
 				_nearBuildings deleteAt _i;
 
 				//get positions for selected building
-				_positionarray = _selbuild call fnc_ghst_build_positions;
+				_posArr = _selbuild call fnc_ghst_build_positions;
 
-				_r = floor(random count _positionarray);
-				_position = _positionarray # _r;
-				_positionarray deleteAt _r;
+				_r = floor(random count _posArr);
+				_position = _posArr # _r;
+				_posArr deleteAt _r;
 
-				if !(isnil "_position") exitwith {_loop = false};
+				if !(isnil "_position") exitwith {
+					if (surfaceIsWater _position) then {
+						_waterPos = ASLToATL (AGLToASL _position);
+						_position set [2, (_waterPos select 2)];
+						_aboveWater = true;
+					};
+					_loop = false;
+				};
 
 				if (debug) then {_p = _p + 1};
 			};
@@ -146,30 +153,40 @@ private _cache_loop = [] spawn
 			//debug
 			if (debug) then {
 				diag_log format ["Ran Position Loop %1 Times", _p];
-				diag_log format ["BUILD POS ARRAY %1 BUILD POS SELECTED %2", _positionarray, _position];
+				if (!isNil "_position") then {diag_log format ["BUILD POS ARRAY %1 BUILD POS SELECTED %2", _posArr, _position]};
 			};
 
-				if (isNil "_position") then {
-					if (debug) then {diag_log format["FAILED TO PLACE OBJECT %1", _x];};
+			if (isNil "_position") then {
+				if (debug) then {diag_log format["FAILED TO PLACE OBJECT %1", _x];};
 
-					_pos = [_cache_coor,_radarray] call fnc_ghst_rand_position;
+				_pos = [_cache_coor,_radarray] call fnc_ghst_rand_position;
 
+				_x allowdamage false;
+				_position = _pos findEmptyPosition[ 0 , 20 , typeof _x];
+				_x setPosATL _position;
+				//_x setFormDir (random 360);
+				_x setFormDir 0;
+				_x allowdamage true;
+			} else {
+
+				if (_aboveWater) then {
 					_x allowdamage false;
-					_position = _pos findEmptyPosition[ 0 , 20 , typeof _x];
-					_x setPosatl _position;
-					//_x setFormDir (random 360);
+					_x setposATL _position;
 					_x setFormDir 0;
+					_x setUnitPos "UP";
 					_x allowdamage true;
 				} else {
+
 					if (debug) then {diag_log format["PLACED OBJECT %1 POS %2", _x, _position];};
 					_x allowdamage false;
-					_x setPosatl [(_position # 0), (_position # 1), (_position # 2) + 0.5];
+					_x setPosATL [(_position # 0), (_position # 1), (_position # 2) + 0.5];
 					//_x setFormDir (random 360);
 					_x setFormDir 0;
 					_x setUnitPos "UP";
 					_x setVectorUP (surfaceNormal [(getPosATL _x) # 0,(getPosATL _x) # 1]);//adding
 					_x allowdamage true;
 				};
+			};
 
 			//create markers for units
 			if (_markunits) then {
@@ -180,9 +197,9 @@ private _cache_loop = [] spawn
 				_mkr setmarkersize _msize;
 				_mkr setmarkercolor _mcolor;//"ColorBlack";
 				_mkr setmarkerAlpha 0;//0 to hide marker
-					if (_markunitspos) then {
+				if (_markunitspos) then {
 					_mkr setmarkertext format ["Ammo Cache:%1", _x];
-					};
+				};
 
 				_nul = [_x,_mkr] spawn {
 					params ['_unit','_mkr'];
@@ -213,17 +230,17 @@ private _cache_loop = [] spawn
 			private "_objmkr";
 			if (_ins_debug) then {
 				_objmkr = createMarker ["cachemkr", activated_cache_pos];
-				"cachemkr" setMarkerShape "ELLIPSE";
-				"cachemkr" setMarkerSize [1, 1];
-				"cachemkr" setMarkerShape "ICON";
-				"cachemkr" setMarkerType "mil_dot";
-				"cachemkr" setMarkerColor "ColorRed";
+				_objmkr setMarkerShape "ELLIPSE";
+				_objmkr setMarkerSize [1, 1];
+				_objmkr setMarkerShape "ICON";
+				_objmkr setMarkerType "mil_dot";
+				_objmkr setMarkerColor "ColorRed";
 				"cachemkr" setMarkerText "Ammo Cache";
 			}else{
 				_objmkr = createMarker ["cachemkr", activated_cache_pos];
-				"cachemkr" setMarkerShape "ELLIPSE";
-				"cachemkr" setMarkerSize [1, 1];
-				"cachemkr" setMarkerShape "ICON";
+				_objmkr setMarkerShape "ELLIPSE";
+				_objmkr setMarkerSize [1, 1];
+				_objmkr setMarkerShape "ICON";
 				"cachemkr" setMarkerType "EMPTY";
 			};
 

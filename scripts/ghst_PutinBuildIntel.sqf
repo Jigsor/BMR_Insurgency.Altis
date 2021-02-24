@@ -2,7 +2,7 @@
  [activated_cache_pos] execVM "scripts\ghst_PutinBuildIntel.sqf";
  V2.5.2 - By Ghost - coord snippet is from DiRaven
  fills a random building around a position with all objects listed. Best to keep radius small so not many buidlings need to be calculated.
- Modified by Jigsor. Last Edit 7/21/2019.//Adapted to spawn intel. Modified mostly beginning and ending. The core is by Ghost. Places Intel and creates intel location markers.
+ Modified by Jigsor. Last Edit 2/13/2021.//Adapted to spawn intel. Modified mostly beginning and ending. The core is by Ghost. Places Intel and creates intel location markers.
 */
 
 if (!isServer) exitWith{};
@@ -84,8 +84,10 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 
 		//Put specified objects in Buildings
 		{
-			private ["_selbuild","_position","_posArr"];
+			private ["_selbuild","_position","_posArr","_aboveWater","_waterPos"];
 
+			_aboveWater = false;
+			_waterPos = [];
 			_loop = true;
 			_p = 1;
 			while {_loop} do {
@@ -105,7 +107,14 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 				_position = _posArr # _r;
 				_posArr deleteAt _r;
 
-				if !(isnil "_position") exitwith {_loop = false};
+				if !(isnil "_position") exitwith {
+					if (surfaceIsWater _position) then {
+						_waterPos = ASLToATL (AGLToASL _position);
+						_position set [2, (_waterPos select 2)];
+						_aboveWater = true;
+					};
+					_loop = false;
+				};
 
 				if (_debug) then {_p = _p + 1};
 			};
@@ -138,29 +147,38 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 				_position = _b_pos;
 
 				_x allowdamage false;
-				_x setPosatl [(_position # 0), (_position # 1), 0.5];
+				_x setPosATL [(_position # 0), (_position # 1), 0.5];
 				_x setFormDir 0;
 				_x setUnitPos "UP";
 				_x setVectorUP (surfaceNormal [(getPosATL _x) # 0,(getPosATL _x) # 1]);
 			} else {
-				if (_debug) then {diag_log format["PLACED OBJECT %1 POS %2", _x, _position];};
-				_x allowdamage false;
-				_x setPosatl [(_position # 0), (_position # 1), (_position # 2) + 0.5];
-				_x setFormDir 0;
-				_x setUnitPos "UP";
-				_x setVectorUP (surfaceNormal [(getPosATL _x) # 0,(getPosATL _x) # 1]);
+				if (_aboveWater) then {
+					_x allowdamage false;
+					_x setposATL _position;
+					_x setFormDir 0;
+					_x setUnitPos "UP";
+				} else {
+					_x allowdamage false;
+					_x setPosATL [(_position # 0), (_position # 1), (_position # 2) + 0.5];
+					_x setFormDir 0;
+					_x setUnitPos "UP";
+					_x setVectorUP (surfaceNormal [(getPosATL _x) # 0,(getPosATL _x) # 1]);
+				};
 			};
+			if (_debug) then {diag_log format["PLACED OBJECT %1 POS %2", _x, _position];};
 
 			//create markers for units
 			if (_markunits) then {
-				_pos = [_position,[_msize # 0,_msize # 1,(random 360)]] call fnc_ghst_rand_position;
+				//_pos = [_position,[_msize # 0,_msize # 1,(random 360)]] call fnc_ghst_rand_position;
+				_pos = _position;
 				_markname = str(_pos);
 				_mkr = createMarker [_markname, _pos];
 				_mkr setMarkerShape "Ellipse";
 				_mkr setmarkersize _msize;
 				_mkr setmarkercolor _mcolor;//"ColorBlack";
 				_mkr setmarkerAlpha _hide_intel;//hide intel location markers
-				if (_markunitspos) then {_mkr setmarkertext format ["Intel obj%1", _x]};
+				//if (_markunitspos) then {_mkr setmarkertext format ["Intel obj%1", _x]};
+				if (_markunitspos) then {_mkr setmarkertext _markname};
 				if (_hide_intel isEqualTo 1) then {_imks pushBack [_x,_mkr]};
 			};
 			sleep 0.1;
@@ -197,6 +215,15 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 				} forEach _arr;
 				uiSleep 10;
 			};
+			
+			/*
+			key method
+			_keys = ["a", "b", "c"];
+			_values = [1,2,3];
+
+			_index = _keys find "c";
+			_value = if (_index != -1) then {_values select _index} else {-1};
+			*/
 		};
 	};
 
