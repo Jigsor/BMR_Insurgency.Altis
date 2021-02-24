@@ -1,4 +1,5 @@
 //Disable damage for non projectile hits
+//usage: [_vehicle] call BMRINS_fnc_bypassVehCrashDamage;
 params [["_veh",objNull]];
 if (isNull _veh) exitWith {};
 _veh addEventHandler ["HandleDamage", {
