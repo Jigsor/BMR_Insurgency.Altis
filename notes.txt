@@ -206,7 +206,7 @@ Change: Removed Binoculars from Grid AI.
 Change: Friendly AI markers now visible on map. Marker code greatly shortened.
 Change: CAS radio side chat confirmation now broadcasts callers name.
 Change: Mission Name and description moved to stringtable.xml for easier mission updates.
-Change: Medic can place sandbag on structure over water.
+Change: Medic can now place sandbag on structure over water.
 Added: New mission version BMR_Insurgency_Green.Hyde_Sark
 Added: New mission version BMR_Insurgency_vXXX.cup_chernarus_A3
 Added: Mission's Zeus can hear all radio Coms.
@@ -222,8 +222,8 @@ Added: Internal mission build version now viewable in briefing info.
 Added: Clear vehicle cargo function.
 Added: rhspkl Prei Khmaoch Luong version.
 Fixed: BTC quick revive. Player would respawn in the same place he died if Respawn button from main game menu was pressed.
-Fixed: Intel and Ammo cahces can now spawn in Structures over water.
-Fixed: EOS Grid System will not spawn boats and divers in low depth water wich can be walked on.
+Fixed: Intel and ammo caches can now spawn in structures over water.
+Fixed: EOS Grid System will no longer spawn boats and divers in low depth water which can be walked in.
 Fixed: Satchel and some scripted demo and satchel charges would not blow up ammo cache or objective towers.
 Fixed: Sometimes intel breifcase dot marker would not delete after pickup.
 Fixed: Infinate Civi waypoints possible when driver exits vehicle from ambient civilian traffic.
