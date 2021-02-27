@@ -2,11 +2,11 @@
 <Project name="BMR Insurgency">
 <Container name="BMR_Insurgency_Stringtable">
 <Key ID="STR_BMRINS_TITLE">
-<Original>BMR_Insurgency_v1_50.rhspkl</Original>
-<English>BMR_Insurgency_v1_50.rhspkl</English>
-<German>BMR_Insurgency_v1_50.rhspkl</German>
-<French>BMR_Insurgency_v1_50.rhspkl</French>
-<Spanish>BMR_Insurgency_v1_50.rhspkl</Spanish>
+<Original>BMR_Insurgency_v1_50</Original>
+<English>BMR_Insurgency_v1_50</English>
+<German>BMR_Insurgency_v1_50</German>
+<French>BMR_Insurgency_v1_50</French>
+<Spanish>BMR_Insurgency_v1_50</Spanish>
 </Key>
 <Key ID="STR_BMRINS_DESCRIPTION">
 <Original>Eliminate Armed Rebellion Against NATO forces. Gather Intel on Location of Enemy Ammo Cache and Destroy it</Original>
