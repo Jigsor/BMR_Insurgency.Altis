@@ -301,7 +301,7 @@ JIG_tower_damage = {
     _ammo = _this # 4;
     _out = 0;
 
-	if ((_ammo == "satchelCharge_remote_ammo") || (_ammo == "demoCharge_remote_ammo") || (_ammo == "satchelCharge_remote_ammo_scripted") || (_ammo == "demoCharge_remote_ammo_scripted") || (_ammo == "CUP_PipeBomb_Ammo") || (_ammo == "LIB_Ladung_Small_ammo") || (_ammo == "LIB_Ladung_Big_ammo") || (_ammo == "LIB_US_TNT_4pound_ammo") || (_ammo == "C7_Remote_Ammo")) then {
+	if ((_ammo == "SatchelCharge_Remote_Ammo") || (_ammo == "DemoCharge_Remote_Ammo") || (_ammo == "SatchelCharge_Remote_Ammo_Scripted") || (_ammo == "DemoCharge_Remote_Ammo_Scripted") || (_ammo == "CUP_PipeBomb_Ammo") || (_ammo == "LIB_Ladung_Small_ammo") || (_ammo == "LIB_Ladung_Big_ammo") || (_ammo == "LIB_US_TNT_4pound_ammo") || (_ammo == "C7_Remote_Ammo")) then {
         _tower spawn {
             sleep 0.1;
             _this setDamage 1;
