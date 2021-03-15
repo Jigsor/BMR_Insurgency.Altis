@@ -1,5 +1,5 @@
 // Modify this file with desired classnames for customization of Blufor Arsenal. Only items listed here will be available in Virtual Arsenal.
-// If using class names from moded content then these mods must be loaded or else client side error occurs.
+// If mods from wich some classes may come from are not loaded then item will simply not be available in Arsenal without error.
 if (!hasInterface) exitWith {};
 
 if (INS_op_faction in [21]) exitWith
