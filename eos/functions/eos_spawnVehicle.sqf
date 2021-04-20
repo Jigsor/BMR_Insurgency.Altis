@@ -29,7 +29,7 @@ _grp = createGroup _side;
 	_currentPosition=_x;
 	if (_currentPosition # 0 == "driver")then {
 		_unit=_grp createUnit [_unitType, _position, [], 0, "CAN_COLLIDE"];
-		if !(side _unit isEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};
+		if (side _unit isNotEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};
 		_unit assignAsDriver _vehicle;
 		_unit moveInDriver _vehicle;
 		_vehCrew pushBack _unit;
@@ -37,7 +37,7 @@ _grp = createGroup _side;
 
 	if (_currentPosition # 0 == "turret")then {
 		_unit=_grp createUnit [_unitType, _position, [], 0, "CAN_COLLIDE"];
-		if !(side _unit isEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};
+		if (side _unit isNotEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};
 		_unit assignAsGunner _vehicle;
 		_unit MoveInTurret [_vehicle,_currentPosition # 1];
 		_vehCrew pushBack _unit;

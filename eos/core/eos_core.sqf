@@ -66,13 +66,13 @@ if (!_cache) then {
 };
 
 _mkr setmarkerAlpha _mAN;
-if !(markerColor _mkr isEqualTo VictoryColor) then { //IF MARKER IS GREEN DO NOT CHANGE COLOUR
+if (markerColor _mkr isNotEqualTo VictoryColor) then { //IF MARKER IS GREEN DO NOT CHANGE COLOUR
 	_mkr setmarkercolor hostileColor;
 };
 
 waituntil {sleep 0.1; triggeractivated _eosActivated && RedHot <= _mz}; //WAIT UNTIL PLAYERS IN ZONE and count of activated zones less than or equal to limiter
-if !(markerColor _mkr isEqualTo "ColorBlack") then {
-	if !(markerColor _mkr isEqualTo VictoryColor) then {_mkr setmarkerAlpha _mAH; RedHot = RedHot +1;};
+if (markerColor _mkr isNotEqualTo "ColorBlack") then {
+	if (markerColor _mkr isNotEqualTo VictoryColor) then {_mkr setmarkerAlpha _mAH; RedHot = RedHot +1;};
 
 	// SPAWN HOUSE PATROLS
 	for "_c" from 1 to _aGrps step 1 do {
@@ -324,7 +324,7 @@ if !(markerColor _mkr isEqualTo "ColorBlack") then {
 
 	deletevehicle _clear;deletevehicle _taken;
 
-	if !(markerColor _mkr isEqualTo "ColorBlack") then {
+	if (markerColor _mkr isNotEqualTo "ColorBlack") then {
 		null = [_mkr,[_aGrps,_aSize],[_bGrps,_bSize],[_cGrps,_cSize],[_dGrps,_eGrps,_fGrps,_fSize],_settings,true] execVM "eos\core\eos_core.sqf";
 	}else{
 		_mkr setmarkeralpha 0;
