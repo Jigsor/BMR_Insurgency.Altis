@@ -62,5 +62,8 @@ if (_TransporterType in [
 	"rhsusf_CH53E_USMC_W",
 	"CUP_B_Merlin_HC3A_Armed_GB",
 	"OPTRE_Pelican_unarmed",
-	"ffaa_nh90_nfh_transport"
+	"ffaa_nh90_nfh_transport",
+	"uns_ch53a_med_usmc",
+	"uns_ch53a_m60_usmc",
+	"uns_ch53d_m2_usmc"
 ]) then {_SelectedTransporterTypeXL = true;};
