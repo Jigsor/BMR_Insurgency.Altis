@@ -344,6 +344,26 @@ if (_opposingArmies isEqualTo 21) then {
 	INS_CAS = "LIB_DAK_Ju87_2";
 };
 
+// UNSUNG - VC
+if (_opposingArmies in [22,23]) then {
+	INS_Op4_side = EAST;
+	INS_men_list = ["uns_men_VC_mainforce_68_AT","uns_men_VC_mainforce_68_AS1","uns_men_VC_mainforce_68_HMG","uns_men_VC_mainforce_68_nco","uns_men_VC_mainforce_68_MED","uns_men_VC_mainforce_68_AS5","uns_men_VC_mainforce_68_RTO","uns_men_VC_mainforce_68_Rmrk","uns_men_VC_mainforce_68_AT2","uns_men_VC_mainforce_68_off","uns_men_VC_mainforce_68_Rmg","uns_men_VC_mainforce_68_Rmed"];
+	INS_Op4_medic = "uns_men_VC_mainforce_68_MED";
+	INS_Op4_Eng = "uns_men_VC_mainforce_68_SAP";
+	INS_Op4_pilot = ["uns_nvaf_pilot1"];
+	INS_Op4_Veh_Light = ["uns_Type55_M40","uns_Type55_RR57","uns_Type55_MG","uns_Type55_LMG"];
+	INS_Op4_Veh_Tracked = ["uns_ot34_85_nva","uns_pt76","uns_t34_85_nva","uns_to55_nva","uns_Type63_mg","uns_ZSU57_NVA"];
+	INS_Op4_Veh_Support = ["uns_zil157","uns_nvatruck","uns_nvatruck_repair","uns_nvatruck_reammo","uns_nvatruck_refuel","uns_Type63_amb"];
+	INS_Op4_Veh_AA = ["uns_ZSU_NVA","uns_nvatruck_zu23","uns_nvatruck_zpu"];
+	INS_Op4_stat_weps = ["uns_ZU23_NVA","uns_dshk_twin_NVA","uns_dshk_high_NVA","uns_KS19_NVA","uns_mg42_low_NVA","uns_S60_NVA","uns_Type36_57mm_NVA"];
+	INS_Op4_fixedWing = ["uns_mig21_MR","uns_Mig21_CAP","uns_an2_bmb","uns_an2_cas"];
+	INS_Op4_helis = ["uns_Mi8TV_VPAF"];
+	INS_civ_Veh_Car = ["C_Tractor_01_F"];
+	INS_civ_Veh_Utl = ["C_Van_01_transport_F"];
+	INS_civlist = ["uns_civilian1","uns_civilian1_b1","uns_civilian1_b2","uns_civilian1_b3","uns_civilian2","uns_civilian2_b1","uns_civilian2_b2","uns_civilian2_b3","uns_civilian3","uns_civilian3_b1","uns_civilian3_b2","uns_civilian3_b3","uns_civilian4","uns_civilian4_b1","uns_civilian4_b2","uns_civilian4_b3"];
+	INS_CAS = "uns_A1J_HCAS";//"uns_F4E_CAS";
+};
+
 if (!isServer && hasInterface) exitWith {};
 
 private _gridMarkerUnitPools = {
@@ -421,7 +441,7 @@ private _gridMarkerUnitPools = {
 			_crewPool=	["I_C_Soldier_Para_8_F"];
 			_heliCrew=	["I_C_Pilot_F","I_C_Helipilot_F"];
 			_issueNVG= false;
-		};		
+		};
 		case 5: {// INDEPENDENT Livonian Defense Force
 			_InfPool=	["I_E_Soldier_A_F","I_E_Soldier_AAR_F","I_E_Soldier_AAA_F","I_E_Soldier_AAT_F","I_E_Soldier_AR_F","I_E_Soldier_CBRN_F","I_E_Medic_F","I_E_Engineer_F","I_E_Soldier_Exp_F","I_E_Soldier_GL_F","I_E_soldier_M_F","I_E_soldier_Mine_F","I_E_Soldier_AA_F","I_E_Soldier_AA_F","I_E_Soldier_AT_F","I_E_Officer_F","I_E_Soldier_Pathfinder_F","I_E_RadioOperator_F","I_E_Soldier_Repair_F","I_E_Soldier_F","I_E_Soldier_LAT_F","I_E_Soldier_LAT2_F","I_E_Soldier_lite_F","I_E_Soldier_SL_F","I_E_Soldier_TL_F"];
 			_ArmPool=	["I_E_APC_tracked_03_cannon_F","I_APC_tracked_03_cannon_F","I_MBT_03_cannon_F","I_LT_01_scout_F","I_LT_01_cannon_F","I_LT_01_AA_F"];
@@ -477,7 +497,7 @@ private _gridMarkerUnitPools = {
 			_crewPool=	["O_G_engineer_F"];
 			_heliCrew=	["O_G_Soldier_SL_F","O_G_Soldier_F","O_G_Soldier_AR_F","O_G_medic_F","O_G_Soldier_LAT_F","O_G_Soldier_GL_F"];
 			_issueNVG= false;
-		};		
+		};
 		case 9: {// RHS - Armed Forces of the Russian Federation MSV
 			_InfPool=	["rhs_msv_driver_armored","rhs_msv_rifleman","rhs_msv_efreitor","rhs_msv_grenadier","rhs_msv_machinegunner","rhs_msv_machinegunner_assistant","rhs_msv_at","rhs_msv_strelok_rpg_assist","rhs_msv_marksman","rhs_msv_officer_armored","rhs_msv_junior_sergeant","rhs_msv_sergeant","rhs_msv_engineer","rhs_msv_driver","rhs_msv_aa","rhs_msv_medic","rhs_msv_LAT"];//"rhs_msv_officer",
 			_ArmPool=	["rhs_bmp1_msv","rhs_bmp1d_msv","rhs_bmp1k_msv","rhs_bmp1p_msv","rhs_bmp2e_msv","rhs_bmp2_msv","rhs_bmp2d_msv","rhs_bmp2k_msv","rhs_bmp3_msv","rhs_bmp3_late_msv","rhs_bmp3m_msv","rhs_bmp3mera_msv","rhs_brm1k_msv","rhs_Ob_681_2","rhs_prp3_msv","rhs_t80u","rhs_t80bv","rhs_t80a","rhs_t72bc_tv","rhs_t72bb_tv","rhs_zsu234_aa","rhs_t90_tv","rhs_t90a_tv"];
@@ -786,6 +806,34 @@ private _gridMarkerUnitPools = {
 			_heliCrew=	["LIB_US_pilot"];
 			_issueNVG= false;
 		};
+		case 31: {// UNSUNG - VC
+			_InfPool=	["uns_men_VC_mainforce_68_AT","uns_men_VC_mainforce_68_AS1","uns_men_VC_mainforce_68_HMG","uns_men_VC_mainforce_68_nco","uns_men_VC_mainforce_68_MED","uns_men_VC_mainforce_68_AS5","uns_men_VC_mainforce_68_RTO","uns_men_VC_mainforce_68_Rmrk","uns_men_VC_mainforce_68_AT2","uns_men_VC_mainforce_68_SAP","uns_men_VC_mainforce_68_RF4","uns_men_VC_mainforce_68_Rmg"];
+			_ArmPool=	["uns_t34_76_vc","uns_ot34_85_nva","uns_pt76","uns_t34_85_nva","uns_to55_nva","uns_Type63_mg","uns_ZSU57_NVA"];
+			_MotPool=	["uns_Type55_twinMG","uns_Type55_M40","uns_Type55_RR57","uns_Type55_MG","uns_Type55_LMG"];
+			_ACHPool=	["uns_Mi8TV_VPAF"];
+			_CHPool=	["uns_Mi8TV_VPAF_MG","uns_Mi8T_VPAF"];
+			_uavPool=	[];
+			_stPool=	["uns_dshk_twin_VC","uns_pk_high_NVA","uns_dshk_bunker_closed_NVA","uns_m1941_82mm_mortarNVA","uns_dshk_armoured_NVA","uns_pk_bunker_low_NVA","uns_SPG9_73mm_NVA","Uns_D20_artillery","Uns_D30_artillery","uns_S60_VC","uns_Type74_VC","uns_ZPU2_VC","uns_ZPU4_VC","uns_ZU23_VC"];
+			_shipPool=	["UNS_ASSAULT_BOAT_VC","UNS_PATROL_BOAT_NVA","UNS_Zodiac_NVA"];
+			_diverPool=	["uns_men_VC_mainforce_68_AS1","uns_men_VC_mainforce_68_HMG","uns_men_VC_mainforce_68_nco","uns_men_VC_mainforce_68_MED","uns_men_VC_mainforce_68_AS5","uns_men_VC_mainforce_68_RTO","uns_men_VC_mainforce_68_Rmrk"];
+			_crewPool=	["uns_men_NVA_crew_crewman"];
+			_heliCrew=	["uns_nvaf_pilot5"];
+			_issueNVG= false;
+		};
+		case 32: {// UNSUNG - PAVN
+			_InfPool=	["uns_men_NVA_daccong_ACR","uns_men_NVA_daccong_AA1","uns_men_NVA_daccong_AT2","uns_men_NVA_daccong_AT3","uns_men_NVA_daccong_AT","uns_men_NVA_daccong_AS6","uns_men_NVA_daccong_AS3","uns_men_NVA_daccong_AS2","uns_men_NVA_daccong_AS1","uns_men_NVA_daccong_AS5","uns_men_NVA_daccong_AS4","uns_men_NVA_daccong_LMG","uns_men_NVA_daccong_COM","uns_men_NVA_daccong_cov2","uns_men_NVA_daccong_cov3","uns_men_NVA_daccong_cov1","uns_men_NVA_daccong_cov6","uns_men_NVA_daccong_cov5","uns_men_NVA_daccong_cov7","uns_men_NVA_daccong_cov4","uns_men_NVA_daccong_MGS","uns_men_NVA_daccong_HMG","uns_men_NVA_daccong_MED","uns_men_NVA_daccong_MTS","uns_men_NVA_daccong_nco","uns_men_NVA_daccong_off","uns_men_NVA_daccong_RTO","uns_men_NVA_daccong_SAP2","uns_men_NVA_daccong_SAP3","uns_men_NVA_daccong_SAP1","uns_men_NVA_daccong_MRK","uns_men_NVA_daccong_TRI"];
+			_ArmPool=	["uns_ot34_85_nva","uns_pt76","uns_t34_85_nva","uns_to55_nva","uns_Type63_mg","uns_ZSU57_NVA"];
+			_MotPool=	["uns_Type55_twinMG","uns_Type55_M40","uns_Type55_RR57","uns_Type55_MG","uns_Type55_LMG","uns_BTR152_ZPU"];
+			_ACHPool=	["uns_Mi8TV_VPAF"];
+			_CHPool=	["uns_Mi8TV_VPAF_MG","uns_Mi8T_VPAF"];
+			_uavPool=	[];
+			_stPool=	["uns_dshk_twin_VC","uns_pk_high_NVA","uns_dshk_bunker_closed_NVA","uns_m1941_82mm_mortarNVA","uns_dshk_armoured_NVA","uns_pk_bunker_low_NVA","uns_SPG9_73mm_NVA","Uns_D20_artillery","Uns_D30_artillery","uns_S60_VC","uns_Type74_VC","uns_ZPU2_VC","uns_ZPU4_VC","uns_ZU23_VC"];
+			_shipPool=	["UNS_ASSAULT_BOAT_VC","UNS_PATROL_BOAT_NVA","UNS_Zodiac_NVA"];
+			_diverPool=	["uns_men_NVA_daccong_cov2","uns_men_NVA_daccong_cov3","uns_men_NVA_daccong_cov1","uns_men_NVA_daccong_cov4","uns_men_NVA_daccong_cov5","uns_men_NVA_daccong_SAP2"];
+			_crewPool=	["uns_men_NVA_crew_crewman","uns_men_NVA_daccong_AS4","uns_men_NVA_daccong_LMG","uns_men_NVA_daccong_AS6","uns_men_NVA_daccong_COM","uns_men_NVA_daccong_RTO"];
+			_heliCrew=	["uns_nvaf_pilot5"];
+			_issueNVG= false;
+		};
 	};
 
 	//return
@@ -805,13 +853,13 @@ switch (_opposingArmies) do {
 	// CSAT Pacific Apex (no mods)
 	case 4: {_enemyFactions = [3,3]};
 	// CSAT Pacific and Syndikat Apex (no mods)
-	case 5: {_enemyFactions = [3,4]};	
+	case 5: {_enemyFactions = [3,4]};
 	// LDF and Spetsnaz (no mods)
 	case 6: {_enemyFactions = [5,6]};
 	// LDF and Looters (no mods)
 	case 7: {_enemyFactions = [5,7]};
 	// Spetsnaz and and FIA (no mods)
-	case 8: {_enemyFactions = [6,8]};	
+	case 8: {_enemyFactions = [6,8]};
 	// RHS - Armed Forces of the Russian Federation (@RHSAFRF)
 	case 9: {_enemyFactions = [9,9]};
 	// RHS - DESERT Armed Forces of the Russian Federation (@RHSAFRF)
@@ -822,7 +870,7 @@ switch (_opposingArmies) do {
 	case 12: {_enemyFactions = [13,13]};
 	// Project OPFOR - Islamic State of Takistan/Sahrani and Afghan Militia (@RHSAFRF;@RHSUSAF;@RHSGREF;@Project_OPFOR)
 	case 13: {_enemyFactions = [14,15]};
-	// Iraqi-Syrian Conflict (@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF;@ISC;)
+	// Iraqi-Syrian Conflict (@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF;@ISC)
 	case 14: {_enemyFactions = [16,17]};
 	// CUP - Takistan Army and Takistan Militia (@CBA_A3;@cup_units;@cup_weapons;@cup_vehicles)
 	case 15: {_enemyFactions = [18,19]};
@@ -838,6 +886,10 @@ switch (_opposingArmies) do {
 	case 20: {_enemyFactions = [28,29]};
 	// IFA3 Desert US Army (@CUP_Terrains_Core;@IFA3_AIO_LITE)
 	case 21: {_enemyFactions = [30,30]};
+	// UNSUNG - VC (@Unsung)
+	case 22: {_enemyFactions = [31,31]};
+	// UNSUNG - VC and PAVN (@Unsung)
+	case 23: {_enemyFactions = [31,32]};
 
 };
 
