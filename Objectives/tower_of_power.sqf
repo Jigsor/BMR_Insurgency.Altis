@@ -2,12 +2,7 @@
 
 sleep 2;
 params ["_newZone","_type"];
-private ["_rnum","_objmkr","_roads","_roadNear","_roadSegment","_roadDir","_tower","_VarName","_grp","_stat_grp","_handle","_wp","_tskW","_tasktopicW","_taskdescW","_tskE","_tasktopicE","_taskdescE","_towerPos","_killtower"];
-
-_roadNear = false;
-_rnum = str(round (random 999));
-_towerPos = _newZone;
-_killtower = true;
+private _towerPos = _newZone;
 
 // Positional info
 while {isOnRoad _towerPos} do {
@@ -17,53 +12,77 @@ while {isOnRoad _towerPos} do {
 
 objective_pos_logic setPos _towerPos;
 
-_objmkr = createMarker ["ObjectiveMkr", _towerPos];
-"ObjectiveMkr" setMarkerShape "ELLIPSE";
-"ObjectiveMkr" setMarkerSize [2, 2];
-"ObjectiveMkr" setMarkerShape "ICON";
-"ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "ColorRed";
+private _objmkr = createMarker ["ObjectiveMkr", _towerPos];
+_objmkr setMarkerShape "ELLIPSE";
+_objmkr setMarkerSize [2, 2];
+_objmkr setMarkerShape "ICON";
+_objmkr setMarkerType "mil_dot";
+_objmkr setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Cut Power";
 
-_roads = _towerPos nearRoads 20;
-if (count _roads > 0) then {
+private _roadNear = false;
+private _roadSegment = objNull;
+private _roadDir = 0;
+private _roads = _towerPos nearRoads 20;
+if (_roads isNotEqualTo []) then {
 	_roadNear = true;
 	_roadSegment = _roads select 0;
 	_roadDir = direction _roadSegment;
 };
 
+private _h = 0.2;
+private _surfIsWat = false;
+if (surfaceIsWater _towerPos) then {
+	_surfIsWat = true;
+	_h = abs (getTerrainHeightASL _towerPos);
+	_towerPos set [2, _h + 0.63];
+} else {
+	_currH = _towerPos # 2;
+	_towerPos set [2, _currH + _h];
+};
+
 // Spawn Objective Object
-_tower = createVehicle [_type, _towerPos, [], 0, "NONE"];
-sleep jig_tvt_globalsleep;
+private _tower = createVehicle [_type, _towerPos, [], 0, "NONE"];
+sleep 0.1;
 
 if (_roadNear) then {_tower setDir _roadDir - 90;};
 _tower setVectorUp [0,0,1];
 _tower addeventhandler ["HandleDamage",{_this call JIG_tower_damage}];
-_VarName = "PowerTower1";
+private _VarName = "PowerTower1";
 _tower setVehicleVarName _VarName;
 _tower Call Compile Format ["%1=_this; publicVariable '%1'",_VarName];
 
-// Spawn Objective enemy deffences
-_grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
-_stat_grp = [_newZone,4,6] call spawn_Op4_StatDef;
+private _plank = objNull;
+if (_surfIsWat) then {
+	_plank = createVehicle ["Land_Plank_01_4m_F", _towerPos, [], 0, "CAN_COLLIDE"];
+	sleep 0.1;
+	_plank attachTo [_tower,[0, -2.74, -8.7]];
+	_plank setVectorDirAndUp [[0, 0.55, 0.18], [0, -0.18, 0.66]];
+};
 
-_handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
+// Spawn Objective enemy deffences
+private _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
+private _stat_grp = [_newZone,4,6] call spawn_Op4_StatDef;
+
+private _wpHandle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
 
 if (DebugEnabled > 0) then {[_grp] spawn INS_Tsk_GrpMkrs;};
 
 waitUntil {sleep 1; alive _tower};
 
+private _rnum = str(round (random 999));
+
 // create west task
-_tskW = "tskW_Cut_Power" + _rnum;
-_tasktopicW = localize "STR_BMR_Tsk_topicW_dhvt";
-_taskdescW = localize "STR_BMR_Tsk_descW_dhvt";
+private _tskW = "tskW_Cut_Power" + _rnum;
+private _tasktopicW = localize "STR_BMR_Tsk_topicW_dhvt";
+private _taskdescW = localize "STR_BMR_Tsk_descW_dhvt";
 [_tskW,_tasktopicW,_taskdescW,WEST,[],"created",_towerPos] call SHK_Taskmaster_add;
 sleep 5;
 
 // create east task
-_tskE = "tskE_Cut_Power" + _rnum;
-_tasktopicE = localize "STR_BMR_Tsk_topicE_dhvt";
-_taskdescE = localize "STR_BMR_Tsk_descE_dhvt";
+private _tskE = "tskE_Cut_Power" + _rnum;
+private _tasktopicE = localize "STR_BMR_Tsk_topicE_dhvt";
+private _taskdescE = localize "STR_BMR_Tsk_descE_dhvt";
 [_tskE,_tasktopicE,_taskdescE,EAST,[],"created",_towerPos] call SHK_Taskmaster_add;
 
 if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[] remoteExec ['INS_fog_effect', [0,-2] select isDedicated]};};
@@ -73,6 +92,7 @@ if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[] remoteExec ['INS_fog_eff
 	false;
 } count nearestObjects [objective_pos_logic, INS_lights, 1000];
 
+private _killtower = true;
 while {_killtower} do
 {
 	if (!alive _tower) exitWith {
@@ -107,6 +127,7 @@ while {_killtower} do
 // clean up
 "ObjectiveMkr" setMarkerAlpha 0;
 if (SideMissionCancel) then {sleep 5} else {sleep 90};
+if (!isNull _plank) then {deleteVehicle _plank};
 {deleteVehicle _x; sleep 0.1} forEach units _grp;
 {deleteVehicle _x; sleep 0.1} forEach units _stat_grp;
 {deleteGroup _x} forEach [_grp, _stat_grp];
