@@ -145,59 +145,71 @@ Op4_restore_loadout = {
 };
 JIG_load_VA_profile_MHQ1 = {
 	if (!isNil {profileNamespace getVariable "bis_fnc_saveInventory_data"}) then {
-		private ["_name_index","_VA_Loadouts_Count"];
-		_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
-		_name_index = 0;
-		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 step 1 do {
-			[_i,_name_index] spawn {
-				private ["_name_index","_loadout_name"];
-				_name_index = _this select 1;
-				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
-				_id = MHQ_1 addAction [("<t color='#00ffe9'>") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
-				sleep 20;
-				MHQ_1 removeAction _id;
-			};
-			_name_index = _name_index + 2;
+		private _loadOutsC = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
+		private _nameIndex = 0;
+		private _toSort = [];
+		for '_i' from 0 to (_loadOutsC / 2) -1 do {
+			_toSort pushBack (profileNamespace getVariable "bis_fnc_saveInventory_data" select _nameIndex);
+			_nameIndex = _nameIndex + 2;
 		};
-		0 spawn {sleep 23; call BMRINS_fnc_arsenalWeaponRemoval};
+		_toSort sort true;
+		[_toSort] spawn {
+			params ['_sorted', '_loName', '_ids'];
+			_ids = [];
+			for '_i' from 0 to (count _sorted) -1 do {
+				_loName = _sorted # _i;
+				_id = MHQ_1 addAction [("<t size='1.5' shadow='2' color='#00ffe9'>") + (localize "STR_BMR_load") + (format [" %1",_loName]) + "</t>",{(_this select 3) call BIS_fnc_loadInventory; call BMRINS_fnc_arsenalWeaponRemoval}, [player, [profileNamespace, format ["%1", _loName]]], 8, true, true, "", "true"];
+				_ids pushback _id;
+			};
+			sleep 20;
+			_ids apply {MHQ_1 removeAction _x;}
+		};
 	};
 };
 JIG_load_VA_profile_MHQ2 = {
 	if (!isNil {profileNamespace getVariable "bis_fnc_saveInventory_data"}) then {
-		private ["_name_index","_VA_Loadouts_Count"];
-		_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
-		_name_index = 0;
-		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 step 1 do {
-			[_i,_name_index] spawn {
-				private ["_name_index","_loadout_name"];
-				_name_index = _this select 1;
-				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
-				_id = MHQ_2 addAction [("<t color='#00ffe9'>") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
-				sleep 20;
-				MHQ_2 removeAction _id;
-			};
-			_name_index = _name_index + 2;
+		private _loadOutsC = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
+		private _nameIndex = 0;
+		private _toSort = [];
+		for '_i' from 0 to (_loadOutsC / 2) -1 do {
+			_toSort pushBack (profileNamespace getVariable "bis_fnc_saveInventory_data" select _nameIndex);
+			_nameIndex = _nameIndex + 2;
 		};
-		0 spawn {sleep 23; call BMRINS_fnc_arsenalWeaponRemoval};
+		_toSort sort true;
+		[_toSort] spawn {
+			params ['_sorted', '_loName', '_ids'];
+			_ids = [];
+			for '_i' from 0 to (count _sorted) -1 do {
+				_loName = _sorted # _i;
+				_id = MHQ_2 addAction [("<t size='1.5' shadow='2' color='#00ffe9'>") + (localize "STR_BMR_load") + (format [" %1",_loName]) + "</t>",{(_this select 3) call BIS_fnc_loadInventory; call BMRINS_fnc_arsenalWeaponRemoval}, [player, [profileNamespace, format ["%1", _loName]]], 8, true, true, "", "true"];
+				_ids pushback _id;
+			};
+			sleep 20;
+			_ids apply {MHQ_2 removeAction _x;}
+		};
 	};
 };
 JIG_load_VA_profile_MHQ3 = {
 	if (!isNil {profileNamespace getVariable "bis_fnc_saveInventory_data"}) then {
-		private ["_name_index","_VA_Loadouts_Count"];
-		_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
-		_name_index = 0;
-		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 step 1 do {
-			[_i,_name_index] spawn {
-				private ["_name_index","_loadout_name"];
-				_name_index = _this select 1;
-				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
-				_id = MHQ_3 addAction [("<t color='#00ffe9'>") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
-				sleep 20;
-				MHQ_3 removeAction _id;
-			};
-			_name_index = _name_index + 2;
+		private _loadOutsC = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
+		private _nameIndex = 0;
+		private _toSort = [];
+		for '_i' from 0 to (_loadOutsC / 2) -1 do {
+			_toSort pushBack (profileNamespace getVariable "bis_fnc_saveInventory_data" select _nameIndex);
+			_nameIndex = _nameIndex + 2;
 		};
-		0 spawn {sleep 23; call BMRINS_fnc_arsenalWeaponRemoval};
+		_toSort sort true;
+		[_toSort] spawn {
+			params ['_sorted', '_loName', '_ids'];
+			_ids = [];
+			for '_i' from 0 to (count _sorted) -1 do {
+				_loName = _sorted # _i;
+				_id = MHQ_3 addAction [("<t size='1.5' shadow='2' color='#00ffe9'>") + (localize "STR_BMR_load") + (format [" %1",_loName]) + "</t>",{(_this select 3) call BIS_fnc_loadInventory; call BMRINS_fnc_arsenalWeaponRemoval}, [player, [profileNamespace, format ["%1", _loName]]], 8, true, true, "", "true"];
+				_ids pushback _id;
+			};
+			sleep 20;
+			_ids apply {MHQ_3 removeAction _x;}
+		};
 	};
 };
 mp_Say3D_fnc = {
@@ -447,15 +459,14 @@ INS_toggle_Zeus = {
 		if (isclass _class) then {_addons pushBack (configname _class)};
 	};
 
-	_addons call bis_fnc_activateaddons;
+	if !(time > 0) then {_addons call bis_fnc_activateaddons;};
 	removeallcuratoraddons _curator;
 	[_curator,_addons,{true},""] call BIS_fnc_manageCuratorAddons;
 	_curator addCuratorAddons _addons;
-	
-	
+
 	//Prevent Zeus from interrupting an extraction in progress
 	if (!isNil "EvacHeliW1" && {!isNull EvacHeliW1 && {!isNull (currentPilot EvacHeliW1)}}) then {
-		_exclude = units (group (driver EvacHeliW1));
+		_exclude = missionNameSpace getVariable ["INSzeusExclude", []] select {!isNull _x};
 		_allunits = allUnits select {!(_x in _exclude)};
 	}
 	else
@@ -463,7 +474,7 @@ INS_toggle_Zeus = {
 		_allunits = allUnits;
 	};
 
-	_curator addCuratorEditableObjects [_allunits,true];	
+	_curator addCuratorEditableObjects [_allunits,true];
 
 	//if (!isNil {missionNamespace getVariable "BTC_cargo_repo"} && {!isNull BTC_cargo_repo}) then {_curator removeCuratorEditableObjects [[BTC_cargo_repo],true]};
 	if (!isNil {missionNamespace getVariable "Land_DataTerminal_Obj"} && {!isNull Land_DataTerminal_Obj}) then {_curator addCuratorEditableObjects [[Land_DataTerminal_Obj],true]};
