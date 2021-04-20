@@ -32,5 +32,9 @@ class BMRINS
 		class Op4buildingPos {};
 		class MoveOp4Base {};
 		class clearVehCargo {};
+		class JigPunjiTraps {};
+		class Arsenal {};
+		class arsenalProfileType {};
+		class reportIllegalItem {};
 	};
 };
