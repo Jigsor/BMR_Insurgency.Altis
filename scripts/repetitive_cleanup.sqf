@@ -103,7 +103,7 @@ while{true} do {
 				{
 					[_x, _ttdJetParts] call _addToCleanup;
 				} forEach (getPosATL _unit nearObjects [_x, 100]);
-			} forEach ["Plane_Fighter_01_Canopy_F","Plane_CAS_01_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F","I_Ejection_Seat_Plane_Fighter_04_F","O_Ejection_Seat_Plane_Fighter_02_F","I_Ejection_Seat_Plane_Fighter_03_F","O_Ejection_Seat_Plane_CAS_02_F","rhs_k36d5_seat","ffaa_av8b2_Canopy","rhs_mi28_wing_right","rhs_mi28_wing_left","rhs_a10_acesII_seat","rhs_vs1_seat","CUP_B_Ejection_Seat_A10_USA","CUP_AV8B_EjectionSeat","CUP_AirVehicles_EjectionSeat"];
+			} forEach ["Plane_Fighter_01_Canopy_F","Plane_CAS_01_Canopy_F","B_Ejection_Seat_Plane_Fighter_01_F","I_Ejection_Seat_Plane_Fighter_04_F","O_Ejection_Seat_Plane_Fighter_02_F","I_Ejection_Seat_Plane_Fighter_03_F","O_Ejection_Seat_Plane_CAS_02_F","rhs_k36d5_seat","ffaa_av8b2_Canopy","rhs_mi28_wing_right","rhs_mi28_wing_left","rhs_a10_acesII_seat","rhs_vs1_seat","RHS_JST_A29_Ejection_Seat","CUP_B_Ejection_Seat_A10_USA","CUP_AV8B_EjectionSeat","CUP_AirVehicles_EjectionSeat","uns_mig21_ejection_seat"];
 		};
 
 	} forEach allUnits;
