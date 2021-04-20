@@ -203,7 +203,7 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 	if (_hide_intel isEqualTo 1) then {
 		_nul = [_imks] spawn {
 			params ['_arr'];
-			while {!(_arr isEqualTo [])} do {
+			while {(_arr isNotEqualTo [])} do {
 				{
 					private ['_o','_m'];
 					_o = (_x select 0);
@@ -215,15 +215,6 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 				} forEach _arr;
 				uiSleep 10;
 			};
-			
-			/*
-			key method
-			_keys = ["a", "b", "c"];
-			_values = [1,2,3];
-
-			_index = _keys find "c";
-			_value = if (_index != -1) then {_values select _index} else {-1};
-			*/
 		};
 	};
 
