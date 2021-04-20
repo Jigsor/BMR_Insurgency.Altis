@@ -144,6 +144,27 @@ if (BTC_active_lift isEqualTo 1) then {
 			//CH47
 			case "ffaa_famet_ch47_des_mg" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Air","Ship","ffaa_et_pizarro_mauser","ffaa_et_toa_mando","ffaa_et_toa_zapador","ffaa_et_toa_ambulancia","ffaa_et_toa_m2","ffaa_et_toa_spike"] + BTC_fob_materials};
 			case "ffaa_famet_ch47_mg" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Air","Ship","ffaa_et_pizarro_mauser","ffaa_et_toa_mando","ffaa_et_toa_zapador","ffaa_et_toa_ambulancia","ffaa_et_toa_m2","ffaa_et_toa_spike"] + BTC_fob_materials};
+	//UNSUNG
+			//CH53
+			case "uns_ch53a_m60_usmc" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Air","Boat_F","uns_M113_base","LAND_CSJBladder"] + BTC_fob_materials};
+			case "uns_ch53d_m2_usmc" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Air","Boat_F","uns_M113_base","LAND_CSJBladder"] + BTC_fob_materials};
+			case "uns_ch53a_med_usmc" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Air","Boat_F","uns_M113_base","LAND_CSJBladder"] + BTC_fob_materials};
+			//HIP
+			case "uns_Mi8TV_VPAF_MG" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Rubber_duck_base_F","LAND_CSJBladder"] + BTC_fob_materials};
+			case "uns_Mi8TV_VPAF" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Rubber_duck_base_F","LAND_CSJBladder"] + BTC_fob_materials};
+			//CH34
+			case "uns_ch34_army_M60" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","B_UGV_01_F","B_UGV_01_rcws_F","Air","Boat_F","LAND_CSJBladder"] + BTC_fob_materials};
+			//Shawnee
+			case "uns_h21c" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","B_UGV_01_F","B_UGV_01_rcws_F","Air","Boat_F","LAND_CSJBladder"] + BTC_fob_materials};
+			//Huey
+			case "uns_UH1C_M6_M200_1AC" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F","StaticWeapon","uns_m274","Rubber_duck_base_F","LAND_CSJBladder"] + BTC_fob_materials};
+			case "uns_UH1C_M6_M200_M134" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F","StaticWeapon","uns_m274","Rubber_duck_base_F","LAND_CSJBladder"] + BTC_fob_materials};
+			case "uns_uh1D_med" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F","StaticWeapon","uns_m274","Rubber_duck_base_F","LAND_CSJBladder"] + BTC_fob_materials};
+			//Littlebird
+			case "uns_oh6_m60":{_array=["Motorcycle","ReammoBox","Quadbike_01_base_F","Rubber_duck_base_F"]};
+			case "uns_oh6_m27r":{_array=["Motorcycle","ReammoBox","Quadbike_01_base_F","Rubber_duck_base_F"]};
+			case "uns_oh6_transport":{_array=["Motorcycle","ReammoBox","Quadbike_01_base_F","Rubber_duck_base_F"]};
+			case "uns_oh6_xm8":{_array=["Motorcycle","ReammoBox","Quadbike_01_base_F","Rubber_duck_base_F"]};
 	//OPTRE
 			//Pelican
 			case "OPTRE_Pelican_armed" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car","Truck","Wheeled_APC","Tracked_APC","APC_Tracked_01_base_F","APC_Tracked_02_base_F","B_APC_Tracked_01_CRV_F","B_APC_Tracked_01_AA_F","B_MBT_01_cannon_F","B_APC_Tracked_01_rcws_F","Air","Ship"] + BTC_fob_materials};
