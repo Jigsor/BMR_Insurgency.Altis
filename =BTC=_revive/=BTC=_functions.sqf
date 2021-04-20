@@ -758,7 +758,7 @@ BTC_r_create_dialog_mobile = {
 			//player setVelocity [0,0,0];
 			call BTC_r_load;
 			if (count BTC_r_list isEqualTo 0) then {titleText ["NO SPAWN POINTS FOUND", "PLAIN"];};
-			uiSleep 1;
+			sleep 1;
 		};
 		player allowdamage true;
 		closeDialog 0;
