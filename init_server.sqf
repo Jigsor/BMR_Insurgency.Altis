@@ -229,6 +229,18 @@ if (Airfield_opt) then
 				_mod = true; _class = "LIB_DAK_FW190F8";
 			};
 		};
+		case 22: {
+			if (isClass(configFile >> "CfgVehicles" >> "uns_A7_MR"))then {
+				_mod = true; _class = "uns_A7_MR";
+				INSdefLoadOutBlu = dynPylons10;
+			};
+		};
+		case 23: {
+			if (isClass(configFile >> "CfgVehicles" >> "uns_A7_MR"))then {
+				_mod = true; _class = "uns_A7_MR";
+				INSdefLoadOutBlu = dynPylons10;
+			};
+		};
 		default {};
 	};
 
