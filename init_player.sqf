@@ -18,6 +18,7 @@ if (DebugEnabled > 0) then {
 		waitUntil {time > 3};
 		if (local player) then {
 			player allowDamage false;
+			call BMRINS_fnc_arsenalProfileType;
 			player addAction[("<t color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{["Open",true] call BIS_fnc_arsenal;}];
 			player addAction["Reveal All Units","scripts\Reveal_Marker.sqf", [600,15], 1, false, true, "", "true"];
 			0 spawn {
@@ -54,6 +55,7 @@ if (DebugEnabled > 0) then {
 	INS_editor_Pgrp = groupId (group player);
 	//Delivery_Box enableRopeAttach false;
 	//if (local player) then {player setVariable ["BIS_enableRandomization", false]};// Disables randomization of gear
+	call BMRINS_fnc_arsenalProfileType;
 	if (AI_radio_volume isEqualTo 1) then {0 fadeRadio 0};
 	if (INS_p_rev in [4,5]) then {player call btc_qr_fnc_unit_init};// BTC Quick Revive
 	if (INS_GasGrenadeMod isEqualTo 1) then {player setVariable ["inSmoke",false]};
@@ -67,6 +69,7 @@ if (DebugEnabled > 0) then {
 	if (_playertype in INS_all_medics) then {
 		if !(player getUnitTrait "Medic") then {player setUnitTrait ['Medic',true]};
 	};
+	if (_playertype in INS_W_PlayerRadioSupport) then {uns_radio2_supportEnabled = true};// Disable/enable SupportRequestor radio module for use with @Unsung
 
 	// Fatigue and Stamina
 	setStaminaScheme "FastDrain";
@@ -132,7 +135,7 @@ if (DebugEnabled > 0) then {
 	if (INS_VA_type in [2,3]) then {INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_open_VA") + "</t>",{[_this] call JIG_VA}, [], 1, false, true, "", "side _this != INS_Blu_side", 12]};
 	if (INS_full_loadout isEqualTo 1) then {INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#ff9207'>") + (localize "STR_BMR_save_loadout") + "</t>",{call INS_RespawnLoadout}, [], 1, false, true, "", "side _this != INS_Blu_side", 12]};
 	INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#ff1111'>") + (localize "STR_BMR_load_saved_loadout") + "</t>",{(_this select 1) call INS_RestoreLoadout},nil,1, false, true, "", "side _this != INS_Blu_side", 12];
-	INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_restore_default_loadout") + "</t>",{call Op4_restore_loadout},nil,1, false, true, "", "side _this != INS_Blu_side", 12];
+	INS_weps_Cbox addAction[("<t size='1.5' shadow='2' color='#12F905'>") + (localize "STR_BMR_restore_default_loadout") + "</t>",{[player] call BMRINS_fnc_DefLoadoutOp4},nil,1, false, true, "", "side _this != INS_Blu_side", 12];
 
 	// AI recruitment
 	if (max_ai_recruits > 1) then {INS_Wep_box addAction[("<t size='1.5' shadow='2' color='#1d78ed'>") + (localize "STR_BMR_recruit_inf") + "</t>","bon_recruit_units\open_dialog.sqf", [], 1, true, true, "", "_this isEqualTo player", 15];};
@@ -286,14 +289,11 @@ if (DebugEnabled > 0) then {
 	"];
 	*/
 
-	// Remove Load/Save from Arsenal if Whitelisted Aresenal Enabled.
+	// Whitelisting Arsenal With Load/Save
 	If ((side player == west && {INS_VA_type in [1,2]}) || (side player == east && {INS_VA_type in [2,3]})) then {
-		[missionNamespace, "arsenalOpened", {
-			disableSerialization;
-			params ["_display"];
-			_display displayAddEventHandler ["KeyDown", "_this # 3"];
-			{(_display displayCtrl _x) ctrlEnable false; (_display displayCtrl _x) ctrlShow false} forEach [44151, 44150, 44146, 44147, 44148, 44149, 44346];
-		}] call BIS_fnc_addScriptedEventHandler;
+		call BMRINS_fnc_Arsenal;
+		// Whitelisting Arsenal Without Load/Save
+		//[missionNamespace, "arsenalOpened", { disableSerialization; params ["_display"]; _display displayAddEventHandler ["KeyDown", "_this # 3"]; {(_display displayCtrl _x) ctrlEnable false; (_display displayCtrl _x) ctrlShow false} forEach [44151, 44150, 44146, 44147, 44148, 44149, 44346]; }] call BIS_fnc_addScriptedEventHandler;
 	};
 
 	// Remove black listed weapons from player when Arsenal Closed
