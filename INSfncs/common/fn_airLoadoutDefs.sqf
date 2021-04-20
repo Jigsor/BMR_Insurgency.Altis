@@ -18,3 +18,5 @@ dynPylons7=["PylonWeapon_300Rnd_20mm_shells","PylonWeapon_300Rnd_20mm_shells"];
 dynPylons8=["PylonRack_1Rnd_Missile_AA_04_F","PylonRack_12Rnd_PG_missiles","CUP_PylonPod_19Rnd_Rocket_FFAR_M","PylonRack_3Rnd_Missile_AGM_02_F","PylonMissile_1Rnd_Bomb_04_F","CUP_PylonPod_ANAAQ_28","PylonMissile_1Rnd_Bomb_04_F","PylonRack_3Rnd_Missile_AGM_02_F","CUP_PylonPod_19Rnd_CRV7_FAT_M","PylonRack_12Rnd_PG_missiles","PylonRack_1Rnd_Missile_AA_04_F"];
 // RHS A-10
 dynPylons9=["rhs_mag_ANALQ131","rhs_mag_agm65h","rhs_mag_agm65d_3","rhs_mag_gbu12","rhs_mag_FFAR_7_USAF","rhs_mag_mk82_3","rhs_mag_FFAR_7_USAF","rhs_mag_gbu12","rhs_mag_agm65e_3","rhs_mag_agm65h","rhs_mag_Sidewinder_2"];
+// Unsung A7-D Corsair II multirole "uns_A7_MR"
+dynPylons10=["uns_pylonRack_a7_3Rnd_Bomb_Napalm_750","uns_pylonRack_a7_3Rnd_Bomb_Napalm_750","uns_pylonRack_4Rnd_Rocket_Zuni_AT","uns_pylonRack_4Rnd_Rocket_Zuni_AT","uns_pylonRack_a7_6Rnd_Bomb_MK81snake","uns_pylonRack_a7_6Rnd_Bomb_MK81snake","uns_pylonRack_1Rnd_AIM9D","uns_pylonRack_1Rnd_AIM9D"];
