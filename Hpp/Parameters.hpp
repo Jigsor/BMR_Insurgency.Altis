@@ -96,7 +96,7 @@ class Params
 	class INS_op_faction//11
 	{
 	title = "		Opposing Army/Mod Initialization";
-	values[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21};
+	values[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
 	texts[]={
 	"CSAT - Requirements :: None",
 	"AAF - Requirements :: None",
@@ -118,7 +118,9 @@ class Params
 	"Massi Takistan Army and Takistan Insurgents - Requirements :: @CBA_A3;@MiddleEastWarfare;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"Massi Africian Rebel Army and Civilian Rebel supporters - Requirements :: @CBA_A3;@AfricanConflict_mas;@NATO_Rus_Weapons_CBA;@NATO_Rus_Vehicle",
 	"OPTRE Insurrectionists - Requirements :: @CBA_A3;@OPTRE",
-	"IFA3 Desert US Army - Requirements :: @CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE"
+	"IFA3 Desert US Army - Requirements :: @CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE",
+	"UNSUNG VC - Requirements :: @Unsung",
+	"UNSUNG VC and PAVN- Requirements :: @Unsung"
 	};
 	default = 3;
 	};
@@ -341,8 +343,8 @@ class Params
 	class INS_IEDs//42
 	{
 	title = "		IED system";
-	values[]={0,1,2};
-	texts[]={"Disabled","brians200's IEDs","Jig IEDs (detectable with mine detector)"};
+	values[]={0,1,2,3};
+	texts[]={"Disabled","brians200's IEDs","Jig IEDs (detectable with mine detector)","Jig Punji Traps (requires @Unsung)"};
 	default = 2;
 	};
 	class INS_persistence//43
