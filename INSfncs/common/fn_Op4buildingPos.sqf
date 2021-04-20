@@ -48,13 +48,13 @@ private _opos = [];
 private _gPos = [];
 private _bPoses = [];
 for "_l" from 0 to 9 step 1 do {
-	if !(_suffledMkrs isEqualTo []) then {
+	if (_suffledMkrs isNotEqualTo []) then {
 		_opos = markerPos (_suffledMkrs # 0);
 		_suffledMkrs deleteAt 0;
 		_bPoses = [_opos] call _findBuildPoses;
 		_gPos = selectRandom (_bPoses select {lineIntersects [AGLToASL _x, (AGLToASL _x) vectorAdd [0,0,10]]});
 	};
-	if !(_gPos isEqualTo []) exitWith {_gPos};
+	if (_gPos isNotEqualTo []) exitWith {_gPos};
 };
 
 if (_gPos isEqualTo []) exitWith {[]};
