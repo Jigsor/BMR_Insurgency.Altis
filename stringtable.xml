@@ -2,11 +2,11 @@
 <Project name="BMR Insurgency">
 <Container name="BMR_Insurgency_Stringtable">
 <Key ID="STR_BMRINS_TITLE">
-<Original>BMR_Insurgency_v1_50</Original>
-<English>BMR_Insurgency_v1_50</English>
-<German>BMR_Insurgency_v1_50</German>
-<French>BMR_Insurgency_v1_50</French>
-<Spanish>BMR_Insurgency_v1_50</Spanish>
+<Original>BMR_Insurgency_v1.50</Original>
+<English>BMR_Insurgency_v1.50</English>
+<German>BMR_Insurgency_v1.50</German>
+<French>BMR_Insurgency_v1.50</French>
+<Spanish>BMR_Insurgency_v1.50</Spanish>
 </Key>
 <Key ID="STR_BMRINS_DESCRIPTION">
 <Original>Eliminate Armed Rebellion Against NATO forces. Gather Intel on Location of Enemy Ammo Cache and Destroy it</Original>
@@ -341,6 +341,15 @@
 <Russian>Прыжок HALO AI</Russian>
 <Spanish>AI HALO Paracaídas</Spanish>
 <Chinesesimp>命令AI跳伞(HALO)</Chinesesimp>
+</Key>
+<Key ID="STR_BMR_load">
+<Original>Load </Original>
+<English>Load </English>
+<German>Ausrüsten </German>
+<French>Équiper </French>
+<Russian>Оборудовать </Russian>
+<Spanish>Equipar </Spanish>
+<Chinesesimp>装备 </Chinesesimp>
 </Key>
 <Key ID="STR_BMR_save_loadout">
 <Original>Save Respawn Loadout</Original>
