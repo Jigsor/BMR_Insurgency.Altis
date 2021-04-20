@@ -29,6 +29,34 @@ _SelectedTransporterTypeS = false;_SelectedTransporterTypeM = false;_SelectedTra
 // Include the Transporter Setup
 #include "Settings_Transporter.sqf";
 
+// Animate ramp open
+private	_openCargoDoor = {
+	if (_TransporterType isEqualTo "I_Heli_Transport_02_F") exitWith {_Transporter animateDoor ["cargoramp_open", 1];};
+	if (_TransporterType in ["rhsusf_CH53E_USMC_D", "rhsusf_CH53E_USMC_W"]) exitWith {_Transporter animateDoor ["ramp_bottom", 1];};
+	if (_TransporterType in ["uns_ch53a_med_usmc","uns_ch53a_m60_usmc","uns_ch53d_m2_usmc","uns_hh53b_m134_usaf"]) exitWith {
+		if ( Alive(_Transporter) && ((_Transporter animationPhase 'ramp_close') > 0.1) && ((_Transporter animationPhase 'ramp2_close') > 0.1)) then {
+			_Transporter animateSource ['ramp_close',0];
+			_Transporter animateSource ['ramp2_close',0];
+			[_Transporter,"ch53_rampdown"] call mp_Say3D_fnc;
+		};
+	};
+	_Transporter animateDoor ["cargoramp_open", 1];
+};
+
+// Animate ramp close
+private _closeCargoDoor = {	
+	if (_TransporterType isEqualTo "I_Heli_Transport_02_F") exitWith {_Transporter animateDoor ["cargoramp_open", 0];};
+	if (_TransporterType in ["rhsusf_CH53E_USMC_D", "rhsusf_CH53E_USMC_W"]) exitWith {_Transporter animateDoor ["ramp_bottom", 1];};
+	if (_TransporterType in ["uns_ch53a_med_usmc","uns_ch53a_m60_usmc","uns_ch53d_m2_usmc","uns_hh53b_m134_usaf"]) exitWith {
+		if ( Alive(_Transporter) && ((_Transporter animationPhase 'ramp_close') < 0.99) && ((_Transporter animationPhase 'ramp2_close') < 0.99)) then {
+			_Transporter animateSource ['ramp_close',1];
+			_Transporter animateSource ['ramp2_close',1];
+			[_Transporter,"ch53_rampup"] call mp_Say3D_fnc;
+		};
+	};
+	_Transporter animateDoor ["cargoramp_open", 0];;
+};
+
 private _BTK_Hint_Loading = {
 	// BTK_Hint - Loading in...
 	params ["_ObjectName","_TransporterName"];
@@ -252,7 +280,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeS)) exitWith {
 		sleep 0.2;
 		deTach _Object;
 		sleep 0.2;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),0];
+		_Object setPos [(getPos _Object # 0), (getPos _Object # 1), 0];
 
 		// Enable R3F
 		_Object setVariable ["R3F_LOG_disabled", false];
@@ -288,7 +316,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeS)) exitWith {
 		_Object attachTo [_Transporter,[0,-21,0]];
 		sleep 0.1;
 		deTach _Object;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),(getPos _Object select 2)-6];
+		_Object setPos [(getPos _Object # 0), (getPos _Object # 1), (getPos _Object select 2)-6];
 
 		// Create parachute and smoke
 		sleep 2;
@@ -309,7 +337,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeS)) exitWith {
 		waitUntil {(getPos _Object select 2) < 2};
 		deTach _Object;
 		sleep 3;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),0.001];
+		_Object setPos [(getPos _Object # 0), (getPos _Object # 1), 0.001];
 
 		// Enable R3F
 		_Object setVariable ["R3F_LOG_disabled", false];
@@ -395,7 +423,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeM)) exitWith {
 		sleep 0.2;
 		deTach _Object;
 		sleep 0.2;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),0];
+		_Object setPos [(getPos _Object # 0), (getPos _Object # 1), 0];
 
 		// Enable R3F
 		_Object setVariable ["R3F_LOG_disabled", false];
@@ -430,7 +458,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeM)) exitWith {
 		_Object attachTo [_Transporter,[0,-21,0]];
 		sleep 0.1;
 		deTach _Object;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),(getPos _Object select 2)-6];
+		_Object setPos [(getPos _Object # 0), (getPos _Object # 1), (getPos _Object select 2)-6];
 
 		// Create parachute and smoke
 		sleep 2;
@@ -451,7 +479,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeM)) exitWith {
 		waitUntil {(getPos _Object select 2) < 2};
 		deTach _Object;
 		sleep 3;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),0.001];
+		_Object setPos [(getPos _Object # 0), (getPos _Object # 1), 0.001];
 
 		// Enable R3F
 		_Object setVariable ["R3F_LOG_disabled", false];
@@ -541,7 +569,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeL)) exitWith {
 		sleep 0.2;
 		deTach _Object;
 		sleep 0.2;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),0];
+		_Object setPos [(getPos _Object # 0), (getPos _Object # 1), 0];
 
 		// Enable R3F
 		_Object setVariable ["R3F_LOG_disabled", false];
@@ -576,7 +604,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeL)) exitWith {
 		_Object attachTo [_Transporter,[0,-21,0]];
 		sleep 0.1;
 		deTach _Object;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),(getPos _Object select 2)-6];
+		_Object setPos [(getPos _Object # 0), (getPos _Object # 1), (getPos _Object select 2)-6];
 
 		// Create parachute and smoke
 		sleep 2;
@@ -597,7 +625,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeL)) exitWith {
 		waitUntil {(getPos _Object select 2) < 2};
 		deTach _Object;
 		sleep 3;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),0.001];
+		_Object setPos [(getPos _Object # 0), (getPos _Object # 1), 0.001];
 
 		// Enable R3F
 		_Object setVariable ["R3F_LOG_disabled", false];
@@ -634,50 +662,39 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 
 	// remove the Action
 	_Transporter removeAction _Action;
-
-	// Animate ramp
 	sleep 1;
-	if ((_Transporter isKindOf "rhsusf_CH53E_USMC_D") || (_Transporter isKindOf "rhsusf_CH53E_USMC_W")) then {
-		_Transporter animateDoor ["ramp_bottom", 1];
-	}else{
-		_Transporter animateDoor ["CargoRamp_Open", 1];
-	};
+
+	call _openCargoDoor;
 
 	// Attach object to transporter
 	sleep 3;
 
-	// Fix for cars/apc/trucks
-	if (_Object isKindOf "Car" || _Object isKindOf "Truck" || _Object isKindOf "Wheeled_APC") then {
-		if (_Object isKindOf "Car") then {
-			_Object attachTo [_Transporter,[0,1,-2.1]];
-		};
-		if (_Object isKindOf "Truck") then {
-			_Object attachTo [_Transporter,[0,1.4,-2.6]];
-		};
-		if (_Object isKindOf "Wheeled_APC") then {
-			_Object attachTo [_Transporter,[0,2.2,-1.8]];
-		};
-	}else{
-		// Fix for Mohawk
-		if (_Transporter isKindOf "I_Heli_Transport_02_F") then {
-			_Object attachTo [_Transporter,[0,1,-1.5]];
-		};
-		// Fix for CH53E
-		if ((_Transporter isKindOf "rhsusf_CH53E_USMC_D") || (_Transporter isKindOf "rhsusf_CH53E_USMC_W")) then {
-			_Object attachTo [_Transporter,[0,-1.6,1.48]];
-		};
+	_attachPoint = call {
+		// Vanilla Mohawk
+		if (_TransporterType isEqualTo "I_Heli_Transport_02_F") exitWith {_Object attachTo [_Transporter,[0,1,-1.5]]};
+		// RHS CH53E
+		if (_TransporterType in ["rhsusf_CH53E_USMC_D", "rhsusf_CH53E_USMC_W"]) exitWith {_Object attachTo [_Transporter,[0,-1.6,1.48]]};
 		// CUP Merlin
-		if (_Transporter isKindOf "CUP_B_Merlin_HC3A_Armed_GB") then {
-			_Object attachTo [_Transporter,[0,-0.2,2.09]];
+		if (_TransporterType isEqualTo "CUP_B_Merlin_HC3A_Armed_GB") exitWith {_Object attachTo [_Transporter,[0,-0.2,2.09]]};
+		// FFAA NH90 NFH
+		if (_TransporterType isEqualTo "ffaa_nh90_nfh_transport") exitWith {_Object attachTo [_Transporter,[0.075,0.1,-1.2]]};
+		// Unsung CH53
+		if (_TransporterType in ["uns_ch53a_med_usmc","uns_ch53a_m60_usmc","uns_ch53d_m2_usmc"]) exitWith {_Object attachTo [_Transporter,[-0.071,-0.5,-2.7]]};
+		// Pelican
+		if (_TransporterType isEqualTo "OPTRE_Pelican_unarmed") exitWith {_Object attachTo [_Transporter,[0,-4,0.04]]};
+		// Fix for cars/apc/trucks
+		if (_Object isKindOf "Car" || _Object isKindOf "Truck" || _Object isKindOf "Wheeled_APC") then {
+			if (_Object isKindOf "Car") then {
+				_Object attachTo [_Transporter,[0,1,-2.1]];
+			};
+			if (_Object isKindOf "Truck") then {
+				_Object attachTo [_Transporter,[0,1.4,-2.6]];
+			};
+			if (_Object isKindOf "Wheeled_APC") then {
+				_Object attachTo [_Transporter,[0,2.2,-1.8]];
+			};
 		};
-		// Fix for Pelican
-		if (_Transporter isKindOf "OPTRE_Pelican_unarmed") then {
-			_Object attachTo [_Transporter,[0,-4,0.04]];//[0,-4,0.14]
-		};
-		// NH90 NFH
-		if (_Transporter isKindOf "ffaa_nh90_nfh_transport") then {
-			_Object attachTo [_Transporter,[0.075,0.1,-1.2]];
-		};
+		hint "!AttachTo point not defined!";
 	};
 
 	// Disable R3F
@@ -685,7 +702,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 
 	// Animate ramp again
 	sleep 1;
-	_Transporter animateDoor ["CargoRamp_Open", 0];
+	call _closeCargoDoor;
 
 	// BTK_Hint - Loaded
 	[_ObjectName,_TransporterName] call _BTK_Hint_Loaded;
@@ -713,7 +730,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 
 		// Animate ramp
 		sleep 1;
-		_Transporter animateDoor ["CargoRamp_Open", 1];
+		call _openCargoDoor;
 
 		// Detach object
 		sleep 3;
@@ -721,14 +738,14 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 		sleep 0.3;
 		deTach _Object;
 		sleep 0.3;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),0];
+		_Object setPos [(getPos _Object # 0), (getPos _Object # 1), 0];
 
 		// Enable R3F
 		_Object setVariable ["R3F_LOG_disabled", false];
 
 		// Animate ramp again
 		sleep 1;
-		_Transporter animateDoor ["CargoRamp_Open", 1];
+		call _closeCargoDoor;
 
 		// BTK_Hint - Unloaded
 		[_ObjectName,_TransporterName] call _BTK_Hint_Unloaded;
@@ -747,7 +764,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 
 		// Animate ramp
 		sleep 1;
-		_Transporter animateDoor ["CargoRamp_Open", 1];
+		call _openCargoDoor;
 
 		// Detach object (drop)
 		sleep 2;
@@ -756,7 +773,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 		_Object attachTo [_Transporter,[0,-21,0]];
 		sleep 0.3;
 		deTach _Object;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),(getPos _Object select 2)-6];
+		_Object setPos [(getPos _Object # 0),(getPos _Object # 1), (getPos _Object select 2)-6];
 
 		// Create parachute and smoke
 		sleep 2;
@@ -768,7 +785,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 
 		// Animate ramp again
 		sleep 1;
-		_Transporter animateDoor ["CargoRamp_Open", 0];
+		call _closeCargoDoor;
 
 		// BTK_Hint - Dropped
 		[_ObjectName,_TransporterName] call _BTK_Hint_Dropped;
@@ -777,7 +794,7 @@ if ((_Selected == "LoadCargo") && (_SelectedTransporterTypeXL)) exitWith {
 		waitUntil {(getPos _Object select 2) < 2};
 		deTach _Object;
 		sleep 3;
-		_Object setPos [(getPos _Object select 0),(getPos _Object select 1),0.001];
+		_Object setPos [(getPos _Object # 0), (getPos _Object # 1) ,0.001];
 
 		// Enable R3F
 		_Object setVariable ["R3F_LOG_disabled", false];
