@@ -29,10 +29,10 @@ while {true} do {
 		{if (mineActive _x) then {_a pushBack _x};} forEach _am;
 
 		_mb = _x nearObjects ["minebase",50];
-		{_a pushBack _x} count _mb;
+		{_a pushBack _x} forEach _mb;
 
 		_bm = _x nearObjects ["BoundingMineBase",50];
-		{_a pushBack _x} count _bm;
+		{_a pushBack _x} forEach _bm;
 
 		{deleteVehicle _x;} count _a;
 		sleep 1;
