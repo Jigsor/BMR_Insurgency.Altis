@@ -11,19 +11,17 @@ extraction_pos_fnc = {
 	private _randPos = _mrkPos getPos [_dis * sqrt random 1, random 360];
 	private _newPos = _randPos isFlatEmpty [20,50,0.4,2,0,false,player];
 
-	if !(_newPos isEqualTo []) then {
-		private _c = 0;
-		private _maxAttempts = 4;
-		for "_c" from 1 to _maxAttempts do {
+	if (_newPos isNotEqualTo []) then {
+		private _maxAttempts = 8;
+		for "_i" from 1 to _maxAttempts do {
 			_randPos = _mrkPos getPos [_dis * sqrt random 1, random 360];
 			_newPos = _randPos isFlatEmpty [_size,256,0.5,2,0,false,player];
-			_c = _c + 1;
-			if !(_newPos isEqualTo []) exitWith {_newPos};
+			if (_newPos isNotEqualTo []) exitWith {_newPos};
 			sleep 0.2;
 		};
 	};
 
-	if !(_newPos isEqualTo []) then {
+	if (_newPos isNotEqualTo []) then {
 		if !(markerColor "tempPUmkr" isEqualTo "") then {deleteMarker "tempPUmkr"};
 		private _mkr = createMarker ["tempPUmkr", _newPos];
 		_mkr setMarkerShape "ELLIPSE";
@@ -57,20 +55,18 @@ drop_off_pos_fnc = {
 	private _randPos = _mrkPos getPos [_dis * sqrt random 1, random 360];
 	private _newPos = _randPos isFlatEmpty [20,50,0.4,2,0,false,player];
 
-	if !(_newPos isEqualTo []) then {
-		private _c = 0;
-		private _maxAttempts = 4;
-		for "_c" from 1 to _maxAttempts do {
+	if (_newPos isNotEqualTo []) then {
+		private _maxAttempts = 8;
+		for "_i" from 1 to _maxAttempts do {
 			_randPos = _mrkPos getPos [_dis * sqrt random 1, random 360];
 			_newPos = _randPos isFlatEmpty [_size,256,0.5,2,0,false,player];
-			_c = _c + 1;
-			if !(_newPos isEqualTo []) exitWith {_newPos};
+			if (_newPos isNotEqualTo []) exitWith {_newPos};
 			sleep 0.2;
 		};
 	};
 
-	if !(_newPos isEqualTo []) then {
-		if !(markerColor "tempDropMkr" isEqualTo "") then {deleteMarker "tempDropMkr"};
+	if (_newPos isNotEqualTo []) then {
+		if (markerColor "tempDropMkr" isNotEqualTo "") then {deleteMarker "tempDropMkr"};
 		private _mkr = createMarker ["tempDropMkr", _newPos];
 		_mkr setMarkerShape "ELLIPSE";
 		_mkr setMarkerSize [1, 1];
@@ -96,7 +92,7 @@ drop_off_pos_fnc = {
 Evac_Spawn_Loc = {
 	// Spawn position of Evac heli
 	private ["_mkr","_mkrPos"];
-	if !(markerColor "EvacSpawnMkr" isEqualTo "") then {deleteMarker "EvacSpawnMkr"};
+	if (markerColor "EvacSpawnMkr" isNotEqualTo "") then {deleteMarker "EvacSpawnMkr"};
 	private _mkr = createMarker ["EvacSpawnMkr", getposATL EvacLZpad];
 	_mkr setMarkerShape "ELLIPSE";
 	_mkr setMarkerSize [1, 1];
