@@ -41,7 +41,7 @@ ICE_HUD = {
 			if (_dir45 == 6) exitWith {"W"};
 			if (_dir45 == 7) exitWith {"NW"};
 			"N"
-		} ;
+		};
 
 		_ctrlDir ctrlSetText format ["%1", _heading];
     };
