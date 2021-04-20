@@ -131,7 +131,7 @@ JIG_placeSandbag_fnc = {
 	if (surfaceIsWater _wldPos) then {
 		_isOverWater = true;
 		//if ((getTerrainHeightASL getpos _p < -0.6 && _posATLplyr # 2 < 0.146) || eyePos _p select 2 < 0.2) then {_inWater = true};
-		if ((getTerrainHeightASL getpos _p < -0.6 && _wldPos # 2 < -0.8) || eyePos _p select 2 < 0.2) then {_inWater = true};	
+		if ((getTerrainHeightASL getpos _p < -0.6 && _wldPos # 2 < -0.8) || eyePos _p select 2 < 0.2) then {_inWater = true};
 	};
 
 	if (_inWater) exitWith {hintSilent "Water is to deep!"};
@@ -142,7 +142,8 @@ JIG_placeSandbag_fnc = {
 	private _lift = 0.2;
 
 	if (!isNull MedicSandBag) then {deleteVehicle MedicSandBag};
-	MedicSandBag = createVehicle ["Land_BagFence_Round_F",[(_posATLplyr # 0) + (sin(getdir _p) * _dist), (_posATLplyr # 1) + (cos(getdir _p) * _dist)], [], 0, "CAN_COLLIDE"];
+	private _type =  missionNamespace getVariable ["BMRmedSBtype", "Land_BagFence_Round_F"];
+	MedicSandBag = createVehicle [_type, [(_posATLplyr # 0) + (sin(getdir _p) * _dist), (_posATLplyr # 1) + (cos(getdir _p) * _dist)], [], 0, "CAN_COLLIDE"];
 	MedicSandBag setDir (getDir _p) - 180;
 	MedicSandBag setposATL [(_posATLplyr # 0) + (sin(getdir _p) * _dist), (_posATLplyr # 1) + (cos(getdir _p) * _dist), (_posATLplyr # 2) + _zvector + 1];
 
@@ -384,21 +385,25 @@ INS_planeReverse_key_F3 = {
 JIG_load_VA_profile = {
 	// Force load of saved Virtual Aresenal preset regardless if mod used to make loadout is currently not activated minus missing content by Jigsor.
 	if (!isNil {profileNamespace getVariable "bis_fnc_saveInventory_data"}) then {
-		private ["_name_index","_VA_Loadouts_Count"];
-		_VA_Loadouts_Count = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
-		_name_index = 0;
-		for "_i" from 0 to (_VA_Loadouts_Count/2) -1 step 1 do {
-			[_i,_name_index] spawn {
-				private ["_name_index","_loadout_name"];
-				_name_index = _this select 1;
-				_loadout_name = profileNamespace getVariable "bis_fnc_saveInventory_data" select _name_index;
-				_id = INS_Wep_box addAction [("<t size='1.5' shadow='2' color='#00ffe9'>") + ("Load " + format ["%1",_loadout_name]) + "</t>","=BTC=_revive\=BTC=_addAction.sqf",[[player,[profileNamespace, format ["%1", _loadout_name]]],BIS_fnc_loadInventory],8,true,true,"","true"];
-				sleep 15;
-				INS_Wep_box removeAction _id;
-			};
-			_name_index = _name_index + 2;
+		private _loadOutsC = count (profileNamespace getVariable "bis_fnc_saveInventory_data");
+		private _nameIndex = 0;
+		private _toSort = [];
+		for '_i' from 0 to (_loadOutsC / 2) -1 do {
+			_toSort pushBack (profileNamespace getVariable "bis_fnc_saveInventory_data" select _nameIndex);
+			_nameIndex = _nameIndex + 2;
 		};
-		0 spawn {sleep 23; call BMRINS_fnc_arsenalWeaponRemoval};
+		_toSort sort true;
+		[_toSort] spawn {
+			params ['_sorted', '_loName', '_ids'];
+			_ids = [];
+			for '_i' from 0 to (count _sorted) -1 do {
+				_loName = _sorted # _i;
+				_id = INS_Wep_box addAction [("<t size='1.5' shadow='2' color='#00ffe9'>") + (localize "STR_BMR_load") + (format [" %1",_loName]) + "</t>",{(_this # 3) call BIS_fnc_loadInventory; call BMRINS_fnc_arsenalWeaponRemoval}, [player, [profileNamespace, format ["%1", _loName]]], 8, true, true, "", "true"];
+				_ids pushback _id;
+			};
+			sleep 20;
+			_ids apply {INS_Wep_box removeAction _x;}
+		};
 	};
 };
 JIG_p_actions_resp = {
@@ -997,7 +1002,7 @@ INS_EarPlugs = {
 		};
 	};
 	if (soundVolume isEqualTo 1) then {
-		1 fadeSound 0.3; hintSilent localize "STR_BMR_ON";
+		1 fadeSound 0.22; hintSilent localize "STR_BMR_ON";
 	}else{
 		1 fadeSound 1; hintSilent localize "STR_BMR_OFF";
 	};
@@ -1132,8 +1137,8 @@ JIG_VA = {
 	_caller = _this select 0 select 1;
 	_list = [];
 	_remArsAct = {{if (_this actionParams _x select 0 isEqualTo (localize "STR_A3_Arsenal")) exitWith {_this removeAction _x}} forEach actionIDs _this};
-	if (playerside isEqualTo WEST) then {_list = call BMRINS_fnc_BluforVA};
-	if (playerside isEqualTo EAST) then {_list = call BMRINS_fnc_InsurgentVA};
+	if (playerside isEqualTo WEST) then {BMRINS_profileSave = "BMR_bis_fnc_saveInventory_west_data"; _list = call BMRINS_fnc_BluforVA};
+	if (playerside isEqualTo EAST) then {BMRINS_profileSave = "BMR_bis_fnc_saveInventory_east_data"; _list = call BMRINS_fnc_InsurgentVA};
 	clearMagazineCargoGlobal _VAobj;
 	clearWeaponCargoGlobal _VAobj;
 	clearItemCargoGlobal _VAobj;
