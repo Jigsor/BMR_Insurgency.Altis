@@ -631,6 +631,70 @@ case 21: {
 	_p setFace "WhiteHead_22_l";
 	_p setSpeaker "Male03Ger";
 };
+case 22: {
+// Unsung VC
+
+	_p forceAddUniform "UNS_VC_G";
+	for "_i" from 1 to 2 do {_p addItemToUniform "FirstAidKit";};
+	for "_i" from 1 to 2 do {_p addItemToUniform "uns_makarovmag";};
+
+	_p addVest "UNS_VC_A1";
+	_p addItemToVest "FirstAidKit";
+	_p addItemToVest "uns_traps_nade_mag4";
+	for "_i" from 1 to 3 do {_p addItemToVest "uns_ak47mag";};
+	for "_i" from 1 to 5 do {_p addItemToVest "uns_rdg2";};
+
+	_p addBackpack "UNS_TROP_R1";
+	for "_i" from 1 to 2 do {_p addItemToBackpack "FirstAidKit";};
+	for "_i" from 1 to 2 do {_p addItemToBackpack "uns_ak47mag";};
+	_p addItemToBackpack "uns_molotov_mag";
+	for "_i" from 1 to 3 do {_p addItemToVest "uns_t67gren";};
+	_p addItemToBackpack "uns_rpg7grenade";
+
+	_p addHeadgear "UNS_Boonie4_VC";
+
+	[_p,"uns_ak47",1] call BIS_fnc_AddWeapon;
+	[_p,"uns_rpg7",1] call BIS_fnc_AddWeapon;
+	[_p,"uns_makarov",1] call BIS_fnc_AddWeapon;
+	_p addWeapon "Binocular";
+
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemWatch","ItemRadio"];
+
+	_p setFace "AsianHead_A3_05_cfaces_lrrpcamo06";
+	_p setSpeaker "Male03CHI";
+};
+case 23: {
+// Unsung VC
+
+	_p forceAddUniform "UNS_VC_G";
+	for "_i" from 1 to 2 do {_p addItemToUniform "FirstAidKit";};
+	for "_i" from 1 to 2 do {_p addItemToUniform "uns_makarovmag";};
+
+	_p addVest "UNS_VC_A1";
+	_p addItemToVest "FirstAidKit";
+	_p addItemToVest "uns_traps_nade_mag4";
+	for "_i" from 1 to 3 do {_p addItemToVest "uns_ak47mag";};
+	for "_i" from 1 to 5 do {_p addItemToVest "uns_rdg2";};
+
+	_p addBackpack "UNS_TROP_R1";
+	for "_i" from 1 to 2 do {_p addItemToBackpack "FirstAidKit";};
+	for "_i" from 1 to 2 do {_p addItemToBackpack "uns_ak47mag";};
+	_p addItemToBackpack "uns_molotov_mag";
+	for "_i" from 1 to 3 do {_p addItemToVest "uns_t67gren";};
+	_p addItemToBackpack "uns_rpg7grenade";
+
+	_p addHeadgear "UNS_Boonie4_VC";
+
+	[_p,"uns_ak47",1] call BIS_fnc_AddWeapon;
+	[_p,"uns_rpg7",1] call BIS_fnc_AddWeapon;
+	[_p,"uns_makarov",1] call BIS_fnc_AddWeapon;
+	_p addWeapon "Binocular";
+
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemWatch","ItemRadio"];
+
+	_p setFace "AsianHead_A3_05_cfaces_lrrpcamo06";
+	_p setSpeaker "Male03CHI";
+};
 default {};
 
 };//end switch
