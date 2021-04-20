@@ -60,6 +60,13 @@ if !(_player in _hcEntities) then {
 		};
 	};
 
+	if (side _player == sideEnemy) then {
+		private _setRating = 9999;
+		private _getRating = rating _player;
+		private _addVal = _setRating - _getRating;
+		_player addRating _addVal;
+	};
+
 	waitUntil {!isNil "JIPmkr_updateClient_fnc"};
 	call JIPmkr_updateClient_fnc;
 
