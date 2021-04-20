@@ -20,8 +20,9 @@ _speed = 200;
 _setheight = getTerrainHeightASL [(_loc select 0) + _dis * sin _dir, (_loc select 1) + _dis * cos _dir];
 _ranPos = [(_loc select 0) + _dis * sin _dir, (_loc select 1) + _dis * cos _dir, _setheight + 260];
 _dirTo = _ranPos getDir _lockobj;
+_type = INS_CAS;
 
-_veh = [_ranPos, _dirTo, INS_CAS, WEST] call bis_fnc_spawnvehicle;
+_veh = [_ranPos, _dirTo, _type, WEST] call bis_fnc_spawnvehicle;
 sleep 0.1;
 _veh params ["_buzz","","_grp"];
 
@@ -48,14 +49,14 @@ _grp setCombatMode "BLUE";
 
 (driver _buzz) doMove _loc;
 
-doCounterMeasure = {
+_doCounterMeasure = {
 	params ["_plane"];
-	for "_i" from 1 to 4 step 1 do	{
+	for "_i" from 1 to 4 step 1 do {
 		_bool = _plane fireAtTarget [_plane,"CMFlareLauncher"];
 		sleep 0.3;
 	};
 	sleep 3;
-	for "_i" from 1 to 4 step 1 do	{
+	for "_i" from 1 to 4 step 1 do {
 		_bool = _plane fireAtTarget [_plane,"CMFlareLauncher"];
 		sleep 0.3;
 	};
@@ -88,7 +89,9 @@ if (abortCAS) exitWith {
 
 usedCAS = usedCAS + 1;
 
-[_buzz] spawn doCounterMeasure;
+private _weapons = [];
+{ _weapons append getArray (_x >> "weapons") } forEach ([_type, configNull] call BIS_fnc_getTurrets);//check if plane even has CMFlareLauncher
+if (_weapons find "CMFlareLauncher" != -1) then {[_buzz] spawn _doCounterMeasure;};
 
 private "_velocityZ";
 if ((alive _buzz) && (_casType isEqualTo "JDAM")) then {
