@@ -1,5 +1,5 @@
 /*
- extraction_main.sqf v1.27 by Jigsor
+ extraction_main.sqf v1.28 by Jigsor
  null = [] execVM "JIG_EX\extraction_main.sqf";
  runs in JIG_EX\extraction_init.sqf
 */
@@ -7,7 +7,7 @@
 if (!isServer) exitWith {};
 if (!hasInterface && !isDedicated) exitWith {};
 0 spawn {
-	private ["_recruitsArry","_playerArry","_range","_poscreate","_speed","_SAdir","_spwnairdir","_height","_type","_vehicle","_veh","_vehgrp","_vehUnits","_VarName","_wp0","_evacComplete","_vehgrp_units","_gunners_removed","_has_gunner_pos","_without_gunner_pos","_switch_driver","_animateDoors","_changeLocality"];
+	private ["_recruitsArry","_playerArry","_range","_poscreate","_speed","_SAdir","_spwnairdir","_height","_type","_vehicle","_veh","_vehgrp","_vehUnits","_VarName","_wp0","_evacComplete","_vehgrp_units","_gunners_removed","_has_gunner_pos","_without_gunner_pos","_switch_driver"];
 
 	evac_toggle = false;publicVariable "evac_toggle";
 	sleep 0.3;
@@ -18,7 +18,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 	ex_group_ready = false;
 	_has_gunner_pos = ["B_Heli_Transport_01_F","B_CTRG_Heli_Transport_01_tropic_F","B_CTRG_Heli_Transport_01_sand_F","B_Heli_Transport_01_camo_F","kyo_MH47E_base","RHS_CH_47F_10","RHS_CH_47F_light"];
 	_without_gunner_pos = ["I_Heli_Transport_02_F","CH49_Mohawk_FG","B_Heli_Light_01_F"];
-	_helcat_types = ["AW159_Transport_Camo"];
+	_helcat_types = ["AW159_Transport_Camo","uns_uh1D_med"];
 	_chinook_types = ["kyo_MH47E_Ramp","kyo_MH47E_HC","RHS_CH_47F_10","RHS_CH_47F_light"];// ("kyo_MH47E_base" unsupported)
 
 	"ext_caller_group" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};//Allows group members to update on the fly
@@ -67,7 +67,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 
 		_vehUnits = _vehicle # 1;
 
-		_veh enableCopilot false;
+		[_veh, false] remoteExec ['enableCopilot', [0,-2] select isDedicated];
 		_veh allowdamage JIG_EX_damage;
 
 		_VarName = "EvacHeliW1";
@@ -107,6 +107,9 @@ if (!hasInterface && !isDedicated) exitWith {};
 				deleteVehicle (EvacHeliW1 turretUnit [0]);
 			};
 		};
+
+		private _ZeusExclude = _vehUnits select {!isNull _x && {alive _x}};
+		missionNameSpace setVariable ["INSzeusExclude", _ZeusExclude];
 
 		(driver EvacHeliW1) disableAI "LIGHTS";
 		if (isLightOn EvacHeliW1) then {EvacHeliW1 setPilotLight false};
@@ -246,6 +249,8 @@ if (!hasInterface && !isDedicated) exitWith {};
 				};
 				(group (driver EvacHeliW1)) setGroupOwner 2;
 				_vehgrp_leader = driver EvacHeliW1;
+				private _ZeusExclude = (units _vehgrp) select {local _x && {alive _x} && {!isNull _x}};
+				missionNameSpace setVariable ["INSzeusExclude", _ZeusExclude];
 			};
 
 			if !(JIG_EX_damage) then {_veh allowdamage true};//allow damage after drop off needed to complete script in some cases.
@@ -258,7 +263,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 			_vehgrp_leader action ["engineOn", EvacHeliW1];
 			driver EvacHeliW1 action ["engineOn", EvacHeliW1];
 			sleep 0.1;
-			_animateDoors = [] spawn {[EvacHeliW1] call animate_doors_fnc;};
+			private _animateDoors = [] spawn {[EvacHeliW1] call animate_doors_fnc;};
 			sleep 2;
 			EvacHeliW1 doMove _poscreate;
 			(leader group EvacHeliW1) doMove _poscreate;
