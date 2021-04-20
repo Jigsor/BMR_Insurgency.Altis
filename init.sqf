@@ -69,7 +69,7 @@ if (INS_IEDs isEqualTo 1 && !IamHC) then {
 };
 
 // EOS
-private "_requiredAddons";
+private _requiredAddons = [];
 switch (INS_op_faction) do {
 	case 1: {
 	// CSAT (no mods)
@@ -221,6 +221,22 @@ switch (INS_op_faction) do {
 			[RESISTANCE]execVM "eos\OpenMe.sqf";
 		}else{INS_mod_missing = true;};
 	};
+	case 22: {
+	// @Unsung VC
+		_requiredAddons = ["uns_main"];
+		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
+			activateAddons ["uns_main","uns_boats_c","uns_men_US_1AC_68","uns_men_USAF","CSJ_UH1Gun_c","uns_OV10_c","uns_skymaster_c","uns_C130","uns_ch53_c","uns_F4e_c","UNS_F111_c","uns_dc3_c","uns_A7_c","uns_A1J_c","uns_oh6_c","uns_ch47a_c","uns_H21C_c","uns_AH1G_c","uns_ch34_c","uns_men_NZ_c","UNS_TankCrew","uns_wheeled3_c","uns_m35_c","uns_Wheeled_w_c","uns_men_USMC_65","uns_m274_c","PBR_Crew","uns_PBR_c","uns_men_US_1ID","uns_men_USMC_68","uns_men_US_5SFG","uns_static_c","uns_stabo","uns_m113_c","uns_men_US_Arty","uns_Arty_c","uns_m107_c","uns_m48a3_c","uns_sheridan_c","uns_men_NVA_crew","uns_men_VC_regional","uns_men_VC_mainforce_68","uns_men_VC_mainforce","uns_men_VC_local","uns_men_VC_recon","uns_men_VC_mainforce","uns_men_VC_mainforce_67","uns_t34_t55_c","UNS_sampan","uns_bunkers","csj_seaobj","uns_AAA_c","uns_pt76_c","uns_men_NVA_68","uns_Type63_c","uns_men_NVA_65","uns_btr_c","uns_wheeled_e_c","uns_men_US_11ACR","uns_men_US_SOG","uns_men_US_SEAL","uns_men_US_1AC","uns_men_US_25ID","uns_men_US_6SFG","uns_uh1d_c","uns_civ","uns_static_c","uns_mig21_c","uns_an2_c","uns_men_NVA_daccong","uns_A4_c","UNS_A6_c","uns_men_ROK"];
+			[EAST]execVM "eos\OpenMe.sqf";
+		}else{INS_mod_missing = true;};
+	};
+	case 23: {
+	// @Unsung VC and PAVN
+		_requiredAddons = ["uns_main"];
+		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
+			activateAddons ["uns_main","uns_boats_c","uns_men_US_1AC_68","uns_men_USAF","CSJ_UH1Gun_c","uns_OV10_c","uns_skymaster_c","uns_C130","uns_ch53_c","uns_F4e_c","UNS_F111_c","uns_dc3_c","uns_A7_c","uns_A1J_c","uns_oh6_c","uns_ch47a_c","uns_H21C_c","uns_AH1G_c","uns_ch34_c","uns_men_NZ_c","UNS_TankCrew","uns_wheeled3_c","uns_m35_c","uns_Wheeled_w_c","uns_men_USMC_65","uns_m274_c","PBR_Crew","uns_PBR_c","uns_men_US_1ID","uns_men_USMC_68","uns_men_US_5SFG","uns_static_c","uns_stabo","uns_m113_c","uns_men_US_Arty","uns_Arty_c","uns_m107_c","uns_m48a3_c","uns_sheridan_c","uns_men_NVA_crew","uns_men_VC_regional","uns_men_VC_mainforce_68","uns_men_VC_mainforce","uns_men_VC_local","uns_men_VC_recon","uns_men_VC_mainforce","uns_men_VC_mainforce_67","uns_t34_t55_c","UNS_sampan","uns_bunkers","csj_seaobj","uns_AAA_c","uns_pt76_c","uns_men_NVA_68","uns_Type63_c","uns_men_NVA_65","uns_btr_c","uns_wheeled_e_c","uns_men_US_11ACR","uns_men_US_SOG","uns_men_US_SEAL","uns_men_US_1AC","uns_men_US_25ID","uns_men_US_6SFG","uns_uh1d_c","uns_civ","uns_static_c","uns_mig21_c","uns_an2_c","uns_men_NVA_daccong","uns_A4_c","UNS_A6_c","uns_men_ROK"];
+			[EAST]execVM "eos\OpenMe.sqf";
+		}else{INS_mod_missing = true;};
+	};
 };
 if (isServer && {!(CivProbability isEqualTo 0)}) then {[]execVM "eos_civ\OpenMeCiv.sqf"};// Civilians
 
@@ -241,6 +257,7 @@ if (isServer) then
 	call compile preProcessFileLineNumbers "init_server.sqf";
 	call compile preprocessFileLineNumbers "INSfncs\server\AirPatrole_Fncs.sqf";
 	rej_fnc_bezier = compile preProcessFileLineNumbers "INSfncs\server\rej_fnc_bezier.sqf";
+	if (INS_IEDs isEqualTo 3) then {[] spawn BMRINS_fnc_JigPunjiTraps};
 
 	if ((DebugEnabled isEqualTo 1) && (tky_perfmon > 0)) then {
 		if (AI_SpawnDis > 1000) then {
