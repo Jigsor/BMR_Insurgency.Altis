@@ -2,7 +2,7 @@
  execVM "scripts\ghst_PutinBuild.sqf";
  V2.5.2 - By Ghost - coord snippet is from DiRaven
  fills a random building around a position with all objects listed. best to keep radius small so not many buidlings need to be calculated
- Modified by Jigsor 2/13/2021. Modified mostly beginning and ending. The core is by Ghost. Creates and places Ammo Cache.
+ Modified by Jigsor 3/13/2021. Modified mostly beginning and ending. The core is by Ghost. Creates and places Ammo Cache.
 */
 
 if (!isServer) exitWith{};
@@ -10,15 +10,14 @@ sleep 2;
 
 private _cache_loop = [] spawn
 {
-	private ["_all_caches_destroyed","_uncaped_eos_mkrs","_all_cache_types","_objtype","_ins_debug"];
 
 	#define debug false//set to true for diag_log
-	_all_caches_destroyed = false;
+	private _all_caches_destroyed = false;
 	cache_destroyed = true;
-	_uncaped_eos_mkrs = all_eos_mkrs;
-	_all_cache_types = cache_types;
-	_objtype = _all_cache_types # 0;
-	_ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
+	private _uncaped_eos_mkrs = all_eos_mkrs;
+	private _all_cache_types = cache_types;
+	private _objtype = [_all_cache_types # 0, "uns_HiddenAmmoBox"] select (isClass(configFile >> "CfgVehicles" >> "uns_HiddenAmmoBox"));
+	private _ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
 
 	"cache_destroyed" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 	"intel_Build_objs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
