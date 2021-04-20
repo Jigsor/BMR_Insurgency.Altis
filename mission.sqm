@@ -1,4 +1,4 @@
-version=53;
+version=54;
 class EditorData
 {
 	moveGridStep=1;
@@ -27,6 +27,7 @@ class EditorData
 	};
 };
 binarizationWanted=0;
+sourceName="BMR_Insurgency_v1_50";
 addons[]=
 {
 	"A3_Ui_F",
@@ -396,7 +397,7 @@ randomSeed=892999;
 class ScenarioData
 {
 	author="Jigsor=BMR=";
-	overviewText="Eliminate Armed Rebellion Against NATO forces. Gather Intel on Location of Enemy Ammo Cache and Destroy it.";
+	overviewText="@STR_BMRINS_DESCRIPTION";
 };
 class CustomAttributes
 {
@@ -17296,6 +17297,29 @@ class Mission
 			};
 			id=3061;
 			type="Box_East_Grenades_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[],[]],[[""1Rnd_HE_Grenade_shell"",""1Rnd_Smoke_Grenade_shell"",""1Rnd_SmokeGreen_Grenade_shell"",""1Rnd_SmokeRed_Grenade_shell"",""1Rnd_SmokePurple_Grenade_shell"",""1Rnd_SmokeBlue_Grenade_shell"",""1Rnd_SmokeOrange_Grenade_shell"",""HandGrenade"",""MiniGrenade"",""SmokeShell"",""SmokeShellRed"",""SmokeShellGreen"",""SmokeShellPurple"",""SmokeShellBlue"",""SmokeShellOrange"",""UGL_FlareYellow_F"",""UGL_FlareRed_F"",""O_IR_Grenade""],[12,2,2,2,2,2,2,12,12,2,2,2,2,2,2,2,2,8]],[[],[]],[[],[]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item1199
 		{
@@ -19233,7 +19257,7 @@ class Mission
 			class Attributes
 			{
 				rank="SERGEANT";
-				init="call{if (isServer) then {this addeventhandler [""fired"", {(_this select 0) setvehicleammo 1}]; [this] join BaseDefence;};}";
+				init="if (isServer) then {this addeventhandler [""fired"", {(_this select 0) setvehicleammo 1}]; [this] join BaseDefence;};";
 			};
 			id=3125;
 			type="B_HMG_01_high_F";
