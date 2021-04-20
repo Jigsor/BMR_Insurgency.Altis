@@ -121,7 +121,7 @@ _info = _info +"
 	<br/>
 	<br/><font size='20'>SUPPORT</font>
 	<br/>
-	<br/>JTAC and Team leaders/Squad leaders can call for Close Air Support. UAV Operators can call for air dropped UGV and launch parachute camera by firing a white flare from 203 grenade launcher. Engineer can build a FARP to repair, rearm and flip vehicles if he has a Bobcat or Repair Truck close by. All players can use the actions on the FARP. Medics can build a small sandbag wall to provide cover. Sniper, Marksmen and Spotter classes can enable/disable bullet cam. CAS Operator/Team Leader (leader slot of the biggest group in lobby) can call for squad heli evac. The heli will not leave until all group members are aboard.
+	<br/>JTAC and Team leaders/Squad leaders can call for Close Air Support. UAV Operators can call for air dropped UGV and launch parachute camera by firing a white flare from 203 grenade launcher. Engineer can build a FARP to repair, rearm and flip vehicles if he has a Bobcat or Repair Truck close by. All players can use the actions on the FARP. Medics can build a small sandbag wall to provide cover. Sniper, Marksmen and Spotter classes can enable/disable bullet cam. CAS Operator/Team Leader (leader slot of the biggest group in lobby) can call for squad heli evac. The heli will not leave until all group members are aboard. In Unsung version, Radio Operator is the Support Requestor.
 	<br/>
 	<br/><font size='20'>VEHICLES</font>
 	<br/>
@@ -153,7 +153,7 @@ _info = _info +"
 	<br/>
 	<br/>For immunity wear A3 Nato Pilot Helmet, Contact DLC gas masks/respirators or Full Faced Viper Helmets.
 	<br/>
-	<br/>Moded support for gas masks include masks from Hidden Identity Pack v2, Identity Pack v3, FFAA, NATO SF and Russian Spetsnaz Weapons, FM-12 strapless from AVON FM12 Respirator Pack, OPTRE_UNSC_CH252_Helmet_Vacuum_DES and OPTRE_UNSC_ODST_Helmet_CBRN from Operation TREBUCHET.
+	<br/>Moded support for gas masks include masks from Hidden Identity Pack v2, Identity Pack v3, FFAA, NATO SF and Russian Spetsnaz Weapons, FM-12 strapless from AVON FM12 Respirator Pack, OPTRE_UNSC_CH252_Helmet_Vacuum_DES, OPTRE_UNSC_ODST_Helmet_CBRN from Operation TREBUCHET and UNS_M17 from Unsung.
 	<br/>
 	<br/>Adim can disable gas grenades from lobby parameter.
 	<br/>
