@@ -89,9 +89,9 @@ paint_heli_fnc = {
 			case (_wN in ["tanoa","pja312","rhspkl"]): {_color = _green2};
 			case (_wN in ["enoch","lingor3","pja305","xcam_taunus","bornholm","kapaulio","wl_rosche","hyde_sark"]): {_color = _green1};
 			case (_wN in ["takistan","fallujah","dingor","zargabad","kunduz","pja310","mog","dya","fata","clafghan","lythium"]): {_color = _sandColor};
-			case (_wN in ["tanoa","pja312"]): {_color = _green2};
 			default {_color = []};
 		};
+		if (_color in [_green1, _green2]) then {missionNamespace setVariable ["BMRmedSBtype", "Land_BagFence_01_round_green_F", true]};//Auxillary medic sandbag color
 		if (_color isEqualTo []) exitWith {missionNamespace setVariable ["BMR_paintSchemeB1", []]};
 		{_veh setObjectTextureGlobal _x;} forEach _color;
 		missionNamespace setVariable ["BMR_paintSchemeB1", _color];
@@ -117,6 +117,10 @@ remove_veh_ti = {
 INS_fold_wings = {
 	params ["_veh"];
 	_veh animate ["wing_fold_l", 1, true]; _veh animate ["wing_fold_r", 1, true];
+};
+INS_foldUnsung_wings = {
+	params ["_veh"];
+	_veh animate ["wingfold_left",1, true]; _veh animate ["wingfold_right",1, true];
 };
 INS_replace_pylons = {
 	params ["_veh","_pylons"];
@@ -250,7 +254,9 @@ JIG_ammmoCache_damage = {
 	(_ammo == "LIB_Ladung_Small_ammo") ||
 	(_ammo == "LIB_Ladung_Big_ammo") ||
 	(_ammo == "LIB_US_TNT_4pound_ammo") ||
-	(_ammo == "C7_Remote_Ammo")) then {
+	(_ammo == "C7_Remote_Ammo") ||
+	(_ammo == "uns_m183_ammo") ||
+	(_ammo == "uns_M118_ammo_remote_Scripted")) then {
         _cache spawn {
             sleep 0.1;
             _this setDamage 1;
@@ -301,7 +307,7 @@ JIG_tower_damage = {
     _ammo = _this # 4;
     _out = 0;
 
-	if ((_ammo == "SatchelCharge_Remote_Ammo") || (_ammo == "DemoCharge_Remote_Ammo") || (_ammo == "SatchelCharge_Remote_Ammo_Scripted") || (_ammo == "DemoCharge_Remote_Ammo_Scripted") || (_ammo == "CUP_PipeBomb_Ammo") || (_ammo == "LIB_Ladung_Small_ammo") || (_ammo == "LIB_Ladung_Big_ammo") || (_ammo == "LIB_US_TNT_4pound_ammo") || (_ammo == "C7_Remote_Ammo")) then {
+	if ((_ammo == "SatchelCharge_Remote_Ammo") || (_ammo == "DemoCharge_Remote_Ammo") || (_ammo == "SatchelCharge_Remote_Ammo_Scripted") || (_ammo == "DemoCharge_Remote_Ammo_Scripted") || (_ammo == "CUP_PipeBomb_Ammo") || (_ammo == "LIB_Ladung_Small_ammo") || (_ammo == "LIB_Ladung_Big_ammo") || (_ammo == "LIB_US_TNT_4pound_ammo") || (_ammo == "C7_Remote_Ammo") || (_ammo == "uns_m183_ammo") || (_ammo == "uns_M118_ammo_remote_Scripted")) then {
         _tower spawn {
             sleep 0.1;
             _this setDamage 1;
@@ -383,7 +389,13 @@ editorAI_GasMask = {
 		removeGoggles _x;
 		if (side _x isEqualTo resistance) then {_x addGoggles "G_AirPurifyingRespirator_02_olive_F";};
 		if (side _x isEqualTo east) then {_x addGoggles "G_AirPurifyingRespirator_02_black_F";};
-		If (side _x isEqualTo west) then {_x addGoggles "G_AirPurifyingRespirator_01_F";};
+		if (side _x isEqualTo west) then {
+			if (isClass(configFile >> "cfgPatches" >> "uns_main")) then {
+				_x addGoggles "UNS_M17";
+			} else {
+				_x addGoggles "G_AirPurifyingRespirator_01_F";
+			};
+		};
 	} count _ai;
 };
 JIPmkr_updateClient_fnc = {
