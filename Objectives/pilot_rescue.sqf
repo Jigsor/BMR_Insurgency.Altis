@@ -35,6 +35,16 @@ if (INS_op_faction in [21]) then {
 	};
 };
 
+//mod for Unsung
+if (INS_op_faction in [22,23]) then {
+	if (isClass(configFile >> "CfgPatches" >> "uns_men_USAF")) then {
+		activateAddons ["uns_c1a_c"];
+		_type = "uns_c1a_wreck";
+		_pilotType = "uns_pilot18";
+		_radius = 9;
+	};
+};
+
 if (isNil "_pilotType") then {_pilotType = "B_Pilot_F"};
 
 // Positional info
@@ -49,8 +59,7 @@ private _objmkr = createMarker ["ObjectiveMkr", _newZone];
 "ObjectiveMkr" setMarkerText "Pilot Rescue";
 
 // Spawn Objective Objects
-private _wreck = createVehicle [_type, _newZone, [], 0, "NONE"];
-sleep jig_tvt_globalsleep;
+private _wreck = createVehicle [_type, _newZone, [], 0, "NONE"]; sleep 0.1;
 
 _wreck setDir (random 359);
 _wreck setVectorUp [0,0,1];
