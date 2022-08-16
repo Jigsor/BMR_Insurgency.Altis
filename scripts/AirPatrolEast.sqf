@@ -23,10 +23,10 @@ if (_ins_debug) then {
 	if !(markerColor "curAEspawnpos" isEqualTo "") then {deleteMarker "curAEspawnpos"};
 	private _currMkr = createMarker ["curAEspawnpos", markerPos "spawnaire"];
 	_currMkr setMarkerShape "ELLIPSE";
-	"curAEspawnpos" setMarkerSize [2, 2];
-	"curAEspawnpos" setMarkerShape "ICON";
-	"curAEspawnpos" setMarkerType "mil_dot";//"Empty"
-	"curAEspawnpos" setMarkerColor "ColorOrange";
+	_currMkr setMarkerSize [2, 2];
+	_currMkr setMarkerShape "ICON";
+	_currMkr setMarkerType "mil_dot";//"Empty"
+	_currMkr setMarkerColor "ColorOrange";
 	"curAEspawnpos" setMarkerText "Initial Air Spawn";
 	publicVariable "curAEspawnpos";
 	sleep 2;
