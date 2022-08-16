@@ -9,7 +9,7 @@
 waitUntil {!isNull player};
 
 _z = (getPos player) # 2;
-Altitude = 500;
+ATM_Altitude = 500;
 
 hint Localize "STR_ATM_hinton";
 openMap true;
@@ -19,10 +19,10 @@ disableSerialization;
 private _dialog = findDisplay 2900;
 private _s_alt = _dialog displayCtrl 2901;
 private _s_alt_text = _dialog displayCtrl 2902;
-_s_alt_text ctrlSetText format["%1", Altitude];
+_s_alt_text ctrlSetText format["%1", ATM_Altitude];
 _s_alt sliderSetRange [500,20000];
 _s_alt slidersetSpeed [100,100,100];
-_s_alt sliderSetPosition Altitude;
+_s_alt sliderSetPosition ATM_Altitude;
 
 ATMcrKey = 0;
 IsCutRope = false;
@@ -63,7 +63,7 @@ IrOn = _target addAction["<t color='#FF00CC'>Strobe IR On</t>", "ATM_airdrop\atm
 _loadout=[_target] call ATM_Getloadout;
 
 _posJump = markerPos "mkr_halo";
-_posJump set [2, Altitude];
+_posJump set [2, ATM_Altitude];
 _target setPos _posJump;
 
 openMap false;

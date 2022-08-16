@@ -12,9 +12,9 @@ fnc_alt_onsliderchange={
 
 	_dialog = findDisplay 2900;
 	_text = _dialog displayCtrl 2902;
-	_value = _this select 0;
+	_value = _this # 0;
 
-	Altitude = round(_value);
+	ATM_Altitude = round(_value);
 	_text ctrlSetText format["%1", round(_value)];
 };
 
