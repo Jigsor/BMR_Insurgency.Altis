@@ -1076,7 +1076,7 @@ _availableBackpacks = [
 	"uns_pk_low_NVA_Bag",
 	"uns_SPG9_NVA_Bag",
 	"uns_Type36_NVA_Bag",
-	"Uns_NVA_searchlight_Bag",	
+	"Uns_NVA_searchlight_Bag",
 	"Uns_PK_High_VC_Bag",
 	"uns_pk_low_VC_Bag",
 	"uns_MG42_VC_Bag",
@@ -1109,13 +1109,16 @@ _availableBackpacks = [
 	//"B_Carryall_wdl_F",
 	"B_FieldPack_green_F",
 	"B_FieldPack_taiga_F",
+	"B_FieldPack_taiga_RPG_AT_F",
 	"B_AssaultPack_wdl_F",
 	"B_AssaultPack_eaf_F",
 	"B_RadioBag_01_digi_F",
 	"B_RadioBag_01_eaf_F",
 	"B_RadioBag_01_ghex_F",
 	"B_RadioBag_01_hex_F",
-	"B_RadioBag_01_oucamo_F"
+	"B_RadioBag_01_oucamo_F",
+		//CUP
+		"CUP_B_AlicePack_Khaki"
 ];
 
 _availableItems = [
@@ -1136,6 +1139,7 @@ _availableItems = [
 	"NVGoggles_OPFOR",
 	"NVGoggles_INDEP",
 	"NVGoggles_tna_F",
+	"O_NVGoggles_grn_F",
 	"O_NVGoggles_hex_F",
 	"O_NVGoggles_urb_F",
 	"O_NVGoggles_ghex_F",
@@ -1144,6 +1148,9 @@ _availableItems = [
 	"G_I_Diving",
 	"G_Lady_Blue",
 	"G_Tactical_Black",
+		//CUP
+		"CUP_LRTV",
+		"CUP_NVG_HMNVS",
 
 	//Uniforms
 	"U_I_OfficerUniform",
@@ -1207,6 +1214,10 @@ _availableItems = [
 	"U_I_L_Uniform_01_tshirt_sport_F",
 	"U_I_L_Uniform_01_tshirt_olive_F",
 	"U_I_CBRN_Suit_01_AAF_F",
+	"U_O_R_Gorka_01_camo_F",
+		//CUP
+		"CUP_U_O_TK_Green",
+		"CUP_U_O_RUS_EMR_2",
 
 	//Helmets
 	"H_HelmetIA",
@@ -1246,9 +1257,11 @@ _availableItems = [
 	"H_HelmetHBK_chops_F",
 	"H_HelmetHBK_ear_F",
 	"H_HelmetHBK_F",
-	"H_HelmetAgresspor_F",
-	"H_HelmetAgresspor_Cover_F",
-	"H_HelmetAgresspor_cover_taiga_F",
+	"H_HelmetAggressor_F",
+	"H_HelmetAggressor_Cover_F",
+	"H_HelmetAggressor_cover_taiga_F",
+		//CUP
+		"CUP_H_TK_Helmet",
 
 	//HeadGear
 	"H_Shemag_khk",
@@ -1262,6 +1275,9 @@ _availableItems = [
 	"G_Balaclava_oli",
 	"G_Balaclava_blk",
 	"G_Bandanna_tan",
+		//CUP
+		"CUP_TK_NeckScarf",
+		"CUP_H_RUS_6B46",
 
 	//Vests
 	"V_BandollierB_cbr",
@@ -1278,6 +1294,10 @@ _availableItems = [
 	"V_CarrierRigKBT_01_heavy_EAF_F",
 	"V_CarrierRigKBT_01_light_EAF_F",
 	"V_CarrierRigKBT_01_EAF_F",
+	"V_SmershVest_01_F",
+		//CUP
+		"CUP_V_O_TK_Vest_1",
+		"CUP_V_RUS_6B45_2",
 
 	//Weapon Accessories
 	"muzzle_snds_H",
@@ -1323,7 +1343,11 @@ _availableItems = [
 	"optic_ico_01_f",
 	"optic_ico_01_black_f",
 	"optic_ico_01_camo_f",
-	"optic_ico_01_sand_f"
+	"optic_ico_01_sand_f",
+		//CUP
+		"CUP_muzzle_PBS4",
+		"CUP_optic_Kobra",
+		"CUP_optic_ekp_8_02"
 ];
 
 _availableMagazines = [
@@ -1347,6 +1371,8 @@ _availableMagazines = [
 	"HandGrenade",
 	"O_IR_Grenade",
 	"I_IR_Grenade",
+		//CUP
+		"CUP_HandGrenade_RGD5",
 
 	//UGL
 	"1Rnd_HE_Grenade_shell",
@@ -1368,10 +1394,13 @@ _availableMagazines = [
 	"RPG32_HE_F",
 	"RPG32_F",
 	"RPG7_F",
+		//CUP
+		"CBA_FakeLauncherMagazine",
 
 	//Rifle/Handgun ammo
 	"6Rnd_45ACP_Cylinder",
 	"9Rnd_45ACP_Mag",
+	"11Rnd_45ACP_Mag",
 	"30Rnd_580x42_Mag_F",
 	"30Rnd_65x39_caseless_green",
 	"16Rnd_9x21_Mag",
@@ -1389,6 +1418,14 @@ _availableMagazines = [
 	"200Rnd_65x39_cased_Box",
 	"200Rnd_65x39_cased_Box_Tracer",
 	"50Rnd_570x28_SMG_03",//ADR
+		//CUP
+		"CUP_30Rnd_545x39_AK_M",
+		"CUP_30Rnd_545x39_AK74M_M",
+		"CUP_30Rnd_TE1_Yellow_Tracer_545x39_AK_M",
+		"CUP_45Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M",
+		"CUP_1Rnd_HE_GP25_M",
+		"CUP_1Rnd_SmokeRed_GP25_M",
+
 	//Put
 	"APERSBoundingMine_Range_Mag",
 	"APERSMine_Range_Mag",
@@ -1398,6 +1435,8 @@ _availableMagazines = [
 	"DemoCharge_Remote_Mag",
 	"SLAMDirectionalMine_Wire_Mag",
 	"SatchelCharge_Remote_Mag",
+		//CUP
+		"IEDLandSmall_Remote_Mag",
 
 	//Contact Mixed
 	"3Rnd_HE_Grenade_shell",
@@ -1488,11 +1527,13 @@ _availableWeapons = [
 	//"launch_I_Titan_short_F",
 	"launch_RPG32_F",
 	"launch_RPG7_F",
+	"launch_RPG32_green_F",
 
 	//SideArms
 	"hgun_ACPC2_F",
 	"hgun_Rook40_F",
 	"hgun_Pistol_heavy_02_F",
+	"hgun_Pistol_heavy_01_green_F",//Contact
 	"hgun_Pistol_01_F",
 
 	//Contact Mixed
@@ -1523,7 +1564,14 @@ _availableWeapons = [
 	"arifle_MSBS65_camo_F",
 	"arifle_MSBS65_Mark_camo_F",
 	"arifle_MSBS65_GL_camo_F",
-	"arifle_MSBS65_UBS_camo_F"
+	"arifle_MSBS65_UBS_camo_F",
+	"arifle_MSBS65_ico_pointer_f",
+
+		//CUP
+		"CUP_arifle_AK107_GL",
+		"CUP_lmg_Pecheneg_PScope",
+		"CUP_hgun_MicroUzi",
+		"CUP_launch_RPG18"
 ];
 
 [_availableBackpacks,_availableItems,_availableMagazines,_availableWeapons]
