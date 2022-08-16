@@ -25,7 +25,7 @@ if (!isNull backpackContainer _p && {(weaponCargo backpackContainer _p) findIf {
 private _allHG = assignedItems _p;
 _allHG pushBack (headgear _p);
 private _detected = (_bannedWeapons arrayIntersect _allHG);
-if !(_detected isEqualTo []) then {
+if (_detected isNotEqualTo []) then {
 	{_p unlinkItem _x;} forEach _detected;
 	_found = true;
 };

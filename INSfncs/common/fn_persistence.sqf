@@ -8,7 +8,7 @@ HCPresent = if (isNil "Any_HC_present") then {False} else {True};
 
 if ((!isServer && hasInterface) || (HCPresent && isServer)) exitWith{};
 
-if ((count (profileNamespace getVariable ["BMR_INS_progress", []]) > 0) || !(HCzoneProgress isEqualTo [])) then {
+if ((count (profileNamespace getVariable ["BMR_INS_progress", []]) > 0) || (HCzoneProgress isNotEqualTo [])) then {
 	if (!isServer) then {
 		if (!canSuspend) exitWith {[] spawn BMRINS_fnc_persistence};
 		uiSleep 0.3;

@@ -13,7 +13,7 @@ _isNight = if (daytime > _dusk || daytime < _dawn) then {true} else {false};
 		_unit setSkill [_x,_skillvalue];
 	} forEach ['aimingAccuracy','aimingShake','aimingSpeed','spotDistance','spotTime','courage','reloadSpeed','commanding','general'];
 
-	if !(AIdamMod isEqualTo 1) then {_unit removeAllEventHandlers "HandleDamage";_unit addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];};
+	if (AIdamMod isNotEqualTo 1) then {_unit removeAllEventHandlers "HandleDamage";_unit addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];};
 	//if (EOS_KILLCOUNTER) then {_unit addEventHandler ["killed", "null=[] execVM 'eos\functions\EOS_KillCounter.sqf'"]};
 
 	_unit addEventHandler ["Reloaded", {//Jig adding
@@ -23,7 +23,7 @@ _isNight = if (daytime > _dusk || daytime < _dawn) then {true} else {false};
 
 	//Jig adding
 	_binocs = binocular _unit;
-	if !(_binocs isEqualTo "") then {_unit removeWeapon _binocs};
+	if (_binocs isNotEqualTo "") then {_unit removeWeapon _binocs};
 	_unit unlinkitem (hmd _unit);
 	if (_grpSide isEqualTo east && {(_nvg && {_isNight})}) then {
 		_unit linkItem "NVGoggles_OPFOR";

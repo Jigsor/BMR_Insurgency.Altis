@@ -57,7 +57,7 @@ if (!isNil "_rwp") then {
 if (_pnf) then {
 	if (INS_MHQ_exists && {!isNil "Opfor_MHQ"}) then {
 		// Move to Op4 MHQ
-		if !(markerColor "Opfor_MHQ" isEqualTo "") then {
+		if (markerColor "Opfor_MHQ" isNotEqualTo "") then {
 			if (_mL) then {BTC_r_base_spawn setPos markerPos "Opfor_MHQ"};
 			"Respawn_East" setMarkerPos markerPos "Opfor_MHQ";
 			_dir = round(random 360);

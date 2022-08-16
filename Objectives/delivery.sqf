@@ -91,7 +91,7 @@ Demo_Arrow setPos [getPos Demo_Arrow # 0, getPos Demo_Arrow # 1, 6];
 
 private _newPos = (getposATL MHQ_3);
 
-if !(markerColor "Task_Transport" isEqualTo "") then {deleteMarker "Task_Transport"};
+if (markerColor "Task_Transport" isNotEqualTo "") then {deleteMarker "Task_Transport"};
 private _tmarker = createMarker ["Task_Transport", _newPos];
 _tmarker setMarkerShape "ICON";
 _tmarker setMarkerSize [2, 2];

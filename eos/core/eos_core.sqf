@@ -301,10 +301,10 @@ if (markerColor _mkr isNotEqualTo "ColorBlack") then {
 			_eosAct=false;
 			if (_debug) then {hint "Zone Cached"};
 		};
-		if (triggeractivated _clear and triggeractivated _taken and !_civZone)exitwith
+		if (triggeractivated _clear && triggeractivated _taken && !_civZone)exitwith
 		{// IF ZONE CAPTURED BEGIN CHECKING FOR ENEMIES
 			_cGrps=0;_aGrps=0;_bGrps=0;_dGrps=0;_eGrps=0;_fGrps=0;
-			while {triggeractivated _eosActivated AND !(markerColor _mkr isEqualTo "ColorBlack")} do {
+			while {triggeractivated _eosActivated && (markerColor _mkr isNotEqualTo "ColorBlack")} do {
 				if (!triggeractivated _clear) then {
 					_mkr setmarkercolor hostileColor;
 					_mkr setmarkerAlpha _mAH;

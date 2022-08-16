@@ -2,7 +2,7 @@
  execVM "scripts\ghst_PutinBuild.sqf";
  V2.5.2 - By Ghost - coord snippet is from DiRaven
  fills a random building around a position with all objects listed. best to keep radius small so not many buidlings need to be calculated
- Modified by Jigsor 3/13/2021. Modified mostly beginning and ending. The core is by Ghost. Creates and places Ammo Cache.
+ Modified by Jigsor 4/3/2022. Modified mostly beginning and ending. The core is by Ghost. Creates and places Ammo Cache.
 */
 
 if (!isServer) exitWith{};
@@ -29,7 +29,7 @@ private _cache_loop = [] spawn
 		while {!cache_destroyed} do {sleep 10;};
 		sleep 5;
 
-		if !(intel_Build_objs isEqualTo []) then {
+		if (intel_Build_objs isNotEqualTo []) then {
 			{
 				if (!isNull _x) then {deleteVehicle _x; sleep 0.1};
 			} count intel_Build_objs;

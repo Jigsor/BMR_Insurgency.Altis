@@ -54,7 +54,7 @@ while {true} do
 
 		for "_i" from 1 to _numDeadMarkers step 1 do {
 			_deadmarkname = format ["DeadMarker%1", _i];
-			if !(markerType _deadmarkname isEqualTo "") then {
+			if (markerType _deadmarkname isNotEqualTo "") then {
 				deleteMarkerLocal _deadmarkname;
 			};
 		};

@@ -152,14 +152,14 @@ for [{_loop=0}, {_loop<1}, {_loop=_loop}] do
 				if (!(side _x == _targetSide)) then {_nearUnits = _nearUnits - [_x];};
 			} count _nearUnits;
 
-			if(count _nearUnits > 0) then
+			if (_nearUnits isNotEqualTo []) then
 			{
 				private _btarget = _nearUnits # 0;
 
 				[_unit,_btarget] spawn {
 					params ["_u","_targ"];
 
-					while {alive _u and !isNull _targ} do {
+					while {alive _u && !isNull _targ} do {
 						_u doMove (getPosATL _targ);
 						_u setspeedMode "NORMAL";
 						sleep 8;

@@ -28,11 +28,11 @@ while {true} do {
 	{
 		_c = _x;
 		if (alive (_c # 0)) then {
-			if !((_c # 1) isEqualTo []) then {
+			if ((_c # 1) isNotEqualTo []) then {
 				clearItemCargoGlobal (_c # 0);
 				{(_c # 0) addItemCargoGlobal [_x, 1];} count (_c # 1);
 			};
-			if !((_c # 2) isEqualTo []) then {
+			if ((_c # 2) isNotEqualTo []) then {
 				clearBackpackCargoGlobal (_c # 0);
 				{(_c # 0) addBackpackCargoGlobal [_x, 1];} count (_c # 2);
 			};

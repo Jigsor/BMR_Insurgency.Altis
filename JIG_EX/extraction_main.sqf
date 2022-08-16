@@ -287,7 +287,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 		};
 
 		// Cleanup residual markers/objects if any and flip Evac toggle switch.
-		if !(markerColor "tempDropMkr" isEqualTo "") then {deleteMarker "tempDropMkr"};
+		if (markerColor "tempDropMkr" isNotEqualTo "") then {deleteMarker "tempDropMkr"};
 		if (!isNull _veh) then {_veh removeEventHandler ["Engine", 0]};
 
 		if (_evacComplete) exitWith {{deleteVehicle _x;} forEach [EvacSpawnPad, EvacLZpad]; evac_toggle = true; publicVariable "evac_toggle";};
@@ -308,7 +308,7 @@ if (!hasInterface && !isDedicated) exitWith {};
 			} forEach (units EvacHeliW1);
 		};
 
-		if !(markerColor "EvacSpawnMkr" isEqualTo "") then {deleteMarker "EvacSpawnMkr"};
+		if (markerColor "EvacSpawnMkr" isNotEqualTo "") then {deleteMarker "EvacSpawnMkr"};
 		if (!isNull EvacSpawnPad) then {deleteVehicle EvacSpawnPad};
 		if (!isNull EvacLZpad) then {deleteVehicle EvacLZpad};
 		evac_toggle = true;

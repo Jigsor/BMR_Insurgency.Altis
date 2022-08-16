@@ -48,7 +48,7 @@ if (isServer) then {
 				_veh = createVehicle [_vehtype, _vehPos, [], 0, "CAN_COLLIDE"];
 				_veh setDir _dir;
 				_veh setPos [_vehPos # 0, _vehPos # 1, 0];
-				if !(_vehName isEqualTo "") then {
+				if (_vehName isNotEqualTo "") then {
 					missionNamespace setVariable [_vehName, _veh];
 					publicVariable _vehName;
 				};
@@ -72,7 +72,7 @@ if (isServer) then {
 				_veh = createVehicle [_vehtype, _vehPos, [], 0, "CAN_COLLIDE"];
 				_veh setDir _dir;
 				_veh setPos [_vehPos # 0, _vehPos # 1, 0];
-				if !(_vehName isEqualTo "") then {
+				if (_vehName isNotEqualTo "") then {
 					missionNamespace setVariable [_vehName, _veh];
 					publicVariable _vehName;
 				};

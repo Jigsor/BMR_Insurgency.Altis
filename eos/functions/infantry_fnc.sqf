@@ -20,10 +20,10 @@ private _pool=if (surfaceiswater _pos && {getTerrainHeightASL _pos < -1.3}) then
 _grp=createGroup _side;
 
 private "_unit";
-for "_x" from 1 to _grpSize step 1 do {
+for "_c" from 1 to _grpSize step 1 do {
 	_unitType=selectRandom _pool;
 	_unit = _grp createUnit [_unitType, _pos, [], 6, "FORM"];
-	if !(side _unit isEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};
+	if (side _unit isNotEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};
 	(group _unit) setVariable ["zbe_cacheDisabled",true];
 };
 

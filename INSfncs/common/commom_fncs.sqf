@@ -435,7 +435,7 @@ INS_toggle_Zeus = {
 				if (INS_op_faction in [20]) then {[_x] call Trade_Biofoam_fnc};
 			} forEach crew _entity;
 			if ((_entity isKindOf "CAManBase") && {count units group _entity < 2}) then {
-				if (!(side _entity isEqualTo INS_Op4_side) && {side _entity in [RESISTANCE,EAST]}) then {
+				if ((side _entity isNotEqualTo INS_Op4_side) && {side _entity in [RESISTANCE,EAST]}) then {
 					_grp = createGroup INS_Op4_side;
 					[_entity] joinSilent _grp;
 				};
@@ -444,7 +444,7 @@ INS_toggle_Zeus = {
 
 		_curator addEventHandler ['CuratorGroupPlaced',{
 			params ["", "_group"];
-			if (!(side leader _group isEqualTo INS_Op4_side) && {side leader _group in [RESISTANCE,EAST]}) then {
+			if ((side leader _group isNotEqualTo INS_Op4_side) && {side leader _group in [RESISTANCE,EAST]}) then {
 				_grp = createGroup INS_Op4_side;
 				_units = units _group;
 				{[_x] joinSilent _grp;} forEach _units;

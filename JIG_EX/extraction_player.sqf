@@ -27,7 +27,7 @@ extractmkr = [];
 dropmkr = [];
 _pPos = getPosATL vehicle player;
 
-if !(markerColor "extractmkr" isEqualTo "") then {deleteMarker "extractmkr"};
+if (markerColor "extractmkr" isNotEqualTo "") then {deleteMarker "extractmkr"};
 _tempmkr1 = createMarker ["extractmkr", [0,0,0]];
 _tempmkr1 setMarkerShape "ELLIPSE";
 "extractmkr" setMarkerSize [1, 1];
@@ -38,7 +38,7 @@ _tempmkr1 setMarkerShape "ELLIPSE";
 "extractmkr" setMarkerAlpha 0;
 sleep 0.1;
 
-if !(markerColor "dropmkr" isEqualTo "") then {deleteMarker "dropmkr"};
+if (markerColor "dropmkr" isNotEqualTo "") then {deleteMarker "dropmkr"};
 _tempmkr2 = createMarker ["dropmkr", [0,0,0]];
 _tempmkr2 setMarkerShape "ELLIPSE";
 "dropmkr" setMarkerSize [1, 1];
@@ -120,7 +120,7 @@ _leaderPos = position player;
 	};
 } forEach (units ext_caller_group);
 
-if !(_outof_range_members isEqualTo []) then {
+if (_outof_range_members isNotEqualTo []) then {
 	{
 		_orAI = _x;
 		if (!isPlayer _orAI && _orAI in _outof_range_members) then {
@@ -135,7 +135,7 @@ if !(_outof_range_members isEqualTo []) then {
 };
 
 {if (!isPlayer _x) then {_recruitsArry pushBack _x;};} forEach (units ext_caller_group);
-if !(_recruitsArry isEqualTo []) then {
+if (_recruitsArry isNotEqualTo []) then {
 	0 spawn {
 		titleText ["Load recruits into chopper first. Do not use disembark orders after landing.", "PLAIN DOWN", 0.5];
 		sleep 7; titleText ["", "PLAIN DOWN", 0.1];

@@ -50,7 +50,7 @@ while {true} do {
 	private "_trees";
 	{
 		_trees = nearestTerrainObjects [_x, ["TREE","SMALL TREE","BUSH"], 50, false];
-		if !(_trees isEqualTo []) then {
+		if (_trees isNotEqualTo []) then {
 			for "_i" from 0 to (count _trees - 1) step 1 do {
 				_tree = _trees # 0;
 				if ((damage _tree isEqualTo 1) && {!(isObjectHidden _tree)}) then {hideobjectGlobal _tree};
@@ -115,7 +115,7 @@ while {true} do {
 
 					// Delete abandoned sandbags placed by medics.
 					private _abandoned = allMissionObjects "Land_BagFence_Round_F";
-					if !(_abandoned isEqualTo []) then {
+					if (_abandoned isNotEqualTo []) then {
 						{
 							if (_x getVariable "persistent") then {
 								_abandoned = _abandoned - [_x];

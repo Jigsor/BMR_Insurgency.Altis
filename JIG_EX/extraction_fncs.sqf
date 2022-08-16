@@ -22,7 +22,7 @@ extraction_pos_fnc = {
 	};
 
 	if (_newPos isNotEqualTo []) then {
-		if !(markerColor "tempPUmkr" isEqualTo "") then {deleteMarker "tempPUmkr"};
+		if (markerColor "tempPUmkr" isNotEqualTo "") then {deleteMarker "tempPUmkr"};
 		private _mkr = createMarker ["tempPUmkr", _newPos];
 		_mkr setMarkerShape "ELLIPSE";
 		_mkr setMarkerSize [1, 1];

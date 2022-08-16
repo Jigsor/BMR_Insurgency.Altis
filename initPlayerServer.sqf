@@ -38,7 +38,7 @@ if !(_player in _hcEntities) then {
 
 	if (side _player == east) then {
 		waitUntil {!isNil "INS_play_op4"};
-		if !(INS_play_op4 isEqualTo 0) then {
+		if (INS_play_op4 isNotEqualTo 0) then {
 			waitUntil {!isNil "INS_Blu_side"};
 			if (playersNumber INS_Blu_side < INS_play_op4) exitWith {
 				waitUntil {!isNil "Playable_Op4_disabled"};
@@ -51,7 +51,7 @@ if !(_player in _hcEntities) then {
 	};
 
 	waitUntil {!isNil "Kick_For_Duration"};
-	if !(Kick_For_Duration isEqualTo []) then {
+	if (Kick_For_Duration isNotEqualTo []) then {
 		private ["_uid","_pname"];
 		_uid = getPlayerUID _player;
 		waitUntil {!isNil "Kicked_for_TKing"};

@@ -110,7 +110,7 @@ _unit2 = infGrp2 createUnit [_unit_type, _bunker2 modelToWorld [0,-4,-1], [], 0,
 
 {
 	_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-	if !(AIdamMod isEqualTo 1) then {
+	if (AIdamMod isNotEqualTo 1) then {
 		_x removeAllEventHandlers "HandleDamage";
 		_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 	};

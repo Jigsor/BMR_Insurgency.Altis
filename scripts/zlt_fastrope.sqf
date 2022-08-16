@@ -57,7 +57,7 @@ zlt_fnc_tossropes = {
 	_heli = _this;
 	_ropes = [];
 	_oropes = _heli getvariable ["zlt_ropes",[]];
-	if !(_oropes isEqualTo []) exitwith {};
+	if (_oropes isNotEqualTo []) exitwith {};
 	_i = 0;
 	{
 		if ((typeof _heli) in (_x select 0)) exitwith {

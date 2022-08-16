@@ -31,7 +31,7 @@ if (_INS_tsks_finished) then {
 			profileNamespace setVariable ["BMR_INS_progress", _uncapturedMkrs];
 			_c = 0;
 		};
-		if !(_c isEqualTo 7) then {_c = _c + 1};
+		if (_c isNotEqualTo 7) then {_c = _c + 1};
 
 		if (_uncapturedMkrs isEqualTo []) exitWith {_allZonesCaptured = true;};
 		sleep 15;
