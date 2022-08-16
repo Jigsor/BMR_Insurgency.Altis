@@ -1,4 +1,5 @@
 //MHQ vehicle customizations
+// find available customizations with [vehicle player] call BIS_fnc_getVehicleCustomization;
 params [["_veh", objNull]];
 if (isNull _veh) exitWith {};
 private _type = typeOf _veh;
@@ -19,6 +20,9 @@ if (INS_Blu_side isEqualTo WEST) then {
 	if (typeOf _veh isEqualTo "I_MRAP_03_F") then {
 		_customization = [["Blufor",1],[]];
 	};
+	if (typeOf _veh isEqualTo "CUP_B_M1126_ICV_M2_Desert") then {
+		_customization = [["Desert",1],["HideSlat_Woodland",0,"HideSlat_Desert",1]];
+	};
 };
 
 if (INS_Blu_side isEqualTo RESISTANCE) then {
@@ -30,6 +34,6 @@ if (INS_Blu_side isEqualTo RESISTANCE) then {
 	};
 };
 
-if !(_customization isEqualTo []) then {
+if (_customization isNotEqualTo []) then {
 	[_veh, _customization # 0, _customization # 1] call BIS_fnc_initVehicle;
 };
