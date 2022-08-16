@@ -203,8 +203,8 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 			Delivery_Box setpos getpos player;
 
 
-1/23/2022
-v1_51 alpha internal version No. 1.5092
+8/15/2022
+v1_51 alpha internal version No. 1.50930
 Change: worldName to worldName >> "description" in intro so Enoch will relect Livonia, N'Zwasago instead of pja310 etc.
 Change: more efficient native distance check on Push addaction on Ships.
 Change: all BIS_fnc_randomInt function calls replaced with more efficient command linearConversion.
@@ -216,20 +216,20 @@ Change: Removed Binoculars from Grid AI.
 Change: Friendly AI markers now visible on map. Marker code greatly shortened.
 Change: CAS radio side chat strike call confirmation now broadcasts callers name to callers side.
 Change: Mission Name and description moved to stringtable.xml for easier mission updates.//WIP
-Change: Medic can now place sandbag on structure over water.
+Change: Medic can now place sandbag on structures over water.
 Change: Medic's Sandbag is Apex green version when on terrains ["tanoa","pja312","rhspkl","enoch","lingor3","pja305","xcam_taunus","bornholm","kapaulio","wl_rosche","hyde_sark"];
-Change: swaped some !isEqualTo for new command isNotEqualTo is some places. WIP
+Change: swaped many !isEqualTo for new command isNotEqualTo plus many other optimizations. WIP
 Change: Whitelisted Arsenal can now load and save presets. Thanks to Udie. Mainly designated for use used with Unsung and IFA3 to allow only era appropriate weapons.
 Change: Removed 3D gunner compass from helis. Maybe reapply to UAV displays (WIP).
-Change: Rewriten Quick Loadout functions to remove BTC code dependancy, added language support, added alphabetical action sorting, improved whitelisted arsenal cross checking.
+Change: Rewriten Quick Loadout functions to remove BTC code dependancy, added language support, added alphabetical sorting, improved whitelisted arsenal cross checking.
 Change: EarPlug volume decreased.
-Change: ACE 3 now compatible with 1 life mode if ace medical addon not detected (ACE no medical).// needs testing
+Change: ACE 3 now compatible with 1 life mode if ace medical addon not detected (ACE no medical).
 Change: Optimized cleanup to use fewer base classes rather than many specific canopy and ejection seat classes. //needs testing in all moded variants!
 Added: Plank ramp to base of Power Tower objective object when is over shallow water to make compatible with RHSPKL terrain and increased elevation.
 Added: Recuited Ai will spawn on marker "INS_recruitSpawn" rather than main base Arsenal crate object INS_Wep_box if the marker exists.
 Added: New mission version BMR_Insurgency_Green.Hyde_Sark
 Added: New mission version BMR_Insurgency_vXXX.cup_chernarus_A3
-Added: RHSPKL Prei Khmaoch Luong vanilla and Unsung versions.
+Added: New mission versions RHSPKL Prei Khmaoch Luong vanilla and Unsung versions.
 Added: Mission's Zeus can hear all radio Coms.
 Added: Exclusion of HeliExtraction pilot/crew transfer to Zeus.
 Added: Exclusion of Suicide bomber for lambs danger mod.
@@ -239,13 +239,15 @@ Added: more server rules.
 Added: to whitelisted Arsenal some newer IFA3 UK gear.
 Added: Op4 player base respawn point attempts to find a suitable building position in active grid zone near players before it defaults to old system of spawning on open ground within Blufor player range. (WIP)
 Added: disable switch uniforms on the fly feature as of OPTRE v0.18.
-Added: Internal mission build version now viewable in briefing info.
+Added: Internal mission build version now viewable in briefing -- info.
 Added: Clear vehicle cargo function.
+Added: Hard cap to number of possible waypoints of civilian taffic.
 Added: Unsung mod Support including Arsenal whitelisting. Big thanks to Ralian for help with Unsung porting.
 Added: Punji trap script as IED option. Requires @Unsung mod.
 Added: M2 50 caliber statics from A3 Old Man update.
 Added: Hilux from CUP Vehicles update.
 Added: addMissionEventHandler "OnUserKicked" rpt loging when Headless client detected.
+Added: ablility to exit Blufor Intro Cam sequence with enter, space, and escape keys.
 //Added: _unit disableAI "RADIOPROTOCOL"; to bon_recruit_units\init_newunit.sqf//redacted, bugs lock on missile warning sound?...old bug.
 Fixed: BTC quick revive. Player would respawn in the same place he died if Respawn button from main game menu was pressed.
 Fixed: JTAC CAS would not delete if stuck on mountain for ex.
@@ -263,9 +265,11 @@ Fixed: A non amphibious land vehicle MHQ could get lost underwater and became no
 Fixed: Player could get killed during intro.
 Fixed: Player could bypass weapon restrictions though Quick Loadout actions.
 Fixed: ATM Halo broke with Arma 3 2.02.147284 update.
-Fixed: Rare occation player could initialize as sideEnemy.
+Fixed: Rare occasion player could initialize as sideEnemy.
 Fixed: Local Vehicle Reward hint notice did not display.
 Fixed: FFAA Lythium vesion pylon error caused by FFAA updated Dec 25, 2021.
+Fixed: Intel could spawn on top of Cache.
+Fixed: Several depricated units + vehicle classnames and pylon settings since CUP v1.71 mod update.
 
 12/7/2019
 Update for v1_50
