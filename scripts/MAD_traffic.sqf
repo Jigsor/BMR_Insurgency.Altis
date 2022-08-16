@@ -106,13 +106,14 @@ MAD_spawnCar = {
 MAD_carWaypoint = {
 	_driver = _this # 0;
 	_grp = group _driver;
+	if (count waypoints _grp > 12) exitWith {};
 	_locations = nearestLocations [getPos _driver, ["NameVillage","NameCity","NameCityCapital","NameLocal","CityCenter"], MTnlRad];
 	_randomLocation = selectRandom _locations;
 	_locationPos = locationPosition _randomLocation;
 	_roads = _locationPos call MAD_getDrivingRoads;
 	_road = selectRandom _roads;
 
-	if (_roads isNotEqualTo [])  then {
+	if (_roads isNotEqualTo []) then {
 		_wp = getposasl _road;
 		_waypoint = _grp addWaypoint [_wp, 0];
 		[_grp,0] setWaypointCompletionRadius 30;
