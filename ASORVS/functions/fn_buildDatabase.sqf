@@ -5,7 +5,7 @@ if(isNil 'ASORVS_Blacklist') then {ASORVS_Blacklist = [];};
 #include "macro.sqf"
 
 _endsWith = {
-	//infinite loop without this! 
+	//infinite loop without this!
 	private["_name", "_length", "_nameend", "_start", "_i", "_result"];
 	_name = toArray format["%1", _this select 0];
 	_length = count toArray (_this select 1);
