@@ -8,11 +8,11 @@ class EditorData
 	toggles=513;
 	class ItemIDProvider
 	{
-		nextID=3650;
+		nextID=3651;
 	};
 	class MarkerIDProvider
 	{
-		nextID=1861;
+		nextID=1862;
 	};
 	class LayerIndexProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={11811.035,41.91861,11895.172};
-		dir[]={-0.98805976,-0.14832827,-0.041852042};
-		up[]={-0.14819878,0.98893589,-0.0062774597};
-		aside[]={-0.042320408,1.4068792e-007,0.99910879};
+		pos[]={11833.792,55.86779,11877.744};
+		dir[]={-0.94228381,-0.33425024,-0.019651113};
+		up[]={-0.33417842,0.94248432,-0.0069692209};
+		aside[]={-0.020850746,-2.8195791e-007,0.99978459};
 	};
 };
 binarizationWanted=0;
@@ -393,6 +393,14 @@ class AddonsMetaData
 		};
 	};
 };
+dlcs[]=
+{
+	"Heli",
+	"Expansion",
+	"Kart",
+	"Jets",
+	"Argo"
+};
 randomSeed=892999;
 class ScenarioData
 {
@@ -473,7 +481,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=1402;
+		items=1403;
 		class Item0
 		{
 			dataType="Marker";
@@ -10758,7 +10766,7 @@ class Mission
 		class Item873
 		{
 			dataType="Marker";
-			position[]={11741.012,23.064371,11868.238};
+			position[]={11741.936,22.993874,11857.349};
 			name="Halo";
 			text="Halo";
 			type="mil_flag";
@@ -11314,7 +11322,7 @@ class Mission
 			b=110;
 			angle=216.99995;
 			id=2764;
-			atlOffset=9.6888103;
+			atlOffset=9.6887293;
 		};
 		class Item922
 		{
@@ -13501,7 +13509,7 @@ class Mission
 			};
 			id=2870;
 			type="Land_Metal_rack_Tall_F";
-			atlOffset=-0.00041007996;
+			atlOffset=-0.0004119873;
 		};
 		class Item1014
 		{
@@ -13520,7 +13528,7 @@ class Mission
 			};
 			id=2871;
 			type="Land_Metal_rack_Tall_F";
-			atlOffset=-0.00024795532;
+			atlOffset=-0.00024986267;
 		};
 		class Item1015
 		{
@@ -17955,7 +17963,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={11600.397,26.225115,12039.371};
-				angles[]={-0,2.1293018,6.2738566};
+				angles[]={0,2.1293018,6.2738566};
 			};
 			side="Empty";
 			flags=4;
@@ -19356,10 +19364,10 @@ class Mission
 			class PositionInfo
 			{
 				position[]={9282.9834,7.2339673,22865.975};
-				angles[]={6.1967349,0,6.1180367};
+				angles[]={6.1967392,0,6.118042};
 			};
 			name="Server";
-			init="{_x setmarkeralphalocal 0} foreach [""Respawn_East"",""Respawn_West"",""Helicopters"",""Mechanized"",""HelicopterRepair"",""AircraftMaintenance"",""VehicleMaintenance"",""Halo"",""Dock"",""IEDa"",""IED1"",""IED2"",""IED3"",""IED4"",""IED5"",""IED6"",""IED7"",""IED8"",""IED9"",""IED10"",""IED11"",""IED12"",""IED13"",""IED14"",""IED15"",""IED16"",""sidemiss1"",""sidemiss2"",""sidemiss3"",""sidemiss4"",""sidemiss5"",""sidemiss6"",""sidemiss7"",""sidemiss8"",""sidemiss9"",""sidemiss10"",""sidemiss11"",""sidemiss12"",""civmkr1"",""civmkr2"",""civmkr3"",""civmkr4"",""civmkr5"",""civmkr6"",""civmkr7"",""civmkr8"",""civmkr9"",""civmkr10"",""civmkr11"",""civmkr12"",""civmkr13"",""civmkr14"",""civmkr15"",""civmkr16"",""civmkr17""];";
+			init="{_x setmarkeralphalocal 0} foreach [""Respawn_East"",""Respawn_West"",""Helicopters"",""Mechanized"",""HelicopterRepair"",""AircraftMaintenance"",""VehicleMaintenance"",""Halo"",""Dock"",""INS_recruitSpawn"",""IEDa"",""IED1"",""IED2"",""IED3"",""IED4"",""IED5"",""IED6"",""IED7"",""IED8"",""IED9"",""IED10"",""IED11"",""IED12"",""IED13"",""IED14"",""IED15"",""IED16"",""sidemiss1"",""sidemiss2"",""sidemiss3"",""sidemiss4"",""sidemiss5"",""sidemiss6"",""sidemiss7"",""sidemiss8"",""sidemiss9"",""sidemiss10"",""sidemiss11"",""sidemiss12"",""civmkr1"",""civmkr2"",""civmkr3"",""civmkr4"",""civmkr5"",""civmkr6"",""civmkr7"",""civmkr8"",""civmkr9"",""civmkr10"",""civmkr11"",""civmkr12"",""civmkr13"",""civmkr14"",""civmkr15"",""civmkr16"",""civmkr17""];";
 			id=3140;
 			type="Logic";
 		};
@@ -21226,7 +21234,7 @@ class Mission
 			};
 			id=3422;
 			type="CargoNet_01_barrels_F";
-			atlOffset=0.00013542175;
+			atlOffset=0.0001335144;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -21999,7 +22007,7 @@ class Mission
 			};
 			id=3463;
 			type="Land_Camping_Light_F";
-			atlOffset=1.1444092e-005;
+			atlOffset=1.335144e-005;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -26238,6 +26246,7 @@ class Mission
 			};
 			id=3623;
 			type="B_AAA_System_01_F";
+			atlOffset=1.7166138e-005;
 		};
 		class Item1389
 		{
@@ -26480,6 +26489,16 @@ class Mission
 			id=3649;
 			type="CamoNet_INDP_open_F";
 			atlOffset=-0.55200005;
+		};
+		class Item1402
+		{
+			dataType="Marker";
+			position[]={11792.166,18.284,11927.463};
+			name="INS_recruitSpawn";
+			text="RecruitSpawn";
+			type="Empty";
+			id=3650;
+			atlOffset=-0.00017356873;
 		};
 	};
 	class Connections

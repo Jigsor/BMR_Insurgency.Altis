@@ -7,7 +7,7 @@ if ( (_this select 0) == "mission" ) then {
 };
 
 if (!hasInterface) exitwith {};
-if (INS_ACE_core) exitwith {};
+if (INS_ACE_huntir) exitwith {call ACE_huntir_fnc_huntir};//untested
 
 if (isNil "hcam_units") then {hcam_units = "group"};
 

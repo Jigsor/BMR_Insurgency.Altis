@@ -361,7 +361,7 @@ if (_opposingArmies in [22,23]) then {
 	INS_civ_Veh_Car = ["C_Tractor_01_F"];
 	INS_civ_Veh_Utl = ["C_Van_01_transport_F"];
 	INS_civlist = ["uns_civilian1","uns_civilian1_b1","uns_civilian1_b2","uns_civilian1_b3","uns_civilian2","uns_civilian2_b1","uns_civilian2_b2","uns_civilian2_b3","uns_civilian3","uns_civilian3_b1","uns_civilian3_b2","uns_civilian3_b3","uns_civilian4","uns_civilian4_b1","uns_civilian4_b2","uns_civilian4_b3"];
-	INS_CAS = "uns_A1J_HCAS";//"uns_F4E_CAS";
+	INS_CAS = "uns_A1J_HCAS";
 };
 
 if (!isServer && hasInterface) exitWith {};
@@ -821,7 +821,7 @@ private _gridMarkerUnitPools = {
 			_issueNVG= false;
 		};
 		case 32: {// UNSUNG - PAVN
-			_InfPool=	["uns_men_NVA_daccong_ACR","uns_men_NVA_daccong_AA1","uns_men_NVA_daccong_AT2","uns_men_NVA_daccong_AT3","uns_men_NVA_daccong_AT","uns_men_NVA_daccong_AS6","uns_men_NVA_daccong_AS3","uns_men_NVA_daccong_AS2","uns_men_NVA_daccong_AS1","uns_men_NVA_daccong_AS5","uns_men_NVA_daccong_AS4","uns_men_NVA_daccong_LMG","uns_men_NVA_daccong_COM","uns_men_NVA_daccong_cov2","uns_men_NVA_daccong_cov3","uns_men_NVA_daccong_cov1","uns_men_NVA_daccong_cov6","uns_men_NVA_daccong_cov5","uns_men_NVA_daccong_cov7","uns_men_NVA_daccong_cov4","uns_men_NVA_daccong_MGS","uns_men_NVA_daccong_HMG","uns_men_NVA_daccong_MED","uns_men_NVA_daccong_MTS","uns_men_NVA_daccong_nco","uns_men_NVA_daccong_off","uns_men_NVA_daccong_RTO","uns_men_NVA_daccong_SAP2","uns_men_NVA_daccong_SAP3","uns_men_NVA_daccong_SAP1","uns_men_NVA_daccong_MRK","uns_men_NVA_daccong_TRI"];
+			_InfPool=	["uns_men_NVA_daccong_ACR","uns_men_NVA_daccong_AA1","uns_men_NVA_daccong_AT2","uns_men_NVA_daccong_AT3","uns_men_NVA_daccong_AT","uns_men_NVA_daccong_AS6","uns_men_NVA_daccong_AS3","uns_men_NVA_daccong_AS2","uns_men_NVA_daccong_AS1","uns_men_NVA_daccong_AS5","uns_men_NVA_daccong_AS4","uns_men_NVA_daccong_LMG","uns_men_NVA_daccong_COM","uns_men_NVA_daccong_cov2","uns_men_NVA_daccong_cov3","uns_men_NVA_daccong_cov1","uns_men_NVA_daccong_cov6","uns_men_NVA_daccong_cov5","uns_men_NVA_daccong_cov7","uns_men_NVA_daccong_cov4","uns_men_NVA_daccong_MGS","uns_men_NVA_daccong_HMG","uns_men_NVA_daccong_MED","uns_men_NVA_daccong_MTS","uns_men_NVA_daccong_nco","uns_men_NVA_daccong_off","uns_men_NVA_daccong_RTO","uns_men_NVA_daccong_SAP2","uns_men_NVA_daccong_SAP3","uns_men_NVA_daccong_MRK","uns_men_NVA_daccong_TRI"];//"uns_men_NVA_daccong_SAP1" causes Warning Message: Bad vehicle type uns_men_NVA_daccong_LMG_Bag
 			_ArmPool=	["uns_ot34_85_nva","uns_pt76","uns_t34_85_nva","uns_to55_nva","uns_Type63_mg","uns_ZSU57_NVA"];
 			_MotPool=	["uns_Type55_twinMG","uns_Type55_M40","uns_Type55_RR57","uns_Type55_MG","uns_Type55_LMG","uns_BTR152_ZPU"];
 			_ACHPool=	["uns_Mi8TV_VPAF"];

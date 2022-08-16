@@ -34,7 +34,10 @@ hint parseText format["Processing your <t size='1.0' font='PuristaMedium' color=
 
 sleep 1.0;
 
-_unit = group player createUnit [_unittype, [(getPos bon_recruit_barracks select 0) + 10 - random 10,(getPos bon_recruit_barracks select 1) + 10 - random 20,0], [], 0, "FORM"];
+_tpos = getPos bon_recruit_barracks;
+_pos = [markerPos "INS_recruitSpawn", [(_tpos select 0) + 10 - random 10, (_tpos select 1) + 10 - random 20, 0]] select (markerType "INS_recruitSpawn" isEqualTo "");
+
+_unit = group player createUnit [_unittype, _pos, [], 0, "FORM"];
 _unit setRank "PRIVATE";
 [_unit] execVM (BON_RECRUIT_PATH+"init_newunit.sqf");
 

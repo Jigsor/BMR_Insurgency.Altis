@@ -96,7 +96,7 @@ paint_heli_fnc = {
 		{_veh setObjectTextureGlobal _x;} forEach _color;
 		missionNamespace setVariable ["BMR_paintSchemeB1", _color];
 	};
-	if !(_colorSelection isEqualTo []) then {{_veh setObjectTextureGlobal _x;} forEach _colorSelection};
+	if (_colorSelection isNotEqualTo []) then {{_veh setObjectTextureGlobal _x;} forEach _colorSelection};
 };
 add_UAV_crew = {
 	// add crew to UAV/UGV.
@@ -159,14 +159,14 @@ fnc_ghst_build_positions = {
 		_e = _this buildingExit _i;
 		_p = _this buildingPos _i;
 
-		if (( str _p != "[0,0,0]" ) && {!(_e isEqualTo _p)} && {!(_type in StructureBlackList)} && {!(toLowerANSI _type find "_pier" != -1)}) then {
+		if (( str _p != "[0,0,0]" ) && {_e isNotEqualTo _p} && {!(_type in StructureBlackList)} && {!(toLowerANSI _type find "_pier" != -1)}) then {
 			_b pushback _p;
 		}else{
 			_pIsEmpty = true;
 		};
 		_i = _i + 1;
 	};
-	if (!(isNil "_b") and {!(_b isEqualTo [])}) then {
+	if (!(isNil "_b") and {_b isNotEqualTo []}) then {
 		_build_positions = _build_positions + _b;
 	};
 
@@ -288,11 +288,11 @@ JIG_ammmoCache_damage = {
 				params ["_pos"];
 				private _uArr = [];
 				{_uArr pushBack _x} forEach (_pos nearEntities ["CAManBase",200] select {((captiveNum _x isEqualTo 0) || (lifeState _x isEqualTo "HEALTHY") || (lifeState _x isEqualTo "INJURED")) && ((side _x isEqualTo west) && (isPlayer _x))});
-				if !(_uArr isEqualTo []) then {
+				if (_uArr isNotEqualTo []) then {
 					private _source = _uArr # 0;
 					[_source] call JIG_issue_reward;
 					private _text = format ["%1-%2", localize "STR_BMR_veh_awarded", name _source];
-					_txt remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
+					_text remoteExec ['JIG_MPhint_fnc', [0,-2] select isDedicated];
 				};
 			};
 		};
@@ -340,7 +340,7 @@ miss_object_pos_fnc = {
 		_ObjRandomPos = [_cooX+_wheX,_cooY+_wheY,0];
 		if (_dis > 499) then {
 			private _trees = nearestTerrainObjects [_ObjRandomPos, ["TREE","SMALL TREE","BUSH"], 15, false];
-			if !(_trees isEqualTo []) then {
+			if (_trees isNotEqualTo []) then {
 				for "_i" from 0 to (count _trees - 1) step 1 do {
 					private _tree = _trees # 0;
 					if !(isObjectHidden _tree) then {hideobjectGlobal _tree} else {_tree hideObjectGlobal false};
@@ -352,8 +352,8 @@ miss_object_pos_fnc = {
 		sleep 0.5;
 	};
 
-	if (!(_newPos isEqualTo [])) then {
-		if !(markerType "tempObjMkr" isEqualTo "") then {deleteMarkerLocal "tempObjMkr"};
+	if (_newPos isNotEqualTo []) then {
+		if (markerType "tempObjMkr" isNotEqualTo "") then {deleteMarkerLocal "tempObjMkr"};
 		private _mkrType = ["EMPTY", "mil_dot"] select (DebugEnabled isEqualTo 1);
 		private _mkr = createMarkerLocal ["tempObjMkr", _newPos];
 		_mkr setMarkerShapeLocal "ELLIPSE";
@@ -414,7 +414,7 @@ find_bombee_fnc = {
 	private _btarget = ObjNull;
 	// exclude east players, players in moving vehicles, exclude above ground players such as players in aircraft or in high structures
 	private _potentialTargets = playableUnits select {(vectorMagnitudeSqr velocity _x < 9) && ((getPosATL _x) select 2 < 3.1) && (side _x isEqualTo west)};
-	if !(_potentialTargets isEqualTo []) then {
+	if (_potentialTargets isNotEqualTo []) then {
 		_btarget = selectRandom _potentialTargets;
 	};
 	_btarget
@@ -481,7 +481,7 @@ bmbrBuildPos = {
 	while {!_found && _c < 20} do {
 		_houses = [_posX, _posY] nearObjects ["HouseBase", 150];
 		//if (_debug) then {diag_log text format["Bomber building position placement %1 : %2", _c, _houses];};
-		if (!isNil "_houses" && {!(_houses isEqualTo [])}) then {
+		if (!isNil "_houses" && {_houses isNotEqualTo []}) then {
 			_n = count _houses;
 			_i = floor(random _n);
 			_build = (_houses select _i);
@@ -531,8 +531,8 @@ bmbr_spawnpos_fnc = {
 		sleep 0.2;
 	};
 
-	if (!(_newPos isEqualTo [])) then {
-		if !(markerType "bomberMkr" isEqualTo "") then {deleteMarkerLocal "bomberMkr";};
+	if (_newPos isNotEqualTo []) then {
+		if (markerType "bomberMkr" isNotEqualTo "") then {deleteMarkerLocal "bomberMkr";};
 		_mkr = createMarkerLocal ["bomberMkr", _newPos];
 		_mkr setMarkerShapeLocal "ELLIPSE";
 		"bomberMkr" setMarkerSizeLocal [1, 1];
@@ -560,7 +560,7 @@ spawn_Op4_grp = {
 
 	{
 		_x addeventhandler ["killed","[(_this select 0)] spawn remove_carcass_fnc"];
-		if !(AIdamMod isEqualTo 1) then {
+		if (AIdamMod isNotEqualTo 1) then {
 			_x removeAllEventHandlers "HandleDamage";
 			_x addEventHandler ["HandleDamage",{_damage = (_this select 2)*AIdamMod;_damage}];
 		};
@@ -627,7 +627,7 @@ spawn_Op4_StatDef = {
 
 	{
 		_x addeventhandler ["killed", "[(_this select 0)] spawn remove_carcass_fnc"];
-		if !(AIdamMod isEqualTo 1) then {
+		if (AIdamMod isNotEqualTo 1) then {
 			_x removeAllEventHandlers "HandleDamage";
 			_x addEventHandler ["HandleDamage", {_damage = (_this select 2)*AIdamMod;_damage}];
 		};

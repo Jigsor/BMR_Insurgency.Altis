@@ -13,12 +13,13 @@ MAD_maxCarDistance = _this # 2; //max distance until cars despawn
 if (isNil "WBpos") then {WBpos = getPosATL trig_alarm1init};
 //Jig adding exclusion distance
 ExcDis = 600;
-if (toLowerANSI (worldName) in ["tem_anizay","clafghan","napf","napfwinter","kapaulio","wl_rosche","xcam_taunus","enoch"]) then {ExcDis = 750};
-if (toLowerANSI (worldName) isEqualTo "rhspkl") then {ExcDis = 1000};
+private _lcWorldname = toLowerANSI (worldName);
+if (_lcWorldname in ["tem_anizay","clafghan","napf","napfwinter","kapaulio","wl_rosche","xcam_taunus","enoch"]) then {ExcDis = 750};
+if (_lcWorldname isEqualTo "rhspkl") then {ExcDis = 1000};
 //Jig adding map size
 MTnlRad = getnumber (configfile >> "CfgWorlds" >> worldName >> "mapSize");
 if ((isNil "MTnlRad") || {MTnlRad isEqualTo 0}) then {MTnlRad = 30000};
-if ((toLowerANSI worldName) isEqualTo "stratis") then {MTnlRad = 6700};
+if (_lcWorldname isEqualTo "stratis") then {MTnlRad = 6700};
 
 MAD_carsArray = [];
 
@@ -41,7 +42,7 @@ if (!isDedicated and isMultiplayer) then
 			_roads = (position player) call MAD_getSpawnRoads;
 			_var = player getVariable ["MAD_roadsNear", false];
 
-			if !(_roads isEqualTo []) then {
+			if (_roads isNotEqualTo []) then {
 				if (!_var) then {
 					player setVariable ["MAD_roadsNear", true, true];
 				};
@@ -63,7 +64,7 @@ MAD_spawnCar = {
 
 	_roads = _position call MAD_getSpawnRoads;
 
-	if !(_roads isEqualTo [])  then {
+	if (_roads isNotEqualTo [])  then {
 		_carlist = INS_civ_Veh_Car;
 
 		if (daytime > 5 or daytime < 20) then {
@@ -111,7 +112,7 @@ MAD_carWaypoint = {
 	_roads = _locationPos call MAD_getDrivingRoads;
 	_road = selectRandom _roads;
 
-	if !(_roads isEqualTo [])  then {
+	if (_roads isNotEqualTo [])  then {
 		_wp = getposasl _road;
 		_waypoint = _grp addWaypoint [_wp, 0];
 		[_grp,0] setWaypointCompletionRadius 30;

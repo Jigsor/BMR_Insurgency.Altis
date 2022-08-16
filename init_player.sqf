@@ -255,7 +255,7 @@ if (DebugEnabled > 0) then {
 		};
 	};
 
-	if ((INS_ACE_core) && {INS_p_rev in [6,7]}) then {call INS_3d_Fallen};
+	if ((INS_ACE_med) && {INS_p_rev in [6,7]}) then {call INS_3d_Fallen};
 
 	// DLC Vehicle Restriction Bypass
 	inGameUISetEventHandler ["Action","

@@ -1031,8 +1031,9 @@ _availableMagazines = [
 	"SmokeShellYellow",               //Poison Gas Grenade
 	"1Rnd_SmokeYellow_Grenade_shell", //Poison Gas Grenade
 	"3Rnd_SmokeYellow_Grenade_shell", //Poison Gas Grenade
-    "uns_sa7bmag", // Rocket SA-7b Strela-2M
-    "uns_sa7mag",  // Rocket SA-7 Strela
+	"SmokeShell", //radio operator comes preloaded with this vanilla ammo for some reason
+    	"uns_sa7bmag", // Rocket SA-7b Strela-2M
+    	"uns_sa7mag",  // Rocket SA-7 Strela
 	"uns_spear_mag",
 	"uns_ppkmag",
 	"uns_Rugermag",
@@ -1210,6 +1211,7 @@ _availableMagazines = [
 	"UNS_sharkchaser",
 	"uns_ItemSiphon",
 	"uns_ItemM57clacker",
+	"uns_traps_nade_mag2",
 	"uns_traps_flare_mag",
 	"uns_traps_m7_mag",
 	"uns_traps_nade_mag",

@@ -238,12 +238,12 @@ deleteMarker "CAS_TARGET";
 
 _grp = group _buzz;
 
-waitUntil{_buzz distance _object >= 2000 || !alive _buzz || speed _buzz < 1};
+waitUntil{sleep 1; _buzz distance _object >= 2000 || !alive _buzz || vectorMagnitudeSqr velocity _buzz < 1.2};
 {
 	_num = _num - 1;
 	deleteVehicle vehicle _x;
 	deleteVehicle _x;
 	_num = _num - usedCAS;
-	sleep 60;
+	uiSleep 300;
 	[_object, _distance, _doLock, _num] execVM "JWC_CASFS\addAction.sqf"
 } forEach units _grp;

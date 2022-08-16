@@ -169,7 +169,6 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 
 			//create markers for units
 			if (_markunits) then {
-				//_pos = [_position,[_msize # 0,_msize # 1,(random 360)]] call fnc_ghst_rand_position;
 				_pos = _position;
 				_markname = str(_pos);
 				_mkr = createMarker [_markname, _pos];

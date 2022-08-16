@@ -5,4 +5,4 @@ _ltcolor = (_this select 3) select 0;
 
 _caller removeAction _id;
 
-deletevehicle (_caller getvariable "lgtarray"); _caller setvariable ["lgtarray",nil,true];
+deletevehicle (_caller getvariable ["lgtarray", objNull]); _caller setvariable ["lgtarray",nil,true];

@@ -109,7 +109,7 @@ _target removeAction YellowOn;
 _target removeAction GreenOn;
 _target removeaction Iron;
 deletevehicle (_target getvariable "frontpack"); _target setvariable ["frontpack",nil,true];
-deletevehicle (_target getvariable "lgtarray"); _target setvariable ["lgtarray",nil,true];
+deletevehicle (_target getvariable ["lgtarray", objNull]); _target setvariable ["lgtarray",nil,true];
 if (!IsCutRope) then {(findDisplay 46) displayRemoveEventHandler ["KeyDown", Cut_Rope]};
 
 sleep 3;

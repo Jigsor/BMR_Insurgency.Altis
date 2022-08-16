@@ -57,7 +57,7 @@ call compile preProcessFileLineNumbers "INS_definitions.sqf";
 Remedy_SEHs_fnc = call compileFinal preprocessFileLineNumbers "INSfncs\common\Remedy_SEHs_fnc.sqf";
 call compile preProcessFileLineNumbers "INSfncs\common\commom_fncs.sqf";
 call compile preProcessFileLineNumbers "=BTC=_TK_punishment\=BTC=_tk_init.sqf";
-if (INS_p_rev < 4 || {INS_p_rev in [6,7] && (!INS_ACE_core)}) then {
+if (INS_p_rev < 4 || {INS_p_rev in [6,7] && (!INS_ACE_med)}) then {
 	call compile preprocessFileLineNumbers "=BTC=_revive\=BTC=_revive_init.sqf";
 }else{
 	if (INS_p_rev in [4,5]) then {

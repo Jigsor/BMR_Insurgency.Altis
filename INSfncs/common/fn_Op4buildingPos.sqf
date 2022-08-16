@@ -4,7 +4,7 @@
 private _mkrs = server getvariable ["EOSmarkers",[]];
 if (_mkrs isEqualto [] || {isNil "bastionColor"}) exitWith {_mkrs};
 private _green = VictoryColor;
-private _activeMkrs = _mkrs select {!(markerColor _x isEqualTo _green) && (markerAlpha _x isEqualTo 1)};
+private _activeMkrs = _mkrs select {(markerColor _x isNotEqualTo _green) && (markerAlpha _x isEqualTo 1)};
 if (_activeMkrs isEqualto []) exitWith {[]};
 private _blu = entities [["SoldierWB"], ["Civilian"], true, true];
 if (_blu isEqualto []) exitWith {[]};
@@ -16,13 +16,12 @@ if (_activeBlu isEqualto []) exitWith {[]};
 private _minDis = (AI_SpawnDis max 300) min 550;
 private _maxDis =  _minDis + 300;
 
-private _loop = true;
-for [{_i=1},{_i<=(count _activeMkrs - 1) && _loop},{_i=_i+1}] do {
+for [{_i=1},{_i<=(count _activeMkrs - 1)},{_i=_i+1}] do {
 	if ( (markerPos (_activeMkrs select _i)) distance2D (_activeBlu select 0) < _minDis && {!(( (markerPos (_activeMkrs select _i)) distance2D (_activeBlu select 0)) > _maxDis)} ) then {
 		_activeBlu deleteAt 0;
 		_activeMkrs deleteAt _i;
 		_i = _i - 1;
-		if (_activeBlu isEqualTo []) then {_loop = false};
+		if (_activeBlu isEqualTo []) then { break };
 	};
 };
 

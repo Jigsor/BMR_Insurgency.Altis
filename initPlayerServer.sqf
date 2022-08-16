@@ -16,6 +16,11 @@ if (_player in _hcEntities) then {
 	[all_eos_mkrs,_INSmkrs,_didJIP] remoteExec ["BMRINS_fnc_HC_allEOSmkrs",_player];
 	diag_log "******BMRINS_fnc_HC_allEOSmkrs remote execute scheduled on HC";
 	diag_log format ["*****HC* _didJIP = %1",_didJIP];
+
+	if (missionNamespace getVariable ["INS_ouk", true]) then {
+		addMissionEventHandler ["OnUserKicked", {diag_log _this}];//May reveal why HC occasionally disconnects?
+		missionNamespace setVariable ["INS_ouk", false];
+	};
 };
 
 if !(_player in _hcEntities) then {
@@ -77,7 +82,7 @@ if !(_player in _hcEntities) then {
 		params [["_player",objNull]];
 		private _update = false;
 		if (isNull _player) exitWith {};
-		if !(intel_Build_objs isEqualTo []) then {
+		if (intel_Build_objs isNotEqualTo []) then {
 			//{if (format["%1",_x] == "<NULL-object>") then {intel_Build_objs = intel_Build_objs - [_x];};} forEach intel_Build_objs;
 			if (ObjNull in intel_Build_objs) then {
 				{intel_Build_objs = intel_Build_objs - [objNull]} forEach intel_Build_objs;

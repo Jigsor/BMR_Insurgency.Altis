@@ -60,7 +60,7 @@ if (_surfIsWat) then {
 	_plank setVectorDirAndUp [[0, 0.55, 0.18], [0, -0.18, 0.66]];
 };
 
-// Spawn Objective enemy deffences
+// Spawn Objective enemy defences
 private _grp = [_newZone,10] call spawn_Op4_grp; sleep 3;
 private _stat_grp = [_newZone,4,6] call spawn_Op4_StatDef;
 

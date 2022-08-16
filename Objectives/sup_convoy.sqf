@@ -20,11 +20,11 @@ _randVeh = {
 objective_pos_logic setPos _newZone;
 
 _objmkr = createMarker ["ObjectiveMkr", _newZone];
-"ObjectiveMkr" setMarkerShape "ELLIPSE";
-"ObjectiveMkr" setMarkerSize [2, 2];
-"ObjectiveMkr" setMarkerShape "ICON";
-"ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "ColorRed";
+_objmkr setMarkerShape "ELLIPSE";
+_objmkr setMarkerSize [2, 2];
+_objmkr setMarkerShape "ICON";
+_objmkr setMarkerType "mil_dot";
+_objmkr setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Supply Convoy";
 
 // Spawn Objective center object
@@ -34,7 +34,7 @@ _cone setVectorUp [0,0,1];
 _cone enablesimulation false;
 _cone hideObjectGlobal true;
 
-// Spawn Objective enemy deffences
+// Spawn Objective enemy defences
 _grp = [_newZone,14] call spawn_Op4_grp; sleep 3;
 _stat_grp = [_newZone,3,10] call spawn_Op4_StatDef;
 

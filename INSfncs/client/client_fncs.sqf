@@ -34,16 +34,20 @@ INS_intro = {
 	private _ry = selectRandom [38,-38];
 	private _worldDesc = getText (configFile >> "CfgWorlds" >> worldName >> "description");
 	private _text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (_worldDesc)], "color='#0059B0' font='PuristaBold'"] ];
+	private _camStartPos = getPos camstart;
+	_camStartPos vectorAdd [0, 0, 80]; 
+	private _pPos = getPos player;
+	_pPos params ["_pPosX", "_pPosY", "_pPosZ"];
+	private _camPos = [_pPosX + _rx, _pPosY + _ry, (getTerrainHeightASL _pPos) + 20];
 	0 = 0 spawn INS_intro_playTrack;
-	private _cam = "camera" camCreate [position camstart # 0, position camstart # 1, (position camstart select 2) + 80];
+	private _cam = "camera" camCreate _camStartPos;
 	_cam camPreload 5;
 	_cam camSetTarget player;
-	waitUntil {preloadCamera [position camstart # 0, position camstart # 1, (position camstart select 2) + 80]};
+	waitUntil {preloadCamera _camStartPos};
 	_cam cameraEffect ["Internal", "BACK"];
 	["BIS_ScreenSetup",true] call BIS_fnc_blackIn;
-	_camPos = [(getPos player select 0) + _rx, (getPos player select 1) + _ry, (getTerrainHeightASL (position player)) + 20];
 	_cam camCommand "inertia on";
-	_cam camSetPos [(_camPos select 0) + (100 * sin _dir), (_camPos select 1) + (100 * cos _dir), _camPos # 2];
+	_cam camSetPos [(_camPos # 0) + (100 * sin _dir), (_camPos # 1) + (100 * cos _dir), _camPos # 2];
 	_cam camCommit 25;
 	sleep 10;
 	("BMR_Layer" call BIS_fnc_rscLayer) cutRsc ["bmr_intro", "PLAIN"];
@@ -52,7 +56,7 @@ INS_intro = {
 	waitUntil {camcommitted _cam};
 	//[] spawn {[jig_anode,nil,true] call BIS_fnc_moduleLightning;};
 	_cam camCommand "inertia off";
-	_cam camSetPos [position player # 0, position player # 1, 2.2];
+	_cam camSetPos [_pPosX, _pPosY, 2.2];
 	_cam camCommit 3;
 	playSound "introfx";
 	player sideChat localize "STR_BMR_initialize_done";
@@ -68,7 +72,7 @@ INS_intro = {
 	if (JIG_DustStorm) then {0 spawn JIG_Dust_Storm};
 	if (JIG_SnowStorm) then {0 spawn JIG_Snow_Storm};
 	if (INS_full_loadout isEqualTo 0) then {player sideChat localize "STR_BMR_Reload_toSave_Kit"};
-	if (INS_p_rev in [6,7] && (!INS_ACE_core)) then {player sideChat "You Have 1 life. Bleed out or forced Respawn initiates spectator camera"};
+	if (INS_p_rev in [6,7] && (!INS_ACE_med)) then {player sideChat "You Have 1 life. Bleed out or forced Respawn initiates spectator camera"};
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
@@ -107,7 +111,7 @@ INS_intro_op4 = {
 		player sideChat localize "STR_BMR_intro_tip1";
 		player sideChat localize "STR_BMR_intro_tip2";
 		if (INS_full_loadout isEqualTo 0) then {player sideChat localize "STR_BMR_Reload_toSave_Kit"};
-		if (INS_p_rev in [6,7] && (!INS_ACE_core)) then {player sideChat "You Have 1 life. Bleed out or forced Respawn initiates spectator camera"};
+		if (INS_p_rev in [6,7] && (!INS_ACE_med)) then {player sideChat "You Have 1 life. Bleed out or forced Respawn initiates spectator camera"};
 	};
 	setViewDistance -1;
 	camDestroy _cam;
@@ -418,7 +422,7 @@ JIG_p_actions_resp = {
 	if (_playertype in INS_W_PlayerMedic) then {MedicSandBag = ObjNull; _id = player addAction[(localize "STR_BMR_place_sandbag"),{call JIG_placeSandbag_fnc}, 0, -9, false];};
 	// UAV Operator
 	if (_playertype in INS_W_PlayerUAVop) then {
-		if !(INS_ACE_core) then {
+		if !(INS_ACE_huntir) then {
 			myhuntiraction = player addAction["use HuntIR","scripts\myhuntir.sqf", [], 1, false, true, "", "true"]; lck_markercnt=0;
 		};
 		_id = player addAction[(localize "STR_BMR_ugv_air_drop"),{call JIG_UGVdrop_fnc}, 0, -9, false];

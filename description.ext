@@ -57,7 +57,7 @@ class Extended_InitPost_EventHandlers {
     class Helicopter {
         class INSheliActions {
 			exclude[] = {"B_UAV_01_F","I_UAV_01_F","O_UAV_01_F","B_T_UAV_03_dynamicLoadout_F"};
-			clientInit = "(_this select 0) addAction['Bail', {execVM 'scripts\INS_Bail.sqf'}, [], 8, false, false, '', '_target==(vehicle _this)'];(_this select 0) addAction['Gunner 3D Compass', {execVM 'scripts\3Dcompass.sqf'; (_this select 0)removeAction(_this select 2);}, [], -1.1, false, true, 'holdBreath', '_target==(vehicle _this)'];";
+			clientInit = "(_this select 0) addAction['Bail', {execVM 'scripts\INS_Bail.sqf'}, [], 8, false, false, '', '_target==(vehicle _this)'];";
 		};
     };
 	class Plane {
