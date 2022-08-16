@@ -2,7 +2,7 @@
  [activated_cache_pos] execVM "scripts\ghst_PutinBuildIntel.sqf";
  V2.5.2 - By Ghost - coord snippet is from DiRaven
  fills a random building around a position with all objects listed. Best to keep radius small so not many buidlings need to be calculated.
- Modified by Jigsor. Last Edit 2/13/2021.//Adapted to spawn intel. Modified mostly beginning and ending. The core is by Ghost. Places Intel and creates intel location markers.
+ Modified by Jigsor. Last Edit 4/3/2022.//Adapted to spawn intel. Modified mostly beginning and ending. The core is by Ghost. Places Intel and creates intel location markers.
 */
 
 if (!isServer) exitWith{};
@@ -19,7 +19,7 @@ if (DebugEnabled > 0) then {titleText ["Creating Intel","PLAIN DOWN"]};
 "activated_cache" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 waitUntil {sleep 1; count ghst_Build_objs > 0};
 
-if !(activated_cache isEqualTo []) then {activated_cache = [];publicVariable "activated_cache";sleep 3;};
+if (activated_cache isNotEqualTo []) then {activated_cache = [];publicVariable "activated_cache";sleep 3;};
 
 activated_cache = activated_cache + [ghst_Build_objs select (count ghst_Build_objs)-1];
 publicVariable "activated_cache";
@@ -37,7 +37,7 @@ private _total_intelObjs = (round(_uncaped_mkr_count/Intel_Count));//total max b
 private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr_count,_total_intelObjs] spawn
 {
 	params ["_uncaped_eos_mkrs","_hide_intel","_current_cache","_uncaped_mkr_count","_total_intelObjs"];
-	private ["_nearBuildings","_intel","_strNum","_VarName","_mkrPos","_radarray","_unitarray","_markunits","_mcolor","_msize","_markunitspos","_jigxcoor","_jigycoor","_loop","_p","_n","_i","_markname","_mkr","_current_cache"];
+	private ["_nearBuildings","_intel","_strNum","_VarName","_mkrPos","_radarray","_unitarray","_markunits","_mcolor","_msize","_markunitspos","_jigxcoor","_jigycoor","_loop","_p","_n","_i","_markname","_mkr"];
 
 	private _iobj = 0;
 	private _intel_types = ["Land_Suitcase_F","Land_Laptop_unfolded_F","Land_PortableLongRangeRadio_F","Land_SurvivalRadio_F"];
@@ -215,6 +215,12 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 				uiSleep 10;
 			};
 		};
+	};
+
+	private _intelStackedOnCache = current_cache_pos nearObjects [_objtype, 3];
+	if (_intelStackedOnCache isNotEqualTo []) then {
+		{deleteVehicle _x;} forEach _intelStackedOnCache;
+		if (ObjNull in intel_Build_objs) then {{intel_Build_objs = intel_Build_objs - [objNull]} foreach intel_Build_objs;};
 	};
 
 	publicVariableServer "intel_Build_objs";
