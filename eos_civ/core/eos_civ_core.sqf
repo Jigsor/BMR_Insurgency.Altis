@@ -9,7 +9,7 @@ _bSize params ["_bMin"];
 _c params ["_cGrps","_cSize"];
 _d params ["_dGrps","_eGrps","_fGrps","_fSize"];
 _settings params ["_faction","_mA","_distance","_side",["_heightLimit",true],["_debug",false]];
-//_debug = true
+//_debug = true;
 
 private _mPos=markerpos _mkr;
 private _mkrX=markerSize _mkr # 0;
@@ -63,13 +63,13 @@ if (!_cache) then {
 };
 
 _mkr setmarkerAlpha _mAN;
-if !(markerColor _mkr isEqualTo CivVictoryColor) then { //IF MARKER IS GREEN DO NOT CHANGE COLOUR
+if (markerColor _mkr isNotEqualTo CivVictoryColor) then { //IF MARKER IS GREEN DO NOT CHANGE COLOUR
 	_mkr setmarkercolor CivhostileColor;
 };
 
 waituntil {sleep 0.1; triggeractivated _eosActivated};	//WAIT UNTIL PLAYERS IN ZONE
-if !(markerColor _mkr isEqualTo "ColorBlack") then {
-	if !(markerColor _mkr isEqualTo VictoryColor) then {_mkr setmarkerAlpha _mAH;};
+if (markerColor _mkr isNotEqualTo "ColorBlack") then {
+	if (markerColor _mkr isNotEqualTo VictoryColor) then {_mkr setmarkerAlpha _mAH;};
 
 	// SPAWN HOUSE PATROLS
 	for "_c" from 1 to _aGrps step 1 do {
@@ -107,7 +107,7 @@ if !(markerColor _mkr isEqualTo "ColorBlack") then {
 		if (_bMin > 0) then {
 			_pos = [_mkr,true] call SHK_civ_pos;
 			_bGroup=[_pos,_bSize,_faction,_side] call eos_fnc_spawngroup_civ;
-			0 = [_bGroup,_mkr] call EOS_fnc_taskpatrol_civ;
+			0=[_bGroup,_mkr] call EOS_fnc_taskpatrol_civ;
 			_bGrp set [count _bGrp,_bGroup];
 			0=[_bGroup,"civINFskill"] call eos_fnc_civ_grouphandlers;
 			if (_debug) then {PLAYER SIDECHAT (format ["Spawned Patrol: %1",_c]);0= [_mkr,_c,"patrol",getpos (leader _bGroup)] call EOS_civ_debug};
@@ -134,7 +134,7 @@ if !(markerColor _mkr isEqualTo "ColorBlack") then {
 		};
 
 		0=[(_cGroup # 2),"civLIGskill"] call eos_fnc_civ_grouphandlers;
-		0 = [(_cGroup # 2),_mkr] call EOS_fnc_taskpatrol_civ;
+		0=[(_cGroup # 2),_mkr] call EOS_fnc_taskpatrol_civ;
 		_cGrp set [count _cGrp,_cGroup];
 
 		if (_debug) then {player sidechat format ["Light Vehicle:%1 - r%2",_c,_cGrps];0= [_mkr,_c,"Light Veh",(getpos leader (_cGroup # 2))] call EOS_civ_debug};
@@ -213,7 +213,7 @@ if !(markerColor _mkr isEqualTo "ColorBlack") then {
 	while {_eosAct} do {
 		// IF PLAYER LEAVES THE AREA OR ZONE DEACTIVATED
 		if (!triggeractivated _eosActivated || markerColor _mkr isEqualTo "ColorBlack") exitwith {
-			if (_debug) then {if !(markerColor _mkr isEqualTo "ColorBlack") then {hint "Restarting Zone AND deleting units";}else{hint "EOS zone deactivated";};};
+			if (_debug) then {if (markerColor _mkr isNotEqualTo "ColorBlack") then {hint "Restarting Zone AND deleting units";}else{hint "EOS zone deactivated";};};
 			//CACHE LIGHT VEHICLES
 			if (!isnil "_cGrp") then {
 				{
@@ -287,10 +287,10 @@ if !(markerColor _mkr isEqualTo "ColorBlack") then {
 			_eosAct=false;
 			if (_debug) then {hint "Zone Cached"};
 		};
-		if (triggeractivated _clear and triggeractivated _taken and !_civZone)exitwith
+		if (triggeractivated _clear && triggeractivated _taken && !_civZone)exitwith
 		{// IF ZONE CAPTURED BEGIN CHECKING FOR ENEMIES
 			_cGrps=0;_aGrps=0;_bGrps=0;_dGrps=0;_eGrps=0;_fGrps=0;
-			while {triggeractivated _eosActivated AND !(markerColor _mkr isEqualTo "ColorBlack")} do {
+			while {triggeractivated _eosActivated && markerColor _mkr isNotEqualTo "ColorBlack"} do {
 				if (!triggeractivated _clear) then {
 					_mkr setmarkercolor CivhostileColor;
 					_mkr setmarkerAlpha _mAH;
@@ -310,7 +310,7 @@ if !(markerColor _mkr isEqualTo "ColorBlack") then {
 
 	deletevehicle _clear;deletevehicle _taken;
 
-	if !(markerColor _mkr isEqualTo "ColorBlack") then {
+	if (markerColor _mkr isNotEqualTo "ColorBlack") then {
 		null = [_mkr,[_aGrps,_aSize],[_bGrps,_bSize],[_cGrps,_cSize],[_dGrps,_eGrps,_fGrps,_fSize],_settings,true] execVM "eos_civ\core\eos_civ_core.sqf";
 	}else{
 		_mkr setmarkeralpha 0;
