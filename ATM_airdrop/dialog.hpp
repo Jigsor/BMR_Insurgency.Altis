@@ -238,7 +238,7 @@ class ATM_AD_ALTITUDE_SELECT {
 			w = 0.52;
 			h = 0.4 - (12 / 67);
 		};
-		class Altitude : ATM_AD_RscText {
+		class ATM_Altitude : ATM_AD_RscText {
 			idc = -1;
 			text = "$STR_ATM_Alt";
 			x = 0.32; y = 0.258;
