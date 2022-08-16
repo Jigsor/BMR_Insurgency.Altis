@@ -240,10 +240,10 @@ if (DebugEnabled > 0) then {
 			};
 		}];
 	}else{
-		If (side player == east) then {player  addEventHandler ["Killed", {params ["_unit"]; [_unit] call BMRINS_fnc_Op4PlayerKilled}];};
+		If (side player == east) then {player addEventHandler ["Killed", {params ["_unit","_killer","_instigator"]; [_unit,_killer,_instigator] call BMRINS_fnc_Op4PlayerKilled}];};
 	};
 
-	if (!(INS_ACE_core) && !(INSpDamMul isEqualTo 100)) then {
+	if (!(INS_ACE_core) && (INSpDamMul isNotEqualTo 100)) then {
 		if (INS_p_rev in [4,5]) then {
 			0 spawn {
 				waitUntil {time > 4};
