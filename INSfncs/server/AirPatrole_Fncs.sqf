@@ -35,7 +35,7 @@ Air_Dest_fnc = {
 	{
 		_posnewAO = [ markerPos "aomkr" # 0, markerPos "aomkr" # 1];
 		if (_posHpad distance _posnewAO isEqualTo 0) exitwith {};
-		if !(_posHpad distance _posnewAO isEqualTo 0) then {
+		if (_posHpad distance _posnewAO isNotEqualTo 0) then {
 			sleep 0.2;
 			deleteMarker "aomkr";
 			_currentmarker = createMarker ["aomkr", _air_pat_pos];
@@ -44,7 +44,7 @@ Air_Dest_fnc = {
 			"aomkr" setMarkerShape "ICON";
 			"aomkr" setMarkerType "Empty";//"mil_dot"
 			"aomkr" setMarkerColor "ColorRed";
-			"aomkr" setMarkerText "Enemy Occupied";
+			"aomkr" setMarkerText "Air Patrol Center";
 			"aomkr" setMarkerPos _air_pat_pos;
 
 			if (!isNil "cyclewpmrk") then {deleteMarker "cyclewpmrk"};
@@ -99,7 +99,7 @@ Air_Dest_fnc = {
 			"aomkr" setMarkerShape "ICON";
 			"aomkr" setMarkerType "Empty";
 			"aomkr" setMarkerColor "ColorRed";
-			"aomkr" setMarkerText "Enemy Occupied";
+			"aomkr" setMarkerText "Air Patrol Center";
 			"aomkr" setMarkerPos _air_pat_pos;
 
 			_wpcyclemark = createMarker ["cyclewpmrk", _air_pat_pos];
@@ -151,7 +151,7 @@ AirEast_move_logic_fnc = {
 	private _lastpos = markerPos "curAEspawnpos";
 	if (_ranAEguard distance2D _lastpos > 1) then {
 		EastAirLogic setPos markerPos "spawnaire";
-		if !(markerColor "curAEspawnpos" isEqualTo "") then {deleteMarker "curAEspawnpos"};
+		if (markerColor "curAEspawnpos" isNotEqualTo "") then {deleteMarker "curAEspawnpos"};
 		private _currentmarker = createMarker ["curAEspawnpos", getPosATL EastAirLogic];
 		_currentmarker setMarkerShape "ELLIPSE";
 		"curAEspawnpos" setMarkerSize [2, 2];
@@ -211,14 +211,14 @@ find_west_target_fnc = {
 				{_nrstWTgts pushBack _x} forEach ((position _vcl) nearEntities [["Air","CAManBase"], _dis] select {((captiveNum _x isEqualTo 0) || (lifeState _x isEqualTo "HEALTHY") || (lifeState _x isEqualTo "INJURED") || (_x getVariable ["ACE_isUnconscious", false])) && (side _x isEqualTo west)});
 
 				_cntrPos =  getPos (_nrstWTgts # 0);
-				if (!(_nrstWTgts isEqualTo []) && {(format ["%1", _cntrPos] != "[0,0,0]")}) then {
+				if (_nrstWTgts isNotEqualTo [] && {(format ["%1", _cntrPos] != "[0,0,0]")}) then {
 					//chase enemy if exist and have valid position
 					_wp1 setWaypointPosition [_cntrPos, _wpRad];
 					(group _vcl) setCurrentWaypoint _wp1;
 
 					{
 						_x forgetTarget (_nrstWTgts # 0);
-						_x reveal [(_nrstWTgts # 0), 4];
+						_x reveal [(_nrstWTgts # 0), 2];
 					} forEach (units group _vcl);
 
 					private _chance = floor(random 3);
@@ -259,7 +259,7 @@ find_west_target_fnc = {
 						};
 					} forEach units (group _hunted);
 
-					if (count _vicPosArr > 0) then {
+					if (_vicPosArr isNotEqualTo []) then {
 						_sel = (count _vicPosArr) -1;
 						_randSel = floor (round(random _sel));
 						_attackPos = _vicPosArr # _randSel;
@@ -268,12 +268,12 @@ find_west_target_fnc = {
 						_wp1 setWaypointPosition [_attackPos, _wpRad];
 						(group _vcl) setCurrentWaypoint _wp1;
 
-						_cntrPos = getPos _victim;
+						//_cntrPos = getPos _victim;
 						{
 							_x forgetTarget _victim;
-							_x reveal [_victim, 4];
-							_x doTarget _cntrPos;
-							_x doFire _cntrPos;
+							_x reveal [_victim, 2];
+							_x doTarget _victim;
+							_x doFire _victim;
 						} forEach (units group _vcl);
 					};
 					sleep _delay;
@@ -308,16 +308,16 @@ find_west_target_fnc = {
 				//need to test array order of above
 				_cntrPos = getPos (_nrstWTgts # 0);
 
-				if (!(_nrstWTgts isEqualTo []) && {(format ["%1", _cntrPos] != "[0,0,0]")}) then {
+				if (_nrstWTgts isNotEqualTo [] && {(format ["%1", _cntrPos] != "[0,0,0]")}) then {
 					//chase enemy if exist and have valid position
 					_wp1 setWaypointPosition [_cntrPos, _wpRad];
 					(group _vcl) setCurrentWaypoint _wp1;
 
 					{
 						_x forgetTarget (_nrstWTgts # 0);
-						_x reveal [(_nrstWTgts # 0), 4];
-						_x doTarget _cntrPos;
-						_x doFire _cntrPos;
+						_x reveal [(_nrstWTgts # 0), 2];
+						_x doTarget (_nrstWTgts # 0);
+						_x doFire (_nrstWTgts # 0);
 					} forEach (units group _vcl);
 				};
 				sleep _delay;
