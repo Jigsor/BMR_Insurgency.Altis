@@ -3236,6 +3236,7 @@ _availableWeapons = [
 
 	//Launchers
 	"launch_RPG32_F",//opfor
+	"launch_RPG32_green_F",//opfor
 	"launch_RPG7_F",//opfor
 	"launch_NLAW_F",
 	"launch_B_Titan_F",
