@@ -21,6 +21,9 @@ INS_intro_playTrack = {
 };
 INS_intro = {
 	// Bluefor Intro by Jigsor
+
+	INS_introHandle = _thisScript;
+
 	player enableSimulation false;
 	disableSerialization;
 	showCinemaBorder false;
@@ -35,16 +38,42 @@ INS_intro = {
 	private _worldDesc = getText (configFile >> "CfgWorlds" >> worldName >> "description");
 	private _text = [  [format["%1", name player],"color='#F73105'"], ["", "<br/>"], ["Welcome to", "color='#F73105'"], ["", "<br/>"], [format["BMR Insurgency %1", toUpper (_worldDesc)], "color='#0059B0' font='PuristaBold'"] ];
 	private _camStartPos = getPos camstart;
-	_camStartPos vectorAdd [0, 0, 80]; 
+	_camStartPos vectorAdd [0, 0, 80];
 	private _pPos = getPos player;
 	_pPos params ["_pPosX", "_pPosY", "_pPosZ"];
 	private _camPos = [_pPosX + _rx, _pPosY + _ry, (getTerrainHeightASL _pPos) + 20];
+
+			//--- EH - keydown
+			BMRkillIntro = {
+				_key = _this # 1;
+				if ((_key == 156) || (_key == 28) || (_key == 57) || (_key == 1)) exitwith { // num_enter, enter, space, esc
+						(findDisplay 46) displayRemoveEventHandler ["KeyDown", BMRintroInterrupt];
+						terminate INS_introHandle;
+						player enableSimulation true;
+						player cameraEffect ["Terminate", "BACK"];
+						setViewDistance -1;
+						enableRadio true;
+						if (INS_mod_missing) then {0 spawn INS_missing_mods} else {INS_mod_missing=nil};
+						if (JIG_DustStorm) then {0 spawn JIG_Dust_Storm};
+						if (JIG_SnowStorm) then {0 spawn JIG_Snow_Storm};
+						if (INS_full_loadout isEqualTo 0) then {player sideChat localize "STR_BMR_Reload_toSave_Kit"};
+						if (INS_p_rev in [6,7] && (!INS_ACE_med)) then {player sideChat "You Have 1 life. Bleed out or forced Respawn initiates spectator camera"};
+						_cam =  player getvariable ["BMRintroCam", objNull];
+						if (!isNull _cam) then {camDestroy _cam};
+						INS_introHandle = nil;
+						["BIS_ScreenSetup",true] call BIS_fnc_blackIn;//<-- probably not needed
+				};
+			};
+			BMRintroInterrupt = (FindDisplay 46) displayAddEventHandler ["KeyDown","_this call BMRkillIntro"];
+
 	0 = 0 spawn INS_intro_playTrack;
 	private _cam = "camera" camCreate _camStartPos;
+	player setvariable ["BMRintroCam", _cam];
 	_cam camPreload 5;
 	_cam camSetTarget player;
 	waitUntil {preloadCamera _camStartPos};
 	_cam cameraEffect ["Internal", "BACK"];
+	showCinemaBorder false;
 	["BIS_ScreenSetup",true] call BIS_fnc_blackIn;
 	_cam camCommand "inertia on";
 	_cam camSetPos [(_camPos # 0) + (100 * sin _dir), (_camPos # 1) + (100 * cos _dir), _camPos # 2];
@@ -63,6 +92,9 @@ INS_intro = {
 	player sideChat localize "STR_BMR_intro_tip1";
 	player sideChat localize "STR_BMR_intro_tip2";
 	waitUntil {camcommitted _cam};
+
+	(findDisplay 46) displayRemoveEventHandler ["KeyDown", BMRintroInterrupt];
+
 	player enableSimulation true;
 	player cameraEffect ["Terminate", "BACK"];
 	setViewDistance -1;
@@ -73,6 +105,7 @@ INS_intro = {
 	if (JIG_SnowStorm) then {0 spawn JIG_Snow_Storm};
 	if (INS_full_loadout isEqualTo 0) then {player sideChat localize "STR_BMR_Reload_toSave_Kit"};
 	if (INS_p_rev in [6,7] && (!INS_ACE_med)) then {player sideChat "You Have 1 life. Bleed out or forced Respawn initiates spectator camera"};
+	INS_introHandle = nil;
 };
 INS_intro_op4 = {
 	// Opfor Intro by Jigsor
@@ -448,7 +481,14 @@ JIG_transfer_fnc = {
 	titleText ["", "BLACK OUT"];
 	if (_dest isEqualType []) then {
 		_pos = [(_dest select 0)-2*sin(_dir),(_dest select 1)-2*cos(_dir),_dest select 2];
-		if (surfaceIsWater _pos) then {player setposASL _pos} else {player setPos _pos};
+		if (surfaceIsWater _pos) then {
+			//player setposASL _pos;
+			_waterPos = ASLToATL (AGLToASL _pos);
+			_pos set [2, (_waterPos select 2)];
+			player setposATL _pos;
+		} else {
+			player setPos _pos;
+		};
 	};
 	if (_dest isEqualType objNull) then {player setPos [(getPosATL _dest select 0)-10*sin(_dir),(getPosATL _dest select 1)-10*cos(_dir)]};
 	if (_dest isEqualType "") then {player setPos [(markerPos _dest select 0)-10*sin(_dir),(markerPos _dest select 1)-10*cos(_dir)]};
@@ -598,7 +638,7 @@ Op4_initial_spawn_pos = {
 	if (_posnotfound) then {
 		if (INS_MHQ_exists && {!isNil "Opfor_MHQ"}) then {
 			// Move to Op4 MHQ
-			if !(markerColor "Opfor_MHQ" isEqualTo "") then {
+			if (markerColor "Opfor_MHQ" isNotEqualTo "") then {
 				if (_movelogic) then {BTC_r_base_spawn setPos markerPos "Opfor_MHQ"};
 				"Respawn_East" setMarkerPos markerPos "Opfor_MHQ";
 				_dir = random 359;
@@ -695,7 +735,7 @@ JIG_map_click = {
 	// Vehicle reward mapclick position by Jigsor
 	if ({_x in (items player + assignedItems player)}count ["ItemMap"] < 1) exitWith {hint localize "STR_BMR_missing_map";true};
 	if (player getVariable "createEnabled") then {
-		if !(markerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop"};
+		if (markerColor "VehDrop" isNotEqualTo "") then {deleteMarkerLocal "VehDrop"};
 		hint "";
 		GetClick = true;
 		openMap true;
@@ -736,7 +776,7 @@ JIG_map_click = {
 		[["cars", "tanks", "helicopters", "planes", "boats"], [], "VehDrop", 0.3, 3] execVM "ASORVS\open.sqf";
 	}else{
 		(_this # 0) removeAction (_this # 2);
-		if !(markerColor "VehDrop" isEqualTo "") then {deleteMarkerLocal "VehDrop"};
+		if (markerColor "VehDrop" isNotEqualTo "") then {deleteMarkerLocal "VehDrop"};
 	};
 	true
 };
@@ -749,7 +789,7 @@ INS_AI_revive = {
 
 		if (count bon_recruit_queue > 0) then { waitUntil {sleep 1; count bon_recruit_queue < 1}; };
 		{if (isPlayer _x) then {_pA pushBack _x;}else{_aiA pushBack _x;};} forEach (units _grp);
-		if !(_pA isEqualTo []) then {["btc_qr_fnc_unit_init", _grp] call BIS_fnc_MP;};
+		if (_pA isNotEqualTo []) then {["btc_qr_fnc_unit_init", _grp] call BIS_fnc_MP;};
 		{_x call btc_qr_fnc_unit_init;} forEach _aiA;
 	};
 };
