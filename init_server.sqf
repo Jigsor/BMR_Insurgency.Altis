@@ -193,13 +193,13 @@ if (Airfield_opt) then
 			};
 		};
 		case 15: {
-			if (isClass(configFile >> "CfgVehicles" >> "CUP_B_A10_AT_USA")) then {
+			if (isClass(configFile >> "CfgVehicles" >> "CUP_B_A10_DYN_USA")) then {
 				_mod = true; _class = "CUP_B_A10_DYN_USA";
 				INSdefLoadOutBlu = dynPylons8;
 			};
 		};
 		case 16: {
-			if (isClass(configFile >> "CfgVehicles" >> "CUP_B_A10_AT_USA")) then {
+			if (isClass(configFile >> "CfgVehicles" >> "CUP_B_A10_DYN_USA")) then {
 				_mod = true; _class = "CUP_B_A10_DYN_USA";
 				INSdefLoadOutBlu = dynPylons8;
 			};
