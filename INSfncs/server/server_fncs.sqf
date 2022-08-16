@@ -85,9 +85,9 @@ paint_heli_fnc = {
 		private "_color";
 		private _wN = toLowerANSI worldName;
 		switch (true) do {
-			case (_wN in ["altis","malden","stratis","sara","napfwinter","napf","tem_anizay","cup_chernarus_a3"]): {_color = _darkGrey};
+			case (_wN in ["altis","malden","stratis","sara","napfwinter","napf","tem_anizay"]): {_color = _darkGrey};
 			case (_wN in ["tanoa","pja312","rhspkl"]): {_color = _green2};
-			case (_wN in ["enoch","lingor3","pja305","xcam_taunus","bornholm","kapaulio","wl_rosche","hyde_sark"]): {_color = _green1};
+			case (_wN in ["enoch","lingor3","pja305","xcam_taunus","bornholm","kapaulio","wl_rosche","hyde_sark","cup_chernarus_a3"]): {_color = _green1};
 			case (_wN in ["takistan","fallujah","dingor","zargabad","kunduz","pja310","mog","dya","fata","clafghan","lythium"]): {_color = _sandColor};
 			default {_color = []};
 		};
