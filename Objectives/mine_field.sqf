@@ -16,18 +16,18 @@ _random_mine_cnt = floor linearConversion [0, 1, random 1, 5 min 15, 15 max 5 + 
 objective_pos_logic setPos _newZone;
 
 _objmkr = createMarker ["ObjectiveMkr", _newZone];
-"ObjectiveMkr" setMarkerShape "ELLIPSE";
-"ObjectiveMkr" setMarkerSize [2, 2];
-"ObjectiveMkr" setMarkerShape "ICON";
-"ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "ColorRed";
+_objmkr setMarkerShape "ELLIPSE";
+_objmkr setMarkerSize [2, 2];
+_objmkr setMarkerShape "ICON";
+_objmkr setMarkerType "mil_dot";
+_objmkr setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Mine Field";
 
 _mfieldmkr = createMarker ["MineField", _newZone];
-"MineField" setMarkerShape "ELLIPSE";
-"MineField" setMarkerColor "ColorRed";
-"MineField" setMarkerType "Tank";//"MinefieldAP","mil_dot"
-"MineField" setMarkerBrush "Cross";
+_mfieldmkr setMarkerShape "ELLIPSE";
+_mfieldmkr setMarkerColor "ColorRed";
+_mfieldmkr setMarkerType "Tank";//"MinefieldAP","mil_dot"
+_mfieldmkr setMarkerBrush "Cross";
 "MineField" setMarkerSize [65, 65];
 
 // Spawn Objective Objects

@@ -51,11 +51,11 @@ if (isNil "_pilotType") then {_pilotType = "B_Pilot_F"};
 objective_pos_logic setPos _newZone;
 
 private _objmkr = createMarker ["ObjectiveMkr", _newZone];
-"ObjectiveMkr" setMarkerShape "ELLIPSE";
-"ObjectiveMkr" setMarkerSize [2, 2];
-"ObjectiveMkr" setMarkerShape "ICON";
-"ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "ColorRed";
+_objmkr setMarkerShape "ELLIPSE";
+_objmkr setMarkerSize [2, 2];
+_objmkr setMarkerShape "ICON";
+_objmkr setMarkerType "mil_dot";
+_objmkr setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Pilot Rescue";
 
 // Spawn Objective Objects
@@ -128,10 +128,10 @@ while {_loop} do
 	_nearUnits = nearestObjects [_pilot, ["CAManBase"], 5];
 	_nearUnits deleteAt 0;
 
-	if !(_nearUnits isEqualTo []) then {
+	if (_nearUnits isNotEqualTo []) then {
 		_rescuers = [];
 		{_rescuers pushBack _x} forEach (_nearUnits select {(_x isKindOf "Man") && {side _x isEqualTo _rescueSide}});
-		if !(_rescuers isEqualTo []) then {
+		if (_rescuers isNotEqualTo []) then {
 			_hero = _rescuers # 0;
 			_loop = false;
 		};

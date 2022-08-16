@@ -20,11 +20,11 @@ _randVeh = {
 objective_pos_logic setPos _newZone;
 
 _objmkr = createMarker ["ObjectiveMkr", _newZone];
-"ObjectiveMkr" setMarkerShape "ELLIPSE";
-"ObjectiveMkr" setMarkerSize [2, 2];
-"ObjectiveMkr" setMarkerShape "ICON";
-"ObjectiveMkr" setMarkerType "mil_dot";
-"ObjectiveMkr" setMarkerColor "ColorRed";
+_objmkr setMarkerShape "ELLIPSE";
+_objmkr setMarkerSize [2, 2];
+_objmkr setMarkerShape "ICON";
+_objmkr setMarkerType "mil_dot";
+_objmkr setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Armed Convoy";
 
 // Spawn Objective center object
