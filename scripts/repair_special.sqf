@@ -64,6 +64,7 @@ jig_m_obj setVectorUp [0,0,1];
 _pos3 = [(_pos2 # 0)+3,(_pos2 # 1)+3,_pos2 # 2];
 
 _type = typeOf INS_sup_Nbox;
+//ebox = "Land_RepairDepot_01_tan_F" createVehicle _pos3;// "Land_RepairDepot_01_green_F"
 ebox = _type createVehicle _pos3;// supply box
 
 player setVariable ["INS_farp_deployed", true];
