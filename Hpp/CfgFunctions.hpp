@@ -37,5 +37,7 @@ class BMRINS
 		class arsenalProfileType {};
 		class reportIllegalItem {};
 		class removeWPs {};
+		class noDragNplaceVehRep {};
+		class zeusAddAllObjects {};
 	};
 };
