@@ -2,7 +2,7 @@ HCPresent = if (isNil "Any_HC_present") then {False} else {True};
 
 if ((!isServer && hasInterface) || (HCPresent && isServer)) exitWith{};
 
-private ["_fGroup","_cargoType","_vehType","_CHside","_mkrAgl","_initialLaunch","_pause","_eosZone","_hints","_waves","_aGroup","_side","_actCond","_enemyFaction","_mAH","_mAN","_distance","_grp","_cGroup","_bGroup","_CHType","_time","_timeout","_faction"];
+private ["_fGroup","_cargoType","_vehType","_CHside","_mkrAgl","_initialLaunch","_pause","_eosZone","_hints","_waves","_aGroup","_side","_actCond","_enemyFaction","_mAH","_mAN","_distance","_grp","_cGroup","_bGroup","_timeout","_faction"];
 
 _mkr=(_this # 0);_mPos=markerpos(_this # 0);_mkrX=markerSize _mkr # 0;_mkrY=markerSize _mkr # 1;_mkrAgl=markerDir _mkr;
 _infantry=(_this # 1);_PApatrols=_infantry # 0;_PAgroupSize=_infantry # 1;
@@ -69,57 +69,57 @@ _bastClear setTriggerActivation [_enemyFaction,"NOT PRESENT",true];
 _bastClear setTriggerStatements ["this","",""];
 
 // PAUSE IF REQUESTED
-if (_pause > 0 and !_initialLaunch) then {
-	for "_counter" from 1 to _pause do {
-	if (_hints) then {hint format ["Attack ETA : %1",(_pause - _counter)]};
+if (_pause > 0 && !_initialLaunch) then {
+	for "_c" from 1 to _pause do {
+	if (_hints) then {hint format ["Attack ETA : %1",(_pause - _c)]};
 	sleep 1;
 	};
 };
 
 // SPAWN PATROLS
 _aGroup=[];
-for "_counter" from 1 to _PApatrols do {
+for "_c" from 1 to _PApatrols do {
 	_pos = _mPos getPos [_Placement, random 360];
 	_grp=[_pos,_PAgroupSize,_faction,_side] call eos_fnc_spawngroup;
 	_aGroup set [count _aGroup,_grp];
-	if (_debug) then {PLAYER SIDECHAT (format ["Spawned Patrol: %1",_counter]);0= [_mkr,_counter,"patrol",getpos (leader _grp)] call EOS_debug};
+	if (_debug) then {PLAYER SIDECHAT (format ["Spawned Patrol: %1",_c]);0= [_mkr,_c,"patrol",getpos (leader _grp)] call EOS_debug};
 };
 
 //SPAWN LIGHT VEHICLES
 _bGrp=[];
-for "_counter" from 1 to _LVehGroups do {
+for "_c" from 1 to _LVehGroups do {
 	_newpos = _mPos getPos [(_Placement +200), random 360];
 	if (surfaceiswater _newpos) then {_vehType=8;_cargoType=10;}else{_vehType=7;_cargoType=9;};
 	_bGroup=[_newpos,_side,_faction,_vehType]call EOS_fnc_spawnvehicle;
 
-	if ((_LVgroupSize select 0) > 0) then {0=[(_bGroup # 0),_LVgroupSize,(_bGroup # 2),_faction,_cargoType] call eos_fnc_setcargo};
+	if ((_LVgroupSize # 0) > 0) then {0=[(_bGroup # 0),_LVgroupSize,(_bGroup # 2),_faction,_cargoType] call eos_fnc_setcargo};
 
 	0=[(_bGroup # 2),"LIGskill",_faction] call eos_fnc_grouphandlers;
 	_bGrp set [count _bGrp,_bGroup];
-	if (_debug) then {player sidechat format ["Light Vehicle:%1 - r%2",_counter,_LVehGroups];0= [_mkr,_counter,"Light Veh",(getpos leader (_bGroup # 2))] call EOS_debug};
+	if (_debug) then {player sidechat format ["Light Vehicle:%1 - r%2",_c,_LVehGroups];0= [_mkr,_c,"Light Veh",(getpos leader (_bGroup # 2))] call EOS_debug};
 };	
 
 //SPAWN ARMOURED VEHICLES
 _cGrp=[];
-for "_counter" from 1 to _AVehGroups do {
+for "_c" from 1 to _AVehGroups do {
 	_newpos = _mPos getPos [_Placement, random 360];
 	if (surfaceiswater _newpos) then {_vehType=8;}else{_vehType=2;};
 	_cGroup=[_newpos,_side,_faction,_vehType]call EOS_fnc_spawnvehicle;
 	0=[(_cGroup # 2),"ARMskill",_faction] call eos_fnc_grouphandlers;
 	_cGrp set [count _cGrp,_cGroup];
-	if (_debug) then {player sidechat format ["Armoured:%1 - r%2",_counter,_AVehGroups];0= [_mkr,_counter,"Armour",(getpos leader (_cGroup # 2))] call EOS_debug};
+	if (_debug) then {player sidechat format ["Armoured:%1 - r%2",_c,_AVehGroups]; 0=[_mkr,_c,"Armour",(getpos leader (_cGroup # 2))] call EOS_debug};
 };
 
 //SPAWN HELICOPTERS
 _fGrp=[];
-for "_counter" from 1 to _CHGroups do {
-	if ((_fSize select 0) > 0) then {_vehType=4}else{_vehType=3};
+for "_c" from 1 to _CHGroups do {
+	if ((_fSize # 0) > 0) then {_vehType=4}else{_vehType=3};
 	_newpos = (markerpos _mkr) getPos [1500, random 360];
 	_fGroup=[_newpos,_side,_faction,_vehType,"fly"]call EOS_fnc_spawnvehicle;
 	_CHside=_side;
 	_fGrp set [count _fGrp,_fGroup];
 
-	if ((_fSize select 0) > 0) then {
+	if ((_fSize # 0) > 0) then {
 		_cargoGrp = createGroup _side;
 		0=[(_fGroup # 0),_fSize,_cargoGrp,_faction,9] call eos_fnc_setcargo;
 		0=[_cargoGrp,"INFskill",_faction] call eos_fnc_grouphandlers;
@@ -130,7 +130,7 @@ for "_counter" from 1 to _CHGroups do {
 		_wp1 setWaypointSpeed "FULL";
 		_wp1 setWaypointType "SAD";
 	};
-	if (_debug) then {player sidechat format ["Chopper:%1",_counter];0= [_mkr,_counter,"Chopper",(getpos leader (_fGroup # 2))] call EOS_debug};
+	if (_debug) then {player sidechat format ["Chopper:%1",_c];0= [_mkr,_c,"Chopper",(getpos leader (_fGroup # 2))] call EOS_debug};
 };
 
 // ADD WAYPOINTS
@@ -143,7 +143,7 @@ for "_counter" from 1 to _CHGroups do {
 }foreach _aGroup;
 
 {
-	_getToMarker = (_x select 2) addWaypoint [_mPos, 0];
+	_getToMarker = (_x # 2) addWaypoint [_mPos, 0];
 	_getToMarker setWaypointType "SAD";
 	_getToMarker setWaypointSpeed "NORMAL";
 	_getToMarker setWaypointBehaviour "AWARE";
@@ -152,12 +152,12 @@ for "_counter" from 1 to _CHGroups do {
 
 {
 	_pos = _mPos getPos [(_mkrX + 50), random 360];
-	_getToMarker = (_x select 2) addWaypoint [_pos, 0];
+	_getToMarker = (_x # 2) addWaypoint [_pos, 0];
 	_getToMarker setWaypointType "UNLOAD";
 	_getToMarker setWaypointSpeed "NORMAL";
 	_getToMarker setWaypointBehaviour "AWARE";
 	_getToMarker setWaypointFormation "NO CHANGE";
-	_wp = (_x select 2) addWaypoint [_mPos, 1];
+	_wp = (_x # 2) addWaypoint [_mPos, 1];
 	_wp setWaypointType "SAD";
 	_wp setWaypointSpeed "NORMAL";
 	_wp setWaypointBehaviour "AWARE";
@@ -166,9 +166,9 @@ for "_counter" from 1 to _CHGroups do {
 
 waituntil {triggeractivated _bastActive};
 
-for "_counter" from 1 to _timeout do {
+for "_c" from 1 to _timeout do {
 	if (_hints) then {
-	if (_waves > 1) then {hint format ["Next wave ETA : %1",(_timeout - _counter)]};
+	if (_waves > 1) then {hint format ["Next wave ETA : %1",(_timeout - _c)]};
 	};
 	sleep 1;
 	if (!triggeractivated _bastActive || markerColor _mkr == "ColorBlack") exitwith {
@@ -184,7 +184,7 @@ for "_counter" from 1 to _timeout do {
 
 _waves=(_waves - 1);
 
-if (triggeractivated _bastActive and triggeractivated _bastClear and (_waves < 1)) then {
+if (triggeractivated _bastActive && triggeractivated _bastClear && (_waves < 1)) then {
 	if (_hints) then  {hint "Waves complete"};
 	_mkr setmarkercolor VictoryColor;
 	_mkr setmarkeralpha _mAN;
@@ -195,33 +195,31 @@ if (triggeractivated _bastActive and triggeractivated _bastClear and (_waves < 1
 	};
 };
 
-waituntil {markerColor _mkr == "ColorBlack" OR markerColor _mkr == VictoryColor OR markerColor _mkr == hostileColor or !triggeractivated  _bastActive};
+waituntil {markerColor _mkr isEqualTo "ColorBlack" || markerColor _mkr isEqualTo VictoryColor || markerColor _mkr isEqualTo hostileColor || !triggeractivated  _bastActive};
 if (_debug) then {player sidechat "delete units"};
 {
 	{deleteVehicle _x} foreach units _x;
 }foreach _aGroup;
 
-if (count _cGrp > 0) then {
+if (_cGrp isNotEqualTo []) then {
 	{
-		_vehicle = _x select 0;
-		_crew = _x select 1;
-		_grp = _x select 2;
+		_vehicle = _x # 0;
+		_crew = _x # 1;
+		_grp = _x # 2;
 		{deleteVehicle _x} forEach (_crew);
-		//if (!(vehicle player == _vehicle)) then {{deleteVehicle _x} forEach[_vehicle]};
-		if ({isplayer _x} count (crew _vehicle) < 1) then {{deleteVehicle _x} forEach[_vehicle]};//Jig removing player command from server		
+		if ({isplayer _x} count (crew _vehicle) < 1) then {{deleteVehicle _x} forEach[_vehicle]};	
 		{deleteVehicle _x} foreach units _grp;
 		deleteGroup _grp;
 	}foreach _cGrp;
 };
 
-if (count _bGrp > 0) then {
+if (_bGrp isNotEqualTo []) then {
 	{
-		_vehicle = _x select 0;
-		_crew = _x select 1;
-		_grp = _x select 2;
+		_vehicle = _x # 0;
+		_crew = _x # 1;
+		_grp = _x # 2;
 		{deleteVehicle _x} forEach (_crew);
-		//if (!(vehicle player == _vehicle)) then {{deleteVehicle _x} forEach[_vehicle]};
-		if ({isplayer _x} count (crew _vehicle) < 1) then {{deleteVehicle _x} forEach[_vehicle]};//Jig removing player command from server
+		if ({isplayer _x} count (crew _vehicle) < 1) then {{deleteVehicle _x} forEach[_vehicle]};
 		{deleteVehicle _x} foreach units _grp;
 		deleteGroup _grp;
 	}foreach _bGrp;
@@ -230,10 +228,9 @@ if (count _bGrp > 0) then {
 // CACHE HELICOPTER TRANSPORT
 if (count _fGrp > 0) then {
 	{
-		_vehicle = _x select 0;_crew = _x select 1;_grp = _x select 2; _cargoGrp = _x select 3;
+		_vehicle = _x # 0;_crew = _x # 1;_grp = _x # 2; _cargoGrp = _x # 3;
 		{deleteVehicle _x} forEach (_crew);
-		//if (!(vehicle player == _vehicle)) then {{deleteVehicle _x} forEach[_vehicle]};
-		if ({isplayer _x} count (crew _vehicle) < 1) then {{deleteVehicle _x} forEach[_vehicle]};//Jig removing player command from server
+		if ({isplayer _x} count (crew _vehicle) < 1) then {{deleteVehicle _x} forEach[_vehicle]};
 		{deleteVehicle _x} foreach units _grp;deleteGroup _grp;
 		{deleteVehicle _x} foreach units _cargoGrp;deleteGroup _cargoGrp;
 	}foreach _fGrp;
