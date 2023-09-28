@@ -4,25 +4,25 @@
 	Description:
 	Updates the view distance dependant on whether the player is on foot, a car or an aircraft.
 */
-private "_dist";
+
+private _dist = tawvd_foot;
+private _vp = vehicle player;
 switch (true) do {
-	case ((vehicle player) isKindOf "Man"): {
-		setViewDistance tawvd_foot;
+	case (_vp isKindOf "Man"): {
 		_dist = tawvd_foot;
 	};
-	case ((vehicle player) isKindOf "LandVehicle"): {
-		setViewDistance tawvd_car;
+	case (_vp isKindOf "LandVehicle"): {
 		_dist = tawvd_car;
 	};
-	case ((vehicle player) isKindOf "Air"): {
-		setViewDistance tawvd_air;
+	case (_vp isKindOf "Air"): {
 		_dist = tawvd_air;
 	};
-	case ((vehicle player) isKindOf "Ship"): {
-		setViewDistance tawvd_car;
+	case (_vp isKindOf "Ship"): {
 		_dist = tawvd_car;
 	};
 };
+
+setViewDistance _dist;
 
 if(tawvd_syncObject) then {
 	setObjectViewDistance [_dist,100];

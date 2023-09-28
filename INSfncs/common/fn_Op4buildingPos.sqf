@@ -1,10 +1,6 @@
 // fn_Op4buildingPos.sqf
 // tries to find a suitable building position to respawn Op4 player. W.I.P...
 
-//params [["_instigator",objNull]];
-//if (isNull _instigator) then {
-
-
 private _mkrs = server getvariable ["EOSmarkers",[]];
 if (_mkrs isEqualto [] || {isNil "bastionColor"}) exitWith {_mkrs};
 private _green = VictoryColor;
@@ -21,7 +17,6 @@ private _exclude = [];
 {
 	_exclude = _activeBlu inAreaArray _x;
 	if (_exclude isNotEqualTo []) then {_activeMkrs = _activeMkrs - [_x];};
-	//if (_exclude isNotEqualTo []) then {_mkr = _x; _activeMkrs deleteAT (_activeMkrs find _mkr);};
 }forEach _activeMkrs;
 if (_activeMkrs isEqualto []) exitWith {[]};
 
@@ -32,7 +27,6 @@ for [{_i=1}, {_i<=(count _activeMkrs - 1)}, {_i=_i+1}] do {
 	if (
 			(markerPos (_activeMkrs # _i)) distance2D (_activeBlu # 0) < _minDis ||
 			{( (markerPos (_activeMkrs # _i)) distance2D (_activeBlu # 0)) > _maxDis}
-			//(markerPos (_activeMkrs # _i)) distance2D (_activeBlu # 0) < _minDis && {!(( (markerPos (_activeMkrs # _i)) distance2D (_activeBlu # 0)) > _maxDis)}//original
 		) then {
 		_activeBlu deleteAt 0;
 		_activeMkrs deleteAt _i;
@@ -56,8 +50,6 @@ private _findBuildPoses = {
 	_bPoses
 };
 
-//vehicles select { _x isKindOf "StaticWeapon" } inAreaArray "myMarker"
-
 private _shuffledMkrs = _activeMkrs call BIS_fnc_arrayShuffle;//maybe not needed
 private _mkrPos = [];
 private _gPos = [];
@@ -74,7 +66,7 @@ for "_l" from 0 to 9 step 1 do {
 
 if (_gPos isEqualTo []) exitWith {[]};
 private _finalPos = ASLToATL (AGLToASL _gPos);
-//player setpos _finalPos;
+//player setpos _finalPos;//for testing
 missionNameSpace setVariable ["OP4houseSpawn", _finalPos];
 //diag_log format ["!!!!!BMR OP4 Building Spawn point succesfully found at %1", _finalPos];
 
