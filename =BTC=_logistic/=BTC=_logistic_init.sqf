@@ -56,8 +56,8 @@ if (BTC_active_lift isEqualTo 1) then {
 			case "I_E_Heli_light_03_dynamicLoadout_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F","StaticWeapon","B_UGV_01_F","B_UGV_01_rcws_F"] + BTC_fob_materials};
 			case "I_E_Heli_light_03_unarmed_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F","StaticWeapon","B_UGV_01_F","B_UGV_01_rcws_F"] + BTC_fob_materials};
 			//MH9
-			case "B_Heli_Light_01_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F"]};
-			case "B_Heli_Light_01_dynamicLoadout_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","Quadbike_01_base_F"]};
+			case "B_Heli_Light_01_F" :{_array=["Motorcycle","ReammoBox","NATO_Box_Base","Quadbike_01_base_F"]};
+			case "B_Heli_Light_01_dynamicLoadout_F" :{_array=["Motorcycle","ReammoBox","NATO_Box_Base","Quadbike_01_base_F"]};
 			//PO-30 Orca
 			case "O_Heli_Light_02_F" :{_array=["Motorcycle","ReammoBox","ReammoBox_F","StaticWeapon","Car"]};
 	//RHS
