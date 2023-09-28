@@ -1,4 +1,4 @@
-_version = "1.50941";
+_version = "1.50942";
 
 localNamespace setVariable ["BMR_INS_IntVer", _version];
 _cache = localNamespace getVariable ["BMR_INS_IntVer", "!!!BMR Insurgency build version undetermined"];
