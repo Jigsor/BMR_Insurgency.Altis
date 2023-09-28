@@ -15,19 +15,19 @@ switch (_mode) do
 	{
 		tawvd_foot = round(_value);
 		ctrlSetText[2902,format["%1",tawvd_foot]];
-		[] call TAWVD_fnc_updateViewDistance;
+		call TAWVD_fnc_updateViewDistance;
 	};	
 	case 1:
 	{
 		tawvd_car = round(_value);
 		ctrlSetText[2912,format["%1",tawvd_car]];
-		[] call TAWVD_fnc_updateViewDistance;
+		call TAWVD_fnc_updateViewDistance;
 	};	
 	case 2:
 	{
 		tawvd_air = round(_value);
 		ctrlSetText[2922,format["%1",tawvd_air]];
-		[] call TAWVD_fnc_updateViewDistance;
+		call TAWVD_fnc_updateViewDistance;
 	};	
 	case 3: {
 		tawvd_object = round(_value);
