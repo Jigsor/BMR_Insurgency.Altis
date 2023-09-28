@@ -300,7 +300,7 @@ INS_maintenance_veh = {
 	// code by Xeno
 	private ["_config","_count","_i","_mags","_obj","_type","_type_name"];
 
-	_obj = (nearestObjects [position player, ["LandVehicle","Air"], 15]) select 0;
+	_obj = (nearestObjects [position player, ["LandVehicle","Air"], 15]) # 0;
 	if (!alive _obj) exitWith {hint localize "STR_BMR_Vehicle_destroyed"};
 	_type = typeOf _obj;
 	hint format ["%1 under maintenance",typeOf _obj];
@@ -475,17 +475,24 @@ JIG_p_actions_resp = {
 };
 JIG_transfer_fnc = {
 	// teleport by Jigsor
-	_dest = (_this select 3) select 0;
+	params ["_target", "_caller", "_actionId", "_arguments"];
+	_target = _this select 0;
+	_actionId = _this select 2;
+	_arguments params ["_dest"];
 	_dir = random 359;
+	_title = _target actionParams _actionId select 0;
+	//diag_log _title;
 
 	titleText ["", "BLACK OUT"];
 	if (_dest isEqualType []) then {
 		_pos = [(_dest select 0)-2*sin(_dir),(_dest select 1)-2*cos(_dir),_dest select 2];
 		if (surfaceIsWater _pos) then {
-			//player setposASL _pos;
 			_waterPos = ASLToATL (AGLToASL _pos);
 			_pos set [2, (_waterPos select 2)];
-			player setposATL _pos;
+			if ((_title find "USS Freedom") isNotEqualTo -1) exitWith {
+				player setVehiclePosition [_pos,[],0,"None"];
+			};
+			player setposASL _pos;
 		} else {
 			player setPos _pos;
 		};
