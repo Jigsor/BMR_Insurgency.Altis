@@ -1,4 +1,4 @@
-// extraction_fncs.sqf v1.28 by Jigsor
+// extraction_fncs.sqf v1.29 by Jigsor
 
 // Global hint
 JIG_EX_MPhint_fnc = {if (hasInterface) then { hint _this };};

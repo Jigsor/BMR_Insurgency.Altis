@@ -1,5 +1,5 @@
 /*
- extraction_main.sqf v1.28 by Jigsor
+ extraction_main.sqf v1.29 by Jigsor
  null = [] execVM "JIG_EX\extraction_main.sqf";
  runs in JIG_EX\extraction_init.sqf
 */

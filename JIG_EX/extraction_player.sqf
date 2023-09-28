@@ -1,5 +1,5 @@
 /*
- extraction_player.sqf v1.27 by Jigsor
+ extraction_player.sqf v1.29 by Jigsor
  handles map click pickup/dropoff points and group inventory.
  jig_ex_actid_show = _ex_caller addAction [("<t color='#12F905'>") + ("Heli Extraction") + "</t>", "JIG_EX\extraction_player.sqf", JIG_EX_Caller removeAction jig_ex_actid_show, 1, false, true, "","player ==_target"];
  runs from JIG_EX\extraction_init.sqf and JIG_EX\respawnAddActionHE.sqf

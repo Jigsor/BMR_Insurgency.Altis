@@ -1,23 +1,23 @@
 /*
- extraction_init.sqf v1.28 by Jigsor
+ extraction_init.sqf v1.29 by Jigsor
  null = [] execVM "JIG_EX\extraction_init.sqf";
  runs in init.sqf
 */
 
 // Editable Global Variable Parameters ////////////////////////////////////////////////////////////////////////////////
-JIG_EX_Caller = 		{CAS1};							// Name of playable unit in editor who can call in Extraction Via scroll action, ie; s1, TeamLeader or TL1. This edit is required at the very least to run script pack.
-JIG_EX_Chopper_Type	= 	["B_Heli_Transport_01_F"];		// Desired Evac Chopper classname in quotes and array.
-JIG_EX_Side			=	WEST;							// Side or Group Chopper belongs to, ie. RESISTANCE EAST WEST EvacGroup
-JIG_EX_Chopper_size = 	14;								// 12 meters is good for GhostHawk.//If to small chopper cannot land. If to large, clear enough area will not be found.
-JIG_EX_Spawn_Dis = 		1400;							// Chopper spawns at this distance from actual evac marker and flies in.
-JIG_EX_Clear_Pos_Dis = 	45;								// Max possible range in meters between requested evac/drop marker and actual evac/drop marker used to find random clear position to land.// If too small, clear enough area will not be found. Depends on terrain.
-JIG_EX_Smoke_Color = 	"SmokeShellOrange";				// Possible Smoke colors classname in quotes goes here, ie: "SmokeShellOrange","SmokeShellBlue","SmokeShellPurple","SmokeShellGreen","SmokeShellRed","SmokeShell".
-JIG_EX_Despawn_Time	= 	60;								// Delete Chopper timer. Starts after chopper reaches destination and caller's group disembarks. Action does not return until this completes or chopper destroyed.
-JIG_EX_damage	=		false;							// true allows damage to be taken / false prohibits damage to be taken.
-JIG_EX_Group_Dis	=	500;							// Ungroup group members beyond range of Evac Caller.//Chopper will not Leave Evac LZ until all group members in this range are in chopper
-JIG_EX_AmbRadio		=	true;							// Ambient Heli Radio Chatter. Set true to enable. Set false to disable.
-JIG_EX_Random_Type	=	true;							// Select random Heli Type from JIG_EX_Chopper_Type. If False, Fist Vehicle in array JIG_EX_Chopper_Type is chosen. Example: JIG_EX_Chopper_Type = ["B_Heli_Transport_01_camo_F","CH49_Mohawk_FG"];
-JIG_EX_gunners		= 	false;							// Set false to make side gunners position empty and available to passengers. Set true to spawn chopper with side gunners/crew with default bis_fnc_spawnvehicle. "false" value tested to support "B_Heli_Transport_01_camo_F" GhostHawk.
+JIG_EX_Caller = 		{CAS1};                                                 // Name of playable unit in editor who can call in Extraction Via scroll action, ie; s1, TeamLeader or TL1. This edit is required at the very least to run script pack.
+JIG_EX_Chopper_Type     =       ["B_Heli_Transport_01_F"];                              // Desired Evac Chopper classname in quotes and array.
+JIG_EX_Side             =       WEST;                                                   // Side or Group Chopper belongs to, ie. RESISTANCE EAST WEST EvacGroup
+JIG_EX_Chopper_size     =       14;                                                     // 12 meters is good for GhostHawk.//If to small chopper cannot land. If to large, clear enough area will not be found.
+JIG_EX_Spawn_Dis        =       1400;                                                   // Chopper spawns at this distance from actual evac marker and flies in.
+JIG_EX_Clear_Pos_Dis    =       45;                                                     // Max possible range in meters between requested evac/drop marker and actual evac/drop marker used to find random clear position to land.// If too small, clear enough area will not be found. Depends on terrain.
+JIG_EX_Smoke_Color      =       "SmokeShellOrange";                                     // Possible Smoke colors classname in quotes goes here, ie: "SmokeShellOrange","SmokeShellBlue","SmokeShellPurple","SmokeShellGreen","SmokeShellRed","SmokeShell".
+JIG_EX_Despawn_Time     =       60;                                                     // Delete Chopper timer. Starts after chopper reaches destination and caller's group disembarks. Action does not return until this completes or chopper destroyed.
+JIG_EX_damage           =       false;							// true allows damage to be taken / false prohibits damage to be taken.
+JIG_EX_Group_Dis        =       500;							// Ungroup group members beyond range of Evac Caller.//Chopper will not Leave Evac LZ until all group members in this range are in chopper
+JIG_EX_AmbRadio         =       true;							// Ambient Heli Radio Chatter. Set true to enable. Set false to disable.
+JIG_EX_Random_Type      =       true;							// Select random Heli Type from JIG_EX_Chopper_Type. If False, Fist Vehicle in array JIG_EX_Chopper_Type is chosen. Example: JIG_EX_Chopper_Type = ["B_Heli_Transport_01_camo_F","CH49_Mohawk_FG"];
+JIG_EX_gunners          =       false;							// Set false to make side gunners position empty and available to passengers. Set true to spawn chopper with side gunners/crew with default bis_fnc_spawnvehicle. "false" value tested to support "B_Heli_Transport_01_camo_F" GhostHawk.
 ////////////////////////////////////////////////////////// JIG_EX_gunners = false Tested to Support: "B_Heli_Transport_01_camo_F" "CH49_Mohawk_FG".
 ////////////////////////////////////////////////////////// JIG_EX_gunners = true Tested to Support: "B_Heli_Transport_01_camo_F"
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
