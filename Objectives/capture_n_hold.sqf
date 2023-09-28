@@ -84,12 +84,12 @@ while {_uncaped} do {
 
 	private _manArray = objective_pos_logic nearEntities ["CAManBase", _cap_rad];
 	{
-		if (!(side _x isEqualTo INS_Blu_side) || (captiveNum _x isEqualTo 1)) then {
+		if ((side _x isNotEqualTo INS_Blu_side) || (captiveNum _x isEqualTo 1)) then {
 			_manArray = _manArray - [_x];
 		};
 	} forEach _manArray;
 	sleep 4;
-	if ((count _manArray) > 0) exitWith {_uncaped = false};
+	if (_manArray isNotEqualTo []) exitWith {_uncaped = false};
 };
 waitUntil {!_uncaped};
 
@@ -102,7 +102,7 @@ if (!SideMissionCancel) then {
 	[_text] remoteExec ["JIG_MPsideChatWest_fnc", [0,-2] select isDedicated];
 
 	private _defenderArr = [];
-	{_defenderArr pushBack _x} forEach (objective_pos_logic nearEntities ["CAManBase", _defender_rad] select {(side _x isEqualTo west) && !(captiveNum _x isEqualTo 1) && (_x isKindOf "Man")});
+	{_defenderArr pushBack _x} forEach (objective_pos_logic nearEntities ["CAManBase", _defender_rad] select {(side _x isEqualTo west) && (captiveNum _x isNotEqualTo 1) && (_x isKindOf "Man")});
 	sleep 3;
 
 	private _defcnt = count _defenderArr;
@@ -157,7 +157,7 @@ if (!SideMissionCancel) then {
 
 			while {curvePosArr isEqualTo []} do {
 				curvePosArr = [_start_pos1,_newZone,_pointC,12,false,_ins_debug] call rej_fnc_bezier;
-				if !(curvePosArr isEqualTo []) exitWith {};
+				if (curvePosArr isNotEqualTo []) exitWith {};
 				_count = _count + 1;
 				if (_count > 3) exitWith {if (_ins_debug) then {hintSilent "Empty curvePosArr"}; curvePosArr = []};
 				sleep 3;
@@ -226,7 +226,7 @@ while {_caped} do {
 	_manArray = objective_pos_logic nearEntities [["CAManBase","Landvehicle"],_hold_rad];
 
 	{
-		if (!(side _x isEqualTo INS_Blu_side) || (captiveNum _x isEqualTo 1)) then {
+		if ((side _x isNotEqualTo INS_Blu_side) || (captiveNum _x isEqualTo 1)) then {
 			_manArray = _manArray - [_x];
 		};
 	} forEach _manArray;
