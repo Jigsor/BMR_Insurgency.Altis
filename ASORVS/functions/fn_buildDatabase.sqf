@@ -35,6 +35,7 @@ _indexof = {
 
 _cfgthrowable = ASORVS_throwable;
 _cfgexplosives = ASORVS_explosives;
+_pSide = (side player) call BIS_fnc_sideID;
 
 _explosives = [];
 _throwable = [];
@@ -75,7 +76,9 @@ _allVehicleClasses = (configFile >> "CfgVehicles") call BIS_fnc_getCfgSubClasses
 					_tanks pushBack [DB_Tanks, _classname, _displayname, _picture, nil, count _tanks, _side];
 				};
 				case(_classname isKindOf "Autonomous") : {
-					_autonomous pushBack [DB_Autonomous, _classname, _displayname, _picture, nil, count _autonomous, _side];
+					if (_pSide isEqualTo _side) then {					
+						_autonomous pushBack [DB_Autonomous, _classname, _displayname, _picture, nil, count _autonomous, _side];
+					};
 				};
 				case((_classname isKindOf "Car") && !(_classname isKindOf "Wheeled_APC_F")) : {
 					_cars pushBack [DB_Cars, _classname, _displayname, _picture, nil, count _cars, _side];
