@@ -7,11 +7,11 @@ Visit us at: http://www.blacktemplars.altervista.org/
 waitUntil {!isNull player && player == player};
 
 _cond = true;
-if ((count BTC_lift_pilot) > 0) then {
+if (BTC_lift_pilot isNotEqualTo []) then {
 	if ((BTC_lift_pilot find (typeof player)) == - 1) exitWith {hint "No lift";_cond = false;};
 };
 if !(_cond) exitWith {hint "No lift";};
-if (BTC_def_hud == 1) then {
+if (BTC_def_hud isEqualTo 1) then {
 	BTC_arrow_up   = "=BTC=_Logistic\=BTC=_lift\Img\arrow_up_ca.paa";
 	BTC_arrow_down = "=BTC=_Logistic\=BTC=_lift\Img\arrow_down_ca.paa";
 	BTC_complete   = "=BTC=_Logistic\=BTC=_lift\Img\objective_complete_ca.paa";
@@ -20,14 +20,14 @@ if (BTC_def_hud == 1) then {
 BTC_cargo = ObjNull;
 //Functions
 BTC_lift_check = {
-	if (!(objectParent player isKindOf "Helicopter") || !(player isEqualTo driver objectParent player) || BTC_lifted isEqualTo 1) exitWith {false};
+	if (!(objectParent player isKindOf "Helicopter") || (player isNotEqualTo driver objectParent player) || BTC_lifted isEqualTo 1) exitWith {false};
 	_array = [vehicle player] call BTC_get_liftable_array;
-	if (count _array isEqualTo 0) exitWith {false};
+	if (_array isEqualTo []) exitWith {false};
 	_chopper  = vehicle player;
 	_can_lift = false;
 	_cargo_array = nearestObjects [_chopper, _array, 50];
-	if (count _cargo_array > 0) then {if (driver (_cargo_array select 0) == player) then {_cargo_array set [0,0];_cargo_array deleteAt 0;};};
-	if (count _cargo_array > 0) then {BTC_cargo = _cargo_array select 0;} else {BTC_cargo = objNull;_can_lift = false;};
+	if (_cargo_array isNotEqualTo []) then {if (driver (_cargo_array # 0) == player) then {_cargo_array set [0,0];_cargo_array deleteAt 0;};};
+	if (_cargo_array isNotEqualTo []) then {BTC_cargo = _cargo_array # 0;} else {BTC_cargo = objNull;_can_lift = false;};
 	if (({BTC_cargo isKindOf _x} count _array) > 0 && speed BTC_cargo < 2) then {_can_lift = true;} else {_can_lift = false;};
 	if (_can_lift && ((BTC_cargo isKindOf "Air" && getdammage BTC_cargo != 1) || (format ["%1", BTC_cargo getVariable "BTC_cannot_lift"] == "1"))) then {_can_lift = false;};
 	if (!isNull BTC_cargo && _can_lift) then {
@@ -47,13 +47,13 @@ BTC_attach_cargo = {
 	_chopper = vehicle player;
 	_array = [vehicle player] call BTC_get_liftable_array;
 	_cargo_array = nearestObjects [_chopper, _array, 50];
-	if (count _cargo_array > 0 && driver (_cargo_array select 0) == player) then {_cargo_array set [0,0];_cargo_array deleteAt 0;};
-	if (count _cargo_array > 0) then {_cargo = _cargo_array select 0;} else {_cargo = objNull;};
+	if (_cargo_array isNotEqualTo [] && driver (_cargo_array # 0) == player) then {_cargo_array set [0,0];_cargo_array deleteAt 0;};
+	if (_cargo_array isNotEqualTo []) then {_cargo = _cargo_array # 0;} else {_cargo = objNull;};
 	if (isNull _cargo) exitWith {};
 	BTC_lifted    = 1;
 	_cargo_pos    = getPosATL _cargo;
 	_rel_pos      = _chopper worldToModel _cargo_pos;
-	_height       = (_rel_pos select 2) + 2.5;
+	_height       = (_rel_pos # 2) + 2.5;
 	_cargo attachTo [_chopper, [0,0,_height]];
 	_name_cargo  = getText (configFile >> "cfgVehicles" >> typeof _cargo >> "displayName");
 	_chopper vehicleChat format ["%1 lifted", _name_cargo];
@@ -63,7 +63,7 @@ BTC_detach_cargo = {
 	detach BTC_cargo_lifted;
 	_name_cargo  = getText (configFile >> "cfgVehicles" >> typeof BTC_cargo_lifted >> "displayName");
 	vehicle player vehicleChat format ["%1 dropped", _name_cargo];
-	if ((getPos BTC_cargo_lifted select 2) < -2.5) then {BTC_cargo_lifted setpos [0,0,0]; BTC_cargo_lifted setDamage 1;};
+	if ((getPos BTC_cargo_lifted # 2) < -2.5) then {BTC_cargo_lifted setpos [0,0,0]; BTC_cargo_lifted setDamage 1;};
 	if (BTC_cargo_lifted isKindOf "Strategic") then {
 		_obj_fall = [BTC_cargo_lifted] spawn BTC_l_Obj_Fall;
 	} else {
@@ -97,9 +97,9 @@ BTC_fnc_hud = {
 		private "_cargo";
 		_array = [vehicle player] call BTC_get_liftable_array;
 		_cargo_array = nearestObjects [vehicle player, _array, 50];
-		if (count _array isEqualTo 0) then {_cargo_array = []};
-		if (count _cargo_array > 0 && driver (_cargo_array select 0) == player) then {_cargo_array set [0,0];_cargo_array deleteAt 0;};
-		if (count _cargo_array > 0) then {_cargo = _cargo_array select 0;} else {_cargo = objNull;};
+		if (_array isEqualTo []) then {_cargo_array = []};
+		if (_cargo_array isNotEqualTo [] && driver (_cargo_array # 0) == player) then {_cargo_array set [0,0];_cargo_array deleteAt 0;};
+		if (_cargo_array isNotEqualTo []) then {_cargo = _cargo_array # 0;} else {_cargo = objNull;};
 		if (({_cargo isKindOf _x} count _array) > 0) then {_can_lift = true;} else {_can_lift = false;};
 		if (_can_lift && ((_cargo isKindOf "Air" && getdammage _cargo != 1) || !(isNil {_cargo getVariable "BTC_cannot_lift"}))) then {_can_lift = false};
 		if (!isNull _cargo) then {
@@ -137,7 +137,7 @@ BTC_fnc_hud = {
 BTC_l_camera = {
 	if (BTC_l_pip_cond) then {
 		BTC_l_pip_cond = false;
-		[] call BIS_fnc_liveFeedTerminate;
+		call BIS_fnc_liveFeedTerminate;
 	}else{
 		hint "Activating camera...";
 		BTC_l_pip_cond = true;
@@ -146,7 +146,7 @@ BTC_l_camera = {
 			//spinning lift camera.. needs improvement
 			while {BTC_l_pip_cond} do {
 				_vp = vehicle player;
-				BTC_l_feed_target setpos [getPosVisual _vp select 0,(getPosVisual _vp select 1) + 1,0];
+				BTC_l_feed_target setpos [getPosVisual _vp # 0,(getPosVisual _vp # 1) + 1,0];
 				BTC_l_feed_target setDir getDir _vp;
 				sleep 0.1;
 			};
@@ -159,14 +159,14 @@ BTC_l_camera = {
 		BTC_l_feed_target call BIS_fnc_liveFeedSetTarget;
 		BIS_liveFeed camPrepareTarget BTC_l_feed_target;
 		WaitUntil {sleep 1; (!(objectParent player isKindOf "Helicopter") || !Alive player)};
-		if (BTC_l_pip_cond) then {BTC_l_pip_cond = false;[] call BIS_fnc_liveFeedTerminate;};
+		if (BTC_l_pip_cond) then {BTC_l_pip_cond = false; call BIS_fnc_liveFeedTerminate;};
 	};
 };
 Jig_DeadLifter = {
 	detach BTC_cargo_lifted;
 	BTC_cargo_lifted setVelocity [0,0,-5];
-	waitUntil {sleep 0.2; isTouchingGround BTC_cargo_lifted || (getPos BTC_cargo_lifted select 2) < -2.5};
-	if ((getPos BTC_cargo_lifted select 2) < -2.5) then {BTC_cargo_lifted setpos [0,0,0]; BTC_cargo_lifted setDamage 1;};
+	waitUntil {sleep 0.2; isTouchingGround BTC_cargo_lifted || (getPos BTC_cargo_lifted # 2) < -2.5};
+	if ((getPos BTC_cargo_lifted # 2) < -2.5) then {BTC_cargo_lifted setpos [0,0,0]; BTC_cargo_lifted setDamage 1;};
 };
 BTC_lift_acts = {
 	if (BTC_def_hud isEqualTo 1) then {player addAction [("<t color='#00ffe9'>" + ("Lift Hud On\Off") + "</t>"),BTC_dir_action, [[],{if (BTC_Hud_Cond) then {BTC_Hud_Cond = false;} else {BTC_Hud_Cond = true;_hud = [] spawn BTC_fnc_hud;};}], -8, false, false, "", "objectParent player isKindOf 'Helicopter' && player isEqualTo driver objectParent player"]};
