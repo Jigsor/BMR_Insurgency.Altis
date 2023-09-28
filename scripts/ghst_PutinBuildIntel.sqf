@@ -2,7 +2,7 @@
  [activated_cache_pos] execVM "scripts\ghst_PutinBuildIntel.sqf";
  V2.5.2 - By Ghost - coord snippet is from DiRaven
  fills a random building around a position with all objects listed. Best to keep radius small so not many buidlings need to be calculated.
- Modified by Jigsor. Last Edit 4/3/2022.//Adapted to spawn intel. Modified mostly beginning and ending. The core is by Ghost. Places Intel and creates intel location markers.
+ Modified by Jigsor. Last Edit 2/19/2023.//Adapted to spawn intel. Modified mostly beginning and ending. The core is by Ghost. Places Intel and creates intel location markers.
 */
 
 if (!isServer) exitWith{};
@@ -45,7 +45,8 @@ private _cache_loop = [_uncaped_eos_mkrs,_hide_intel,_current_cache,_uncaped_mkr
 	private _createPos = position air_pat_pos;
 	private _imks = [];
 	private _displayName = getText (configFile >> "cfgVehicles" >> (_objtype) >> "displayName");
-	#define _debug false//set true for diag_log
+	//#define _debug false//set true for diag_log
+	private _debug = if (DebugEnabled > 0) then {true} else {false};
 
 	while {((_iobj < _total_intelObjs) && (_iobj < _uncaped_mkr_count)) && alive _current_cache} do
 	{
