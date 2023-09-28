@@ -106,5 +106,5 @@ sleep 5;
 
 if (_rmE) then {{east revealMine _x} count allIEDS};
 if (_rmW) then {{west revealMine _x} count allIEDS};
-if (_rmI) then {{independent revealMine _x} count allIEDS};
+if (_rmI) then {{resistance revealMine _x} count allIEDS};
 if (_rmC) then {{civilian revealMine _x} count allIEDS};
