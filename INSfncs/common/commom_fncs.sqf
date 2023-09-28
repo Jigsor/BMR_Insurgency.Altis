@@ -417,6 +417,7 @@ INS_toggle_Zeus = {
 		_curator = (createGroup sideLogic) createUnit ["modulecurator_f",[0,0,0],[],0,"CAN_COLLIDE"];
 		{_curator setCuratorCoef [_x,0];} forEach ["place","edit","delete","destroy","group","synchronize"];
 		_curator setVariable ["TFAR_curatorCamEars", true];
+		//_curator synchronizeObjectsAdd [_unit];
 		_curator addEventHandler ['CuratorObjectPlaced',{
 			params ["_curator","_entity"];
 			{
@@ -453,7 +454,7 @@ INS_toggle_Zeus = {
 	};
 
 	_curator setVariable ["Addons",3,true];
-	_cfgPatches = configfile >> "cfgpatches";
+	_cfgPatches = configfile >> "CfgPatches";
 	for "_i" from 0 to (count _cfgPatches - 1) do {
 		_class = _cfgPatches select _i;
 		if (isclass _class) then {_addons pushBack (configname _class)};
@@ -783,20 +784,25 @@ JIG_Snow_Storm = {
 
 	0 spawn {// Snow Flakes
 		private _toDelete = [];
-		private "_s";
+		private _s = objNull;
 		while {JIG_SnowStorm} do {
-			_s = "#particlesource" createVehicleLocal (getPosATL cameraOn);
-			_s setParticleParams [["\A3\data_f\ParticleEffects\Universal\Universal", 16, 12, 8, 1], "", "Billboard", 1, 4, [0,0,0], [0,0,0], 1, 0.000001, 0, 1.4, [0.05,0.05], [[0.8,0.7,0.7,0.8]], [0,1], 0.2, 1.2, "", "", cameraOn, 0, false, 0];
-			_s setParticleRandom [0, [10, 10, 7], [0, 0, 0], 0, 0.01, [0, 0, 0, 0.1], 0, 0];
-			_s setParticleCircle [0.0, [0, 0, 0]];
-			_s setDropInterval 0.02;
-			_toDelete pushBack _s;
-			uiSleep 0.6 + random 0.6;
-			if (count _toDelete > 19) then {
-				for "_i" from 0 to 10 step 1 do {
-					deleteVehicle (_toDelete select 0);
-					_toDelete deleteAt 0;
+			if (insideBuilding player == 0) then {
+				_s = "#particlesource" createVehicleLocal (getPosATL cameraOn);
+				_s setParticleParams [["\A3\data_f\ParticleEffects\Universal\Universal", 16, 12, 8, 1], "", "Billboard", 1, 4, [0,0,0], [0,0,0], 1, 0.000001, 0, 1.4, [0.05,0.05], [[0.8,0.7,0.7,0.8]], [0,1], 0.2, 1.2, "", "", cameraOn, 0, false, 0];
+				_s setParticleRandom [0, [10, 10, 7], [0, 0, 0], 0, 0.01, [0, 0, 0, 0.1], 0, 0];
+				_s setParticleCircle [0.0, [0, 0, 0]];
+				_s setDropInterval 0.02;
+				_toDelete pushBack _s;
+				uiSleep 0.6 + random 0.6;
+				if (count _toDelete > 19) then {
+					for "_i" from 0 to 10 do {
+						deleteVehicle (_toDelete # 0);
+						_toDelete deleteAt 0;
+					};
 				};
+			} else {
+				{deleteVehicle _x} count _toDelete;
+				uiSleep 6;
 			};
 		};
 		{deleteVehicle _x} count _toDelete;
@@ -867,10 +873,11 @@ Manual_ProgressionSave = {
 Manual_ProgressionClearnEnd = {
 	// Clear progression saving on HC and Server then end the mission if saving was enabled
 	if (!isServer) exitWith {};
-	if !((["INS_persistence", 0] call BIS_fnc_getParamValue) isEqualTo 0) then {
+	if ((["INS_persistence", 0] call BIS_fnc_getParamValue) isNotEqualTo 0) then {
 		profileNamespace setVariable ["BMR_INS_progress", []];
 		saveProfileNamespace;//<-necessary to survive Server executable restart
-		[["END1",true,true], "BIS_fnc_endMission",true,true,true] spawn BIS_fnc_MP;
+		//[["END1",true,true], "BIS_fnc_endMission",true,true,true] spawn BIS_fnc_MP;
+		["END1", true, true] remoteExec ["BIS_fnc_endMission", 0, true];
 	};
 };
 KilledVehRewardMP = {
