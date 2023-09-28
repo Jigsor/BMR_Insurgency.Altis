@@ -25,7 +25,7 @@ if (INS_op_faction in [20]) then {
 	_radius = 9;
 };
 
-//mod for IFA3_AIO_LITE
+//mod for IFA3 AIO
 if (INS_op_faction in [21]) then {
 	if (isClass(configFile >> "CfgPatches" >> "A3_Props_F_Exp")) then {
 		activateAddons ["A3_Props_F_Exp_Military"];
