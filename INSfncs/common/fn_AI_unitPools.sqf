@@ -8,15 +8,15 @@ if (_opposingArmies isEqualTo 0) exitWith {diag_log "!!! BMR Insurgency Warning:
 // CSAT
 if (_opposingArmies isEqualTo 1) then {
 	INS_Op4_side = EAST;// Cfg based side
-	INS_men_list = ["O_SoldierU_SL_F","O_Soldier_GL_F","O_soldierU_repair_F","O_soldierU_medic_F","O_sniper_F","O_Soldier_A_F","O_Soldier_AA_F","O_Soldier_AAA_F","O_Soldier_AAR_F","O_Soldier_AAT_F","O_Soldier_AR_F","O_Soldier_AT_F","O_soldier_exp_F","O_Soldier_F","O_engineer_F","O_engineer_U_F","O_medic_F","O_recon_exp_F","O_recon_F","O_recon_JTAC_F","O_recon_LAT_F","O_recon_M_F","O_recon_medic_F","O_recon_TL_F","O_Sharpshooter_F","O_HeavyGunner_F","O_Soldier_HAT_F","O_Soldier_AHAT_F"];// Armed soldiers
+	INS_men_list = ["O_SoldierU_SL_F","O_Soldier_GL_F","O_soldierU_repair_F","O_soldierU_medic_F","O_sniper_F","O_Soldier_A_F","O_Soldier_AA_F","O_Soldier_AAA_F","O_Soldier_AAR_F","O_Soldier_AAT_F","O_Soldier_AR_F","O_Soldier_AT_F","O_soldier_exp_F","O_Soldier_F","O_engineer_F","O_engineer_U_F","O_medic_F","O_recon_exp_F","O_recon_F","O_recon_JTAC_F","O_recon_LAT_F","O_recon_M_F","O_recon_medic_F","O_recon_TL_F","O_Sharpshooter_F","O_HeavyGunner_F","O_Soldier_HAT_F","O_Soldier_AHAT_F"];// Armed soldiers wich defend objectives - typically main armies/non guerilla
 	INS_Op4_medic = "O_soldierU_medic_F";// One Medic
 	INS_Op4_Eng = "O_soldierU_repair_F";// One Engineer
 	INS_Op4_pilot = ["O_helipilot_F","O_Fighter_Pilot_F"];// Pilots
 	INS_Op4_Veh_Light = ["O_MRAP_02_hmg_F","O_MRAP_02_gmg_F","O_G_Offroad_01_armed_F","O_APC_Wheeled_02_rcws_v2_F"];// Armed Wheeled Vehicles
-	INS_Op4_Veh_Tracked = ["O_APC_Tracked_02_cannon_F","O_APC_Tracked_02_AA_F","O_MBT_02_cannon_F","O_MBT_04_command_F","O_MBT_04_cannon_F"];// Armed Tracked Vehicles
+	INS_Op4_Veh_Tracked = ["O_APC_Tracked_02_cannon_F","O_APC_Tracked_02_AA_F","O_MBT_02_cannon_F","O_MBT_04_command_F","O_MBT_04_cannon_F","O_MBT_02_railgun_F"];// Armed Tracked Vehicles
 	INS_Op4_Veh_Support = ["O_Truck_03_ammo_F","O_Truck_03_repair_F","O_Truck_02_Ammo_F","O_Truck_02_fuel_F","O_Truck_02_box_F","O_Truck_02_medical_F","O_Truck_03_device_F"];// Wheeled Support Vehicles
 	INS_Op4_Veh_AA = ["O_APC_Tracked_02_AA_F"];// Anti Air Vehicles
-	INS_Op4_stat_weps = ["O_GMG_01_high_F","O_HMG_01_high_F","O_static_AT_F","O_static_AA_F","O_HMG_01_A_F","O_GMG_01_F","O_G_Mortar_01_F"];// Static Weapons
+	INS_Op4_stat_weps = ["O_GMG_01_high_F","O_HMG_01_high_F","O_static_AT_F","O_static_AA_F","O_HMG_01_A_F","O_GMG_01_F","O_G_Mortar_01_F"];// Static Weapons - Classes at the begining of list are more often chosen.
 	INS_civlist = ["C_man_p_beggar_F","C_man_1","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_hunter_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F"];// Civilian Units
 	INS_civ_Veh_Car = ["C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F","C_SUV_01_F"];// Civilian Cars
 	INS_civ_Veh_Utl = ["C_Tractor_01_F","C_Truck_02_fuel_F","C_Truck_02_box_F","C_Truck_02_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];// Civilian Utility Vehicles
@@ -47,7 +47,7 @@ if (_opposingArmies in [4,5]) then {
 	INS_Op4_Eng = "O_T_Soldier_Repair_F";
 	INS_Op4_pilot = ["O_T_Pilot_F"];
 	INS_Op4_Veh_Light = ["O_T_MRAP_02_hmg_ghex_F","O_T_MRAP_02_gmg_ghex_F","O_T_LSV_02_armed_F","O_T_APC_Wheeled_02_rcws_v2_ghex_F","O_T_LSV_02_AT_F"];
-	INS_Op4_Veh_Tracked = ["O_T_MBT_02_cannon_ghex_F","O_T_APC_Tracked_02_cannon_ghex_F","O_T_APC_Tracked_02_AA_ghex_F","O_T_MBT_04_command_F","O_T_MBT_04_cannon_F"];
+	INS_Op4_Veh_Tracked = ["O_T_MBT_02_cannon_ghex_F","O_T_APC_Tracked_02_cannon_ghex_F","O_T_APC_Tracked_02_AA_ghex_F","O_T_MBT_04_command_F","O_T_MBT_04_cannon_F","O_T_MBT_02_railgun_ghex_F"];
 	INS_Op4_Veh_Support = ["O_T_Truck_03_ammo_ghex_F","O_T_Truck_03_repair_ghex_F","O_T_Truck_03_fuel_ghex_F","O_T_Truck_03_medical_ghex_F","O_T_Truck_03_device_ghex_F"];
 	INS_Op4_Veh_AA = ["O_T_APC_Tracked_02_AA_ghex_F"];
 	INS_Op4_stat_weps = ["O_HMG_01_high_F","O_GMG_01_high_F","O_G_Mortar_01_F","B_T_HMG_01_F","O_static_AT_F","O_static_AA_F","O_GMG_01_F"];
@@ -81,7 +81,7 @@ if (_opposingArmies isEqualTo 8) then {
 	INS_Op4_Eng = "O_R_Patrol_Soldier_Engineer_F";
 	INS_Op4_pilot = ["O_helipilot_F","O_Fighter_Pilot_F"];
 	INS_Op4_Veh_Light = ["O_T_MRAP_02_hmg_ghex_F","O_T_MRAP_02_gmg_ghex_F","O_T_LSV_02_armed_F","O_T_APC_Wheeled_02_rcws_v2_ghex_F","O_T_LSV_02_armed_F","O_T_LSV_02_AT_F"];
-	INS_Op4_Veh_Tracked = ["I_E_APC_tracked_03_cannon_F","O_T_MBT_02_cannon_ghex_F","O_T_APC_Tracked_02_AA_ghex_F","O_T_MBT_04_command_F","O_T_MBT_04_cannon_F"];
+	INS_Op4_Veh_Tracked = ["I_E_APC_tracked_03_cannon_F","O_T_MBT_02_cannon_ghex_F","O_T_APC_Tracked_02_AA_ghex_F","O_T_MBT_04_command_F","O_T_MBT_04_cannon_F","O_T_MBT_02_railgun_ghex_F"];
 	INS_Op4_Veh_Support = ["I_E_Truck_02_Ammo_F","I_E_Truck_02_fuel_F","I_E_Truck_02_Medical_F","I_E_Truck_02_Box_F","O_Truck_03_device_F"];
 	INS_Op4_Veh_AA = ["O_T_APC_Tracked_02_AA_ghex_F","I_LT_01_AA_F"];
 	INS_Op4_stat_weps = ["I_E_HMG_01_high_F","I_E_GMG_01_high_F","I_E_Mortar_01_F","I_E_HMG_01_F","I_E_HMG_01_A_F","I_E_GMG_01_F","I_E_GMG_01_A_F","I_E_Static_AA_F","I_E_Static_AT_F"];
@@ -416,7 +416,7 @@ private _gridMarkerUnitPools = {
 		};
 		case 3: {// EAST CSAT Pacific FACTION
 			_InfPool=	["O_T_Soldier_A_F","O_T_Soldier_AAR_F","O_T_Support_AMG_F","O_T_Support_AMort_F","O_T_Soldier_AAA_F","O_T_Soldier_AAT_F","O_T_Soldier_AR_F","O_T_Medic_F","O_T_Crew_F","O_T_Engineer_F","O_T_Soldier_Exp_F","O_T_Soldier_GL_F","O_T_Support_GMG_F","O_T_Support_MG_F","O_T_Support_Mort_F","O_T_Soldier_M_F","O_T_Soldier_AA_F","O_T_Soldier_AA_F","O_T_Soldier_AT_F","O_T_Officer_F","O_T_Soldier_PG_F","O_T_Soldier_Repair_F","O_T_Soldier_F","O_T_Soldier_LAT_F","O_T_Soldier_SL_F","O_T_Soldier_TL_F","O_T_Soldier_UAV_F","O_T_Recon_Exp_F","O_T_Recon_JTAC_F","O_T_Recon_M_F","O_T_Recon_Medic_F","O_T_Recon_F","O_T_Recon_LAT_F","O_T_Recon_TL_F","O_T_Sniper_F","O_T_Spotter_F","O_T_ghillie_tna_F","O_V_Soldier_ghex_F","O_V_Soldier_TL_ghex_F","O_V_Soldier_Exp_ghex_F","O_V_Soldier_Medic_ghex_F","O_V_Soldier_M_ghex_F","O_V_Soldier_LAT_ghex_F","O_V_Soldier_JTAC_ghex_F","O_T_Soldier_HAT_F","O_T_Soldier_AHAT_F"];
-			_ArmPool=	["O_T_MBT_02_cannon_ghex_F","O_T_APC_Tracked_02_cannon_ghex_F","O_T_APC_Tracked_02_AA_ghex_F","O_T_MBT_04_command_F","O_T_MBT_04_cannon_F"];
+			_ArmPool=	["O_T_MBT_02_cannon_ghex_F","O_T_APC_Tracked_02_cannon_ghex_F","O_T_APC_Tracked_02_AA_ghex_F","O_T_MBT_04_command_F","O_T_MBT_04_cannon_F","O_T_MBT_02_railgun_ghex_F"];
 			_MotPool=	["O_T_MRAP_02_hmg_ghex_F","O_T_MRAP_02_gmg_ghex_F","O_T_LSV_02_armed_F","O_G_Offroad_01_armed_F","O_T_APC_Wheeled_02_rcws_v2_ghex_F"];
 			_ACHPool=	["O_Heli_Attack_02_black_F","O_Heli_Attack_02_F"];
 			_CHPool=	["O_Heli_Light_02_F","O_Heli_Light_02_unarmed_F","O_Heli_Transport_04_covered_F"];//"O_Heli_Transport_04_bench_F"
@@ -458,7 +458,7 @@ private _gridMarkerUnitPools = {
 		};
 		case 6: {//EAST Spetsnaz
 			_InfPool=	["O_R_Soldier_AR_F","O_R_medic_F","O_R_soldier_exp_F","O_R_Soldier_GL_F","O_R_JTAC_F","O_R_soldier_M_F","O_R_Soldier_LAT_F","O_R_Soldier_TL_F","O_R_Patrol_Soldier_A_F","O_R_Patrol_Soldier_AR2_F","O_R_Patrol_Soldier_AR_F","O_R_Patrol_Soldier_Medic","O_R_Patrol_Soldier_Engineer_F","O_R_Patrol_Soldier_GL_F","O_R_Patrol_Soldier_M2_F","O_R_Patrol_Soldier_LAT_F","O_R_Patrol_Soldier_M_F","O_R_Patrol_Soldier_TL_F","O_R_recon_AR_F","O_R_recon_exp_F","O_R_recon_GL_F","O_R_recon_JTAC_F","O_R_recon_medic_F","O_R_recon_LAT_F","O_R_recon_TL_F"];
-			_ArmPool=	["I_E_APC_tracked_03_cannon_F","O_T_MBT_02_cannon_ghex_F","O_T_APC_Tracked_02_AA_ghex_F","O_T_MBT_04_command_F","O_T_MBT_04_cannon_F"];
+			_ArmPool=	["I_E_APC_tracked_03_cannon_F","O_T_MBT_02_cannon_ghex_F","O_T_APC_Tracked_02_AA_ghex_F","O_T_MBT_04_command_F","O_T_MBT_04_cannon_F","O_T_MBT_02_railgun_ghex_F"];
 			_MotPool=	["O_T_MRAP_02_hmg_ghex_F","O_T_MRAP_02_gmg_ghex_F","O_T_LSV_02_armed_F","O_T_APC_Wheeled_02_rcws_v2_ghex_F","O_T_LSV_02_armed_F","O_T_LSV_02_AT_F"];
 			_ACHPool=	["O_Heli_Attack_02_black_F","O_Heli_Attack_02_F"];
 			_CHPool=	["I_Heli_Transport_02_F","I_Heli_Transport_02_F","O_Heli_Light_02_F","O_Heli_Light_02_unarmed_F","O_Heli_Transport_04_covered_F"];
