@@ -109,7 +109,7 @@ BTC_l_release = {
 BTC_l_drag = {
 	private ["_drag","_veh"];
 	_array = nearestObjects [player, BTC_def_drag, 5];
-	if (count _array > 0) then {_drag = _array select 0;};
+	if (_array isNotEqualTo []) then {_drag = _array # 0;};
 	if (isNull _drag) exitWith {};
 	if (format ["%1", _drag getVariable "BTC_cannot_drag"] == "1") exitWith {hint "You can't drag this object!";};
 	if (_drag distance player > 4) exitWith {hint "Too distant from the object!";};
