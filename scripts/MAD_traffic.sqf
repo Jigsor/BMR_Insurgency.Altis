@@ -14,7 +14,7 @@ if (isNil "WBpos") then {WBpos = getPosATL trig_alarm1init};
 //Jig adding exclusion distance
 ExcDis = 600;
 private _lcWorldname = toLowerANSI (worldName);
-if (_lcWorldname in ["tem_anizay","clafghan","napf","napfwinter","kapaulio","wl_rosche","xcam_taunus","enoch"]) then {ExcDis = 750};
+if (_lcWorldname in ["tem_anizay","clafghan","napf","napfwinter","kapaulio","wl_rosche","xcam_taunus","enoch","vt7"]) then {ExcDis = 750};
 if (_lcWorldname isEqualTo "rhspkl") then {ExcDis = 1000};
 //Jig adding map size
 MTnlRad = getnumber (configfile >> "CfgWorlds" >> worldName >> "mapSize");
