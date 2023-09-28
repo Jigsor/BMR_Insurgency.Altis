@@ -4,7 +4,7 @@ private _hcEntities = entities "HeadlessClient_F";
 
 if (_player in _hcEntities) then {
 	waitUntil {!isNil "all_eos_mkrs"};
-	private "_INSmkrs";
+	private _INSmkrs = [];
 
 	if (!_didJIP && {(["INS_persistence", 0] call BIS_fnc_getParamValue) isEqualTo 1}) then {
 		_INSmkrs = profileNamespace getVariable ["BMR_INS_progress", []];
