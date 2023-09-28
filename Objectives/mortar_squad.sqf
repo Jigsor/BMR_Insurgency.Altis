@@ -24,30 +24,40 @@ _objmkr setMarkerColor "ColorRed";
 "ObjectiveMkr" setMarkerText "Mortar Squad";
 
 // Spawn Objective center object
-_sign = createVehicle [_type, _newZone, [], 0, "NONE"];//Vanilla
-sleep jig_tvt_globalsleep;
+_sign = createVehicle [_type, _newZone, [], 0, "NONE"];
+sleep 0.1;
 
-while {isOnRoad _signPos} do {
-	_signPos = _newZone findEmptyPosition [2, 30, _type];
+private _rad = 2;
+private _maxDis = 30;
+
+for "_i" from 0 to 200 do {	
+	if (_i > 160) then {
+		_rad = _rad + 0.5;
+		_maxDis = _maxDis + 0.5;
+	};	
+	if (isOnRoad _signPos) then {
+		_signPos = _newZone findEmptyPosition [_rad, _maxDis, _type];
+	};
+	if !(isOnRoad _signPos) exitWith {};
 	sleep 0.2;
 };
-
+if (_signPos isEqualTo []) then {_signPos = getPos objective_pos_logic};
+		
 _roads = _signPos nearRoads 20;
 
-if (count _roads > 0) then {
-	_roadNear = true;
-	_roadSegment = _roads select 0;
+if (_roads isNotEqualTo []) then {
+	_roadSegment = _roads # 0;
 	_roadDir = direction _roadSegment;
+	_sign setDir _roadDir - 90;
 };
 
-if (_roadNear) then {_sign setDir _roadDir - 90};
 _sign setVectorUp [0,0,1];
 
 // Spawn Objective enemy defences
 _grp = [_newZone,14] call spawn_Op4_grp; sleep 3;
 
 _handle=[_grp, position objective_pos_logic, 75] call BIS_fnc_taskPatrol;
-if (DebugEnabled > 0) then {[_grp] spawn INS_Tsk_GrpMkrs;};
+if (DebugEnabled isNotEqualTo 0) then {[_grp] spawn INS_Tsk_GrpMkrs};
 
 mortar_grp = createGroup INS_Op4_side;
 
@@ -79,9 +89,9 @@ if (isNil "_offset_pos2" || _offset_pos2 distance _newZone > 125) then {_offset_
 _offset_pos3 = [markerPos "ObjectiveMkr", 10, 125, 20, 0, 0.6, 0] call BIS_fnc_findSafePos;
 if (isNil "_offset_pos3" || _offset_pos3 distance _newZone > 125) then {_offset_pos3 = [markerPos "ObjectiveMkr", 2, 125, 5, 0, 0.6, 0] call BIS_fnc_findSafePos;};
 
-_static1 = createVehicle [_mortar_type, _offset_pos1, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
-_static2 = createVehicle [_mortar_type, _offset_pos2, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
-_static3 = createVehicle [_mortar_type, _offset_pos3, [], 0, "NONE"]; sleep jig_tvt_globalsleep;
+_static1 = createVehicle [_mortar_type, _offset_pos1, [], 0, "NONE"]; sleep 0.1;
+_static2 = createVehicle [_mortar_type, _offset_pos2, [], 0, "NONE"]; sleep 0.1;
+_static3 = createVehicle [_mortar_type, _offset_pos3, [], 0, "NONE"]; sleep 0.1;
 
 _static1 setDir 0;
 _static2 setDir 120;
@@ -91,12 +101,12 @@ _all_mortars = [_static1,_static2,_static3];
 
 {_x setVariable["persistent",true]} foreach _all_mortars;
 
-(units mortar_grp select 0) assignAsGunner _static1; sleep jig_tvt_globalsleep;
-(units mortar_grp select 1) assignAsGunner _static2; sleep jig_tvt_globalsleep;
-(units mortar_grp select 2) assignAsGunner _static3; sleep jig_tvt_globalsleep;
-(units mortar_grp select 0) moveInGunner _static1; sleep jig_tvt_globalsleep;
-(units mortar_grp select 1) moveInGunner _static2; sleep jig_tvt_globalsleep;
-(units mortar_grp select 2) moveInGunner _static3; sleep jig_tvt_globalsleep;
+(units mortar_grp select 0) assignAsGunner _static1; sleep 0.1;
+(units mortar_grp select 1) assignAsGunner _static2; sleep 0.1;
+(units mortar_grp select 2) assignAsGunner _static3; sleep 0.1;
+(units mortar_grp select 0) moveInGunner _static1; sleep 0.1;
+(units mortar_grp select 1) moveInGunner _static2; sleep 0.1;
+(units mortar_grp select 2) moveInGunner _static3; sleep 0.1;
 
 (units mortar_grp select 0) setVariable ["zbe_cacheDisabled",true];
 
@@ -121,19 +131,20 @@ _taskdescE = localize "STR_BMR_Tsk_topicE_dms";
 
 if (daytime > 3.00 && daytime < 5.00) then {0 spawn {[] remoteExec ['INS_fog_effect', [0,-2] select isDedicated]};};
 
+private _bluSide = INS_Blu_side;
 while {_run} do {
 	if ({alive _x} count units mortar_grp > 0) then	{
-		{_x setVehicleAmmo 1;} count _all_mortars;
+		{_x setVehicleAmmo 1;} forEach _all_mortars;
 
 		_manArray = (getposatl objective_pos_logic) nearentities ["CAManBase",_range];
 
 		{
-			if (!(side _x == INS_Blu_side)) then {
+			if (side _x isNotEqualTo _bluSide) then {
 				_manArray = _manArray - [_x];
 			};
-		} count _manArray;
+		} forEach _manArray;
 
-		if (count _manArray > 0) then {
+		if (_manArray isNotEqualTo []) then {
 			{
 				private ["_mtarget","_type"];
 				_type = selectRandom _shell_types;
