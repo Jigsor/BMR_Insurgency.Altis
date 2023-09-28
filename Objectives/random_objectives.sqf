@@ -6,6 +6,7 @@ waitUntil{!(isNil "BIS_fnc_init")};
 waitUntil {time > 60};
 
 if (missionNameSpace getVariable ["INStasksForced", false]) exitWith {};//Forcing Random Mission In Progress
+localNamespace setVariable ["BMR_tasksHandlerDone", false];
 
 if (SideMissionCancel) then {
 	SideMissionCancel = false;
@@ -120,3 +121,5 @@ switch (_objsel) do
 };
 
 missionNameSpace setVariable ["INStasksForced", false];
+localNamespace setVariable ["BMR_tasksHandlerDone", true];
+diag_log "random_objectives.sqf reached script end";
