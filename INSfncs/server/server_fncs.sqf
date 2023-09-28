@@ -26,7 +26,7 @@ BTC_m_fnc_only_server = {
 BTC_AIunit_init = {
 	// sets skill of a unit if ASR AI is not detected
 	params ["_unit"];
-	if (isClass(configFile >> "cfgPatches" >> "asr_ai_main")) exitWith {};
+	if (isClass(configFile >> "CfgPatches" >> "asr_ai_main")) exitWith {};
 	_unit setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 	_unit setSkill ["aimingShake", 0.6];
 	_unit setSkill ["aimingSpeed", 0.5];
@@ -42,7 +42,7 @@ BTC_AIunit_init = {
 BTC_AI_init = {
 	// sets skill of a group if ASR AI is not detected
 	params ["_group"];
-	if (isClass(configFile >> "cfgPatches" >> "asr_ai_main")) exitWith {};
+	if (isClass(configFile >> "CfgPatches" >> "asr_ai_main")) exitWith {};
 	{
 		_x setSkill ["aimingAccuracy", (BTC_AI_skill*0.1)];
 		_x setSkill ["aimingShake", 0.6];
@@ -87,7 +87,7 @@ paint_heli_fnc = {
 		switch (true) do {
 			case (_wN in ["altis","malden","stratis","sara","napfwinter","napf","tem_anizay"]): {_color = _darkGrey};
 			case (_wN in ["tanoa","pja312","rhspkl"]): {_color = _green2};
-			case (_wN in ["enoch","lingor3","pja305","xcam_taunus","bornholm","kapaulio","wl_rosche","hyde_sark","cup_chernarus_a3"]): {_color = _green1};
+			case (_wN in ["enoch","lingor3","pja305","xcam_taunus","bornholm","kapaulio","wl_rosche","hyde_sark","cup_chernarus_a3","vt7"]): {_color = _green1};
 			case (_wN in ["takistan","fallujah","dingor","zargabad","kunduz","pja310","mog","dya","fata","clafghan","lythium"]): {_color = _sandColor};
 			default {_color = []};
 		};
@@ -240,10 +240,7 @@ JIG_issue_reward = {
 };
 JIG_ammmoCache_damage = {
 	// Restrict damage to be taken only when satchel or charge used, delete cache box, add score to explosive setter, side chat who destroyed cache, add vehicle reward to cache destroyer. by Jigsor
-    _cache = _this # 0;
-    _damage = _this # 2;
-    _source = _this # 3;
-    _ammo = _this # 4;
+	params ["_cache","","_damage","_source","_ammo"];
     _out = 0;
 
     if ((_ammo == "SatchelCharge_Remote_Ammo") ||
@@ -390,7 +387,7 @@ editorAI_GasMask = {
 		if (side _x isEqualTo resistance) then {_x addGoggles "G_AirPurifyingRespirator_02_olive_F";};
 		if (side _x isEqualTo east) then {_x addGoggles "G_AirPurifyingRespirator_02_black_F";};
 		if (side _x isEqualTo west) then {
-			if (isClass(configFile >> "cfgPatches" >> "uns_main")) then {
+			if (isClass(configFile >> "CfgPatches" >> "uns_main")) then {
 				_x addGoggles "UNS_M17";
 			} else {
 				_x addGoggles "G_AirPurifyingRespirator_01_F";
@@ -752,9 +749,9 @@ remove_charge_fnc = {
 		if ((_type select 1) == "mine") then {
 			_all_mags = _all_mags - [_x];
 		};
-	} count _all_mags;
+	} forEach _all_mags;
 	clearMagazineCargoGlobal _crate;
-	{_crate addMagazineCargoGlobal [_x, 1];} count _all_mags;
+	{_crate addMagazineCargoGlobal [_x, 1];} forEach _all_mags;
 	//hint str (_all_mags);
 	true
 };
@@ -855,7 +852,7 @@ JIG_ActivateSnow = {
 };
 INSciviKilled_fnc = {
 	params [["_unit",objNull],["_killer",objNull]];
-	if (!(vehicleVarName _unit isEqualTo "sstBomber") && {!isNull _killer} && {isPlayer _killer}) then {
+	if (vehicleVarName _unit isNotEqualTo "sstBomber" && {!isNull _killer} && {isPlayer _killer}) then {
 		private _killerName = if (alive _killer) then {name _killer}else{"Unidentified"};
 		private _killed = name _unit;
 		private _penalty = -3500;
