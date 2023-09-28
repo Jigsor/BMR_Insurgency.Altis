@@ -23,7 +23,7 @@ DEBUG = false;
 
 // Handle parameters
 private "_grp";
-private _dst = 250;
+private _dst = 100;
 
 if (_this isEqualType grpNull) then { _grp = _this };
 if (_this isEqualType objNull) then { _grp = group _this };
@@ -41,10 +41,10 @@ _grp setFormation (selectRandom ["STAG COLUMN", "WEDGE", "ECH LEFT", "ECH RIGHT"
 private _cnt = 4 + (floor random 3) + (floor (_dst / 100)); // number of waypoints
 private _wps = [];
 private _slack = _dst / 5.5;
-if (_slack < 20) then {_slack = 20};
+if (_slack < 10) then {_slack = 10};
 
 // Find positions for waypoints
-private "_p";
+private _p = [];
 while {count _wps < _cnt} do {
 	if (surfaceiswater (getposWorld(leader _grp))) then {
 		_p = [_mkr,true] call SHK_pos;
@@ -62,7 +62,7 @@ for "_i" from 1 to (_cnt - 1) step 1 do {
 	_wp = _grp addWaypoint [_cur, 0];
 	_wp setWaypointType "MOVE";
 	_wp setWaypointCompletionRadius (5 + _slack);
-	[_grp,_i] setWaypointTimeout [0,2,16];
+	[_grp,_i] setWaypointTimeout [5,20,40];
 
 	// When completing waypoint have 33% chance to choose a random next wp
 	[_grp,_i] setWaypointStatements ["true", "if ((random 3) > 2) then { group this setCurrentWaypoint [(group this), (ceil (random (count (waypoints (group this)))))];};"];//Fixed: Groups would set current waypoint to grid [0,0,0]-Jig
@@ -79,7 +79,7 @@ for "_i" from 1 to (_cnt - 1) step 1 do {
 // Cycle in case we reach the end
 private _wp1 = _grp addWaypoint [(_wps select 1), 0];
 _wp1 setWaypointType "CYCLE";
-_wp1 setWaypointCompletionRadius 35;
+_wp1 setWaypointCompletionRadius 20;
 
 if (DEBUG) then {
     while {sleep 5; {alive _x} count (units _grp) > 0} do {
