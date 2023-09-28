@@ -47,7 +47,7 @@ while {true} do {
 	};
 
 	// Clear Blufor base markers of fallen bushes and trees
-	private "_trees";
+	private _trees = [];
 	{
 		_trees = nearestTerrainObjects [_x, ["TREE","SMALL TREE","BUSH"], 50, false];
 		if (_trees isNotEqualTo []) then {
