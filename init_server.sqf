@@ -43,12 +43,15 @@ if (INS_GasGrenadeMod isEqualTo 1) then {"ToxicGasLoc" addPublicVariableEventHan
 
 // Mission EventHandlers //
 addMissionEventHandler ["HandleDisconnect", {
-	params ["_unit"];
+	params ["_unit", "_id", "_uid", "_name"];
 	if !(isPlayer leader (group _unit)) then {
 		{deleteVehicle _x} forEach (units (group _unit) select {(_x isKindOf "Man")});
 	};
 	if (typeOf _unit isEqualTo "HeadlessClient_F") then {
-		{deleteVehicle _x} forEach (allUnits select {!(side _x isEqualTo west) && !(side _x isEqualTo civilian) && (_x isKindOf "Man")});
+		{deleteVehicle _x} forEach (allUnits select {(side _x isNotEqualTo west) && (side _x isNotEqualTo civilian) && (_x isKindOf "Man")});
+		diag_log format ["*****Headless Client %1 Disconnected", _name];
+		if (_name == "HC_1") then {HC_1Present = false; publicVariable "HC_1Present"};
+		if (_name == "HC_2") then {HC_2Present = false; publicVariable "HC_2Present"};
 	};
 	deleteVehicle _unit;
 }];
@@ -63,7 +66,7 @@ addMissionEventHandler ["HandleDisconnect", {
 		[MHQ_1] call BMRINS_fnc_customMHQ;
 		if (JIG_MHQ_enabled) then {
 			MHQ_1 addEventhandler ["Respawn","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [MHQ_1, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_1"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call BMRINS_fnc_customMHQ; INS_MHQ_killed = "MHQ_1"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			0 = [MHQ_1, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_1"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call BMRINS_fnc_customMHQ; INS_MHQ_killed = "MHQ_1"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 	if (!isNil "MHQ_2") then {
@@ -72,7 +75,7 @@ addMissionEventHandler ["HandleDisconnect", {
 		[MHQ_2] call BMRINS_fnc_customMHQ;
 		if (JIG_MHQ_enabled) then {
 			MHQ_2 addEventhandler ["Respawn","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [MHQ_2, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_2"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call BMRINS_fnc_customMHQ; INS_MHQ_killed = "MHQ_2"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			0 = [MHQ_2, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_2"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call BMRINS_fnc_customMHQ; INS_MHQ_killed = "MHQ_2"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 	if (!isNil "MHQ_3") then {
@@ -81,14 +84,14 @@ addMissionEventHandler ["HandleDisconnect", {
 		[MHQ_3] spawn BMR_resetDamage;
 		if (JIG_MHQ_enabled) then {
 			MHQ_3 addEventhandler ["killed","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [MHQ_3, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_3"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call paint_heli_fnc; [_this] call anti_collision; [_this] spawn BMR_resetDamage; INS_MHQ_killed = "MHQ_3"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			0 = [MHQ_3, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "MHQ_3"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; [_this] call paint_heli_fnc; [_this] call anti_collision; [_this] spawn BMR_resetDamage; INS_MHQ_killed = "MHQ_3"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 	if (!isNil "Opfor_MHQ") then {
 		Opfor_MHQ setVariable["persistent",true];
 		if (JIG_MHQ_enabled) then {
 			Opfor_MHQ addEventhandler ["Respawn","[(_this select 0)] call INS_MHQ_VarName"];
-			_nul = [Opfor_MHQ, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "Opfor_MHQ"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; INS_MHQ_killed = "Opfor_MHQ"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
+			0 = [Opfor_MHQ, 60, 0.01, {_this setVariable["persistent",true]; _VarName = "Opfor_MHQ"; _this setVehicleVarName _VarName; _this Call Compile Format ["%1=_this; publicVariable '%1'",_VarName]; INS_MHQ_killed = "Opfor_MHQ"; publicVariable "INS_MHQ_killed";}] execVM "vehrespawn.sqf";
 		};
 	};
 };
@@ -151,8 +154,8 @@ if (Airfield_opt) then
 		_dirfw1 = getDir INS_fw_1;
 		_fw1 = createVehicle ["B_Plane_CAS_01_dynamicLoadout_F", getPos INS_fw_1, [], 0, "NONE"];
 		_fw1 setDir _dirfw1;[_fw1] call anti_collision;
-		_nul = [_fw1, dynPylons1] call INS_replace_pylons;
-		_nul = [_fw1, 2, 1, {[_this] call anti_collision; [_this, dynPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";
+		0 = [_fw1, dynPylons1] call INS_replace_pylons;
+		0 = [_fw1, 2, 1, {[_this] call anti_collision; [_this, dynPylons1] call INS_replace_pylons}] execVM "vehrespawn.sqf";
 	};
 
 	switch (INS_op_faction) do {
@@ -250,10 +253,10 @@ if (Airfield_opt) then
 		_fw1 = createVehicle [_type, getPos INS_fw_1, [], 0, "NONE"];
 		_fw1 setDir _dirfw1;[_fw1] call anti_collision;
 		if (!isNil "INSdefLoadOutBlu") then {
-			_nul = [_fw1, INSdefLoadOutBlu] call INS_replace_pylons;
-			_nul = [_fw1, 2, 1, {[_this] call anti_collision; [_this, INSdefLoadOutBlu] call INS_replace_pylons}] execVM "vehrespawn.sqf";
+			0 = [_fw1, INSdefLoadOutBlu] call INS_replace_pylons;
+			0 = [_fw1, 2, 1, {[_this] call anti_collision; [_this, INSdefLoadOutBlu] call INS_replace_pylons}] execVM "vehrespawn.sqf";
 		} else {
-			_nul = [_fw1, 2, 1, {[_this] call anti_collision}] execVM "vehrespawn.sqf";
+			0 = [_fw1, 2, 1, {[_this] call anti_collision}] execVM "vehrespawn.sqf";
 		};
 	} else {
 		call _vanillaDefault;
@@ -261,15 +264,15 @@ if (Airfield_opt) then
 
 	//UAV service trigger
 	0 spawn {
-		if (!(markerColor "AircraftMaintenance" isEqualTo "") || (markerAlpha "AircraftMaintenance" isEqualTo 1)) then {
+		if ((markerColor "AircraftMaintenance" isNotEqualTo "") || (markerAlpha "AircraftMaintenance" isEqualTo 1)) then {
 			private ["_mPos","_actCond","_onActiv","_uavServiceTrig"];
 
 			_mPos=markerpos "AircraftMaintenance";
 			_actCond="{(typeOf _x) in INS_W_Serv_UAVs} count thisList > 0";
 			_onActiv="
 				_uavArr = thislist;
-				{if !(_x in INS_W_Serv_UAVs) then {_uavArr = _uavArr - [_x];};} count _uavArr;
-				{_x setDamage 0; _x setVehicleAmmo 1; _x setFuel 1;} count _uavArr;
+				{if !(_x in INS_W_Serv_UAVs) then {_uavArr = _uavArr - [_x];};} forEach _uavArr;
+				{_x setDamage 0; _x setVehicleAmmo 1; _x setFuel 1;} forEach _uavArr;
 			";
 
 			_uavServiceTrig = createTrigger ["EmptyDetector",_mPos];
@@ -292,15 +295,17 @@ missionNamespace setVariable ["op4CratesOrientation", _op4CrateComposition, true
 
 	if (DebugEnabled isEqualTo 1) then {
 		sleep 2;
-		tasks_handler = [] execVM "Objectives\random_objectives.sqf";
-		waitUntil { scriptDone tasks_handler };
+		localNamespace setVariable ["BMR_tasksHandlerDone", false];
+		execVM "Objectives\random_objectives.sqf";
+		waitUntil {localNamespace getVariable ["BMR_tasksHandlerDone", false]};
 		if (EnemyAmmoCache isEqualTo 1) then {execVM "scripts\ghst_PutinBuild.sqf"};
 		sleep 30;
 		execVM "Objectives\tasks_complete.sqf";
 	}else{
 		sleep 30;
-		tasks_handler = [] execVM "Objectives\random_objectives.sqf";
-		waitUntil { scriptDone tasks_handler };
+		localNamespace setVariable ["BMR_tasksHandlerDone", false];
+		execVM "Objectives\random_objectives.sqf";
+		waitUntil {localNamespace getVariable ["BMR_tasksHandlerDone", false]};
 		if (EnemyAmmoCache isEqualTo 1) then {execVM "scripts\ghst_PutinBuild.sqf"};
 		sleep 60;
 		execVM "Objectives\tasks_complete.sqf";
