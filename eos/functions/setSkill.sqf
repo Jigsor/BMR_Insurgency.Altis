@@ -33,8 +33,10 @@ _isNight = if (daytime > _dusk || daytime < _dawn) then {true} else {false};
 	};
 
 	if (_isNight) then {
-		_unit addPrimaryWeaponItem "acc_flashlight";
-		_unit enableGunLights "forceOn";//"AUTO"
+		if ((primaryWeapon _unit) canAdd "acc_flashlight") then {
+			_unit addPrimaryWeaponItem "acc_flashlight";
+			_unit enableGunLights "forceOn";//"AUTO"
+		};
 	}
 	else
 	{
