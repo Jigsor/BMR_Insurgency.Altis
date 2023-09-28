@@ -149,6 +149,12 @@ Required mods: @RHSPKL
 BMR_Insurgency_v1_50_Unsung.rhspkl
 Required mods: @RHSPKL;@Unsung
 
+BMR_Insurgency_v1_50.vt7
+Required mods: @CUP Terrains - Core;@Virolahti - Valtatie 7
+
+BMR_Insurgency_v1_50_PRACS.vt7
+Required mods: @CUP Terrains - Core;@Virolahti - Valtatie 7;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF;@Project RACS 2023
+
 BMR_Insurgency_Green.Hyde_Sark
 Required mods: @CBA_A3;@CUP_Terrains_Core;@IFA3_AIO_LITE;@Faces_of_War;@Iron_Front_ArmA_3_Faces_of_War_Compatibility_patch
 
@@ -203,8 +209,8 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 			Delivery_Box setpos getpos player;
 
 
-8/15/2022
-v1_51 alpha internal version No. 1.50930
+9/17/2023
+v1_51 alpha internal version No. 1.50942
 Change: worldName to worldName >> "description" in intro so Enoch will relect Livonia, N'Zwasago instead of pja310 etc.
 Change: more efficient native distance check on Push addaction on Ships.
 Change: all BIS_fnc_randomInt function calls replaced with more efficient command linearConversion.
@@ -225,11 +231,14 @@ Change: Rewriten Quick Loadout functions to remove BTC code dependancy, added la
 Change: EarPlug volume decreased.
 Change: ACE 3 now compatible with 1 life mode if ace medical addon not detected (ACE no medical).
 Change: Optimized cleanup to use fewer base classes rather than many specific canopy and ejection seat classes. //needs testing in all moded variants!
+Change: It no longer snows in the building the player is in thanks to new command insideBuilding.
 Added: Plank ramp to base of Power Tower objective object when is over shallow water to make compatible with RHSPKL terrain and increased elevation.
 Added: Recuited Ai will spawn on marker "INS_recruitSpawn" rather than main base Arsenal crate object INS_Wep_box if the marker exists.
+Added: New mission version BMR_Insurgency_vXXX.vt7
 Added: New mission version BMR_Insurgency_Green.Hyde_Sark
 Added: New mission version BMR_Insurgency_vXXX.cup_chernarus_A3
 Added: New mission versions RHSPKL Prei Khmaoch Luong vanilla and Unsung versions.
+Added: More grid zones to AltAltis version.
 Added: Mission's Zeus can hear all radio Coms.
 Added: Exclusion of HeliExtraction pilot/crew transfer to Zeus.
 Added: Exclusion of Suicide bomber for lambs danger mod.
@@ -248,6 +257,9 @@ Added: M2 50 caliber statics from A3 Old Man update.
 Added: Hilux from CUP Vehicles update.
 Added: addMissionEventHandler "OnUserKicked" rpt loging when Headless client detected.
 Added: ablility to exit Blufor Intro Cam sequence with enter, space, and escape keys.
+Added: functionality to disable draging and placement of base's vehicle repair composition objects.
+Added: "Add all objects to ZEUS" button in Admin menu.
+Added: T-100X Futura to CSAT and Spetsnaz factions.
 //Added: _unit disableAI "RADIOPROTOCOL"; to bon_recruit_units\init_newunit.sqf//redacted, bugs lock on missile warning sound?...old bug.
 Fixed: BTC quick revive. Player would respawn in the same place he died if Respawn button from main game menu was pressed.
 Fixed: JTAC CAS would not delete if stuck on mountain for ex.
@@ -270,6 +282,8 @@ Fixed: Local Vehicle Reward hint notice did not display.
 Fixed: FFAA Lythium vesion pylon error caused by FFAA updated Dec 25, 2021.
 Fixed: Intel could spawn on top of Cache.
 Fixed: Several depricated units + vehicle classnames and pylon settings since CUP v1.71 mod update.
+Fixed: Teleport to USS Freedom would not teleport player to correct height on some moded terrains.
+Fixed: Initial Ammo Cache and intel not created. Fixed related tasks complete task monitor script not executing.
 
 12/7/2019
 Update for v1_50
