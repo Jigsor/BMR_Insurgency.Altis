@@ -4,7 +4,7 @@
 // Mines can be detected by anyone with IED detector.
 
 if (!isServer) exitWith {};
-if !(isClass(configFile >> "cfgPatches" >> "uns_main")) exitWith {diag_log "!!!BMR Insurgency warning! Punji traps cannot be created. You are missing Unsung mod";};
+if !(isClass(configFile >> "CfgPatches" >> "uns_main")) exitWith {diag_log "!!!BMR Insurgency warning! Punji traps cannot be created. You are missing Unsung mod";};
 if (!canSuspend) exitWith {[] spawn BMRINS_fnc_JigPunjiTraps};
 waituntil {!isNil "all_eos_mkrs"};
 private _mkrs = + all_eos_mkrs;
