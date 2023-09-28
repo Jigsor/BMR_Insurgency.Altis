@@ -102,7 +102,7 @@ if (DebugEnabled > 0) then {
 	};
 
 	// Ace Arsenal Init
-	if (INS_ACE_core) then {[INS_Wep_box, true] call ace_arsenal_fnc_initBox};
+	if (INS_ACE_arsenal) then {[INS_Wep_box, true] call ace_arsenal_fnc_initBox};
 
 	// Virtual Arsenal
 	if (INS_VA_type in [0,3]) then {
@@ -482,7 +482,7 @@ if (DebugEnabled > 0) then {
 					if (!(isNull objectParent player) && {!(objectParent player isKindOf "ParachuteBase")} && {!(objectParent player isKindOf "StaticWeapon")}) then {
 						playMusic format ["RadioAmbient%1",floor (random 31)];
 					} else {
-						private _veh = ((position player) nearEntities [["Air","Landvehicle"], 10]) select 0;
+						private _veh = ((position player) nearEntities [["Air","Landvehicle"], 10]) # 0;
 						if !(isNil "_veh") then	{
 							private _sound = format ["A3\Sounds_F\sfx\radio\ambient_radio%1.wss",floor (random 31)];
 							playsound3d [_sound,_veh,true,getPosasl _veh,1,1,50];
@@ -568,4 +568,7 @@ if (DebugEnabled > 0) then {
 			sleep 60;
 		};
 	};
+
+	call BMRINS_fnc_noDragNplaceVehRep;
+
 };
