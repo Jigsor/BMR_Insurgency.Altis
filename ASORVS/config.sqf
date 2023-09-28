@@ -11,7 +11,7 @@ ASORVS_BackgroundLogo =   "A3\ui_f\data\Logos\arma3_expansion_ca.paa";
 ASORVS_BackgroundTile = "A3\ui_f\data\GUI\cfg\LoadingScreens\loadingnoise_ca.paa";
 
 //Items that should not be shown in any lists
-ASORVS_Blacklist = [];
+ASORVS_Blacklist = ["O_MBT_02_arty_F","O_T_MBT_02_arty_ghex_F"];
 //You can also add a blacklist per side AND/OR per faction. All blacklists that match player when ASORVS is opened will be included. Examples:
 //ASORVS_Blacklist_WEST = []; //hide items for all west units
 //ASORVS_Blacklist_BLU_F = []; //hide items for all NATO (class name BLU_F) units
