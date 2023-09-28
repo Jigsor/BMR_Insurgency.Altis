@@ -9,6 +9,7 @@ _menu = _menu + "
 	<br/>Ctrl+Y to open and close Zeus interface.
 	<br/><executeClose expression=""[player,true] spawn INS_Zeus_MP;"">	Assign or remove ZEUS with public notice</executeClose>
 	<br/><executeClose expression=""[player,false] spawn INS_Zeus_MP;"">	Assign or remove ZEUS privately</executeClose>
+	<br/><executeClose expression=""if (time > 1) then {_p = player; [_p] remoteExec ['BMRINS_fnc_zeusAddAllObjects', [0,-2] select isDedicated];};"">	Add all objects to ZEUS</executeClose>
 	<br/>
 	<br/><font size='18'>BRIGHTER NIGHTS</font>
 	<br/><executeClose expression=""0 spawn {waitUntil {!isNil 'INS_Brighter_Nights'}; [3] remoteExec ['INS_Brighter_Nights', [0,-2] select isDedicated];};"">	Activate Brighter Nights</executeClose>
