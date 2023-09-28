@@ -1,7 +1,9 @@
 //tasks_complete.sqf
 //Check if all zones captured then check if current task complete. If so, activate ending.
 
+diag_log "****tasks_complete.sqf qued";
 waitUntil {sleep 1; time > 90};
+diag_log "****tasks_complete.sqf started";
 
 private _allZonesCaptured = false;
 private _INS_tsks_finished = false;
