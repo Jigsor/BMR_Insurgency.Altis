@@ -2,26 +2,29 @@
  execVM "scripts\ghst_PutinBuild.sqf";
  V2.5.2 - By Ghost - coord snippet is from DiRaven
  fills a random building around a position with all objects listed. best to keep radius small so not many buidlings need to be calculated
- Modified by Jigsor 4/3/2022. Modified mostly beginning and ending. The core is by Ghost. Creates and places Ammo Cache.
+ Modified by Jigsor 7/30/2023. Modified mostly beginning and ending. The core is by Ghost. Creates and places Ammo Cache.
 */
 
 if (!isServer) exitWith{};
 sleep 2;
 
+diag_log "Ammo Cache script started";
+
 private _cache_loop = [] spawn
 {
-
-	#define debug false//set to true for diag_log
+	private _debug = false;//set to true for diag_log
 	private _all_caches_destroyed = false;
 	cache_destroyed = true;
 	private _uncaped_eos_mkrs = all_eos_mkrs;
-	private _all_cache_types = cache_types;
-	private _objtype = [_all_cache_types # 0, "uns_HiddenAmmoBox"] select (isClass(configFile >> "CfgVehicles" >> "uns_HiddenAmmoBox"));
-	private _ins_debug = if (DebugEnabled isEqualTo 1) then {TRUE}else{FALSE};
+	private _cacheType = cache_types # 0;
+	private _objtype = [_cacheType, "uns_HiddenAmmoBox"] select (isClass(configFile >> "CfgVehicles" >> "uns_HiddenAmmoBox"));
+	private _ins_debug = if (DebugEnabled isEqualTo 1 || _debug) then {true} else {false};
 
 	"cache_destroyed" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 	"intel_Build_objs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
 	"all_intel_mkrs" addPublicVariableEventHandler {call compile format ["%1",_this select 1]};
+
+	if (_ins_debug) then {diag_log "Ammo Cache script doing stuff"};
 
 	while {true} do
 	{
@@ -32,16 +35,16 @@ private _cache_loop = [] spawn
 		if (intel_Build_objs isNotEqualTo []) then {
 			{
 				if (!isNull _x) then {deleteVehicle _x; sleep 0.1};
-			} count intel_Build_objs;
+			} forEach intel_Build_objs;
 			intel_Build_objs = intel_Build_objs - intel_Build_objs;// empty array
 			sleep 1;
 		};
 		publicVariableServer "intel_Build_objs"; sleep 3;
 
-		{_x setMarkerAlpha 0; sleep 0.01} count all_intel_mkrs;
-		{deleteMarker _x; sleep 0.1} count all_intel_mkrs;
+		{_x setMarkerAlpha 0; sleep 0.01} forEach all_intel_mkrs;
+		{deleteMarker _x; sleep 0.1} forEach all_intel_mkrs;
 		private _spam = allmapmarkers select {markerType _x isEqualTo "hd_unknown";};
-		{deleteMarker _x} count _spam;
+		{deleteMarker _x} forEach _spam;
 		publicVariable "all_intel_mkrs";
 		sleep 3;
 
@@ -49,7 +52,10 @@ private _cache_loop = [] spawn
 		publicVariableServer "cache_destroyed";
 		sleep 3;
 
-		if (_ins_debug) then {titleText ["Creating Ammo Cache","PLAIN DOWN"]};
+		if (_ins_debug) then {
+			if (hasInterface) then {titleText ["Creating Ammo Cache","PLAIN DOWN"]};
+			diag_log "!!! BMR notice, Creating Ammo Cache";
+		};			
 
 		private ["_all_cache_pos","_ammocache","_rnum","_veh_name","_VarName","_params_PutinBuild","_position_mark","_new_city","_radarray","_unitarray","_markunitsarray","_markunits","_mcolor","_msize","_markunitspos","_haveguards","_minguards","_maxguards","_sideguards","_jigcoor","_jigxcoor","_jigycoor","_cache_coor","_menlist","_nearBuildings","_loop","_p","_n","_i","_markname","_mkr","_nul","_egrp","_trig1stat","_trig1act","_trg1","_mkr_position","_activated_cache","_alive_cache","_curr_mkr","_buildObj"];
 
@@ -71,6 +77,12 @@ private _cache_loop = [] spawn
 		_ammocache setVariable ["BTC_cannot_load",1,true];
 		_ammocache setVariable ["BTC_cannot_place",1,true];
 		if (INS_ACE_core) then {_ammocache setVariable ["ace_cookoff_enable", false, true]};
+		
+		//Needs to be remoteExecuted to players
+		//if (INS_ACE_drag) then {
+			//[_ammocache, false, [0,0,0], 0] call ace_dragging_fnc_setDraggable;
+			//[_ammocache, false, [0,0,0], 0] call ace_dragging_fnc_setCarryable;
+		//};
 
 		[_ammocache] call remove_charge_fnc;
 
@@ -110,7 +122,7 @@ private _cache_loop = [] spawn
 
 		_nearBuildings = [_jigxcoor,_jigycoor] nearObjects ["HouseBase", _rad];
 
-		if (debug) then {diag_log format ["Number of Buildings: %1, Number of units in array: %2, Radius Array: %3, Radius for buildings: %4, Position for Buildings: %5", count _nearBuildings, count _unitarray, _radarray, _rad, _position_mark];};
+		if (_ins_debug) then {diag_log format ["Number of Buildings: %1, Number of units in array: %2, Radius Array: %3, Radius for buildings: %4, Position for Buildings: %5", count _nearBuildings, count _unitarray, _radarray, _rad, _position_mark];};
 
 		//Put specified objects in Buildings With Guards
 		{
@@ -146,17 +158,17 @@ private _cache_loop = [] spawn
 					_loop = false;
 				};
 
-				if (debug) then {_p = _p + 1};
+				if (_ins_debug) then {_p = _p + 1};
 			};
 
 			//debug
-			if (debug) then {
+			if (_ins_debug) then {
 				diag_log format ["Ran Position Loop %1 Times", _p];
-				if (!isNil "_position") then {diag_log format ["BUILD POS ARRAY %1 BUILD POS SELECTED %2", _posArr, _position]};
+				if (!isNil "_position") then {diag_log format ["BUILD POS ARRAY %1 BUILD POS SELECTED for Ammo Cache %2", _posArr, _position]};
 			};
 
 			if (isNil "_position") then {
-				if (debug) then {diag_log format["FAILED TO PLACE OBJECT %1", _x];};
+				if (_ins_debug) then {diag_log format["FAILED TO PLACE OBJECT %1", _x];};
 
 				_pos = [_cache_coor,_radarray] call fnc_ghst_rand_position;
 
@@ -176,7 +188,7 @@ private _cache_loop = [] spawn
 					_x allowdamage true;
 				} else {
 
-					if (debug) then {diag_log format["PLACED OBJECT %1 POS %2", _x, _position];};
+					if (_ins_debug) then {diag_log format["PLACED OBJECT %1 POS %2", _x, _position];};
 					_x allowdamage false;
 					_x setPosATL [(_position # 0), (_position # 1), (_position # 2) + 0.5];
 					//_x setFormDir (random 360);
@@ -213,7 +225,7 @@ private _cache_loop = [] spawn
 			sleep 1;
 		} foreach _unitarray;
 
-		if (debug) then {diag_log "Objects put in buildings"};
+		if (_ins_debug) then {diag_log "Ammo Cache Object(s) put in buildings"};
 
 		if (!isNull _ammocache) then {
 			ghst_Build_objs pushBack _ammocache;
