@@ -207,10 +207,11 @@ Handy commands for logged in Administrators or local Hosts of BMR Insurgency thr
 		Note: Toggling Brighter Nights in new Brefing Admin Panel (requires admin login for access) may be required if Brighter Nights is enabled after changing time.
 	2. Perhaps objective delivery cargo has been misplaced.
 			Delivery_Box setpos getpos player;
+	3. Test AI Aiming Accuracy with debug console with BMRunitFinalAccuracy = cursortarget skillFinal "aimingAccuracy"; watch BMRunitFinalAccuracy
+			Server difficulty config settings should be adjusted for desired affect.
 
-
-9/17/2023
-v1_51 alpha internal version No. 1.50942
+11/05/2023
+v1_51 alpha internal version No. 1.50943
 Change: worldName to worldName >> "description" in intro so Enoch will relect Livonia, N'Zwasago instead of pja310 etc.
 Change: more efficient native distance check on Push addaction on Ships.
 Change: all BIS_fnc_randomInt function calls replaced with more efficient command linearConversion.
@@ -260,6 +261,8 @@ Added: ablility to exit Blufor Intro Cam sequence with enter, space, and escape 
 Added: functionality to disable draging and placement of base's vehicle repair composition objects.
 Added: "Add all objects to ZEUS" button in Admin menu.
 Added: T-100X Futura to CSAT and Spetsnaz factions.
+Added: RHS m112x4 demo charge to explosives wich can destroy Ammo Cache and objective towers.
+Added: PRACS 2023 mod support. 
 //Added: _unit disableAI "RADIOPROTOCOL"; to bon_recruit_units\init_newunit.sqf//redacted, bugs lock on missile warning sound?...old bug.
 Fixed: BTC quick revive. Player would respawn in the same place he died if Respawn button from main game menu was pressed.
 Fixed: JTAC CAS would not delete if stuck on mountain for ex.

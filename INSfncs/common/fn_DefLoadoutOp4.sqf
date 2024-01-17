@@ -695,6 +695,85 @@ case 23: {
 	_p setFace "AsianHead_A3_05_cfaces_lrrpcamo06";
 	_p setSpeaker "Male03CHI";
 };
+case 24: {
+//	PRACS 2023 1st Infantry Division
+
+	_p forceAddUniform "PRACS_M10_1ID_uniform";
+	_p addVest "PRACS_C_CIRAS_G3_medic";
+	_p addBackpack "rhs_medic_bag_filled";
+	_p addHeadgear "PRACS_LWH_6TDES";
+	//_p addGoggles "G_Tactical_Clear";
+
+	_p addItemToUniform "FirstAidKit";
+	_p addItemToUniform "PRACS_20rd_G3_mag";
+
+	for "_i" from 1 to 4 do {_p addItemToVest "PRACS_20rd_G3_mag";};
+	for "_i" from 1 to 2 do {_p addItemToVest "rhs_mag_m18_purple";};
+	for "_i" from 1 to 3 do {_p addItemToVest "rhs_mag_m67";};
+
+	_p addItemToBackpack "Medikit";
+	for "_i" from 1 to 2 do {_p addItemToBackpack "FirstAidKit";};
+
+	[_p,"PRACS_g3a3",1] call BIS_fnc_AddWeapon;
+	[_p,"PRACS_SAAWS",1] call BIS_fnc_AddWeapon;
+	_p addSecondaryWeaponItem "rhs_mag_maaws_HEAT";
+	[_p,"rhs_weap_savz61_folded",2] call BIS_fnc_AddWeapon;
+	//_p addWeapon "Binocular";
+	_p addWeapon "rhssaf_zrak_rd7j";
+
+	//items
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"];//"NVGoggles_INDEP"
+	_p setFace "GreekHead_A3_10_a";
+	_p setSpeaker "RHS_Male05CZ";
+	//[_p,"WhiteHead_22_l","male12eng"] call BIS_fnc_setIdentity;
+
+};
+
+case 25: {
+// PRACS 2023 Royal Sahrani Marines
+
+	_p forceAddUniform "PRACS_M10_Marine_Raider_uniform";
+	_p addVest "PRACS_C_CIRAS_G3_medic";
+	_p addBackpack "PRACS_FieldPack_medic";
+	_p addHeadgear "rhsusf_ach_bare_tan_headset_ess";
+	//_p addGoggles "G_Tactical_Clear";
+
+	_p addItemToUniform "FirstAidKit";
+	_p addItemToUniform "PRACS_40rd_HK33_M855A1_mag";
+	_p addItemToUniform "SmokeShellPurple";
+	_p addItemToUniform "rhsgref_20rnd_765x17_vz61";
+
+	_p addItemToVest "Medikit";
+	_p addItemToVest "SmokeShellPurple";
+	_p addItemToVest "rhsgref_20rnd_765x17_vz61";
+	for "_i" from 1 to 4 do {_p addItemToVest "FirstAidKit";};
+	for "_i" from 1 to 4 do {_p addItemToVest "PRACS_40rd_HK33_M855A1_mag";};
+	for "_i" from 1 to 2 do {_p addItemToVest "SmokeShell";};
+	for "_i" from 1 to 2 do {_p addItemToVest "Chemlight_green";};
+
+	_p addItemToBackpack "rhs_mag_maaws_HEAT";
+	_p addItemToBackpack "rhs_mine_m2a3b_trip_mag";
+	_p addItemToBackpack "rhs_mine_glasmine43_hz_mag";
+	_p addItemToBackpack "rhs_mine_a200_bz_mag";
+	_p addItemToBackpack "rhs_mine_Mk2_tripwire_mag";
+	for "_i" from 1 to 2 do {_p addItemToBackpack "rhs_grenade_mkii_mag";};
+
+	_p addWeapon "PRACS_HK53_ACO";//rifle
+	_p addPrimaryWeaponItem "optic_Aco";
+	_p addPrimaryWeaponItem "PRACS_40rd_HK33_M855A1_mag";
+	_p addWeapon "PRACS_SAAWS";//launcher
+	_p addSecondaryWeaponItem "rhs_mag_maaws_HEAT";
+	_p addWeapon "rhs_weap_savz61_folded";//handgun
+	_p addHandgunItem "rhsgref_20rnd_765x17_vz61";
+	_p addWeapon "rhssaf_zrak_rd7j";//binoculars
+
+	//items
+	{_p linkItem _x} forEach ["ItemMap","ItemCompass","ItemRadio","ItemGPS","ItemWatch","G_Tactical_Clear","NVGoggles"];//"NVGoggles_INDEP"
+
+	_p setFace "GreekHead_A3_10_a";
+	_p setSpeaker "RHS_Male05CZ";
+};
+
 default {};
 
 };//end switch

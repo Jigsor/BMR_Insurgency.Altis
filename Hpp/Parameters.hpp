@@ -96,7 +96,7 @@ class Params
 	class INS_op_faction//11
 	{
 	title = "		Opposing Army/Mod Initialization";
-	values[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
+	values[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
 	texts[]={
 	"CSAT - Requirements :: None",
 	"AAF - Requirements :: None",
@@ -120,7 +120,9 @@ class Params
 	"OPTRE Insurrectionists - Requirements :: @CBA_A3;@OPTRE",
 	"IFA3 Desert US Army - Requirements :: @CUP_Terrains_Core;@CUP_Terrains_Maps;@IFA3_AIO_LITE",
 	"UNSUNG VC - Requirements :: @Unsung",
-	"UNSUNG VC and PAVN- Requirements :: @Unsung"
+	"UNSUNG VC and PAVN - Requirements :: @Unsung",
+	"PRACS 1st Infantry Division - Requirements :: @Project RACS 2023;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF",
+	"PRACS Royal Sahrani Marines - Requirements :: @Project RACS 2023;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF"
 	};
 	default = 3;
 	};

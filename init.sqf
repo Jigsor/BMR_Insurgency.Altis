@@ -238,6 +238,22 @@ switch (INS_op_faction) do {
 			[EAST]execVM "eos\OpenMe.sqf";
 		}else{INS_mod_missing = true;};
 	};
+	case 24: {
+	//	@PRACS 2023 1st Infantry Division (@Project RACS 2023;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF)
+		_requiredAddons = ["rhs_c_troops","rhsusf_main","rhsgref_c_troops","rhssaf_main","PRACS_Troops","PRACS_Car","PRACS_Tracked"];
+		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
+			activateAddons ["rhs_c_troops","rhsusf_main","rhsgref_c_troops","rhssaf_main","PRACS_Troops","A3_Characters_F","PRACS_Car","PRACS_Tracked","PRACS_Tracked_2","PRACS_Car_2","PRACS_Static_2","PRACS_Static","PRACS_truck","PRACS_Sea","PRACS_Weapons_2","PRACS_A4","PRACS_C130","PRACS_Hawkeye","PRACS_F16","PRACS_Mirage","PRACS_Mohawk","PRACS_Heli","PRACS_P3C"];
+			[RESISTANCE]execVM "eos\OpenMe.sqf";
+		}else{INS_mod_missing = true;};
+	};
+	case 25: {
+	//	@PRACS 2023 Royal Sahrani Marines (@Project RACS 2023;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF)
+		_requiredAddons = ["rhs_c_troops","rhsusf_main","rhsgref_c_troops","rhssaf_main","PRACS_Troops","PRACS_Car","PRACS_Tracked"];
+		if ({isClass(configFile >> "cfgPatches" >> _x)} count _requiredAddons == count _requiredAddons) then {
+			activateAddons ["rhs_c_troops","rhsusf_main","rhsgref_c_troops","rhssaf_main","PRACS_Troops","A3_Characters_F","PRACS_Car","PRACS_Tracked","PRACS_Tracked_2","PRACS_Car_2","PRACS_Static_2","PRACS_Static","PRACS_truck","PRACS_Sea","PRACS_Weapons_2","PRACS_A4","PRACS_C130","PRACS_Hawkeye","PRACS_F16","PRACS_Mirage","PRACS_Mohawk","PRACS_Heli","PRACS_P3C"];
+			[RESISTANCE]execVM "eos\OpenMe.sqf";
+		}else{INS_mod_missing = true;};
+	};
 };
 if (isServer && {CivProbability isNotEqualTo 0}) then {[]execVM "eos_civ\OpenMeCiv.sqf"};// Civilians
 

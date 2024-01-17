@@ -244,6 +244,18 @@ if (Airfield_opt) then
 				INSdefLoadOutBlu = dynPylons10;
 			};
 		};
+		case 24: {
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
+				INSdefLoadOutBlu = dynPylons9;
+			};
+		};
+		case 25: {
+			if (isClass(configFile >> "CfgVehicles" >> "RHS_A10")) then {
+				_mod = true; _class = "RHS_A10";
+				INSdefLoadOutBlu = dynPylons9;
+			};
+		};
 		default {};
 	};
 

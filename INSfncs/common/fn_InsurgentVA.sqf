@@ -1102,6 +1102,7 @@ _availableBackpacks = [
 	"B_FieldPack_ghex_OTMedic_F",
 	"B_FieldPack_cbr_LAT",
 	"B_FieldPack_blk",
+	"B_FieldPack_khk",
 	"B_TacticalPack_ocamo",
 
 	//Contact
@@ -1117,8 +1118,16 @@ _availableBackpacks = [
 	"B_RadioBag_01_ghex_F",
 	"B_RadioBag_01_hex_F",
 	"B_RadioBag_01_oucamo_F",
-		//CUP
-		"CUP_B_AlicePack_Khaki"
+
+	//CUP
+	"CUP_B_AlicePack_Khaki",
+	//RHS
+	"rhssaf_kitbag_digital",
+	"rhs_assault_umbts",
+	"rhs_medic_bag_filled",
+	"rhs_assault_umbts_engineer_empty",
+	//PRACS
+	"PRACS_FieldPack_medic"
 ];
 
 _availableItems = [
@@ -1133,8 +1142,10 @@ _availableItems = [
 	"ItemMap",
 	"ItemWatch",
 	"ItemRadio",
+	//PRACS
+	"PRACS_tankers_multitool",
 
-	//Optics
+//Optics
 	"NVGoggles",
 	"NVGoggles_OPFOR",
 	"NVGoggles_INDEP",
@@ -1148,11 +1159,14 @@ _availableItems = [
 	"G_I_Diving",
 	"G_Lady_Blue",
 	"G_Tactical_Black",
-		//CUP
-		"CUP_LRTV",
-		"CUP_NVG_HMNVS",
 
-	//Uniforms
+	//CUP
+	"CUP_LRTV",
+	"CUP_NVG_HMNVS",
+	//RHS
+	"rhs_1PN138",
+
+//Uniforms
 	"U_I_OfficerUniform",
 	"U_O_officer_noInsignia_hex_F",
 	"U_O_PilotCoveralls",
@@ -1215,11 +1229,22 @@ _availableItems = [
 	"U_I_L_Uniform_01_tshirt_olive_F",
 	"U_I_CBRN_Suit_01_AAF_F",
 	"U_O_R_Gorka_01_camo_F",
-		//CUP
-		"CUP_U_O_TK_Green",
-		"CUP_U_O_RUS_EMR_2",
 
-	//Helmets
+	//RHS
+	"rhsgref_uniform_woodland",
+	"rhsgref_uniform_ttsko_mountain",
+	"rhs_uniform_vdv_emr_des",
+	"rhs_uniform_flora",
+	//CUP
+	"CUP_U_O_TK_Green",
+	"CUP_U_O_RUS_EMR_2",
+	//PRACS
+	"PRACS_M10_1ID_uniform",
+	"PRACS_M10_Marine_Raider_uniform",
+	//Project Opfor
+	"LOP_U_ISTS_Fatigue_01",
+
+//Helmets
 	"H_HelmetIA",
 	"H_HelmetIA_net",
 	"H_HelmetIA_camo",
@@ -1260,10 +1285,24 @@ _availableItems = [
 	"H_HelmetAggressor_F",
 	"H_HelmetAggressor_Cover_F",
 	"H_HelmetAggressor_cover_taiga_F",
-		//CUP
-		"CUP_H_TK_Helmet",
 
-	//HeadGear
+	//CUP
+	"CUP_H_TK_Helmet",
+
+	//RHS
+	"rhs_6b27m",
+	"rhsgref_6b27m_ttsko_mountain",
+	"rhssaf_helmet_m97_olive_nocamo",
+	"rhssaf_helmet_m97_md2camo",
+	"rhsusf_ach_bare_tan_headset_ess",
+
+	//PRACS
+	"PRACS_LWH_6TDES",
+	"PRACS_LWH_ESS_6TDES",
+	"PRACS_ACH_RFP_F_camo",
+	"PRACS_ACH_ASDPM_camo",
+
+//HeadGear
 	"H_Shemag_khk",
 	"H_Shemag_tan",
 	"H_Shemag_olive",
@@ -1275,11 +1314,17 @@ _availableItems = [
 	"G_Balaclava_oli",
 	"G_Balaclava_blk",
 	"G_Bandanna_tan",
-		//CUP
-		"CUP_TK_NeckScarf",
-		"CUP_H_RUS_6B46",
 
-	//Vests
+	//RHS
+
+	//CUP
+	"CUP_TK_NeckScarf",
+	"CUP_H_RUS_6B46",
+
+	//Project Opfor
+	"LOP_H_Shemag_BLK",
+
+//Vests
 	"V_BandollierB_cbr",
 	"V_TacChestrig_cbr_F",
 	"V_TacVest_oli",
@@ -1295,11 +1340,30 @@ _availableItems = [
 	"V_CarrierRigKBT_01_light_EAF_F",
 	"V_CarrierRigKBT_01_EAF_F",
 	"V_SmershVest_01_F",
-		//CUP
-		"CUP_V_O_TK_Vest_1",
-		"CUP_V_RUS_6B45_2",
+	//CUP
+	"CUP_V_O_TK_Vest_1",
+	"CUP_V_RUS_6B45_2",
+	"CUP_V_O_TK_Vest_1",
+	//RHS
+	"rhs_6b23_rifleman",
+	"rhssaf_vest_md98_digital",
+	"rhsgref_6b23_khaki_rifleman",
+	//PRACS
+	"PRACS_C_CIRAS_G3_medic",
+	//OPTRE
+	"OPTRE_Ins_URF_Armor1",
+	//AfricanConflict_mas
+	"V_mas_afr_ME_armor",
+	//Masi Middle Eastern Wafare Takistan Army
+	"V_mas_med_Sovest_she",
+	//Masi Middle Eastern Wafare CSAT Army
+	"V_mas_med_ME_armor_she",
+	//ISC/RHS
+	"V_TacVest_camo",
+	//ProjectOpfor/RHS
+	"LOP_6sh46",
 
-	//Weapon Accessories
+//Weapon Accessories
 	"muzzle_snds_H",
 	"muzzle_snds_L",
 	"muzzle_snds_B",
@@ -1344,10 +1408,25 @@ _availableItems = [
 	"optic_ico_01_black_f",
 	"optic_ico_01_camo_f",
 	"optic_ico_01_sand_f",
-		//CUP
-		"CUP_muzzle_PBS4",
-		"CUP_optic_Kobra",
-		"CUP_optic_ekp_8_02"
+	//CUP
+	"CUP_muzzle_PBS4",
+	"CUP_optic_Kobra",
+	"CUP_optic_ekp_8_02",
+	//RHS
+	"rhs_acc_dtk",
+	"rhs_acc_pkas",
+	"rhsusf_acc_compm4",
+	"rhsusf_acc_T1_low",
+	"rhsusf_acc_su230",
+	"rhsusf_acc_mrds",
+	"rhsusf_acc_RM05",
+	"rhsusf_acc_eotech_552",
+	"rhsusf_acc_nt4_black",
+	"rhs_acc_okp7_picatinny",
+	"rhs_acc_1p87",
+	"rhs_acc_pbs1",
+	//PRACS
+	"PRACS_AAC_Supressor"
 ];
 
 _availableMagazines = [
@@ -1371,10 +1450,17 @@ _availableMagazines = [
 	"HandGrenade",
 	"O_IR_Grenade",
 	"I_IR_Grenade",
-		//CUP
-		"CUP_HandGrenade_RGD5",
+	//CUP
+	"CUP_HandGrenade_RGD5",
+	//RHS
+	"rhs_mag_m67",
+	"rhs_grenade_mkii_mag",
+	"rhs_mag_plamyam",
+	"rhs_mag_rgd5",
+	"rhs_GRD40_White",
+	"rhs_mag_m18_purple",
 
-	//UGL
+//UGL
 	"1Rnd_HE_Grenade_shell",
 	"1Rnd_Smoke_Grenade_shell",
 	"1Rnd_SmokeGreen_Grenade_shell",
@@ -1387,17 +1473,31 @@ _availableMagazines = [
 	"UGL_FlareRed_F",
 	"UGL_FlareGreen_F",
 
-	//Launcher ammo
+//Launcher ammo
 	"Titan_AA",
 	//"Titan_AT",
 	//"Titan_AP",
 	"RPG32_HE_F",
 	"RPG32_F",
 	"RPG7_F",
-		//CUP
-		"CBA_FakeLauncherMagazine",
+	//CUP
+	"CBA_FakeLauncherMagazine",
+	//RHS
+	"rhs_mag_maaws_HEAT",
+	"rhs_mag_9k38_rocket",
+	"rhs_rpg18_mag",
+	"rhs_rpg26_mag",
+	"rhs_rpg7_PG7VL_mag",
+	"rhs_rpg7_PG7V_mag",
+	"rhs_rpg7_PG7VM_mag",
+	"rhs_rpg7_PG7VS_mag",
+	"rhs_rpg7_PG7VR_mag",
+	"rhs_rpg7_OG7V_mag",
+	"rhs_rpg7_TBG7V_mag",
+	"rhs_rpg7_type69_airburst_mag",
+	"rhs_rshg2_mag",
 
-	//Rifle/Handgun ammo
+//Rifle/Handgun ammo
 	"6Rnd_45ACP_Cylinder",
 	"9Rnd_45ACP_Mag",
 	"11Rnd_45ACP_Mag",
@@ -1418,15 +1518,58 @@ _availableMagazines = [
 	"200Rnd_65x39_cased_Box",
 	"200Rnd_65x39_cased_Box_Tracer",
 	"50Rnd_570x28_SMG_03",//ADR
-		//CUP
-		"CUP_30Rnd_545x39_AK_M",
-		"CUP_30Rnd_545x39_AK74M_M",
-		"CUP_30Rnd_TE1_Yellow_Tracer_545x39_AK_M",
-		"CUP_45Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M",
-		"CUP_1Rnd_HE_GP25_M",
-		"CUP_1Rnd_SmokeRed_GP25_M",
+	//CUP
+	"CUP_30Rnd_545x39_AK_M",
+	"CUP_30Rnd_545x39_AK74M_M",
+	"CUP_30Rnd_TE1_Yellow_Tracer_545x39_AK_M",
+	"CUP_45Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M",
+	"CUP_1Rnd_HE_GP25_M",
+	"CUP_1Rnd_SmokeRed_GP25_M",
+	//RHS
+	"rhsgref_20rnd_765x17_vz61",
+	"rhs_30Rnd_545x39_7N10_AK",
+	"rhs_mag_9x19mm_7n21_20",
+	"rhs_VOG25",
+	"rhs_VOG25P",
+	"rhs_mag_M441_HE",
+	"rhs_mag_M433_HEDP",
+	"rhs_mag_M397_HET",
+	"rhs_mag_m4009",
+	"rhs_mag_m576",
+	"rhs_mag_m661_green",
+	"rhs_mag_M441_HE",
+	"rhs_45Rnd_545X39_7N6M_AK",
+	"rhs_30Rnd_545x39_7N22_AK",
+	"rhs_30Rnd_545x39_7U1_AK",
+	"rhs_30Rnd_545x39_AK_plum_green",
+	"rhs_45Rnd_545X39_7N10_AK",
+	"rhs_30Rnd_545x39_7N10_2mag_AK",
+	"rhs_30Rnd_762x39mm_polymer",
+	"rhsgref_30rnd_556x45_m21",
+	"rhs_30Rnd_762x39mm_U",
+	//PRACS
+	"PRACS_40rd_HK33_M855A1_mag",
+	"PRACS_20rd_G3_mag",
+	"PRACS_20rd_G3_T_mag",
+	"PRACS_50rd_G3_T_mag",
+	"PRACS_50rd_G3_AP_mag",
+	"PRACS_30rd_HK33_mag",
+	"PRACS_30rd_HK33_M855A1_mag",
+	"PRACS_40rd_HK33_mag",
+	"PRACS_40rd_HK33_M855A1_mag",
+	"PRACS_35rd_Galil_mag",
+	"PRACS_35rd_Galil_M855A1_mag",
+	"PRACS_35rd_Galil_M995_mag",
+	"PRACS_35rd_Galil_Mk262_mag",
+	"PRACS_70rd_Galil_mag",
+	"PRACS_70rd_Galil_M855A1_mag",
+	"PRACS_35rd_9mm_UZI",
+	"PRACS_30rd_9mm_UZI",
+	"PRACS_30Rnd_762x39_Rk_7N6_mag",
+	"PRACS_30Rnd_762x39_Rk_PS_mag",
+	"PRACS_30Rnd_762x39_Rk_T_mag",
 
-	//Put
+//Put
 	"APERSBoundingMine_Range_Mag",
 	"APERSMine_Range_Mag",
 	"APERSTripMine_Wire_Mag",
@@ -1435,10 +1578,18 @@ _availableMagazines = [
 	"DemoCharge_Remote_Mag",
 	"SLAMDirectionalMine_Wire_Mag",
 	"SatchelCharge_Remote_Mag",
-		//CUP
-		"IEDLandSmall_Remote_Mag",
+	//CUP
+	"IEDLandSmall_Remote_Mag",
+	//RHS
+	"rhs_mine_m2a3b_trip_mag",
+	"rhs_mine_glasmine43_hz_mag",
+	"rhs_mine_glasmine43_bz_mag",
+	"rhs_mine_a200_bz_mag",
+	"rhs_mine_Mk2_tripwire_mag",
+	"rhsusf_m112_mag",
+	"rhsusf_m112x4_mag",
 
-	//Contact Mixed
+//Contact Mixed
 	"3Rnd_HE_Grenade_shell",
 	"UGL_FlareWhite_F",
 	"30Rnd_45ACP_Mag_SMG_01",
@@ -1481,6 +1632,9 @@ _availableWeapons = [
 	"Laserdesignator",
 	"Laserdesignator_02",
 	"Laserdesignator_02_ghex_F",
+	//RHS
+	"rhs_acc_1p29",
+	"rhssaf_zrak_rd7j",
 
 	//Rifles
 	"arifle_TRG21_F",
@@ -1528,6 +1682,15 @@ _availableWeapons = [
 	"launch_RPG32_F",
 	"launch_RPG7_F",
 	"launch_RPG32_green_F",
+	//CUP
+	"CUP_launch_RPG18",
+	//RHS
+	"rhs_weap_igla",
+	"rhs_weap_rpg18",
+	"rhs_weap_rpg26",
+	"rhs_weap_rshg2",
+	//PRACS
+	"PRACS_SAAWS",
 
 	//SideArms
 	"hgun_ACPC2_F",
@@ -1535,6 +1698,8 @@ _availableWeapons = [
 	"hgun_Pistol_heavy_02_F",
 	"hgun_Pistol_heavy_01_green_F",//Contact
 	"hgun_Pistol_01_F",
+	//RHS
+	"rhs_weap_savz61_folded",
 
 	//Contact Mixed
 	"sgun_HunterShotgun_01_F",//shotgun
@@ -1567,11 +1732,25 @@ _availableWeapons = [
 	"arifle_MSBS65_UBS_camo_F",
 	"arifle_MSBS65_ico_pointer_f",
 
-		//CUP
-		"CUP_arifle_AK107_GL",
-		"CUP_lmg_Pecheneg_PScope",
-		"CUP_hgun_MicroUzi",
-		"CUP_launch_RPG18"
+	//CUP
+	"CUP_arifle_AK107_GL",
+	"CUP_lmg_Pecheneg_PScope",
+	"CUP_hgun_MicroUzi",
+	//RHS
+	"rhs_weap_ak74m_gp25",
+	"rhs_weap_rpk74m_npz",
+	"rhs_weap_ak103_2_npz",
+	"rhs_weap_m21s_pr",
+	//PRACS
+	"PRACS_g3a3",
+	"PRACS_g3a3t40",
+	"PRACS_CETME",
+	"PRACS_HK53",
+	"PRACS_HK53_ACO",
+	"PRACS_HK33",
+	"PRACS_galil_SAR",
+	"PRACS_35rd_9mm_UZI",
+	"PRACS_rk62"
 ];
 
 [_availableBackpacks,_availableItems,_availableMagazines,_availableWeapons]

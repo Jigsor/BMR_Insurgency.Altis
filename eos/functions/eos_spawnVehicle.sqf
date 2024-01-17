@@ -8,7 +8,7 @@ _vehicleParams=[_faction,_type] call eos_fnc_getunitpool;
 _vehicleParams params ["_vehType","_unitType"];
 
 _special=if (count _this > 4) then {_this # 4} else {"CAN_COLLIDE"};
-_vehRoles=[_vehType] call BIS_fnc_vehicleRoles;
+_vehRoles=_vehType call BIS_fnc_vehicleRoles;
 _vehRoleCount=count _vehRoles;
 
 if (_vehRoleCount > 8) then {
@@ -27,7 +27,7 @@ _grp = createGroup _side;
 
 {
 	_currentPosition=_x;
-	if (_currentPosition # 0 == "driver")then {
+	if (_currentPosition # 0 == "Driver")then {
 		_unit=_grp createUnit [_unitType, _position, [], 0, "CAN_COLLIDE"];
 		if (side _unit isNotEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};
 		_unit assignAsDriver _vehicle;
@@ -35,7 +35,7 @@ _grp = createGroup _side;
 		_vehCrew pushBack _unit;
 	};
 
-	if (_currentPosition # 0 == "turret")then {
+	if (_currentPosition # 0 == "Turret")then {
 		_unit=_grp createUnit [_unitType, _position, [], 0, "CAN_COLLIDE"];
 		if (side _unit isNotEqualTo INS_Op4_side) then {[_unit] joinSilent _grp};
 		_unit assignAsGunner _vehicle;

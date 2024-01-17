@@ -364,6 +364,46 @@ if (_opposingArmies in [22,23]) then {
 	INS_CAS = "uns_A1J_HCAS";
 };
 
+// PRACS 2023 - 1st Infantry Division
+if (_opposingArmies isEqualTo 24) then {
+	INS_Op4_side = RESISTANCE;
+	INS_men_list = 	["PRACS_Infantry_CO_A","PRACS_Infantry_ENG","PRACS_Infantry_GRE","PRACS_Infantry_AA","PRACS_Infantry_RKT","PRACS_Infantry","PRACS_Infantry_AT","PRACS_Infantry_LAT","PRACS_Infantry_MG","PRACS_Infantry_M","PRACS_Infantry_Medic","PRACS_Vehicle_Medic","PRACS_Infantry_MMG","PRACS_Infantry_O","PRACS_Infantry_PSG","PRACS_Infantry_RTO","PRACS_Infantry_Scout","PRACS_Infantry_SHTR","PRACS_Infantry_SL","PRACS_Infantry_TL"];
+	INS_Op4_medic = "PRACS_Infantry_Medic";
+	INS_Op4_Eng = "PRACS_Infantry_ENG";
+	INS_Op4_pilot = ["PRACS_A4_Navy_pilot","PRACS_F16_pilot"];
+	INS_Op4_Veh_Light = ["PRACS_BMR_ATGM","PRACS_BMR_M2","PRACS_BMR_ATGM_TOW","PRACS_BMR_A3_GA1","PRACS_BMR_A3_M2","PRACS_BMR_A3_M3_SFOD","PRACS_BMR_A3_Mk19","PRACS_M1117","PRACS_VEC_M242","PRACS_VEC_MGS"];
+	INS_Op4_Veh_Tracked = ["PRACS_M1A1_AIM","PRACS_FV107","PRACS_FV101","PRACS_Pizarro"];
+	INS_Op4_Veh_Support = ["PRACS_M250","PRACS_M250_Ammo","PRACS_M250_AMB","PRACS_M250_flat_bed","PRACS_M250_fuel","PRACS_M250_Repair","PRACS_M250_Salvage","PRACS_M250_Supply","PRACS_M450","PRACS_HEMMTT_Fueler"];
+	INS_Op4_Veh_AA = ["PRACS_M163_MACHBET","PRACS_M727_IHAWK","PRACS_M727_SEM_IHAWK","PRACS_m48_chapparal"];
+	INS_Op4_stat_weps = ["PRACS_QSB_m2_static","PRACS_QSB_m2_static_minitripod","PRACS_QSB_mk19_static","PRACS_MiM23_HAWK","PRACS_M1","PRACS_M101","PRACS_M102","PRACS_M114","PRACS_M115","PRACS_M198","PRACS_Royal_Marine_Stinger_Pod","PRACS_Royal_Marine_m2_static","PRACS_Royal_Marine_m2_static_minitripod","PRACS_Royal_Marine_M220","PRACS_Royal_Marine_M252","PRACS_Royal_Marine_mk19_static"];
+	INS_Op4_fixedWing = ["PRACS_F16CJ","PRACS_F16CJR","PRACS_F16","PRACS_MirageIII","PRACS_MirageV","PRACS_A4M"];
+	INS_Op4_helis = ["PRACS_Sa330_Puma_SOCAT_RSAF","rhs_mi28n_vvsc"];
+	INS_civ_Veh_Car = ["PRACS_SUV","C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F","C_SUV_01_F"];
+	INS_civ_Veh_Utl = ["RHS_Ural_Civ_02","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_01","RHS_Civ_Truck_02_covered_F","RHS_Civ_Truck_02_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];
+	INS_civlist = ["C_man_p_beggar_F","C_man_1","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_hunter_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F"];// A3 Civilians
+	INS_CAS = "RHS_A10";
+};
+
+// PRACS 2023 - Royal Sahrani Marines
+if (_opposingArmies isEqualTo 25) then {
+	INS_Op4_side = RESISTANCE;
+	INS_men_list = 	["PRACS_Royal_Marine","PRACS_Royal_Marine_AA","PRACS_Royal_Marine_ARM","PRACS_Royal_Marine_ENG","PRACS_Royal_Marine_GRE","PRACS_Royal_Marine_AT","PRACS_Royal_Marine_LAT","PRACS_Royal_Marine_MG","PRACS_Royal_Marine_M","PRACS_Royal_Marine_Medic","PRACS_Royal_Marine_O","PRACS_Royal_Marine_PSG","PRACS_Royal_Marine_Raider","PRACS_Royal_Marine_Raider_ARM","PRACS_Royal_Marine_Raider_ENG","PRACS_Royal_Marine_Raider_M","PRACS_Royal_Marine_Raider_Medic","PRACS_Royal_Marine_Raider_RKT","PRACS_Royal_Marine_Raider_SL","PRACS_Royal_Marine_RRM","PRACS_Royal_Marine_Recon","PRACS_Royal_Marine_RKT","PRACS_Royal_Marine_RTO","PRACS_Royal_Marine_SHTR","PRACS_Royal_Marine_SL","PRACS_Royal_Marine_TL"];
+	INS_Op4_medic = "PRACS_Royal_Marine_Medic";
+	INS_Op4_Eng = "PRACS_Royal_Marine_ENG";
+	INS_Op4_pilot = ["PRACS_A4_Navy_pilot","PRACS_F16_pilot"];
+	INS_Op4_Veh_Light = ["PRACS_BMR_ATGM","PRACS_BMR_M2","PRACS_BMR_ATGM_TOW","PRACS_BMR_A3_GA1","PRACS_BMR_A3_M2","PRACS_BMR_A3_M3_SFOD","PRACS_BMR_A3_Mk19","PRACS_M1117","PRACS_VEC_M242","PRACS_VEC_MGS"];
+	INS_Op4_Veh_Tracked = ["PRACS_M1A1_AIM","PRACS_FV107","PRACS_FV101","PRACS_Pizarro"];
+	INS_Op4_Veh_Support = ["PRACS_M250","PRACS_M250_Ammo","PRACS_M250_AMB","PRACS_M250_flat_bed","PRACS_M250_fuel","PRACS_M250_Repair","PRACS_M250_Salvage","PRACS_M250_Supply","PRACS_M450","PRACS_HEMMTT_Fueler"];
+	INS_Op4_Veh_AA = ["PRACS_M163_MACHBET","PRACS_M727_IHAWK","PRACS_M727_SEM_IHAWK","PRACS_m48_chapparal"];
+	INS_Op4_stat_weps = ["PRACS_QSB_m2_static","PRACS_QSB_m2_static_minitripod","PRACS_QSB_mk19_static","PRACS_MiM23_HAWK","PRACS_M1","PRACS_M101","PRACS_M102","PRACS_M114","PRACS_M115","PRACS_M198","PRACS_Royal_Marine_Stinger_Pod","PRACS_Royal_Marine_m2_static","PRACS_Royal_Marine_m2_static_minitripod","PRACS_Royal_Marine_M220","PRACS_Royal_Marine_M252","PRACS_Royal_Marine_mk19_static"];
+	INS_Op4_fixedWing = ["PRACS_F16","PRACS_F16CJR","PRACS_Mohawk_Navy","PRACS_A4M_Navy","PRACS_A4M_Marine"];
+	INS_Op4_helis = ["PRACS_Sa330_Puma_SOCAT_NAVY","PRACS_Sa330_Puma_AS","PRACS_Sa330_Puma_SOCAT_Marine"];
+	INS_civ_Veh_Car = ["PRACS_SUV","C_Hatchback_01_F","C_Offroad_01_F","C_Quadbike_01_F","C_SUV_01_F"];
+	INS_civ_Veh_Utl = ["RHS_Ural_Civ_02","RHS_Ural_Civ_03","RHS_Ural_Open_Civ_01","RHS_Civ_Truck_02_covered_F","RHS_Civ_Truck_02_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_fuel_F"];
+	INS_civlist = ["C_man_p_beggar_F","C_man_1","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F","C_man_shorts_1_F","C_man_1_1_F","C_man_1_2_F","C_man_1_3_F","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_hunter_1_F","C_man_shorts_2_F","C_man_shorts_3_F","C_man_shorts_4_F"];// A3 Civilians
+	INS_CAS = "RHS_A10";
+};
+
 if (!isServer && hasInterface) exitWith {};
 
 private _gridMarkerUnitPools = {
@@ -834,8 +874,36 @@ private _gridMarkerUnitPools = {
 			_heliCrew=	["uns_nvaf_pilot5"];
 			_issueNVG= false;
 		};
+		case 33: {// PRACS 2023 - 1st Infantry Division (RESISTANCE)
+			_InfPool=	["PRACS_Infantry_CO_A","PRACS_Infantry_ENG","PRACS_Infantry_GRE","PRACS_Infantry_AA","PRACS_Infantry_RKT","PRACS_Infantry","PRACS_Infantry_AT","PRACS_Infantry_LAT","PRACS_Infantry_MG","PRACS_Infantry_M","PRACS_Infantry_Medic","PRACS_Vehicle_Medic","PRACS_Infantry_MMG","PRACS_Infantry_O","PRACS_Infantry_PSG","PRACS_Infantry_RTO","PRACS_Infantry_Scout","PRACS_Infantry_SHTR","PRACS_Infantry_SL","PRACS_Infantry_TL"];
+			_ArmPool=	["PRACS_M113_M240","PRACS_M113_M2","PRACS_M113_mk19","PRACS_Pizarro","PRACS_M163_MACHBET","PRACS_M163_PIVADS","PRACS_M163_VADS","PRACS_FV101","PRACS_FV107","PRACS_M1A1_AIM","PRACS_M60S","PRACS_M727_IHAWK","PRACS_M727_SEM_IHAWK","PRACS_m48_chapparal"];
+			_MotPool=	["PRACS_BMR_M2","PRACS_BMR_ATGM_TOW","PRACS_BMR_A3_GA1","PRACS_BMR_A3_M2","PRACS_BMR_A3_M3_SFOD","PRACS_BMR_A3_Mk19","PRACS_M1025_M2","PRACS_M1025_M2_Marine","PRACS_M1025_Mk19","PRACS_M1151_M240","PRACS_M1151_M2","PRACS_M1151_Mk19","PRACS_M1165_M134_QSB","PRACS_M1165_M2","PRACS_M1165_Mk19","PRACS_M966_TOW","PRACS_M966_TOW_Marine","PRACS_M1117","PRACS_VEC_M242","PRACS_VEC_MGS","PRACS_BMR_ATGM"];
+			_ACHPool=	["PRACS_Sa330_Puma_SOCAT_RSAF"];
+			_CHPool=	["PRACS_Sa330_RSAF"];
+			_uavPool=	[];
+			//_stPool=	["PRACS_QSB_m2_static","PRACS_QSB_m2_static_minitripod","PRACS_QSB_mk19_static","PRACS_MiM23_HAWK","PRACS_M1","PRACS_M101","PRACS_M102","PRACS_M114","PRACS_M115","PRACS_M198","PRACS_Royal_Marine_Stinger_Pod","PRACS_Royal_Marine_m2_static","PRACS_Royal_Marine_m2_static_minitripod","PRACS_Royal_Marine_M220","PRACS_Royal_Marine_M252","PRACS_Royal_Marine_mk19_static"];
+			_stPool=	["PRACS_QSB_m2_static","PRACS_QSB_m2_static_minitripod","PRACS_QSB_mk19_static","PRACS_Royal_Marine_Stinger_Pod","PRACS_Royal_Marine_m2_static","PRACS_Royal_Marine_m2_static_minitripod","PRACS_Royal_Marine_M220","PRACS_Royal_Marine_M252","PRACS_Royal_Marine_mk19_static","PRACS_MiM23_HAWK","PRACS_M114","PRACS_M102","PRACS_M101"];
+			_shipPool=	["O_Boat_Armed_01_hmg_F","PRACS_Zodiac"];//"PRACS_Mk5_SOCR","I_Boat_Armed_01_minigun_F"
+			_diverPool=	["I_diver_exp_F","I_diver_F","I_diver_TL_F"];
+			_crewPool=	["PRACS_Infantry_CO","PRACS_Vehicle_Medic"];
+			_heliCrew=	["PRACS_Vehicle_Medic","PRACS_Infantry_CO_A","PRACS_Infantry_GRE","PRACS_Infantry_AA","PRACS_Infantry_RKT","PRACS_Infantry_LAT","PRACS_Infantry_M","PRACS_Infantry_Medic","PRACS_Infantry_MMG","PRACS_Infantry_O","PRACS_Infantry_PSG"];
+			_issueNVG= true;
+		};
+		case 34: {// PRACS 2023 Royal Sahrani Marines (RESISTANCE)
+			_InfPool=	["PRACS_Royal_Marine","PRACS_Royal_Marine_AA","PRACS_Royal_Marine_ARM","PRACS_Royal_Marine_ENG","PRACS_Royal_Marine_GRE","PRACS_Royal_Marine_AT","PRACS_Royal_Marine_LAT","PRACS_Royal_Marine_MG","PRACS_Royal_Marine_M","PRACS_Royal_Marine_Medic","PRACS_Royal_Marine_O","PRACS_Royal_Marine_PSG","PRACS_Royal_Marine_Raider","PRACS_Royal_Marine_Raider_ARM","PRACS_Royal_Marine_Raider_ENG","PRACS_Royal_Marine_Raider_M","PRACS_Royal_Marine_Raider_Medic","PRACS_Royal_Marine_Raider_RKT","PRACS_Royal_Marine_Raider_SL","PRACS_Royal_Marine_RRM","PRACS_Royal_Marine_Recon","PRACS_Royal_Marine_RKT","PRACS_Royal_Marine_RTO","PRACS_Royal_Marine_SHTR","PRACS_Royal_Marine_SL","PRACS_Royal_Marine_TL"];
+			_ArmPool=	["PRACS_M113_M240","PRACS_M113_M2","PRACS_M113_mk19","PRACS_Pizarro","PRACS_M163_MACHBET","PRACS_M163_PIVADS","PRACS_M163_VADS","PRACS_FV101","PRACS_FV107","PRACS_M1A1_AIM","PRACS_M60S","PRACS_M727_IHAWK","PRACS_M727_SEM_IHAWK","PRACS_m48_chapparal"];
+			_MotPool=	["PRACS_BMR_M2","PRACS_BMR_ATGM_TOW","PRACS_BMR_A3_GA1","PRACS_BMR_A3_M2","PRACS_BMR_A3_M3_SFOD","PRACS_BMR_A3_Mk19","PRACS_M1025_M2","PRACS_M1025_M2_Marine","PRACS_M1025_Mk19","PRACS_M1151_M240","PRACS_M1151_M2","PRACS_M1151_Mk19","PRACS_M1165_M134_QSB","PRACS_M1165_M2","PRACS_M1165_Mk19","PRACS_M966_TOW","PRACS_M966_TOW_Marine","PRACS_M1117","PRACS_VEC_M242","PRACS_VEC_MGS","PRACS_BMR_ATGM"];
+			_ACHPool=	["PRACS_Sa330_Puma_SOCAT_NAVY","PRACS_Sa330_Puma_AS","PRACS_Sa330_Puma_SOCAT_Marine"];
+			_CHPool=	["PRACS_Sa330_Puma_Marine"];
+			_uavPool=	[];
+			_stPool=	["PRACS_QSB_m2_static","PRACS_QSB_m2_static_minitripod","PRACS_QSB_mk19_static","PRACS_Royal_Marine_Stinger_Pod","PRACS_Royal_Marine_m2_static","PRACS_Royal_Marine_m2_static_minitripod","PRACS_Royal_Marine_M220","PRACS_Royal_Marine_M252","PRACS_Royal_Marine_mk19_static","PRACS_MiM23_HAWK","PRACS_M114","PRACS_M102","PRACS_M101"];
+			_shipPool=	["O_Boat_Armed_01_hmg_F","PRACS_Zodiac"];//"PRACS_Mk5_SOCR","I_Boat_Armed_01_minigun_F"
+			_diverPool=	["I_diver_exp_F","I_diver_F","I_diver_TL_F"];
+			_crewPool=	["PRACS_Royal_Marine_Raider_SL","PRACS_Royal_Marine_Raider_Medic","PRACS_Royal_Marine_Raider_ENG","PRACS_Royal_Marine_Raider_ARM","PRACS_Royal_Marine_Raider","PRACS_Royal_Marine_Raider_M","PRACS_Royal_Marine_Raider_RKT"];
+			_heliCrew=	["PRACS_Royal_Marine_TL","PRACS_Royal_Marine_SL","PRACS_Royal_Marine_RTO","PRACS_Royal_Marine_RRM","PRACS_Royal_Marine_Raider_SL","PRACS_Royal_Marine_Raider_RKT","PRACS_Royal_Marine_Raider_Medic","PRACS_Royal_Marine_Raider_M","PRACS_Royal_Marine_Raider_ENG","PRACS_Royal_Marine_Raider_ARM","PRACS_Royal_Marine_Raider","PRACS_Royal_Marine_RKT"];
+			_issueNVG= true;
+		};
 	};
-
 	//return
 	_ret = [_InfPool,_ArmPool,_MotPool,_ACHPool,_CHPool,_uavPool,_stPool,_shipPool,_diverPool,_crewPool,_heliCrew,_issueNVG];
 	//diag_log format ["RESULT %1",_ret];
@@ -890,7 +958,10 @@ switch (_opposingArmies) do {
 	case 22: {_enemyFactions = [31,31]};
 	// UNSUNG - VC and PAVN (@Unsung)
 	case 23: {_enemyFactions = [31,32]};
-
+	// PRACS 2023 - 1st Infantry Division (@Project RACS 2023;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF)
+	case 24: {_enemyFactions = [33,33]};
+	// PRACS 2023 Royal Sahrani Marines (@Project RACS 2023;@RHSAFRF;@RHSUSAF;@RHSGREF;@RHSSAF)
+	case 25: {_enemyFactions = [34,34]};
 };
 
 private _majorFaction = _enemyFactions # 0;
