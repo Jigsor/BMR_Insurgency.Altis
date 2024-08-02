@@ -259,12 +259,17 @@ if (isServer) then
 // Init Player
 if (hasInterface) then
 {
+	 waitUntil {!isnull player};
+    player enableStamina false;
+    player setCustomAimCoef 0;
+    player addEventHandler ["Respawn", {player enableStamina  false}];
+    player addEventHandler ["Respawn", {player setCustomAimCoef  0}];
+	
 	0 spawn {
 		waitUntil {!isNull player && player == player};
 		#include "add_diary.sqf"
 		if (DebugEnabled isEqualTo 0) then {["BIS_ScreenSetup", false] call BIS_fnc_blackOut};
 		call compile preProcessFileLineNumbers "INSfncs\client\client_fncs.sqf";
-		call compile preProcessFileLineNumbers "ATM_airdrop\functions.sqf";
 
 		player sideChat localize "STR_BMR_loading";
 

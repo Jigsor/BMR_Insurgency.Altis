@@ -16,7 +16,6 @@ player createDiaryRecord ["Diary", ["3rd Party Credits","
 	<br/>vehRespawn.sqf, and ICE_HUD by Iceman77
 	<br/>repetitive_cleanup.sqf v1.7, player_markers.sqf v2.6,
 	<br/>JW Custom Close Air Support v0.1b by JW Custom
-	<br/>Halo =ATM= Airdrop v6.0 by pokertour.
 	<br/>Traffic by MAD T.
 	<br/>Randomly generated roadside IED's by brians200
 	<br/>v1g Fast Rope by [STELS]Zealot

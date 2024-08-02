@@ -768,49 +768,7 @@ INS_UI_pref = {
 	if (player getVariable "stathud_resp") then {execVM "INSui\staus_hud_toggle.sqf"};
 	true
 };
-INS_aiHalo = {
-	// AI halo based on/uses functions from ATM_airdrop.
-	params ["_target","_halo_pos"];
-	private _openChuteAlt = 75;//This does not work in Arma 3 as of v1.5. AI will open chute at 150m.
-	private _jumpAlt = 450;
-	private _freefall = true;
-	private _headgear = headgear _target;
-	private _back_pack = backpack _target;
-	private _back_pack_items = getItemCargo (unitBackpack _target);
-	private _back_pack_weap = getWeaponCargo (unitBackpack _target);
-	private _back_pack_mags = getMagazineCargo (unitBackpack _target);
-	private _loadout = [_headgear, _back_pack, _back_pack_items, _back_pack_weap, _back_pack_mags];
 
-	//0=[_target] call Frontpack;//<-causes freezing
-
-	removeBackpack _target;
-	sleep 0.5;
-	_target addBackpack "B_Parachute";
-	_target setPos [(_halo_pos # 0), (_halo_pos # 1), (_halo_pos select 2) + _jumpAlt];
-	_target switchMove "HaloFreeFall_non";//"halofreefall_non";
-	sleep 0.1;
-
-	while {(getPos _target select 2) > 2.5} do {
-		if (_freefall) then {
-			if(isNull objectParent _target && {(getPos _target select 2) < _openChuteAlt}) then {
-				_target action ["OpenParachute", _target];
-				_freefall = false;
-			} else {
-				_freefall = false;
-			};
-		};
-		if(!alive _target) then {
-			sleep (random 5) + 3;
-			_target setPos [getPos _target # 0, getPos _target # 1, 0];
-		};
-		sleep 1;
-	};
-
-	//deleteVehicle (_target getVariable "frontpack");
-	_target setVariable ["frontpack",nil];
-
-	0=[_target,_loadout] spawn ATM_Setloadout;
-};
 mhq_actions2_fnc = {
 	// Add action for VA and quick VA profile to respawned MHQs by Jigsor.
 	params ["_var"];

@@ -32,7 +32,6 @@ unsafeCVL               = 1;// Allow createVehicleLocal. 0 = prohibited (default
 
 #include "=BTC=_revive\=BTC=_respawn.h"
 #include "=BTC=_q_revive\dlg.h"
-#include "ATM_airdrop\dialog.hpp"
 #include "JWC_CASFS\casDefine.hpp"
 #include "JWC_CASFS\casMenu.hpp"
 #include "taw_vd\dialog.hpp"
@@ -42,7 +41,7 @@ unsafeCVL               = 1;// Allow createVehicleLocal. 0 = prohibited (default
 #include "bon_recruit_units\dialog\recruitment.hpp"
 #include "ASORVS\menu.hpp"
 
-#include "Hpp\Sounds.hpp"
+//#include "Hpp\Sounds.hpp"
 
 class CfgFunctions
 {
@@ -50,6 +49,100 @@ class CfgFunctions
 	#include "INSui\INSuiFunctions.hpp"
 	#include "taw_vd\CfgFunctions.hpp"
 	#include "ASORVS\cfgfunctions.hpp"
+
+	class COB {
+		class Halo {
+			class HALO {file = "COB_HALO\functions\fn_halo.sqf";};
+            class paradrop {file = "COB_HALO\functions\fn_paradrop.sqf";};
+		};
+	};
+};
+class CfgSounds {
+	sounds[] = {};
+	class C130_exit {
+		sound[] = {"sound\C130_exit.wss", 50, 1};
+		titles[] = {};
+	};
+	class flapping {
+		sound[] = {"COB_HALO\sounds\flapping.ogg", 10, 1};
+		titles[] = {};
+	};
+	class open_chute {
+		sound[] = {"COB_HALO\sounds\open_chute.ogg", 10, 1};
+		titles[] = {};
+	};
+	class para_pilot {
+		sound[] = {"COB_HALO\sounds\para_pilot.ogg", 10, 1};
+		titles[] = {};
+	};
+	class close_chute {
+		sound[] = {"COB_HALO\sounds\close_chute.ogg", 10, 1};
+		titles[] = {};
+	};
+	class 01 {
+		name = "01";
+		sound[] = {"\sound\01.ogg", 0.8, 1};
+		titles[] = {1, ""};
+	};
+	class 02 {
+		name = "02";
+		sound[] = {"\sound\02.ogg", 0.8, 1};
+		titles[] = {1, ""};
+	};
+	class 03 {
+		name = "03";
+		sound[] = {"\sound\03.ogg", 0.8, 1};
+		titles[] = {1, ""};
+	};
+	class 04 {
+		name = "04";
+		sound[] = {"\sound\04.ogg", 0.8, 1};
+		titles[] = {1, ""};
+	};
+	class 05 {
+		name = "05";
+		sound[] = {"\sound\05.ogg", 0.8, 1};
+		titles[] = {1, ""};
+	};
+	class 06 {
+		name = "06";
+		sound[] = {"\sound\06.ogg", 0.8, 1};
+		titles[] = {1, ""};
+	};
+	class 07 {
+		name = "07";
+		sound[] = {"\sound\07.ogg", 0.8, 1};
+		titles[] = {1, ""};
+	};
+	class 08 {
+		name = "08";
+		sound[] = {"\sound\08.ogg", 0.8, 1};
+		titles[] = {1, ""};
+	};
+	class 09 {
+		name = "09";
+		sound[] = {"\sound\09.ogg", 0.8, 1};
+		titles[] = {1, ""};
+	};
+	class 099 {
+		name = "099";
+		sound[] = {"\sound\099.ogg", 0.8, 1};
+		titles[] = {1, ""};
+	};
+	class NoSound {
+		name = "NoSound";
+		sound[] = {"", 0, 1};
+		titles[] = {0, ""};
+	};
+	//JW Custom CAS	
+	class cantDo {name="cantDo";sound[]={"JWC_CASFS\cantDo.ogg", 1.0, 1.0};titles[] = {};};
+//Suicide Bomber
+	class shout {name="shout";sound[]={"Sound\shout.ogg", 4, 1, 100};titles[] = {};};
+//Jig's Sounds
+	class introfx {name="introfx";sound[]={"Sound\introfx.ogg", db-10, 1.0};titles[] = {};};
+	class siren {name="siren";sound[]={"Sound\siren.ogg", db+18, 1.0,900};titles[] = {};};	
+	class HighVoltage {name="HighVoltage";sound[]={"Sound\HighVoltage.ogg", db+19, 1.0,900};titles[] = {};};
+	class boo {name="boo";sound[]={"Sound\boo.ogg", db+3, 1.0};titles[] = {};};
 };
 
 class Extended_InitPost_EventHandlers {
@@ -214,3 +307,4 @@ class RscTitles {
 	#include "=BTC=_logistic\=BTC=_lift\=BTC=_Hud.h"
 	#include "INSui\UI\defines.hpp"
 };
+
